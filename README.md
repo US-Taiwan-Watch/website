@@ -96,6 +96,11 @@ Commit Message
 參考 AngularJS Git Commit Message Conventions
 https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html 
 
+#### Git flow
+`main` 分支為正式版，`develop` 分支為開發版。
+`develop` 分支會在每次 merge 到 `main` 後合併到 `main` 分支。
+feature branch 會以 Squash 的方式合併到 `develop` 分支。
+
 ---
 ### Dependencies
 
