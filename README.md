@@ -56,6 +56,13 @@ Next.js 14
 ### Code Style
 使用 ESLint 做程式碼格式化，參照 [next/core-web-vitals](https://nextjs.org/docs/pages/building-your-application/configuring/eslint#core-web-vitals) & [standard](https://github.com/standard/eslint-config-standard) & [typescript-eslint](https://github.com/typescript-eslint/typescript-eslint/tree/main/packages/eslint-plugin)。
 
+縮排: 2 spaces，永遠不要用 tab
+
+#### JavaScript / TypeScript
+
+完全遵守 JavaScript Standard Style，除了以下例外（已經定義在 .eslintrc.js）：
+comma-dangle ：允許行尾逗點
+
 ### Folder Structure
 參照 [Next Right Now](https://unlyed.github.io/next-right-now/reference/folder-structure)。File Naming 可至各自文件夾內 Readme 查看。
 
@@ -80,6 +87,13 @@ yarn lint
 ### Environment Variables
 
 ### Wiki
+
+### Git
+
+Commit Message
+
+參考 AngularJS Git Commit Message Conventions
+https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-commit.html 
 
 ---
 ### Dependencies
