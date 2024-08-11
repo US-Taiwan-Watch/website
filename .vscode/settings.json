@@ -1,0 +1,13 @@
+{
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "always"
+    },
+    "editor.tabSize": 2,
+    "cSpell.words": [],
+    "window.title": "${activeEditorShort}${separator}${rootName}${separator}${profileName}${separator}${rootPath}",
+    "eslint.lintTask.enable": true,
+    "i18n-ally.keystyle": "nested",
+    "i18n-ally.localesPaths": [
+      "src/common/lib/i18n/locales"
+    ]
+  }
