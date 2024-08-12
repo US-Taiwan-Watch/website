@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 // import { produce } from 'immer'
 import { immer } from 'zustand/middleware/immer'
-import { config } from '../../../../config'
+import { config } from '@/config'
 
 type State = {
   location: string;
