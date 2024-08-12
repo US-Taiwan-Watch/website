@@ -73,6 +73,9 @@ comma-dangle ：允許行尾逗點
 # 安裝相依套件
 yarn
 
+# 抓取語言檔案
+yarn i18n
+
 # A. 開發
 yarn dev
 
@@ -100,6 +103,19 @@ https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-com
 `main` 分支為正式版，`develop` 分支為開發版。
 `develop` 分支會在每次 merge 到 `main` 後合併到 `main` 分支。
 feature branch 會以 Squash 的方式合併到 `develop` 分支。
+
+### i18n
+本專案使用 i18next 作為多語言解決方案。主要設定檔位於 `src/common/lib/i18n/settings.ts`。
+
+#### 語言檔案
+語言檔案位於 `src/common/lib/i18n/locales` 目錄下，按語言代碼分類。每個語言目錄下包含多個 JSON 檔案，對應不同的命名空間（namespace）。
+
+#### 使用方法
+- 服務器端：使用 `src/common/lib/i18n/serverHooks.ts` 中的 `useTranslation` 函數。
+- 客戶端：使用 `src/common/lib/i18n/clientHooks.ts` 中的 `useTranslation` 函數。
+
+透過 `yarn i18n` 指令會從 Content Management System 抓取語言檔案，並放置於 `src/common/lib/i18n/locales` 目錄下。
+
 
 ---
 ### Dependencies
