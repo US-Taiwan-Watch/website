@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 // import { produce } from 'immer'
 import { immer } from 'zustand/middleware/immer'
+import { config } from '../../../../config'
 
 type State = {
   location: string;
@@ -84,6 +85,6 @@ const useSearchStore = create<State & Action>()(
 
 export default useSearchStore
 
-if (process.env.NODE_ENV === 'development') {
+if (config.NODE_ENV === 'development') {
   mountStoreDevtool('SearchStore', useSearchStore)
 }
