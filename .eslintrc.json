@@ -1,0 +1,24 @@
+{
+  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "standard"],
+  "rules": {
+    "comma-dangle": [
+      "error",
+      {
+        "arrays": "always-multiline",
+        "objects": "always-multiline",
+        "imports": "always-multiline",
+        "exports": "always-multiline",
+        "functions": "only-multiline"
+      }
+    ],
+    "react/jsx-indent": ["error", 2]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "no-dupe-class-members": "off"
+      }
+    }
+  ]
+}
