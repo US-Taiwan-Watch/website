@@ -129,17 +129,25 @@ const getTypographyFontFamily = (lang: Language) => {
   }
 }
 
-export const createLightTheme = (lang: Language) => responsiveFontSizes(createTheme({
-  ..._lightTheme,
-  palette: lightPalette,
-  typography: {
-    fontFamily: getTypographyFontFamily(lang),
-  },
-}))
-export const createKetagalanTheme = (lang: Language) => responsiveFontSizes(createTheme({
-  ..._ketagalanTheme,
-  palette: ketagalanPalette,
-  typography: {
-    fontFamily: getTypographyFontFamily(lang),
-  },
-}))
+type themeMode = 'light' | 'ketagalan'
+
+export const createUSTWTheme = (mode: themeMode, lang: Language) => {
+  switch (mode) {
+    case 'light':
+      return responsiveFontSizes(createTheme({
+        ..._lightTheme,
+        palette: lightPalette,
+        typography: {
+          fontFamily: getTypographyFontFamily(lang),
+        },
+      }))
+    case 'ketagalan':
+      return responsiveFontSizes(createTheme({
+        ..._ketagalanTheme,
+        palette: ketagalanPalette,
+        typography: {
+          fontFamily: getTypographyFontFamily(lang),
+        },
+      }))
+  }
+}

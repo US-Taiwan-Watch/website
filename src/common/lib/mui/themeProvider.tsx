@@ -2,7 +2,7 @@
 
 import { ThemeProvider as MuiThemeProvider } from '@mui/material/styles'
 import { Language } from '@/common/lib/i18n/types'
-import { createLightTheme } from '@/common/lib/mui/theme'
+import { createUSTWTheme } from '@/common/lib/mui/theme'
 import type React from 'react'
 
 const ThemeProvider = ({
@@ -13,7 +13,7 @@ const ThemeProvider = ({
   children: React.ReactNode;
 }) => {
   return (
-    <MuiThemeProvider theme={createLightTheme(lang)}>
+    <MuiThemeProvider theme={createUSTWTheme('light', lang)}>
       {children}
     </MuiThemeProvider>
   )
