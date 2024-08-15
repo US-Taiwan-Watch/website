@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
 import React from 'react'
 import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
-
-const inter = Inter({ subsets: ['latin'] })
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
+import CssBaseline from '@mui/material/CssBaseline'
+import { Language } from '@/common/lib/i18n/types'
+import ThemeProvider from '@/common/lib/mui/themeProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -13,14 +13,24 @@ export const metadata: Metadata = {
 
 export default function RootLayout ({
   children,
+  params,
 }: Readonly<{
   children: React.ReactNode;
+  params: {
+    lang: Language
+  }
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <LanguageSwitcher />
-        {children}
+      <body>
+        <AppRouterCacheProvider>
+          <ThemeProvider lang={params.lang}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <LanguageSwitcher />
+            {children}
+          </ThemeProvider>
+        </AppRouterCacheProvider>
       </body>
     </html>
   )

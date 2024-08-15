@@ -35,4 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-src/common/lib/i18n/locales/
+# 等 content manager 決定後，再決定要不要 ignore
+# src/common/lib/i18n/locales/
