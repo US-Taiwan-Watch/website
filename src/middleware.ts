@@ -21,6 +21,11 @@ export const config = {
 }
 
 export function middleware (req: NextRequest) {
+  // 如果路徑包含 /design_system 且環境為正式則進到 404
+  if (req.nextUrl.pathname.indexOf('design_system') > -1 && process.env.NODE_ENV === 'production') {
+    return NextResponse.redirect(new URL('/404', req.url))
+  }
+
   if (req.nextUrl.pathname.indexOf('icon') > -1 || req.nextUrl.pathname.indexOf('chrome') > -1) return NextResponse.next()
   let lng
   if (req.cookies.has(cookieName)) lng = acceptLanguage.get(req.cookies.get(cookieName)!.value)
