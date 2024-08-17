@@ -96,6 +96,10 @@ const lightPalette: PaletteOptions = {
   text: {
     primary: color.common.black,
   },
+  action: {
+    disabledBackground: color.grey[400],
+    disabled: color.neutral[200],
+  },
 }
 
 const ketagalanPalette: PaletteOptions = {
@@ -108,6 +112,10 @@ const ketagalanPalette: PaletteOptions = {
   },
   background: {
     default: color.grey[700],
+  },
+  action: {
+    disabledBackground: color.grey[400],
+    disabled: color.neutral[200],
   },
 }
 

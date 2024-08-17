@@ -1,3 +1,4 @@
+import UButton from '@/common/components/atoms/UButton'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import { BookmarkIcon, FacebookIcon, InstagramIcon, LanguageIcon, LinkIcon, MailIcon, OutlinedShareIcon, PodcastIcon, ShareIcon, SpotifyIcon, ThreadsIcon, XIcon, YoutubeIcon } from '@/common/styles/assets/Icons'
@@ -96,6 +97,39 @@ export default function DesignSystemIconsPage () {
         <UPoliticalPartyIcon variant="rounded" party="democracy" />
         <UPoliticalPartyIcon variant="rounded" party="republic" />
         <UPoliticalPartyIcon variant="rounded" party="other" />
+      </Box>
+      <h2>Button</h2>
+      <Box display="flex" p={2} gap={2}>
+        <UButton variant="contained" color="info" rounded size="small">
+          Load More
+        </UButton>
+        <UButton variant="contained" color="info" rounded disabled size="small">
+          Load More
+        </UButton>
+      </Box>
+      <Box display="flex" p={2} gap={2}>
+        <UButton variant="contained" color="info" rounded size="medium">
+          Load More
+        </UButton>
+        <UButton variant="contained" color="info" rounded disabled size="medium">
+          Load More
+        </UButton>
+      </Box>
+      <Box display="flex" p={2} gap={2}>
+        <UButton variant="contained" color="info" rounded size="large">
+          Load More
+        </UButton>
+        <UButton variant="contained" color="info" rounded disabled size="large">
+          Load More
+        </UButton>
+      </Box>
+      <Box display="flex" p={2} gap={2}>
+        <UButton variant="contained" color="primary" rounded size="medium">
+          Load More
+        </UButton>
+        <UButton variant="contained" color="primary" rounded disabled size="medium">
+          Load More
+        </UButton>
       </Box>
     </div>
   )
