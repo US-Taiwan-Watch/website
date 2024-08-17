@@ -30,6 +30,7 @@ const color = {
     400: '#C0C5C8', // Secondary 7
     500: '#A8A8A8', // Other
     700: '#625D4D', // Ketagalan Media 2
+    800: '#AFAFAF', // Background
     900: '#312F27', // Ketagalan Media 3
     1000: '#3B3B3B',
   },
@@ -71,7 +72,18 @@ const color = {
 } as const
 
 interface USTWThemeColor {
-  color: typeof color & {};
+  color: typeof color & {
+    header: {
+      background: string; // 背景色
+      text: string; // 文字色
+      textHover: string; // 文字滑鼠移入色
+      textActive: string; // 文字啟用色
+      donationButton: string; // 捐款按鈕色
+      donationButtonText: string; // 捐款按鈕文字色
+      donationButtonHover: string; // 捐款按鈕滑鼠移入色
+      donationButtonTextHover: string; // 捐款按鈕文字滑鼠移入色
+    }
+  };
 }
 
 export interface USTWTheme extends Theme, USTWThemeColor {}
@@ -91,7 +103,7 @@ const lightPalette: PaletteOptions = {
     dark: color.neutral[500],
   },
   background: {
-    default: color.grey[100],
+    default: color.grey[400],
   },
   text: {
     primary: color.common.black,
@@ -122,12 +134,56 @@ const ketagalanPalette: PaletteOptions = {
 const _lightTheme: USTWThemeOptions = {
   color: {
     ...color,
+    header: {
+      background: 'rgba(255, 255, 255, 0.8)',
+      text: color.neutral[500],
+      textHover: color.common.black,
+      textActive: color.common.black,
+      donationButton: color.common.black,
+      donationButtonText: color.common.white,
+      donationButtonHover: color.lime[500],
+      donationButtonTextHover: color.common.black,
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
   },
 }
 
 const _ketagalanTheme: USTWThemeOptions = {
   color: {
     ...color,
+    header: {
+      background: 'rgba(255, 255, 255, 0.1)',
+      text: color.neutral[500],
+      textHover: color.common.white,
+      textActive: color.common.white,
+      donationButton: color.wheat[200],
+      donationButtonText: color.common.black,
+      donationButtonHover: color.grey[700],
+      donationButtonTextHover: color.common.black,
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: 'none',
+          },
+        },
+      },
+    },
   },
 }
 
