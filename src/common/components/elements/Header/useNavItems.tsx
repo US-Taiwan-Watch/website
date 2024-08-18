@@ -69,7 +69,7 @@ export default function useNavItems () {
           {
             id: 'podcasts-3',
             type: 'link',
-            title: '觀測站讀書會 ',
+            title: '觀測站讀書會',
             href: '/#',
           },
         ],
