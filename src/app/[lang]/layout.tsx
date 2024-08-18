@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import React from 'react'
-import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
+import Header from '@/common/components/elements/Header'
+import { Container } from '@mui/material'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -27,8 +28,10 @@ export default function RootLayout ({
           <ThemeProvider lang={params.lang}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <LanguageSwitcher />
-            {children}
+            <Container>
+              <Header />
+              {children}
+            </Container>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
