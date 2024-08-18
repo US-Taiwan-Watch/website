@@ -13,6 +13,11 @@ declare module '@mui/material/styles' {
         sm: number;
         md: number;
       }
+      zIndex: {
+        header: number;
+        headerNavItem: number;
+        headerSearchResult: number;
+      };
     }
   }
   interface ThemeOptions {
@@ -22,6 +27,11 @@ declare module '@mui/material/styles' {
         sm?: number;
         md?: number;
       }
+      zIndex?: {
+        header?: number;
+        headerNavItem?: number;
+        headerSearchResult?: number;
+      };
     }
   }
 }
@@ -117,7 +127,13 @@ interface USTWThemeColor {
   };
 }
 
-export interface USTWTheme extends Theme, USTWThemeColor {}
+export interface USTWTheme extends Theme, USTWThemeColor {
+  zIndex: Theme['zIndex'] & {
+    header?: number;
+    headerNavItem?: number;
+    headerSearchResult?: number;
+  }
+}
 
 interface USTWThemeOptions extends ThemeOptions, USTWThemeColor {}
 
@@ -251,6 +267,11 @@ const constants: USTWThemeConstants = {
     xs: 48,
     sm: 48,
     md: 70,
+  },
+  zIndex: {
+    header: 1300,
+    headerNavItem: 1000,
+    headerSearchResult: 900,
   },
 }
 

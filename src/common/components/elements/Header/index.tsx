@@ -32,13 +32,13 @@ const StyledHeader = styled('header')(({ theme }) => ({
   },
   margin: `${theme.spacing(4.5)} auto`,
   '& #nav-item-menu': {
-    zIndex: 1000,
+    zIndex: (theme as USTWTheme).constants.zIndex.headerNavItem,
   },
 }))
 
 const StyledHeaderContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
-  zIndex: 1300,
+  zIndex: (theme as USTWTheme).constants.zIndex.header,
   width: '100%',
   borderRadius: '30px',
   backgroundColor: (theme as USTWTheme).color.header.background,
@@ -152,6 +152,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
 
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const handleSearchClick = () => {
+    handleNavMenuClose()
     setIsSearchOpen(true)
     onSearchClick?.()
   }
@@ -167,7 +168,6 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
         alignItems="center"
         justifyContent="space-between"
         gap={2}
-        zIndex={10}
       >
         {/** 左側 */}
         <Box display="flex" alignItems="center" gap={1}>

@@ -17,9 +17,9 @@ interface SearchResultProps {
   inputAnchorEl: HTMLElement | null;
 }
 
-const StyledPopper = styled(Popper)(() => ({
+const StyledPopper = styled(Popper)(({ theme }) => ({
   display: 'flex',
-  zIndex: 10,
+  zIndex: (theme as USTWTheme).constants.zIndex.headerSearchResult,
   transform: 'none !important', // 避免 popper 被 transform 影響
 }))
 
