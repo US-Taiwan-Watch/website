@@ -83,10 +83,7 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
     marginTop: `-${HEADER_HEIGHT}`,
     backgroundColor: (theme as USTWTheme).color.header.menuBackground,
     transform: 'translateX(-90px) !important',
-    borderTopLeftRadius: '0px',
-    borderTopRightRadius: '0px',
-    borderBottomLeftRadius: '30px',
-    borderBottomRightRadius: '30px',
+    borderRadius: '30px',
     boxShadow: '0px 4px 20px 0px #0000000D',
     '&::before': {
       content: '""',
