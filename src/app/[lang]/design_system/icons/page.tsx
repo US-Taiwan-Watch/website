@@ -1,7 +1,22 @@
 import UButton from '@/common/components/atoms/UButton'
+import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
-import { BookmarkIcon, FacebookIcon, InstagramIcon, LanguageIcon, LinkIcon, MailIcon, OutlinedShareIcon, PodcastIcon, ShareIcon, SpotifyIcon, ThreadsIcon, XIcon, YoutubeIcon } from '@/common/styles/assets/Icons'
+import {
+  BookmarkIcon,
+  FacebookIcon,
+  InstagramIcon,
+  LanguageIcon,
+  LinkIcon,
+  MailIcon,
+  OutlinedShareIcon,
+  PodcastIcon,
+  ShareIcon,
+  SpotifyIcon,
+  ThreadsIcon,
+  XIcon,
+  YoutubeIcon,
+} from '@/common/styles/assets/Icons'
 import { Box } from '@mui/material'
 
 export default function DesignSystemIconsPage () {
@@ -111,7 +126,13 @@ export default function DesignSystemIconsPage () {
         <UButton variant="contained" color="info" rounded size="medium">
           Load More
         </UButton>
-        <UButton variant="contained" color="info" rounded disabled size="medium">
+        <UButton
+          variant="contained"
+          color="info"
+          rounded
+          disabled
+          size="medium"
+        >
           Load More
         </UButton>
       </Box>
@@ -127,9 +148,33 @@ export default function DesignSystemIconsPage () {
         <UButton variant="contained" color="primary" rounded size="medium">
           Load More
         </UButton>
-        <UButton variant="contained" color="primary" rounded disabled size="medium">
+        <UButton
+          variant="contained"
+          color="primary"
+          rounded
+          disabled
+          size="medium"
+        >
           Load More
         </UButton>
+      </Box>
+      <h2>Category Chip</h2>
+      <Box display="flex" p={2} gap={2}>
+        <UCategoryChip img="/assets/category1.jpg" label="編輯精選" />
+        <UCategoryChip img="/assets/category1.jpg" label="編輯精選" active />
+      </Box>
+      <Box display="flex" p={2} gap={2}>
+        <UCategoryChip
+          img="/assets/category1.jpg"
+          label="編輯精選"
+          size="medium"
+        />
+        <UCategoryChip
+          img="/assets/category1.jpg"
+          label="編輯精選"
+          size="medium"
+          active
+        />
       </Box>
     </div>
   )
