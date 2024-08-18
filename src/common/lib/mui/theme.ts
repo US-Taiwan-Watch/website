@@ -31,6 +31,7 @@ const color = {
     500: '#A8A8A8', // Other
     700: '#625D4D', // Ketagalan Media 2
     900: '#312F27', // Ketagalan Media 3
+    1000: '#3B3B3B',
   },
   orange: {
     ...colors.orange,
@@ -84,6 +85,10 @@ const lightPalette: PaletteOptions = {
   },
   secondary: {
     main: color.purple[100],
+  },
+  info: {
+    main: color.common.black,
+    dark: color.neutral[500],
   },
   background: {
     default: color.grey[100],
