@@ -43,6 +43,9 @@ const StyledResultContainer = styled(Box)(({ theme }) => ({
   )} ${theme.spacing(4)}`,
   maxHeight: '300px',
   overflowY: 'auto',
+  '& a': {
+    textDecoration: 'none',
+  },
 }))
 
 const StyledResultItem = styled(Box)(({ theme }) => ({
