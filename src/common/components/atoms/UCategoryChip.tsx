@@ -105,9 +105,6 @@ const UCategoryChip = ({
       }
       size={size}
       active={active}
-      onClick={() => {
-        console.log('click')
-      }}
       {...props}
     />
   )
