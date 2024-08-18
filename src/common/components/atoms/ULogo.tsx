@@ -10,14 +10,14 @@ const LOGO_SRC_MAP = {
   medium: '/assets/logo/ustw-logo-medium.gif',
   large: '/assets/logo/ustw-logo-large.gif',
   xlarge: '/assets/logo/ustw-logo-xlarge.gif',
-}
+} as const
 
 const LOGO_SIZE_MAP = {
   small: 32,
   medium: 48,
   large: 64,
   xlarge: 96,
-}
+} as const
 
 const ULogo = ({ size, className }: ULogoProps) => {
   return (
