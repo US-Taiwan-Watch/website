@@ -10,12 +10,10 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
-import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined'
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 import React, { useRef, useState } from 'react'
 import useNavItems, { HeaderNavItem } from './useNavItems'
-
-const HEADER_HEIGHT = '70px'
+import SearchBar from '@/modules/Search/components/SearchBar'
+import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
 
 interface HeaderProps {
   className?: string;
@@ -26,7 +24,12 @@ interface HeaderProps {
 const StyledHeader = styled('header')(({ theme }) => ({
   position: 'relative',
   display: 'flex',
-  height: HEADER_HEIGHT,
+  [theme.breakpoints.up('xs')]: {
+    height: `${theme.constants.headerHeight.xs}px`,
+  },
+  [theme.breakpoints.up('md')]: {
+    height: `${theme.constants.headerHeight.md}px`,
+  },
   margin: `${theme.spacing(4.5)} auto`,
   '& #nav-item-menu': {
     zIndex: 1000,
@@ -37,7 +40,7 @@ const StyledHeaderContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
   zIndex: 1300,
   width: '100%',
-  borderRadius: '100px',
+  borderRadius: '30px',
   backgroundColor: (theme as USTWTheme).color.header.background,
   backdropFilter: 'blur(20px)',
   WebkitBackdropFilter: 'blur(20px)', // For Safari support
@@ -47,7 +50,12 @@ const StyledHeaderContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   '& .nav-item': {
     fontWeight: 600,
-    height: HEADER_HEIGHT,
+    [theme.breakpoints.up('xs')]: {
+      height: `${theme.constants.headerHeight.xs}px`,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: `${theme.constants.headerHeight.md}px`,
+    },
     color: (theme as USTWTheme).color.header.text,
     '&:hover': {
       backgroundColor: 'transparent',
@@ -79,8 +87,14 @@ const StyledHeaderContainer = styled(Box)(({ theme }) => ({
 const StyledNavMenu = styled(Menu)(({ theme }) => ({
   '& .MuiPaper-root': {
     width: '180px',
-    paddingTop: HEADER_HEIGHT,
-    marginTop: `-${HEADER_HEIGHT}`,
+    [theme.breakpoints.up('xs')]: {
+      paddingTop: `${theme.constants.headerHeight.xs}px`,
+      marginTop: `-${theme.constants.headerHeight.xs}px`,
+    },
+    [theme.breakpoints.up('md')]: {
+      paddingTop: `${theme.constants.headerHeight.md}px`,
+      marginTop: `-${theme.constants.headerHeight.md}px`,
+    },
     backgroundColor: (theme as USTWTheme).color.header.menuBackground,
     transform: 'translateX(-90px) !important',
     borderRadius: '30px',
@@ -136,6 +150,15 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
 
   const headerRef = useRef<HTMLHeadElement>(null)
 
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const handleSearchClick = () => {
+    setIsSearchOpen(true)
+    onSearchClick?.()
+  }
+  const handleSearchClose = () => {
+    setIsSearchOpen(false)
+  }
+
   return (
     <StyledHeader ref={headerRef}>
       <StyledHeaderContainer
@@ -151,97 +174,116 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
           <ULogo size="small" />
           <Typography fontWeight={700}>USTW</Typography>
         </Box>
-        {/** 中間 */}
-        <Box height="100%" display="flex" alignItems="center" gap={1}>
-          {navItems.map((item) =>
-            item.type === 'link'
-              ? (
-                <Link href={item.href} key={item.id}>
+        {isSearchOpen
+          ? (
+            <SearchBar
+            resultParentEl={headerRef.current}
+            onClickAway={handleSearchClose}
+          />
+            )
+          : (
+            <>
+              {/** 中間 */}
+              <Box height="100%" display="flex" alignItems="center" gap={1}>
+                {navItems.map((item) =>
+                  item.type === 'link'
+                    ? (
+                      <Link href={item.href} key={item.id}>
+                        <UButton
+                      className={clsx('nav-item', {
+                        active: item.id === menuOpenNavItem?.id,
+                      })}
+                      variant="text"
+                      key={item.id}
+                    >
+                          {item.title}
+                        </UButton>
+                      </Link>
+                      )
+                    : (
+                      <UButton
+                    className={clsx('nav-item nav-button', {
+                      active: item.id === menuOpenNavItem?.id,
+                    })}
+                    variant="text"
+                    key={item.id}
+                    endIcon={<KeyboardArrowDownOutlinedIcon />}
+                    onClick={(event) => handleNavItemClick(event, item)}
+                  >
+                        {item.title}
+                      </UButton>
+                      )
+                )}
+                {navMenuOpen &&
+                menuOpenNavItem &&
+                menuOpenNavItem.type === 'list' && (
+                  <StyledNavMenu
+                    className="nav-menu"
+                    id="nav-item-menu"
+                    anchorEl={navItemAnchorEl}
+                    open={navMenuOpen}
+                    onClose={handleNavMenuClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'nav-button',
+                    }}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    container={headerRef.current}
+                  >
+                    {menuOpenNavItem?.list.map((subItem) => (
+                      <MenuItem onClick={handleNavMenuClose} key={subItem.id}>
+                        {subItem.type === 'link'
+                          ? (
+                            <Link href={subItem.href}>
+                              <Typography fontWeight={700}>
+                                {subItem.title}
+                              </Typography>
+                            </Link>
+                            )
+                          : (
+                            <Typography fontWeight={700}>
+                              {subItem.title}
+                            </Typography>
+                            )}
+                      </MenuItem>
+                    ))}
+                  </StyledNavMenu>
+                )}
+              </Box>
+              {/** 右側 */}
+              <Box display="flex" alignItems="center" gap={1}>
+                <UIconButton
+                className="nav-item icon-button"
+                variant="outlined"
+                color="default"
+                onClick={onProfileClick}
+                size="small"
+              >
+                  <ProfileIcon width={14} />
+                </UIconButton>
+                <UIconButton
+                className="nav-item icon-button"
+                variant="outlined"
+                color="default"
+                onClick={handleSearchClick}
+                size="small"
+              >
+                  <SearchIcon />
+                </UIconButton>
+                <Link href="/#">
                   <UButton
-                  className={clsx('nav-item', {
-                    active: item.id === menuOpenNavItem?.id,
-                  })}
-                  variant="text"
-                  key={item.id}
+                  className="donation-button"
+                  variant="contained"
+                  rounded
                 >
-                    {item.title}
+                    Donation
                   </UButton>
                 </Link>
-                )
-              : (
-                <UButton
-                className={clsx('nav-item nav-button', {
-                  active: item.id === menuOpenNavItem?.id,
-                })}
-                variant="text"
-                key={item.id}
-                endIcon={<KeyboardArrowDownOutlinedIcon />}
-                onClick={(event) => handleNavItemClick(event, item)}
-              >
-                  {item.title}
-                </UButton>
-                )
-          )}
-          {navMenuOpen &&
-            menuOpenNavItem &&
-            menuOpenNavItem.type === 'list' && (
-              <StyledNavMenu
-                className="nav-menu"
-                id="nav-item-menu"
-                anchorEl={navItemAnchorEl}
-                open={navMenuOpen}
-                onClose={handleNavMenuClose}
-                MenuListProps={{
-                  'aria-labelledby': 'nav-button',
-                }}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'center',
-                }}
-                container={headerRef.current}
-              >
-                {menuOpenNavItem?.list.map((subItem) => (
-                  <MenuItem onClick={handleNavMenuClose} key={subItem.id}>
-                    {subItem.type === 'link'
-                      ? (
-                        <Link href={subItem.href}>
-                          <Typography fontWeight={700}>
-                            {subItem.title}
-                          </Typography>
-                        </Link>
-                        )
-                      : (
-                        <Typography fontWeight={700}>{subItem.title}</Typography>
-                        )}
-                  </MenuItem>
-                ))}
-              </StyledNavMenu>
-          )}
-        </Box>
-        {/** 右側 */}
-        <Box display="flex" alignItems="center" gap={1}>
-          <UIconButton
-            className="nav-item icon-button"
-            variant="outlined"
-            color="default"
-            onClick={onProfileClick}
-          >
-            <AccountBoxOutlinedIcon />
-          </UIconButton>
-          <UIconButton
-            className="nav-item icon-button"
-            variant="outlined"
-            color="default"
-            onClick={onSearchClick}
-          >
-            <SearchOutlinedIcon />
-          </UIconButton>
-          <Link href="/#">
-            <UButton className="donation-button" variant="contained" rounded>
-              Donation
-            </UButton>
-          </Link>
-        </Box>
+              </Box>
+            </>
+            )}
       </StyledHeaderContainer>
     </StyledHeader>
   )

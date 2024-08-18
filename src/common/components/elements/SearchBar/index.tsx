@@ -1,3 +1,5 @@
+// deprecated, only for zustand demo
+
 'use client'
 
 import useSearchStore from '@/common/lib/zustand/hooks/useSearchStore'

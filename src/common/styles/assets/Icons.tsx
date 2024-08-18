@@ -15,6 +15,8 @@ import SvgSpotifyIcon from './SpotifyIcon.svg'
 import SvgThreadsIcon from './ThreadsIcon.svg'
 import SvgXIcon from './XIcon.svg'
 import SvgYoutubeIcon from './YoutubeIcon.svg'
+import SvgProfileIcon from './ProfileIcon.svg'
+import SvgSearchIcon from './SearchIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -80,4 +82,12 @@ export const XIcon = (props: SvgIconProps) => (
 
 export const YoutubeIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgYoutubeIcon} {...props} />
+)
+
+export const ProfileIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgProfileIcon} {...props} />
+)
+
+export const SearchIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgSearchIcon} {...props} />
 )

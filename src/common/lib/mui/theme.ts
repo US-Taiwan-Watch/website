@@ -5,6 +5,27 @@ import { Public_Sans as PublicSans, Noto_Sans_TC as NotoSansTC } from 'next/font
 import { Language } from '@/common/lib/i18n/types'
 import { colors } from '@mui/material'
 
+declare module '@mui/material/styles' {
+  interface Theme {
+    constants: {
+      headerHeight: {
+        xs: number;
+        sm: number;
+        md: number;
+      }
+    }
+  }
+  interface ThemeOptions {
+    constants?: {
+      headerHeight?: {
+        xs?: number;
+        sm?: number;
+        md?: number;
+      }
+    }
+  }
+}
+
 export const ps = PublicSans({
   subsets: ['latin'],
   display: 'swap',
@@ -27,8 +48,10 @@ const color = {
   grey: {
     ...colors.grey,
     100: '#F3F3F3', // Base White
+    200: '#DFDFDF',
     400: '#C0C5C8', // Secondary 7
     500: '#A8A8A8', // Other
+    600: '#A9A9A9',
     700: '#625D4D', // Ketagalan Media 2
     800: '#AFAFAF', // Background
     900: '#312F27', // Ketagalan Media 3
@@ -83,6 +106,13 @@ interface USTWThemeColor {
       donationButtonHover: string; // 捐款按鈕滑鼠移入色
       donationButtonTextHover: string; // 捐款按鈕文字滑鼠移入色
       menuBackground: string; // 選單背景色
+    },
+    searchBar: {
+      inputBackground: string; // 搜尋欄背景色
+      searchButtonBackground: string; // 搜尋按鈕背景色
+      resultBackground: string; // 搜尋結果背景色
+      noResultSubtitle: string; // 搜尋結果無結果文字顏色
+      resultItemText: string; // 搜尋結果文字顏色
     }
   };
 }
@@ -146,6 +176,13 @@ const _lightTheme: USTWThemeOptions = {
       donationButtonTextHover: color.common.black,
       menuBackground: color.common.white,
     },
+    searchBar: {
+      inputBackground: color.grey[200],
+      searchButtonBackground: color.purple[100],
+      resultBackground: color.neutral[100],
+      noResultSubtitle: color.neutral[500],
+      resultItemText: color.common.black,
+    },
   },
   components: {
     MuiButton: {
@@ -175,6 +212,13 @@ const _ketagalanTheme: USTWThemeOptions = {
       donationButtonTextHover: color.common.black,
       menuBackground: '#5B5952',
     },
+    searchBar: {
+      inputBackground: '#0000001A',
+      searchButtonBackground: '#FFFFFF80',
+      resultBackground: '#3D3B34',
+      noResultSubtitle: color.neutral[200],
+      resultItemText: color.common.white,
+    },
   },
   components: {
     MuiButton: {
@@ -201,6 +245,15 @@ const getTypographyFontFamily = (lang: Language) => {
   }
 }
 
+type USTWThemeConstants = ThemeOptions['constants']
+const constants: USTWThemeConstants = {
+  headerHeight: {
+    xs: 48,
+    sm: 48,
+    md: 70,
+  },
+}
+
 type themeMode = 'light' | 'ketagalan'
 
 export const createUSTWTheme = (mode: themeMode, lang: Language) => {
@@ -212,6 +265,7 @@ export const createUSTWTheme = (mode: themeMode, lang: Language) => {
         typography: {
           fontFamily: getTypographyFontFamily(lang),
         },
+        constants,
       }))
     case 'ketagalan':
       return responsiveFontSizes(createTheme({
@@ -220,6 +274,7 @@ export const createUSTWTheme = (mode: themeMode, lang: Language) => {
         typography: {
           fontFamily: getTypographyFontFamily(lang),
         },
+        constants,
       }))
   }
 }
