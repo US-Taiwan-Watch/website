@@ -26,7 +26,7 @@ interface HeaderProps {
 const StyledHeader = styled('header')(({ theme }) => ({
   width: '100%',
   borderRadius: '100px',
-  backgroundColor: theme.palette.common.white,
+  backgroundColor: (theme as USTWTheme).color.header.background,
   height: HEADER_HEIGHT,
   margin: `${theme.spacing(4.5)} auto`,
   padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
@@ -34,6 +34,7 @@ const StyledHeader = styled('header')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   '& .nav-item': {
+    fontWeight: 600,
     height: HEADER_HEIGHT,
     color: (theme as USTWTheme).color.header.text,
     '&:hover': {
@@ -45,6 +46,9 @@ const StyledHeader = styled('header')(({ theme }) => ({
     },
     '&.active': {
       color: (theme as USTWTheme).color.header.textActive,
+    },
+    '& .MuiSvgIcon-root': {
+      fontSize: '18px',
     },
   },
   '& .icon-button': {
@@ -63,6 +67,9 @@ const StyledHeader = styled('header')(({ theme }) => ({
 const StyledNavMenu = styled(Menu)(({ theme }) => ({
   '& .MuiPaper-root': {
     width: '180px',
+    paddingTop: HEADER_HEIGHT,
+    marginTop: `-${HEADER_HEIGHT}`,
+    backgroundColor: (theme as USTWTheme).color.header.menuBackground,
     transform: 'translateX(-90px) !important',
     borderTopLeftRadius: '0px',
     borderTopRightRadius: '0px',

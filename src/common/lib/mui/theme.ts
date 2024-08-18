@@ -82,6 +82,7 @@ interface USTWThemeColor {
       donationButtonText: string; // 捐款按鈕文字色
       donationButtonHover: string; // 捐款按鈕滑鼠移入色
       donationButtonTextHover: string; // 捐款按鈕文字滑鼠移入色
+      menuBackground: string; // 選單背景色
     }
   };
 }
@@ -123,7 +124,7 @@ const ketagalanPalette: PaletteOptions = {
     main: color.purple[100],
   },
   background: {
-    default: color.grey[700],
+    default: color.grey[900],
   },
   action: {
     disabledBackground: color.grey[400],
@@ -143,6 +144,7 @@ const _lightTheme: USTWThemeOptions = {
       donationButtonText: color.common.white,
       donationButtonHover: color.lime[500],
       donationButtonTextHover: color.common.black,
+      menuBackground: color.common.white,
     },
   },
   components: {
@@ -164,13 +166,14 @@ const _ketagalanTheme: USTWThemeOptions = {
     ...color,
     header: {
       background: 'rgba(255, 255, 255, 0.1)',
-      text: color.neutral[500],
+      text: 'rgba(255, 255, 255, 0.5)',
       textHover: color.common.white,
       textActive: color.common.white,
       donationButton: color.wheat[200],
       donationButtonText: color.common.black,
       donationButtonHover: color.grey[700],
       donationButtonTextHover: color.common.black,
+      menuBackground: '#5B5952',
     },
   },
   components: {
