@@ -12,7 +12,7 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import useNavItems, { HeaderNavItem } from './useNavItems'
 
 const HEADER_HEIGHT = '70px'
@@ -24,11 +24,23 @@ interface HeaderProps {
 }
 
 const StyledHeader = styled('header')(({ theme }) => ({
+  position: 'relative',
+  display: 'flex',
+  height: HEADER_HEIGHT,
+  margin: `${theme.spacing(4.5)} auto`,
+  '& #nav-item-menu': {
+    zIndex: 1000,
+  },
+}))
+
+const StyledHeaderContainer = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  zIndex: 1300,
   width: '100%',
   borderRadius: '100px',
   backgroundColor: (theme as USTWTheme).color.header.background,
-  height: HEADER_HEIGHT,
-  margin: `${theme.spacing(4.5)} auto`,
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)', // For Safari support
   padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
   display: 'flex',
   alignItems: 'center',
@@ -125,15 +137,22 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
     setMenuOpenNavItem(null)
   }
 
+  const headerRef = useRef<HTMLHeadElement>(null)
+
   return (
-    <StyledHeader className={className}>
-      <Box display="flex" alignItems="center" justifyContent="space-between" gap={2}>
+    <StyledHeader ref={headerRef}>
+      <StyledHeaderContainer
+        className={className}
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        gap={2}
+        zIndex={10}
+      >
         {/** 左側 */}
         <Box display="flex" alignItems="center" gap={1}>
           <ULogo size="small" />
-          <Typography fontWeight={700}>
-            USTW
-          </Typography>
+          <Typography fontWeight={700}>USTW</Typography>
         </Box>
         {/** 中間 */}
         <Box height="100%" display="flex" alignItems="center" gap={1}>
@@ -142,77 +161,82 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
               ? (
                 <Link href={item.href} key={item.id}>
                   <UButton
-                className={clsx('nav-item', {
-                  active: item.id === menuOpenNavItem?.id,
-                })}
-                variant="text"
-                key={item.id}
-              >
+                  className={clsx('nav-item', {
+                    active: item.id === menuOpenNavItem?.id,
+                  })}
+                  variant="text"
+                  key={item.id}
+                >
                     {item.title}
                   </UButton>
                 </Link>
                 )
               : (
                 <UButton
-              className={clsx('nav-item nav-button', {
-                active: item.id === menuOpenNavItem?.id,
-              })}
-              variant="text"
-              key={item.id}
-              endIcon={<KeyboardArrowDownOutlinedIcon />}
-              onClick={(event) => handleNavItemClick(event, item)}
-            >
+                className={clsx('nav-item nav-button', {
+                  active: item.id === menuOpenNavItem?.id,
+                })}
+                variant="text"
+                key={item.id}
+                endIcon={<KeyboardArrowDownOutlinedIcon />}
+                onClick={(event) => handleNavItemClick(event, item)}
+              >
                   {item.title}
                 </UButton>
                 )
           )}
-          {navMenuOpen && menuOpenNavItem && menuOpenNavItem.type === 'list' && (
-          <StyledNavMenu
-            className="nav-menu"
-            id="nav-item-menu"
-            anchorEl={navItemAnchorEl}
-            open={navMenuOpen}
-            onClose={handleNavMenuClose}
-            MenuListProps={{
-              'aria-labelledby': 'nav-button',
-            }}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'center',
-            }}
-          >
-            {menuOpenNavItem?.list.map((subItem) => (
-              <MenuItem onClick={handleNavMenuClose} key={subItem.id}>
-                {subItem.type === 'link'
-                  ? (
-                    <Link href={subItem.href}>
-                      <Typography fontWeight={700}>{subItem.title}</Typography>
-                    </Link>
-                    )
-                  : (
-                    <Typography fontWeight={700}>{subItem.title}</Typography>
-                    )}
-              </MenuItem>
-            ))}
-          </StyledNavMenu>
+          {navMenuOpen &&
+            menuOpenNavItem &&
+            menuOpenNavItem.type === 'list' && (
+              <StyledNavMenu
+                className="nav-menu"
+                id="nav-item-menu"
+                anchorEl={navItemAnchorEl}
+                open={navMenuOpen}
+                onClose={handleNavMenuClose}
+                MenuListProps={{
+                  'aria-labelledby': 'nav-button',
+                }}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'center',
+                }}
+                container={headerRef.current}
+              >
+                {menuOpenNavItem?.list.map((subItem) => (
+                  <MenuItem onClick={handleNavMenuClose} key={subItem.id}>
+                    {subItem.type === 'link'
+                      ? (
+                        <Link href={subItem.href}>
+                          <Typography fontWeight={700}>
+                            {subItem.title}
+                          </Typography>
+                        </Link>
+                        )
+                      : (
+                        <Typography fontWeight={700}>{subItem.title}</Typography>
+                        )}
+                  </MenuItem>
+                ))}
+              </StyledNavMenu>
           )}
         </Box>
         {/** 右側 */}
         <Box display="flex" alignItems="center" gap={1}>
           <UIconButton
-          className="nav-item icon-button"
-          variant="outlined"
-          color="default"
-          onClick={onProfileClick}
-        >
+            className="nav-item icon-button"
+            variant="outlined"
+            color="default"
+            onClick={onProfileClick}
+          >
             <AccountBoxOutlinedIcon />
           </UIconButton>
           <UIconButton
-          className="nav-item icon-button"
-          variant="outlined"
-          color="default"
-          onClick={onSearchClick}
-        >
+            className="nav-item icon-button"
+            variant="outlined"
+            color="default"
+            onClick={onSearchClick}
+          >
             <SearchOutlinedIcon />
           </UIconButton>
           <Link href="/#">
@@ -221,7 +245,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
             </UButton>
           </Link>
         </Box>
-      </Box>
+      </StyledHeaderContainer>
     </StyledHeader>
   )
 }

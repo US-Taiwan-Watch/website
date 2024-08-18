@@ -13,7 +13,7 @@ const ThemeProvider = ({
   children: React.ReactNode;
 }) => {
   return (
-    <MuiThemeProvider theme={createUSTWTheme('ketagalan', lang)}>
+    <MuiThemeProvider theme={createUSTWTheme('light', lang)}>
       {children}
     </MuiThemeProvider>
   )
