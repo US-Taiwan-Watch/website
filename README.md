@@ -102,7 +102,10 @@ https://wadehuanglearning.blogspot.com/2019/05/commit-commit-commit-why-what-com
 #### Git flow
 `main` 分支為正式版，`develop` 分支為開發版。
 `develop` 分支會在每次 merge 到 `main` 後合併到 `main` 分支。
-feature branch 會以 Squash 的方式合併到 `develop` 分支。
+feature branch 會以 `Squash` 的方式合併到 `develop` 分支。
+
+#### Code Review
+把 comment 加上 label，參考：https://conventionalcomments.org/
 
 ### i18n
 本專案使用 i18next 作為多語言解決方案。主要設定檔位於 `src/common/lib/i18n/settings.ts`。
