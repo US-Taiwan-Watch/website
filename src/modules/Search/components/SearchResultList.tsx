@@ -1,9 +1,4 @@
-import {
-  Box,
-  Icon,
-  Popper,
-  Typography,
-} from '@mui/material'
+import { Box, Icon, Popper, Typography } from '@mui/material'
 import SearchResult from '../classes/SearchResult'
 import { styled } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -38,9 +33,8 @@ const StyledContainer = styled(Box)(({ theme }) => ({
 
 const StyledResultContainer = styled(Box)(({ theme }) => ({
   margin: 'auto',
-  padding: `${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(
-    1
-  )} ${theme.spacing(4)}`,
+  padding: `${theme.spacing(2)} ${theme.spacing(2)}
+   ${theme.spacing(1)} ${theme.spacing(4)}`,
   maxHeight: '300px',
   overflowY: 'auto',
   '& a': {
@@ -82,12 +76,12 @@ const SearchResultList = ({
   return (
     <StyledPopper anchorEl={headerAnchorEl} open container={headerAnchorEl}>
       <StyledContainer
-          className={className}
-          width={headerAnchorEl?.getBoundingClientRect().width}
-        >
+        className={className}
+        width={headerAnchorEl?.getBoundingClientRect().width}
+      >
         <StyledResultContainer
-            width={inputAnchorEl?.getBoundingClientRect().width}
-          >
+          width={inputAnchorEl?.getBoundingClientRect().width}
+        >
           {results.length > 0
             ? (
                 results.map((result) => (
@@ -103,11 +97,11 @@ const SearchResultList = ({
               )
             : (
               <StyledNoResultContainer
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                flexDirection="column"
-              >
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+              flexDirection="column"
+            >
                 <Typography className="no-result-title">
                   No results found
                 </Typography>

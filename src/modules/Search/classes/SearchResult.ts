@@ -1,4 +1,4 @@
-import { isString } from 'lodash'
+import { isString } from 'lodash-es'
 import { SearchResultResponse } from '../types/SearchResultResponse'
 
 export default class SearchResult {
