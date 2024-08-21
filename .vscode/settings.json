@@ -8,5 +8,6 @@
     "i18n-ally.keystyle": "nested",
     "i18n-ally.localesPaths": [
       "src/common/lib/i18n/locales"
-    ]
+    ],
+    "typescript.preferences.importModuleSpecifier": "non-relative",
   }

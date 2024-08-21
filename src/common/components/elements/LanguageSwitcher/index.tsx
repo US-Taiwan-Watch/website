@@ -1,17 +1,35 @@
 'use client'
 
-import { useTranslation } from '@/common/lib/i18n/clientHooks'
+import UButton from '@/common/components/atoms/UButton'
 import { languages } from '@/common/lib/i18n/settings'
 import { Language } from '@/common/lib/i18n/types'
-import { useParams, usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { USTWTheme } from '@/common/lib/mui/theme'
+import { Stack, styled } from '@mui/material'
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
 import { memo } from 'react'
+
+const StyledButton = styled(UButton)(({ theme }) => {
+  return {
+    padding: 0,
+    paddingRight: theme.spacing(1),
+    ':not(:last-child)': {
+      borderRight: `1px solid ${(theme as USTWTheme).color.grey[1100]}`,
+    },
+    color: 'inherit',
+  }
+})
 
 export const LanguageSwitcher = memo(function LanguageSwitcher () {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { lang } = useParams<{
-    lang: Language
+    lang: Language;
   }>()
 
   const handleClick = (lang: Language) => {
@@ -32,33 +50,31 @@ export const LanguageSwitcher = memo(function LanguageSwitcher () {
     const newSearchParams = new URLSearchParams(searchParams.toString())
 
     // 組合新的 URL
-    const newUrl = `${newPath}${newSearchParams.toString() ? '?' + newSearchParams.toString() : ''}`
+    const newUrl = `${newPath}${
+      newSearchParams.toString() ? '?' + newSearchParams.toString() : ''
+    }`
 
     router.push(newUrl)
   }
 
-  const { t } = useTranslation(lang)
-
   return (
     <div>
       {/** 切換語言 */}
-      {languages.filter((l) => lang !== l).map((l, index) => {
-        return (
-          <span key={l}>
-            {index > 0 && (' or ')}
-            <button onClick={() => handleClick(l)}>
+      <Stack direction="row" spacing={1}>
+        {languages.map((l) => {
+          return (
+            <StyledButton
+              key={l}
+              onClick={() => handleClick(l)}
+              variant="text"
+              disabled={l === lang}
+            >
+              {/** TODO: i18n 語言 */}
               {l}
-            </button>
-          </span>
-        )
-      })}
-
-      {/** 測試 client hook */}
-      <p>
-        {t('sampleArg', {
-          0: '123',
+            </StyledButton>
+          )
         })}
-      </p>
+      </Stack>
     </div>
   )
 })
