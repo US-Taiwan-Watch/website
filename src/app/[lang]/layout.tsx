@@ -6,6 +6,8 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import Header from '@/common/components/elements/Header'
 import { Container } from '@mui/material'
+import Footer from '@/common/components/elements/Footer'
+import './global.css'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -32,6 +34,7 @@ export default function RootLayout ({
               <Header />
               {children}
             </Container>
+            <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
