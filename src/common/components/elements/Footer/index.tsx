@@ -39,7 +39,7 @@ const Footer = () => {
             {/* Logo */}
             <Stack direction="row" spacing={2} alignItems="center">
               <ULogo size="small" />
-              <Typography fontWeight={700}>US Taiwan Watch</Typography>
+              <Typography variant="h5" fontWeight={700}>US Taiwan Watch</Typography>
             </Stack>
             {/* Social Links */}
             <Stack direction="row" spacing={2} alignContent="center">
