@@ -67,6 +67,7 @@ const color = {
     900: '#312F27', // Ketagalan Media 3
     1000: '#3B3B3B',
     1100: '#E8E8E8',
+    1200: '#A2A2A2',
   },
   orange: {
     ...colors.orange,
