@@ -20,6 +20,8 @@
     "@mui/material": "^5.16.7",
     "@mui/material-nextjs": "^5.16.6",
     "accept-language": "^3.0.20",
+    "dayjs": "^1.11.13",
+    "howler": "^2.2.4",
     "i18next": "^23.12.2",
     "i18next-browser-languagedetector": "^8.0.0",
     "i18next-resources-to-backend": "^1.2.1",
@@ -36,6 +38,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^8.1.0",
+    "@types/howler": "^2.2.11",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20",
     "@types/react": "^18",
