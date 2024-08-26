@@ -80,7 +80,7 @@ const IndexKvCard = memo(function IndexKvCard (props: IndexKvCardProps) {
             <StyledTitleTypography variant="h3" fontWeight={500}>
               {props.title}
             </StyledTitleTypography>
-            <StyledDescriptionTypography variant="body1" sx={{}}>
+            <StyledDescriptionTypography variant="body1">
               {props.description}
             </StyledDescriptionTypography>
           </StyledMiddleSection>
