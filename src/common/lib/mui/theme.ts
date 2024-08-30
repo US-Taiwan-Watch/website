@@ -79,6 +79,7 @@ const color = {
     50: '#D6EDFF', // Secondary 2
     400: '#3664E5', // Primary 3
     600: '#3248BE', // Democratic
+    700: '#3986FF',
   },
   red: {
     ...colors.red,

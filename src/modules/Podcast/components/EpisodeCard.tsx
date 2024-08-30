@@ -20,7 +20,8 @@ import { styled } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import usePlayer from '@/modules/Podcast/hooks/usePlayer'
 import UIconButton from '@/common/components/atoms/UIconButton'
-import { BackwardIcon, ForwardIcon } from '@/common/styles/assets/Icons'
+import { BackwardIcon, ForwardIcon, NorthEastIcon } from '@/common/styles/assets/Icons'
+import Link from 'next/link'
 
 const StyledEpisodeCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: (theme as USTWTheme).color.common.white,
@@ -91,6 +92,15 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
   },
   '& .MuiSlider-thumb': {
     display: 'none',
+  },
+}))
+
+const StyledLinkIconButton = styled(UIconButton)(({ theme }) => ({
+  color: (theme as USTWTheme).color.grey[400],
+  padding: 0,
+  '& svg': {
+    width: '12px',
+    height: '12px',
   },
 }))
 
@@ -184,7 +194,7 @@ const EpisodeCard = memo(
           height={110}
         />
         <Stack direction="column" flex={1} spacing={1} overflow="hidden">
-          <Grid container columnSpacing={2}>
+          <Grid container columnSpacing={2} width="100%">
             <Grid item xs={10.5}>
               <Stack direction='column' spacing={1}>
                 <Stack direction='column' spacing={0}>
@@ -200,10 +210,16 @@ const EpisodeCard = memo(
                 </StyledDescription>
               </Stack>
             </Grid>
-            <Grid item xs={1.5}>
+            <Grid item xs={1.5} display="flex" alignItems="flex-start" justifyContent="end">
+              {/** TODO: Add link to episode */}
+              <Link href={'/#'}>
+                <StyledLinkIconButton variant="rounded" color="default" size="small">
+                  <NorthEastIcon />
+                </StyledLinkIconButton>
+              </Link>
             </Grid>
           </Grid>
-          <StyledControlBarContainer container columnSpacing={2}>
+          <StyledControlBarContainer container columnSpacing={2} width="100%">
             <Grid item xs={10.5} alignItems="center" justifyContent="center" display="flex">
               <Stack width="100%" direction='row' spacing={1} alignItems="flex-end" justifyContent="center">
                 <Stack direction='row' spacing={1} alignItems="flex-end" justifyContent="center" flex={1}>
@@ -228,7 +244,7 @@ const EpisodeCard = memo(
                 </UIconButton>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} alignItems="center" justifyContent="center">
+            <Grid item xs={1.5} display="flex" alignItems="center" justifyContent="end">
               <UIconButton variant="contained" color="default" size="large" className="control-button" onClick={togglePlayPause}>
                 {playing
                   ? (

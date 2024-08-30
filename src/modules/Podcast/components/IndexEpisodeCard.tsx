@@ -147,8 +147,8 @@ const IndexEpisodeCard = memo(
         <StyledCoverImage
           src={episode.cover!}
           alt={episode.title!}
-          width={110}
-          height={110}
+          width={200}
+          height={200}
         />
         <Stack direction="column" flex={1} spacing={2}>
           <StyledTitle gutterBottom flex={1}>
