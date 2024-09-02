@@ -1,9 +1,9 @@
 'use client'
-import { createTheme, PaletteOptions, responsiveFontSizes, Theme, ThemeOptions } from '@mui/material/styles'
+import { createTheme, PaletteOptions, responsiveFontSizes, Theme, ThemeOptions, styled as muiStyled } from '@mui/material/styles'
 
 import { Public_Sans as PublicSans, Noto_Sans_TC as NotoSansTC } from 'next/font/google'
 import { Language } from '@/common/lib/i18n/types'
-import { colors } from '@mui/material'
+import { colors, CreateMUIStyled } from '@mui/material'
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -302,3 +302,4 @@ export const createUSTWTheme = (mode: themeMode, lang: Language) => {
       }))
   }
 }
+export const styled = muiStyled as CreateMUIStyled<USTWTheme>

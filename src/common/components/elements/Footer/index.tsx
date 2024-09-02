@@ -1,7 +1,6 @@
 'use client'
 
-import { USTWTheme } from '@/common/lib/mui/theme'
-import { styled } from '@mui/material/styles'
+import { styled } from '@/common/lib/mui/theme'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import { Container, Stack, Typography } from '@mui/material'
 import ULogo from '@/common/components/atoms/ULogo'
@@ -13,7 +12,7 @@ import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
 
 const StyledFooter = styled('footer')(({ theme }) => ({
   padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
-  color: (theme as USTWTheme).color.grey[1100],
+  color: theme.color.grey[1100],
 }))
 
 const StyledSubLinkContainer = styled(Stack)(() => ({

@@ -1,13 +1,12 @@
 'use client'
 
 import clsx from 'clsx'
-import { styled } from '@mui/material/styles'
 import ULogo from '@/common/components/atoms/ULogo'
 import { Box, Menu, MenuItem, Typography } from '@mui/material'
 import Link from 'next/link'
 import UButton from '@/common/components/atoms/UButton'
 import UIconButton from '@/common/components/atoms/UIconButton'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import React, { useRef, useState } from 'react'
@@ -32,16 +31,16 @@ const StyledHeader = styled('header')(({ theme }) => ({
   },
   margin: `${theme.spacing(4.5)} auto`,
   '& #nav-item-menu': {
-    zIndex: (theme as USTWTheme).constants.zIndex.headerNavItem,
+    zIndex: theme.constants.zIndex.headerNavItem,
   },
 }))
 
 const StyledHeaderContainer = styled(Box)(({ theme }) => ({
   position: 'relative',
-  zIndex: (theme as USTWTheme).constants.zIndex.header,
+  zIndex: theme.constants.zIndex.header,
   width: '100%',
   borderRadius: '30px',
-  backgroundColor: (theme as USTWTheme).color.header.background,
+  backgroundColor: theme.color.header.background,
   backdropFilter: 'blur(20px)',
   WebkitBackdropFilter: 'blur(20px)', // For Safari support
   padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
@@ -56,16 +55,16 @@ const StyledHeaderContainer = styled(Box)(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
       height: `${theme.constants.headerHeight.md}px`,
     },
-    color: (theme as USTWTheme).color.header.text,
+    color: theme.color.header.text,
     '&:hover': {
       backgroundColor: 'transparent',
-      color: (theme as USTWTheme).color.header.textHover,
+      color: theme.color.header.textHover,
     },
     '& .MuiButton-icon': {
       marginLeft: 0,
     },
     '&.active': {
-      color: (theme as USTWTheme).color.header.textActive,
+      color: theme.color.header.textActive,
     },
     '& .MuiSvgIcon-root': {
       fontSize: '18px',
@@ -75,11 +74,11 @@ const StyledHeaderContainer = styled(Box)(({ theme }) => ({
     border: 'none',
   },
   '& .donation-button': {
-    backgroundColor: (theme as USTWTheme).color.header.donationButton,
-    color: (theme as USTWTheme).color.header.donationButtonText,
+    backgroundColor: theme.color.header.donationButton,
+    color: theme.color.header.donationButtonText,
     '&:hover': {
-      backgroundColor: (theme as USTWTheme).color.header.donationButtonHover,
-      color: (theme as USTWTheme).color.header.donationButtonTextHover,
+      backgroundColor: theme.color.header.donationButtonHover,
+      color: theme.color.header.donationButtonTextHover,
     },
   },
 }))
@@ -95,7 +94,7 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
       paddingTop: `${theme.constants.headerHeight.md}px`,
       marginTop: `-${theme.constants.headerHeight.md}px`,
     },
-    backgroundColor: (theme as USTWTheme).color.header.menuBackground,
+    backgroundColor: theme.color.header.menuBackground,
     transform: 'translateX(-90px) !important',
     borderRadius: '30px',
     boxShadow: '0px 4px 20px 0px #0000000D',
@@ -117,11 +116,11 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
     padding: `${theme.spacing(1.5)} ${theme.spacing(4)}`,
     justifyContent: 'center',
     '&:not(:last-child)': {
-      borderBottom: `1px solid ${(theme as USTWTheme).color.grey[400]}`,
+      borderBottom: `1px solid ${theme.color.grey[400]}`,
     },
     '& a': {
       textDecoration: 'none',
-      color: (theme as USTWTheme).color.header.textActive,
+      color: theme.color.header.textActive,
     },
   },
 }))

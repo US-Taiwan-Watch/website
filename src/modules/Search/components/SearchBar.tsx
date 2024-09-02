@@ -1,10 +1,9 @@
 'use client'
 
 import UButton from '@/common/components/atoms/UButton'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import { Box, ClickAwayListener, Icon, Input } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import useSearch from '../hooks/useSearch'
 import SearchResultList from './SearchResultList'
 import { useRef } from 'react'
@@ -17,7 +16,7 @@ interface SearchBarProps {
 }
 
 const StyledIcon = styled(Icon)(({ theme }) => ({
-  color: (theme as USTWTheme).color.grey[600],
+  color: theme.color.grey[600],
   marginRight: theme.spacing(1),
 }))
 
@@ -26,16 +25,16 @@ const StyledContainer = styled(Box)(() => ({
 }))
 
 const StyledInput = styled(Input)(({ theme }) => ({
-  backgroundColor: (theme as USTWTheme).color.searchBar.inputBackground,
+  backgroundColor: theme.color.searchBar.inputBackground,
   borderRadius: '100px',
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
   height: '40px',
 }))
 
 const StyledButton = styled(UButton)(({ theme }) => ({
-  backgroundColor: (theme as USTWTheme).color.searchBar.searchButtonBackground,
+  backgroundColor: theme.color.searchBar.searchButtonBackground,
   '&:hover': {
-    backgroundColor: (theme as USTWTheme).color.searchBar
+    backgroundColor: theme.color.searchBar
       .searchButtonBackground,
   },
 }))
