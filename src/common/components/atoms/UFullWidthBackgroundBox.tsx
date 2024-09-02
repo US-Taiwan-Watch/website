@@ -27,6 +27,7 @@ const UFullWidthBackgroundBox = ({ className, children, backgroundColor }: UFull
         marginLeft: '-50dvw',
         marginRight: '-50dvw',
         backgroundColor: !backgroundColor ? get(theme.color, 'common.black') : backgroundColor.startsWith('#') ? backgroundColor : get(theme.color, backgroundColor),
+        boxSizing: 'border-box',
       }}
     >
       {children}

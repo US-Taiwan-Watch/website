@@ -55,11 +55,11 @@ const StyledPaginationDot = styled('div')(({ theme }) => ({
 interface CarouselProps {
   children?: React.ReactNode[] | React.ReactNode;
   centerMode?: boolean;
+  settings?: Settings;
 }
 
-function Carousel ({ children, centerMode = false }: CarouselProps) {
+function Carousel ({ children, centerMode = false, settings: _settings }: CarouselProps) {
   const slideCount = isArray(children) ? children.length : children ? 1 : 0
-  console.log(slideCount)
   const sliderRef = useRef<Slider>(null)
   const [currentSlide, setCurrentSlide] = useState(0)
 
@@ -71,13 +71,12 @@ function Carousel ({ children, centerMode = false }: CarouselProps) {
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
+    centerPadding: '16px',
+    ..._settings,
     afterChange: (current) => {
       setCurrentSlide(current)
+      _settings?.afterChange?.(current)
     },
-    onLazyLoad (slidesToLoad) {
-      console.log(slidesToLoad)
-    },
-    centerPadding: '16px',
   }
 
   const handlePrev = () => {

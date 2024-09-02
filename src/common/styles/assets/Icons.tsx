@@ -17,6 +17,12 @@ import SvgXIcon from './XIcon.svg'
 import SvgYoutubeIcon from './YoutubeIcon.svg'
 import SvgProfileIcon from './ProfileIcon.svg'
 import SvgSearchIcon from './SearchIcon.svg'
+import SvgBackwardIcon from './BackwardIcon.svg'
+import SvgForwardIcon from './ForwardIcon.svg'
+import SvgNorthEastIcon from './NorthEastIcon.svg'
+import SvgApplePodcastIcon from './ApplePodcastIcon.svg'
+import SvgGooglePodcastIcon from './GooglePodcastIcon.svg'
+import SvgSoundOnPodcastIcon from './SoundOnPodcastIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -90,4 +96,28 @@ export const ProfileIcon = (props: SvgIconProps) => (
 
 export const SearchIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgSearchIcon} {...props} />
+)
+
+export const BackwardIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgBackwardIcon} {...props} />
+)
+
+export const ForwardIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgForwardIcon} {...props} />
+)
+
+export const NorthEastIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgNorthEastIcon} {...props} />
+)
+
+export const ApplePodcastIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgApplePodcastIcon} {...props} />
+)
+
+export const GooglePodcastIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgGooglePodcastIcon} {...props} />
+)
+
+export const SoundOnPodcastIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgSoundOnPodcastIcon} {...props} />
 )
