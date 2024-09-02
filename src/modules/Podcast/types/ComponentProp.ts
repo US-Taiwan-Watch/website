@@ -1,4 +1,4 @@
-export interface CallbackParams {
+interface EpisodeCardCallbackParams {
   podcastId: string;
   episodeId: string;
 }
@@ -6,8 +6,8 @@ export interface CallbackParams {
 export interface EpisodeCardProps {
   podcastId: string;
   episodeId: string;
-  onPlay?: (params: CallbackParams) => void;
-  onPause?: (params: CallbackParams) => void;
+  onPlay?: (params: EpisodeCardCallbackParams) => void;
+  onPause?: (params: EpisodeCardCallbackParams) => void;
 }
 
 export interface EpisodeCardRef {
