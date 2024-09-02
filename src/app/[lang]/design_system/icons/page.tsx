@@ -1,7 +1,10 @@
+'use client'
+
 import UButton from '@/common/components/atoms/UButton'
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
+import { USTWTheme } from '@/common/lib/mui/theme'
 import {
   BookmarkIcon,
   FacebookIcon,
@@ -17,7 +20,16 @@ import {
   XIcon,
   YoutubeIcon,
 } from '@/common/styles/assets/Icons'
-import { Box } from '@mui/material'
+import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
+import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
+import { Box, Stack } from '@mui/material'
+import { styled } from '@mui/material/styles'
+
+const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
+  borderRadius: '30px',
+  backgroundColor: (theme as USTWTheme).color.orange[900],
+  padding: '20px',
+}))
 
 export default function DesignSystemIconsPage () {
   return (
@@ -176,6 +188,17 @@ export default function DesignSystemIconsPage () {
           active
         />
       </Box>
+      <h2>Episode Card</h2>
+      <h3>Index Episode Card</h3>
+      <StyledIndexEpisodeCardList direction='column' spacing={2}>
+        <IndexEpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+        <IndexEpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+      </StyledIndexEpisodeCardList>
+      <h3>Episode Card</h3>
+      <Stack direction='column' spacing={2}>
+        <EpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+        <EpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+      </Stack>
     </div>
   )
 }

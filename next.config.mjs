@@ -7,6 +7,14 @@ const nextConfig = {
     })
     return config
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'files.soundon.fm',
+      },
+    ],
+  },
 }
 
 export default nextConfig
