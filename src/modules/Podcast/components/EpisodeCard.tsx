@@ -16,17 +16,17 @@ import {
   EpisodeCardProps as GeneralEpisodeCardProps,
   EpisodeCardRef,
 } from '@/modules/Podcast/types/ComponentProp'
-import { styled } from '@mui/material/styles'
-import { USTWTheme } from '@/common/lib/mui/theme'
+
+import { styled } from '@/common/lib/mui/theme'
 import usePlayer from '@/modules/Podcast/hooks/usePlayer'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { BackwardIcon, ForwardIcon, NorthEastIcon } from '@/common/styles/assets/Icons'
 import Link from 'next/link'
 
 const StyledEpisodeCardContainer = styled(Stack)(({ theme }) => ({
-  backgroundColor: (theme as USTWTheme).color.common.white,
+  backgroundColor: theme.color.common.white,
   borderRadius: '10px',
-  color: (theme as USTWTheme).color.common.black,
+  color: theme.color.common.black,
 }))
 
 const StyledCoverImage = styled(Image)(() => ({
@@ -47,7 +47,7 @@ const StyledTitle = styled(Typography)(() => ({
 
 const StyledDate = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
-  color: (theme as USTWTheme).color.neutral[500],
+  color: theme.color.neutral[500],
 }))
 
 const StyledDescription = styled(Typography)(() => ({
@@ -61,7 +61,7 @@ const StyledDescription = styled(Typography)(() => ({
 
 const StyledControlBarContainer = styled(Grid)(({ theme }) => ({
   '& .control-button': {
-    color: (theme as USTWTheme).color.common.black,
+    color: theme.color.common.black,
     padding: 0,
     width: '40px',
     height: '40px',
@@ -82,13 +82,13 @@ const StyledControlBarContainer = styled(Grid)(({ theme }) => ({
 
 const StyledSlider = styled(Slider)(({ theme }) => ({
   padding: '0px',
-  color: (theme as USTWTheme).color.common.white,
+  color: theme.color.common.white,
   '& .MuiSlider-rail': {
     backgroundColor: '#0000004D',
   },
   '& .MuiSlider-track': {
-    backgroundColor: (theme as USTWTheme).color.neutral[500],
-    color: (theme as USTWTheme).color.neutral[500],
+    backgroundColor: theme.color.neutral[500],
+    color: theme.color.neutral[500],
   },
   '& .MuiSlider-thumb': {
     display: 'none',
@@ -96,7 +96,7 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
 }))
 
 const StyledLinkIconButton = styled(UIconButton)(({ theme }) => ({
-  color: (theme as USTWTheme).color.grey[400],
+  color: theme.color.grey[400],
   padding: 0,
   '& svg': {
     width: '12px',

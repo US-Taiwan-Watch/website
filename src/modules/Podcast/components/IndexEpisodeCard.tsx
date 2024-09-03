@@ -16,15 +16,14 @@ import {
   EpisodeCardProps,
   EpisodeCardRef,
 } from '@/modules/Podcast/types/ComponentProp'
-import { styled } from '@mui/material/styles'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 import usePlayer from '@/modules/Podcast/hooks/usePlayer'
 import UIconButton from '@/common/components/atoms/UIconButton'
 
 const StyledIndexEpisodeCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: '#FFFFFF1A', // Opacity 10%
   borderRadius: '20px',
-  color: (theme as USTWTheme).color.common.white,
+  color: theme.color.common.white,
 }))
 
 const StyledCoverImage = styled(Image)(() => ({
@@ -45,7 +44,7 @@ const StyledTitle = styled(Typography)(() => ({
 
 const StyledControlBarContainer = styled(Stack)(({ theme }) => ({
   '& .control-button': {
-    color: (theme as USTWTheme).color.common.white,
+    color: theme.color.common.white,
     padding: 0,
     width: '25px',
     height: '25px',
@@ -57,16 +56,16 @@ const StyledControlBarContainer = styled(Stack)(({ theme }) => ({
 }))
 
 const StyledSlider = styled(Slider)(({ theme }) => ({
-  color: (theme as USTWTheme).color.common.white,
+  color: theme.color.common.white,
   '& .MuiSlider-rail': {
     backgroundColor: '#00000026',
   },
   '& .MuiSlider-track': {
-    backgroundColor: (theme as USTWTheme).color.neutral[600],
-    color: (theme as USTWTheme).color.neutral[600],
+    backgroundColor: theme.color.neutral[600],
+    color: theme.color.neutral[600],
   },
   '& .MuiSlider-thumb': {
-    backgroundColor: (theme as USTWTheme).color.neutral[600],
+    backgroundColor: theme.color.neutral[600],
     boxShadow: 'none !important',
     width: '12px',
     height: '12px',

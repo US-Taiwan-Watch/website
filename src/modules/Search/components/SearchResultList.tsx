@@ -1,7 +1,6 @@
 import { Box, Icon, Popper, Typography } from '@mui/material'
 import SearchResult from '../classes/SearchResult'
-import { styled } from '@mui/material/styles'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 
@@ -14,13 +13,13 @@ interface SearchResultProps {
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   display: 'flex',
-  zIndex: (theme as USTWTheme).constants.zIndex.headerSearchResult,
+  zIndex: theme.constants.zIndex.headerSearchResult,
   transform: 'none !important', // 避免 popper 被 transform 影響
 }))
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
-  backgroundColor: (theme as USTWTheme).color.searchBar.resultBackground,
+  backgroundColor: theme.color.searchBar.resultBackground,
   borderRadius: '30px',
   paddingBottom: theme.spacing(2),
   [theme.breakpoints.up('xs')]: {
@@ -44,15 +43,15 @@ const StyledResultContainer = styled(Box)(({ theme }) => ({
 
 const StyledResultItem = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
-  borderBottom: `1px solid ${(theme as USTWTheme).color.grey[400]}`,
+  borderBottom: `1px solid ${theme.color.grey[400]}`,
   '& .MuiTypography-root': {
     textDecoration: 'none',
-    color: (theme as USTWTheme).color.searchBar.resultItemText,
+    color: theme.color.searchBar.resultItemText,
   },
 }))
 
 const StyledIcon = styled(Icon)(({ theme }) => ({
-  color: (theme as USTWTheme).color.grey[600],
+  color: theme.color.grey[600],
 }))
 
 const StyledNoResultContainer = styled(Box)(({ theme }) => ({
@@ -62,7 +61,7 @@ const StyledNoResultContainer = styled(Box)(({ theme }) => ({
     fontSize: '1.75rem',
   },
   '& .no-result-subtitle': {
-    color: (theme as USTWTheme).color.searchBar.noResultSubtitle,
+    color: theme.color.searchBar.noResultSubtitle,
     fontSize: '1rem',
   },
 }))

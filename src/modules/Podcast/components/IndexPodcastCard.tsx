@@ -6,8 +6,7 @@ import Podcast, {
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import type React from 'react'
 import { memo } from 'react'
-import { styled } from '@mui/material/styles'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
 import Image from 'next/image'
 import PodcastSourceIcon from '@/modules/Podcast/components/PodcastSourceIcon'
@@ -18,15 +17,15 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 const StyledIndexPodcastCardBox = styled(Box)(({ theme }) => ({
   '&.WATCH_HERE': {
-    backgroundColor: (theme as USTWTheme).color.orange[900],
+    backgroundColor: theme.color.orange[900],
   },
   '&.WATCH_INFO': {
-    backgroundColor: (theme as USTWTheme).color.indigo[700],
+    backgroundColor: theme.color.indigo[700],
   },
   '&.WATCH_BOOK_CLUB': {
-    backgroundColor: (theme as USTWTheme).color.orange[900],
+    backgroundColor: theme.color.orange[900],
   },
-  color: (theme as USTWTheme).color.common.white,
+  color: theme.color.common.white,
   borderRadius: '30px',
   // margin: `0 ${theme.spacing(2)}`,
 }))
@@ -56,8 +55,8 @@ const StyledDescription = styled(Typography)(() => ({
 }))
 
 const StyledPodcastSourceIconButton = styled(UIconButton)(({ theme }) => ({
-  backgroundColor: (theme as USTWTheme).color.common.black,
-  color: (theme as USTWTheme).color.common.white,
+  backgroundColor: theme.color.common.black,
+  color: theme.color.common.white,
   borderRadius: '10px',
   padding: '5px',
 }))

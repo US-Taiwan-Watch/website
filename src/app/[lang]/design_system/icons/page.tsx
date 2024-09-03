@@ -4,7 +4,7 @@ import UButton from '@/common/components/atoms/UButton'
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 import {
   BookmarkIcon,
   FacebookIcon,
@@ -23,11 +23,10 @@ import {
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
 import { Box, Stack } from '@mui/material'
-import { styled } from '@mui/material/styles'
 
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
-  backgroundColor: (theme as USTWTheme).color.orange[900],
+  backgroundColor: theme.color.orange[900],
   padding: '20px',
 }))
 

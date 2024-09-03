@@ -1,10 +1,9 @@
 'use client'
 
 import { memo } from 'react'
-import { styled } from '@mui/material/styles'
 import { Box, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 
@@ -17,7 +16,7 @@ const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
 
 const StyledTag = styled('div')(({ theme }) => ({
   borderRadius: '5px',
-  border: `1px solid ${(theme as USTWTheme).color.common.black}`,
+  border: `1px solid ${theme.color.common.black}`,
   padding: '0px 9px',
 }))
 

@@ -1,13 +1,12 @@
 'use client'
 
-import type { USTWTheme } from '@/common/lib/mui/theme'
+import { styled, type USTWTheme } from '@/common/lib/mui/theme'
 import {
   IconButton,
   IconButtonProps,
   Typography,
   TypographyProps,
 } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import type { ComponentType } from 'react'
 
 interface UPoliticalPartyIconProps extends Omit<IconButtonProps, 'color'> {
@@ -102,21 +101,21 @@ const getTypographyProps = (
 const StyledPoliticalPartyIcon = styled(IconButton)<UPoliticalPartyIconProps>(
   ({ theme, variant, party, size }) => ({
     ...(variant === 'rounded' && {
-      backgroundColor: getMainColor(theme as USTWTheme, party),
-      color: (theme as USTWTheme).color.common.white,
+      backgroundColor: getMainColor(theme, party),
+      color: theme.color.common.white,
       '&:hover': {
-        backgroundColor: getHoveredBackgroundColor(theme as USTWTheme, party),
+        backgroundColor: getHoveredBackgroundColor(theme, party),
       },
       '.party-icon': {
         ...getIconSize(size),
       },
     }),
     ...(variant === 'contained' && {
-      backgroundColor: getMainColor(theme as USTWTheme, party),
-      color: (theme as USTWTheme).color.common.white,
+      backgroundColor: getMainColor(theme, party),
+      color: theme.color.common.white,
       borderRadius: theme.shape.borderRadius, // 使用主題中定義的標準圓角
       '&:hover': {
-        backgroundColor: getHoveredBackgroundColor(theme as USTWTheme, party),
+        backgroundColor: getHoveredBackgroundColor(theme, party),
       },
       '.party-icon': {
         ...getIconSize(size),
@@ -125,7 +124,7 @@ const StyledPoliticalPartyIcon = styled(IconButton)<UPoliticalPartyIconProps>(
     ...(variant === 'outlined' && {
       backgroundColor: 'transparent',
       color: theme.palette.common.white,
-      border: `1px solid ${getMainColor(theme as USTWTheme, party)}`,
+      border: `1px solid ${getMainColor(theme, party)}`,
       borderRadius: theme.shape.borderRadius,
       '&:hover': {
         backgroundColor: theme.palette.action.hover,

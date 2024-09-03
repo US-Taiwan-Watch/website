@@ -2,7 +2,6 @@
 
 import clsx from 'clsx'
 import type React from 'react'
-import { styled } from '@mui/material/styles'
 import { useRef, useState } from 'react'
 import Slider, { Settings } from 'react-slick'
 import 'slick-carousel/slick/slick.css'
@@ -11,7 +10,7 @@ import { Stack } from '@mui/material'
 import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined'
 import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined'
 import UIconButton from '@/common/components/atoms/UIconButton'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled } from '@/common/lib/mui/theme'
 import { isArray } from 'lodash-es'
 
 const StyledCarouselContainer = styled(Stack)(() => ({
@@ -24,12 +23,12 @@ const StyledCarouselContainer = styled(Stack)(() => ({
 const StyledPaginationContainer = styled(Stack)(({ theme }) => ({
   marginTop: theme.spacing(2),
   '& .carousel-slider-prev': {
-    backgroundColor: (theme as USTWTheme).color.neutral[500],
-    color: (theme as USTWTheme).color.common.white,
+    backgroundColor: theme.color.neutral[500],
+    color: theme.color.common.white,
   },
   '& .carousel-slider-next': {
-    backgroundColor: (theme as USTWTheme).color.neutral[500],
-    color: (theme as USTWTheme).color.common.white,
+    backgroundColor: theme.color.neutral[500],
+    color: theme.color.common.white,
   },
 }))
 
@@ -41,12 +40,12 @@ const StyledPaginationDot = styled('div')(({ theme }) => ({
   width: '8px',
   height: '8px',
   borderRadius: '50%',
-  backgroundColor: (theme as USTWTheme).color.grey[1200],
+  backgroundColor: theme.color.grey[1200],
   '&:hover': {
     cursor: 'pointer',
   },
   '&.slick-active': {
-    backgroundColor: (theme as USTWTheme).color.neutral[500],
+    backgroundColor: theme.color.neutral[500],
     width: '12px',
     height: '12px',
   },
