@@ -1,8 +1,7 @@
 'use client'
 
-import type { USTWTheme } from '@/common/lib/mui/theme'
+import { styled, type USTWTheme } from '@/common/lib/mui/theme'
 import { IconButton, IconButtonProps } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import type { ComponentType } from 'react'
 
 interface UIconButtonProps extends Omit<IconButtonProps, 'color'> {
@@ -90,21 +89,21 @@ const getIconSize = (size: UIconButtonProps['size']) => {
 const UIconButton = styled(IconButton)<UIconButtonProps>(
   ({ theme, variant, color, size }) => ({
     ...(variant === 'rounded' && {
-      backgroundColor: getBackgroundColor(theme as USTWTheme, color),
-      color: getContrastTextColor(theme as USTWTheme, color),
+      backgroundColor: getBackgroundColor(theme, color),
+      color: getContrastTextColor(theme, color),
       '&:hover': {
-        backgroundColor: getHoveredBackgroundColor(theme as USTWTheme, color),
+        backgroundColor: getHoveredBackgroundColor(theme, color),
       },
       svg: {
         ...getIconSize(size),
       },
     }),
     ...(variant === 'contained' && {
-      backgroundColor: getBackgroundColor(theme as USTWTheme, color),
-      color: getContrastTextColor(theme as USTWTheme, color),
+      backgroundColor: getBackgroundColor(theme, color),
+      color: getContrastTextColor(theme, color),
       borderRadius: theme.shape.borderRadius, // 使用主題中定義的標準圓角
       '&:hover': {
-        backgroundColor: getHoveredBackgroundColor(theme as USTWTheme, color),
+        backgroundColor: getHoveredBackgroundColor(theme, color),
       },
       svg: {
         ...getIconSize(size),

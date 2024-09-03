@@ -14,7 +14,7 @@ interface UFullWidthBackgroundBoxProps {
 }
 
 const UFullWidthBackgroundBox = ({ className, children, backgroundColor }: UFullWidthBackgroundBoxProps) => {
-  const theme = useTheme() as USTWTheme
+  const theme = useTheme<USTWTheme>()
 
   return (
     <Box

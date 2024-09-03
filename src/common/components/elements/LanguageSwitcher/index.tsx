@@ -3,8 +3,8 @@
 import UButton from '@/common/components/atoms/UButton'
 import { languages } from '@/common/lib/i18n/settings'
 import { Language } from '@/common/lib/i18n/types'
-import { USTWTheme } from '@/common/lib/mui/theme'
-import { Stack, styled } from '@mui/material'
+import { styled } from '@/common/lib/mui/theme'
+import { Stack } from '@mui/material'
 import {
   useParams,
   usePathname,
@@ -18,7 +18,7 @@ const StyledButton = styled(UButton)(({ theme }) => {
     padding: 0,
     paddingRight: theme.spacing(1),
     ':not(:last-child)': {
-      borderRight: `1px solid ${(theme as USTWTheme).color.grey[1100]}`,
+      borderRight: `1px solid ${theme.color.grey[1100]}`,
     },
     color: 'inherit',
   }
