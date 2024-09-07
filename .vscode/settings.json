@@ -1,13 +1,16 @@
 {
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": "always"
-    },
-    "editor.tabSize": 2,
-    "cSpell.words": [],
-    "eslint.lintTask.enable": true,
-    "i18n-ally.keystyle": "nested",
-    "i18n-ally.localesPaths": [
-      "src/common/lib/i18n/locales"
-    ],
-    "typescript.preferences.importModuleSpecifier": "non-relative",
-  }
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "editor.tabSize": 2,
+  "cSpell.words": [
+    "USTW",
+    "Ketagalan",
+  ],
+  "eslint.lintTask.enable": true,
+  "i18n-ally.keystyle": "nested",
+  "i18n-ally.localesPaths": [
+    "src/common/lib/i18n/locales"
+  ],
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+}
