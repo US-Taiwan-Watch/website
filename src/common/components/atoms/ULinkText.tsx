@@ -4,7 +4,9 @@ import UHStack from '@/common/components/atoms/UHStack'
 import { Typography } from '@mui/material'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
+import { USTWTheme } from '@/common/lib/mui/theme'
+import { useTheme } from '@mui/material/styles'
 
 type Props = {
   link: string;
@@ -14,14 +16,27 @@ type Props = {
 }
 
 const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
+  const theme = useTheme<USTWTheme>()
+  const [isHover, setIsHover] = useState(false)
+  const color = isHover ? theme.color.neutral[400] : '#262121'
+
   return (
     <Link href={link}>
-      <UHStack gap={1} alignItems='center'>
+      <UHStack
+        gap={1}
+        alignItems='center'
+        onMouseEnter={() => setIsHover(true)}
+        onMouseLeave={() => setIsHover(false)}
+      >
         {startIcon}
-        <Typography variant="body1" fontWeight={500}>
+        <Typography
+          variant="body1"
+          fontWeight={500}
+          sx={{ color }}
+        >
           {text ?? 'Learn More'}
         </Typography>
-        {endIcon ?? <ArrowForwardIcon />}
+        {endIcon ?? <ArrowForwardIcon sx={{ color }} />}
       </UHStack>
     </Link>
   )
