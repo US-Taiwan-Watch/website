@@ -1,6 +1,7 @@
 'use client'
 
 import UHStack from '@/common/components/atoms/UHStack'
+import ULinkText from '@/common/components/atoms/ULinkText'
 import { StackProps, Typography, TypographyProps } from '@mui/material'
 import { ReactNode } from 'react'
 
@@ -22,12 +23,7 @@ const SectionTitleWithLink = ({ title, renderTitle, link, containerProps, titleP
             {title}
           </Typography>
           )}
-      {/* FIXME: learn more button */}
-      {link && (
-        <Typography>
-          learn more
-        </Typography>
-      )}
+      {link && <ULinkText link={link} />}
     </UHStack>
   )
 }
