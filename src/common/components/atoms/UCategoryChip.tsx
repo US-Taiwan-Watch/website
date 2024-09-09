@@ -41,6 +41,7 @@ const getAvatarSize = (
 
 const StyledChip = styled(Chip)<UCategoryChipProps>(
   ({ theme, size, active }) => ({
+    position: 'relative',
     backgroundColor: theme.palette.common.white,
     height: getChipHeight(size),
     borderRadius: '100px',
@@ -65,6 +66,7 @@ const StyledChip = styled(Chip)<UCategoryChipProps>(
         borderRadius: 'inherit',
         zIndex: 1,
       },
+      cursor: 'pointer',
     },
     '&.active': {
       backgroundColor: theme.palette.primary.main,
