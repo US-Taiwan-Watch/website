@@ -3,6 +3,7 @@
 import UButton from '@/common/components/atoms/UButton'
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UIconButton from '@/common/components/atoms/UIconButton'
+import ULinkText from '@/common/components/atoms/ULinkText'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import { styled } from '@/common/lib/mui/theme'
 import {
@@ -168,6 +169,10 @@ export default function DesignSystemIconsPage () {
         >
           Load More
         </UButton>
+      </Box>
+      <h2>Link Text</h2>
+      <Box display="flex" p={2} gap={2}>
+        <ULinkText link="/" text="Learn More" />
       </Box>
       <h2>Category Chip</h2>
       <Box display="flex" p={2} gap={2}>

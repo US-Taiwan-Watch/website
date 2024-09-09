@@ -27,13 +27,13 @@ const IndexPodcastCards = () => {
     <StyledUFullWidthBackgroundBox>
       <Container>
         <Carousel
-        centerMode
-        settings={{
-          slidesToShow: 1,
-          infinite: false,
-          centerPadding: '0px',
-        }}
-      >
+          centerMode
+          settings={{
+            slidesToShow: 1,
+            infinite: false,
+            centerPadding: '0px',
+          }}
+        >
           <WatchHerePodcastCard />
           <WatchInfoPodcastCard />
           <WatchBookClubPodcastCard />
