@@ -7,7 +7,7 @@ import IndexPodcastCards from '@/modules/Podcast/components/IndexPodcastCards'
 
 const PodcastSection = () => {
   return (
-    <LandingSectionWrapper contentWrapperSx={{ paddingBottom: OVERLAPPED_SECTION_PADDING_BOTTOM }}>
+    <LandingSectionWrapper contentWrapperSx={{ paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px` }}>
       <SectionTitleWithLink title='Podcast' />
       <IndexPodcastCards />
     </LandingSectionWrapper>

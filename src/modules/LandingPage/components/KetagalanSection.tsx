@@ -14,7 +14,7 @@ const KetagalanSection = () => {
       {/* FIXME: 顏色需加入 theme */}
       <LandingSectionWrapper
         backgroundColor='#262121'
-        contentWrapperSx={{ paddingBottom: OVERLAPPED_SECTION_PADDING_BOTTOM }}
+        contentWrapperSx={{ paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px` }}
       >
         <SectionTitleWithLink renderTitle={() => <UKetagalanLogo />} />
         <Typography color='white'>
