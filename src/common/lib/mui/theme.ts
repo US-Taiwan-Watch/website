@@ -4,6 +4,7 @@ import { createTheme, PaletteOptions, responsiveFontSizes, Theme, ThemeOptions, 
 import { Public_Sans as PublicSans, Noto_Sans_TC as NotoSansTC } from 'next/font/google'
 import { Language } from '@/common/lib/i18n/types'
 import { colors, CreateMUIStyled } from '@mui/material'
+import { CSSProperties } from 'react'
 
 declare module '@mui/material/styles' {
   interface Theme {
@@ -33,6 +34,91 @@ declare module '@mui/material/styles' {
         headerSearchResult?: number;
       };
     }
+  }
+
+  interface TypographyVariants {
+    h1: CSSProperties;
+    h2: CSSProperties;
+    h3: CSSProperties;
+    h4: CSSProperties;
+    h5: CSSProperties;
+    h6: CSSProperties;
+    subtitleXL: CSSProperties;
+    subtitleL: CSSProperties;
+    subtitleM: CSSProperties;
+    subtitleS: CSSProperties;
+    bodyM: CSSProperties;
+    bodyS: CSSProperties;
+    buttonL: CSSProperties;
+    buttonM: CSSProperties;
+    buttonS: CSSProperties;
+    buttonXS: CSSProperties;
+    buttonXXS: CSSProperties;
+    menu: CSSProperties;
+    articleH1: CSSProperties;
+    articleH2: CSSProperties;
+    articleH3: CSSProperties;
+    articleH4: CSSProperties;
+    articleH5: CSSProperties;
+    body: CSSProperties;
+  }
+
+  // allow configuration using `createTheme`
+  interface TypographyVariantsOptions {
+    h1?: CSSProperties;
+    h2?: CSSProperties;
+    h3?: CSSProperties;
+    h4?: CSSProperties;
+    h5?: CSSProperties;
+    h6?: CSSProperties;
+    subtitleXL?: CSSProperties;
+    subtitleL?: CSSProperties;
+    subtitleM?: CSSProperties;
+    subtitleS?: CSSProperties;
+    bodyM?: CSSProperties;
+    bodyS?: CSSProperties;
+    buttonL?: CSSProperties;
+    buttonM?: CSSProperties;
+    buttonS?: CSSProperties;
+    buttonXS?: CSSProperties;
+    buttonXXS?: CSSProperties;
+    menu?: CSSProperties;
+    articleH1?: CSSProperties;
+    articleH2?: CSSProperties;
+    articleH3?: CSSProperties;
+    articleH4?: CSSProperties;
+    articleH5?: CSSProperties;
+    body?: CSSProperties;
+  }
+}
+
+// Update the Typography's variant prop options
+declare module '@mui/material/Typography' {
+  interface TypographyPropsVariantOverrides {
+    h1: true;
+    h2: true;
+    h3: true;
+    h4: true;
+    h5: true;
+    h6: true;
+    subtitleXL: true;
+    subtitleL: true;
+    subtitleM: true;
+    subtitleS: true;
+    bodyM: true;
+    bodyS: true;
+    buttonL: true;
+    buttonM: true;
+    buttonS: true;
+    buttonXS: true;
+    buttonXXS: true;
+    menu: true;
+    articleH1: true;
+    articleH2: true;
+    articleH3: true;
+    articleH4: true;
+    articleH5: true;
+    body: true;
   }
 }
 
@@ -138,7 +224,7 @@ export interface USTWTheme extends Theme, USTWThemeColor {
   }
 }
 
-interface USTWThemeOptions extends ThemeOptions, USTWThemeColor {}
+interface USTWThemeOptions extends ThemeOptions, USTWThemeColor { }
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
@@ -280,6 +366,34 @@ const constants: USTWThemeConstants = {
 
 type themeMode = 'light' | 'ketagalan'
 
+// TODO : line height 只接受倍數，無法設定 px
+const typographyVariants = {
+  h1: { fontSize: 64, fontWeight: 500 }, // lineHeight: '75.2px'
+  h2: { fontSize: 56, fontWeight: 600 }, // lineHeight: '65.8px'
+  h3: { fontSize: 46, fontWeight: 600 }, // lineHeight: '54.05px'
+  h4: { fontSize: 40, fontWeight: 600 }, // lineHeight: '47px'
+  h5: { fontSize: 38, fontWeight: 600 }, // lineHeight: '44.65px'
+  h6: { fontSize: 30, fontWeight: 600 }, // lineHeight: '35.25px'
+  subtitleXL: { fontSize: 24, fontWeight: 600, display: 'block' }, // lineHeight: '28.2px'
+  subtitleL: { fontSize: 22, fontWeight: 600, display: 'block' }, // lineHeight: '25.85px'
+  subtitleM: { fontSize: 18, fontWeight: 600, display: 'block' }, // lineHeight: '21.15px'
+  subtitleS: { fontSize: 16, fontWeight: 600, display: 'block' }, // lineHeight: '18.8px'
+  bodyM: { fontSize: 16, fontWeight: 400, display: 'block' }, // lineHeight: '18.8px'
+  bodyS: { fontSize: 14, fontWeight: 400, display: 'block' }, // lineHeight: '16.45px'
+  buttonL: { fontSize: 22, fontWeight: 500, display: 'block' }, // lineHeight: '25.85px'
+  buttonM: { fontSize: 18, fontWeight: 500, display: 'block' }, // lineHeight: '21.15px'
+  buttonS: { fontSize: 16, fontWeight: 500, display: 'block' }, // lineHeight: '18.8px'
+  buttonXS: { fontSize: 14, fontWeight: 500, display: 'block' }, // lineHeight: '16.45px'
+  buttonXXS: { fontSize: 12, fontWeight: 500, display: 'block' }, // lineHeight: '14.1px'
+  menu: { fontSize: 16, fontWeight: 600, display: 'block' }, // lineHeight: '18.8px'
+  articleH1: { fontSize: 30, fontWeight: 700, display: 'block' }, // lineHeight: '35.25px'
+  articleH2: { fontSize: 28, fontWeight: 700, display: 'block' }, // lineHeight: '32.9px'
+  articleH3: { fontSize: 22, fontWeight: 700, display: 'block' }, // lineHeight: '25.85px'
+  articleH4: { fontSize: 18, fontWeight: 700, display: 'block' }, // lineHeight: '21.15px'
+  articleH5: { fontSize: 16, fontWeight: 700, display: 'block' }, // lineHeight: '18.8px'
+  body: { fontSize: 16, fontWeight: 400, display: 'block' }, // lineHeight: '26px'
+}
+
 export const createUSTWTheme = (mode: themeMode, lang: Language) => {
   switch (mode) {
     case 'light':
@@ -288,6 +402,7 @@ export const createUSTWTheme = (mode: themeMode, lang: Language) => {
         palette: lightPalette,
         typography: {
           fontFamily: getTypographyFontFamily(lang),
+          ...typographyVariants,
         },
         constants,
       }))
@@ -297,6 +412,7 @@ export const createUSTWTheme = (mode: themeMode, lang: Language) => {
         palette: ketagalanPalette,
         typography: {
           fontFamily: getTypographyFontFamily(lang),
+          ...typographyVariants,
         },
         constants,
       }))

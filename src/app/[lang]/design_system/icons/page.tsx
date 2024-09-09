@@ -23,7 +23,7 @@ import {
 } from '@/common/styles/assets/Icons'
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
-import { Box, Stack } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
@@ -35,6 +35,31 @@ export default function DesignSystemIconsPage () {
   return (
     <div>
       <h1>Design System Icons</h1>
+      <h2>Typography</h2>
+      <Typography variant="h1">H1</Typography>
+      <Typography variant="h2">H2</Typography>
+      <Typography variant="h3">H3</Typography>
+      <Typography variant="h4">H4</Typography>
+      <Typography variant="h5">H5</Typography>
+      <Typography variant="h6">H6</Typography>
+      <Typography variant="subtitleXL">Subtitle XL</Typography>
+      <Typography variant="subtitleL">Subtitle L</Typography>
+      <Typography variant="subtitleM">Subtitle M</Typography>
+      <Typography variant="subtitleS">Subtitle S</Typography>
+      <Typography variant="bodyM">Body M</Typography>
+      <Typography variant="bodyS">Body S</Typography>
+      <Typography variant="buttonL">Button L</Typography>
+      <Typography variant="buttonM">Button M</Typography>
+      <Typography variant="buttonS">Button S</Typography>
+      <Typography variant="buttonXS">Button XS</Typography>
+      <Typography variant="buttonXXS">Button XXS</Typography>
+      <Typography variant="menu">menu</Typography>
+      <Typography variant="articleH1">articleH1</Typography>
+      <Typography variant="articleH2">articleH2</Typography>
+      <Typography variant="articleH3">articleH3</Typography>
+      <Typography variant="articleH4">articleH4</Typography>
+      <Typography variant="articleH5">articleH5</Typography>
+      <Typography variant="body">body</Typography>
       <h2>Black UIconButton</h2>
       <Box display="flex" p={2} gap={2}>
         <UIconButton variant="rounded" color="black">
