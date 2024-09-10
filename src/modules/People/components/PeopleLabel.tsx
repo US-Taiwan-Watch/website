@@ -4,17 +4,19 @@ import { People } from '@/modules/People/classes/People'
 import { Box } from '@mui/material'
 
 const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2),
+  width: 'fit-content',
+  padding: theme.spacing(0.5, 1),
   borderRadius: theme.spacing(1),
   '&.DEMOCRAT': {
-    backgroundColor: theme.color.indigo[50],
+    backgroundColor: theme.color.indigo[50], // TODO: 確定黨派顏色
   },
   '&.REPUBLICAN': {
-    backgroundColor: theme.color.tyrian[50],
+    backgroundColor: theme.color.tyrian[50], // TODO: 確定黨派顏色
   },
   '&.OTHER': {
-    backgroundColor: theme.color.neutral[300],
+    backgroundColor: theme.color.neutral[300], // TODO: 確定黨派顏色
   },
+  fontWeight: 500,
 }))
 
 interface PeopleTagProps {
@@ -28,7 +30,7 @@ const PeopleLabel = function PeopleTag ({ people }: PeopleTagProps) {
         [people.party]: true,
       }),
     })}>
-      {people.position}
+      {people.positionLabel}
     </StyledPeopleTagContainer>
   )
 }

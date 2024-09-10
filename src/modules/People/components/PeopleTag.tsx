@@ -2,7 +2,7 @@ import { styled } from '@/common/lib/mui/theme'
 import { Stack, Typography } from '@mui/material'
 
 const StyledPeopleTagContainer = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(1, 2),
+  padding: theme.spacing(0, 1),
   borderRadius: theme.spacing(1),
   backgroundColor: theme.color.grey[100],
   border: `1px solid ${theme.color.grey[1400]}`,

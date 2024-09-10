@@ -1,22 +1,30 @@
 import { People } from '@/modules/People/classes/People'
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
-import { Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import PeopleLabel from '@/modules/People/components/PeopleLabel'
 import PeopleCongressTitle from '@/modules/People/components/PeopleCongressTitle'
 import PeopleTag from '@/modules/People/components/PeopleTag'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import Link from 'next/link'
 
-const StyledPeopleCardContainer = styled(Stack)(({ theme }) => ({
+const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
-  padding: theme.spacing(2),
+  padding: theme.spacing(2.5),
   borderRadius: '15px',
   backgroundColor: theme.color.common.white,
 }))
 
-const StyledPeopleCardImage = styled(Image)(() => ({
-  height: '100%',
+const StyledPeopleCardImageContainer = styled(Box)(() => ({
   borderRadius: '15px',
+  overflow: 'hidden',
+}))
+
+const StyledPeopleCardImage = styled(Image)(() => ({
+  width: '100%',
+  height: '100%', // 設置為自動高度
   objectFit: 'cover',
 }))
 
@@ -30,41 +38,71 @@ const StyledPeopleCardDescription = styled(Typography)(({ theme }) => ({
   textOverflow: 'ellipsis',
 }))
 
+const StyledPeopleCardIconButton = styled(UIconButton)(({ theme }) => ({
+  '& svg': {
+    color: theme.color.neutral[500],
+  },
+}))
+
 interface PeopleCardProps {
   people: People;
+  simplified?: boolean;
 }
 
-const PeopleCard = memo(function PeopleCard ({ people }: PeopleCardProps) {
+const PeopleCard = memo(function PeopleCard ({
+  people,
+  simplified = false,
+}: PeopleCardProps) {
   return (
-    <StyledPeopleCardContainer direction="row" spacing={2}>
-      {people.image && (
-        <StyledPeopleCardImage
-          src={people.image}
-          alt={people.name || ''}
-          width={160}
-          height={200}
-        />
-      )}
-      <Grid container direction="row" spacing={2} flex={1}>
-        <Grid item xs={10}>
-          <Stack direction="column" spacing={2}>
-            <PeopleLabel people={people} />
-            <Typography variant="h6">{people.name}</Typography>
-            {people.congress && (
-              <PeopleCongressTitle congress={people.congress} />
-            )}
-            <StyledPeopleCardDescription>
-              {people.description}
-            </StyledPeopleCardDescription>
-            <Stack direction="row" spacing={2} flexWrap="wrap">
-              {people.tags?.map((tag) => (
-                <PeopleTag value={tag} key={tag} />
-              ))}
+    <StyledPeopleCardContainer>
+      <Stack direction="row" spacing={3}>
+        {people.image && (
+          <StyledPeopleCardImageContainer
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            sx={{ width: simplified ? 100 : 160 }}
+          >
+            <StyledPeopleCardImage
+              src={people.image}
+              alt={people.name || ''}
+              width={160}
+              height={200}
+            />
+          </StyledPeopleCardImageContainer>
+        )}
+        <Grid container direction="row" flex={1}>
+          <Grid item xs={10}>
+            <Stack direction="column" spacing={1}>
+              <PeopleLabel people={people} />
+              <Typography fontSize={'1.5rem'} fontWeight={600}>
+                {people.name}
+              </Typography>
+              {people.congress && (
+                <PeopleCongressTitle congress={people.congress} />
+              )}
+              {!simplified && (
+                <StyledPeopleCardDescription fontWeight={400}>
+                  {people.description}
+                </StyledPeopleCardDescription>
+              )}
+              <Stack direction="row" gap={2} overflow="scroll">
+                {/** 只限制四個 */}
+                {people.tags?.slice(0, 4).map((tag) => (
+                  <PeopleTag value={tag} key={tag} />
+                ))}
+              </Stack>
             </Stack>
-          </Stack>
+          </Grid>
+          <Grid item xs={2} display="flex" justifyContent="end">
+            <Link href={people.link}>
+              <StyledPeopleCardIconButton variant="rounded" color="inherit">
+                <ArrowForwardIcon />
+              </StyledPeopleCardIconButton>
+            </Link>
+          </Grid>
         </Grid>
-        <Grid item xs={2}></Grid>
-      </Grid>
+      </Stack>
     </StyledPeopleCardContainer>
   )
 })

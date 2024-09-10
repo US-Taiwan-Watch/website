@@ -7,7 +7,7 @@ interface PeopleCongressTitleProps {
 
 const PeopleCongressTitle = function PeopleCongressTitle ({ congress }: PeopleCongressTitleProps) {
   return (
-    <Typography variant="h6">
+    <Typography variant="bodyS" fontWeight={600}>
       {/** TODO i18n */}
       {`${congress.congressNumber}th Congress (${congress.startYear}-${congress.endYear})`}
     </Typography>
