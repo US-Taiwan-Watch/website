@@ -155,6 +155,8 @@ const color = {
     1100: '#E8E8E8',
     1200: '#A2A2A2',
     1300: '#262121', // Ketagalan Cards background in Landing Page
+    1400: '#DDDDDD',
+    1500: '#5D5D5D',
   },
   orange: {
     ...colors.orange,
@@ -176,6 +178,7 @@ const color = {
   wheat: {
     100: '#F0D9A1', // Secondary 6
     200: '#E6CA87', // Ketagalan Media 1
+    300: '#F7FFBE', // Democratic 1
   },
   tyrian: {
     50: '#F8D9EF', // Secondary 3
