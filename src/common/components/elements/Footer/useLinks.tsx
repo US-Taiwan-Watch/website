@@ -28,35 +28,35 @@ export default function useLinks () {
   const socialLinkItems: Array<SocialLinkItem> = [
     {
       icon: <FacebookIcon />,
-      url: '/#',
+      url: 'https://www.facebook.com/ustaiwanwatch',
     },
     {
       icon: <XIcon />,
-      url: '/#',
+      url: 'https://x.com/ustaiwanwatch',
     },
     {
       icon: <InstagramIcon />,
-      url: '/#',
+      url: 'https://www.instagram.com/ustaiwanwatch/',
     },
     {
       icon: <PodcastIcon />,
-      url: '/#',
+      url: 'https://open.spotify.com/show/5CnwG4Tfr7YaQ42FETAI5t',
     },
     {
       icon: <ThreadsIcon />,
-      url: '/#',
+      url: 'https://www.threads.net/@ustaiwanwatch',
     },
     {
       icon: <YoutubeIcon />,
-      url: '/#',
+      url: 'https://www.youtube.com/c/USTaiwanWatch',
     },
     {
       icon: <MailIcon />,
-      url: '/#',
+      url: 'mailto:contact@ustw.watch',
     },
   ]
 
-  // TODO: 這邊的資料要從 Content Manager 撈
+  // TODO: 這邊的資料都連到內部頁面
   const subLinkItems: Array<SubLinkItem> = [
     {
       type: 'title',
