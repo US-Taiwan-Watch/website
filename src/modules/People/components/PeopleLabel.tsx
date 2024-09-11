@@ -7,11 +7,17 @@ const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
   width: 'fit-content',
   padding: theme.spacing(0.5, 1),
   borderRadius: theme.spacing(1),
-  '&.DEMOCRAT': {
-    backgroundColor: theme.color.indigo[50], // TODO: 確定黨派顏色
+  '&.HOUSE_REPRESENTATIVE': {
+    backgroundColor: theme.color.wheat[300], // TODO: 確定黨派顏色
   },
-  '&.REPUBLICAN': {
-    backgroundColor: theme.color.tyrian[50], // TODO: 確定黨派顏色
+  '&.SENATOR': {
+    backgroundColor: theme.color.green[100], // TODO: 確定黨派顏色
+  },
+  '&.EXPERT': {
+    backgroundColor: theme.color.wheat[100], // TODO: 確定黨派顏色
+  },
+  '&.OFFICIAL': {
+    backgroundColor: theme.color.purple[100], // TODO: 確定黨派顏色
   },
   '&.OTHER': {
     backgroundColor: theme.color.neutral[300], // TODO: 確定黨派顏色
@@ -26,8 +32,8 @@ interface PeopleTagProps {
 const PeopleLabel = function PeopleTag ({ people }: PeopleTagProps) {
   return (
     <StyledPeopleTagContainer className={clsx('', {
-      ...(people.party && {
-        [people.party]: true,
+      ...(people.position && {
+        [people.position.replace(' ', '_')]: true,
       }),
     })}>
       {people.positionLabel}

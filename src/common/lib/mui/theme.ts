@@ -178,6 +178,7 @@ const color = {
   wheat: {
     100: '#F0D9A1', // Secondary 6
     200: '#E6CA87', // Ketagalan Media 1
+    300: '#F7FFBE', // Democratic 1
   },
   tyrian: {
     50: '#F8D9EF', // Secondary 3
