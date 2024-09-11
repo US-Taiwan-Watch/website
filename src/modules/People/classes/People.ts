@@ -62,9 +62,4 @@ export class People {
   get link () {
     return `/people/${this.id}`
   }
-
-  // 把第一個字母變大寫，其他變小寫
-  get positionLabel () {
-    return (this.position?.charAt(0).toUpperCase() || '') + (this.position?.slice(1).toLowerCase() || '')
-  }
 }

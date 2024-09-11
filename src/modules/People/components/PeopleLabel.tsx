@@ -23,6 +23,7 @@ const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
     backgroundColor: theme.color.neutral[300], // TODO: 確定黨派顏色
   },
   fontWeight: 500,
+  textTransform: 'capitalize',
 }))
 
 interface PeopleTagProps {
@@ -36,7 +37,7 @@ const PeopleLabel = function PeopleTag ({ people }: PeopleTagProps) {
         [people.position.replace(' ', '_')]: true,
       }),
     })}>
-      {people.positionLabel}
+      {people.position?.toLowerCase()}
     </StyledPeopleTagContainer>
   )
 }
