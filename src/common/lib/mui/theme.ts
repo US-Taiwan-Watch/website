@@ -213,6 +213,14 @@ interface USTWThemeColor {
       resultBackground: string; // 搜尋結果背景色
       noResultSubtitle: string; // 搜尋結果無結果文字顏色
       resultItemText: string; // 搜尋結果文字顏色
+    },
+    pagination: {
+      backgroundColor: string; // 分頁背景色
+      previousNextColor: string; // 分頁按鈕文字顏色
+      previousNextBackgroundColor: string; // 分頁按頁背景顏色
+      pageColor: string; // 分頁數字顏色
+      selectedPageBackgroundColor: string; // 選中分頁背景色
+      selectedPageColor: string; // 選中分頁文字顏色
     }
   };
 }
@@ -289,6 +297,14 @@ const _lightTheme: USTWThemeOptions = {
       noResultSubtitle: color.neutral[500],
       resultItemText: color.common.black,
     },
+    pagination: {
+      backgroundColor: color.common.white,
+      previousNextColor: color.common.white,
+      previousNextBackgroundColor: color.common.black,
+      pageColor: color.common.black,
+      selectedPageBackgroundColor: color.lime[500],
+      selectedPageColor: color.common.black,
+    },
   },
   components: {
     MuiButton: {
@@ -324,6 +340,14 @@ const _ketagalanTheme: USTWThemeOptions = {
       resultBackground: '#3D3B34',
       noResultSubtitle: color.neutral[200],
       resultItemText: color.common.white,
+    },
+    pagination: {
+      backgroundColor: '#FFFFFF1A',
+      previousNextColor: color.common.white,
+      previousNextBackgroundColor: color.grey[1300],
+      pageColor: color.common.white,
+      selectedPageBackgroundColor: color.wheat[200],
+      selectedPageColor: color.common.black,
     },
   },
   components: {
