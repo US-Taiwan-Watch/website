@@ -22,10 +22,11 @@ import {
   XIcon,
   YoutubeIcon,
 } from '@/common/styles/assets/Icons'
+import PeopleCard from '@/modules/People/components/PeopleCard'
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
-import { Box, Stack, Typography } from '@mui/material'
-
+import { Box, Grid, Stack, Typography } from '@mui/material'
+import people from '@/modules/People/data'
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
   backgroundColor: theme.color.orange[900],
@@ -233,6 +234,36 @@ export default function DesignSystemIconsPage () {
       <Box display="flex" p={2} gap={2}>
         <UPagination count={10} page={1} onChange={() => {}} />
       </Box>
+      <h2>People Card</h2>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} />
+        </Grid>
+      </Grid>
+      <h2>Simplified People Card</h2>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} simplified />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} simplified />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} simplified />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <PeopleCard people={people} simplified />
+        </Grid>
+      </Grid>
     </div>
   )
 }
