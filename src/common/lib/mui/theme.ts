@@ -154,6 +154,7 @@ const color = {
     1000: '#3B3B3B',
     1100: '#E8E8E8',
     1200: '#A2A2A2',
+    1300: '#262121', // Ketagalan Cards background in Landing Page
   },
   orange: {
     ...colors.orange,

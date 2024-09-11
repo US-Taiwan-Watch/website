@@ -18,7 +18,7 @@ type Props = {
 const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
   const theme = useTheme<USTWTheme>()
   const [isHover, setIsHover] = useState(false)
-  const color = isHover ? theme.color.neutral[400] : '#262121'
+  const color = isHover ? theme.color.neutral[400] : theme.color.grey[1300]
 
   return (
     <Link href={link}>
