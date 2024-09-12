@@ -10,7 +10,7 @@ const people = new People({
   description:
     'Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a ...',
   tags: ['tag', 'tag2', 'tag3', 'tag4'],
-  party: Party.DEMOCRAT,
+  party: Party.DEMOCRATIC,
   position: PeoplePosition.SENATOR,
   congress: new Congress({
     congressNumber: 118,
@@ -18,15 +18,32 @@ const people = new People({
     endYear: 2025,
     houseMembers: 100,
     houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
     senateMembers: 100,
     senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
   }),
+  // Descending
+  partyExperience: [
+    {
+      party: Party.DEMOCRATIC,
+      start: '2023-01-01',
+    },
+    {
+      party: Party.REPUBLICAN,
+      start: '2021-01-01',
+      end: '2023-01-01',
+    },
+    {
+      party: Party.INDEPENDENT,
+      start: '2019-01-01',
+      end: '2021-01-01',
+    },
+  ],
 })
 
 export default people

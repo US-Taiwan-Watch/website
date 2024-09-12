@@ -1,6 +1,7 @@
 import { Congress } from '@/common/classes/Congress'
 import { Party } from '@/common/enums/Party'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
+import dayjs, { Dayjs } from 'dayjs'
 import { isArray, isString } from 'lodash-es'
 
 interface PeopleArgs {
@@ -12,6 +13,11 @@ interface PeopleArgs {
   position: PeoplePosition
   congress: Congress
   tags: Array<string>
+  partyExperience: Array<{
+    party: Party
+    start: string
+    end?: string
+  }>
 }
 
 export class People {
@@ -31,6 +37,12 @@ export class People {
   congress?: Congress
   // 標籤
   tags?: Array<string>
+  // TODO: 政黨經歷暫定，後續討論
+  partyExperience?: Array<{
+    party: Party
+    start: Dayjs
+    end?: Dayjs
+  }>
 
   constructor(private readonly people: PeopleArgs) {
     if (isString(people.id)) {
@@ -56,6 +68,15 @@ export class People {
     }
     if (isArray(people.tags)) {
       this.tags = people.tags
+    }
+    if (isArray(people.partyExperience)) {
+      this.partyExperience = people.partyExperience.map((item) => {
+        return {
+          party: item.party,
+          start: dayjs(item.start),
+          end: item.end ? dayjs(item.end) : undefined,
+        }
+      })
     }
   }
 
