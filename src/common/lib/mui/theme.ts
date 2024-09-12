@@ -157,6 +157,7 @@ const color = {
     1300: '#262121', // Ketagalan Cards background in Landing Page
     1400: '#DDDDDD',
     1500: '#5D5D5D',
+    1600: '#DEDEDE',
   },
   orange: {
     ...colors.orange,
@@ -422,12 +423,20 @@ const typographyVariants = {
   body: { fontSize: 16, fontWeight: 400, display: 'block' }, // lineHeight: '26px'
 }
 
-export const createUSTWTheme = (mode: themeMode, lang: Language) => {
+// 給予獨立頁面更改全域主題的方式
+export interface CreateUSTWThemeOverride {
+  palette?: PaletteOptions
+}
+
+export const createUSTWTheme = (mode: themeMode, lang: Language, override?: CreateUSTWThemeOverride) => {
   switch (mode) {
     case 'light':
       return responsiveFontSizes(createTheme({
         ..._lightTheme,
-        palette: lightPalette,
+        palette: {
+          ...lightPalette,
+          ...override?.palette,
+        },
         typography: {
           fontFamily: getTypographyFontFamily(lang),
           ...typographyVariants,
@@ -437,7 +446,10 @@ export const createUSTWTheme = (mode: themeMode, lang: Language) => {
     case 'ketagalan':
       return responsiveFontSizes(createTheme({
         ..._ketagalanTheme,
-        palette: ketagalanPalette,
+        palette: {
+          ...ketagalanPalette,
+          ...override?.palette,
+        },
         typography: {
           fontFamily: getTypographyFontFamily(lang),
           ...typographyVariants,
