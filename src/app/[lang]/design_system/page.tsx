@@ -1,12 +1,12 @@
-'use client'
+"use client";
 
-import UButton from '@/common/components/atoms/UButton'
-import UCategoryChip from '@/common/components/atoms/UCategoryChip'
-import UIconButton from '@/common/components/atoms/UIconButton'
-import ULinkText from '@/common/components/atoms/ULinkText'
-import UPagination from '@/common/components/atoms/UPagination'
-import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
-import { styled } from '@/common/lib/mui/theme'
+import UButton from "@/common/components/atoms/UButton";
+import UCategoryChip from "@/common/components/atoms/UCategoryChip";
+import UIconButton from "@/common/components/atoms/UIconButton";
+import ULinkText from "@/common/components/atoms/ULinkText";
+import UPagination from "@/common/components/atoms/UPagination";
+import UPoliticalPartyIcon from "@/common/components/atoms/UPoliticalPartyIcon";
+import { styled } from "@/common/lib/mui/theme";
 import {
   BookmarkIcon,
   FacebookIcon,
@@ -21,19 +21,19 @@ import {
   ThreadsIcon,
   XIcon,
   YoutubeIcon,
-} from '@/common/styles/assets/Icons'
-import PeopleCard from '@/modules/People/components/PeopleCard'
-import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
-import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
-import { Box, Grid, Stack, Typography } from '@mui/material'
-import people from '@/modules/People/data'
+} from "@/common/styles/assets/Icons";
+import PeopleCard from "@/modules/People/components/PeopleCard";
+import EpisodeCard from "@/modules/Podcast/components/EpisodeCard";
+import IndexEpisodeCard from "@/modules/Podcast/components/IndexEpisodeCard";
+import { Box, Grid, Stack, Typography } from "@mui/material";
+import people from "@/modules/People/data";
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
-  borderRadius: '30px',
+  borderRadius: "30px",
   backgroundColor: theme.color.orange[900],
-  padding: '20px',
-}))
+  padding: "20px",
+}));
 
-export default function DesignSystemIconsPage () {
+export default function DesignSystemIconsPage() {
   return (
     <div>
       <h1>Design System Icons</h1>
@@ -221,14 +221,26 @@ export default function DesignSystemIconsPage () {
       </Box>
       <h2>Episode Card</h2>
       <h3>Index Episode Card</h3>
-      <StyledIndexEpisodeCardList direction='column' spacing={2}>
-        <IndexEpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
-        <IndexEpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+      <StyledIndexEpisodeCardList direction="column" spacing={2}>
+        <IndexEpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
+        <IndexEpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
       </StyledIndexEpisodeCardList>
       <h3>Episode Card</h3>
-      <Stack direction='column' spacing={2}>
-        <EpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
-        <EpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+      <Stack direction="column" spacing={2}>
+        <EpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
+        <EpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
       </Stack>
       <h2>Pagination</h2>
       <Box display="flex" p={2} gap={2}>
@@ -265,5 +277,5 @@ export default function DesignSystemIconsPage () {
         </Grid>
       </Grid>
     </div>
-  )
+  );
 }

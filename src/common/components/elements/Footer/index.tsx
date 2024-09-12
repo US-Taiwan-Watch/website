@@ -15,8 +15,7 @@ const StyledFooter = styled('footer')(({ theme }) => ({
   color: theme.color.grey[1100],
 }))
 
-const StyledSubLinkContainer = styled(Stack)(() => ({
-}))
+const StyledSubLinkContainer = styled(Stack)(() => ({}))
 
 const StyledSubLinkBlock = styled(Stack)(() => ({
   maxHeight: '300px',
@@ -39,12 +38,19 @@ const Footer = () => {
               {/* Logo */}
               <Stack direction="row" spacing={2} alignItems="center">
                 <ULogo size="small" />
-                <Typography variant="h5" fontWeight={700}>US Taiwan Watch</Typography>
+                <Typography variant="h5" fontWeight={700}>
+                  US Taiwan Watch
+                </Typography>
               </Stack>
               {/* Social Links */}
               <Stack direction="row" spacing={2} alignContent="center">
                 {socialLinkItems.map((item, index) => (
-                  <a href={item.url} key={index} target="_blank" rel="noopener noreferrer">
+                  <a
+                    href={item.url}
+                    key={index}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <UIconButton variant="rounded" color="primary">
                       {item.icon}
                     </UIconButton>
@@ -53,9 +59,18 @@ const Footer = () => {
               </Stack>
             </Stack>
             {/** Middle Section */}
-            <Stack direction="row" justifyContent="space-between" alignItems="flex-start">
+            <Stack
+              direction="row"
+              justifyContent="space-between"
+              alignItems="flex-start"
+            >
               {/* Sub Links */}
-              <StyledSubLinkContainer direction="row" spacing={12} flexWrap="wrap" useFlexGap>
+              <StyledSubLinkContainer
+                direction="row"
+                spacing={12}
+                flexWrap="wrap"
+                useFlexGap
+              >
                 {subLinkItems.map((item, index) => (
                   <StyledSubLinkBlock
                     key={index}
@@ -88,7 +103,7 @@ const Footer = () => {
               </UButton>
             </Stack>
             {/** Bottom Section */}
-            <Stack direction="row" justifyContent='space-between'>
+            <Stack direction="row" justifyContent="space-between">
               {/** Language Switcher */}
               <LanguageSwitcher />
               {/** Links: not for phase1 */}

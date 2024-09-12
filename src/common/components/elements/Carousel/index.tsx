@@ -1,55 +1,55 @@
-'use client'
+"use client";
 
-import clsx from 'clsx'
-import type React from 'react'
-import { useRef, useState } from 'react'
-import Slider, { Settings } from 'react-slick'
-import 'slick-carousel/slick/slick.css'
-import 'slick-carousel/slick/slick-theme.css'
-import { Stack } from '@mui/material'
-import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined'
-import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined'
-import UIconButton from '@/common/components/atoms/UIconButton'
-import { styled } from '@/common/lib/mui/theme'
-import { isArray } from 'lodash-es'
+import clsx from "clsx";
+import type React from "react";
+import { useRef, useState } from "react";
+import Slider, { Settings } from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Stack } from "@mui/material";
+import ArrowBackIosOutlinedIcon from "@mui/icons-material/ArrowBackIosOutlined";
+import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
+import UIconButton from "@/common/components/atoms/UIconButton";
+import { styled } from "@/common/lib/mui/theme";
+import { isArray } from "lodash-es";
 
 const StyledCarouselContainer = styled(Stack)(() => ({
-  width: '100%',
-  '& .slick-slider': {
-    width: '100%',
+  width: "100%",
+  "& .slick-slider": {
+    width: "100%",
   },
-}))
+}));
 
 const StyledPaginationContainer = styled(Stack)(({ theme }) => ({
   marginTop: theme.spacing(2),
-  '& .carousel-slider-prev': {
+  "& .carousel-slider-prev": {
     backgroundColor: theme.color.neutral[500],
     color: theme.color.common.white,
   },
-  '& .carousel-slider-next': {
+  "& .carousel-slider-next": {
     backgroundColor: theme.color.neutral[500],
     color: theme.color.common.white,
   },
-}))
+}));
 
 const StyledPaginationDotContainer = styled(Stack)(({ theme }) => ({
   margin: `0px ${theme.spacing(2)}`,
-}))
+}));
 
-const StyledPaginationDot = styled('div')(({ theme }) => ({
-  width: '8px',
-  height: '8px',
-  borderRadius: '50%',
+const StyledPaginationDot = styled("div")(({ theme }) => ({
+  width: "8px",
+  height: "8px",
+  borderRadius: "50%",
   backgroundColor: theme.color.grey[1200],
-  '&:hover': {
-    cursor: 'pointer',
+  "&:hover": {
+    cursor: "pointer",
   },
-  '&.slick-active': {
+  "&.slick-active": {
     backgroundColor: theme.color.neutral[500],
-    width: '12px',
-    height: '12px',
+    width: "12px",
+    height: "12px",
   },
-}))
+}));
 
 interface CarouselProps {
   children?: React.ReactNode[] | React.ReactNode;
@@ -57,10 +57,14 @@ interface CarouselProps {
   settings?: Settings;
 }
 
-function Carousel ({ children, centerMode = false, settings: _settings }: CarouselProps) {
-  const slideCount = isArray(children) ? children.length : children ? 1 : 0
-  const sliderRef = useRef<Slider>(null)
-  const [currentSlide, setCurrentSlide] = useState(0)
+function Carousel({
+  children,
+  centerMode = false,
+  settings: _settings,
+}: CarouselProps) {
+  const slideCount = isArray(children) ? children.length : children ? 1 : 0;
+  const sliderRef = useRef<Slider>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const settings: Settings = {
     dots: false,
@@ -70,25 +74,25 @@ function Carousel ({ children, centerMode = false, settings: _settings }: Carous
     infinite: true,
     speed: 500,
     slidesToScroll: 1,
-    centerPadding: '16px',
+    centerPadding: "16px",
     ..._settings,
     afterChange: (current) => {
-      setCurrentSlide(current)
-      _settings?.afterChange?.(current)
+      setCurrentSlide(current);
+      _settings?.afterChange?.(current);
     },
-  }
+  };
 
   const handlePrev = () => {
-    sliderRef.current?.slickPrev()
-  }
+    sliderRef.current?.slickPrev();
+  };
 
   const handleNext = () => {
-    sliderRef.current?.slickNext()
-  }
+    sliderRef.current?.slickNext();
+  };
 
   const handleDotClick = (index: number) => {
-    sliderRef.current?.slickGoTo(index)
-  }
+    sliderRef.current?.slickGoTo(index);
+  };
 
   // Slider 在 children 只有一個時，會出現一些錯誤，所以需要特別處理
   if (slideCount <= 1) {
@@ -101,7 +105,7 @@ function Carousel ({ children, centerMode = false, settings: _settings }: Carous
       >
         {children}
       </StyledCarouselContainer>
-    )
+    );
   }
 
   return (
@@ -123,7 +127,7 @@ function Carousel ({ children, centerMode = false, settings: _settings }: Carous
           className="carousel-slider-prev"
           variant="rounded"
           color="default"
-          size='small'
+          size="small"
           onClick={handlePrev}
         >
           <ArrowBackIosOutlinedIcon />
@@ -139,7 +143,7 @@ function Carousel ({ children, centerMode = false, settings: _settings }: Carous
               key={index}
               onClick={() => handleDotClick(index)}
               className={clsx({
-                'slick-active': index === currentSlide,
+                "slick-active": index === currentSlide,
               })}
             />
           ))}
@@ -148,14 +152,14 @@ function Carousel ({ children, centerMode = false, settings: _settings }: Carous
           className="carousel-slider-next"
           variant="rounded"
           color="default"
-          size='small'
+          size="small"
           onClick={handleNext}
         >
           <ArrowForwardIosOutlinedIcon />
         </UIconButton>
       </StyledPaginationContainer>
     </StyledCarouselContainer>
-  )
+  );
 }
 
-export default Carousel
+export default Carousel;

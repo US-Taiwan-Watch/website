@@ -1,23 +1,23 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 interface ULogoProps {
   className?: string;
-  size: 'small' | 'medium' | 'large' | 'xlarge';
+  size: "small" | "medium" | "large" | "xlarge";
 }
 
 const LOGO_SRC_MAP = {
-  small: '/assets/logo/ustw-logo-small.gif',
-  medium: '/assets/logo/ustw-logo-medium.gif',
-  large: '/assets/logo/ustw-logo-large.gif',
-  xlarge: '/assets/logo/ustw-logo-xlarge.gif',
-} as const
+  small: "/assets/logo/ustw-logo-small.gif",
+  medium: "/assets/logo/ustw-logo-medium.gif",
+  large: "/assets/logo/ustw-logo-large.gif",
+  xlarge: "/assets/logo/ustw-logo-xlarge.gif",
+} as const;
 
 const LOGO_SIZE_MAP = {
   small: 32,
   medium: 48,
   large: 64,
   xlarge: 96,
-} as const
+} as const;
 
 const ULogo = ({ size, className }: ULogoProps) => {
   return (
@@ -28,7 +28,7 @@ const ULogo = ({ size, className }: ULogoProps) => {
       width={LOGO_SIZE_MAP[size]}
       height={LOGO_SIZE_MAP[size]}
     />
-  )
-}
+  );
+};
 
-export default ULogo
+export default ULogo;

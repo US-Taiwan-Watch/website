@@ -1,28 +1,28 @@
-import { styled } from '@/common/lib/mui/theme'
-import { Stack, Typography } from '@mui/material'
+import { styled } from "@/common/lib/mui/theme";
+import { Stack, Typography } from "@mui/material";
 
 const StyledPeopleTagContainer = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(0, 1),
   borderRadius: theme.spacing(1),
   backgroundColor: theme.color.grey[100],
   border: `1px solid ${theme.color.grey[1400]}`,
-}))
+}));
 
 const StyledHashTag = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   color: theme.color.neutral[500],
-}))
+}));
 
 const StyledPeopleTagText = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   color: theme.color.common.black,
-}))
+}));
 
 interface PeopleTagProps {
   value: string;
 }
 
-const PeopleTag = function PeopleTag ({ value }: PeopleTagProps) {
+const PeopleTag = function PeopleTag({ value }: PeopleTagProps) {
   return (
     <StyledPeopleTagContainer
       direction="row"
@@ -33,7 +33,7 @@ const PeopleTag = function PeopleTag ({ value }: PeopleTagProps) {
       <StyledHashTag>#</StyledHashTag>
       <StyledPeopleTagText>{value}</StyledPeopleTagText>
     </StyledPeopleTagContainer>
-  )
-}
+  );
+};
 
-export default PeopleTag
+export default PeopleTag;

@@ -1,7 +1,17 @@
 'use client'
-import { createTheme, PaletteOptions, responsiveFontSizes, Theme, ThemeOptions, styled as muiStyled } from '@mui/material/styles'
+import {
+  createTheme,
+  PaletteOptions,
+  responsiveFontSizes,
+  Theme,
+  ThemeOptions,
+  styled as muiStyled,
+} from '@mui/material/styles'
 
-import { Public_Sans as PublicSans, Noto_Sans_TC as NotoSansTC } from 'next/font/google'
+import {
+  Public_Sans as PublicSans,
+  Noto_Sans_TC as NotoSansTC,
+} from 'next/font/google'
 import { Language } from '@/common/lib/i18n/types'
 import { colors, CreateMUIStyled } from '@mui/material'
 import { CSSProperties } from 'react'
@@ -10,115 +20,115 @@ declare module '@mui/material/styles' {
   interface Theme {
     constants: {
       headerHeight: {
-        xs: number;
-        sm: number;
-        md: number;
+        xs: number
+        sm: number
+        md: number
       }
       zIndex: {
-        header: number;
-        headerNavItem: number;
-        headerSearchResult: number;
-      };
+        header: number
+        headerNavItem: number
+        headerSearchResult: number
+      }
     }
   }
   interface ThemeOptions {
     constants?: {
       headerHeight?: {
-        xs?: number;
-        sm?: number;
-        md?: number;
+        xs?: number
+        sm?: number
+        md?: number
       }
       zIndex?: {
-        header?: number;
-        headerNavItem?: number;
-        headerSearchResult?: number;
-      };
+        header?: number
+        headerNavItem?: number
+        headerSearchResult?: number
+      }
     }
   }
 
   interface TypographyVariants {
-    h1: CSSProperties;
-    h2: CSSProperties;
-    h3: CSSProperties;
-    h4: CSSProperties;
-    h5: CSSProperties;
-    h6: CSSProperties;
-    subtitleXL: CSSProperties;
-    subtitleL: CSSProperties;
-    subtitleM: CSSProperties;
-    subtitleS: CSSProperties;
-    bodyM: CSSProperties;
-    bodyS: CSSProperties;
-    buttonL: CSSProperties;
-    buttonM: CSSProperties;
-    buttonS: CSSProperties;
-    buttonXS: CSSProperties;
-    buttonXXS: CSSProperties;
-    menu: CSSProperties;
-    articleH1: CSSProperties;
-    articleH2: CSSProperties;
-    articleH3: CSSProperties;
-    articleH4: CSSProperties;
-    articleH5: CSSProperties;
-    body: CSSProperties;
+    h1: CSSProperties
+    h2: CSSProperties
+    h3: CSSProperties
+    h4: CSSProperties
+    h5: CSSProperties
+    h6: CSSProperties
+    subtitleXL: CSSProperties
+    subtitleL: CSSProperties
+    subtitleM: CSSProperties
+    subtitleS: CSSProperties
+    bodyM: CSSProperties
+    bodyS: CSSProperties
+    buttonL: CSSProperties
+    buttonM: CSSProperties
+    buttonS: CSSProperties
+    buttonXS: CSSProperties
+    buttonXXS: CSSProperties
+    menu: CSSProperties
+    articleH1: CSSProperties
+    articleH2: CSSProperties
+    articleH3: CSSProperties
+    articleH4: CSSProperties
+    articleH5: CSSProperties
+    body: CSSProperties
   }
 
   // allow configuration using `createTheme`
   interface TypographyVariantsOptions {
-    h1?: CSSProperties;
-    h2?: CSSProperties;
-    h3?: CSSProperties;
-    h4?: CSSProperties;
-    h5?: CSSProperties;
-    h6?: CSSProperties;
-    subtitleXL?: CSSProperties;
-    subtitleL?: CSSProperties;
-    subtitleM?: CSSProperties;
-    subtitleS?: CSSProperties;
-    bodyM?: CSSProperties;
-    bodyS?: CSSProperties;
-    buttonL?: CSSProperties;
-    buttonM?: CSSProperties;
-    buttonS?: CSSProperties;
-    buttonXS?: CSSProperties;
-    buttonXXS?: CSSProperties;
-    menu?: CSSProperties;
-    articleH1?: CSSProperties;
-    articleH2?: CSSProperties;
-    articleH3?: CSSProperties;
-    articleH4?: CSSProperties;
-    articleH5?: CSSProperties;
-    body?: CSSProperties;
+    h1?: CSSProperties
+    h2?: CSSProperties
+    h3?: CSSProperties
+    h4?: CSSProperties
+    h5?: CSSProperties
+    h6?: CSSProperties
+    subtitleXL?: CSSProperties
+    subtitleL?: CSSProperties
+    subtitleM?: CSSProperties
+    subtitleS?: CSSProperties
+    bodyM?: CSSProperties
+    bodyS?: CSSProperties
+    buttonL?: CSSProperties
+    buttonM?: CSSProperties
+    buttonS?: CSSProperties
+    buttonXS?: CSSProperties
+    buttonXXS?: CSSProperties
+    menu?: CSSProperties
+    articleH1?: CSSProperties
+    articleH2?: CSSProperties
+    articleH3?: CSSProperties
+    articleH4?: CSSProperties
+    articleH5?: CSSProperties
+    body?: CSSProperties
   }
 }
 
 // Update the Typography's variant prop options
 declare module '@mui/material/Typography' {
   interface TypographyPropsVariantOverrides {
-    h1: true;
-    h2: true;
-    h3: true;
-    h4: true;
-    h5: true;
-    h6: true;
-    subtitleXL: true;
-    subtitleL: true;
-    subtitleM: true;
-    subtitleS: true;
-    bodyM: true;
-    bodyS: true;
-    buttonL: true;
-    buttonM: true;
-    buttonS: true;
-    buttonXS: true;
-    buttonXXS: true;
-    menu: true;
-    articleH1: true;
-    articleH2: true;
-    articleH3: true;
-    articleH4: true;
-    articleH5: true;
-    body: true;
+    h1: true
+    h2: true
+    h3: true
+    h4: true
+    h5: true
+    h6: true
+    subtitleXL: true
+    subtitleL: true
+    subtitleM: true
+    subtitleS: true
+    bodyM: true
+    bodyS: true
+    buttonL: true
+    buttonM: true
+    buttonS: true
+    buttonXS: true
+    buttonXXS: true
+    menu: true
+    articleH1: true
+    articleH2: true
+    articleH3: true
+    articleH4: true
+    articleH5: true
+    body: true
   }
 }
 
@@ -201,43 +211,43 @@ const color = {
 interface USTWThemeColor {
   color: typeof color & {
     header: {
-      background: string; // 背景色
-      text: string; // 文字色
-      textHover: string; // 文字滑鼠移入色
-      textActive: string; // 文字啟用色
-      donationButton: string; // 捐款按鈕色
-      donationButtonText: string; // 捐款按鈕文字色
-      donationButtonHover: string; // 捐款按鈕滑鼠移入色
-      donationButtonTextHover: string; // 捐款按鈕文字滑鼠移入色
-      menuBackground: string; // 選單背景色
-    },
-    searchBar: {
-      inputBackground: string; // 搜尋欄背景色
-      searchButtonBackground: string; // 搜尋按鈕背景色
-      resultBackground: string; // 搜尋結果背景色
-      noResultSubtitle: string; // 搜尋結果無結果文字顏色
-      resultItemText: string; // 搜尋結果文字顏色
-    },
-    pagination: {
-      backgroundColor: string; // 分頁背景色
-      previousNextColor: string; // 分頁按鈕文字顏色
-      previousNextBackgroundColor: string; // 分頁按頁背景顏色
-      pageColor: string; // 分頁數字顏色
-      selectedPageBackgroundColor: string; // 選中分頁背景色
-      selectedPageColor: string; // 選中分頁文字顏色
+      background: string // 背景色
+      text: string // 文字色
+      textHover: string // 文字滑鼠移入色
+      textActive: string // 文字啟用色
+      donationButton: string // 捐款按鈕色
+      donationButtonText: string // 捐款按鈕文字色
+      donationButtonHover: string // 捐款按鈕滑鼠移入色
+      donationButtonTextHover: string // 捐款按鈕文字滑鼠移入色
+      menuBackground: string // 選單背景色
     }
-  };
+    searchBar: {
+      inputBackground: string // 搜尋欄背景色
+      searchButtonBackground: string // 搜尋按鈕背景色
+      resultBackground: string // 搜尋結果背景色
+      noResultSubtitle: string // 搜尋結果無結果文字顏色
+      resultItemText: string // 搜尋結果文字顏色
+    }
+    pagination: {
+      backgroundColor: string // 分頁背景色
+      previousNextColor: string // 分頁按鈕文字顏色
+      previousNextBackgroundColor: string // 分頁按頁背景顏色
+      pageColor: string // 分頁數字顏色
+      selectedPageBackgroundColor: string // 選中分頁背景色
+      selectedPageColor: string // 選中分頁文字顏色
+    }
+  }
 }
 
 export interface USTWTheme extends Theme, USTWThemeColor {
   zIndex: Theme['zIndex'] & {
-    header?: number;
-    headerNavItem?: number;
-    headerSearchResult?: number;
+    header?: number
+    headerNavItem?: number
+    headerSearchResult?: number
   }
 }
 
-interface USTWThemeOptions extends ThemeOptions, USTWThemeColor { }
+interface USTWThemeOptions extends ThemeOptions, USTWThemeColor {}
 
 const lightPalette: PaletteOptions = {
   mode: 'light',
@@ -428,34 +438,42 @@ export interface CreateUSTWThemeOverride {
   palette?: PaletteOptions
 }
 
-export const createUSTWTheme = (mode: themeMode, lang: Language, override?: CreateUSTWThemeOverride) => {
+export const createUSTWTheme = (
+  mode: themeMode,
+  lang: Language,
+  override?: CreateUSTWThemeOverride
+) => {
   switch (mode) {
     case 'light':
-      return responsiveFontSizes(createTheme({
-        ..._lightTheme,
-        palette: {
-          ...lightPalette,
-          ...override?.palette,
-        },
-        typography: {
-          fontFamily: getTypographyFontFamily(lang),
-          ...typographyVariants,
-        },
-        constants,
-      }))
+      return responsiveFontSizes(
+        createTheme({
+          ..._lightTheme,
+          palette: {
+            ...lightPalette,
+            ...override?.palette,
+          },
+          typography: {
+            fontFamily: getTypographyFontFamily(lang),
+            ...typographyVariants,
+          },
+          constants,
+        })
+      )
     case 'ketagalan':
-      return responsiveFontSizes(createTheme({
-        ..._ketagalanTheme,
-        palette: {
-          ...ketagalanPalette,
-          ...override?.palette,
-        },
-        typography: {
-          fontFamily: getTypographyFontFamily(lang),
-          ...typographyVariants,
-        },
-        constants,
-      }))
+      return responsiveFontSizes(
+        createTheme({
+          ..._ketagalanTheme,
+          palette: {
+            ...ketagalanPalette,
+            ...override?.palette,
+          },
+          typography: {
+            fontFamily: getTypographyFontFamily(lang),
+            ...typographyVariants,
+          },
+          constants,
+        })
+      )
   }
 }
 export const styled = muiStyled as CreateMUIStyled<USTWTheme>
