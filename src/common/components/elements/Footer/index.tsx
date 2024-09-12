@@ -22,9 +22,9 @@ const StyledSubLinkBlock = styled(Stack)(() => ({
   maxHeight: '300px',
 }))
 
-const StyledBottomLink = styled(Link)(() => ({
-  textDecoration: 'underline',
-}))
+// const StyledBottomLink = styled(Link)(() => ({
+//   textDecoration: 'underline',
+// }))
 
 const Footer = () => {
   const { socialLinkItems, subLinkItems } = useLinks()
@@ -44,11 +44,11 @@ const Footer = () => {
               {/* Social Links */}
               <Stack direction="row" spacing={2} alignContent="center">
                 {socialLinkItems.map((item, index) => (
-                  <Link href={item.url} key={index}>
+                  <a href={item.url} key={index} target="_blank" rel="noopener noreferrer">
                     <UIconButton variant="rounded" color="primary">
                       {item.icon}
                     </UIconButton>
-                  </Link>
+                  </a>
                 ))}
               </Stack>
             </Stack>
@@ -58,26 +58,26 @@ const Footer = () => {
               <StyledSubLinkContainer direction="row" spacing={12} flexWrap="wrap" useFlexGap>
                 {subLinkItems.map((item, index) => (
                   <StyledSubLinkBlock
-                  key={index}
-                  direction="column"
-                  spacing={2}
-                  useFlexGap
-                  flexWrap="wrap"
-                  rowGap={2}
-                  columnGap={12}
-                >
+                    key={index}
+                    direction="column"
+                    spacing={2}
+                    useFlexGap
+                    flexWrap="wrap"
+                    rowGap={2}
+                    columnGap={12}
+                  >
                     {item.type === 'title' && (
-                    <>
-                      <Typography fontWeight={700}>{item.title}</Typography>
-                      {item.subLinks.map(
-                        (subItem, subIndex) =>
-                          subItem.type === 'subLink' && (
-                            <Link href={subItem.url} key={subIndex}>
-                              <Typography>{subItem.title}</Typography>
-                            </Link>
-                          )
-                      )}
-                    </>
+                      <>
+                        <Typography fontWeight={700}>{item.title}</Typography>
+                        {item.subLinks.map(
+                          (subItem, subIndex) =>
+                            subItem.type === 'subLink' && (
+                              <Link href={subItem.url} key={subIndex}>
+                                <Typography>{subItem.title}</Typography>
+                              </Link>
+                            )
+                        )}
+                      </>
                     )}
                   </StyledSubLinkBlock>
                 ))}
@@ -88,15 +88,15 @@ const Footer = () => {
               </UButton>
             </Stack>
             {/** Bottom Section */}
-            <Stack direction="row" spacing={8}>
+            <Stack direction="row" justifyContent='space-between'>
               {/** Language Switcher */}
               <LanguageSwitcher />
-              {/** Links */}
-              <Stack direction="row" spacing={2} flex={1}>
+              {/** Links: not for phase1 */}
+              {/* <Stack direction="row" spacing={2} flex={1}>
                 <StyledBottomLink href="/">User Agreement and Privacy Policy</StyledBottomLink>
                 <StyledBottomLink href="/">FAQ</StyledBottomLink>
                 <StyledBottomLink href="/">Data</StyledBottomLink>
-              </Stack>
+              </Stack> */}
               {/** Copyright */}
               <Typography>
                 © U.S. Taiwan Watch {new Date().getFullYear()}
