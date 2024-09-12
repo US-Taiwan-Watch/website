@@ -2,7 +2,7 @@ import PeopleListSection from '@/modules/People/components/PeopleLanding/PeopleL
 import PopularPeopleSection from '@/modules/People/components/PeopleLanding/PopularPeopleSection'
 import { Container, Stack } from '@mui/material'
 
-export default function People () {
+export default function People() {
   return (
     <Container maxWidth="lg">
       <Stack gap={10}>
