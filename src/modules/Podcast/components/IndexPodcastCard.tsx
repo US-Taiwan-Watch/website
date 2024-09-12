@@ -1,69 +1,69 @@
-import clsx from "clsx";
+import clsx from 'clsx'
 import Podcast, {
   PodcastSourceType,
   PodcastType,
-} from "@/modules/Podcast/classes/Podcast";
-import { Box, Grid, Stack, Typography } from "@mui/material";
-import type React from "react";
-import { memo } from "react";
-import { styled } from "@/common/lib/mui/theme";
-import IndexEpisodeCard from "@/modules/Podcast/components/IndexEpisodeCard";
-import Image from "next/image";
-import PodcastSourceIcon from "@/modules/Podcast/components/PodcastSourceIcon";
-import Link from "next/link";
-import UIconButton from "@/common/components/atoms/UIconButton";
-import UButton from "@/common/components/atoms/UButton";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+} from '@/modules/Podcast/classes/Podcast'
+import { Box, Grid, Stack, Typography } from '@mui/material'
+import type React from 'react'
+import { memo } from 'react'
+import { styled } from '@/common/lib/mui/theme'
+import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
+import Image from 'next/image'
+import PodcastSourceIcon from '@/modules/Podcast/components/PodcastSourceIcon'
+import Link from 'next/link'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import UButton from '@/common/components/atoms/UButton'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 const StyledIndexPodcastCardBox = styled(Box)(({ theme }) => ({
-  "&.WATCH_HERE": {
+  '&.WATCH_HERE': {
     backgroundColor: theme.color.orange[900],
   },
-  "&.WATCH_INFO": {
+  '&.WATCH_INFO': {
     backgroundColor: theme.color.indigo[700],
   },
-  "&.WATCH_BOOK_CLUB": {
+  '&.WATCH_BOOK_CLUB': {
     backgroundColor: theme.color.orange[900],
   },
   color: theme.color.common.white,
-  borderRadius: "30px",
+  borderRadius: '30px',
   // margin: `0 ${theme.spacing(2)}`,
-}));
+}))
 
 const StyledBanner = styled(Image)(() => ({
-  borderRadius: "30px",
-  width: "100%",
-  objectFit: "cover",
-}));
+  borderRadius: '30px',
+  width: '100%',
+  objectFit: 'cover',
+}))
 
 const StyledTitle = styled(Typography)(() => ({
   fontWeight: 700,
-  display: "-webkit-box",
+  display: '-webkit-box',
   WebkitLineClamp: 2,
-  WebkitBoxOrient: "vertical",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-}));
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}))
 
 const StyledDescription = styled(Typography)(() => ({
   fontWeight: 500,
-  display: "-webkit-box",
+  display: '-webkit-box',
   WebkitLineClamp: 4,
-  WebkitBoxOrient: "vertical",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-}));
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}))
 
 const StyledPodcastSourceIconButton = styled(UIconButton)(({ theme }) => ({
   backgroundColor: theme.color.common.black,
   color: theme.color.common.white,
-  borderRadius: "10px",
-  padding: "5px",
-}));
+  borderRadius: '10px',
+  padding: '5px',
+}))
 
 interface IndexPodcastCardProps {
-  className?: string;
-  podcast: Podcast;
+  className?: string
+  podcast: Podcast
 }
 
 const IndexPodcastCard = memo(function IndexPodcastCard({
@@ -86,7 +86,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
             {podcast.bannerImg && (
               <StyledBanner
                 src={podcast.bannerImg}
-                alt={podcast.title || ""}
+                alt={podcast.title || ''}
                 width={600}
                 height={200}
               />
@@ -116,7 +116,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
               rounded
               size="medium"
               endIcon={<ArrowForwardIcon />}
-              sx={{ width: "max-content" }}
+              sx={{ width: 'max-content' }}
             >
               More Episode
             </UButton>
@@ -132,56 +132,56 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
                     podcastId={podcast.podcastId}
                     episodeId={episodeId}
                   />
-                ),
+                )
             )}
           </Stack>
         </Grid>
       </Grid>
     </StyledIndexPodcastCardBox>
-  );
-});
+  )
+})
 
-export default IndexPodcastCard;
+export default IndexPodcastCard
 
 const withMockPodcast = function (podcastType: PodcastType) {
   const podcast = new Podcast({
-    id: "123",
+    id: '123',
     type: podcastType,
-    bannerImg: "/assets/podcast1.png",
-    title: "USTW - 觀測站底加辣",
+    bannerImg: '/assets/podcast1.png',
+    title: 'USTW - 觀測站底加辣',
     description:
-      "《觀測站底加辣》迎來第三季，每週為您帶來台美關係最新動態與深入分析，並邀請來賓如前參謀總長李喜明、美國聖湯瑪斯大學葉耀元教授等。感謝您的支持，節目超過150集，下載量突破200萬，聽眾遍全球。與我們一起用耳朵追時事，解析台美中地緣政治。主持群：李可心、陳方隅、Jerry、Ledo、Ting。",
+      '《觀測站底加辣》迎來第三季，每週為您帶來台美關係最新動態與深入分析，並邀請來賓如前參謀總長李喜明、美國聖湯瑪斯大學葉耀元教授等。感謝您的支持，節目超過150集，下載量突破200萬，聽眾遍全球。與我們一起用耳朵追時事，解析台美中地緣政治。主持群：李可心、陳方隅、Jerry、Ledo、Ting。',
     sources: [
       {
         type: PodcastSourceType.APPLE,
-        url: "https://via.placeholder.com/150",
+        url: 'https://via.placeholder.com/150',
       },
       {
         type: PodcastSourceType.GOOGLE,
-        url: "https://via.placeholder.com/150",
+        url: 'https://via.placeholder.com/150',
       },
       {
         type: PodcastSourceType.SPOTIFY,
-        url: "https://via.placeholder.com/150",
+        url: 'https://via.placeholder.com/150',
       },
     ],
-    podcastId: "6cdfccc6-7c47-4c35-8352-7f634b1b6f71",
+    podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
     episodeIdx: [
-      "ee208548-5c37-4b0d-91ba-7306d2572518",
-      "ee208548-5c37-4b0d-91ba-7306d2572518",
-      "ee208548-5c37-4b0d-91ba-7306d2572518",
+      'ee208548-5c37-4b0d-91ba-7306d2572518',
+      'ee208548-5c37-4b0d-91ba-7306d2572518',
+      'ee208548-5c37-4b0d-91ba-7306d2572518',
     ],
-  });
+  })
 
   return function withMockPodcast(
-    props: Omit<IndexPodcastCardProps, "podcast">,
+    props: Omit<IndexPodcastCardProps, 'podcast'>
   ) {
-    return <IndexPodcastCard {...props} podcast={podcast} />;
-  };
-};
+    return <IndexPodcastCard {...props} podcast={podcast} />
+  }
+}
 
-export const WatchHerePodcastCard = withMockPodcast(PodcastType.WATCH_HERE);
-export const WatchInfoPodcastCard = withMockPodcast(PodcastType.WATCH_INFO);
+export const WatchHerePodcastCard = withMockPodcast(PodcastType.WATCH_HERE)
+export const WatchInfoPodcastCard = withMockPodcast(PodcastType.WATCH_INFO)
 export const WatchBookClubPodcastCard = withMockPodcast(
-  PodcastType.WATCH_BOOK_CLUB,
-);
+  PodcastType.WATCH_BOOK_CLUB
+)

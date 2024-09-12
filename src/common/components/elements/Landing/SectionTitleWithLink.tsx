@@ -1,17 +1,17 @@
-"use client";
+'use client'
 
-import UHStack from "@/common/components/atoms/UHStack";
-import ULinkText from "@/common/components/atoms/ULinkText";
-import { StackProps, Typography, TypographyProps } from "@mui/material";
-import { ReactNode } from "react";
+import UHStack from '@/common/components/atoms/UHStack'
+import ULinkText from '@/common/components/atoms/ULinkText'
+import { StackProps, Typography, TypographyProps } from '@mui/material'
+import { ReactNode } from 'react'
 
 export type SectionTitleWithLinkProps = {
-  title?: string;
-  titleProps?: TypographyProps;
-  renderTitle?: () => ReactNode;
-  link?: string;
-  containerProps?: StackProps;
-};
+  title?: string
+  titleProps?: TypographyProps
+  renderTitle?: () => ReactNode
+  link?: string
+  containerProps?: StackProps
+}
 
 const SectionTitleWithLink = ({
   title,
@@ -35,7 +35,7 @@ const SectionTitleWithLink = ({
       )}
       {link && <ULinkText link={link} />}
     </UHStack>
-  );
-};
+  )
+}
 
-export default SectionTitleWithLink;
+export default SectionTitleWithLink

@@ -1,168 +1,164 @@
-"use client";
+'use client'
 
-import clsx from "clsx";
-import ULogo from "@/common/components/atoms/ULogo";
-import { Box, Menu, MenuItem, Typography } from "@mui/material";
-import Link from "next/link";
-import UButton from "@/common/components/atoms/UButton";
-import UIconButton from "@/common/components/atoms/UIconButton";
-import { styled } from "@/common/lib/mui/theme";
+import clsx from 'clsx'
+import ULogo from '@/common/components/atoms/ULogo'
+import { Box, Menu, MenuItem, Typography } from '@mui/material'
+import Link from 'next/link'
+import UButton from '@/common/components/atoms/UButton'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import { styled } from '@/common/lib/mui/theme'
 
-import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
-import React, { useRef, useState } from "react";
-import useNavItems, { HeaderNavItem } from "./useNavItems";
-import SearchBar from "@/modules/Search/components/SearchBar";
-import { ProfileIcon, SearchIcon } from "@/common/styles/assets/Icons";
+import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
+import React, { useRef, useState } from 'react'
+import useNavItems, { HeaderNavItem } from './useNavItems'
+import SearchBar from '@/modules/Search/components/SearchBar'
+import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
 
 interface HeaderProps {
-  className?: string;
-  onProfileClick?: () => void;
-  onSearchClick?: () => void;
+  className?: string
+  onProfileClick?: () => void
+  onSearchClick?: () => void
 }
 
-const StyledHeader = styled("header")(({ theme }) => ({
-  position: "relative",
-  display: "flex",
-  [theme.breakpoints.up("xs")]: {
+const StyledHeader = styled('header')(({ theme }) => ({
+  position: 'relative',
+  display: 'flex',
+  [theme.breakpoints.up('xs')]: {
     height: `${theme.constants.headerHeight.xs}px`,
   },
-  [theme.breakpoints.up("md")]: {
+  [theme.breakpoints.up('md')]: {
     height: `${theme.constants.headerHeight.md}px`,
   },
   margin: `${theme.spacing(4.5)} auto`,
-  "& #nav-item-menu": {
+  '& #nav-item-menu': {
     zIndex: theme.constants.zIndex.headerNavItem,
   },
-}));
+}))
 
 const StyledHeaderContainer = styled(Box)(({ theme }) => ({
-  position: "relative",
+  position: 'relative',
   zIndex: theme.constants.zIndex.header,
-  width: "100%",
-  borderRadius: "30px",
+  width: '100%',
+  borderRadius: '30px',
   backgroundColor: theme.color.header.background,
-  backdropFilter: "blur(20px)",
-  WebkitBackdropFilter: "blur(20px)", // For Safari support
+  backdropFilter: 'blur(20px)',
+  WebkitBackdropFilter: 'blur(20px)', // For Safari support
   padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  "& .nav-item": {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  '& .nav-item': {
     fontWeight: 600,
-    [theme.breakpoints.up("xs")]: {
+    [theme.breakpoints.up('xs')]: {
       height: `${theme.constants.headerHeight.xs}px`,
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       height: `${theme.constants.headerHeight.md}px`,
     },
     color: theme.color.header.text,
-    "&:hover": {
-      backgroundColor: "transparent",
+    '&:hover': {
+      backgroundColor: 'transparent',
       color: theme.color.header.textHover,
     },
-    "& .MuiButton-icon": {
+    '& .MuiButton-icon': {
       marginLeft: 0,
     },
-    "&.active": {
+    '&.active': {
       color: theme.color.header.textActive,
     },
-    "& .MuiSvgIcon-root": {
-      fontSize: "18px",
+    '& .MuiSvgIcon-root': {
+      fontSize: '18px',
     },
   },
-  "& .icon-button": {
-    border: "none",
+  '& .icon-button': {
+    border: 'none',
   },
-  "& .donation-button": {
+  '& .donation-button': {
     backgroundColor: theme.color.header.donationButton,
     color: theme.color.header.donationButtonText,
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.color.header.donationButtonHover,
       color: theme.color.header.donationButtonTextHover,
     },
   },
-<<<<<<< HEAD
   boxShadow: '0px 4px 20px 0px #0000000D',
 }))
-=======
-}));
->>>>>>> a507f2f (feat: prettier)
 
 const StyledNavMenu = styled(Menu)(({ theme }) => ({
-  "& .MuiPaper-root": {
-    width: "180px",
-    [theme.breakpoints.up("xs")]: {
+  '& .MuiPaper-root': {
+    width: '180px',
+    [theme.breakpoints.up('xs')]: {
       paddingTop: `${theme.constants.headerHeight.xs}px`,
       marginTop: `-${theme.constants.headerHeight.xs}px`,
     },
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up('md')]: {
       paddingTop: `${theme.constants.headerHeight.md}px`,
       marginTop: `-${theme.constants.headerHeight.md}px`,
     },
     backgroundColor: theme.color.header.menuBackground,
-    transform: "translateX(-90px) !important",
-    borderRadius: "30px",
-    boxShadow: "0px 4px 20px 0px #0000000D",
-    "&::before": {
+    transform: 'translateX(-90px) !important',
+    borderRadius: '30px',
+    boxShadow: '0px 4px 20px 0px #0000000D',
+    '&::before': {
       content: '""',
-      position: "absolute",
+      position: 'absolute',
       top: 0,
       left: 0,
       right: 0,
-      height: "1px",
-      backgroundColor: "transparent",
-      boxShadow: "none",
+      height: '1px',
+      backgroundColor: 'transparent',
+      boxShadow: 'none',
     },
   },
-  "& .MuiList-root": {
+  '& .MuiList-root': {
     paddingTop: 0,
   },
-  "& .MuiMenuItem-root": {
+  '& .MuiMenuItem-root': {
     padding: `${theme.spacing(1.5)} ${theme.spacing(4)}`,
-    justifyContent: "center",
-    "&:not(:last-child)": {
+    justifyContent: 'center',
+    '&:not(:last-child)': {
       borderBottom: `1px solid ${theme.color.grey[400]}`,
     },
-    "& a": {
-      textDecoration: "none",
+    '& a': {
+      textDecoration: 'none',
       color: theme.color.header.textActive,
     },
   },
-}));
+}))
 
 const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
-  const { navItems } = useNavItems();
+  const { navItems } = useNavItems()
   const [menuOpenNavItem, setMenuOpenNavItem] = useState<HeaderNavItem | null>(
-    null,
-  );
+    null
+  )
   const [navItemAnchorEl, setNavItemAnchorEl] = useState<null | HTMLElement>(
-    null,
-  );
-  const navMenuOpen = Boolean(navItemAnchorEl);
+    null
+  )
+  const navMenuOpen = Boolean(navItemAnchorEl)
 
   const handleNavItemClick = (
     event: React.MouseEvent<HTMLElement>,
-    item: HeaderNavItem,
+    item: HeaderNavItem
   ) => {
-    setNavItemAnchorEl(event.currentTarget);
-    setMenuOpenNavItem(item);
-  };
+    setNavItemAnchorEl(event.currentTarget)
+    setMenuOpenNavItem(item)
+  }
   const handleNavMenuClose = () => {
-    setNavItemAnchorEl(null);
-    setMenuOpenNavItem(null);
-  };
+    setNavItemAnchorEl(null)
+    setMenuOpenNavItem(null)
+  }
 
-  const headerRef = useRef<HTMLHeadElement>(null);
+  const headerRef = useRef<HTMLHeadElement>(null)
 
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false)
   const handleSearchClick = () => {
-    handleNavMenuClose();
-    setIsSearchOpen(true);
-    onSearchClick?.();
-  };
+    handleNavMenuClose()
+    setIsSearchOpen(true)
+    onSearchClick?.()
+  }
   const handleSearchClose = () => {
-    setIsSearchOpen(false);
-  };
+    setIsSearchOpen(false)
+  }
 
   return (
     <StyledHeader ref={headerRef}>
@@ -188,10 +184,10 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
             {/** 中間 */}
             <Box height="100%" display="flex" alignItems="center" gap={1}>
               {navItems.map((item) =>
-                item.type === "link" ? (
+                item.type === 'link' ? (
                   <Link href={item.href} key={item.id}>
                     <UButton
-                      className={clsx("nav-item", {
+                      className={clsx('nav-item', {
                         active: item.id === menuOpenNavItem?.id,
                       })}
                       variant="text"
@@ -202,7 +198,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
                   </Link>
                 ) : (
                   <UButton
-                    className={clsx("nav-item nav-button", {
+                    className={clsx('nav-item nav-button', {
                       active: item.id === menuOpenNavItem?.id,
                     })}
                     variant="text"
@@ -212,11 +208,11 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
                   >
                     {item.title}
                   </UButton>
-                ),
+                )
               )}
               {navMenuOpen &&
                 menuOpenNavItem &&
-                menuOpenNavItem.type === "list" && (
+                menuOpenNavItem.type === 'list' && (
                   <StyledNavMenu
                     className="nav-menu"
                     id="nav-item-menu"
@@ -224,17 +220,17 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
                     open={navMenuOpen}
                     onClose={handleNavMenuClose}
                     MenuListProps={{
-                      "aria-labelledby": "nav-button",
+                      'aria-labelledby': 'nav-button',
                     }}
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center",
+                      vertical: 'bottom',
+                      horizontal: 'center',
                     }}
                     container={headerRef.current}
                   >
                     {menuOpenNavItem?.list.map((subItem) => (
                       <MenuItem onClick={handleNavMenuClose} key={subItem.id}>
-                        {subItem.type === "link" ? (
+                        {subItem.type === 'link' ? (
                           <Link href={subItem.href}>
                             <Typography fontWeight={700}>
                               {subItem.title}
@@ -284,7 +280,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
         )}
       </StyledHeaderContainer>
     </StyledHeader>
-  );
-};
+  )
+}
 
-export default Header;
+export default Header

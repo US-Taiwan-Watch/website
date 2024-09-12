@@ -1,8 +1,8 @@
-import { Congress } from "@/common/classes/Congress";
-import { Typography } from "@mui/material";
+import { Congress } from '@/common/classes/Congress'
+import { Typography } from '@mui/material'
 
 interface PeopleCongressTitleProps {
-  congress: Congress;
+  congress: Congress
 }
 
 const PeopleCongressTitle = function PeopleCongressTitle({
@@ -13,7 +13,7 @@ const PeopleCongressTitle = function PeopleCongressTitle({
       {/** TODO i18n */}
       {`${congress.congressNumber}th Congress (${congress.startYear}-${congress.endYear})`}
     </Typography>
-  );
-};
+  )
+}
 
-export default PeopleCongressTitle;
+export default PeopleCongressTitle

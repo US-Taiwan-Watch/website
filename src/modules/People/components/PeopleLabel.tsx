@@ -1,47 +1,47 @@
-import clsx from "clsx";
-import { styled } from "@/common/lib/mui/theme";
-import { People } from "@/modules/People/classes/People";
-import { Box } from "@mui/material";
+import clsx from 'clsx'
+import { styled } from '@/common/lib/mui/theme'
+import { People } from '@/modules/People/classes/People'
+import { Box } from '@mui/material'
 
 const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
-  width: "fit-content",
+  width: 'fit-content',
   padding: theme.spacing(0.5, 1),
   borderRadius: theme.spacing(1),
-  "&.HOUSE_REPRESENTATIVE": {
+  '&.HOUSE_REPRESENTATIVE': {
     backgroundColor: theme.color.wheat[300], // TODO: 確定黨派顏色
   },
-  "&.SENATOR": {
+  '&.SENATOR': {
     backgroundColor: theme.color.green[100], // TODO: 確定黨派顏色
   },
-  "&.EXPERT": {
+  '&.EXPERT': {
     backgroundColor: theme.color.wheat[100], // TODO: 確定黨派顏色
   },
-  "&.OFFICIAL": {
+  '&.OFFICIAL': {
     backgroundColor: theme.color.purple[100], // TODO: 確定黨派顏色
   },
-  "&.OTHER": {
+  '&.OTHER': {
     backgroundColor: theme.color.neutral[300], // TODO: 確定黨派顏色
   },
   fontWeight: 500,
-  textTransform: "capitalize",
-}));
+  textTransform: 'capitalize',
+}))
 
 interface PeopleTagProps {
-  people: People;
+  people: People
 }
 
 const PeopleLabel = function PeopleTag({ people }: PeopleTagProps) {
   return (
     <StyledPeopleTagContainer
-      className={clsx("", {
+      className={clsx('', {
         ...(people.position && {
-          [people.position.replace(" ", "_")]: true,
+          [people.position.replace(' ', '_')]: true,
         }),
       })}
     >
       {people.position?.toLowerCase()}
     </StyledPeopleTagContainer>
-  );
-};
+  )
+}
 
-export default PeopleLabel;
+export default PeopleLabel

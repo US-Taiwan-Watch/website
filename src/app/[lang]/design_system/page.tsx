@@ -1,12 +1,12 @@
-"use client";
+'use client'
 
-import UButton from "@/common/components/atoms/UButton";
-import UCategoryChip from "@/common/components/atoms/UCategoryChip";
-import UIconButton from "@/common/components/atoms/UIconButton";
-import ULinkText from "@/common/components/atoms/ULinkText";
-import UPagination from "@/common/components/atoms/UPagination";
-import UPoliticalPartyIcon from "@/common/components/atoms/UPoliticalPartyIcon";
-import { styled } from "@/common/lib/mui/theme";
+import UButton from '@/common/components/atoms/UButton'
+import UCategoryChip from '@/common/components/atoms/UCategoryChip'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import ULinkText from '@/common/components/atoms/ULinkText'
+import UPagination from '@/common/components/atoms/UPagination'
+import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
+import { styled } from '@/common/lib/mui/theme'
 import {
   BookmarkIcon,
   FacebookIcon,
@@ -21,17 +21,17 @@ import {
   ThreadsIcon,
   XIcon,
   YoutubeIcon,
-} from "@/common/styles/assets/Icons";
-import PeopleCard from "@/modules/People/components/PeopleCard";
-import EpisodeCard from "@/modules/Podcast/components/EpisodeCard";
-import IndexEpisodeCard from "@/modules/Podcast/components/IndexEpisodeCard";
-import { Box, Grid, Stack, Typography } from "@mui/material";
-import people from "@/modules/People/data";
+} from '@/common/styles/assets/Icons'
+import PeopleCard from '@/modules/People/components/PeopleCard'
+import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
+import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
+import { Box, Grid, Stack, Typography } from '@mui/material'
+import people from '@/modules/People/data'
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
-  borderRadius: "30px",
+  borderRadius: '30px',
   backgroundColor: theme.color.orange[900],
-  padding: "20px",
-}));
+  padding: '20px',
+}))
 
 export default function DesignSystemIconsPage() {
   return (
@@ -277,5 +277,5 @@ export default function DesignSystemIconsPage() {
         </Grid>
       </Grid>
     </div>
-  );
+  )
 }

@@ -1,15 +1,15 @@
-import { Congress } from "@/common/classes/Congress";
-import { Party } from "@/common/enums/Party";
-import { People } from "@/modules/People/classes/People";
-import { PeoplePosition } from "@/modules/People/enums/PeoplePosition";
+import { Congress } from '@/common/classes/Congress'
+import { Party } from '@/common/enums/Party'
+import { People } from '@/modules/People/classes/People'
+import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 
 const people = new People({
-  id: "1",
-  name: "Ami Bera",
-  image: "/assets/category1.jpg",
+  id: '1',
+  name: 'Ami Bera',
+  image: '/assets/category1.jpg',
   description:
-    "Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a ...",
-  tags: ["tag", "tag2", "tag3", "tag4"],
+    'Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a ...',
+  tags: ['tag', 'tag2', 'tag3', 'tag4'],
   party: Party.DEMOCRAT,
   position: PeoplePosition.SENATOR,
   congress: new Congress({
@@ -27,6 +27,6 @@ const people = new People({
       [Party.REPUBLICAN, 50],
     ]),
   }),
-});
+})
 
-export default people;
+export default people

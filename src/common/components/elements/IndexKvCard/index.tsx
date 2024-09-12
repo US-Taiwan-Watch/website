@@ -1,63 +1,63 @@
-"use client";
+'use client'
 
-import { memo } from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import Image from "next/image";
-import { styled } from "@/common/lib/mui/theme";
-import UButton from "@/common/components/atoms/UButton";
-import Link from "next/link";
+import { memo } from 'react'
+import { Box, Stack, Typography } from '@mui/material'
+import Image from 'next/image'
+import { styled } from '@/common/lib/mui/theme'
+import UButton from '@/common/components/atoms/UButton'
+import Link from 'next/link'
 
 const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
-  width: "100%",
+  width: '100%',
   backgroundColor: theme.palette.primary.main,
   padding: theme.spacing(2, 2, 2, 4),
-  borderRadius: "30px",
-}));
+  borderRadius: '30px',
+}))
 
-const StyledTag = styled("div")(({ theme }) => ({
-  borderRadius: "5px",
+const StyledTag = styled('div')(({ theme }) => ({
+  borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
-  padding: "0px 9px",
-}));
+  padding: '0px 9px',
+}))
 
 const StyledImage = styled(Image)(() => ({
-  width: "600px",
-  height: "500px",
-  objectFit: "cover",
-  borderRadius: "10px",
-}));
+  width: '600px',
+  height: '500px',
+  objectFit: 'cover',
+  borderRadius: '10px',
+}))
 
 const StyledLeftSection = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(2, 0),
-}));
+}))
 
 const StyledMiddleSection = styled(Stack)(({ theme }) => ({
   margin: theme.spacing(4, 0),
-}));
+}))
 
 const StyledTitleTypography = styled(Typography)(() => ({
-  display: "-webkit-box",
+  display: '-webkit-box',
   WebkitLineClamp: 3,
-  WebkitBoxOrient: "vertical",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-}));
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}))
 
 const StyledDescriptionTypography = styled(Typography)(() => ({
-  display: "-webkit-box",
+  display: '-webkit-box',
   WebkitLineClamp: 5,
-  WebkitBoxOrient: "vertical",
-  overflow: "hidden",
-  textOverflow: "ellipsis",
-}));
+  WebkitBoxOrient: 'vertical',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+}))
 
 // TODO: 確認類型
 interface IndexKvCardProps {
-  tags: Array<string>;
-  title: string;
-  description: string;
-  image: string;
-  href: string;
+  tags: Array<string>
+  title: string
+  description: string
+  image: string
+  href: string
 }
 
 const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
@@ -99,7 +99,7 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
         />
       </Stack>
     </StyledIndexKvCardContainer>
-  );
-});
+  )
+})
 
-export default IndexKvCard;
+export default IndexKvCard

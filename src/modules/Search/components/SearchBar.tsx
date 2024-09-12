@@ -1,58 +1,58 @@
-"use client";
+'use client'
 
-import UButton from "@/common/components/atoms/UButton";
-import { styled } from "@/common/lib/mui/theme";
-import { SearchIcon } from "@/common/styles/assets/Icons";
-import { Box, ClickAwayListener, Icon, Input } from "@mui/material";
-import useSearch from "../hooks/useSearch";
-import SearchResultList from "./SearchResultList";
-import { useRef } from "react";
+import UButton from '@/common/components/atoms/UButton'
+import { styled } from '@/common/lib/mui/theme'
+import { SearchIcon } from '@/common/styles/assets/Icons'
+import { Box, ClickAwayListener, Icon, Input } from '@mui/material'
+import useSearch from '../hooks/useSearch'
+import SearchResultList from './SearchResultList'
+import { useRef } from 'react'
 
 interface SearchBarProps {
-  className?: string;
+  className?: string
   /** 讓 SearchResultList 渲染在特定元件底下 */
-  resultParentEl: HTMLElement | null;
-  onClickAway?: () => void;
+  resultParentEl: HTMLElement | null
+  onClickAway?: () => void
 }
 
 const StyledIcon = styled(Icon)(({ theme }) => ({
   color: theme.color.grey[600],
   marginRight: theme.spacing(1),
-}));
+}))
 
 const StyledContainer = styled(Box)(() => ({
-  width: "100%",
-}));
+  width: '100%',
+}))
 
 const StyledInput = styled(Input)(({ theme }) => ({
   backgroundColor: theme.color.searchBar.inputBackground,
-  borderRadius: "100px",
+  borderRadius: '100px',
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-  height: "40px",
-}));
+  height: '40px',
+}))
 
 const StyledButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.searchBar.searchButtonBackground,
-  "&:hover": {
+  '&:hover': {
     backgroundColor: theme.color.searchBar.searchButtonBackground,
   },
-}));
+}))
 
-const StyledSearchResultList = styled(SearchResultList)(() => ({}));
+const StyledSearchResultList = styled(SearchResultList)(() => ({}))
 
 const SearchBar = ({ resultParentEl, onClickAway }: SearchBarProps) => {
-  const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null)
   const {
     searchQuery,
     handleSearchQueryChange,
     handleSearch,
     searchResults,
     searched,
-  } = useSearch();
+  } = useSearch()
 
   const handleClickAway = () => {
-    onClickAway?.();
-  };
+    onClickAway?.()
+  }
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
@@ -92,7 +92,7 @@ const SearchBar = ({ resultParentEl, onClickAway }: SearchBarProps) => {
         )}
       </Box>
     </ClickAwayListener>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

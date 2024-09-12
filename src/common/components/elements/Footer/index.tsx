@@ -21,9 +21,15 @@ const StyledSubLinkBlock = styled(Stack)(() => ({
   maxHeight: '300px',
 }))
 
+<<<<<<< HEAD
 // const StyledBottomLink = styled(Link)(() => ({
 //   textDecoration: 'underline',
 // }))
+=======
+const StyledBottomLink = styled(Link)(() => ({
+  textDecoration: 'underline',
+}))
+>>>>>>> 81aa907 (feat: prettier)
 
 const Footer = () => {
   const { socialLinkItems, subLinkItems } = useLinks()

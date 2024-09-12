@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from 'next/image'
 
 // NOTE: no need to be sizable for phase1, because only landing page needs it
 const UKetagalanLogo = () => {
@@ -9,7 +9,7 @@ const UKetagalanLogo = () => {
       alt="Ketagalan Logo"
       src="/assets/logo/KetagalanLogo.png"
     />
-  );
-};
+  )
+}
 
-export default UKetagalanLogo;
+export default UKetagalanLogo

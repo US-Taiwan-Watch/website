@@ -1,70 +1,70 @@
-import { Box, Icon, Popper, Typography } from "@mui/material";
-import SearchResult from "../classes/SearchResult";
-import { styled } from "@/common/lib/mui/theme";
-import Link from "next/link";
-import { SearchIcon } from "@/common/styles/assets/Icons";
+import { Box, Icon, Popper, Typography } from '@mui/material'
+import SearchResult from '../classes/SearchResult'
+import { styled } from '@/common/lib/mui/theme'
+import Link from 'next/link'
+import { SearchIcon } from '@/common/styles/assets/Icons'
 
 interface SearchResultProps {
-  className?: string;
-  results: Array<SearchResult>;
-  headerAnchorEl: HTMLElement | null;
-  inputAnchorEl: HTMLElement | null;
+  className?: string
+  results: Array<SearchResult>
+  headerAnchorEl: HTMLElement | null
+  inputAnchorEl: HTMLElement | null
 }
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
-  display: "flex",
+  display: 'flex',
   zIndex: theme.constants.zIndex.headerSearchResult,
-  transform: "none !important", // 避免 popper 被 transform 影響
-}));
+  transform: 'none !important', // 避免 popper 被 transform 影響
+}))
 
 const StyledContainer = styled(Box)(({ theme }) => ({
-  display: "flex",
+  display: 'flex',
   backgroundColor: theme.color.searchBar.resultBackground,
-  borderRadius: "30px",
+  borderRadius: '30px',
   paddingBottom: theme.spacing(2),
-  [theme.breakpoints.up("xs")]: {
+  [theme.breakpoints.up('xs')]: {
     paddingTop: `${theme.constants.headerHeight.xs}px`,
   },
-  [theme.breakpoints.up("md")]: {
+  [theme.breakpoints.up('md')]: {
     paddingTop: `${theme.constants.headerHeight.md}px`,
   },
-}));
+}))
 
 const StyledResultContainer = styled(Box)(({ theme }) => ({
-  margin: "auto",
+  margin: 'auto',
   padding: `${theme.spacing(2)} ${theme.spacing(2)}
    ${theme.spacing(1)} ${theme.spacing(4)}`,
-  maxHeight: "300px",
-  overflowY: "auto",
-  "& a": {
-    textDecoration: "none",
+  maxHeight: '300px',
+  overflowY: 'auto',
+  '& a': {
+    textDecoration: 'none',
   },
-}));
+}))
 
 const StyledResultItem = styled(Box)(({ theme }) => ({
   padding: theme.spacing(1),
   borderBottom: `1px solid ${theme.color.grey[400]}`,
-  "& .MuiTypography-root": {
-    textDecoration: "none",
+  '& .MuiTypography-root': {
+    textDecoration: 'none',
     color: theme.color.searchBar.resultItemText,
   },
-}));
+}))
 
 const StyledIcon = styled(Icon)(({ theme }) => ({
   color: theme.color.grey[600],
-}));
+}))
 
 const StyledNoResultContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(8),
-  "& .no-result-title": {
+  '& .no-result-title': {
     fontWeight: 600,
-    fontSize: "1.75rem",
+    fontSize: '1.75rem',
   },
-  "& .no-result-subtitle": {
+  '& .no-result-subtitle': {
     color: theme.color.searchBar.noResultSubtitle,
-    fontSize: "1rem",
+    fontSize: '1rem',
   },
-}));
+}))
 
 const SearchResultList = ({
   results,
@@ -110,7 +110,7 @@ const SearchResultList = ({
         </StyledResultContainer>
       </StyledContainer>
     </StyledPopper>
-  );
-};
+  )
+}
 
-export default SearchResultList;
+export default SearchResultList

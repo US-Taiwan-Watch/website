@@ -2,8 +2,8 @@
  * Demo Zustand Store
  */
 
-import SearchBar from "@/common/components/elements/SearchBar";
-import ResultBlock from "@/common/components/elements/SearchBar/ResultBlock";
+import SearchBar from '@/common/components/elements/SearchBar'
+import ResultBlock from '@/common/components/elements/SearchBar/ResultBlock'
 
 export default function SearchPage() {
   return (
@@ -12,5 +12,5 @@ export default function SearchPage() {
       <SearchBar />
       <ResultBlock />
     </div>
-  );
+  )
 }

@@ -1,7 +1,7 @@
-"use client";
+'use client'
 
-import { Stack } from "@mui/material";
-import SectionTitleWithLink from "@/common/components/elements/Landing/SectionTitleWithLink";
+import { Stack } from '@mui/material'
+import SectionTitleWithLink from '@/common/components/elements/Landing/SectionTitleWithLink'
 
 const BillSection = () => {
   return (
@@ -9,7 +9,7 @@ const BillSection = () => {
       <SectionTitleWithLink title="Bills" link="#" />
       TODO: Bill Carousel Here
     </Stack>
-  );
-};
+  )
+}
 
-export default BillSection;
+export default BillSection

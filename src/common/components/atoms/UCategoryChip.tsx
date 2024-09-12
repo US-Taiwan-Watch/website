@@ -1,89 +1,89 @@
-"use client";
+'use client'
 
-import clsx from "clsx";
-import { Avatar, Chip, ChipProps } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import Image from "next/image";
-import { ComponentType } from "react";
+import clsx from 'clsx'
+import { Avatar, Chip, ChipProps } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import Image from 'next/image'
+import { ComponentType } from 'react'
 
 interface UCategoryChipProps extends ChipProps {
-  img?: string;
-  label?: string;
-  active?: boolean;
+  img?: string
+  label?: string
+  active?: boolean
 }
 
-const getChipHeight = (size: UCategoryChipProps["size"]) => {
+const getChipHeight = (size: UCategoryChipProps['size']) => {
   switch (size) {
-    case "small":
-      return 32;
-    case "medium":
-      return 40;
+    case 'small':
+      return 32
+    case 'medium':
+      return 40
   }
-};
+}
 
 const getAvatarSize = (
-  size: UCategoryChipProps["size"] = "small",
-  active?: boolean,
+  size: UCategoryChipProps['size'] = 'small',
+  active?: boolean
 ) => {
   switch (size) {
-    case "small":
+    case 'small':
       return {
         width: 32 * (active ? 2 : 1),
         height: 32,
-      };
-    case "medium":
+      }
+    case 'medium':
       return {
         width: 40 * (active ? 2 : 1),
         height: 40,
-      };
+      }
   }
-};
+}
 
 const StyledChip = styled(Chip)<UCategoryChipProps>(
   ({ theme, size, active }) => ({
-    position: "relative",
+    position: 'relative',
     backgroundColor: theme.palette.common.white,
     height: getChipHeight(size),
-    borderRadius: "100px",
-    "& .MuiChip-avatar": {
-      marginLeft: "0 !important",
+    borderRadius: '100px',
+    '& .MuiChip-avatar': {
+      marginLeft: '0 !important',
       ...getAvatarSize(size, active),
     },
-    "& .MuiChip-label": {
+    '& .MuiChip-label': {
       padding: `0px ${theme.spacing(1.5)}`,
       fontWeight: 500,
     },
-    "&:hover": {
+    '&:hover': {
       backgroundColor: theme.palette.common.white,
-      "&::before": {
+      '&::before': {
         content: '""',
-        position: "absolute",
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
-        borderRadius: "inherit",
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        borderRadius: 'inherit',
         zIndex: 1,
       },
-      cursor: "pointer",
+      cursor: 'pointer',
     },
-    "&.active": {
+    '&.active': {
       backgroundColor: theme.palette.primary.main,
     },
-  }),
-) as ComponentType<UCategoryChipProps>;
+  })
+) as ComponentType<UCategoryChipProps>
 
 const StyledAvatar = styled(Avatar)(() => ({
-  borderRadius: "100px",
+  borderRadius: '100px',
   img: {
-    objectFit: "cover",
+    objectFit: 'cover',
   },
-}));
+}))
 
 const UCategoryChip = ({
   img,
-  size = "small",
+  size = 'small',
   active = false,
   ...props
 }: UCategoryChipProps) => {
@@ -97,7 +97,7 @@ const UCategoryChip = ({
           <StyledAvatar>
             <Image
               src={img}
-              alt={props.label || ""}
+              alt={props.label || ''}
               {...getAvatarSize(size, active)}
             />
           </StyledAvatar>
@@ -107,7 +107,7 @@ const UCategoryChip = ({
       active={active}
       {...props}
     />
-  );
-};
+  )
+}
 
-export default UCategoryChip;
+export default UCategoryChip

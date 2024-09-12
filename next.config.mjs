@@ -3,18 +3,18 @@ const nextConfig = {
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
-      use: ["@svgr/webpack"],
-    });
-    return config;
+      use: ['@svgr/webpack'],
+    })
+    return config
   },
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "files.soundon.fm",
+        protocol: 'https',
+        hostname: 'files.soundon.fm',
       },
     ],
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

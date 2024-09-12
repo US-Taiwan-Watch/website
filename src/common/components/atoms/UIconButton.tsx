@@ -1,127 +1,127 @@
-"use client";
+'use client'
 
-import { styled, type USTWTheme } from "@/common/lib/mui/theme";
-import { IconButton, IconButtonProps } from "@mui/material";
-import type { ComponentType } from "react";
+import { styled, type USTWTheme } from '@/common/lib/mui/theme'
+import { IconButton, IconButtonProps } from '@mui/material'
+import type { ComponentType } from 'react'
 
-interface UIconButtonProps extends Omit<IconButtonProps, "color"> {
-  variant: "contained" | "outlined" | "rounded";
-  color: IconButtonProps["color"] | "black";
+interface UIconButtonProps extends Omit<IconButtonProps, 'color'> {
+  variant: 'contained' | 'outlined' | 'rounded'
+  color: IconButtonProps['color'] | 'black'
 }
 
 const getBackgroundColor = (
   theme: USTWTheme,
-  color: UIconButtonProps["color"] = "primary",
+  color: UIconButtonProps['color'] = 'primary'
 ) => {
   switch (color) {
-    case "black":
-      return theme.color.grey[1000];
-    case "primary":
-      return theme.color.lime[500];
-    case "inherit":
-      return "inherit";
-    case "default":
-      return "inherit";
+    case 'black':
+      return theme.color.grey[1000]
+    case 'primary':
+      return theme.color.lime[500]
+    case 'inherit':
+      return 'inherit'
+    case 'default':
+      return 'inherit'
     default:
-      return theme.palette[color].main;
+      return theme.palette[color].main
   }
-};
+}
 
 const getContrastTextColor = (
   theme: USTWTheme,
-  color: UIconButtonProps["color"] = "primary",
+  color: UIconButtonProps['color'] = 'primary'
 ) => {
   switch (color) {
-    case "black":
-      return theme.color.common.white;
-    case "primary":
-      return theme.color.common.black;
-    case "inherit":
-      return "inherit";
-    case "default":
-      return "inherit";
+    case 'black':
+      return theme.color.common.white
+    case 'primary':
+      return theme.color.common.black
+    case 'inherit':
+      return 'inherit'
+    case 'default':
+      return 'inherit'
     default:
-      return theme.palette[color].contrastText;
+      return theme.palette[color].contrastText
   }
-};
+}
 
 const getHoveredBackgroundColor = (
   theme: USTWTheme,
-  color: UIconButtonProps["color"] = "primary",
+  color: UIconButtonProps['color'] = 'primary'
 ) => {
   switch (color) {
-    case "black":
-      return theme.color.neutral[500];
-    case "inherit":
-      return "inherit";
-    case "default":
-      return "inherit";
+    case 'black':
+      return theme.color.neutral[500]
+    case 'inherit':
+      return 'inherit'
+    case 'default':
+      return 'inherit'
     default:
-      return theme.palette[color].dark;
+      return theme.palette[color].dark
   }
-};
+}
 
-const getIconSize = (size: UIconButtonProps["size"]) => {
+const getIconSize = (size: UIconButtonProps['size']) => {
   switch (size) {
-    case "small":
+    case 'small':
       return {
         width: 20,
         height: 20,
-      };
-    case "medium":
+      }
+    case 'medium':
       return {
         width: 24,
         height: 24,
-      };
-    case "large":
+      }
+    case 'large':
       return {
         width: 28,
         height: 28,
-      };
+      }
     default:
       return {
         width: 24,
         height: 24,
-      };
+      }
   }
-};
+}
 
 const UIconButton = styled(IconButton)<UIconButtonProps>(
   ({ theme, variant, color, size }) => ({
-    ...(variant === "rounded" && {
+    ...(variant === 'rounded' && {
       backgroundColor: getBackgroundColor(theme, color),
       color: getContrastTextColor(theme, color),
-      "&:hover": {
+      '&:hover': {
         backgroundColor: getHoveredBackgroundColor(theme, color),
       },
       svg: {
         ...getIconSize(size),
       },
     }),
-    ...(variant === "contained" && {
+    ...(variant === 'contained' && {
       backgroundColor: getBackgroundColor(theme, color),
       color: getContrastTextColor(theme, color),
       borderRadius: theme.shape.borderRadius, // 使用主題中定義的標準圓角
-      "&:hover": {
+      '&:hover': {
         backgroundColor: getHoveredBackgroundColor(theme, color),
       },
       svg: {
         ...getIconSize(size),
       },
     }),
-    ...(variant === "outlined" && {
-      backgroundColor: "transparent",
+    ...(variant === 'outlined' && {
+      backgroundColor: 'transparent',
       color: theme.palette.common.black,
       border: `1px solid ${theme.palette.common.black}`,
       borderRadius: theme.shape.borderRadius,
-      "&:hover": {
+      '&:hover': {
         backgroundColor: theme.palette.action.hover,
       },
       svg: {
         ...getIconSize(size),
       },
     }),
-  }),
-) as ComponentType<UIconButtonProps>;
+  })
+) as ComponentType<UIconButtonProps>
 
-export default UIconButton;
+export default UIconButton
