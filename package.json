@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "prettier --write . && eslint --fix .",
     "test": "echo \"Mock Test\"",
     "prepare": "husky install .husky",
     "pre-commit-lint": "lint-staged",
