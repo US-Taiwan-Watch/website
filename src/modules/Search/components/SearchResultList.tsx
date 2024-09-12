@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 
 interface SearchResultProps {
-  className?: string;
-  results: Array<SearchResult>;
-  headerAnchorEl: HTMLElement | null;
-  inputAnchorEl: HTMLElement | null;
+  className?: string
+  results: Array<SearchResult>
+  headerAnchorEl: HTMLElement | null
+  inputAnchorEl: HTMLElement | null
 }
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
@@ -81,34 +81,32 @@ const SearchResultList = ({
         <StyledResultContainer
           width={inputAnchorEl?.getBoundingClientRect().width}
         >
-          {results.length > 0
-            ? (
-                results.map((result) => (
-                  <Link href={result.href} key={result.value}>
-                    <StyledResultItem display="flex" gap={1}>
-                      <StyledIcon fontSize="small">
-                        <SearchIcon />
-                      </StyledIcon>
-                      <Typography>{result.value}</Typography>
-                    </StyledResultItem>
-                  </Link>
-                ))
-              )
-            : (
-              <StyledNoResultContainer
+          {results.length > 0 ? (
+            results.map((result) => (
+              <Link href={result.href} key={result.value}>
+                <StyledResultItem display="flex" gap={1}>
+                  <StyledIcon fontSize="small">
+                    <SearchIcon />
+                  </StyledIcon>
+                  <Typography>{result.value}</Typography>
+                </StyledResultItem>
+              </Link>
+            ))
+          ) : (
+            <StyledNoResultContainer
               display="flex"
               justifyContent="center"
               alignItems="center"
               flexDirection="column"
             >
-                <Typography className="no-result-title">
-                  No results found
-                </Typography>
-                <Typography className="no-result-subtitle">
-                  Please change the search keywords and search again
-                </Typography>
-              </StyledNoResultContainer>
-              )}
+              <Typography className="no-result-title">
+                No results found
+              </Typography>
+              <Typography className="no-result-subtitle">
+                Please change the search keywords and search again
+              </Typography>
+            </StyledNoResultContainer>
+          )}
         </StyledResultContainer>
       </StyledContainer>
     </StyledPopper>

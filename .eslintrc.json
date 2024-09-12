@@ -1,6 +1,11 @@
 {
   "parser": "@typescript-eslint/parser",
-  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "standard"],
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "standard",
+    "plugin:prettier/recommended"
+  ],
   "rules": {
     "comma-dangle": [
       "error",
@@ -14,7 +19,16 @@
     ],
     "react/jsx-indent": ["error", 2],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error"
+    "@typescript-eslint/no-unused-vars": "error",
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "tabWidth": 2,
+        "trailingComma": "es5",
+        "semi": false
+      }
+    ]
   },
   "overrides": [
     {

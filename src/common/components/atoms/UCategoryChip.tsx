@@ -7,9 +7,9 @@ import Image from 'next/image'
 import { ComponentType } from 'react'
 
 interface UCategoryChipProps extends ChipProps {
-  img?: string;
-  label?: string;
-  active?: boolean;
+  img?: string
+  label?: string
+  active?: boolean
 }
 
 const getChipHeight = (size: UCategoryChipProps['size']) => {
@@ -93,17 +93,15 @@ const UCategoryChip = ({
         active,
       })}
       avatar={
-        img
-          ? (
-            <StyledAvatar>
-              <Image
-                src={img}
-                alt={props.label || ''}
-                {...getAvatarSize(size, active)}
-              />
-            </StyledAvatar>
-            )
-          : undefined
+        img ? (
+          <StyledAvatar>
+            <Image
+              src={img}
+              alt={props.label || ''}
+              {...getAvatarSize(size, active)}
+            />
+          </StyledAvatar>
+        ) : undefined
       }
       size={size}
       active={active}

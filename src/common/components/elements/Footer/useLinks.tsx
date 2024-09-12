@@ -14,17 +14,19 @@ type SocialLinkItem = {
   url: string
 }
 
-type SubLinkItem = {
-  type: 'title'
-  title: string
-  subLinks: Array<SubLinkItem>
-} | {
-  type: 'subLink'
-  title: string
-  url: string
-}
+type SubLinkItem =
+  | {
+      type: 'title'
+      title: string
+      subLinks: Array<SubLinkItem>
+    }
+  | {
+      type: 'subLink'
+      title: string
+      url: string
+    }
 
-export default function useLinks () {
+export default function useLinks() {
   const socialLinkItems: Array<SocialLinkItem> = [
     {
       icon: <FacebookIcon />,

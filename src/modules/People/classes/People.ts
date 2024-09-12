@@ -32,7 +32,7 @@ export class People {
   // 標籤
   tags?: Array<string>
 
-  constructor (private readonly people: PeopleArgs) {
+  constructor(private readonly people: PeopleArgs) {
     if (isString(people.id)) {
       this.id = people.id
     }
@@ -59,7 +59,7 @@ export class People {
     }
   }
 
-  get link () {
+  get link() {
     return `/people/${this.id}`
   }
 }

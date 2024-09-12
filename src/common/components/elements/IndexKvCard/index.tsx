@@ -53,14 +53,14 @@ const StyledDescriptionTypography = styled(Typography)(() => ({
 
 // TODO: 確認類型
 interface IndexKvCardProps {
-  tags: Array<string>;
-  title: string;
-  description: string;
-  image: string;
-  href: string;
+  tags: Array<string>
+  title: string
+  description: string
+  image: string
+  href: string
 }
 
-const IndexKvCard = memo(function IndexKvCard (props: IndexKvCardProps) {
+const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
   return (
     <StyledIndexKvCardContainer>
       <Stack direction="row" spacing={8}>

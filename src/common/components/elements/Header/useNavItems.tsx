@@ -1,20 +1,20 @@
 import { useMemo } from 'react'
 
 export type HeaderNavItem =
-| {
-    id: string;
-    type: 'link';
-    title: string;
-    href: string;
-  }
-| {
-    id: string;
-    type: 'list';
-    title: string;
-    list: Array<HeaderNavItem>;
-  };
+  | {
+      id: string
+      type: 'link'
+      title: string
+      href: string
+    }
+  | {
+      id: string
+      type: 'list'
+      title: string
+      list: Array<HeaderNavItem>
+    }
 
-export default function useNavItems () {
+export default function useNavItems() {
   // TODO: Change title depending on language
   const navItems = useMemo<Array<HeaderNavItem>>(() => {
     return [

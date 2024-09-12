@@ -8,7 +8,7 @@ import {
 import { SvgIconProps } from '@mui/material'
 
 interface PodcastSourceIconProps extends SvgIconProps {
-  sourceType: PodcastSourceType;
+  sourceType: PodcastSourceType
 }
 
 const PodcastSourceIcon = (props: PodcastSourceIconProps) => {

@@ -8,6 +8,7 @@ This directory contains modules that are used across multiple pages.
 - Folder name: PascalCase
 
 ## Folder Structure
+
 ```
 ├── Auth
 │   ├── api

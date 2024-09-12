@@ -9,8 +9,12 @@ import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constan
 
 const ArticleSection = () => {
   return (
-    <LandingSectionWrapper contentWrapperSx={{ paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px` }}>
-      <SectionTitleWithLink title='Articles' link='#' />
+    <LandingSectionWrapper
+      contentWrapperSx={{
+        paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
+      }}
+    >
+      <SectionTitleWithLink title="Articles" link="#" />
       <Stack gap={5}>
         <UHStack gap={2}>
           <UCategoryChip img="/assets/category1.jpg" label="編輯精選" />

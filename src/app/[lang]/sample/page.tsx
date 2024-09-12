@@ -3,13 +3,13 @@ import { Language } from '@/common/lib/i18n/types'
 import Link from 'next/link'
 
 interface SamplePageParams {
-  lang: Language;
+  lang: Language
 }
 
-export default async function SamplePage ({
+export default async function SamplePage({
   params: { lang },
 }: {
-  params: SamplePageParams;
+  params: SamplePageParams
 }) {
   const { t } = await useTranslation(lang)
 

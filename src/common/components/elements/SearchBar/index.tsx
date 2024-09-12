@@ -5,7 +5,7 @@
 import useSearchStore from '@/common/lib/zustand/hooks/useSearchStore'
 import { memo } from 'react'
 
-const SearchBar = memo(function SearchBar () {
+const SearchBar = memo(function SearchBar() {
   const updateLocation = useSearchStore((state) => state.updateLocation)
   const updateLatLng = useSearchStore((state) => state.updateLatLng)
   const updateNestedData = useSearchStore((state) => state.updateNestedData)

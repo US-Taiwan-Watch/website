@@ -8,7 +8,7 @@ import FreeUsageSection from '@/modules/LandingPage/components/FreeUsageSection'
 import BillSection from '@/modules/LandingPage/components/BillSection'
 import { SECTION_OVERLAP_PX } from '@/modules/LandingPage/constants'
 
-export default function Home () {
+export default function Home() {
   return (
     <Container maxWidth="lg">
       <Stack alignContent="center" justifyContent="center">
@@ -20,12 +20,13 @@ export default function Home () {
             '& > *': {
               marginTop: `-${SECTION_OVERLAP_PX}px`,
             },
-          }}>
+          }}
+        >
           <KetagalanSection />
           <PodcastSection />
           <FreeUsageSection />
         </Stack>
       </Stack>
-    </Container >
+    </Container>
   )
 }

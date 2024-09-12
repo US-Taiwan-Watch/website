@@ -27,16 +27,18 @@ const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
 }))
 
 interface PeopleTagProps {
-  people: People;
+  people: People
 }
 
-const PeopleLabel = function PeopleTag ({ people }: PeopleTagProps) {
+const PeopleLabel = function PeopleTag({ people }: PeopleTagProps) {
   return (
-    <StyledPeopleTagContainer className={clsx('', {
-      ...(people.position && {
-        [people.position.replace(' ', '_')]: true,
-      }),
-    })}>
+    <StyledPeopleTagContainer
+      className={clsx('', {
+        ...(people.position && {
+          [people.position.replace(' ', '_')]: true,
+        }),
+      })}
+    >
       {people.position?.toLowerCase()}
     </StyledPeopleTagContainer>
   )

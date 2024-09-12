@@ -19,10 +19,10 @@ const StyledPeopleTagText = styled(Typography)(({ theme }) => ({
 }))
 
 interface PeopleTagProps {
-  value: string;
+  value: string
 }
 
-const PeopleTag = function PeopleTag ({ value }: PeopleTagProps) {
+const PeopleTag = function PeopleTag({ value }: PeopleTagProps) {
   return (
     <StyledPeopleTagContainer
       direction="row"

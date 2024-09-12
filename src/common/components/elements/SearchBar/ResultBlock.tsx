@@ -3,7 +3,7 @@
 import useSearchStore from '@/common/lib/zustand/hooks/useSearchStore'
 import { memo } from 'react'
 
-const ResultBlock = memo(function ResultBlock () {
+const ResultBlock = memo(function ResultBlock() {
   const location = useSearchStore((state) => state.location)
   const lat = useSearchStore((state) => state.lat)
   const lng = useSearchStore((state) => state.lng)

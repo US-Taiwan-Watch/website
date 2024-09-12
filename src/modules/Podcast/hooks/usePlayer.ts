@@ -7,13 +7,11 @@ export interface UsePlayerParams {
   onPauseCallback?: () => void
 }
 
-export default function usePlayer (
-  {
-    audioUrl,
-    onPlayCallback,
-    onPauseCallback,
-  }: UsePlayerParams
-) {
+export default function usePlayer({
+  audioUrl,
+  onPlayCallback,
+  onPauseCallback,
+}: UsePlayerParams) {
   const [playing, setPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const playerRef = useRef<Howl | null>(null)
@@ -48,7 +46,7 @@ export default function usePlayer (
       if (playerRef.current) {
         const seek = playerRef.current.seek() || 0
         const duration = playerRef.current.duration() || 0
-        setProgress((seek / duration) || 0)
+        setProgress(seek / duration || 0)
         setRemainingTime(formatTime(duration - seek))
       }
     }

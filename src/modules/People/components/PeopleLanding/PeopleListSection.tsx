@@ -12,10 +12,13 @@ const PeopleListSection = () => {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <LandingSectionWrapper backgroundColor={theme.color.neutral[200]} contentWrapperSx={{
-      paddingTop: theme.spacing(10),
-      paddingBottom: theme.spacing(15),
-    }}>
+    <LandingSectionWrapper
+      backgroundColor={theme.color.neutral[200]}
+      contentWrapperSx={{
+        paddingTop: theme.spacing(10),
+        paddingBottom: theme.spacing(15),
+      }}
+    >
       <Container maxWidth="lg">
         <Stack spacing={6} alignItems="center" justifyContent="center">
           <Box>

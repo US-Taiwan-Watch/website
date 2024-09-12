@@ -10,8 +10,8 @@ import {
 import type { ComponentType } from 'react'
 
 interface UPoliticalPartyIconProps extends Omit<IconButtonProps, 'color'> {
-  variant: 'contained' | 'outlined' | 'rounded';
-  party: 'democracy' | 'republic' | 'other';
+  variant: 'contained' | 'outlined' | 'rounded'
+  party: 'democracy' | 'republic' | 'other'
 }
 
 const getMainColor = (

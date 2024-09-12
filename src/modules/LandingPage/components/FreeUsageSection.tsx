@@ -18,16 +18,20 @@ const FreeUsageSection = () => {
   return (
     <LandingSectionWrapper backgroundColor={theme.color.lime[500]}>
       <Stack gap={4}>
-        <Typography variant='h2' whiteSpace='pre-line'>
+        <Typography variant="h2" whiteSpace="pre-line">
           {'Stay Updated On The\nLatest '}
-          <StyledHighlightText>
-            Taiwan-US
-          </StyledHighlightText>
+          <StyledHighlightText>Taiwan-US</StyledHighlightText>
           {' News.'}
         </Typography>
         <Box>
           {/* TODO: 等之後有 Create Account 頁面，要連過去 */}
-          <UButton variant="contained" color="info" rounded size="large" endIcon={<ArrowForwardIcon />}>
+          <UButton
+            variant="contained"
+            color="info"
+            rounded
+            size="large"
+            endIcon={<ArrowForwardIcon />}
+          >
             Join Today
           </UButton>
         </Box>

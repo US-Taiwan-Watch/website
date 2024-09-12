@@ -6,7 +6,7 @@ import SectionTitleWithLink from '@/common/components/elements/Landing/SectionTi
 const BillSection = () => {
   return (
     <Stack py={10} gap={7.5}>
-      <SectionTitleWithLink title='Bills' link='#' />
+      <SectionTitleWithLink title="Bills" link="#" />
       TODO: Bill Carousel Here
     </Stack>
   )

@@ -5,24 +5,24 @@ import { immer } from 'zustand/middleware/immer'
 import { config } from '@/config'
 
 type State = {
-  location: string;
-  lat: number;
-  lng: number;
+  location: string
+  lat: number
+  lng: number
   nested: {
     nested1: {
       nested2: {
-        data: string;
-      };
-    };
-  };
-};
+        data: string
+      }
+    }
+  }
+}
 
 type Action = {
-  updateLocation: (location: State['location']) => void;
-  updateLatLng: (lat: State['lat'], lng: State['lng']) => void;
-  updateNestedData: () => void;
-  reset: () => void;
-};
+  updateLocation: (location: State['location']) => void
+  updateLatLng: (lat: State['lat'], lng: State['lng']) => void
+  updateNestedData: () => void
+  reset: () => void
+}
 
 const initialState: State = {
   location: '',

@@ -9,10 +9,10 @@ import SearchResultList from './SearchResultList'
 import { useRef } from 'react'
 
 interface SearchBarProps {
-  className?: string;
+  className?: string
   /** 讓 SearchResultList 渲染在特定元件底下 */
-  resultParentEl: HTMLElement | null;
-  onClickAway?: () => void;
+  resultParentEl: HTMLElement | null
+  onClickAway?: () => void
 }
 
 const StyledIcon = styled(Icon)(({ theme }) => ({
@@ -34,8 +34,7 @@ const StyledInput = styled(Input)(({ theme }) => ({
 const StyledButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.searchBar.searchButtonBackground,
   '&:hover': {
-    backgroundColor: theme.color.searchBar
-      .searchButtonBackground,
+    backgroundColor: theme.color.searchBar.searchButtonBackground,
   },
 }))
 
@@ -57,7 +56,7 @@ const SearchBar = ({ resultParentEl, onClickAway }: SearchBarProps) => {
 
   return (
     <ClickAwayListener onClickAway={handleClickAway}>
-      <Box display='flex' flexDirection='column' width='100%'>
+      <Box display="flex" flexDirection="column" width="100%">
         <StyledContainer
           display="flex"
           alignItems="center"
@@ -85,11 +84,11 @@ const SearchBar = ({ resultParentEl, onClickAway }: SearchBarProps) => {
           </StyledButton>
         </StyledContainer>
         {searched && (
-        <StyledSearchResultList
-          results={searchResults}
-          headerAnchorEl={resultParentEl}
-          inputAnchorEl={inputRef.current}
-        />
+          <StyledSearchResultList
+            results={searchResults}
+            headerAnchorEl={resultParentEl}
+            inputAnchorEl={inputRef.current}
+          />
         )}
       </Box>
     </ClickAwayListener>

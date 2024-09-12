@@ -9,10 +9,10 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import { useTheme } from '@mui/material/styles'
 
 type Props = {
-  link: string;
-  text?: string;
-  startIcon?: ReactNode;
-  endIcon?: ReactNode;
+  link: string
+  text?: string
+  startIcon?: ReactNode
+  endIcon?: ReactNode
 }
 
 const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
@@ -24,16 +24,12 @@ const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
     <Link href={link}>
       <UHStack
         gap={1}
-        alignItems='center'
+        alignItems="center"
         onMouseEnter={() => setIsHover(true)}
         onMouseLeave={() => setIsHover(false)}
       >
         {startIcon}
-        <Typography
-          variant="body1"
-          fontWeight={500}
-          sx={{ color }}
-        >
+        <Typography variant="body1" fontWeight={500} sx={{ color }}>
           {text ?? 'Learn More'}
         </Typography>
         {endIcon ?? <ArrowForwardIcon sx={{ color }} />}
