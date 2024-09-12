@@ -81,6 +81,7 @@ const StyledHeaderContainer = styled(Box)(({ theme }) => ({
       color: theme.color.header.donationButtonTextHover,
     },
   },
+  boxShadow: '0px 4px 20px 0px #0000000D',
 }))
 
 const StyledNavMenu = styled(Menu)(({ theme }) => ({

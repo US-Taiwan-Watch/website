@@ -1,3 +1,5 @@
+'use client'
+
 import { People } from '@/modules/People/classes/People'
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
@@ -15,6 +17,7 @@ const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2.5),
   borderRadius: '15px',
   backgroundColor: theme.color.common.white,
+  border: `1px solid ${theme.color.grey[1600]}`,
 }))
 
 const StyledPeopleCardImageContainer = styled(Box)(() => ({
