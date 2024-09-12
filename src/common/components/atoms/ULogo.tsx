@@ -1,8 +1,8 @@
 import Image from 'next/image'
 
 interface ULogoProps {
-  className?: string;
-  size: 'small' | 'medium' | 'large' | 'xlarge';
+  className?: string
+  size: 'small' | 'medium' | 'large' | 'xlarge'
 }
 
 const LOGO_SRC_MAP = {

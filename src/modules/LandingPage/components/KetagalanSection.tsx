@@ -16,12 +16,12 @@ const KetagalanSection = () => {
     <ThemeProvider theme={createUSTWTheme('ketagalan', 'en-US')}>
       <LandingSectionWrapper
         backgroundColor={theme.color.grey[1300]}
-        contentWrapperSx={{ paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px` }}
+        contentWrapperSx={{
+          paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
+        }}
       >
         <SectionTitleWithLink renderTitle={() => <UKetagalanLogo />} />
-        <Typography color='white'>
-          TODO: Ketagalan Media Cards Here
-        </Typography>
+        <Typography color="white">TODO: Ketagalan Media Cards Here</Typography>
       </LandingSectionWrapper>
     </ThemeProvider>
   )

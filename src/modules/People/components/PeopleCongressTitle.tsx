@@ -5,7 +5,9 @@ interface PeopleCongressTitleProps {
   congress: Congress
 }
 
-const PeopleCongressTitle = function PeopleCongressTitle ({ congress }: PeopleCongressTitleProps) {
+const PeopleCongressTitle = function PeopleCongressTitle({
+  congress,
+}: PeopleCongressTitleProps) {
   return (
     <Typography variant="bodyS" fontWeight={600}>
       {/** TODO i18n */}

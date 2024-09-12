@@ -33,7 +33,7 @@ const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   padding: '20px',
 }))
 
-export default function DesignSystemIconsPage () {
+export default function DesignSystemIconsPage() {
   return (
     <div>
       <h1>Design System Icons</h1>
@@ -221,14 +221,26 @@ export default function DesignSystemIconsPage () {
       </Box>
       <h2>Episode Card</h2>
       <h3>Index Episode Card</h3>
-      <StyledIndexEpisodeCardList direction='column' spacing={2}>
-        <IndexEpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
-        <IndexEpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+      <StyledIndexEpisodeCardList direction="column" spacing={2}>
+        <IndexEpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
+        <IndexEpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
       </StyledIndexEpisodeCardList>
       <h3>Episode Card</h3>
-      <Stack direction='column' spacing={2}>
-        <EpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
-        <EpisodeCard podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71" episodeId="ee208548-5c37-4b0d-91ba-7306d2572518" />
+      <Stack direction="column" spacing={2}>
+        <EpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
+        <EpisodeCard
+          podcastId="6cdfccc6-7c47-4c35-8352-7f634b1b6f71"
+          episodeId="ee208548-5c37-4b0d-91ba-7306d2572518"
+        />
       </Stack>
       <h2>Pagination</h2>
       <Box display="flex" p={2} gap={2}>

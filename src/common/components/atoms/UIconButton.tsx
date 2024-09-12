@@ -5,8 +5,8 @@ import { IconButton, IconButtonProps } from '@mui/material'
 import type { ComponentType } from 'react'
 
 interface UIconButtonProps extends Omit<IconButtonProps, 'color'> {
-  variant: 'contained' | 'outlined' | 'rounded';
-  color: IconButtonProps['color'] | 'black';
+  variant: 'contained' | 'outlined' | 'rounded'
+  color: IconButtonProps['color'] | 'black'
 }
 
 const getBackgroundColor = (

@@ -14,7 +14,12 @@ interface UFullWidthBackgroundBoxProps {
   containerSx?: BoxProps['sx']
 }
 
-const UFullWidthBackgroundBox = ({ className, children, backgroundColor, containerSx }: UFullWidthBackgroundBoxProps) => {
+const UFullWidthBackgroundBox = ({
+  className,
+  children,
+  backgroundColor,
+  containerSx,
+}: UFullWidthBackgroundBoxProps) => {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -27,7 +32,11 @@ const UFullWidthBackgroundBox = ({ className, children, backgroundColor, contain
         right: '50%',
         marginLeft: '-50dvw',
         marginRight: '-50dvw',
-        backgroundColor: !backgroundColor ? get(theme.color, 'common.black') : backgroundColor.startsWith('#') ? backgroundColor : get(theme.color, backgroundColor),
+        backgroundColor: !backgroundColor
+          ? get(theme.color, 'common.black')
+          : backgroundColor.startsWith('#')
+            ? backgroundColor
+            : get(theme.color, backgroundColor),
         boxSizing: 'border-box',
         ...containerSx,
       }}

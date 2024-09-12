@@ -49,7 +49,7 @@ export default class Podcast {
   /** SoundOn Episode ID */
   episodeIdx?: Array<string>
 
-  constructor (private args: PodcastArgs) {
+  constructor(private args: PodcastArgs) {
     if (isString(args.id)) {
       this.id = args.id
     }

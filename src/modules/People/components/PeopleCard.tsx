@@ -48,11 +48,11 @@ const StyledPeopleCardIconButton = styled(UIconButton)(({ theme }) => ({
 }))
 
 interface PeopleCardProps {
-  people: People;
-  simplified?: boolean;
+  people: People
+  simplified?: boolean
 }
 
-const PeopleCard = memo(function PeopleCard ({
+const PeopleCard = memo(function PeopleCard({
   people,
   simplified = false,
 }: PeopleCardProps) {
@@ -91,9 +91,9 @@ const PeopleCard = memo(function PeopleCard ({
               )}
               <Stack direction="row" gap={2} overflow="scroll">
                 {/** 只限制四個 */}
-                {people.tags?.slice(0, 4).map((tag) => (
-                  <PeopleTag value={tag} key={tag} />
-                ))}
+                {people.tags
+                  ?.slice(0, 4)
+                  .map((tag) => <PeopleTag value={tag} key={tag} />)}
               </Stack>
             </Stack>
           </Grid>

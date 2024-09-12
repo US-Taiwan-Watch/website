@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "prettier --write . && eslint --fix .",
     "test": "echo \"Mock Test\"",
     "prepare": "husky install .husky",
     "pre-commit-lint": "lint-staged",
@@ -48,12 +49,15 @@
     "@typescript-eslint/parser": "^8.3.0",
     "eslint": "^8",
     "eslint-config-next": "14.2.5",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.10.2",
+    "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-promise": "^7.1.0",
     "husky": "7.0.4",
     "lint-staged": "^15.2.8",
+    "prettier": "3.3.3",
     "simple-zustand-devtools": "^1.1.0",
     "typescript": "^5"
   }

@@ -14,10 +14,12 @@ const MOCK_SEARCH_RESULTS: Array<ConstructorParameters<typeof SearchResult>> = [
   [{ value: 'test10' }],
 ]
 
-export default function useSearch () {
+export default function useSearch() {
   const [searched, setSearched] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
-  const handleSearchQueryChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchQueryChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setSearchQuery(event.target.value)
   }
 
@@ -25,7 +27,9 @@ export default function useSearch () {
 
   const handleSearch = () => {
     setSearched(true)
-    setSearchResults(MOCK_SEARCH_RESULTS.map((result) => new SearchResult(...result)))
+    setSearchResults(
+      MOCK_SEARCH_RESULTS.map((result) => new SearchResult(...result))
+    )
     // setSearchResults([])
   }
 

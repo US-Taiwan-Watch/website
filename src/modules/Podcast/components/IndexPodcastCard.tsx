@@ -62,22 +62,27 @@ const StyledPodcastSourceIconButton = styled(UIconButton)(({ theme }) => ({
 }))
 
 interface IndexPodcastCardProps {
-  className?: string;
-  podcast: Podcast;
+  className?: string
+  podcast: Podcast
 }
 
-const IndexPodcastCard = memo(function IndexPodcastCard ({
+const IndexPodcastCard = memo(function IndexPodcastCard({
   className,
   podcast,
 }: IndexPodcastCardProps) {
   return (
     <StyledIndexPodcastCardBox
-        className={clsx(className, podcast.type)}
-        padding={2}
-      >
+      className={clsx(className, podcast.type)}
+      padding={2}
+    >
       <Grid container spacing={4}>
         <Grid item xs={12} md={7} rowSpacing={0}>
-          <Stack height="100%" direction="column" spacing={2} justifyContent="space-between">
+          <Stack
+            height="100%"
+            direction="column"
+            spacing={2}
+            justifyContent="space-between"
+          >
             {podcast.bannerImg && (
               <StyledBanner
                 src={podcast.bannerImg}
@@ -95,7 +100,11 @@ const IndexPodcastCard = memo(function IndexPodcastCard ({
             <Stack direction="row" spacing={2}>
               {podcast.sources?.map((source, index) => (
                 <Link key={index} href={source.url}>
-                  <StyledPodcastSourceIconButton variant="contained" color="black" size="medium">
+                  <StyledPodcastSourceIconButton
+                    variant="contained"
+                    color="black"
+                    size="medium"
+                  >
                     <PodcastSourceIcon sourceType={source.type} />
                   </StyledPodcastSourceIconButton>
                 </Link>
@@ -164,7 +173,7 @@ const withMockPodcast = function (podcastType: PodcastType) {
     ],
   })
 
-  return function withMockPodcast (
+  return function withMockPodcast(
     props: Omit<IndexPodcastCardProps, 'podcast'>
   ) {
     return <IndexPodcastCard {...props} podcast={podcast} />

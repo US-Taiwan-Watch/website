@@ -8,6 +8,7 @@ import {
   useImperativeHandle,
   useMemo,
 } from 'react'
+
 import { Typography, Slider, Stack, Grid } from '@mui/material'
 import { PlayCircleRounded, Pause, MoreHoriz } from '@mui/icons-material'
 import Image from 'next/image'
@@ -20,7 +21,11 @@ import {
 import { styled } from '@/common/lib/mui/theme'
 import usePlayer from '@/modules/Podcast/hooks/usePlayer'
 import UIconButton from '@/common/components/atoms/UIconButton'
-import { BackwardIcon, ForwardIcon, NorthEastIcon } from '@/common/styles/assets/Icons'
+import {
+  BackwardIcon,
+  ForwardIcon,
+  NorthEastIcon,
+} from '@/common/styles/assets/Icons'
 import Link from 'next/link'
 
 const StyledEpisodeCardContainer = styled(Stack)(({ theme }) => ({
@@ -105,18 +110,12 @@ const StyledLinkIconButton = styled(UIconButton)(({ theme }) => ({
 }))
 
 interface EpisodeCardProps extends GeneralEpisodeCardProps {
-  className?: string;
+  className?: string
 }
 
 const EpisodeCard = memo(
-  forwardRef<EpisodeCardRef, EpisodeCardProps>(function EpisodeCard (
-    {
-      className,
-      podcastId,
-      episodeId,
-      onPlay,
-      onPause,
-    }: EpisodeCardProps,
+  forwardRef<EpisodeCardRef, EpisodeCardProps>(function EpisodeCard(
+    { className, podcastId, episodeId, onPlay, onPause }: EpisodeCardProps,
     ref
   ) {
     const { episode } = useEpisode(podcastId, episodeId)
@@ -130,11 +129,12 @@ const EpisodeCard = memo(
       onPause?.({ podcastId, episodeId })
     }, [onPause, podcastId, episodeId])
 
-    const { playerRef, playing, progress, remainingTime, play, pause } = usePlayer({
-      audioUrl: memoizedEpisode?.audioUrl,
-      onPlayCallback: memoizedOnPlay,
-      onPauseCallback: memoizedOnPause,
-    })
+    const { playerRef, playing, progress, remainingTime, play, pause } =
+      usePlayer({
+        audioUrl: memoizedEpisode?.audioUrl,
+        onPlayCallback: memoizedOnPlay,
+        onPauseCallback: memoizedOnPause,
+      })
 
     const togglePlayPause = () => {
       if (playerRef.current) {
@@ -162,13 +162,19 @@ const EpisodeCard = memo(
 
     const handleBackwardClick = () => {
       if (playerRef.current) {
-        playerRef.current.seek(playerRef.current.seek() - 15 < 0 ? 0 : playerRef.current.seek() - 15)
+        playerRef.current.seek(
+          playerRef.current.seek() - 15 < 0 ? 0 : playerRef.current.seek() - 15
+        )
       }
     }
 
     const handleForwardClick = () => {
       if (playerRef.current) {
-        playerRef.current.seek(playerRef.current.seek() + 15 > playerRef.current.duration() ? playerRef.current.duration() : playerRef.current.seek() + 15)
+        playerRef.current.seek(
+          playerRef.current.seek() + 15 > playerRef.current.duration()
+            ? playerRef.current.duration()
+            : playerRef.current.seek() + 15
+        )
       }
     }
 
@@ -196,34 +202,73 @@ const EpisodeCard = memo(
         <Stack direction="column" flex={1} spacing={1} overflow="hidden">
           <Grid container columnSpacing={2} width="100%">
             <Grid item xs={10.5}>
-              <Stack direction='column' spacing={1}>
-                <Stack direction='column' spacing={0}>
-                  <StyledTitle variant='h6' gutterBottom flex={1} marginBottom={0}>
+              <Stack direction="column" spacing={1}>
+                <Stack direction="column" spacing={0}>
+                  <StyledTitle
+                    variant="h6"
+                    gutterBottom
+                    flex={1}
+                    marginBottom={0}
+                  >
                     {episode.title}
                   </StyledTitle>
-                  <StyledDate variant='body2'>
+                  <StyledDate variant="body2">
                     {episode.formattedPublishDate}
                   </StyledDate>
                 </Stack>
-                <StyledDescription variant='body1'>
+                <StyledDescription variant="body1">
                   {episode.description}
                 </StyledDescription>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} display="flex" alignItems="flex-start" justifyContent="end">
+            <Grid
+              item
+              xs={1.5}
+              display="flex"
+              alignItems="flex-start"
+              justifyContent="end"
+            >
               {/** TODO: Add link to episode */}
               <Link href={'/#'}>
-                <StyledLinkIconButton variant="rounded" color="default" size="small">
+                <StyledLinkIconButton
+                  variant="rounded"
+                  color="default"
+                  size="small"
+                >
                   <NorthEastIcon />
                 </StyledLinkIconButton>
               </Link>
             </Grid>
           </Grid>
           <StyledControlBarContainer container columnSpacing={2} width="100%">
-            <Grid item xs={10.5} alignItems="center" justifyContent="center" display="flex">
-              <Stack width="100%" direction='row' spacing={1} alignItems="flex-end" justifyContent="center">
-                <Stack direction='row' spacing={1} alignItems="flex-end" justifyContent="center" flex={1}>
-                  <UIconButton className="skip-button" variant="rounded" color="default" size="medium" onClick={handleBackwardClick}>
+            <Grid
+              item
+              xs={10.5}
+              alignItems="center"
+              justifyContent="center"
+              display="flex"
+            >
+              <Stack
+                width="100%"
+                direction="row"
+                spacing={1}
+                alignItems="flex-end"
+                justifyContent="center"
+              >
+                <Stack
+                  direction="row"
+                  spacing={1}
+                  alignItems="flex-end"
+                  justifyContent="center"
+                  flex={1}
+                >
+                  <UIconButton
+                    className="skip-button"
+                    variant="rounded"
+                    color="default"
+                    size="medium"
+                    onClick={handleBackwardClick}
+                  >
                     <BackwardIcon />
                   </UIconButton>
                   <StyledSlider
@@ -234,25 +279,46 @@ const EpisodeCard = memo(
                     onChange={handleSliderChange}
                     aria-labelledby="continuous-slider"
                   />
-                  <UIconButton className="skip-button" variant="rounded" color="default" size="medium" onClick={handleForwardClick}>
+                  <UIconButton
+                    className="skip-button"
+                    variant="rounded"
+                    color="default"
+                    size="medium"
+                    onClick={handleForwardClick}
+                  >
                     <ForwardIcon />
                   </UIconButton>
                 </Stack>
                 <Typography variant="body2">{remainingTime}</Typography>
-                <UIconButton className="more-button" variant="rounded" color="default" size="medium">
+                <UIconButton
+                  className="more-button"
+                  variant="rounded"
+                  color="default"
+                  size="medium"
+                >
                   <MoreHoriz />
                 </UIconButton>
               </Stack>
             </Grid>
-            <Grid item xs={1.5} display="flex" alignItems="center" justifyContent="end">
-              <UIconButton variant="contained" color="default" size="large" className="control-button" onClick={togglePlayPause}>
-                {playing
-                  ? (
-                    <Pause fontSize="large" />
-                    )
-                  : (
-                    <PlayCircleRounded fontSize="large" />
-                    )}
+            <Grid
+              item
+              xs={1.5}
+              display="flex"
+              alignItems="center"
+              justifyContent="end"
+            >
+              <UIconButton
+                variant="contained"
+                color="default"
+                size="large"
+                className="control-button"
+                onClick={togglePlayPause}
+              >
+                {playing ? (
+                  <Pause fontSize="large" />
+                ) : (
+                  <PlayCircleRounded fontSize="large" />
+                )}
               </UIconButton>
             </Grid>
           </StyledControlBarContainer>

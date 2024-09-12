@@ -12,7 +12,11 @@ type Props = {
   contentWrapperSx?: StackProps['sx']
 }
 
-const LandingSectionWrapper = ({ backgroundColor, contentWrapperSx, children }: Props) => {
+const LandingSectionWrapper = ({
+  backgroundColor,
+  contentWrapperSx,
+  children,
+}: Props) => {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -20,14 +24,16 @@ const LandingSectionWrapper = ({ backgroundColor, contentWrapperSx, children }: 
       backgroundColor={backgroundColor ?? theme.color.neutral[100]}
       containerSx={{
         borderRadius: '30px 30px 0 0',
-      }}>
+      }}
+    >
       <Container>
         <Stack
           sx={{
             padding: '80px 0',
             gap: '80px',
             ...contentWrapperSx,
-          }}>
+          }}
+        >
           {children}
         </Stack>
       </Container>

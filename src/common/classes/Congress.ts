@@ -4,13 +4,13 @@ import { Party } from '@/common/enums/Party'
 import { isMap, isNumber } from 'lodash-es'
 
 interface CongressArgs {
-  congressNumber: number;
-  startYear: number;
-  endYear: number;
-  houseMembers: number;
-  houseDistribution: Map<Party, number>;
-  senateMembers: number;
-  senateDistribution: Map<Party, number>;
+  congressNumber: number
+  startYear: number
+  endYear: number
+  houseMembers: number
+  houseDistribution: Map<Party, number>
+  senateMembers: number
+  senateDistribution: Map<Party, number>
 }
 
 export class Congress {
@@ -29,7 +29,7 @@ export class Congress {
   // 參議員政黨分布
   senateDistribution?: Map<Party, number>
 
-  constructor (private readonly congress: CongressArgs) {
+  constructor(private readonly congress: CongressArgs) {
     if (isNumber(congress.congressNumber)) {
       this.congressNumber = congress.congressNumber
     }

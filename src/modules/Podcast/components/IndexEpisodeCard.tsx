@@ -73,18 +73,12 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
 }))
 
 interface IndexEpisodeCardProps extends EpisodeCardProps {
-  className?: string;
+  className?: string
 }
 
 const IndexEpisodeCard = memo(
-  forwardRef<EpisodeCardRef, IndexEpisodeCardProps>(function IndexEpisodeCard (
-    {
-      className,
-      podcastId,
-      episodeId,
-      onPlay,
-      onPause,
-    }: IndexEpisodeCardProps,
+  forwardRef<EpisodeCardRef, IndexEpisodeCardProps>(function IndexEpisodeCard(
+    { className, podcastId, episodeId, onPlay, onPause }: IndexEpisodeCardProps,
     ref
   ) {
     const { episode } = useEpisode(podcastId, episodeId)
@@ -98,11 +92,12 @@ const IndexEpisodeCard = memo(
       onPause?.({ podcastId, episodeId })
     }, [onPause, podcastId, episodeId])
 
-    const { playerRef, playing, progress, remainingTime, play, pause } = usePlayer({
-      audioUrl: memoizedEpisode?.audioUrl,
-      onPlayCallback: memoizedOnPlay,
-      onPauseCallback: memoizedOnPause,
-    })
+    const { playerRef, playing, progress, remainingTime, play, pause } =
+      usePlayer({
+        audioUrl: memoizedEpisode?.audioUrl,
+        onPlayCallback: memoizedOnPlay,
+        onPauseCallback: memoizedOnPause,
+      })
 
     const togglePlayPause = () => {
       if (playerRef.current) {
@@ -158,14 +153,17 @@ const IndexEpisodeCard = memo(
             alignItems="center"
             spacing={2}
           >
-            <UIconButton variant="contained" color="default" className="control-button" onClick={togglePlayPause}>
-              {playing
-                ? (
-                  <Pause fontSize="large" />
-                  )
-                : (
-                  <PlayCircleRounded fontSize="large" />
-                  )}
+            <UIconButton
+              variant="contained"
+              color="default"
+              className="control-button"
+              onClick={togglePlayPause}
+            >
+              {playing ? (
+                <Pause fontSize="large" />
+              ) : (
+                <PlayCircleRounded fontSize="large" />
+              )}
             </UIconButton>
             <StyledSlider
               value={progress}

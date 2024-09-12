@@ -24,12 +24,12 @@ const StyledButton = styled(UButton)(({ theme }) => {
   }
 })
 
-export const LanguageSwitcher = memo(function LanguageSwitcher () {
+export const LanguageSwitcher = memo(function LanguageSwitcher() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const { lang } = useParams<{
-    lang: Language;
+    lang: Language
   }>()
 
   const handleClick = (lang: Language) => {
