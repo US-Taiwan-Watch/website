@@ -70,6 +70,7 @@ declare module '@mui/material/styles' {
     articleH3: CSSProperties
     articleH4: CSSProperties
     articleH5: CSSProperties
+    articleH6: CSSProperties
     body: CSSProperties
   }
 
@@ -98,6 +99,7 @@ declare module '@mui/material/styles' {
     articleH3?: CSSProperties
     articleH4?: CSSProperties
     articleH5?: CSSProperties
+    articleH6?: CSSProperties
     body?: CSSProperties
   }
 }
@@ -128,6 +130,7 @@ declare module '@mui/material/Typography' {
     articleH3: true
     articleH4: true
     articleH5: true
+    articleH6: true
     body: true
   }
 }
@@ -284,6 +287,9 @@ const ketagalanPalette: PaletteOptions = {
   background: {
     default: color.grey[900],
   },
+  text: {
+    primary: color.common.white,
+  },
   action: {
     disabledBackground: color.grey[400],
     disabled: color.neutral[200],
@@ -430,6 +436,7 @@ const typographyVariants = {
   articleH3: { fontSize: 22, fontWeight: 700, display: 'block' }, // lineHeight: '25.85px'
   articleH4: { fontSize: 18, fontWeight: 700, display: 'block' }, // lineHeight: '21.15px'
   articleH5: { fontSize: 16, fontWeight: 700, display: 'block' }, // lineHeight: '18.8px'
+  articleH6: { fontSize: 14, fontWeight: 300, display: 'block' }, // lineHeight: '18px'
   body: { fontSize: 16, fontWeight: 400, display: 'block' }, // lineHeight: '26px'
 }
 
