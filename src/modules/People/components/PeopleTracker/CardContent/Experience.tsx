@@ -25,6 +25,11 @@ import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 
+/**
+ * 計算經歷的時間
+ * @param experience 經歷
+ * @returns 時間文字
+ */
 const useExperienceTime = function (experience: PeopleExperience) {
   // TODO: i18n
   const durationText = useMemo(() => {
@@ -54,6 +59,12 @@ const useExperienceTime = function (experience: PeopleExperience) {
   return { timeText, durationText }
 }
 
+/**
+ * 經歷時間軸項目
+ * @param experience 經歷
+ * @param isLast 是否是最後一個
+ * @returns 經歷時間軸項目
+ */
 const ExperienceTimelineItem = function ExperienceTimelineItem({
   experience,
   isLast,
@@ -89,6 +100,16 @@ const ExperienceTimelineItem = function ExperienceTimelineItem({
     </TimelineItem>
   )
 }
+
+// Be hardcoded in source code
+const TIMELINE_DOT_MARGIN_PX = 15.5
+const TIMELINE_DOT_WIDTH_PX = 12
+
+/**
+ * 經歷時間軸
+ * @param experience 經歷
+ * @returns 經歷時間軸
+ */
 const ExperienceTimeline = function ExperienceTimeline({
   experience,
 }: {
@@ -106,9 +127,9 @@ const ExperienceTimeline = function ExperienceTimeline({
           padding: 0,
         },
         [`& .MuiTimelineConnector-root`]: {
-          margin: '-15.5px 0',
+          margin: `-${TIMELINE_DOT_MARGIN_PX + TIMELINE_DOT_WIDTH_PX / 2}px 0`,
           backgroundColor: theme.color.grey[100],
-          width: '12px',
+          width: `${TIMELINE_DOT_WIDTH_PX}px`,
         },
         [`& .MuiTimelineDot-root`]: {
           zIndex: 1,
@@ -127,6 +148,11 @@ const ExperienceTimeline = function ExperienceTimeline({
   )
 }
 
+/**
+ * 經歷行
+ * @param experience 經歷
+ * @returns 經歷行
+ */
 const ExperienceRow = function ExperienceRow({
   experience,
 }: {
@@ -171,11 +197,27 @@ const ExperienceRow = function ExperienceRow({
 }
 
 interface ExperienceProps {
+  /**
+   * 人物經歷
+   */
   experience: PeopleExperience[]
+  /**
+   * 是否是彈窗
+   */
   isModal?: boolean
+  /**
+   * 點擊事件
+   */
   onActionClick?: () => void
 }
 
+/**
+ * 人物經歷元件
+ * @param experience 經歷
+ * @param isModal 是否是彈窗
+ * @param onActionClick 點擊事件
+ * @returns 人物經歷元件
+ */
 const Experience = function Experience({
   experience,
   isModal,
@@ -252,8 +294,8 @@ const Experience = function Experience({
             <Card
               sx={{
                 padding: 2,
-                '& .MuiCardContent-root': {
-                  paddingBottom: 0,
+                '& .MuiCardContent-root:last-child': {
+                  padding: 0,
                 },
               }}
             >
