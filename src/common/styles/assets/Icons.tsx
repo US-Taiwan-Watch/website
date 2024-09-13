@@ -23,6 +23,11 @@ import SvgNorthEastIcon from './NorthEastIcon.svg'
 import SvgApplePodcastIcon from './ApplePodcastIcon.svg'
 import SvgGooglePodcastIcon from './GooglePodcastIcon.svg'
 import SvgSoundOnPodcastIcon from './SoundOnPodcastIcon.svg'
+import SvgBriefcaseIcon from './BriefcaseIcon.svg'
+import SvgLineChartIcon from './LineChartIcon.svg'
+import SvgPeopleIcon from './PeopleIcon.svg'
+import SvgPeopleCheckIcon from './PeopleCheckIcon.svg'
+import SvgStarsIcon from './StarsIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -120,4 +125,24 @@ export const GooglePodcastIcon = (props: SvgIconProps) => (
 
 export const SoundOnPodcastIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgSoundOnPodcastIcon} {...props} />
+)
+
+export const BriefcaseIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgBriefcaseIcon} {...props} />
+)
+
+export const LineChartIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgLineChartIcon} {...props} />
+)
+
+export const PeopleIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgPeopleIcon} {...props} />
+)
+
+export const PeopleCheckIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgPeopleCheckIcon} {...props} />
+)
+
+export const StarsIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgStarsIcon} {...props} />
 )
