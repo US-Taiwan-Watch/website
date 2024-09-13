@@ -44,6 +44,46 @@ const people = new People({
       end: '2021-01-01',
     },
   ],
+  experience: [
+    {
+      title: '2016 Presidential Candidate',
+      subtitle: 'Marco Rubio for President',
+      start: '2019-01-01',
+    },
+    {
+      title: 'United States Senator (R-FL)',
+      subtitle: 'United States Senate',
+      start: '2021-01-01',
+      descriptions: ['Washington D.C. Metro Area'],
+    },
+    {
+      title: 'United States Senator (R-FL)',
+      start: '2021-01-01',
+      end: '2023-01-01',
+      experience: [
+        {
+          title: 'United States Senator (R-FL)',
+          start: '2022-12-01',
+        },
+        {
+          title: 'Representative for 111th House District',
+          start: '2022-06-01',
+          end: '2022-12-01',
+        },
+        {
+          title: 'House Majority Leader',
+          start: '2021-01-01',
+          end: '2022-06-01',
+        },
+      ],
+    },
+    {
+      title: 'City Commissioner',
+      subtitle: 'West Miami',
+      start: '2021-01-01',
+      end: '2023-01-01',
+    },
+  ],
 })
 
 export default people

@@ -170,6 +170,7 @@ const color = {
     1600: '#DEDEDE',
     1700: '#E4E4E4',
     1800: '#AAAAAA',
+    1900: '#EEEEEE',
   },
   orange: {
     ...colors.orange,

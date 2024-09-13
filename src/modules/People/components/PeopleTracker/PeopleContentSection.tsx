@@ -20,7 +20,18 @@ const StyledContentCard = styled(Card)(({ theme }) => ({
 }))
 
 const StyledContentCardWithHeader = styled(StyledContentCard)(({ theme }) => ({
+  position: 'relative',
   padding: theme.spacing(3),
+  // 如果 children 有 overflow，在 after 加上一層 gradient 遮罩
+  '&:after': {
+    content: '""',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    width: '100%',
+    height: '70px',
+    background: 'linear-gradient(to top, white, transparent)',
+  },
 }))
 
 interface PeopleContentSectionProps {
@@ -70,8 +81,8 @@ const PeopleContentSection = memo(function PeopleContentSection({
         </Grid>
 
         <Grid item xs={5}>
-          <StyledContentCardWithHeader>
-            <Experience />
+          <StyledContentCardWithHeader sx={{ overflow: 'hidden' }}>
+            <Experience experience={people.experience ?? []} />
           </StyledContentCardWithHeader>
         </Grid>
 
