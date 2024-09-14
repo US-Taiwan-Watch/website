@@ -6,6 +6,7 @@ import Experience from '@/modules/People/components/PeopleTracker/CardContent/Ex
 import IdeologyLeadershipChart from '@/modules/People/components/PeopleTracker/CardContent/IdeologyLeadershipChart'
 import NumberLink from '@/modules/People/components/PeopleTracker/CardContent/NumberLink'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
+import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
 import VotesWithParty from '@/modules/People/components/PeopleTracker/CardContent/VotesWithParty'
 import { Box, Card, Grid, useTheme } from '@mui/material'
 import { memo } from 'react'
@@ -43,7 +44,10 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {people.party && people.partyExperience && (
           <Grid item xs={6}>
             <StyledContentCard>
-              <Party party={people.party} />
+              <Party
+                party={people.party}
+                partyExperiences={people.partyExperience}
+              />
             </StyledContentCard>
           </Grid>
         )}
@@ -97,15 +101,21 @@ const PeopleContentSection = memo(function PeopleContentSection({
         </Grid>
 
         {/** Row 2 */}
-        <Grid item xs={3.5}>
+        <Grid item xs={3}>
           <StyledContentCardWithHeader>
             <VotesWithParty />
           </StyledContentCardWithHeader>
         </Grid>
 
-        <Grid item xs={8.5}>
+        <Grid item xs={4.5}>
           <StyledContentCardWithHeader>
             <Committee />
+          </StyledContentCardWithHeader>
+        </Grid>
+
+        <Grid item xs={4.5}>
+          <StyledContentCardWithHeader>
+            <Publication />
           </StyledContentCardWithHeader>
         </Grid>
 
