@@ -153,7 +153,7 @@ export class People {
    * @param experience
    * @returns
    */
-  static CalculateExperienceDuration(experience: Experience) {
+  static CalculateExperienceDuration(experience: Experience | PartyExperience) {
     return {
       year: experience.end?.diff(experience.start, 'year') ?? 0,
       month: (experience.end?.diff(experience.start, 'month') ?? 0) % 12,
