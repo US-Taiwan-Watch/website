@@ -94,7 +94,7 @@ const CommitteeRow = function CommitteeRow({
 
 // TODO: 確認資料來源
 interface CommitteeProps {
-  committees: Array<CommitteeArg>
+  committees?: Array<CommitteeArg>
 }
 
 const Committee = function Committee({
