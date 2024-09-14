@@ -22,6 +22,9 @@ const StyledContentCard = styled(Card)(({ theme }) => ({
 const StyledContentCardWithHeader = styled(StyledContentCard)(({ theme }) => ({
   position: 'relative',
   padding: theme.spacing(3),
+  '& .MuiCardContent-root:last-child': {
+    padding: 0,
+  },
 }))
 
 interface PeopleContentSectionProps {
