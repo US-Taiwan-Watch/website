@@ -174,6 +174,8 @@ const color = {
     1700: '#E4E4E4',
     1800: '#AAAAAA',
     1900: '#EEEEEE',
+    2000: '#565656', // Bill Total Count
+    2100: '#828282',
   },
   orange: {
     ...colors.orange,

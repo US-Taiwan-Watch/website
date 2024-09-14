@@ -30,6 +30,9 @@ import SvgPeopleCheckIcon from './PeopleCheckIcon.svg'
 import SvgStarsIcon from './StarsIcon.svg'
 import SvgDocumentIcon from './DocumentIcon.svg'
 import SvgPersonIcon from './PersonIcon.svg'
+import SvgSponsorIcon from './SponsorIcon.svg'
+import SvgTrendIcon from './TrendIcon.svg'
+import SvgCongressIcon from './CongressIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -155,4 +158,16 @@ export const DocumentIcon = (props: SvgIconProps) => (
 
 export const PersonIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgPersonIcon} {...props} />
+)
+
+export const SponsorIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgSponsorIcon} {...props} />
+)
+
+export const TrendIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgTrendIcon} {...props} />
+)
+
+export const CongressIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgCongressIcon} {...props} />
 )
