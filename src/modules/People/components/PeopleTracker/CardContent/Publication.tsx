@@ -124,7 +124,7 @@ const Publication = function Publication({
       <UCardHeader
         title="Publication"
         icon={<DocumentIcon />}
-        iconColor="secondary"
+        iconColor="primary"
         action={
           <UIconButton
             variant="rounded"
