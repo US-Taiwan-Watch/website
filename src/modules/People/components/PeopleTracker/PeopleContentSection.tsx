@@ -1,7 +1,12 @@
 import { styled } from '@/common/lib/mui/theme'
 import { People } from '@/modules/People/classes/People'
+import BioByAI from '@/modules/People/components/PeopleTracker/CardContent/BioByAI'
+import Committee from '@/modules/People/components/PeopleTracker/CardContent/Committee'
+import Experience from '@/modules/People/components/PeopleTracker/CardContent/Experience'
+import IdeologyLeadershipChart from '@/modules/People/components/PeopleTracker/CardContent/IdeologyLeadershipChart'
 import NumberLink from '@/modules/People/components/PeopleTracker/CardContent/NumberLink'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
+import VotesWithParty from '@/modules/People/components/PeopleTracker/CardContent/VotesWithParty'
 import { Box, Card, Grid, useTheme } from '@mui/material'
 import { memo } from 'react'
 
@@ -12,6 +17,10 @@ const StyledContentCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(1),
   height: '100%',
   boxShadow: 'none',
+}))
+
+const StyledContentCardWithHeader = styled(StyledContentCard)(({ theme }) => ({
+  padding: theme.spacing(3),
 }))
 
 interface PeopleContentSectionProps {
@@ -54,6 +63,37 @@ const PeopleContentSection = memo(function PeopleContentSection({
         </Grid>
 
         {/** Row 2 */}
+        <Grid item xs={7}>
+          <StyledContentCardWithHeader>
+            <BioByAI />
+          </StyledContentCardWithHeader>
+        </Grid>
+
+        <Grid item xs={5}>
+          <StyledContentCardWithHeader>
+            <Experience />
+          </StyledContentCardWithHeader>
+        </Grid>
+
+        {/** Row 2 */}
+        <Grid item xs={3.5}>
+          <StyledContentCardWithHeader>
+            <VotesWithParty />
+          </StyledContentCardWithHeader>
+        </Grid>
+
+        <Grid item xs={8.5}>
+          <StyledContentCardWithHeader>
+            <Committee />
+          </StyledContentCardWithHeader>
+        </Grid>
+
+        {/** Row 3 */}
+        <Grid item xs={12}>
+          <StyledContentCardWithHeader>
+            <IdeologyLeadershipChart />
+          </StyledContentCardWithHeader>
+        </Grid>
       </Grid>
     </Box>
   )
