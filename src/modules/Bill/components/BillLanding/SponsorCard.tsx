@@ -1,12 +1,11 @@
 'use client'
 
-import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { SponsorIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Stack, Typography, useTheme } from '@mui/material'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
-import { UContentCardWithHeader } from '@/common/components/atoms/UContentCard'
+import UContentCard from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
 import { BILL_SPONSOR_MOCK } from '@/modules/Bill/components/data'
 import { People } from '@/modules/People/classes/People'
@@ -63,18 +62,19 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <UContentCardWithHeader>
-      <UCardHeader
-        title={isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor'}
-        icon={<SponsorIcon />}
-        iconColor="primary"
-        action={
+    <UContentCard
+      withHeader
+      headerProps={{
+        title: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
+        icon: <SponsorIcon />,
+        iconColor: 'primary',
+        action: (
           <UIconButton variant="rounded" color="inherit" size="small">
             <ErrorOutlineOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
           </UIconButton>
-        }
-        sx={{ borderBottom: 0 }}
-      />
+        ),
+      }}
+    >
       <CardContent sx={{ padding: 0 }}>
         <Stack spacing={1}>
           {BILL_SPONSOR_MOCK.map((sponsor, index) => (
@@ -82,6 +82,6 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
           ))}
         </Stack>
       </CardContent>
-    </UContentCardWithHeader>
+    </UContentCard>
   )
 }

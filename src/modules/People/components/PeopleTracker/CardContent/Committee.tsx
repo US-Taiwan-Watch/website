@@ -1,9 +1,9 @@
-import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { PeopleIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Stack, Typography, useTheme } from '@mui/material'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import UContentCard from '@/common/components/atoms/UContentCard'
 
 const MOCK_COMMITTEES = [
   {
@@ -103,17 +103,19 @@ const Committee = function Committee({
   const theme = useTheme<USTWTheme>()
 
   return (
-    <>
-      <UCardHeader
-        title="Committee"
-        icon={<PeopleIcon />}
-        iconColor="secondary"
-        action={
+    <UContentCard
+      withHeader
+      headerProps={{
+        title: 'Committee',
+        icon: <PeopleIcon />,
+        iconColor: 'secondary',
+        action: (
           <UIconButton variant="rounded" color="inherit" size="small">
             <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
           </UIconButton>
-        }
-      />
+        ),
+      }}
+    >
       <CardContent
         sx={{
           padding: 0,
@@ -123,7 +125,7 @@ const Committee = function Committee({
           <CommitteeRow key={index} committee={committee} />
         ))}
       </CardContent>
-    </>
+    </UContentCard>
   )
 }
 

@@ -1,12 +1,11 @@
 'use client'
 
-import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { CongressIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Stack, Typography, useTheme } from '@mui/material'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
-import { UContentCardWithHeader } from '@/common/components/atoms/UContentCard'
+import UContentCard from '@/common/components/atoms/UContentCard'
 import ParliamentChart, {
   ParliamentChartData,
 } from '@/modules/Bill/components/BillLanding/ParliamentChart'
@@ -78,17 +77,19 @@ export default function CongressCard() {
   }, [selectedCongressType])
 
   return (
-    <UContentCardWithHeader>
-      <UCardHeader
-        title="Congressional Distribution"
-        icon={<CongressIcon />}
-        iconColor="primary"
-        action={
+    <UContentCard
+      withHeader
+      headerProps={{
+        title: 'Congressional Distribution',
+        icon: <CongressIcon />,
+        iconColor: 'primary',
+        action: (
           <UIconButton variant="rounded" color="inherit" size="small">
             <ErrorOutlineOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
           </UIconButton>
-        }
-      />
+        ),
+      }}
+    >
       <CardContent sx={{ padding: 0 }}>
         <Stack pt={2} alignItems="center">
           <Legend data={data} hoveredParty={hoveredParty} />
@@ -123,6 +124,6 @@ export default function CongressCard() {
           </UHStack>
         </Stack>
       </CardContent>
-    </UContentCardWithHeader>
+    </UContentCard>
   )
 }
