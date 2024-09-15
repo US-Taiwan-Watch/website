@@ -1,11 +1,12 @@
 import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { TrendIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, Typography, useTheme } from '@mui/material'
+import { Box, CardContent, Stack, Typography, useTheme } from '@mui/material'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import { UContentCardWithHeader } from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
+import TrendBarCharts from '@/modules/Bill/components/BillLanding/TrendBarCharts'
 
 export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
@@ -31,7 +32,11 @@ export default function TrendCard() {
               </Typography>
               <Typography variant="h4">2048</Typography>
             </Stack>
+            {/* TODO: filter */}
           </UHStack>
+          <Box width="100%">
+            <TrendBarCharts />
+          </Box>
         </Stack>
       </CardContent>
     </UContentCardWithHeader>

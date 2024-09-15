@@ -176,6 +176,7 @@ const color = {
     1900: '#EEEEEE',
     2000: '#565656', // Bill Total Count
     2100: '#828282',
+    2200: '#4F4F4F', // Trend Bar Chart
   },
   orange: {
     ...colors.orange,

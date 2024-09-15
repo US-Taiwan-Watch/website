@@ -38,7 +38,7 @@ function SponsorRow({ sponsor }: SponsorRowProps) {
 
   return (
     <StyledSponsorRowContainer>
-      <Stack gap="2px">
+      <Stack>
         <Typography variant="articleH5">{sponsor.name}</Typography>
         <UHStack gap="6px" alignItems="center">
           <CircleIcon
