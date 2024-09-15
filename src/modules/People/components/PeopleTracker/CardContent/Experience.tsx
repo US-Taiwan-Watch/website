@@ -164,7 +164,15 @@ const ExperienceRow = function ExperienceRow({
   const { timeText } = useExperienceTime(experience)
 
   return (
-    <Stack className="experience-row" padding={1}>
+    <Stack
+      className="experience-row"
+      padding={1}
+      sx={{
+        '&:not(:last-child)': {
+          borderBottom: `1px solid ${theme.color.grey[1900]}`,
+        },
+      }}
+    >
       <Typography variant="bodyM" fontWeight={700}>
         {experience.title}
       </Typography>
@@ -266,11 +274,6 @@ const Experience = function Experience({
           padding: 0,
           position: isModal ? 'relative' : 'absolute',
           width: isModal ? '100%' : 'calc(100% - 48px)',
-          [`& .experience-row`]: {
-            '&:not(:last-child)': {
-              borderBottom: `1px solid ${theme.color.grey[1900]}`,
-            },
-          },
         }}
       >
         {experience?.map((exp, index) => (
