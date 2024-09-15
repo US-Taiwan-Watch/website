@@ -1,14 +1,5 @@
-import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { BriefcaseIcon } from '@/common/styles/assets/Icons'
-import {
-  Box,
-  Card,
-  CardContent,
-  Dialog,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { CardContent, Stack, Typography, useTheme } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -24,6 +15,8 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
+import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 
 /**
  * 計算經歷的時間
@@ -249,12 +242,13 @@ const Experience = function Experience({
   }
 
   return (
-    <>
-      <UCardHeader
-        title="Experience"
-        icon={<BriefcaseIcon />}
-        iconColor="primary"
-        action={
+    <UContentCard
+      withHeader
+      headerProps={{
+        title: 'Experience',
+        icon: <BriefcaseIcon />,
+        iconColor: 'primary',
+        action: (
           <UIconButton
             variant="rounded"
             color="inherit"
@@ -267,13 +261,20 @@ const Experience = function Experience({
               <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
             )}
           </UIconButton>
-        }
-      />
+        ),
+      }}
+      sx={{
+        ...(isModal && {
+          padding: 0,
+          border: 'none',
+          borderRadius: 0,
+        }),
+      }}
+      overflowHidden={!isModal}
+    >
       <CardContent
         sx={{
           padding: 0,
-          position: isModal ? 'relative' : 'absolute',
-          width: isModal ? '100%' : 'calc(100% - 48px)',
         }}
       >
         {experience?.map((exp, index) => (
@@ -281,39 +282,15 @@ const Experience = function Experience({
         ))}
       </CardContent>
       {isModalOpen && (
-        <Dialog
-          open={isModalOpen}
-          onClose={handleCloseModal}
-          PaperProps={{
-            sx: {
-              width: '100%',
-              borderRadius: theme.shape.borderRadius,
-            },
-          }}
-        >
-          <Box
-            sx={{
-              bgcolor: 'background.paper',
-            }}
-          >
-            <Card
-              sx={{
-                padding: 2,
-                '& .MuiCardContent-root:last-child': {
-                  padding: 0,
-                },
-              }}
-            >
-              <Experience
-                isModal
-                onActionClick={handleCloseModal}
-                experience={experience}
-              />
-            </Card>
-          </Box>
-        </Dialog>
+        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
+          <Experience
+            isModal
+            onActionClick={handleCloseModal}
+            experience={experience}
+          />
+        </UContentCardDialog>
       )}
-    </>
+    </UContentCard>
   )
 }
 

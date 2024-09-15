@@ -36,7 +36,7 @@ const StyledCardHeaderIcon = styled(Box)(({ theme }) => ({
 // 另外定義的 Icon 色卡，方便引用的人不需要再定義一次
 type UCardHeaderIconColor = 'primary' | 'secondary'
 
-interface UCardHeaderProps extends CardHeaderProps {
+export interface UCardHeaderProps extends CardHeaderProps {
   icon?: React.ReactNode
   iconColor?: UCardHeaderIconColor
 }
