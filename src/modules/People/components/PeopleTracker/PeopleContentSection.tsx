@@ -1,4 +1,3 @@
-import { styled } from '@/common/lib/mui/theme'
 import { People } from '@/modules/People/classes/People'
 import BioByAI from '@/modules/People/components/PeopleTracker/CardContent/BioByAI'
 import Committee from '@/modules/People/components/PeopleTracker/CardContent/Committee'
@@ -8,25 +7,8 @@ import NumberLink from '@/modules/People/components/PeopleTracker/CardContent/Nu
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
 import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
 import VotesWithParty from '@/modules/People/components/PeopleTracker/CardContent/VotesWithParty'
-import { Box, Card, Grid, useTheme } from '@mui/material'
+import { Box, Grid, useTheme } from '@mui/material'
 import { memo } from 'react'
-
-const StyledContentCard = styled(Card)(({ theme }) => ({
-  backgroundColor: theme.color.common.white,
-  borderRadius: theme.shape.borderRadius * 4,
-  border: `1px solid ${theme.color.grey[1600]}`,
-  padding: theme.spacing(1),
-  height: '100%',
-  boxShadow: 'none',
-}))
-
-const StyledContentCardWithHeader = styled(StyledContentCard)(({ theme }) => ({
-  position: 'relative',
-  padding: theme.spacing(3),
-  '& .MuiCardContent-root:last-child': {
-    padding: 0,
-  },
-}))
 
 interface PeopleContentSectionProps {
   people: People
@@ -43,87 +25,50 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {/** Row 1 */}
         {people.party && people.partyExperience && (
           <Grid item xs={6}>
-            <StyledContentCard>
-              <Party
-                party={people.party}
-                partyExperiences={people.partyExperience}
-              />
-            </StyledContentCard>
+            <Party
+              party={people.party}
+              partyExperiences={people.partyExperience}
+            />
           </Grid>
         )}
 
         <Grid item xs={2}>
-          <StyledContentCard>
-            <NumberLink title="Sponsored" number={2} />
-          </StyledContentCard>
+          <NumberLink title="Sponsored" number={2} />
         </Grid>
 
         <Grid item xs={2}>
-          <StyledContentCard>
-            <NumberLink title="co-sponsored" number={3} />
-          </StyledContentCard>
+          <NumberLink title="co-sponsored" number={3} />
         </Grid>
 
         <Grid item xs={2}>
-          <StyledContentCard>
-            <NumberLink title="Voting Record" number={0} />
-          </StyledContentCard>
+          <NumberLink title="Voting Record" number={0} />
         </Grid>
 
         {/** Row 2 */}
         <Grid item xs={7}>
-          <StyledContentCardWithHeader>
-            <BioByAI />
-          </StyledContentCardWithHeader>
+          <BioByAI />
         </Grid>
 
         <Grid item xs={5}>
-          <StyledContentCardWithHeader
-            sx={{
-              overflow: 'hidden',
-              /**
-               * 如果有 overflow，在 after 加上一層 gradient 遮罩
-               * 目前看起來只有 experience 會有 overflow hidden 的問題
-               */
-              '&:after': {
-                content: '""',
-                position: 'absolute',
-                bottom: 0,
-                left: 0,
-                width: '100%',
-                height: '70px',
-                background: 'linear-gradient(to top, white, transparent)',
-              },
-            }}
-          >
-            <Experience experience={people.experience ?? []} />
-          </StyledContentCardWithHeader>
+          <Experience experience={people.experience ?? []} />
         </Grid>
 
         {/** Row 2 */}
         <Grid item xs={3}>
-          <StyledContentCardWithHeader>
-            <VotesWithParty />
-          </StyledContentCardWithHeader>
+          <VotesWithParty />
         </Grid>
 
         <Grid item xs={4.5}>
-          <StyledContentCardWithHeader>
-            <Committee />
-          </StyledContentCardWithHeader>
+          <Committee />
         </Grid>
 
         <Grid item xs={4.5}>
-          <StyledContentCardWithHeader>
-            <Publication />
-          </StyledContentCardWithHeader>
+          <Publication />
         </Grid>
 
         {/** Row 3 */}
         <Grid item xs={12}>
-          <StyledContentCardWithHeader>
-            <IdeologyLeadershipChart />
-          </StyledContentCardWithHeader>
+          <IdeologyLeadershipChart />
         </Grid>
       </Grid>
     </Box>

@@ -18,6 +18,7 @@ import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { PersonIcon } from '@/common/styles/assets/Icons'
 import CloseIcon from '@mui/icons-material/Close'
 import { PartyExperience, People } from '@/modules/People/classes/People'
+import UContentCard from '@/common/components/atoms/UContentCard'
 
 /**
  * 計算經歷的時間
@@ -27,6 +28,8 @@ import { PartyExperience, People } from '@/modules/People/classes/People'
 const usePartyExperienceTime = function (experience: PartyExperience) {
   // TODO: i18n
   const timeText = useMemo(() => {
+    if (!experience.start) return ''
+
     // 現在進行中
     if (!experience.end) {
       return `${experience.start.format(People.TimeFormat)} ~ Present`
@@ -109,74 +112,76 @@ const Party = function ({ party, partyExperiences }: PartyProps) {
   }
 
   return (
-    <UHStack
-      alignItems="center"
-      justifyContent="center"
-      width="100%"
-      spacing={2}
-      padding={theme.spacing(2)}
-    >
-      {partyLogo && (
-        <StyledPartyLogo src={partyLogo} alt={party} width={50} height={50} />
-      )}
-      <Typography variant="subtitleL" textTransform="capitalize" flex={1}>
-        {party.toLowerCase()}
-      </Typography>
-      <UIconButton
-        variant="rounded"
-        size="small"
-        color="inherit"
-        onClick={handleButtonClick}
+    <UContentCard>
+      <UHStack
+        alignItems="center"
+        justifyContent="center"
+        width="100%"
+        spacing={2}
+        padding={theme.spacing(2)}
       >
-        <StyledArrowOutwardIcon />
-      </UIconButton>
-      <Dialog
-        open={isModalOpen}
-        onClose={handleCloseModal}
-        PaperProps={{
-          sx: {
-            width: '100%',
-            borderRadius: theme.shape.borderRadius,
-          },
-        }}
-      >
-        <Box
-          sx={{
-            bgcolor: 'background.paper',
+        {partyLogo && (
+          <StyledPartyLogo src={partyLogo} alt={party} width={50} height={50} />
+        )}
+        <Typography variant="subtitleL" textTransform="capitalize" flex={1}>
+          {party.toLowerCase()}
+        </Typography>
+        <UIconButton
+          variant="rounded"
+          size="small"
+          color="inherit"
+          onClick={handleButtonClick}
+        >
+          <StyledArrowOutwardIcon />
+        </UIconButton>
+        <Dialog
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          PaperProps={{
+            sx: {
+              width: '100%',
+              borderRadius: theme.shape.borderRadius,
+            },
           }}
         >
-          <Card
+          <Box
             sx={{
-              padding: 2,
-              '& .MuiCardContent-root:last-child': {
-                padding: 0,
-              },
+              bgcolor: 'background.paper',
             }}
           >
-            <UCardHeader
-              title="political party"
-              icon={<PersonIcon />}
-              iconColor="primary"
-              action={
-                <UIconButton
-                  variant="rounded"
-                  color="inherit"
-                  size="small"
-                  onClick={handleCloseModal}
-                >
-                  <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-                </UIconButton>
-              }
-            />
-            <CardContent sx={{ padding: 0 }}>
-              {partyExperiences.map((partyExperience, index) => (
-                <PartyRow key={index} partyExperience={partyExperience} />
-              ))}
-            </CardContent>
-          </Card>
-        </Box>
-      </Dialog>
-    </UHStack>
+            <Card
+              sx={{
+                padding: 2,
+                '& .MuiCardContent-root:last-child': {
+                  padding: 0,
+                },
+              }}
+            >
+              <UCardHeader
+                title="political party"
+                icon={<PersonIcon />}
+                iconColor="primary"
+                action={
+                  <UIconButton
+                    variant="rounded"
+                    color="inherit"
+                    size="small"
+                    onClick={handleCloseModal}
+                  >
+                    <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+                  </UIconButton>
+                }
+              />
+              <CardContent sx={{ padding: 0 }}>
+                {partyExperiences.map((partyExperience, index) => (
+                  <PartyRow key={index} partyExperience={partyExperience} />
+                ))}
+              </CardContent>
+            </Card>
+          </Box>
+        </Dialog>
+      </UHStack>
+    </UContentCard>
   )
 }
 
