@@ -73,10 +73,11 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
             <ErrorOutlineOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
           </UIconButton>
         ),
+        sx: { borderBottom: 0 },
       }}
     >
       <CardContent sx={{ padding: 0 }}>
-        <Stack spacing={1}>
+        <Stack spacing={1} pt={2}>
           {BILL_SPONSOR_MOCK.map((sponsor, index) => (
             <SponsorRow key={index} sponsor={sponsor} />
           ))}
