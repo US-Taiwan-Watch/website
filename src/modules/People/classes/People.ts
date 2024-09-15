@@ -15,7 +15,7 @@ interface PeopleArgs {
   tags: Array<string>
   partyExperience: Array<{
     party: Party
-    start: string
+    start?: string
     end?: string
   }>
 }
@@ -40,7 +40,7 @@ export class People {
   // TODO: 政黨經歷暫定，後續討論
   partyExperience?: Array<{
     party: Party
-    start: Dayjs
+    start?: Dayjs
     end?: Dayjs
   }>
 
@@ -73,8 +73,16 @@ export class People {
       this.partyExperience = people.partyExperience.map((item) => {
         return {
           party: item.party,
-          start: dayjs(item.start),
-          end: item.end ? dayjs(item.end) : undefined,
+          start: item.start
+            ? dayjs(item.start).isValid()
+              ? dayjs(item.start)
+              : undefined
+            : undefined,
+          end: item.end
+            ? dayjs(item.end).isValid()
+              ? dayjs(item.end)
+              : undefined
+            : undefined,
         }
       })
     }
