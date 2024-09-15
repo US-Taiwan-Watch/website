@@ -9,7 +9,7 @@ import type React from 'react'
 import { useMemo } from 'react'
 
 // TODO: 確認比例來源
-const MOCK_VOTES_WITH_PARTY_PERCENTAGE = 96
+const MOCK_VOTES_WITH_PARTY_PERCENTAGE = 96.12345
 
 const useVotesWithPartyPercentage = () => {
   const theme = useTheme<USTWTheme>()
@@ -18,7 +18,8 @@ const useVotesWithPartyPercentage = () => {
   const [percentage, data] = useMemo<
     [number, PieChartProps['series'][number]['data']]
   >(() => {
-    const percentage = MOCK_VOTES_WITH_PARTY_PERCENTAGE
+    // 呈現數據用，把小數點處理掉
+    const percentage = Math.ceil(MOCK_VOTES_WITH_PARTY_PERCENTAGE)
     const rest = 100 - percentage
 
     return [
