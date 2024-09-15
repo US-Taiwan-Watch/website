@@ -5,7 +5,7 @@ import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
 import { Box, Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
-import PeopleLabel from '@/modules/People/components/PeopleLabel'
+import PeopleCategory from '@/modules/People/components/PeopleCategory'
 import PeopleCongressTitle from '@/modules/People/components/PeopleCongressTitle'
 import PeopleTag from '@/modules/People/components/PeopleTag'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
@@ -21,6 +21,7 @@ const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
 }))
 
 const StyledPeopleCardImageContainer = styled(Box)(() => ({
+  position: 'relative',
   borderRadius: '15px',
   overflow: 'hidden',
 }))
@@ -69,15 +70,14 @@ const PeopleCard = memo(function PeopleCard({
             <StyledPeopleCardImage
               src={people.image}
               alt={people.name || ''}
-              width={160}
-              height={200}
+              fill
             />
           </StyledPeopleCardImageContainer>
         )}
         <Grid container direction="row" flex={1}>
           <Grid item xs={10}>
             <Stack direction="column" spacing={1}>
-              <PeopleLabel people={people} />
+              <PeopleCategory people={people} />
               <Typography fontSize={'1.5rem'} fontWeight={600}>
                 {people.name}
               </Typography>

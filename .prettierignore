@@ -1,3 +1,11 @@
 yarn.lock
 .env
 .env.*
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+*.webp
+*.ico
+*.bmp

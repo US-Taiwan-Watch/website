@@ -1,10 +1,9 @@
 import type { Metadata } from 'next'
 import React from 'react'
 import { Language } from '@/common/lib/i18n/types'
-import './people.css'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
-import { CssBaseline } from '@mui/material'
+import { Container, CssBaseline } from '@mui/material'
 
 export const metadata: Metadata = {
   title: 'People',
@@ -39,7 +38,7 @@ export default function PeopleLayout({
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {children}
+        <Container maxWidth="lg">{children}</Container>
       </ThemeProvider>
     </AppRouterCacheProvider>
   )

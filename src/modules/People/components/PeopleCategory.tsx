@@ -26,11 +26,13 @@ const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
   textTransform: 'capitalize',
 }))
 
-interface PeopleTagProps {
+interface PeopleCategoryProps {
   people: People
 }
 
-const PeopleLabel = function PeopleTag({ people }: PeopleTagProps) {
+const PeopleCategory = function PeopleCategory({
+  people,
+}: PeopleCategoryProps) {
   return (
     <StyledPeopleTagContainer
       className={clsx('', {
@@ -44,4 +46,4 @@ const PeopleLabel = function PeopleTag({ people }: PeopleTagProps) {
   )
 }
 
-export default PeopleLabel
+export default PeopleCategory

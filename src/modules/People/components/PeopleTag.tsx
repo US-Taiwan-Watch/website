@@ -26,7 +26,7 @@ const PeopleTag = function PeopleTag({ value }: PeopleTagProps) {
   return (
     <StyledPeopleTagContainer
       direction="row"
-      spacing={1}
+      spacing={0.5}
       alignItems="center"
       justifyContent="center"
     >
