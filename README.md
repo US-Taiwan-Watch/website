@@ -93,6 +93,9 @@ yarn dev
 yarn build
 yarn start
 
+# C. 分析 bundle size
+yarn analyze
+
 # Linter
 yarn lint
 ```
