@@ -6,6 +6,7 @@ import Experience from '@/modules/People/components/PeopleTracker/CardContent/Ex
 import IdeologyLeadershipChart from '@/modules/People/components/PeopleTracker/CardContent/IdeologyLeadershipChart'
 import NumberLink from '@/modules/People/components/PeopleTracker/CardContent/NumberLink'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
+import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
 import VotesWithParty from '@/modules/People/components/PeopleTracker/CardContent/VotesWithParty'
 import { Box, Card, Grid, useTheme } from '@mui/material'
 import { memo } from 'react'
@@ -20,7 +21,11 @@ const StyledContentCard = styled(Card)(({ theme }) => ({
 }))
 
 const StyledContentCardWithHeader = styled(StyledContentCard)(({ theme }) => ({
+  position: 'relative',
   padding: theme.spacing(3),
+  '& .MuiCardContent-root:last-child': {
+    padding: 0,
+  },
 }))
 
 interface PeopleContentSectionProps {
@@ -39,7 +44,10 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {people.party && people.partyExperience && (
           <Grid item xs={6}>
             <StyledContentCard>
-              <Party party={people.party} />
+              <Party
+                party={people.party}
+                partyExperiences={people.partyExperience}
+              />
             </StyledContentCard>
           </Grid>
         )}
@@ -70,21 +78,44 @@ const PeopleContentSection = memo(function PeopleContentSection({
         </Grid>
 
         <Grid item xs={5}>
-          <StyledContentCardWithHeader>
-            <Experience />
+          <StyledContentCardWithHeader
+            sx={{
+              overflow: 'hidden',
+              /**
+               * 如果有 overflow，在 after 加上一層 gradient 遮罩
+               * 目前看起來只有 experience 會有 overflow hidden 的問題
+               */
+              '&:after': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                width: '100%',
+                height: '70px',
+                background: 'linear-gradient(to top, white, transparent)',
+              },
+            }}
+          >
+            <Experience experience={people.experience ?? []} />
           </StyledContentCardWithHeader>
         </Grid>
 
         {/** Row 2 */}
-        <Grid item xs={3.5}>
+        <Grid item xs={3}>
           <StyledContentCardWithHeader>
             <VotesWithParty />
           </StyledContentCardWithHeader>
         </Grid>
 
-        <Grid item xs={8.5}>
+        <Grid item xs={4.5}>
           <StyledContentCardWithHeader>
             <Committee />
+          </StyledContentCardWithHeader>
+        </Grid>
+
+        <Grid item xs={4.5}>
+          <StyledContentCardWithHeader>
+            <Publication />
           </StyledContentCardWithHeader>
         </Grid>
 

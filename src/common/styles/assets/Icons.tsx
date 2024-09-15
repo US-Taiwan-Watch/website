@@ -28,6 +28,8 @@ import SvgLineChartIcon from './LineChartIcon.svg'
 import SvgPeopleIcon from './PeopleIcon.svg'
 import SvgPeopleCheckIcon from './PeopleCheckIcon.svg'
 import SvgStarsIcon from './StarsIcon.svg'
+import SvgDocumentIcon from './DocumentIcon.svg'
+import SvgPersonIcon from './PersonIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -145,4 +147,12 @@ export const PeopleCheckIcon = (props: SvgIconProps) => (
 
 export const StarsIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgStarsIcon} {...props} />
+)
+
+export const DocumentIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgDocumentIcon} {...props} />
+)
+
+export const PersonIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgPersonIcon} {...props} />
 )
