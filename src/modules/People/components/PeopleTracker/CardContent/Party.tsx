@@ -39,9 +39,9 @@ const usePartyExperienceTime = function (experience: PartyExperience) {
 }
 
 /**
- * 出版品行
- * @param publication 出版品
- * @returns 出版品行
+ * 政黨行
+ * @param partyExperience 政黨經歷
+ * @returns 政黨行
  */
 const PartyRow = function PartyRow({
   partyExperience,
