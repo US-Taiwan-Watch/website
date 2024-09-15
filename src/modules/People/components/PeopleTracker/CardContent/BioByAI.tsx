@@ -1,11 +1,17 @@
-import UCardHeader from '@/common/components/atoms/UCardHeader'
+import UContentCard from '@/common/components/atoms/UContentCard'
 import { StarsIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Typography } from '@mui/material'
 
 const BioByAI = function BioByAI() {
   return (
-    <>
-      <UCardHeader title="Bio by AI" icon={<StarsIcon />} iconColor="primary" />
+    <UContentCard
+      withHeader
+      headerProps={{
+        title: 'Bio by AI',
+        icon: <StarsIcon />,
+        iconColor: 'primary',
+      }}
+    >
       <CardContent>
         <Typography paragraph>
           Senator Pete Ricketts, a Republican, is the junior senator from
@@ -21,7 +27,7 @@ const BioByAI = function BioByAI() {
           to support Taiwan’s democracy.
         </Typography>
       </CardContent>
-    </>
+    </UContentCard>
   )
 }
 

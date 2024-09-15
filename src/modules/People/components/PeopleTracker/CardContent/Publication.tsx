@@ -1,19 +1,12 @@
-import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { DocumentIcon } from '@/common/styles/assets/Icons'
-import {
-  Box,
-  Card,
-  CardContent,
-  Dialog,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { CardContent, Stack, Typography, useTheme } from '@mui/material'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
+import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 
 type PublicationArg = {
   title: string
@@ -21,6 +14,30 @@ type PublicationArg = {
 }
 
 const MOCK_PUBLICATIONS: Array<PublicationArg> = [
+  {
+    title: "Leo Tolstoy's War and Peace (Translated for Cats)",
+    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  },
+  {
+    title: 'Thus Spoke Zarathustra (For Your Cat) (The Meow Library)',
+    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  },
+  {
+    title: "Leo Tolstoy's War and Peace (Translated for Cats)",
+    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  },
+  {
+    title: 'Thus Spoke Zarathustra (For Your Cat) (The Meow Library)',
+    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  },
+  {
+    title: "Leo Tolstoy's War and Peace (Translated for Cats)",
+    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  },
+  {
+    title: 'Thus Spoke Zarathustra (For Your Cat) (The Meow Library)',
+    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
+  },
   {
     title: "Leo Tolstoy's War and Peace (Translated for Cats)",
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
@@ -120,12 +137,13 @@ const Publication = function Publication({
   }
 
   return (
-    <>
-      <UCardHeader
-        title="Publication"
-        icon={<DocumentIcon />}
-        iconColor="primary"
-        action={
+    <UContentCard
+      withHeader
+      headerProps={{
+        title: 'Publication',
+        icon: <DocumentIcon />,
+        iconColor: 'primary',
+        action: (
           <UIconButton
             variant="rounded"
             color="inherit"
@@ -138,9 +156,22 @@ const Publication = function Publication({
               <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
             )}
           </UIconButton>
-        }
-      />
-      <CardContent sx={{ padding: 0 }}>
+        ),
+      }}
+      sx={{
+        ...(isModal && {
+          padding: 0,
+          border: 'none',
+          borderRadius: 0,
+        }),
+      }}
+      overflowHidden={!isModal}
+    >
+      <CardContent
+        sx={{
+          padding: 0,
+        }}
+      >
         {publications.map((publication, index) => (
           <PublicationRow
             key={index}
@@ -150,39 +181,15 @@ const Publication = function Publication({
         ))}
       </CardContent>
       {isModalOpen && (
-        <Dialog
-          open={isModalOpen}
-          onClose={handleCloseModal}
-          PaperProps={{
-            sx: {
-              width: '100%',
-              borderRadius: theme.shape.borderRadius,
-            },
-          }}
-        >
-          <Box
-            sx={{
-              bgcolor: 'background.paper',
-            }}
-          >
-            <Card
-              sx={{
-                padding: 2,
-                '& .MuiCardContent-root:last-child': {
-                  padding: 0,
-                },
-              }}
-            >
-              <Publication
-                isModal
-                onActionClick={handleCloseModal}
-                publications={publications}
-              />
-            </Card>
-          </Box>
-        </Dialog>
+        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
+          <Publication
+            isModal
+            onActionClick={handleCloseModal}
+            publications={publications}
+          />
+        </UContentCardDialog>
       )}
-    </>
+    </UContentCard>
   )
 }
 
