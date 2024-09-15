@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "analyze": "ANALYZE=true yarn build",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "prettier --write . && eslint --fix .",
@@ -40,6 +41,7 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^14.2.11",
     "@svgr/webpack": "^8.1.0",
     "@types/howler": "^2.2.11",
     "@types/lodash-es": "^4.17.12",
