@@ -90,7 +90,7 @@ export default function CongressCard() {
         }
       />
       <CardContent sx={{ padding: 0 }}>
-        <Stack py={2} alignItems="center">
+        <Stack pt={2} alignItems="center">
           <Legend data={data} hoveredParty={hoveredParty} />
           <ParliamentChart
             data={data}

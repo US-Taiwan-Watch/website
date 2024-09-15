@@ -42,7 +42,7 @@ export default function ParliamentChart({
 
   const subtitle = useMemo<string>(() => {
     if (hoveredParty) {
-      return `${dataPartyCountMap.get(hoveredParty) ?? ''}`
+      return `${dataPartyCountMap.get(hoveredParty)}`
     }
     return `${CONGRESS_CURRENT_SESSION_MOCK}th`
   }, [dataPartyCountMap, hoveredParty])
