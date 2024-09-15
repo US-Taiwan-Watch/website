@@ -1,3 +1,5 @@
+'use client'
+
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UHStack from '@/common/components/atoms/UHStack'
 import { Stack, Typography } from '@mui/material'

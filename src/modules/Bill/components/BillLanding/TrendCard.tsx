@@ -1,3 +1,5 @@
+'use client'
+
 import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { TrendIcon } from '@/common/styles/assets/Icons'
 import { Box, CardContent, Stack, Typography, useTheme } from '@mui/material'

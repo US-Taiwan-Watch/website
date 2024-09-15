@@ -1,3 +1,5 @@
+'use client'
+
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useTheme } from '@mui/material'
 import {

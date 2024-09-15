@@ -1,6 +1,11 @@
+'use client'
+
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
-import { BILL_TOTAL_COUNT_MOCK } from '@/modules/Bill/components/BillLanding/data'
+import {
+  BILL_TOTAL_COUNT_MOCK,
+  CONGRESS_CURRENT_SESSION_MOCK,
+} from '@/modules/Bill/components/data'
 import { Stack, Typography, useTheme } from '@mui/material'
 
 const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
@@ -30,7 +35,7 @@ export default function Introduction() {
 
       <StyledBillTotalCountCard>
         <Typography variant="buttonXS" color={theme.color.grey[2000]} mb={1}>
-          Congress 118
+          {`Congress ${CONGRESS_CURRENT_SESSION_MOCK}`}
         </Typography>
         <Typography variant="h2">{BILL_TOTAL_COUNT_MOCK}</Typography>
       </StyledBillTotalCountCard>

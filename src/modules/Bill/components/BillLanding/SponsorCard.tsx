@@ -1,3 +1,5 @@
+'use client'
+
 import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { SponsorIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Stack, Typography, useTheme } from '@mui/material'
@@ -6,10 +8,11 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import { UContentCardWithHeader } from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
-import { BILL_SPONSOR_MOCK } from '@/modules/Bill/components/BillLanding/data'
+import { BILL_SPONSOR_MOCK } from '@/modules/Bill/components/data'
 import { People } from '@/modules/People/classes/People'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
+import usePartyColor from '@/common/lib/Party/usePartyColor'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -25,16 +28,7 @@ type SponsorRowProps = {
 
 function SponsorRow({ sponsor }: SponsorRowProps) {
   const theme = useTheme<USTWTheme>()
-
-  const partyColor: Record<Party, string> = {
-    [Party.DEMOCRATIC]: theme.color.indigo[600],
-    [Party.REPUBLICAN]: theme.color.red[500],
-    [Party.OTHER]: theme.color.grey[500],
-    [Party.INDEPENDENT]: theme.color.grey[500],
-    [Party.LIBERTARIAN]: theme.color.grey[500],
-    [Party.GREEN]: theme.color.grey[500],
-    [Party.CONSTITUTION]: theme.color.grey[500],
-  }
+  const { partyColor } = usePartyColor()
 
   return (
     <StyledSponsorRowContainer>

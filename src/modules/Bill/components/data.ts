@@ -1,9 +1,11 @@
 import { Congress } from '@/common/classes/Congress'
 import { Party } from '@/common/enums/Party'
+import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { People } from '@/modules/People/classes/People'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 
 export const BILL_TOTAL_COUNT_MOCK = 20
+export const CONGRESS_CURRENT_SESSION_MOCK = 118
 
 const sponsor1 = new People({
   id: '1',
@@ -14,7 +16,7 @@ const sponsor1 = new People({
   party: Party.DEMOCRATIC,
   position: PeoplePosition.SENATOR,
   congress: new Congress({
-    congressNumber: 118,
+    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
     startYear: 2023,
     endYear: 2025,
     houseMembers: 100,
@@ -42,7 +44,7 @@ const sponsor2 = new People({
   party: Party.REPUBLICAN,
   position: PeoplePosition.SENATOR,
   congress: new Congress({
-    congressNumber: 118,
+    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
     startYear: 2023,
     endYear: 2025,
     houseMembers: 100,
@@ -70,7 +72,7 @@ const sponsor3 = new People({
   party: Party.OTHER,
   position: PeoplePosition.SENATOR,
   congress: new Congress({
-    congressNumber: 118,
+    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
     startYear: 2023,
     endYear: 2025,
     houseMembers: 100,
@@ -95,4 +97,34 @@ export const BILL_SPONSOR_MOCK: People[] = [
   sponsor3,
   sponsor1,
   sponsor2,
+]
+
+export const PARLIAMENT_CHART_DATA_MOCK_1: ParliamentChartData[] = [
+  {
+    party: Party.DEMOCRATIC,
+    count: 50,
+  },
+  {
+    party: Party.REPUBLICAN,
+    count: 62,
+  },
+  {
+    party: Party.OTHER,
+    count: 6,
+  },
+]
+
+export const PARLIAMENT_CHART_DATA_MOCK_2: ParliamentChartData[] = [
+  {
+    party: Party.DEMOCRATIC,
+    count: 69,
+  },
+  {
+    party: Party.REPUBLICAN,
+    count: 45,
+  },
+  {
+    party: Party.OTHER,
+    count: 4,
+  },
 ]
