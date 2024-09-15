@@ -46,6 +46,8 @@ const useExperienceTime = function (experience: PeopleExperience) {
 
   // TODO: i18n
   const timeText = useMemo(() => {
+    if (!experience.start) return ''
+
     // 現在進行中
     if (!experience.end) {
       return `${experience.start.format(People.TimeFormat)} ~ Present`

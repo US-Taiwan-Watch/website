@@ -6,19 +6,19 @@ import { isArray, isString } from 'lodash-es'
 
 interface PartyExperienceArgs {
   party: Party
-  start: string
+  start?: string
   end?: string
 }
 export interface PartyExperience {
   party: Party
-  start: Dayjs
+  start?: Dayjs
   end?: Dayjs
 }
 
 interface ExperienceArgs {
   title: string
   subtitle?: string
-  start: string
+  start?: string
   end?: string
   descriptions?: Array<string>
   experience?: Array<ExperienceArgs>
@@ -26,7 +26,7 @@ interface ExperienceArgs {
 export interface Experience {
   title: string
   subtitle?: string
-  start: Dayjs
+  start?: Dayjs
   end?: Dayjs
   descriptions?: Array<string>
   experience?: Array<Experience>
@@ -110,8 +110,16 @@ export class People {
     return partyExperience.map((item: PartyExperienceArgs): PartyExperience => {
       return {
         party: item.party,
-        start: dayjs(item.start),
-        end: item.end ? dayjs(item.end) : undefined,
+        start: item.start
+          ? dayjs(item.start).isValid()
+            ? dayjs(item.start)
+            : undefined
+          : undefined,
+        end: item.end
+          ? dayjs(item.end).isValid()
+            ? dayjs(item.end)
+            : undefined
+          : undefined,
       }
     })
   }
@@ -121,8 +129,16 @@ export class People {
       return {
         title: item.title,
         subtitle: item.subtitle,
-        start: dayjs(item.start),
-        end: item.end ? dayjs(item.end) : undefined,
+        start: item.start
+          ? dayjs(item.start).isValid()
+            ? dayjs(item.start)
+            : undefined
+          : undefined,
+        end: item.end
+          ? dayjs(item.end).isValid()
+            ? dayjs(item.end)
+            : undefined
+          : undefined,
         descriptions: item.descriptions,
         experience: item.experience
           ? People.TransformExperience(item.experience)

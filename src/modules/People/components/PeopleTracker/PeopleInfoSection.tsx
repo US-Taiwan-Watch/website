@@ -67,7 +67,6 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
         <PeopleCategory people={people} />
         <Typography variant="h4">{people.name}</Typography>
         <Stack direction="row" gap={2} flexWrap="wrap">
-          {/** 只限制四個 */}
           {people.tags?.map((tag) => <PeopleTag value={tag} key={tag} />)}
         </Stack>
       </StyledInfoContainer>
