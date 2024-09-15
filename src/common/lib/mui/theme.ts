@@ -171,6 +171,9 @@ const color = {
     1400: '#DDDDDD',
     1500: '#5D5D5D',
     1600: '#DEDEDE',
+    1700: '#E4E4E4',
+    1800: '#AAAAAA',
+    1900: '#EEEEEE',
   },
   orange: {
     ...colors.orange,
