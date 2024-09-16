@@ -3,7 +3,7 @@
 import { People } from '@/modules/People/classes/People'
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
 import PeopleCongressTitle from '@/modules/People/components/PeopleCongressTitle'
@@ -75,7 +75,7 @@ const PeopleCard = memo(function PeopleCard({
           </StyledPeopleCardImageContainer>
         )}
         <Grid container direction="row" flex={1}>
-          <Grid item xs={10}>
+          <Grid size={10}>
             <Stack direction="column" spacing={1}>
               <PeopleCategory people={people} />
               <Typography fontSize={'1.5rem'} fontWeight={600}>
@@ -97,7 +97,7 @@ const PeopleCard = memo(function PeopleCard({
               </Stack>
             </Stack>
           </Grid>
-          <Grid item xs={2} display="flex" justifyContent="end">
+          <Grid size={2} display="flex" justifyContent="end">
             <Link href={people.link}>
               <StyledPeopleCardIconButton variant="rounded" color="inherit">
                 <ArrowForwardIcon />

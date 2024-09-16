@@ -8,7 +8,7 @@ import UKetagalanLogo from '@/common/components/atoms/UKetagalanLogo'
 import { useTheme } from '@mui/material/styles'
 import KetagalanMediaCard from '@/modules/KetagalanMedia/components/KetagalanMediaCard'
 import ketagalanMediaMockData from '@/modules/KetagalanMedia/data'
-import { Grid } from '@mui/material'
+import { Grid2 as Grid } from '@mui/material'
 
 const KetagalanSection = () => {
   const theme = useTheme<USTWTheme>()
@@ -23,7 +23,15 @@ const KetagalanSection = () => {
       <SectionTitleWithLink renderTitle={() => <UKetagalanLogo />} />
       <Grid container spacing={5}>
         {Array.from({ length: 3 }).map((_, index) => (
-          <Grid item xs={12} sm={6} md={6} lg={4} key={index}>
+          <Grid
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 6,
+              lg: 4,
+            }}
+            key={index}
+          >
             <KetagalanMediaCard media={ketagalanMediaMockData} />
           </Grid>
         ))}
