@@ -3,7 +3,7 @@ import Podcast, {
   PodcastSourceType,
   PodcastType,
 } from '@/modules/Podcast/classes/Podcast'
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
 import type React from 'react'
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
@@ -76,7 +76,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
       padding={2}
     >
       <Grid container spacing={4}>
-        <Grid item xs={12} md={7} rowSpacing={0}>
+        <Grid size={7} rowSpacing={0}>
           <Stack
             height="100%"
             direction="column"
@@ -122,7 +122,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
             </UButton>
           </Stack>
         </Grid>
-        <Grid item xs={0} md={5}>
+        <Grid size={5}>
           <Stack direction="column" spacing={2}>
             {podcast.episodeIdx?.map(
               (episodeId, index) =>

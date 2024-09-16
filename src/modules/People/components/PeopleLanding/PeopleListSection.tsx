@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Container, Grid, Stack } from '@mui/material'
+import { Box, Container, Grid2 as Grid, Stack } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
@@ -23,16 +23,16 @@ const PeopleListSection = () => {
         <Stack spacing={6} alignItems="center" justifyContent="center">
           <Box>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={6}>
                 <PeopleCard people={people} simplified />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={6}>
                 <PeopleCard people={people} simplified />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={6}>
                 <PeopleCard people={people} simplified />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid size={6}>
                 <PeopleCard people={people} simplified />
               </Grid>
             </Grid>
