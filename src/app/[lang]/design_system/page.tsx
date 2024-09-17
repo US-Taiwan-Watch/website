@@ -27,11 +27,36 @@ import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
 import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
 import people from '@/modules/People/data'
+import UTimeline, { UTimelineData } from '@/common/components/atoms/UTimeline'
+import UContentCard from '@/common/components/atoms/UContentCard'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
   backgroundColor: theme.color.orange[900],
   padding: '20px',
 }))
+
+const timelineData: UTimelineData = [
+  {
+    title: 'title1',
+    subtitle: 'subtitle1',
+  },
+  {
+    title: 'title2',
+  },
+  {
+    title: 'title3',
+    subtitle: 'subtitle3',
+  },
+  {
+    title: 'title4',
+  },
+  {
+    title: 'title5',
+    subtitle: 'subtitle5',
+  },
+]
 
 export default function DesignSystemIconsPage() {
   return (
@@ -316,6 +341,20 @@ export default function DesignSystemIconsPage() {
           <PeopleCard people={people} simplified />
         </Grid>
       </Grid>
+
+      <h2>Timeline</h2>
+      <UContentCard>
+        <UTimeline data={timelineData} activeIndex={2} />
+      </UContentCard>
+
+      <h2>Height Limited Text</h2>
+      <Box width={300}>
+        <UHeightLimitedText variant="body" maxLine={3}>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
+        </UHeightLimitedText>
+      </Box>
     </div>
   )
 }
