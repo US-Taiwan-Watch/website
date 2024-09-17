@@ -1,4 +1,3 @@
-import { USTWTheme } from '@/common/lib/mui/theme'
 import {
   Timeline,
   TimelineConnector,
@@ -8,7 +7,21 @@ import {
   timelineItemClasses,
   TimelineSeparator,
 } from '@mui/lab'
-import { Typography, useTheme } from '@mui/material'
+import {
+  Typography,
+  useTheme,
+  Stepper,
+  Step,
+  StepLabel,
+  Box,
+  stepConnectorClasses,
+  StepConnector,
+} from '@mui/material'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
+
+// Be hardcoded in source code
+const TIMELINE_DOT_MARGIN_PX = 15.5
+const TIMELINE_DOT_WIDTH_PX = 12
 
 type UTimelineItemProps = {
   title: string
@@ -18,6 +31,82 @@ type UTimelineItemProps = {
   isActiveDot: boolean
   isActiveConnector: boolean
 }>
+
+export type UTimelineData = Array<{
+  title: string
+  subtitle?: string
+}>
+
+type UTimelineProps = {
+  data: UTimelineData
+  activeIndex?: number
+  isHorizontal?: boolean
+}
+
+const StyledConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${stepConnectorClasses.root}`]: {
+    top: 0,
+    left: '-50%',
+    right: '50%',
+  },
+  [`&.${stepConnectorClasses.active}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      borderColor: theme.color.purple[100],
+    },
+  },
+  [`&.${stepConnectorClasses.completed}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      borderColor: theme.color.purple[100],
+    },
+  },
+  [`&.${stepConnectorClasses.disabled}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      borderColor: theme.color.neutral[200],
+    },
+  },
+  [`& .${stepConnectorClasses.line}`]: {
+    borderTopWidth: `${TIMELINE_DOT_WIDTH_PX}px`,
+  },
+}))
+
+function HorizontalTimeline({ data, activeIndex }: UTimelineProps) {
+  const theme = useTheme<USTWTheme>()
+
+  return (
+    <Stepper
+      activeStep={activeIndex}
+      alternativeLabel
+      connector={<StyledConnector />}
+    >
+      {data.map((_, index) => {
+        const isActiveDot = index === activeIndex
+
+        return (
+          <Step key={index}>
+            <StepLabel
+              StepIconComponent={() => (
+                <Box
+                  sx={{
+                    width: TIMELINE_DOT_WIDTH_PX,
+                    height: TIMELINE_DOT_WIDTH_PX,
+                    borderRadius: '50%',
+                    backgroundColor: isActiveDot
+                      ? theme.color.purple[100]
+                      : theme.color.common.black,
+                    outline: isActiveDot
+                      ? `3px solid ${theme.color.common.black}`
+                      : 'none',
+                    zIndex: 1,
+                  }}
+                />
+              )}
+            />
+          </Step>
+        )
+      })}
+    </Stepper>
+  )
+}
 
 function UTimelineItem({
   title,
@@ -75,21 +164,15 @@ function UTimelineItem({
   )
 }
 
-// Be hardcoded in source code
-const TIMELINE_DOT_MARGIN_PX = 15.5
-const TIMELINE_DOT_WIDTH_PX = 12
+export default function UTimeline({
+  data,
+  activeIndex,
+  isHorizontal,
+}: UTimelineProps) {
+  if (isHorizontal) {
+    return <HorizontalTimeline data={data} activeIndex={activeIndex} />
+  }
 
-export type UTimelineData = Array<{
-  title: string
-  subtitle?: string
-}>
-
-type UTimelineProps = {
-  data: UTimelineData
-  activeIndex?: number
-}
-
-export default function UTimeline({ data, activeIndex }: UTimelineProps) {
   return (
     <Timeline
       sx={{
