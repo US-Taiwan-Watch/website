@@ -1,3 +1,4 @@
+import { OpinionCategory } from '@/modules/Opinion/types/OpinionCategory'
 import { isArray, isString } from 'lodash-es'
 
 interface OpinionArgs {
@@ -5,7 +6,7 @@ interface OpinionArgs {
   title: string
   image: string
   description: string
-  categories: Array<string>
+  categories: Array<OpinionCategory>
 }
 
 export class Opinion {
@@ -13,7 +14,7 @@ export class Opinion {
   title?: string
   image?: string
   description?: string
-  categories?: Array<string>
+  categories?: Array<OpinionCategory>
 
   constructor(args: OpinionArgs) {
     if (isString(args.id)) {
@@ -35,5 +36,9 @@ export class Opinion {
 
   get link() {
     return `/opinion/${this.id}`
+  }
+
+  static getCategoryUrl(category: OpinionCategory) {
+    return `/opinion/search/${category.id}`
   }
 }

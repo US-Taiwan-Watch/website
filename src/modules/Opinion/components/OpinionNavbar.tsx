@@ -2,9 +2,15 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import { opinionNavbarItems } from '@/modules/Opinion/data'
+import { OpinionCategory } from '@/modules/Opinion/types/OpinionCategory'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import { useMemo } from 'react'
+
+interface OpinionNavbarItem extends OpinionCategory {
+  href: string
+}
 
 interface OpinionNavbarProps {
   activeId?: string
@@ -13,34 +19,8 @@ interface OpinionNavbarProps {
 const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
   const theme = useTheme<USTWTheme>()
 
-  const navItems = useMemo(
-    () => [
-      {
-        id: 'military',
-        label: '軍事國防',
-        href: '/opinion/search/military',
-      },
-      {
-        id: 'foreign',
-        label: '外交貿易',
-        href: '/opinion/search/foreign',
-      },
-      {
-        id: 'cross-strait',
-        label: '兩岸議題',
-        href: '/opinion/search/cross-strait',
-      },
-      {
-        id: 'election',
-        label: '行政選舉',
-        href: '/opinion/search/election',
-      },
-      {
-        id: 'us-law',
-        label: '美國法案',
-        href: '/opinion/search/us-law',
-      },
-    ],
+  const navItems = useMemo<Array<OpinionNavbarItem>>(
+    () => opinionNavbarItems,
     []
   )
 
@@ -68,6 +48,7 @@ const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
                 color:
                   activeId === item.id ? theme.color.orange[900] : 'inherit',
               }}
+              fontWeight={500}
             >
               {item.label}
             </Typography>

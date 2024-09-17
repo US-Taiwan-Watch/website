@@ -15,10 +15,11 @@ const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   borderRadius: '30px',
 }))
 
-const StyledCategory = styled('div')(({ theme }) => ({
+const StyledCategory = styled(UButton)(({ theme }) => ({
   borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
-  padding: '0px 9px',
+  color: theme.color.common.black,
+  padding: theme.spacing(1),
 }))
 
 const StyledImage = styled(Image)(() => ({
@@ -66,10 +67,14 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
           <StyledLeftSection direction="column" spacing={4}>
             {/** Tags */}
             <Stack direction="row" spacing={1}>
-              {opinion.categories?.map((category, index) => (
-                <StyledCategory key={index}>
-                  <Typography variant="caption">{category}</Typography>
-                </StyledCategory>
+              {opinion.categories?.map((category) => (
+                <Link href={Opinion.getCategoryUrl(category)} key={category.id}>
+                  <StyledCategory>
+                    <Typography variant="caption" lineHeight={1}>
+                      {category.label}
+                    </Typography>
+                  </StyledCategory>
+                </Link>
               ))}
             </Stack>
 
