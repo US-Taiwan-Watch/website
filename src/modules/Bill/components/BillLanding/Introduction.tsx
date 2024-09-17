@@ -5,7 +5,7 @@ import { USTWTheme, styled } from '@/common/lib/mui/theme'
 import {
   BILL_TOTAL_COUNT_MOCK,
   CONGRESS_CURRENT_SESSION_MOCK,
-} from '@/modules/Bill/components/data'
+} from '@/modules/Bill/data'
 import { Stack, Typography, useTheme } from '@mui/material'
 
 const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({

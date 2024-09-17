@@ -4,6 +4,7 @@ import Carousel from '@/common/components/elements/Carousel'
 import { styled } from '@/common/lib/mui/theme'
 import { Box, Container } from '@mui/material'
 import BillCard from '@/modules/Bill/components/BillCard'
+import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 
 const StyledCarouselContainer = styled(Box)(() => ({
   overflow: 'hidden',
@@ -32,9 +33,9 @@ export default function BillCardCarousel() {
           }}
           showDot={false}
         >
-          {Array.from({ length: 10 }).map((_, index) => (
+          {BILL_DATA_MOCK.map((bill, index) => (
             <Box key={index} px={1}>
-              <BillCard mode="vertical" simplified />
+              <BillCard mode="vertical" simplified bill={bill} />
             </Box>
           ))}
         </Carousel>

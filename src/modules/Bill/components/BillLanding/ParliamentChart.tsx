@@ -8,7 +8,7 @@ import { Dispatch, SetStateAction, useMemo } from 'react'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/components/data'
+import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
 
 itemSeries(Highcharts)
 

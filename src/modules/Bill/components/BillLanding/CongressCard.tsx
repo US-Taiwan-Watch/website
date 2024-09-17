@@ -12,18 +12,14 @@ import ParliamentChart, {
 import {
   PARLIAMENT_CHART_DATA_MOCK_1,
   PARLIAMENT_CHART_DATA_MOCK_2,
-} from '@/modules/Bill/components/data'
+} from '@/modules/Bill/data'
 import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import CircleIcon from '@mui/icons-material/Circle'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { Party } from '@/common/enums/Party'
 import UButton from '@/common/components/atoms/UButton'
-
-enum CongressTypeEnum {
-  HOUSE = 'House',
-  SENATE = 'Senate',
-}
+import { ChamberEnum } from '@/common/enums/Chamber'
 
 type LegendProps = {
   data: ParliamentChartData[]
@@ -65,16 +61,17 @@ function Legend({ data, hoveredParty }: LegendProps) {
 
 export default function CongressCard() {
   const theme = useTheme<USTWTheme>()
-  const [selectedCongressType, setSelectedCongressType] =
-    useState<CongressTypeEnum>(CongressTypeEnum.HOUSE)
+  const [selectedChamber, setSelectedChamber] = useState<ChamberEnum>(
+    ChamberEnum.HOUSE
+  )
   const [hoveredParty, setHoveredParty] = useState<Party | null>(null)
 
   const data = useMemo<ParliamentChartData[]>(() => {
-    if (selectedCongressType === CongressTypeEnum.HOUSE) {
+    if (selectedChamber === ChamberEnum.HOUSE) {
       return PARLIAMENT_CHART_DATA_MOCK_1
     }
     return PARLIAMENT_CHART_DATA_MOCK_2
-  }, [selectedCongressType])
+  }, [selectedChamber])
 
   return (
     <UContentCard
@@ -99,28 +96,26 @@ export default function CongressCard() {
             setHoveredParty={setHoveredParty}
           />
           <UHStack alignItems="center" justifyContent="center" spacing={2}>
-            {[CongressTypeEnum.HOUSE, CongressTypeEnum.SENATE].map(
-              (congress) => (
-                <UButton
-                  key={congress}
-                  variant="contained"
-                  color="primary"
-                  sx={{
-                    backgroundColor:
-                      selectedCongressType === congress
-                        ? theme.color.purple[100]
-                        : theme.color.neutral[100],
-                    fontWeight: 600,
-                    fontSize: 16,
-                  }}
-                  rounded
-                  size="small"
-                  onClick={() => setSelectedCongressType(congress)}
-                >
-                  {congress}
-                </UButton>
-              )
-            )}
+            {[ChamberEnum.HOUSE, ChamberEnum.SENATE].map((congress) => (
+              <UButton
+                key={congress}
+                variant="contained"
+                color="primary"
+                sx={{
+                  backgroundColor:
+                    selectedChamber === congress
+                      ? theme.color.purple[100]
+                      : theme.color.neutral[100],
+                  fontWeight: 600,
+                  fontSize: 16,
+                }}
+                rounded
+                size="small"
+                onClick={() => setSelectedChamber(congress)}
+              >
+                {congress}
+              </UButton>
+            ))}
           </UHStack>
         </Stack>
       </CardContent>
