@@ -2,8 +2,9 @@
 
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
-import { styled } from '@/common/lib/mui/theme'
-import { Stack, Typography } from '@mui/material'
+import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
+import { Divider, Stack, Typography, useTheme } from '@mui/material'
 
 const StyledCardContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -25,8 +26,13 @@ type Props = {
   simplified?: boolean
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function BillCard({ mode, simplified }: Props) {
+  const theme = useTheme<USTWTheme>()
+
+  if (mode === 'horizontal') {
+    return null
+  }
+
   return (
     <StyledCardContainer>
       <UHStack gap="6px">
@@ -46,6 +52,41 @@ export default function BillCard({ mode, simplified }: Props) {
         Deterring Communist Chinese Aggression Against Taiwan Through Financial
         Sanctions Act of 2023
       </UHeightLimitedText>
+
+      {/* TODO: stepper */}
+
+      <Divider sx={{ my: 2 }} />
+
+      <UHStack px={1} gap={1.5} alignItems="center">
+        <UPoliticalPartyIcon variant="rounded" party="democracy" size="small" />
+        <Typography variant="subtitleS" fontWeight={700}>
+          Hakeem Sekou Jeffries
+        </Typography>
+      </UHStack>
+
+      {!simplified && (
+        <>
+          <Divider sx={{ my: 2 }} />
+
+          <Stack gap={1.5}>
+            <UHStack justifyContent="space-between" alignItems="center">
+              <StyledTagContainer
+                sx={{
+                  backgroundColor: `${theme.color.purple[100]}80`, // 80% opacity
+                  marginBottom: 0,
+                }}
+              >
+                <Typography variant="buttonS">House</Typography>
+              </StyledTagContainer>
+              <Typography variant="buttonS">01/31/2024-8:33pm</Typography>
+            </UHStack>
+            <UHeightLimitedText maxLine={3} variant="body" fontWeight={300}>
+              Read the second time. Placed on Senate Legislative Calendar under
+              General Orders. Calendar No. 349.
+            </UHeightLimitedText>
+          </Stack>
+        </>
+      )}
     </StyledCardContainer>
   )
 }
