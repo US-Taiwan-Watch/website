@@ -1,4 +1,5 @@
 import { Congress } from '@/common/classes/Congress'
+import { UTimelineData } from '@/common/components/atoms/UTimeline'
 import { Party } from '@/common/enums/Party'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { People } from '@/modules/People/classes/People'
@@ -126,5 +127,26 @@ export const PARLIAMENT_CHART_DATA_MOCK_2: ParliamentChartData[] = [
   {
     party: Party.OTHER,
     count: 4,
+  },
+]
+
+export const BILL_TIMELINE_DATA_MOCK: UTimelineData = [
+  {
+    title: 'title1',
+    subtitle: 'subtitle1',
+  },
+  {
+    title: 'title2',
+  },
+  {
+    title: 'title3',
+    subtitle: 'subtitle3',
+  },
+  {
+    title: 'title4',
+  },
+  {
+    title: 'title5',
+    subtitle: 'subtitle5',
   },
 ]

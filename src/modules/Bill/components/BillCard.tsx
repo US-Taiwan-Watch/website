@@ -3,8 +3,10 @@
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
+import UTimeline from '@/common/components/atoms/UTimeline'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Divider, Stack, Typography, useTheme } from '@mui/material'
+import { BILL_TIMELINE_DATA_MOCK } from '@/modules/Bill/components/data'
+import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 
 const StyledCardContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -53,9 +55,15 @@ export default function BillCard({ mode, simplified }: Props) {
         Sanctions Act of 2023
       </UHeightLimitedText>
 
-      {/* TODO: stepper */}
+      <Box mx={-2} mt={4}>
+        <UTimeline
+          data={BILL_TIMELINE_DATA_MOCK}
+          activeIndex={2}
+          isHorizontal
+        />
+      </Box>
 
-      <Divider sx={{ my: 2 }} />
+      <Divider sx={{ mt: 3, mb: 2 }} />
 
       <UHStack px={1} gap={1.5} alignItems="center">
         <UPoliticalPartyIcon variant="rounded" party="democracy" size="small" />
