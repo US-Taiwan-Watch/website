@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { styled } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 
 const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -86,7 +87,13 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
 
           {/** Learn More Button */}
           <Link href={props.href}>
-            <UButton variant="contained" color="info" rounded size="large">
+            <UButton
+              variant="contained"
+              color="info"
+              rounded
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+            >
               Learn More
             </UButton>
           </Link>

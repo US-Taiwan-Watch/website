@@ -4,15 +4,10 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import Carousel from '@/common/components/elements/Carousel'
 import IndexKvCard from '@/common/components/elements/IndexKvCard'
 import { Container } from '@mui/material'
-import { styled } from '@mui/material/styles'
-
-const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
-  backgroundColor: 'inherit',
-}))
 
 const IndexKVCards = () => {
   return (
-    <StyledUFullWidthBackgroundBox>
+    <UFullWidthBackgroundBox>
       <Container>
         <Carousel>
           <IndexKvCard
@@ -38,7 +33,7 @@ const IndexKVCards = () => {
           />
         </Carousel>
       </Container>
-    </StyledUFullWidthBackgroundBox>
+    </UFullWidthBackgroundBox>
   )
 }
 

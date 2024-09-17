@@ -12,7 +12,6 @@ import { styled } from '@mui/material/styles'
 
 const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
   overflow: 'hidden',
-  backgroundColor: 'inherit',
   '& .slick-list': {
     overflow: 'visible',
   },
