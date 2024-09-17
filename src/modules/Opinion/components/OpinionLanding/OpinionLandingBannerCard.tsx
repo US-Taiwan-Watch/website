@@ -7,6 +7,7 @@ import { styled } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { Opinion } from '@/modules/Opinion/classes/Opinion'
 
 const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -14,7 +15,7 @@ const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   borderRadius: '30px',
 }))
 
-const StyledTag = styled('div')(({ theme }) => ({
+const StyledCategory = styled('div')(({ theme }) => ({
   borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
   padding: '0px 9px',
@@ -52,16 +53,12 @@ const StyledDescriptionTypography = styled(Typography)(() => ({
 
 // TODO: 確認類型
 interface OpinionLandingBannerCardProps {
-  tags: Array<string>
-  title: string
-  description: string
-  image: string
-  href: string
+  opinion: Opinion
 }
 
-const OpinionLandingBannerCard = memo(function OpinionLandingBannerCard(
-  props: OpinionLandingBannerCardProps
-) {
+const OpinionLandingBannerCard = function OpinionLandingBannerCard({
+  opinion,
+}: OpinionLandingBannerCardProps) {
   return (
     <StyledOpinionLandingBannerCardContainer>
       <Grid container spacing={2}>
@@ -69,26 +66,26 @@ const OpinionLandingBannerCard = memo(function OpinionLandingBannerCard(
           <StyledLeftSection direction="column" spacing={4}>
             {/** Tags */}
             <Stack direction="row" spacing={1}>
-              {props.tags.map((tag, index) => (
-                <StyledTag key={index}>
-                  <Typography variant="caption">{tag}</Typography>
-                </StyledTag>
+              {opinion.categories?.map((category, index) => (
+                <StyledCategory key={index}>
+                  <Typography variant="caption">{category}</Typography>
+                </StyledCategory>
               ))}
             </Stack>
 
             {/** Middle Section */}
             <StyledMiddleSection direction="column" spacing={2} flex={1}>
               <StyledTitleTypography variant="h3" fontWeight={500}>
-                {props.title}
+                {opinion.title}
               </StyledTitleTypography>
               <StyledDescriptionTypography variant="body1" fontWeight={500}>
-                {props.description}
+                {opinion.description}
               </StyledDescriptionTypography>
             </StyledMiddleSection>
 
             {/** Learn More Button */}
             <Link
-              href={props.href}
+              href={opinion.link}
               style={{ flex: 1, display: 'flex', alignItems: 'flex-end' }}
             >
               <UButton
@@ -105,17 +102,19 @@ const OpinionLandingBannerCard = memo(function OpinionLandingBannerCard(
         </Grid>
 
         <Grid size={7}>
-          <StyledImage
-            src={props.image}
-            alt={props.title}
-            width={600}
-            height={500}
-            layout="responsive"
-          />
+          {opinion.image && (
+            <StyledImage
+              src={opinion.image}
+              alt={opinion.title ?? ''}
+              width={600}
+              height={500}
+              layout="responsive"
+            />
+          )}
         </Grid>
       </Grid>
     </StyledOpinionLandingBannerCardContainer>
   )
-})
+}
 
-export default OpinionLandingBannerCard
+export default memo(OpinionLandingBannerCard)
