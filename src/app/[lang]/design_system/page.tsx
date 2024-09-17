@@ -347,6 +347,11 @@ export default function DesignSystemIconsPage() {
         <UTimeline data={timelineData} activeIndex={2} />
       </UContentCard>
 
+      <h2>Horizontal Timeline</h2>
+      <UContentCard>
+        <UTimeline data={timelineData} activeIndex={2} isHorizontal />
+      </UContentCard>
+
       <h2>Height Limited Text</h2>
       <Box width={300}>
         <UHeightLimitedText variant="body" maxLine={3}>
