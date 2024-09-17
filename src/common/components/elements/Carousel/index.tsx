@@ -55,12 +55,14 @@ interface CarouselProps {
   children?: React.ReactNode[] | React.ReactNode
   centerMode?: boolean
   settings?: Settings
+  showDot?: boolean
 }
 
 function Carousel({
   children,
   centerMode = false,
   settings: _settings,
+  showDot = true,
 }: CarouselProps) {
   const slideCount = isArray(children) ? children.length : children ? 1 : 0
   const sliderRef = useRef<Slider>(null)
@@ -132,28 +134,33 @@ function Carousel({
         >
           <ArrowBackIosOutlinedIcon />
         </UIconButton>
-        <StyledPaginationDotContainer
-          direction="row"
-          alignItems="center"
-          justifyContent="center"
-          spacing={1}
-        >
-          {Array.from({ length: slideCount }).map((_, index) => (
-            <StyledPaginationDot
-              key={index}
-              onClick={() => handleDotClick(index)}
-              className={clsx({
-                'slick-active': index === currentSlide,
-              })}
-            />
-          ))}
-        </StyledPaginationDotContainer>
+        {showDot && (
+          <StyledPaginationDotContainer
+            direction="row"
+            alignItems="center"
+            justifyContent="center"
+            spacing={1}
+          >
+            {Array.from({ length: slideCount }).map((_, index) => (
+              <StyledPaginationDot
+                key={index}
+                onClick={() => handleDotClick(index)}
+                className={clsx({
+                  'slick-active': index === currentSlide,
+                })}
+              />
+            ))}
+          </StyledPaginationDotContainer>
+        )}
         <UIconButton
           className="carousel-slider-next"
           variant="rounded"
           color="default"
           size="small"
           onClick={handleNext}
+          sx={{
+            marginLeft: !showDot ? '16px' : '0px',
+          }}
         >
           <ArrowForwardIosOutlinedIcon />
         </UIconButton>
