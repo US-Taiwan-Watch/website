@@ -56,7 +56,7 @@ interface OpinionLandingBannerCardProps {
   opinion: Opinion
 }
 
-const OpinionLandingBannerCard = memo(function OpinionLandingBannerCard({
+const OpinionLandingBannerCard = function OpinionLandingBannerCard({
   opinion,
 }: OpinionLandingBannerCardProps) {
   return (
@@ -115,6 +115,6 @@ const OpinionLandingBannerCard = memo(function OpinionLandingBannerCard({
       </Grid>
     </StyledOpinionLandingBannerCardContainer>
   )
-})
+}
 
 export default memo(OpinionLandingBannerCard)
