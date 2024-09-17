@@ -1,5 +1,5 @@
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import OpinionLandingBannerCards from '@/modules/Opinion/components/OpinionLandingBannerCards'
+import OpinionLandingBannerCards from '@/modules/Opinion/components/OpinionLanding/OpinionLandingBannerCards'
 import OpinionNavbar from '@/modules/Opinion/components/OpinionNavbar'
 import { Stack } from '@mui/material'
 

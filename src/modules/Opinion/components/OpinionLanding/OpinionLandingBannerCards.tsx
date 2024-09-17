@@ -3,7 +3,7 @@
 import Carousel from '@/common/components/elements/Carousel'
 import DotPagination from '@/common/components/elements/Carousel/DotPagination'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import OpinionLandingBannerCard from '@/modules/Opinion/components/OpinionLandingBannerCard'
+import OpinionLandingBannerCard from '@/modules/Opinion/components/OpinionLanding/OpinionLandingBannerCard'
 import { Box, useTheme } from '@mui/material'
 
 const OpinionLandingBannerCards = () => {
