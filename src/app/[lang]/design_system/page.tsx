@@ -25,7 +25,7 @@ import {
 import PeopleCard from '@/modules/People/components/PeopleCard'
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
-import { Box, Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
 import people from '@/modules/People/data'
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
@@ -248,31 +248,71 @@ export default function DesignSystemIconsPage() {
       </Box>
       <h2>People Card</h2>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} />
         </Grid>
       </Grid>
       <h2>Simplified People Card</h2>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} simplified />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} simplified />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} simplified />
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCard people={people} simplified />
         </Grid>
       </Grid>
