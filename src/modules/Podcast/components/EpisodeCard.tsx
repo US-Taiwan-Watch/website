@@ -9,7 +9,7 @@ import {
   useMemo,
 } from 'react'
 
-import { Typography, Slider, Stack, Grid } from '@mui/material'
+import { Typography, Slider, Stack, Grid2 as Grid } from '@mui/material'
 import { PlayCircleRounded, Pause, MoreHoriz } from '@mui/icons-material'
 import Image from 'next/image'
 import { debounce } from 'lodash-es'
@@ -201,7 +201,7 @@ const EpisodeCard = memo(
         />
         <Stack direction="column" flex={1} spacing={1} overflow="hidden">
           <Grid container columnSpacing={2} width="100%">
-            <Grid item xs={10.5}>
+            <Grid size={10.5}>
               <Stack direction="column" spacing={1}>
                 <Stack direction="column" spacing={0}>
                   <StyledTitle
@@ -222,8 +222,7 @@ const EpisodeCard = memo(
               </Stack>
             </Grid>
             <Grid
-              item
-              xs={1.5}
+              size={1.5}
               display="flex"
               alignItems="flex-start"
               justifyContent="end"
@@ -242,8 +241,7 @@ const EpisodeCard = memo(
           </Grid>
           <StyledControlBarContainer container columnSpacing={2} width="100%">
             <Grid
-              item
-              xs={10.5}
+              size={10.5}
               alignItems="center"
               justifyContent="center"
               display="flex"
@@ -301,8 +299,7 @@ const EpisodeCard = memo(
               </Stack>
             </Grid>
             <Grid
-              item
-              xs={1.5}
+              size={1.5}
               display="flex"
               alignItems="center"
               justifyContent="end"
