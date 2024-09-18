@@ -34,7 +34,7 @@ export default function Introduction() {
       </Stack>
 
       <StyledBillTotalCountCard>
-        <Typography variant="buttonXS" color={theme.color.grey[2000]} mb={1}>
+        <Typography variant="buttonXS" color={theme.color.grey[2100]} mb={1}>
           {`Congress ${CONGRESS_CURRENT_SESSION_MOCK}`}
         </Typography>
         <Typography variant="h2">{BILL_TOTAL_COUNT_MOCK}</Typography>

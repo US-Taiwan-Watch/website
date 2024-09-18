@@ -1,17 +1,14 @@
 'use client'
 
-import clsx from 'clsx'
 import type React from 'react'
 import { useRef, useState } from 'react'
 import Slider, { Settings } from 'react-slick'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import { Stack } from '@mui/material'
-import ArrowBackIosOutlinedIcon from '@mui/icons-material/ArrowBackIosOutlined'
-import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined'
-import UIconButton from '@/common/components/atoms/UIconButton'
 import { styled } from '@/common/lib/mui/theme'
 import { isArray } from 'lodash-es'
+import ArrowPagination from '@/common/components/elements/Carousel/ArrowPagination'
 
 const StyledCarouselContainer = styled(Stack)(() => ({
   width: '100%',
@@ -20,49 +17,27 @@ const StyledCarouselContainer = styled(Stack)(() => ({
   },
 }))
 
-const StyledPaginationContainer = styled(Stack)(({ theme }) => ({
-  marginTop: theme.spacing(2),
-  '& .carousel-slider-prev': {
-    backgroundColor: theme.color.neutral[500],
-    color: theme.color.common.white,
-  },
-  '& .carousel-slider-next': {
-    backgroundColor: theme.color.neutral[500],
-    color: theme.color.common.white,
-  },
-}))
-
-const StyledPaginationDotContainer = styled(Stack)(({ theme }) => ({
-  margin: `0px ${theme.spacing(2)}`,
-}))
-
-const StyledPaginationDot = styled('div')(({ theme }) => ({
-  width: '8px',
-  height: '8px',
-  borderRadius: '50%',
-  backgroundColor: theme.color.grey[1200],
-  '&:hover': {
-    cursor: 'pointer',
-  },
-  '&.slick-active': {
-    backgroundColor: theme.color.neutral[500],
-    width: '12px',
-    height: '12px',
-  },
-}))
+export interface PaginationProps {
+  slideCount: number
+  currentSlide: number
+  handlePrev?: () => void
+  handleNext?: () => void
+  handleDotClick?: (index: number) => void
+  showDot?: boolean
+}
 
 interface CarouselProps {
   children?: React.ReactNode[] | React.ReactNode
   centerMode?: boolean
   settings?: Settings
-  showDot?: boolean
+  renderPagination?: (props: PaginationProps) => React.ReactNode
 }
 
 function Carousel({
   children,
   centerMode = false,
   settings: _settings,
-  showDot = true,
+  renderPagination,
 }: CarouselProps) {
   const slideCount = isArray(children) ? children.length : children ? 1 : 0
   const sliderRef = useRef<Slider>(null)
@@ -120,51 +95,24 @@ function Carousel({
       <Slider ref={sliderRef} {...settings}>
         {children}
       </Slider>
-      <StyledPaginationContainer
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <UIconButton
-          className="carousel-slider-prev"
-          variant="rounded"
-          color="default"
-          size="small"
-          onClick={handlePrev}
-        >
-          <ArrowBackIosOutlinedIcon />
-        </UIconButton>
-        {showDot && (
-          <StyledPaginationDotContainer
-            direction="row"
-            alignItems="center"
-            justifyContent="center"
-            spacing={1}
-          >
-            {Array.from({ length: slideCount }).map((_, index) => (
-              <StyledPaginationDot
-                key={index}
-                onClick={() => handleDotClick(index)}
-                className={clsx({
-                  'slick-active': index === currentSlide,
-                })}
-              />
-            ))}
-          </StyledPaginationDotContainer>
-        )}
-        <UIconButton
-          className="carousel-slider-next"
-          variant="rounded"
-          color="default"
-          size="small"
-          onClick={handleNext}
-          sx={{
-            marginLeft: !showDot ? '16px' : '0px',
-          }}
-        >
-          <ArrowForwardIosOutlinedIcon />
-        </UIconButton>
-      </StyledPaginationContainer>
+
+      {renderPagination ? (
+        renderPagination({
+          slideCount,
+          currentSlide,
+          handlePrev,
+          handleNext,
+          handleDotClick,
+        })
+      ) : (
+        <ArrowPagination
+          slideCount={slideCount}
+          currentSlide={currentSlide}
+          handlePrev={handlePrev}
+          handleNext={handleNext}
+          handleDotClick={handleDotClick}
+        />
+      )}
     </StyledCarouselContainer>
   )
 }

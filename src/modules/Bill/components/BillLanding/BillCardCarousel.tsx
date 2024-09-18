@@ -6,6 +6,7 @@ import { Box, Container } from '@mui/material'
 import BillCard from '@/modules/Bill/components/BillCard'
 import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
+import ArrowPagination from '@/common/components/elements/Carousel/ArrowPagination'
 
 const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
   overflow: 'hidden',
@@ -31,7 +32,9 @@ export default function BillCardCarousel() {
             slidesToShow: 3,
             slidesToScroll: 1,
           }}
-          showDot={false}
+          renderPagination={(props) => (
+            <ArrowPagination {...props} showDot={false} />
+          )}
         >
           {BILL_DATA_MOCK.map((bill, index) => (
             <Box key={index} px={1}>
