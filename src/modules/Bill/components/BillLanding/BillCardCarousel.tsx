@@ -38,7 +38,7 @@ export default function BillCardCarousel() {
         >
           {BILL_DATA_MOCK.map((bill, index) => (
             <Box key={index} px={1}>
-              <BillCard mode="vertical" simplified bill={bill} />
+              <BillCard mode="vertical" bill={bill} />
             </Box>
           ))}
         </Carousel>

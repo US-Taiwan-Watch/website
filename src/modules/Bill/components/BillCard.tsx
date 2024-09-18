@@ -9,7 +9,6 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
-import { ChamberEnum } from '@/common/enums/Chamber'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
@@ -50,14 +49,6 @@ export default function BillCard({ mode, simplified, bill }: Props) {
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
 
-  const chamberPrefix = useMemo(() => {
-    return bill.latestAction?.chamber === ChamberEnum.HOUSE
-      ? 'H.R.'
-      : bill.latestAction?.chamber === ChamberEnum.SENATE
-        ? 'S.'
-        : ''
-  }, [bill.latestAction?.chamber])
-
   const statusIndex = useMemo(() => {
     return Object.values(BillStatusEnum).findIndex((key) => key === bill.status)
   }, [bill.status])
@@ -81,7 +72,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           </UHStack>
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
+            {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
           </Typography>
 
           <UHeightLimitedText maxLine={4} variant="subtitleL" fontWeight={700}>
@@ -129,14 +120,12 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                 >
                   <StyledTagContainer
                     sx={{
-                      backgroundColor: `${theme.color.purple[100]}80`, // 80% opacity
+                      backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
                       marginBottom: 0,
                     }}
                   >
                     <Typography variant="buttonS">
-                      {bill.latestAction?.chamber === ChamberEnum.HOUSE
-                        ? ChamberEnum.HOUSE
-                        : ChamberEnum.SENATE}
+                      {bill.latestAction?.chamber}
                     </Typography>
                   </StyledTagContainer>
                   <Typography

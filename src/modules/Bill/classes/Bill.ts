@@ -70,6 +70,14 @@ export class Bill {
     return this.actions?.[this.actions.length - 1]
   }
 
+  get chamberPrefix(): string {
+    return this.latestAction?.chamber === ChamberEnum.HOUSE
+      ? 'H.R.'
+      : this.latestAction?.chamber === ChamberEnum.SENATE
+        ? 'S.'
+        : ''
+  }
+
   /**
    * Check if the bill has passed both chambers
    * @returns true if the bill has passed both House and Senate
