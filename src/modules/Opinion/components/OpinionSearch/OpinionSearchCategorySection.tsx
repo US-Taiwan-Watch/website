@@ -38,10 +38,10 @@ const OpinionSearchCategorySection = ({
 }: OpinionSearchCategorySectionProps) => {
   const theme = useTheme<USTWTheme>()
 
-  const { isLoading, category, opinions } = useOpinionSearch(categoryId)
+  const { isOpinionsLoading, category, opinions } = useOpinionSearch(categoryId)
 
   // TODO: 顯示 loading
-  if (isLoading) {
+  if (isOpinionsLoading) {
     return <OpinionSearchCategorySectionSkeleton />
   }
 

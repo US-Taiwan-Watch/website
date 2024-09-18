@@ -1,27 +1,18 @@
+import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
-import {
-  opinions as MOCK_OPINIONS,
-  opinionCategories,
-} from '@/modules/Opinion/data'
-import { OpinionCategory } from '@/modules/Opinion/types/OpinionCategory'
+import { opinions as MOCK_OPINIONS } from '@/modules/Opinion/data'
 import { useEffect, useMemo, useState } from 'react'
 
 export default function useOpinionSearch(categoryId: string) {
-  const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [categories, setCategories] = useState<Array<OpinionCategory>>([])
-
-  useEffect(() => {
-    // TODO: 從 API 取得資料
-    setCategories(opinionCategories)
-    setIsLoading(false)
-  }, [])
+  const categories = useOpinionStore((state) => state.categories)
 
   const [opinions, setOpinions] = useState<Array<Opinion>>([])
+  const [isOpinionsLoading, setIsOpinionsLoading] = useState<boolean>(true)
 
   useEffect(() => {
     // TODO: 從 API 取得資料
     setOpinions(MOCK_OPINIONS)
-    setIsLoading(false)
+    setIsOpinionsLoading(false)
   }, [categoryId])
 
   const category = useMemo(
@@ -33,6 +24,6 @@ export default function useOpinionSearch(categoryId: string) {
     categories,
     category,
     opinions,
-    isLoading,
+    isOpinionsLoading,
   }
 }

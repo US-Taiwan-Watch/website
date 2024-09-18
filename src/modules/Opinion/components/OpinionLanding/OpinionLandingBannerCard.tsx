@@ -68,7 +68,7 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
             {/** Tags */}
             <Stack direction="row" spacing={1}>
               {opinion.categories?.map((category) => (
-                <Link href={Opinion.getCategoryUrl(category)} key={category.id}>
+                <Link href={category.link} key={category.id}>
                   <StyledCategory>
                     <Typography variant="caption" lineHeight={1}>
                       {category.label}

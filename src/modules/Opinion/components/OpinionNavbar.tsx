@@ -2,15 +2,9 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { opinionNavbarItems } from '@/modules/Opinion/data'
-import { OpinionCategory } from '@/modules/Opinion/types/OpinionCategory'
+import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
-import { useMemo } from 'react'
-
-interface OpinionNavbarItem extends OpinionCategory {
-  href: string
-}
 
 interface OpinionNavbarProps {
   activeId?: string
@@ -19,9 +13,8 @@ interface OpinionNavbarProps {
 const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
   const theme = useTheme<USTWTheme>()
 
-  const navItems = useMemo<Array<OpinionNavbarItem>>(
-    () => opinionNavbarItems,
-    []
+  const highlightedCategories = useOpinionStore(
+    (state) => state.highlightedCategories
   )
 
   return (
@@ -40,8 +33,8 @@ const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
           color: theme.color.grey[2000],
         }}
       >
-        {navItems.map((item) => (
-          <Link href={item.href} key={item.id}>
+        {highlightedCategories.map((item) => (
+          <Link href={item.link} key={item.id}>
             <Typography
               variant="menu"
               sx={{

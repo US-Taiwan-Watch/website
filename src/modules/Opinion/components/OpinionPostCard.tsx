@@ -32,7 +32,7 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
       {/** Categories */}
       <UHStack gap={1}>
         {opinion.categories?.map((category) => (
-          <Link href={Opinion.getCategoryUrl(category)} key={category.id}>
+          <Link href={category.link} key={category.id}>
             <UButton
               variant="outlined"
               size="small"
