@@ -30,7 +30,7 @@ export default function TrendCard() {
         <Stack mt={3} px={1.5}>
           <UHStack>
             <Stack spacing={1}>
-              <Typography variant="menu" color={theme.color.grey[2100]}>
+              <Typography variant="menu" color={theme.color.grey[2200]}>
                 Total
               </Typography>
               <Typography variant="h4">2048</Typography>

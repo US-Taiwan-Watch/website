@@ -55,7 +55,7 @@ export default function TrendBarCharts() {
             strokeWidth: 0,
           },
           [`.${axisClasses.tickLabel}`]: {
-            fill: theme.color.grey[2200],
+            fill: theme.color.grey[2300],
           },
         },
       }}
