@@ -17,6 +17,7 @@ export default function UHeightLimitedText({
         WebkitBoxOrient: 'vertical',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
+        ...props.sx,
       }}
       {...props}
     >
