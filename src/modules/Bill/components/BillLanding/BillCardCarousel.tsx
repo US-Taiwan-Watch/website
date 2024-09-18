@@ -5,12 +5,11 @@ import { styled } from '@/common/lib/mui/theme'
 import { Box, Container } from '@mui/material'
 import BillCard from '@/modules/Bill/components/BillCard'
 import { BILL_DATA_MOCK } from '@/modules/Bill/data'
+import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 
-const StyledCarouselContainer = styled(Box)(() => ({
+const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
   overflow: 'hidden',
   backgroundColor: 'inherit',
-  marginLeft: '-50dvw',
-  marginRight: '-50dvw',
   '& .slick-list': {
     overflow: 'visible',
   },
@@ -27,9 +26,10 @@ export default function BillCardCarousel() {
         <Carousel
           centerMode
           settings={{
-            infinite: false,
+            infinite: true,
             centerPadding: '0px',
             slidesToShow: 3,
+            slidesToScroll: 1,
           }}
           showDot={false}
         >
