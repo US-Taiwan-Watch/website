@@ -29,7 +29,12 @@ const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
         onMouseLeave={() => setIsHover(false)}
       >
         {startIcon}
-        <Typography variant="body1" fontWeight={500} sx={{ color }}>
+        <Typography
+          className="ULinkText"
+          variant="body1"
+          fontWeight={500}
+          sx={{ color }}
+        >
           {text ?? 'Learn More'}
         </Typography>
         {endIcon ?? <ArrowForwardIcon sx={{ color }} />}
