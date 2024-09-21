@@ -13,6 +13,7 @@ import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
 import { billStatusList } from '@/modules/Bill/constants'
+import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 
 const DATE_FORMAT = 'MM/DD/YYYY-hh:mmA'
 
@@ -21,13 +22,6 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3, 3.5),
   borderRadius: '10px',
   backgroundColor: theme.color.common.white,
-}))
-
-const StyledTagContainer = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(0.5, 2),
-  borderRadius: '5px',
-  backgroundColor: theme.color.indigo[50],
-  marginBottom: theme.spacing(2.5),
 }))
 
 const StyledTimelineContainer = styled(Box)(({ theme }) => ({
@@ -62,13 +56,11 @@ export default function BillCard({ mode, simplified, bill }: Props) {
     >
       <UHStack gap={4} alignItems="center">
         <Stack>
-          <UHStack gap="6px">
+          <UHStack gap="6px" mb={2.5}>
             {/* NOTE: 限制 tags 數量 */}
-            {bill.tags?.slice(0, isHorizontal ? 5 : 3).map((tag, index) => (
-              <StyledTagContainer key={index}>
-                <Typography variant="buttonXS">{tag}</Typography>
-              </StyledTagContainer>
-            ))}
+            {bill.tags
+              ?.slice(0, isHorizontal ? 5 : 3)
+              .map((tag, index) => <UCategoryTag key={index} value={tag} />)}
           </UHStack>
 
           <Typography variant="body" fontWeight={300} mb={1}>
@@ -118,16 +110,17 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                   alignItems="center"
                   {...(isHorizontal && { gap: 3 })}
                 >
-                  <StyledTagContainer
-                    sx={{
-                      backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
-                      marginBottom: 0,
+                  <UCategoryTag
+                    value={bill.latestAction?.chamber}
+                    containerProps={{
+                      sx: {
+                        backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
+                      },
                     }}
-                  >
-                    <Typography variant="buttonS">
-                      {bill.latestAction?.chamber}
-                    </Typography>
-                  </StyledTagContainer>
+                    textProps={{
+                      variant: 'buttonS',
+                    }}
+                  />
                   <Typography
                     variant="buttonS"
                     {...(isHorizontal && { color: theme.color.grey[400] })}
