@@ -6,7 +6,7 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import ULinkText from '@/common/components/atoms/ULinkText'
 import UPagination from '@/common/components/atoms/UPagination'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
-import { styled } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import {
   BookmarkIcon,
   FacebookIcon,
@@ -25,11 +25,14 @@ import {
 import PeopleCard from '@/modules/People/components/PeopleCard'
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
-import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid2 as Grid, Stack, Typography, useTheme } from '@mui/material'
 import people from '@/modules/People/data'
 import UTimeline, { UTimelineData } from '@/common/components/atoms/UTimeline'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import UHStack from '@/common/components/atoms/UHStack'
+import UCategoryTag from '@/common/components/atoms/UCategoryTag'
+import UHashTag from '@/common/components/atoms/UHashTag'
 
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
@@ -59,6 +62,8 @@ const timelineData: UTimelineData = [
 ]
 
 export default function DesignSystemIconsPage() {
+  const theme = useTheme<USTWTheme>()
+
   return (
     <div>
       <h1>Design System Icons</h1>
@@ -269,7 +274,13 @@ export default function DesignSystemIconsPage() {
       </Stack>
       <h2>Pagination</h2>
       <Box display="flex" p={2} gap={2}>
-        <UPagination count={10} page={1} onChange={() => {}} />
+        <UPagination
+          count={10}
+          page={1}
+          onChange={() => {
+            console.log('changed')
+          }}
+        />
       </Box>
       <h2>People Card</h2>
       <Grid container spacing={2}>
@@ -360,6 +371,98 @@ export default function DesignSystemIconsPage() {
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,
         </UHeightLimitedText>
       </Box>
+
+      <h2>UCategoryTag</h2>
+      <UContentCard>
+        <UHStack gap="6px">
+          {['Environment', 'Energy', 'Technology', 'Security'].map(
+            (tag, index) => (
+              <UCategoryTag
+                key={index}
+                value={tag}
+                onClick={() => {
+                  console.log('clicked')
+                }}
+              />
+            )
+          )}
+        </UHStack>
+
+        <UHStack gap="6px" my={2}>
+          {['House', 'Senate'].map((tag, index) => (
+            <UCategoryTag
+              key={index}
+              value={tag}
+              containerProps={{
+                sx: {
+                  backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
+                },
+              }}
+              textProps={{
+                variant: 'buttonS',
+              }}
+            />
+          ))}
+        </UHStack>
+
+        <UHStack gap="6px" my={2}>
+          <UCategoryTag
+            value="Official"
+            containerProps={{
+              sx: {
+                backgroundColor: theme.color.tyrian[50],
+                borderRadius: '6px',
+                padding: theme.spacing(0.5, 1),
+              },
+            }}
+          />
+          <UCategoryTag
+            value="Expert"
+            containerProps={{
+              sx: {
+                backgroundColor: theme.color.green[100],
+                borderRadius: '6px',
+                padding: theme.spacing(0.5, 1),
+              },
+            }}
+          />
+          <UCategoryTag
+            value="Other"
+            containerProps={{
+              sx: {
+                backgroundColor: theme.color.neutral[300],
+                borderRadius: '6px',
+                padding: theme.spacing(0.5, 1),
+              },
+            }}
+          />
+        </UHStack>
+      </UContentCard>
+
+      <h2>UHashTag</h2>
+      <UContentCard>
+        <UHStack gap="6px" my={2} flexWrap="wrap">
+          {['NATO', 'EU', 'Cybersecurity'].map((tag, index) => (
+            <UHashTag key={index} value={tag} />
+          ))}
+        </UHStack>
+        <UHStack gap="6px" my={2} flexWrap="wrap">
+          {['Semiconductor', 'Humanitarian', 'Aid'].map((tag, index) => (
+            <UHashTag
+              key={index}
+              value={tag}
+              containerProps={{
+                sx: {
+                  backgroundColor: 'transparent',
+                },
+              }}
+              onClick={() => {
+                console.log('clicked')
+              }}
+            />
+          ))}
+        </UHStack>
+      </UContentCard>
     </div>
   )
 }
