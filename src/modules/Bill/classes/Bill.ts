@@ -70,6 +70,14 @@ export class Bill {
     return this.actions?.[this.actions.length - 1]
   }
 
+  /**
+   * Get the index of the bill status
+   * @returns The index of the bill status
+   */
+  get statusIndex() {
+    return Object.values(BillStatusEnum).findIndex((key) => key === this.status)
+  }
+
   get chamberPrefix(): string {
     return this.latestAction?.chamber === ChamberEnum.HOUSE
       ? 'H.R.'
