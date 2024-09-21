@@ -20,7 +20,11 @@ const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
   },
 }))
 
-export default function BillCardCarousel() {
+type Props = {
+  simplified?: boolean
+}
+
+export default function BillCardCarousel({ simplified }: Props) {
   return (
     <StyledCarouselContainer>
       <Container maxWidth="lg">
@@ -38,7 +42,7 @@ export default function BillCardCarousel() {
         >
           {BILL_DATA_MOCK.map((bill, index) => (
             <Box key={index} px={1}>
-              <BillCard mode="vertical" simplified bill={bill} />
+              <BillCard mode="vertical" simplified={simplified} bill={bill} />
             </Box>
           ))}
         </Carousel>

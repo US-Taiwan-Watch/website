@@ -134,7 +134,7 @@ export const PARLIAMENT_CHART_DATA_MOCK_2: ParliamentChartData[] = [
 
 export const BILL_DATA_MOCK: Bill[] = [
   new Bill({
-    id: 'HR1234',
+    id: '1234',
     title:
       'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2023 and Promoting Regional Stability',
     sponsor: sponsor1,
