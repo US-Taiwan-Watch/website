@@ -1,10 +1,15 @@
 'use client'
 
+import UButton from '@/common/components/atoms/UButton'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { StarsIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Typography } from '@mui/material'
+import { CardContent, Typography, useTheme } from '@mui/material'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
-const BioByAI = function BioByAI() {
+export default function BioByAI() {
+  const theme = useTheme<USTWTheme>()
+
   return (
     <UContentCard
       withHeader
@@ -12,6 +17,24 @@ const BioByAI = function BioByAI() {
         title: 'Summary From AI',
         icon: <StarsIcon />,
         iconColor: 'primary',
+        action: (
+          <UButton
+            endIcon={
+              <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
+            }
+            color="info"
+            variant="outlined"
+            size="small"
+            sx={{
+              py: 0.5,
+              px: 1,
+              borderRadius: '9px',
+              border: `1.5px solid ${theme.color.grey[1400]}`,
+            }}
+          >
+            <Typography variant="buttonXS">Full Text</Typography>
+          </UButton>
+        ),
       }}
     >
       <CardContent>
@@ -32,5 +55,3 @@ const BioByAI = function BioByAI() {
     </UContentCard>
   )
 }
-
-export default BioByAI

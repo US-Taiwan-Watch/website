@@ -31,7 +31,7 @@ export default function BillTracker({ bill }: Props) {
       }}
     >
       <CardContent>
-        <Box py={2} px={1}>
+        <Box pt={2} px={1}>
           <UTimeline
             data={billStatusList}
             activeIndex={bill.statusIndex}
