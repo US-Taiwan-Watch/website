@@ -2,6 +2,7 @@ import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import { People } from '@/modules/People/classes/People'
 import { isArray, isString } from 'lodash-es'
+import { ROUTES } from '@/routes'
 
 interface BillAction {
   date: string
@@ -65,7 +66,7 @@ export class Bill {
   }
 
   get link() {
-    return `/bill/${this.id}`
+    return `${ROUTES.BILL}/${this.id}`
   }
 
   get introducedDate() {
