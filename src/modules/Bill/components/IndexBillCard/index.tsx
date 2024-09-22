@@ -29,7 +29,7 @@ export default function IndexBillCard({ bill }: Props) {
         router.push(bill.link)
       }}
     >
-      <Grid2 container spacing={10} height="100%">
+      <Grid2 container spacing={6} height="100%">
         <Grid2 size={6}>
           <LeftSection bill={bill} />
         </Grid2>

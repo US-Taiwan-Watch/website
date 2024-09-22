@@ -23,9 +23,12 @@ import { ReactNode } from 'react'
 import dayjs from 'dayjs'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import usePartyColor from '@/common/lib/Party/usePartyColor'
+import { Party } from '@/common/enums/Party'
+import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 
 const INTRODUCED_DATE_FORMAT = 'YYYY.MM.DD'
-const LATEST_ACTION_DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
+const ACTION_DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
 
 const StyledCardContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -49,14 +52,21 @@ const StyledImageContainer = styled(Box)(({ theme }) => ({
   width: '50px',
   height: '50px',
   borderRadius: '50%',
-  overflow: 'hidden',
   marginRight: theme.spacing(3),
 }))
 
 const StyledImage = styled(Image)(() => ({
   width: '100%',
   height: '100%',
+  borderRadius: '50%',
   objectFit: 'cover',
+}))
+
+const StyledPartyIconContainer = styled(Box)(() => ({
+  position: 'absolute',
+  bottom: -4,
+  right: -5,
+  zIndex: 1,
 }))
 
 function CardIconTitle({
@@ -86,6 +96,7 @@ type Props = {
 
 export default function RightSection({ bill }: Props) {
   const theme = useTheme<USTWTheme>()
+  const { partyColor } = usePartyColor()
 
   return (
     <Grid2 container spacing={2}>
@@ -98,12 +109,37 @@ export default function RightSection({ bill }: Props) {
             title="Sponsors"
           />
           {bill.sponsor?.image && (
-            <StyledImageContainer>
+            <StyledImageContainer
+              sx={{
+                border: `2px solid`,
+                borderColor: partyColor[bill.sponsor.party ?? Party.OTHER],
+              }}
+            >
               <StyledImage
                 src={bill.sponsor.image}
                 alt={bill.sponsor.name ?? ''}
                 fill
               />
+              <StyledPartyIconContainer>
+                <UPoliticalPartyIcon
+                  variant="rounded"
+                  size="small"
+                  party={
+                    bill.sponsor?.party === Party.REPUBLICAN
+                      ? 'republic'
+                      : bill.sponsor?.party === Party.DEMOCRATIC
+                        ? 'democracy'
+                        : 'other'
+                  }
+                  sx={{
+                    width: '18px',
+                    height: '18px',
+                  }}
+                  customFontStyle={{
+                    fontSize: '12px',
+                  }}
+                />
+              </StyledPartyIconContainer>
             </StyledImageContainer>
           )}
           <Stack>
@@ -173,9 +209,7 @@ export default function RightSection({ bill }: Props) {
                 sx={{ color: theme.color.grey[1200] }}
               >
                 {dayjs(bill.latestAction?.date).isValid()
-                  ? dayjs(bill.latestAction?.date).format(
-                      LATEST_ACTION_DATE_FORMAT
-                    )
+                  ? dayjs(bill.latestAction?.date).format(ACTION_DATE_FORMAT)
                   : ''}
               </Typography>
             </UHStack>
