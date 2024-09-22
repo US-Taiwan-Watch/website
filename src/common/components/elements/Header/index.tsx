@@ -14,6 +14,7 @@ import useNavItems, { HeaderNavItem } from './useNavItems'
 import SearchBar from '@/modules/Search/components/SearchBar'
 import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
 import { ROUTES } from '@/routes'
+import { useRouter } from 'next/navigation'
 
 interface HeaderProps {
   className?: string
@@ -128,6 +129,7 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
 }))
 
 const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
+  const router = useRouter()
   const { navItems } = useNavItems()
   const [menuOpenNavItem, setMenuOpenNavItem] = useState<HeaderNavItem | null>(
     null
@@ -171,7 +173,15 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
         gap={2}
       >
         {/** 左側 */}
-        <Box display="flex" alignItems="center" gap={1}>
+        <Box
+          display="flex"
+          alignItems="center"
+          gap={1}
+          sx={{ cursor: 'pointer' }}
+          onClick={() => {
+            router.push(ROUTES.HOME)
+          }}
+        >
           <ULogo size="small" />
           <Typography fontWeight={700}>USTW</Typography>
         </Box>
