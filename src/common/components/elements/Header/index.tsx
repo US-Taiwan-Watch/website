@@ -13,6 +13,7 @@ import React, { useRef, useState } from 'react'
 import useNavItems, { HeaderNavItem } from './useNavItems'
 import SearchBar from '@/modules/Search/components/SearchBar'
 import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
+import { ROUTES } from '@/routes'
 
 interface HeaderProps {
   className?: string
@@ -266,7 +267,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
               >
                 <SearchIcon />
               </UIconButton>
-              <Link href="/#">
+              <Link href={ROUTES.HOME}>
                 <UButton
                   className="donation-button"
                   variant="contained"
