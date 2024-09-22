@@ -1,9 +1,31 @@
 'use client'
 
-import { styled } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { Box, Grid2, Stack, Typography } from '@mui/material'
-import { SponsorIcon } from '@/common/styles/assets/Icons'
+import {
+  Box,
+  Divider,
+  Grid2,
+  Stack,
+  StackProps,
+  Typography,
+  useTheme,
+} from '@mui/material'
+import {
+  ActionsIcon,
+  CalenderIcon,
+  NoteIcon,
+  SponsorIcon,
+} from '@/common/styles/assets/Icons'
+import Image from 'next/image'
+import UHStack from '@/common/components/atoms/UHStack'
+import { ReactNode } from 'react'
+import dayjs from 'dayjs'
+import UCategoryTag from '@/common/components/atoms/UCategoryTag'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+
+const INTRODUCED_DATE_FORMAT = 'YYYY.MM.DD'
+const LATEST_ACTION_DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
 
 const StyledCardContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -12,7 +34,9 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.color.grey[2500],
 }))
 
-const StyledIconContainer = styled(Box)(({ theme }) => ({
+const StyledIconContainer = styled(Stack)(({ theme }) => ({
+  justifyContent: 'center',
+  alignItems: 'center',
   color: theme.color.grey[2100],
   '& svg': {
     width: '20px',
@@ -20,18 +44,68 @@ const StyledIconContainer = styled(Box)(({ theme }) => ({
   },
 }))
 
+const StyledImageContainer = styled(Box)(({ theme }) => ({
+  position: 'relative',
+  width: '50px',
+  height: '50px',
+  borderRadius: '50%',
+  overflow: 'hidden',
+  marginRight: theme.spacing(3),
+}))
+
+const StyledImage = styled(Image)(() => ({
+  width: '100%',
+  height: '100%',
+  objectFit: 'cover',
+}))
+
+function CardIconTitle({
+  icon,
+  title,
+  containerProps,
+}: {
+  icon: ReactNode
+  title: string
+  containerProps?: StackProps
+}) {
+  const theme = useTheme<USTWTheme>()
+
+  return (
+    <UHStack gap="6px" alignItems="center" {...containerProps}>
+      <StyledIconContainer>{icon}</StyledIconContainer>
+      <Typography variant="buttonXS" color={theme.color.grey[2100]}>
+        {title}
+      </Typography>
+    </UHStack>
+  )
+}
+
 type Props = {
   bill: Bill
 }
 
 export default function RightSection({ bill }: Props) {
+  const theme = useTheme<USTWTheme>()
+
   return (
     <Grid2 container spacing={2}>
       <Grid2 size={12}>
+        {/* Sponsors */}
         <StyledCardContainer direction="row" alignItems="center">
-          <StyledIconContainer mr={3}>
-            <SponsorIcon />
-          </StyledIconContainer>
+          <CardIconTitle
+            containerProps={{ mr: 3 }}
+            icon={<SponsorIcon />}
+            title="Sponsors"
+          />
+          {bill.sponsor?.image && (
+            <StyledImageContainer>
+              <StyledImage
+                src={bill.sponsor.image}
+                alt={bill.sponsor.name ?? ''}
+                fill
+              />
+            </StyledImageContainer>
+          )}
           <Stack>
             <Typography variant="articleH4">{bill.sponsor?.name}</Typography>
             <Typography
@@ -45,16 +119,71 @@ export default function RightSection({ bill }: Props) {
         </StyledCardContainer>
       </Grid2>
 
+      {/* Cosponsors */}
       <Grid2 size={5}>
-        <StyledCardContainer direction="row"></StyledCardContainer>
+        <StyledCardContainer
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <CardIconTitle icon={<NoteIcon />} title="Cosponsors" />
+          <Typography variant="subtitleL" fontWeight={700}>
+            {bill.cosponsorsCount}
+          </Typography>
+        </StyledCardContainer>
       </Grid2>
 
+      {/* Introduced */}
       <Grid2 size={7}>
-        <StyledCardContainer direction="row"></StyledCardContainer>
+        <StyledCardContainer
+          direction="row"
+          alignItems="center"
+          justifyContent="space-between"
+        >
+          <CardIconTitle icon={<CalenderIcon />} title="Introduced" />
+          <Typography variant="subtitleL" fontWeight={700}>
+            {dayjs(bill.introducedDate).isValid()
+              ? dayjs(bill.introducedDate).format(INTRODUCED_DATE_FORMAT)
+              : ''}
+          </Typography>
+        </StyledCardContainer>
       </Grid2>
 
+      {/* Latest Action */}
       <Grid2 size={12}>
-        <StyledCardContainer></StyledCardContainer>
+        <StyledCardContainer>
+          <CardIconTitle icon={<ActionsIcon />} title="Latest Action" />
+          <Divider sx={{ my: 2, borderWidth: 1 }} />
+          <Stack gap={1.5}>
+            <UHStack justifyContent="space-between" alignItems="center">
+              <UCategoryTag
+                value={bill.latestAction?.chamber}
+                containerProps={{
+                  sx: {
+                    backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
+                  },
+                }}
+                textProps={{
+                  variant: 'buttonS',
+                }}
+              />
+              <Typography
+                variant="buttonXS"
+                fontSize={15}
+                sx={{ color: theme.color.grey[1200] }}
+              >
+                {dayjs(bill.latestAction?.date).isValid()
+                  ? dayjs(bill.latestAction?.date).format(
+                      LATEST_ACTION_DATE_FORMAT
+                    )
+                  : ''}
+              </Typography>
+            </UHStack>
+            <UHeightLimitedText maxLine={3} variant="buttonXS">
+              {bill.latestAction?.description}
+            </UHeightLimitedText>
+          </Stack>
+        </StyledCardContainer>
       </Grid2>
     </Grid2>
   )

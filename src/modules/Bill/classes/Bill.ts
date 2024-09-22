@@ -14,6 +14,7 @@ interface BillArgs {
   id: string
   title: string
   sponsor: People
+  cosponsors: People[]
   tags: string[]
   status: BillStatusEnum
   actions: BillAction[]
@@ -26,6 +27,8 @@ export class Bill {
   title?: string
   // 提案人
   sponsor?: People
+  // 共同提案人
+  cosponsors?: People[]
   // 標籤
   tags?: string[]
   // 法案狀態
@@ -42,6 +45,9 @@ export class Bill {
     }
     if (bill.sponsor instanceof People) {
       this.sponsor = bill.sponsor
+    }
+    if (isArray(bill.cosponsors)) {
+      this.cosponsors = bill.cosponsors
     }
     if (isArray(bill.tags)) {
       this.tags = bill.tags
@@ -60,6 +66,10 @@ export class Bill {
 
   get link() {
     return `/bill/${this.id}`
+  }
+
+  get introducedDate() {
+    return this.actions?.[0]?.date
   }
 
   /**
@@ -84,6 +94,10 @@ export class Bill {
       : this.latestAction?.chamber === ChamberEnum.SENATE
         ? 'S.'
         : ''
+  }
+
+  get cosponsorsCount() {
+    return (this.cosponsors ?? []).length
   }
 
   /**

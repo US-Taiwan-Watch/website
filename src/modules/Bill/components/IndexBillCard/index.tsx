@@ -22,7 +22,6 @@ export default function IndexBillCard({ bill }: Props) {
 
   return (
     <StyledCardContainer
-      height={480}
       sx={{
         cursor: 'pointer',
       }}

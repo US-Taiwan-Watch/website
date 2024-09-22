@@ -36,6 +36,8 @@ import SvgCongressIcon from './CongressIcon.svg'
 import SvgActionsIcon from './ActionsIcon.svg'
 import SvgCosponsorsIcon from './CosponsorsIcon.svg'
 import SvgTrackerIcon from './TrackerIcon.svg'
+import SvgCalenderIcon from './CalenderIcon.svg'
+import SvgNoteIcon from './NoteIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -185,4 +187,12 @@ export const ActionsIcon = (props: SvgIconProps) => (
 
 export const TrackerIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgTrackerIcon} {...props} />
+)
+
+export const CalenderIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgCalenderIcon} {...props} />
+)
+
+export const NoteIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgNoteIcon} {...props} />
 )

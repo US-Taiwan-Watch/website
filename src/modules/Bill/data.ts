@@ -138,6 +138,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2023 and Promoting Regional Stability',
     sponsor: sponsor1,
+    cosponsors: [sponsor2, sponsor3],
     tags: ['Environment', 'Energy'],
     status: BillStatusEnum.INTRODUCED,
     actions: [
@@ -153,6 +154,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Comprehensive Cybersecurity Enhancement and National Digital Infrastructure Protection Act',
     sponsor: sponsor2,
+    cosponsors: [sponsor3, sponsor1],
     tags: ['Technology', 'Security'],
     status: BillStatusEnum.PASSED_SENATE,
     actions: [
@@ -174,6 +176,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Education Reform Act for Improving K-12 Curriculum, Teacher Training, and Student Success Rates Nationwide',
     sponsor: sponsor3,
+    cosponsors: [sponsor1, sponsor2],
     tags: ['Education', 'Social Policy'],
     status: BillStatusEnum.PASSED_HOUSE,
     actions: [
@@ -194,6 +197,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Healthcare Accessibility Act to Expand Medical Coverage, Reduce Costs, and Improve Patient Outcomes Across America',
     sponsor: sponsor1,
+    cosponsors: [sponsor2, sponsor3],
     tags: ['Healthcare', 'Social Policy'],
     status: BillStatusEnum.TO_PRESIDENT,
     actions: [
@@ -225,6 +229,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Small Business Support Act for Promoting Entrepreneurship, Job Creation, and Economic Growth in Local Communities',
     sponsor: sponsor2,
+    cosponsors: [sponsor3, sponsor1],
     tags: ['Economy', 'Business'],
     status: BillStatusEnum.INTRODUCED,
     actions: [
@@ -240,6 +245,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Veterans Care Improvement Act to Enhance Medical Services, Mental Health Support, and Benefits for Military Veterans',
     sponsor: sponsor3,
+    cosponsors: [sponsor1, sponsor2],
     tags: ['Veterans', 'Healthcare'],
     status: BillStatusEnum.PASSED_SENATE,
     actions: [
@@ -261,6 +267,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Infrastructure Modernization Act for Upgrading Roads, Bridges, Public Transit, and Digital Networks Across the Nation',
     sponsor: sponsor1,
+    cosponsors: [sponsor2, sponsor3],
     tags: ['Infrastructure', 'Economy'],
     status: BillStatusEnum.BECOME_LAW,
     actions: [
@@ -296,6 +303,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Climate Change Mitigation Act to Reduce Greenhouse Gas Emissions and Promote Clean Energy Technologies Nationwide',
     sponsor: sponsor2,
+    cosponsors: [sponsor3, sponsor1],
     tags: ['Environment', 'Energy'],
     status: BillStatusEnum.INTRODUCED,
     actions: [
@@ -312,6 +320,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Affordable Housing Act to Increase Availability of Low-Cost Homes and Improve Rental Assistance Programs',
     sponsor: sponsor3,
+    cosponsors: [sponsor1, sponsor2],
     tags: ['Housing', 'Social Policy'],
     status: BillStatusEnum.PASSED_HOUSE,
     actions: [
@@ -333,6 +342,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Data Privacy Protection Act to Safeguard Personal Information, Regulate Data Collection, and Enforce Consumer Rights Online',
     sponsor: sponsor1,
+    cosponsors: [sponsor2, sponsor3],
     tags: ['Technology', 'Privacy'],
     status: BillStatusEnum.PASSED_SENATE,
     actions: [
