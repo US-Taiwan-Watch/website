@@ -8,7 +8,7 @@ import IndexBillCardList from '@/modules/Bill/components/IndexBillCard/IndexBill
 const BillSection = () => {
   return (
     <Stack py={10} gap={7.5}>
-      <SectionTitleWithLink title="Bills" link="#" />
+      <SectionTitleWithLink title="Bills" link="/bill" />
       <IndexBillCardList billData={BILL_DATA_MOCK} />
     </Stack>
   )

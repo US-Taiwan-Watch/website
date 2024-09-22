@@ -19,12 +19,12 @@ const BillListSection = () => {
       }}
     >
       <Stack gap={theme.spacing(7.5)}>
-        <SectionTitleWithLink title="Latest Bills" link="#" />
+        <SectionTitleWithLink title="Latest Bills" link="/bill-list" />
         <BillCardCarousel simplified />
       </Stack>
 
       <Stack gap={theme.spacing(7.5)}>
-        <SectionTitleWithLink title="Popular Bills" link="#" />
+        <SectionTitleWithLink title="Popular Bills" link="/bill-list" />
         <BillCardCarousel simplified />
       </Stack>
     </LandingSectionWrapper>
