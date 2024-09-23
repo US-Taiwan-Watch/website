@@ -1,3 +1,4 @@
+import { ROUTES } from '@/routes'
 import { isString } from 'lodash-es'
 
 export interface OpinionCategoryArgs {
@@ -24,6 +25,6 @@ export default class OpinionCategory {
   }
 
   get link() {
-    return `/opinion/search/${this.id}`
+    return `${ROUTES.OPINION}/search/${this.id}`
   }
 }

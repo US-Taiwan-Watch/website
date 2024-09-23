@@ -1,3 +1,5 @@
+'use client'
+
 import UCardHeader, {
   type UCardHeaderProps,
 } from '@/common/components/atoms/UCardHeader'

@@ -23,6 +23,7 @@ export interface PaginationProps {
   handlePrev?: () => void
   handleNext?: () => void
   handleDotClick?: (index: number) => void
+  showDot?: boolean
 }
 
 interface CarouselProps {
@@ -94,6 +95,7 @@ function Carousel({
       <Slider ref={sliderRef} {...settings}>
         {children}
       </Slider>
+
       {renderPagination ? (
         renderPagination({
           slideCount,

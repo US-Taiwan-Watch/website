@@ -38,6 +38,7 @@ const StyledPaginationDot = styled('div')(({ theme }) => ({
 }))
 
 const ArrowPagination = (props: PaginationProps) => {
+  const { showDot = true } = props
   return (
     <StyledPaginationContainer
       direction="row"
@@ -53,28 +54,33 @@ const ArrowPagination = (props: PaginationProps) => {
       >
         <ArrowBackIosOutlinedIcon />
       </UIconButton>
-      <StyledPaginationDotContainer
-        direction="row"
-        alignItems="center"
-        justifyContent="center"
-        spacing={1}
-      >
-        {Array.from({ length: props.slideCount }).map((_, index) => (
-          <StyledPaginationDot
-            key={index}
-            onClick={() => props.handleDotClick?.(index)}
-            className={clsx({
-              'slick-active': index === props.currentSlide,
-            })}
-          />
-        ))}
-      </StyledPaginationDotContainer>
+      {showDot && (
+        <StyledPaginationDotContainer
+          direction="row"
+          alignItems="center"
+          justifyContent="center"
+          spacing={1}
+        >
+          {Array.from({ length: props.slideCount }).map((_, index) => (
+            <StyledPaginationDot
+              key={index}
+              onClick={() => props.handleDotClick?.(index)}
+              className={clsx({
+                'slick-active': index === props.currentSlide,
+              })}
+            />
+          ))}
+        </StyledPaginationDotContainer>
+      )}
       <UIconButton
         className="carousel-slider-next"
         variant="rounded"
         color="default"
         size="small"
         onClick={props.handleNext}
+        sx={{
+          marginLeft: !showDot ? '16px' : '0px',
+        }}
       >
         <ArrowForwardIosOutlinedIcon />
       </UIconButton>

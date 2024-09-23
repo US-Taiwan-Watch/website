@@ -12,6 +12,7 @@ import type { ComponentType } from 'react'
 interface UPoliticalPartyIconProps extends Omit<IconButtonProps, 'color'> {
   variant: 'contained' | 'outlined' | 'rounded'
   party: 'democracy' | 'republic' | 'other'
+  customFontStyle?: TypographyProps['sx']
 }
 
 const getMainColor = (
@@ -137,8 +138,10 @@ const StyledPoliticalPartyIcon = styled(IconButton)<UPoliticalPartyIconProps>(
 ) as ComponentType<UPoliticalPartyIconProps>
 
 const UPoliticalPartyIcon = (props: UPoliticalPartyIconProps) => {
+  const { customFontStyle, ...restProps } = props
+
   return (
-    <StyledPoliticalPartyIcon {...props}>
+    <StyledPoliticalPartyIcon {...restProps}>
       <div
         className="party-icon"
         style={{
@@ -149,7 +152,7 @@ const UPoliticalPartyIcon = (props: UPoliticalPartyIconProps) => {
           height: getIconSize(props.size).height,
         }}
       >
-        <Typography {...getTypographyProps(props.size)}>
+        <Typography {...getTypographyProps(props.size)} sx={customFontStyle}>
           {props.party.slice(0, 1).toUpperCase()}
         </Typography>
       </div>
