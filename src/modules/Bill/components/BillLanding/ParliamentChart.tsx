@@ -4,11 +4,12 @@ import { Party } from '@/common/enums/Party'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
 import itemSeries from 'highcharts/modules/item-series'
-import { Dispatch, SetStateAction, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
+import ChartLegend from '@/modules/Bill/components/ChartLegend'
 
 itemSeries(Highcharts)
 
@@ -17,24 +18,19 @@ export type ParliamentChartData = {
   count: number
 }
 
-type HoveredData = {
+export type HoveredData = {
   name: Party
 } & EventTarget
 
 type Props = {
   data: ParliamentChartData[]
-  hoveredParty: Party | null
-  setHoveredParty: Dispatch<SetStateAction<Party | null>>
 }
 
 // example: https://codesandbox.io/p/sandbox/highcharts-react-demo-forked-rlflfn?file=%2Fdemo.jsx%3A23%2C1
-export default function ParliamentChart({
-  data,
-  hoveredParty,
-  setHoveredParty,
-}: Props) {
+export default function ParliamentChart({ data }: Props) {
   const { partyColor } = usePartyColor()
   const theme = useTheme<USTWTheme>()
+  const [hoveredParty, setHoveredParty] = useState<Party | null>(null)
 
   const dataPartyCountMap = useMemo<
     Map<ParliamentChartData['party'], ParliamentChartData['count']>
@@ -132,5 +128,10 @@ export default function ParliamentChart({
     theme.color.common.black,
   ])
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />
+  return (
+    <>
+      <ChartLegend data={data} hoveredParty={hoveredParty} />
+      <HighchartsReact highcharts={Highcharts} options={options} />
+    </>
+  )
 }

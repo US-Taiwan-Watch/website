@@ -7,6 +7,7 @@ import {
   YoutubeIcon,
   MailIcon,
 } from '@/common/styles/assets/Icons'
+import { ROUTES } from '@/routes'
 import type React from 'react'
 
 type SocialLinkItem = {
@@ -67,47 +68,47 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Our Mission',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: 'Our Footprints',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: 'Our Ｍember',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: 'Our Newsroom',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: 'Article',
-          url: '/#',
+          url: ROUTES.OPINION,
         },
         {
           type: 'subLink',
           title: 'Events',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: 'Ketagalan Media',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: 'Articles',
-          url: '/#',
+          url: ROUTES.OPINION,
         },
         {
           type: 'subLink',
           title: 'About',
-          url: '/#',
+          url: ROUTES.HOME,
         },
       ],
     },
@@ -118,12 +119,12 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Bills',
-          url: '/#',
+          url: ROUTES.BILL,
         },
         {
           type: 'subLink',
           title: 'People',
-          url: '/#',
+          url: ROUTES.PEOPLE,
         },
       ],
     },
@@ -134,17 +135,17 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: '觀測站底加辣',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: '觀測站予你知',
-          url: '/#',
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',
           title: '觀測站讀書會',
-          url: '/#',
+          url: ROUTES.HOME,
         },
       ],
     },

@@ -33,6 +33,11 @@ import SvgPersonIcon from './PersonIcon.svg'
 import SvgSponsorIcon from './SponsorIcon.svg'
 import SvgTrendIcon from './TrendIcon.svg'
 import SvgCongressIcon from './CongressIcon.svg'
+import SvgActionsIcon from './ActionsIcon.svg'
+import SvgCosponsorsIcon from './CosponsorsIcon.svg'
+import SvgTrackerIcon from './TrackerIcon.svg'
+import SvgCalenderIcon from './CalenderIcon.svg'
+import SvgNoteIcon from './NoteIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -164,10 +169,30 @@ export const SponsorIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgSponsorIcon} {...props} />
 )
 
+export const CosponsorsIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgCosponsorsIcon} {...props} />
+)
+
 export const TrendIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgTrendIcon} {...props} />
 )
 
 export const CongressIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgCongressIcon} {...props} />
+)
+
+export const ActionsIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgActionsIcon} {...props} />
+)
+
+export const TrackerIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgTrackerIcon} {...props} />
+)
+
+export const CalenderIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgCalenderIcon} {...props} />
+)
+
+export const NoteIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgNoteIcon} {...props} />
 )

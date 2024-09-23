@@ -8,12 +8,12 @@ import { Party } from '@/common/enums/Party'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
-import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
 import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
+import { useRouter } from 'next/navigation'
 
 const DATE_FORMAT = 'MM/DD/YYYY-hh:mmA'
 
@@ -40,18 +40,19 @@ type Props = {
 
 export default function BillCard({ mode, simplified, bill }: Props) {
   const theme = useTheme<USTWTheme>()
+  const router = useRouter()
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
-
-  const statusIndex = useMemo(() => {
-    return Object.values(BillStatusEnum).findIndex((key) => key === bill.status)
-  }, [bill.status])
 
   return (
     <StyledCardContainer
       height={isHorizontal || simplified ? 'auto' : 500}
       sx={{
         border: isHorizontal ? 'none' : `1px solid ${theme.color.grey[1600]}`,
+        cursor: 'pointer',
+      }}
+      onClick={() => {
+        router.push(bill.link)
       }}
     >
       <UHStack gap={4} alignItems="center">
@@ -75,7 +76,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             <Box mx={-2} mt={4}>
               <UTimeline
                 data={billStatusList}
-                activeIndex={statusIndex}
+                activeIndex={bill.statusIndex}
                 isHorizontal
               />
             </Box>
@@ -143,7 +144,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             <UTimeline
               itemMinHeight={50}
               data={billStatusList}
-              activeIndex={statusIndex}
+              activeIndex={bill.statusIndex}
             />
           </StyledTimelineContainer>
         )}
