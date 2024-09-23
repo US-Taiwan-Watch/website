@@ -32,9 +32,9 @@ const usePartyExperienceTime = function (experience: PartyExperience) {
 
     // 現在進行中
     if (!experience.end) {
-      return `${experience.start.format(People.TimeFormat)} ~ Present`
+      return `${experience.start?.format(People.TimeFormat)} ~ Present`
     } else {
-      return `${experience.start.format(People.TimeFormat)} ~ ${experience.end.format(People.TimeFormat)}`
+      return `${experience.start?.format(People.TimeFormat)} ~ ${experience.end?.format(People.TimeFormat)}`
     }
   }, [experience])
 

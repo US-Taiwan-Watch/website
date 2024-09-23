@@ -30,6 +30,7 @@ type UTimelineItemProps = {
   isLast: boolean
   isActiveDot: boolean
   isActiveConnector: boolean
+  minHeight?: number
 }>
 
 export type UTimelineData = Array<{
@@ -41,6 +42,7 @@ type UTimelineProps = {
   data: UTimelineData
   activeIndex?: number
   isHorizontal?: boolean
+  itemMinHeight?: number
 }
 
 const StyledConnector = styled(StepConnector)(({ theme }) => ({
@@ -114,11 +116,12 @@ function UTimelineItem({
   isLast,
   isActiveDot,
   isActiveConnector,
+  minHeight,
 }: UTimelineItemProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <TimelineItem sx={{ minHeight: 'unset' }}>
+    <TimelineItem sx={{ minHeight: minHeight ?? 'unset' }}>
       <TimelineSeparator>
         <TimelineDot
           sx={{
@@ -168,6 +171,7 @@ export default function UTimeline({
   data,
   activeIndex,
   isHorizontal,
+  itemMinHeight,
 }: UTimelineProps) {
   if (isHorizontal) {
     return <HorizontalTimeline data={data} activeIndex={activeIndex} />
@@ -190,6 +194,7 @@ export default function UTimeline({
         [`& .MuiTimelineDot-root`]: {
           zIndex: 1,
         },
+        height: '100%',
       }}
     >
       {data.map((d, index) => (
@@ -200,6 +205,7 @@ export default function UTimeline({
           isLast={index === data.length - 1}
           isActiveDot={index === activeIndex}
           isActiveConnector={!!activeIndex && index < activeIndex}
+          minHeight={itemMinHeight}
         />
       ))}
     </Timeline>

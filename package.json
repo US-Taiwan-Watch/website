@@ -25,6 +25,8 @@
     "@mui/x-charts": "^7.17.0",
     "accept-language": "^3.0.20",
     "dayjs": "^1.11.13",
+    "highcharts": "^11.4.8",
+    "highcharts-react-official": "^3.2.1",
     "howler": "^2.2.4",
     "i18next": "^23.12.2",
     "i18next-browser-languagedetector": "^8.0.0",

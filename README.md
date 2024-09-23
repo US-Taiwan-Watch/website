@@ -138,6 +138,10 @@ feature branch 會以 `Squash` 的方式合併到 `develop` 分支。
 
 透過 `yarn i18n` 指令會從 Content Management System 抓取語言檔案，並放置於 `src/common/lib/i18n/locales` 目錄下。
 
+### 頁面跳轉
+
+凡要進行頁面跳轉，請至 `src/routes.ts` 中定義，並使用 `ROUTES` 物件拿取連結，避免於程式碼中寫死字串，以防路由更名。
+
 ---
 
 ### Dependencies

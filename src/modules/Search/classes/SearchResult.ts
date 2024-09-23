@@ -1,5 +1,6 @@
 import { isString } from 'lodash-es'
 import { SearchResultResponse } from '../types/SearchResultResponse'
+import { ROUTES } from '@/routes'
 
 export default class SearchResult {
   /** 搜尋結果 */
@@ -12,6 +13,6 @@ export default class SearchResult {
   }
 
   get href() {
-    return `/search/${this.value}`
+    return `${ROUTES.SEARCH}/${this.value}`
   }
 }

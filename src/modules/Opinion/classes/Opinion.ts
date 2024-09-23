@@ -1,6 +1,7 @@
 import OpinionCategory, {
   OpinionCategoryArgs,
 } from '@/modules/Opinion/classes/OpinionCategory'
+import { ROUTES } from '@/routes'
 import { isArray, isString } from 'lodash-es'
 
 interface OpinionArgs {
@@ -39,6 +40,6 @@ export class Opinion {
   }
 
   get link() {
-    return `/opinion/${this.id}`
+    return `${ROUTES.OPINION}/${this.id}`
   }
 }

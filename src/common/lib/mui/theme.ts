@@ -175,6 +175,11 @@ const color = {
     1800: '#AAAAAA',
     1900: '#EEEEEE',
     2000: '#5B6063',
+    2100: '#565656', // Bill Total Count
+    2200: '#828282',
+    2300: '#4F4F4F', // Trend Bar Chart
+    2400: '#2B2B2B', // Index Bill Card
+    2500: '#F0F1F2', // Index Bill Card
   },
   orange: {
     ...colors.orange,

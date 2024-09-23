@@ -1,6 +1,7 @@
 import { Congress } from '@/common/classes/Congress'
 import { Party } from '@/common/enums/Party'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
+import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
 import { isArray, isString } from 'lodash-es'
 
@@ -103,7 +104,7 @@ export class People {
   }
 
   get link() {
-    return `/people/${this.id}`
+    return `${ROUTES.PEOPLE}/${this.id}`
   }
 
   static TransformPartyExperience(partyExperience: Array<PartyExperienceArgs>) {
