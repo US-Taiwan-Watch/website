@@ -1,3 +1,7 @@
+import OpinionCategory, {
+  OpinionCategoryArgs,
+} from '@/modules/Opinion/classes/OpinionCategory'
+import { ROUTES } from '@/routes'
 import { isArray, isString } from 'lodash-es'
 
 interface OpinionArgs {
@@ -5,7 +9,7 @@ interface OpinionArgs {
   title: string
   image: string
   description: string
-  categories: Array<string>
+  categories: Array<OpinionCategoryArgs>
 }
 
 export class Opinion {
@@ -13,7 +17,7 @@ export class Opinion {
   title?: string
   image?: string
   description?: string
-  categories?: Array<string>
+  categories?: Array<OpinionCategory>
 
   constructor(args: OpinionArgs) {
     if (isString(args.id)) {
@@ -29,11 +33,13 @@ export class Opinion {
       this.description = args.description
     }
     if (isArray(args.categories)) {
-      this.categories = args.categories
+      this.categories = args.categories.map(
+        (category) => new OpinionCategory(category)
+      )
     }
   }
 
   get link() {
-    return `/opinion/${this.id}`
+    return `${ROUTES.OPINION}/${this.id}`
   }
 }

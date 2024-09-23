@@ -2,10 +2,9 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { ROUTES } from '@/routes'
+import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
-import { useMemo } from 'react'
 
 interface OpinionNavbarProps {
   activeId?: string
@@ -14,35 +13,8 @@ interface OpinionNavbarProps {
 const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
   const theme = useTheme<USTWTheme>()
 
-  const navItems = useMemo(
-    () => [
-      {
-        id: 'military',
-        label: '軍事國防',
-        href: `${ROUTES.OPINION}/search/military`,
-      },
-      {
-        id: 'foreign',
-        label: '外交貿易',
-        href: `${ROUTES.OPINION}/search/foreign`,
-      },
-      {
-        id: 'cross-strait',
-        label: '兩岸議題',
-        href: `${ROUTES.OPINION}/search/cross-strait`,
-      },
-      {
-        id: 'election',
-        label: '行政選舉',
-        href: `${ROUTES.OPINION}/search/election`,
-      },
-      {
-        id: 'us-law',
-        label: '美國法案',
-        href: `${ROUTES.OPINION}/search/us-law`,
-      },
-    ],
-    []
+  const highlightedCategories = useOpinionStore(
+    (state) => state.highlightedCategories
   )
 
   return (
@@ -61,14 +33,15 @@ const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
           color: theme.color.grey[2000],
         }}
       >
-        {navItems.map((item) => (
-          <Link href={item.href} key={item.id}>
+        {highlightedCategories.map((item) => (
+          <Link href={item.link} key={item.id}>
             <Typography
               variant="menu"
               sx={{
                 color:
                   activeId === item.id ? theme.color.orange[900] : 'inherit',
               }}
+              fontWeight={500}
             >
               {item.label}
             </Typography>
