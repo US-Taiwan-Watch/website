@@ -6,21 +6,53 @@ import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import SectionTitleWithLink from '@/common/components/elements/Landing/SectionTitleWithLink'
 import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constants'
+import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import { useEffect, useState } from 'react'
+import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
+import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
 
 const ArticleSection = () => {
+  const fetchHomeCategories = useOpinionStore(
+    (state) => state.fetchHomeCategories
+  )
+  const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
+  const homeCategories = useOpinionStore((state) => state.homeCategories)
+
+  useEffect(() => {
+    fetchHomeCategories()
+  }, [fetchHomeCategories])
+
+  // 預設塞第一個
+  useEffect(() => {
+    if (homeCategories.length > 0) {
+      setActiveCategoryId(homeCategories[0].id)
+    }
+  }, [homeCategories])
+
+  const { opinions } = useOpinionIndex(activeCategoryId)
+
   return (
     <LandingSectionWrapper
       contentWrapperSx={{
         paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
       }}
     >
-      <SectionTitleWithLink title="Articles" link="#" />
+      <SectionTitleWithLink title="Articles" link="/opinion" />
       <Stack gap={5}>
         <UHStack gap={2}>
-          <UCategoryChip img="/assets/category1.jpg" label="編輯精選" />
-          <UCategoryChip img="/assets/category1.jpg" label="編輯精選" active />
+          {homeCategories.map((category) => (
+            <UCategoryChip
+              key={category.id}
+              label={category.label}
+              img={category.image}
+              active={activeCategoryId === category.id}
+              onClick={() => setActiveCategoryId(category.id)}
+            />
+          ))}
         </UHStack>
-        TODO: Article Cards Here
+
+        {/** Posts */}
+        <OpinionPostCards opinions={opinions} pagination={false} />
       </Stack>
     </LandingSectionWrapper>
   )

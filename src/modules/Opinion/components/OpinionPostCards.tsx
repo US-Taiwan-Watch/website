@@ -7,9 +7,13 @@ import { Box, Grid2 as Grid, Stack } from '@mui/material'
 
 interface OpinionPostCardsProps {
   opinions: Array<Opinion>
+  pagination?: boolean
 }
 
-const OpinionPostCards = ({ opinions }: OpinionPostCardsProps) => {
+const OpinionPostCards = ({
+  opinions,
+  pagination = true,
+}: OpinionPostCardsProps) => {
   return (
     <Stack spacing={8}>
       {/** Posts */}
@@ -21,9 +25,11 @@ const OpinionPostCards = ({ opinions }: OpinionPostCardsProps) => {
         ))}
       </Grid>
       {/** Pagination */}
-      <Box display="flex" alignItems="center" justifyContent="center">
-        <UPagination count={10} />
-      </Box>
+      {pagination && (
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <UPagination count={10} />
+        </Box>
+      )}
     </Stack>
   )
 }

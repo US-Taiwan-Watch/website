@@ -95,6 +95,34 @@ export const opinionCategories: Array<OpinionCategoryArgs> = [
 
 export const highlightedOpinionCategories: Array<OpinionCategoryArgs> = [
   {
+    id: '5',
+    label: '美國法案',
+    image: '/assets/category1.jpg',
+  },
+  {
+    id: '6',
+    label: '國際新聞',
+    image: '/assets/category1.jpg',
+  },
+  {
+    id: '7',
+    label: '台美關係',
+    image: '/assets/category1.jpg',
+  },
+  {
+    id: '8',
+    label: '國際經濟',
+    image: '/assets/category1.jpg',
+  },
+  {
+    id: '9',
+    label: '國際政治',
+    image: '/assets/category1.jpg',
+  },
+]
+
+export const homeOpinionCategories: Array<OpinionCategoryArgs> = [
+  {
     id: '1',
     label: '軍事國防',
     image: '/assets/category1.jpg',
