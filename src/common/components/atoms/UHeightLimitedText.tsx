@@ -7,6 +7,7 @@ type Props = {
 export default function UHeightLimitedText({
   maxLine,
   children,
+  sx,
   ...props
 }: Props) {
   return (
@@ -17,7 +18,7 @@ export default function UHeightLimitedText({
         WebkitBoxOrient: 'vertical',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        ...props.sx,
+        ...sx,
       }}
       {...props}
     >
