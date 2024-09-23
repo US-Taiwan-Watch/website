@@ -1,3 +1,4 @@
+import { ROUTES } from '@/routes'
 import { useMemo } from 'react'
 
 export type HeaderNavItem =
@@ -27,13 +28,13 @@ export default function useNavItems() {
             id: 'discover-bill',
             type: 'link',
             title: 'Bill',
-            href: '/#',
+            href: ROUTES.BILL,
           },
           {
             id: 'discover-people',
             type: 'link',
             title: 'People',
-            href: '/#',
+            href: ROUTES.PEOPLE,
           },
         ],
       },
@@ -41,13 +42,13 @@ export default function useNavItems() {
         id: 'articles',
         type: 'link',
         title: 'Articles',
-        href: '/#',
+        href: ROUTES.OPINION,
       },
       {
         id: 'ketagalan-media',
         type: 'link',
         title: 'Ketagalan Media',
-        href: '/#',
+        href: ROUTES.HOME,
       },
       {
         id: 'podcasts',
@@ -58,19 +59,19 @@ export default function useNavItems() {
             id: 'podcasts-1',
             type: 'link',
             title: '觀測站底加辣',
-            href: '/#',
+            href: ROUTES.HOME,
           },
           {
             id: 'podcasts-2',
             type: 'link',
             title: '觀測站予你知',
-            href: '/#',
+            href: ROUTES.HOME,
           },
           {
             id: 'podcasts-3',
             type: 'link',
             title: '觀測站讀書會',
-            href: '/#',
+            href: ROUTES.HOME,
           },
         ],
       },
@@ -78,7 +79,7 @@ export default function useNavItems() {
         id: 'events',
         type: 'link',
         title: 'Events',
-        href: '/#',
+        href: ROUTES.HOME,
       },
       {
         id: 'about',
@@ -89,25 +90,25 @@ export default function useNavItems() {
             id: 'about-mission',
             type: 'link',
             title: 'Mission',
-            href: '/#',
+            href: ROUTES.HOME,
           },
           {
             id: 'about-footprints',
             type: 'link',
             title: 'Footprints',
-            href: '/#',
+            href: ROUTES.HOME,
           },
           {
             id: 'about-data',
             type: 'link',
             title: 'Data',
-            href: '/#',
+            href: ROUTES.HOME,
           },
           {
             id: 'about-newsroom',
             type: 'link',
             title: 'Newsroom',
-            href: '/#',
+            href: ROUTES.HOME,
           },
         ],
       },
