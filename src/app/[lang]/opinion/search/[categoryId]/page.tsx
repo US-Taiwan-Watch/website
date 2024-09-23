@@ -2,13 +2,18 @@
 
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
-import OpinionLandingBannerCards from '@/modules/Opinion/components/OpinionLanding/OpinionLandingBannerCards'
-import OpinionPostSection from '@/modules/Opinion/components/OpinionLanding/OpinionPostSection'
 import OpinionNavbar from '@/modules/Opinion/components/OpinionNavbar'
+import OpinionSearchCategorySection from '@/modules/Opinion/components/OpinionSearch/OpinionSearchCategorySection'
 import { Stack } from '@mui/material'
 import { useEffect } from 'react'
 
-export default function Opinion() {
+export default function OpinionSearchCategory({
+  params: { categoryId },
+}: {
+  params: {
+    categoryId: string
+  }
+}) {
   const fetchCategories = useOpinionStore((state) => state.fetchCategories)
   const fetchHighlightedCategories = useOpinionStore(
     (state) => state.fetchHighlightedCategories
@@ -22,10 +27,9 @@ export default function Opinion() {
   return (
     <Stack>
       <UFullWidthBackgroundBox>
-        <OpinionNavbar />
+        <OpinionNavbar activeId={categoryId} />
       </UFullWidthBackgroundBox>
-      <OpinionLandingBannerCards />
-      <OpinionPostSection />
+      <OpinionSearchCategorySection categoryId={categoryId} />
     </Stack>
   )
 }

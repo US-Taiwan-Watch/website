@@ -1,6 +1,8 @@
 import UPagination from '@/common/components/atoms/UPagination'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
-import OpinionPostCard from '@/modules/Opinion/components/OpinionPostCard'
+import OpinionPostCard, {
+  OpinionPostCardSkeleton,
+} from '@/modules/Opinion/components/OpinionPostCard'
 import { Box, Grid2 as Grid, Stack } from '@mui/material'
 
 interface OpinionPostCardsProps {
@@ -27,3 +29,15 @@ const OpinionPostCards = ({ opinions }: OpinionPostCardsProps) => {
 }
 
 export default OpinionPostCards
+
+export const OpinionPostCardsSkeleton = () => {
+  return (
+    <Grid container rowSpacing={8} columnSpacing={4}>
+      {Array.from({ length: 12 }).map((_, index) => (
+        <Grid size={3} key={index}>
+          <OpinionPostCardSkeleton />
+        </Grid>
+      ))}
+    </Grid>
+  )
+}
