@@ -8,6 +8,7 @@ import Header from '@/common/components/elements/Header'
 import { Container } from '@mui/material'
 import Footer from '@/common/components/elements/Footer'
 import './global.css'
+import ScreenSizeHandler from '@/common/components/elements/UnsupportedScreenSize/ScreenSizeHandler'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -32,7 +33,7 @@ export default function RootLayout({
             <CssBaseline />
             <Container>
               <Header />
-              {children}
+              <ScreenSizeHandler>{children}</ScreenSizeHandler>
             </Container>
             <Footer />
           </ThemeProvider>
