@@ -42,7 +42,9 @@ export default function useNavItems() {
         id: 'articles',
         type: 'link',
         title: 'Articles',
-        href: ROUTES.OPINION,
+        // FIXME: 暫時隱藏 opinion 的連結
+        // href: ROUTES.OPINION,
+        href: ROUTES.HOME,
       },
       {
         id: 'ketagalan-media',
