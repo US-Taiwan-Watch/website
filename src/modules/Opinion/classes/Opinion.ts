@@ -1,7 +1,6 @@
 import OpinionCategory, {
   OpinionCategoryArgs,
 } from '@/modules/Opinion/classes/OpinionCategory'
-import { ROUTES } from '@/routes'
 import { isArray, isString } from 'lodash-es'
 
 interface OpinionArgs {
@@ -40,6 +39,8 @@ export class Opinion {
   }
 
   get link() {
-    return `${ROUTES.OPINION}/${this.id}`
+    // FIXME: 暫時隱藏 opinion 的連結
+    // return `${ROUTES.OPINION}/${this.id}`
+    return '#'
   }
 }

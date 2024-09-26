@@ -10,6 +10,7 @@ import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import { useEffect, useState } from 'react'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
 import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
+import { ROUTES } from '@/routes'
 
 const ArticleSection = () => {
   const fetchHomeCategories = useOpinionStore(
@@ -37,7 +38,8 @@ const ArticleSection = () => {
         paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
       }}
     >
-      <SectionTitleWithLink title="Articles" link="/opinion" />
+      {/** FIXME: 暫時隱藏 opinion 的連結 */}
+      <SectionTitleWithLink title="Articles" link={ROUTES.HOME} />
       <Stack gap={5}>
         <UHStack gap={2}>
           {homeCategories.map((category) => (
