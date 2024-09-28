@@ -14,6 +14,7 @@ interface BillAction {
 interface BillArgs {
   id: string
   title: string
+  previousTitles: string[]
   sponsor: People
   cosponsors: People[]
   tags: string[]
@@ -26,6 +27,8 @@ export class Bill {
   id?: string
   // 法案名稱
   title?: string
+  // 法案名稱歷史
+  previousTitles?: string[]
   // 提案人
   sponsor?: People
   // 共同提案人
@@ -43,6 +46,9 @@ export class Bill {
     }
     if (isString(bill.title)) {
       this.title = bill.title
+    }
+    if (isArray(bill.previousTitles)) {
+      this.previousTitles = bill.previousTitles
     }
     if (bill.sponsor instanceof People) {
       this.sponsor = bill.sponsor

@@ -137,6 +137,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: '1234',
     title:
       'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2023 and Promoting Regional Stability',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor1,
     cosponsors: [sponsor2, sponsor3],
     tags: ['Environment', 'Energy'],
@@ -153,6 +160,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S2345',
     title:
       'Comprehensive Cybersecurity Enhancement and National Digital Infrastructure Protection Act',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor2,
     cosponsors: [sponsor3, sponsor1],
     tags: ['Technology', 'Security'],
@@ -175,6 +189,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'HR3456',
     title:
       'Education Reform Act for Improving K-12 Curriculum, Teacher Training, and Student Success Rates Nationwide',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor3,
     cosponsors: [sponsor1, sponsor2],
     tags: ['Education', 'Social Policy'],
@@ -196,6 +217,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S4567',
     title:
       'Healthcare Accessibility Act to Expand Medical Coverage, Reduce Costs, and Improve Patient Outcomes Across America',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor1,
     cosponsors: [sponsor2, sponsor3],
     tags: ['Healthcare', 'Social Policy'],
@@ -228,6 +256,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'HR5678',
     title:
       'Small Business Support Act for Promoting Entrepreneurship, Job Creation, and Economic Growth in Local Communities',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor2,
     cosponsors: [sponsor3, sponsor1],
     tags: ['Economy', 'Business'],
@@ -244,6 +279,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S6789',
     title:
       'Veterans Care Improvement Act to Enhance Medical Services, Mental Health Support, and Benefits for Military Veterans',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor3,
     cosponsors: [sponsor1, sponsor2],
     tags: ['Veterans', 'Healthcare'],
@@ -266,6 +308,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'HR7890',
     title:
       'Infrastructure Modernization Act for Upgrading Roads, Bridges, Public Transit, and Digital Networks Across the Nation',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor1,
     cosponsors: [sponsor2, sponsor3],
     tags: ['Infrastructure', 'Economy'],
@@ -302,6 +351,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S8901',
     title:
       'Climate Change Mitigation Act to Reduce Greenhouse Gas Emissions and Promote Clean Energy Technologies Nationwide',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor2,
     cosponsors: [sponsor3, sponsor1],
     tags: ['Environment', 'Energy'],
@@ -319,6 +375,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'HR9012',
     title:
       'Affordable Housing Act to Increase Availability of Low-Cost Homes and Improve Rental Assistance Programs',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor3,
     cosponsors: [sponsor1, sponsor2],
     tags: ['Housing', 'Social Policy'],
@@ -341,6 +404,13 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S0123',
     title:
       'Data Privacy Protection Act to Safeguard Personal Information, Regulate Data Collection, and Enforce Consumer Rights Online',
+    previousTitles: [
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+      'Promoting Peace and Stability in the Taiwan Strait Act',
+      'Taiwan Defense and Economic Cooperation Enhancement Act',
+      'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+      'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+    ],
     sponsor: sponsor1,
     cosponsors: [sponsor2, sponsor3],
     tags: ['Technology', 'Privacy'],

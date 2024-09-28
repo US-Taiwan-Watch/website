@@ -9,14 +9,15 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
 import { Stack, Typography } from '@mui/material'
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
+import TitleVersionDialog from '@/modules/Bill/components/SingleBill/TitleVersionDialog'
 
 const StyledInfoContainer = styled(Stack)(() => ({
   flex: 1,
 }))
 
-const StyledLinkButton = styled(UButton)(({ theme }) => ({
+const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   color: theme.color.common.black,
   height: 'max-content',
@@ -36,52 +37,65 @@ interface BillInfoSectionProps {
 const BillInfoSection = memo(function BillInfoSection({
   bill,
 }: BillInfoSectionProps) {
-  return (
-    <UHStack spacing={2}>
-      {/** Info */}
-      <StyledInfoContainer spacing={2}>
-        <UHStack spacing={2} alignItems="center">
-          {bill.tags?.[0] && (
-            <UCategoryTag
-              value={bill.tags[0]}
-              containerProps={{
-                borderRadius: '6px',
-                sx: {
-                  py: 0.5,
-                  px: 1,
-                },
-              }}
-            />
-          )}
-          <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
-          </Typography>
-        </UHStack>
-        <Typography variant="h4">{bill.title}</Typography>
-        <Stack direction="row" gap={1} flexWrap="wrap">
-          {bill.tags?.map((tag) => <UHashTag key={tag} value={tag} />)}
-        </Stack>
-      </StyledInfoContainer>
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-      {/** Actions */}
+  return (
+    <>
       <UHStack spacing={2}>
-        <StyledLinkButton
-          variant="contained"
-          startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}
-          rounded
-        >
-          Title Version
-        </StyledLinkButton>
-        <StyledSubscribeButton
-          variant="contained"
-          color="primary"
-          rounded
-          startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
-        >
-          Subscribe
-        </StyledSubscribeButton>
+        {/** Info */}
+        <StyledInfoContainer spacing={2}>
+          <UHStack spacing={2} alignItems="center">
+            {bill.tags?.[0] && (
+              <UCategoryTag
+                value={bill.tags[0]}
+                containerProps={{
+                  borderRadius: '6px',
+                  sx: {
+                    py: 0.5,
+                    px: 1,
+                  },
+                }}
+              />
+            )}
+            <Typography variant="body" fontWeight={300} mb={1}>
+              {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
+            </Typography>
+          </UHStack>
+          <Typography variant="h4">{bill.title}</Typography>
+          <Stack direction="row" gap={1} flexWrap="wrap">
+            {bill.tags?.map((tag) => <UHashTag key={tag} value={tag} />)}
+          </Stack>
+        </StyledInfoContainer>
+
+        {/** Actions */}
+        <UHStack spacing={2}>
+          <StyledTitleVersionButton
+            variant="contained"
+            startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}
+            rounded
+            onClick={() => setIsModalOpen(true)}
+          >
+            Title Version
+          </StyledTitleVersionButton>
+          <StyledSubscribeButton
+            variant="contained"
+            color="primary"
+            rounded
+            startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
+          >
+            Subscribe
+          </StyledSubscribeButton>
+        </UHStack>
       </UHStack>
-    </UHStack>
+
+      {isModalOpen && (
+        <TitleVersionDialog
+          bill={bill}
+          isModalOpen={isModalOpen}
+          handleCloseModal={() => setIsModalOpen(false)}
+        />
+      )}
+    </>
   )
 })
 
