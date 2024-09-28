@@ -1,3 +1,4 @@
+'use client'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UIconButton from '@/common/components/atoms/UIconButton'

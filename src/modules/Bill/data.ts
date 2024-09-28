@@ -36,6 +36,7 @@ const sponsor1 = new People({
   partyExperience: [],
   experience: [],
   tags: [],
+  constituency: 'Oregon',
 })
 
 const sponsor2 = new People({
@@ -64,6 +65,7 @@ const sponsor2 = new People({
   partyExperience: [],
   experience: [],
   tags: [],
+  constituency: 'California',
 })
 
 const sponsor3 = new People({
@@ -92,6 +94,7 @@ const sponsor3 = new People({
   partyExperience: [],
   experience: [],
   tags: [],
+  constituency: 'Georgia',
 })
 
 export const BILL_SPONSOR_MOCK: People[] = [

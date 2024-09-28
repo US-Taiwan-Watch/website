@@ -35,10 +35,11 @@ const StyledCategoryContainer = styled(UHStack)(({ theme }) => ({
   paddingBottom: theme.spacing(2),
 }))
 
-const StyledExpandButton = styled(UIconButton)(() => ({
+const StyledExpandButton = styled(UIconButton)(({ theme }) => ({
   borderRadius: '6px',
   width: '24px',
   height: '24px',
+  marginLeft: theme.spacing(1),
 }))
 
 const StyledOptionText = styled(Typography)(({ theme }) => ({

@@ -7,11 +7,12 @@ import { CosponsorsIcon } from '@/common/styles/assets/Icons'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { CardContent, Grid2, Typography, useTheme } from '@mui/material'
+import { CardContent, Grid2, useTheme } from '@mui/material'
 import DialogFilter, {
   FilterCategory,
 } from '@/modules/Bill/components/SingleBill/DialogFilter'
 import useDialogFilter from '@/modules/Bill/components/SingleBill/useDialogFilter'
+import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
 
 export enum CosponsorFilterOptionEnum {
   HOUSE = 'house',
@@ -69,6 +70,7 @@ type Props = {
 }
 
 export default function CosponsorDialog({
+  bill,
   isModalOpen,
   handleCloseModal,
 }: Props) {
@@ -107,9 +109,15 @@ export default function CosponsorDialog({
           borderRadius: 0,
         }}
       >
-        <CardContent>
-          <Grid2 container mt={2} spacing={2}>
-            <Grid2 size={3} pl={1}>
+        <CardContent
+          sx={{
+            '&.MuiCardContent-root': {
+              overflowY: 'hidden',
+            },
+          }}
+        >
+          <Grid2 container mt={2} pb={5} spacing={2}>
+            <Grid2 size={3} pl={1} pt="3px">
               <DialogFilter
                 selectedOptionIdList={selectedOptionIdList}
                 onSelectOption={handleSelectOption}
@@ -118,7 +126,7 @@ export default function CosponsorDialog({
               />
             </Grid2>
             <Grid2 size={9}>
-              <Typography>test</Typography>
+              <CosponsorTable cosponsors={bill.cosponsors ?? []} />
             </Grid2>
           </Grid2>
         </CardContent>
