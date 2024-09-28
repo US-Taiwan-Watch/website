@@ -89,7 +89,7 @@ export default function ActionsDialog({
       <UContentCard
         withHeader
         headerProps={{
-          title: 'Cosponsors',
+          title: 'Actions',
           icon: <ActionsIcon />,
           iconColor: 'primary',
           action: (
