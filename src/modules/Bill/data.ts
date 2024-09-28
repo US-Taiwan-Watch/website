@@ -157,6 +157,34 @@ export const BILL_DATA_MOCK: Bill[] = [
         description: 'Referred to the Committee on Foreign Affairs',
         chamber: ChamberEnum.HOUSE,
       },
+      {
+        date: '2023-02-01',
+        description: 'Hearings held by the Committee on Foreign Affairs',
+        chamber: ChamberEnum.HOUSE,
+      },
+      {
+        date: '2023-03-10',
+        description:
+          'Reported (amended) by the Committee on Foreign Affairs. H. Rept. 118-15.',
+        chamber: ChamberEnum.HOUSE,
+      },
+      {
+        date: '2023-04-05',
+        description:
+          'Passed/agreed to in House: On passage Passed by the Yeas and Nays: 289 - 137 (Roll no. 172).',
+        chamber: ChamberEnum.HOUSE,
+      },
+      {
+        date: '2023-04-06',
+        description:
+          'Received in the Senate and Read twice and referred to the Committee on Foreign Relations.',
+        chamber: ChamberEnum.SENATE,
+      },
+      {
+        date: '2023-05-20',
+        description: 'Committee on Foreign Relations. Hearings held.',
+        chamber: ChamberEnum.SENATE,
+      },
     ],
   }),
   new Bill({

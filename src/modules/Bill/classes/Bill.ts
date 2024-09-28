@@ -4,7 +4,7 @@ import { People } from '@/modules/People/classes/People'
 import { isArray, isString } from 'lodash-es'
 import { ROUTES } from '@/routes'
 
-interface BillAction {
+export interface BillAction {
   date: string
   description?: string
   // 參眾議院

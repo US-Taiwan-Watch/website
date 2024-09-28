@@ -3,7 +3,7 @@
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UIconButton from '@/common/components/atoms/UIconButton'
-import { CosponsorsIcon } from '@/common/styles/assets/Icons'
+import { ActionsIcon } from '@/common/styles/assets/Icons'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -12,9 +12,9 @@ import DialogFilter, {
   FilterCategory,
 } from '@/modules/Bill/components/SingleBill/DialogFilter'
 import useDialogFilter from '@/modules/Bill/components/SingleBill/useDialogFilter'
-import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
+import ActionsTable from '@/modules/Bill/components/SingleBill/ActionsDialog/ActionsTable'
 
-export enum CosponsorFilterOptionEnum {
+export enum ActionsFilterOptionEnum {
   HOUSE = 'house',
   SENATE = 'senate',
   HOUSE2 = 'house2',
@@ -23,18 +23,18 @@ export enum CosponsorFilterOptionEnum {
 
 const FAKE_COUNT = 20
 
-const categories: FilterCategory<CosponsorFilterOptionEnum>[] = [
+const categories: FilterCategory<ActionsFilterOptionEnum>[] = [
   {
     id: 'party',
     name: 'Party of Cosponsor',
     options: [
       {
-        id: CosponsorFilterOptionEnum.HOUSE,
+        id: ActionsFilterOptionEnum.HOUSE,
         name: 'House Roll Call Vote',
         count: FAKE_COUNT,
       },
       {
-        id: CosponsorFilterOptionEnum.SENATE,
+        id: ActionsFilterOptionEnum.SENATE,
         name: 'Senate Roll Call Vote',
         count: FAKE_COUNT,
       },
@@ -46,12 +46,12 @@ const categories: FilterCategory<CosponsorFilterOptionEnum>[] = [
     // TODO: 待釐清有哪些選項
     options: [
       {
-        id: CosponsorFilterOptionEnum.HOUSE2,
+        id: ActionsFilterOptionEnum.HOUSE2,
         name: 'House Roll Call Vote',
         count: FAKE_COUNT,
       },
       {
-        id: CosponsorFilterOptionEnum.SENATE2,
+        id: ActionsFilterOptionEnum.SENATE2,
         name: 'Senate Roll Call Vote',
         count: FAKE_COUNT,
       },
@@ -59,8 +59,8 @@ const categories: FilterCategory<CosponsorFilterOptionEnum>[] = [
   },
 ]
 
-const allOptionId: CosponsorFilterOptionEnum[] = Object.values(
-  CosponsorFilterOptionEnum
+const allOptionId: ActionsFilterOptionEnum[] = Object.values(
+  ActionsFilterOptionEnum
 )
 
 type Props = {
@@ -69,14 +69,14 @@ type Props = {
   handleCloseModal: () => void
 }
 
-export default function CosponsorDialog({
+export default function ActionsDialog({
   bill,
   isModalOpen,
   handleCloseModal,
 }: Props) {
   const theme = useTheme<USTWTheme>()
   const { selectedOptionIdList, handleSelectOption, toggleSelectAllOption } =
-    useDialogFilter<CosponsorFilterOptionEnum>({
+    useDialogFilter<ActionsFilterOptionEnum>({
       allOptionId,
     })
 
@@ -90,7 +90,7 @@ export default function CosponsorDialog({
         withHeader
         headerProps={{
           title: 'Cosponsors',
-          icon: <CosponsorsIcon />,
+          icon: <ActionsIcon />,
           iconColor: 'primary',
           action: (
             <UIconButton
@@ -126,7 +126,7 @@ export default function CosponsorDialog({
               />
             </Grid2>
             <Grid2 size={9}>
-              <CosponsorTable cosponsors={bill.cosponsors ?? []} />
+              <ActionsTable actions={bill.actions ?? []} />
             </Grid2>
           </Grid2>
         </CardContent>
