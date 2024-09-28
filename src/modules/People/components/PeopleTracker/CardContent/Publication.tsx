@@ -3,10 +3,10 @@ import { CardContent, Stack, Typography, useTheme } from '@mui/material'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { useState } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
+import useModal from '@/common/lib/useModal'
 
 type PublicationArg = {
   title: string
@@ -122,18 +122,14 @@ const Publication = function Publication({
   onActionClick,
 }: PublicationProps) {
   const theme = useTheme<USTWTheme>()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
 
   const handleActionClick = () => {
     if (!isModal) {
-      setIsModalOpen(true)
+      handleOpenModal()
     } else {
       onActionClick?.()
     }
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
   }
 
   return (

@@ -6,10 +6,10 @@ import { StarsIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Typography, useTheme } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { useState } from 'react'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import CloseIcon from '@mui/icons-material/Close'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
+import useModal from '@/common/lib/useModal'
 
 type BioByAIProps = {
   isModal?: boolean
@@ -18,17 +18,15 @@ type BioByAIProps = {
 
 export default function BioByAI({ isModal, onActionClick }: BioByAIProps) {
   const theme = useTheme<USTWTheme>()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
 
   const handleActionClick = () => {
     if (isModal) {
       onActionClick?.()
     } else {
-      setIsModalOpen(true)
+      handleOpenModal()
     }
   }
-
-  const handleCloseModal = () => setIsModalOpen(false)
 
   const renderAction = () => {
     if (isModal) {

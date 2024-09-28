@@ -13,12 +13,13 @@ import {
 } from '@mui/material'
 import Image from 'next/image'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { PersonIcon } from '@/common/styles/assets/Icons'
 import CloseIcon from '@mui/icons-material/Close'
 import { PartyExperience, People } from '@/modules/People/classes/People'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import useModal from '@/common/lib/useModal'
 
 /**
  * 計算經歷的時間
@@ -101,14 +102,10 @@ interface PartyProps {
 const Party = function ({ party, partyExperiences }: PartyProps) {
   const theme = useTheme<USTWTheme>()
   const partyLogo = getPartyLogo(party)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
 
   const handleButtonClick = () => {
-    setIsModalOpen(true)
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
+    handleOpenModal()
   }
 
   return (

@@ -4,7 +4,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import CloseIcon from '@mui/icons-material/Close'
-import { useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import {
   type Experience as PeopleExperience,
   People,
@@ -17,6 +17,7 @@ import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
+import useModal from '@/common/lib/useModal'
 
 /**
  * 計算經歷的時間
@@ -227,18 +228,14 @@ const Experience = function Experience({
   onActionClick,
 }: ExperienceProps) {
   const theme = useTheme<USTWTheme>()
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
 
   const handleActionClick = () => {
     if (!isModal) {
-      setIsModalOpen(true)
+      handleOpenModal()
     } else {
       onActionClick?.()
     }
-  }
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false)
   }
 
   return (
