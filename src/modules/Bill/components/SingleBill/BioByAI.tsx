@@ -6,9 +6,62 @@ import { StarsIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Typography, useTheme } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import { useState } from 'react'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import CloseIcon from '@mui/icons-material/Close'
+import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 
-export default function BioByAI() {
+type BioByAIProps = {
+  isModal?: boolean
+  onActionClick?: () => void
+}
+
+export default function BioByAI({ isModal, onActionClick }: BioByAIProps) {
   const theme = useTheme<USTWTheme>()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleActionClick = () => {
+    if (isModal) {
+      onActionClick?.()
+    } else {
+      setIsModalOpen(true)
+    }
+  }
+
+  const handleCloseModal = () => setIsModalOpen(false)
+
+  const renderAction = () => {
+    if (isModal) {
+      return (
+        <UIconButton
+          variant="rounded"
+          color="inherit"
+          size="small"
+          onClick={handleActionClick}
+        >
+          <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+        </UIconButton>
+      )
+    }
+
+    return (
+      <UButton
+        endIcon={<ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />}
+        color="info"
+        variant="outlined"
+        size="small"
+        sx={{
+          py: 0.5,
+          px: 1,
+          borderRadius: '9px',
+          border: `1.5px solid ${theme.color.grey[1400]}`,
+        }}
+        onClick={handleActionClick}
+      >
+        <Typography variant="buttonXS">Full Text</Typography>
+      </UButton>
+    )
+  }
 
   return (
     <UContentCard
@@ -17,24 +70,14 @@ export default function BioByAI() {
         title: 'Summary From AI',
         icon: <StarsIcon />,
         iconColor: 'primary',
-        action: (
-          <UButton
-            endIcon={
-              <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
-            }
-            color="info"
-            variant="outlined"
-            size="small"
-            sx={{
-              py: 0.5,
-              px: 1,
-              borderRadius: '9px',
-              border: `1.5px solid ${theme.color.grey[1400]}`,
-            }}
-          >
-            <Typography variant="buttonXS">Full Text</Typography>
-          </UButton>
-        ),
+        action: renderAction(),
+      }}
+      sx={{
+        ...(isModal && {
+          padding: 0,
+          border: 'none',
+          borderRadius: 0,
+        }),
       }}
     >
       <CardContent>
@@ -52,6 +95,12 @@ export default function BioByAI() {
           to support Taiwan’s democracy.
         </Typography>
       </CardContent>
+
+      {isModalOpen && (
+        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
+          <BioByAI isModal onActionClick={handleCloseModal} />
+        </UContentCardDialog>
+      )}
     </UContentCard>
   )
 }
