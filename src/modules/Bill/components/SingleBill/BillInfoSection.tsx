@@ -9,21 +9,11 @@ import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlin
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
 import { Stack, Typography } from '@mui/material'
-import { memo, useState } from 'react'
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
-import TitleVersionDialog from '@/modules/Bill/components/SingleBill/TitleVersionDialog'
+import { memo } from 'react'
+import TitleVersion from '@/modules/Bill/components/SingleBill/TitleVersion'
 
 const StyledInfoContainer = styled(Stack)(() => ({
   flex: 1,
-}))
-
-const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
-  backgroundColor: theme.color.common.white,
-  color: theme.color.common.black,
-  height: 'max-content',
-  '&:hover': {
-    backgroundColor: theme.color.common.white,
-  },
 }))
 
 const StyledSubscribeButton = styled(UButton)(() => ({
@@ -37,65 +27,46 @@ interface BillInfoSectionProps {
 const BillInfoSection = memo(function BillInfoSection({
   bill,
 }: BillInfoSectionProps) {
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
   return (
-    <>
-      <UHStack spacing={2}>
-        {/** Info */}
-        <StyledInfoContainer spacing={2}>
-          <UHStack spacing={2} alignItems="center">
-            {bill.tags?.[0] && (
-              <UCategoryTag
-                value={bill.tags[0]}
-                containerProps={{
-                  borderRadius: '6px',
-                  sx: {
-                    py: 0.5,
-                    px: 1,
-                  },
-                }}
-              />
-            )}
-            <Typography variant="body" fontWeight={300} mb={1}>
-              {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
-            </Typography>
-          </UHStack>
-          <Typography variant="h4">{bill.title}</Typography>
-          <Stack direction="row" gap={1} flexWrap="wrap">
-            {bill.tags?.map((tag) => <UHashTag key={tag} value={tag} />)}
-          </Stack>
-        </StyledInfoContainer>
-
-        {/** Actions */}
-        <UHStack spacing={2}>
-          <StyledTitleVersionButton
-            variant="contained"
-            startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}
-            rounded
-            onClick={() => setIsModalOpen(true)}
-          >
-            Title Version
-          </StyledTitleVersionButton>
-          <StyledSubscribeButton
-            variant="contained"
-            color="primary"
-            rounded
-            startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
-          >
-            Subscribe
-          </StyledSubscribeButton>
+    <UHStack spacing={2}>
+      {/** Info */}
+      <StyledInfoContainer spacing={2}>
+        <UHStack spacing={2} alignItems="center">
+          {bill.tags?.[0] && (
+            <UCategoryTag
+              value={bill.tags[0]}
+              containerProps={{
+                borderRadius: '6px',
+                sx: {
+                  py: 0.5,
+                  px: 1,
+                },
+              }}
+            />
+          )}
+          <Typography variant="body" fontWeight={300} mb={1}>
+            {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
+          </Typography>
         </UHStack>
-      </UHStack>
+        <Typography variant="h4">{bill.title}</Typography>
+        <Stack direction="row" gap={1} flexWrap="wrap">
+          {bill.tags?.map((tag) => <UHashTag key={tag} value={tag} />)}
+        </Stack>
+      </StyledInfoContainer>
 
-      {isModalOpen && (
-        <TitleVersionDialog
-          bill={bill}
-          isModalOpen={isModalOpen}
-          handleCloseModal={() => setIsModalOpen(false)}
-        />
-      )}
-    </>
+      {/** Actions */}
+      <UHStack spacing={2}>
+        <TitleVersion bill={bill} />
+        <StyledSubscribeButton
+          variant="contained"
+          color="primary"
+          rounded
+          startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
+        >
+          Subscribe
+        </StyledSubscribeButton>
+      </UHStack>
+    </UHStack>
   )
 })
 
