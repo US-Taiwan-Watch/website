@@ -150,5 +150,3 @@ feature branch 會以 `Squash` 的方式合併到 `develop` 分支。
 
 Zustand 管理 global state，可以在 store 中定義 state 和 action，並使用 useStore 取得 state。
 詳細參考：https://github.com/pmndrs/zustand
-
-### 部署測試
