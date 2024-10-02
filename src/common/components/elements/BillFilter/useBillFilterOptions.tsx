@@ -6,13 +6,13 @@ import {
 } from '@/common/components/elements/BillFilter/enums'
 import { useMemo } from 'react'
 
-type Option<T> = {
+export type BillFilterOption<T> = {
   value: T
   label: string
 }
 
 export default function useBillFilterOptions() {
-  const categoryOptions = useMemo<Option<BillCategoryEnum>[]>(
+  const categoryOptions = useMemo<BillFilterOption<BillCategoryEnum>[]>(
     () => [
       { value: BillCategoryEnum.ArmsSales, label: 'Arms Sales/Transfer' },
       { value: BillCategoryEnum.Democracy, label: 'Democracy' },
@@ -36,7 +36,7 @@ export default function useBillFilterOptions() {
     []
   )
 
-  const partyOptions = useMemo<Option<BillPartyEnum>[]>(
+  const partyOptions = useMemo<BillFilterOption<BillPartyEnum>[]>(
     () => [
       { value: BillPartyEnum.Democrat, label: 'Democrat' },
       { value: BillPartyEnum.Republican, label: 'Republican' },
@@ -45,7 +45,7 @@ export default function useBillFilterOptions() {
     []
   )
 
-  const typeOptions = useMemo<Option<BillTypeEnum>[]>(
+  const typeOptions = useMemo<BillFilterOption<BillTypeEnum>[]>(
     () => [
       { value: BillTypeEnum.HouseBill, label: 'H.R. - House Bill' },
       { value: BillTypeEnum.SenateBill, label: 'S. - Senate Bill' },
@@ -77,7 +77,7 @@ export default function useBillFilterOptions() {
     []
   )
 
-  const statusOptions = useMemo<Option<BillStatusEnum>[]>(
+  const statusOptions = useMemo<BillFilterOption<BillStatusEnum>[]>(
     () => [
       {
         value: BillStatusEnum.ProvKillVeto,
