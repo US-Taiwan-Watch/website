@@ -6,6 +6,7 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import UButton from '@/common/components/atoms/UButton'
 import { BillFilterState } from '@/common/components/elements/BillFilter/useBillFilter'
+import useBillFilterOptions from '@/common/components/elements/BillFilter/useBillFilterOptions'
 
 const StyledFilterContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 2),
@@ -18,6 +19,7 @@ const StyledFilterContainer = styled(UHStack)(({ theme }) => ({
 }))
 
 const StyledSelect = styled(Select)(({ theme }) => ({
+  width: 140,
   borderRadius: '9px',
   border: `1px solid ${theme.color.grey[1400]}`,
   backgroundColor: theme.color.grey[2600],
@@ -47,6 +49,8 @@ export default function BillFilter({
   handleReset,
 }: BillFilterProps) {
   const theme = useTheme<USTWTheme>()
+  const { categoryOptions, partyOptions, typeOptions, statusOptions } =
+    useBillFilterOptions()
 
   return (
     <StyledFilterContainer>
@@ -69,9 +73,11 @@ export default function BillFilter({
           <MenuItem value="" disabled>
             Category
           </MenuItem>
-          <MenuItem value="A">A</MenuItem>
-          <MenuItem value="B">B</MenuItem>
-          <MenuItem value="C">C</MenuItem>
+          {categoryOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
         </StyledSelect>
 
         <Divider
@@ -92,9 +98,11 @@ export default function BillFilter({
           <MenuItem value="" disabled>
             Party
           </MenuItem>
-          <MenuItem value="A">A</MenuItem>
-          <MenuItem value="B">B</MenuItem>
-          <MenuItem value="C">C</MenuItem>
+          {partyOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
         </StyledSelect>
 
         <StyledSelect
@@ -107,9 +115,11 @@ export default function BillFilter({
           <MenuItem value="" disabled>
             Type
           </MenuItem>
-          <MenuItem value="A">A</MenuItem>
-          <MenuItem value="B">B</MenuItem>
-          <MenuItem value="C">C</MenuItem>
+          {typeOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
         </StyledSelect>
 
         <StyledSelect
@@ -122,9 +132,11 @@ export default function BillFilter({
           <MenuItem value="" disabled>
             Status
           </MenuItem>
-          <MenuItem value="A">A</MenuItem>
-          <MenuItem value="B">B</MenuItem>
-          <MenuItem value="C">C</MenuItem>
+          {statusOptions.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
         </StyledSelect>
 
         <StyledSelect
@@ -139,9 +151,6 @@ export default function BillFilter({
           <MenuItem value="" disabled>
             Sponsors
           </MenuItem>
-          <MenuItem value="A">A</MenuItem>
-          <MenuItem value="B">B</MenuItem>
-          <MenuItem value="C">C</MenuItem>
         </StyledSelect>
 
         <StyledSelect
@@ -156,9 +165,6 @@ export default function BillFilter({
           <MenuItem value="" disabled>
             Cosponsors
           </MenuItem>
-          <MenuItem value="A">A</MenuItem>
-          <MenuItem value="B">B</MenuItem>
-          <MenuItem value="C">C</MenuItem>
         </StyledSelect>
       </UHStack>
 
