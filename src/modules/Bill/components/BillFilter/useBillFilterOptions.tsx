@@ -3,7 +3,7 @@ import {
   BillPartyEnum,
   BillTypeEnum,
   BillStatusEnum,
-} from '@/common/components/elements/BillFilter/enums'
+} from '@/modules/Bill/components/BillFilter/enums'
 import { useMemo } from 'react'
 
 export type BillFilterOption<T> = {
