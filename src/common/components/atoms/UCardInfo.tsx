@@ -10,7 +10,7 @@ import {
 } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 
-type UTooltipInfoIconProps = {
+type Props = {
   content: string
   tooltipProps?: TooltipProps
   iconProps?: SvgIconProps
@@ -22,7 +22,7 @@ export default function UCardInfo({
   tooltipProps,
   iconProps,
   onClick,
-}: UTooltipInfoIconProps) {
+}: Props) {
   const theme = useTheme<USTWTheme>()
 
   return (
