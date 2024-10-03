@@ -107,10 +107,10 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
         </Grid>
 
         <Grid size={7}>
-          {opinion.image && (
+          {opinion.thumbnailImage && (
             <StyledImage
-              src={opinion.image}
-              alt={opinion.title ?? ''}
+              src={opinion.thumbnailImage.src}
+              alt={opinion.thumbnailImage.caption || opinion.title || ''}
               width={600}
               height={500}
               layout="responsive"

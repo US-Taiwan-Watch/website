@@ -154,6 +154,7 @@ const color = {
     ...colors.purple,
     100: '#C1C1FF', // Secondary
     200: '#B3B3FE', // Bill Filter
+    300: '#BEC8FD',
   },
   grey: {
     ...colors.grey,
@@ -183,6 +184,11 @@ const color = {
     2500: '#F0F1F2', // Index Bill Card
     2600: '#F6F6F6', // Bill Filter
     2700: '#C4C4C4', // Bill Filter
+    3100: '#3E3E3E',
+    3200: '#626262',
+    3300: '#535353',
+    3400: '#5E5E5E',
+    3500: '#6E6E6E',
   },
   orange: {
     ...colors.orange,
@@ -195,6 +201,7 @@ const color = {
     400: '#3664E5', // Primary 3
     600: '#3248BE', // Democratic
     700: '#3986FF',
+    800: '#2A2E36',
   },
   red: {
     ...colors.red,
@@ -250,6 +257,13 @@ interface USTWThemeColor {
       pageColor: string // 分頁數字顏色
       selectedPageBackgroundColor: string // 選中分頁背景色
       selectedPageColor: string // 選中分頁文字顏色
+    }
+    tooltip: {
+      people: {
+        backgroundColor: string // 背景色
+        textColor: string // 文字色
+        bodyColor: string // 內文顏色
+      }
     }
   }
 }
@@ -337,6 +351,13 @@ const _lightTheme: USTWThemeOptions = {
       selectedPageBackgroundColor: color.lime[500],
       selectedPageColor: color.common.black,
     },
+    tooltip: {
+      people: {
+        backgroundColor: color.indigo[800],
+        textColor: color.common.white,
+        bodyColor: '#FFFFFFDE',
+      },
+    },
   },
   components: {
     MuiButton: {
@@ -380,6 +401,13 @@ const _ketagalanTheme: USTWThemeOptions = {
       pageColor: color.common.white,
       selectedPageBackgroundColor: color.wheat[200],
       selectedPageColor: color.common.black,
+    },
+    tooltip: {
+      people: {
+        backgroundColor: color.common.white,
+        textColor: color.common.black,
+        bodyColor: '#000000DE',
+      },
     },
   },
   components: {

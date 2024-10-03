@@ -1,23 +1,16 @@
 'use client'
 
 import { useEpisode } from '@/modules/Podcast/hooks/useEpisode'
-import {
-  memo,
-  useCallback,
-  forwardRef,
-  useImperativeHandle,
-  useMemo,
-} from 'react'
+import { memo, forwardRef, useImperativeHandle, useMemo } from 'react'
 import { Typography, Slider, Stack } from '@mui/material'
 import { PlayCircleRounded, Pause } from '@mui/icons-material'
 import Image from 'next/image'
-import { debounce } from 'lodash-es'
 import {
   EpisodeCardProps,
   EpisodeCardRef,
 } from '@/modules/Podcast/types/ComponentProp'
 import { styled } from '@/common/lib/mui/theme'
-import usePlayer from '@/modules/Podcast/hooks/usePlayer'
+import { usePlayerWithUI } from '@/modules/Podcast/hooks/usePlayer'
 import UIconButton from '@/common/components/atoms/UIconButton'
 
 const StyledIndexEpisodeCardContainer = styled(Stack)(({ theme }) => ({
@@ -84,48 +77,22 @@ const IndexEpisodeCard = memo(
     const { episode } = useEpisode(podcastId, episodeId)
     const memoizedEpisode = useMemo(() => episode, [episode])
 
-    const memoizedOnPlay = useCallback(() => {
-      onPlay?.({ podcastId, episodeId })
-    }, [onPlay, podcastId, episodeId])
-
-    const memoizedOnPause = useCallback(() => {
-      onPause?.({ podcastId, episodeId })
-    }, [onPause, podcastId, episodeId])
-
-    const { playerRef, playing, progress, remainingTime, play, pause } =
-      usePlayer({
-        audioUrl: memoizedEpisode?.audioUrl,
-        onPlayCallback: memoizedOnPlay,
-        onPauseCallback: memoizedOnPause,
-      })
-
-    const togglePlayPause = () => {
-      if (playerRef.current) {
-        if (playing) {
-          pause()
-        } else {
-          play()
-        }
-      }
-    }
-
-    const debouncedSliderChange = debounce(
-      (_: Event, newValue: number | number[]) => {
-        if (playerRef.current && typeof newValue === 'number') {
-          const duration = playerRef.current.duration()
-          playerRef.current.seek(duration * newValue)
-        }
-      },
-      200
-    )
-
-    const handleSliderChange = useCallback(debouncedSliderChange, [
-      debouncedSliderChange,
-    ])
+    const {
+      playing,
+      progress,
+      remainingTime,
+      togglePlayPause,
+      handleSliderChange,
+    } = usePlayerWithUI({
+      audioUrl: memoizedEpisode?.audioUrl,
+      episodeId,
+      podcastId,
+      onPlay,
+      onPause,
+    })
 
     useImperativeHandle(ref, () => ({
-      play,
-      pause,
+      togglePlayPause,
     }))
 
     if (!episode) return null
