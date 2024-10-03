@@ -41,9 +41,7 @@ export default function OpinionPostLayout({
         <CssBaseline />
         {/** Fixed 放這邊是為了讓他與 Header 切齊，也就是上一層 Container */}
         <OpinionFixed />
-        <Container id="opinion-post-container" maxWidth="lg">
-          {children}
-        </Container>
+        <Container maxWidth="lg">{children}</Container>
       </ThemeProvider>
     </AppRouterCacheProvider>
   )
