@@ -1,37 +1,29 @@
-import OpinionPostBanner from '@/modules/Opinion/components/OpinionPost/OpinionPostBanner'
-import OpinionPostContent from '@/modules/Opinion/components/OpinionPost/OpinionPostContent'
-import OpinionPostHeader from '@/modules/Opinion/components/OpinionPost/OpinionPostHeader'
-import { Stack } from '@mui/material'
-import { Metadata } from 'next'
+import { Metadata, ResolvingMetadata } from 'next'
+import { getOpinion } from '@/modules/Opinion/api/opinion'
+import OpinionPost from '@/modules/Opinion/components/OpinionPost'
 
-// TODO: 從 API 取得資料
-export const metadata: Metadata = {
-  title: '國家級警報：中共發射衛星火箭',
-  description:
-    'description description description description description description description description',
+type Props = {
+  params: { id: string }
 }
 
-export default function OpinionPage() {
-  return (
-    <Stack gap={4}>
-      {/** Header Section */}
-      <OpinionPostHeader />
-      {/** Banner Section */}
-      <OpinionPostBanner
-        image={'/assets/category1.jpg'}
-        caption={
-          '1967年，中國共產黨主席毛澤東掀起文化大革命，當時在北京市中心展示了他的巨大畫像與標語。（攝影／JEAN VINCENT／AFP）'
-        }
-      />
+export async function generateMetadata(
+  { params }: Props,
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  console.log('params', params)
+  console.log('parent', parent)
 
-      {/** Content Section */}
-      <OpinionPostContent />
+  // fetch data
+  const opinion = await getOpinion()
 
-      {/** Footer Section */}
+  return {
+    title: opinion.title,
+    description: opinion.description,
+  }
+}
 
-      {/** Author Section */}
+export default async function OpinionPage() {
+  const opinion = await getOpinion()
 
-      {/** Related Posts Section */}
-    </Stack>
-  )
+  return <OpinionPost opinionData={opinion} />
 }

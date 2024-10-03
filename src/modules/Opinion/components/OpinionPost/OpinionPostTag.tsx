@@ -1,4 +1,5 @@
 import { styled } from '@/common/lib/mui/theme'
+import { OpinionTag } from '@/modules/Opinion/classes/Opinion'
 import { Stack, Typography } from '@mui/material'
 
 const StyledOpinionPostTagContainer = styled(Stack)(({ theme }) => ({
@@ -18,10 +19,10 @@ const StyledOpinionPostTagText = styled(Typography)(({ theme }) => ({
 }))
 
 interface OpinionPostTagProps {
-  value: string
+  tag: OpinionTag
 }
 
-const OpinionPostTag = function OpinionPostTag({ value }: OpinionPostTagProps) {
+const OpinionPostTag = function OpinionPostTag({ tag }: OpinionPostTagProps) {
   return (
     <StyledOpinionPostTagContainer
       direction="row"
@@ -33,7 +34,7 @@ const OpinionPostTag = function OpinionPostTag({ value }: OpinionPostTagProps) {
         {'#'}
       </StyledHashTag>
       <StyledOpinionPostTagText variant="buttonXXS" fontWeight={500}>
-        {value}
+        {tag.label}
       </StyledOpinionPostTagText>
     </StyledOpinionPostTagContainer>
   )

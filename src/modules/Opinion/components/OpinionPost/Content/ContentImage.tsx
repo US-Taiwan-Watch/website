@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 interface ContentImageProps extends StackProps {
   image: string
-  caption: string
+  caption?: string
 }
 
 const ContentImage = function ContentImage({
@@ -19,11 +19,18 @@ const ContentImage = function ContentImage({
       <div
         style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}
       >
-        <Image src={image} alt={caption} layout="fill" objectFit="cover" />
+        <Image
+          src={image}
+          alt={caption ?? ''}
+          layout="fill"
+          objectFit="cover"
+        />
       </div>
-      <Typography variant="bodyS" sx={{ color: theme.color.grey[3500] }}>
-        {caption}
-      </Typography>
+      {caption && (
+        <Typography variant="bodyS" sx={{ color: theme.color.grey[3500] }}>
+          {caption}
+        </Typography>
+      )}
     </Stack>
   )
 }

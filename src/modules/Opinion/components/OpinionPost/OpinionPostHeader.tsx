@@ -3,50 +3,85 @@
 import UButton from '@/common/components/atoms/UButton'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import {
+  OpinionRepostSource,
+  OpinionTag,
+} from '@/modules/Opinion/classes/Opinion'
+import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
 import OpinionPostTag from '@/modules/Opinion/components/OpinionPost/OpinionPostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
+import { Dayjs } from 'dayjs'
+
+const dateFormat = 'YYYY-MM-DD'
 
 // TODO: 定義介面
 
-const OpinionPostHeader = function OpinionPostHeader() {
+interface OpinionPostHeaderProps {
+  categories?: Array<OpinionCategory>
+  title?: string
+  subtitle?: string
+  date?: Dayjs
+  tags?: Array<OpinionTag>
+  repostSources?: Array<OpinionRepostSource>
+}
+
+const OpinionPostHeader = function OpinionPostHeader({
+  categories,
+  title,
+  subtitle,
+  date,
+  tags,
+  repostSources,
+}: OpinionPostHeaderProps) {
   const theme = useTheme<USTWTheme>()
+
+  const formattedDate = date?.isValid() ? date.format(dateFormat) : ''
 
   return (
     <Stack spacing={3}>
       {/** Categories */}
-      <UHStack gap={2}>
-        <UButton
-          variant="outlined"
-          size="small"
-          sx={{
-            padding: theme.spacing(0.5, 1),
-            minWidth: 'fit-content',
-            borderColor: theme.color.orange[900],
-            color: theme.color.orange[900],
-          }}
-        >
-          {'軍事'}
-        </UButton>
-      </UHStack>
+      {categories && (
+        <UHStack gap={2}>
+          {categories.map((category, index) => (
+            <UButton
+              key={index}
+              variant="outlined"
+              size="small"
+              sx={{
+                padding: theme.spacing(0.5, 1),
+                minWidth: 'fit-content',
+                borderColor: theme.color.orange[900],
+                color: theme.color.orange[900],
+              }}
+            >
+              {category.label}
+            </UButton>
+          ))}
+        </UHStack>
+      )}
 
       {/** Title */}
-      <Typography
-        component="h1"
-        variant="h3"
-        fontWeight={500}
-        sx={{ color: theme.color.grey[3100] }}
-      >
-        {'國家級警報：中共發射衛星火箭'}
-      </Typography>
+      {title && (
+        <Typography
+          component="h1"
+          variant="h3"
+          fontWeight={500}
+          sx={{ color: theme.color.grey[3100] }}
+        >
+          {title}
+        </Typography>
+      )}
 
       {/** Subtitle */}
-      <Typography
-        variant="subtitleL"
-        sx={{ color: theme.color.grey[3200] }}
-        fontWeight={400}
-      >
-        {'國家級警報：中共發射衛星火箭飛越「南台灣」'}
-      </Typography>
+      {subtitle && (
+        <Typography
+          variant="subtitleL"
+          sx={{ color: theme.color.grey[3200] }}
+          fontWeight={400}
+        >
+          {subtitle}
+        </Typography>
+      )}
 
       <Stack spacing={2}>
         {/** Date */}
@@ -55,14 +90,16 @@ const OpinionPostHeader = function OpinionPostHeader() {
           sx={{ color: theme.color.grey[3300] }}
           fontWeight={500}
         >
-          {'Release time: 2024-04-02   |   By Sam / Tom '}
+          {`Release time: ${formattedDate}   |   By Sam / Tom `}
         </Typography>
         {/** Tags */}
-        <UHStack gap={1}>
-          <OpinionPostTag value={'軍事'} />
-          <OpinionPostTag value={'軍事'} />
-          <OpinionPostTag value={'軍事'} />
-        </UHStack>
+        {tags && (
+          <UHStack gap={1}>
+            {tags.map((tag, index) => (
+              <OpinionPostTag key={index} tag={tag} />
+            ))}
+          </UHStack>
+        )}
       </Stack>
 
       {/** Repost source from */}
@@ -76,28 +113,20 @@ const OpinionPostHeader = function OpinionPostHeader() {
         </Typography>
 
         {/** Links */}
-        <a href="https://www.google.com">
-          <Typography
-            variant="bodyS"
-            fontWeight={400}
-            sx={{ color: theme.color.orange[900], textDecoration: 'underline' }}
-          >
-            {
-              'CNN NEWS - The entire town is burning.’ Fires rage as Rohingya caught up on the front lines of Myanmar’s civil war'
-            }
-          </Typography>
-        </a>
-        <a href="https://www.google.com">
-          <Typography
-            variant="bodyS"
-            fontWeight={400}
-            sx={{ color: theme.color.orange[900], textDecoration: 'underline' }}
-          >
-            {
-              'CNN NEWS - The entire town is burning.’ Fires rage as Rohingya caught up on the front lines of Myanmar’s civil war'
-            }
-          </Typography>
-        </a>
+        {repostSources?.map((repostSource, index) => (
+          <a href={repostSource.link} key={index} target="_blank">
+            <Typography
+              variant="bodyS"
+              fontWeight={400}
+              sx={{
+                color: theme.color.orange[900],
+                textDecoration: 'underline',
+              }}
+            >
+              {repostSource.title}
+            </Typography>
+          </a>
+        ))}
       </Stack>
     </Stack>
   )

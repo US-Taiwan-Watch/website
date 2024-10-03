@@ -1,7 +1,7 @@
 'use client'
 
 import UHStack from '@/common/components/atoms/UHStack'
-import { Typography } from '@mui/material'
+import { Typography, TypographyProps } from '@mui/material'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { ReactNode, useState } from 'react'
@@ -11,11 +11,18 @@ import { useTheme } from '@mui/material/styles'
 type Props = {
   link: string
   text?: string
+  typographyProps?: TypographyProps
   startIcon?: ReactNode
   endIcon?: ReactNode
 }
 
-const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
+const ULinkText = ({
+  link,
+  text,
+  typographyProps,
+  startIcon,
+  endIcon,
+}: Props) => {
   const theme = useTheme<USTWTheme>()
   const [isHover, setIsHover] = useState(false)
   const color = isHover ? theme.color.neutral[400] : theme.color.grey[1300]
@@ -34,6 +41,7 @@ const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
           variant="body1"
           fontWeight={500}
           sx={{ color }}
+          {...typographyProps}
         >
           {text ?? 'Learn More'}
         </Typography>

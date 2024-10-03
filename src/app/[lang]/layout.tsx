@@ -31,7 +31,7 @@ export default function RootLayout({
           <ThemeProvider lang={params.lang}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Container>
+            <Container id="root-container">
               <Header />
               <ScreenSizeHandler>{children}</ScreenSizeHandler>
             </Container>

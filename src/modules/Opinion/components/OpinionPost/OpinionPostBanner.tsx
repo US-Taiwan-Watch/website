@@ -1,24 +1,23 @@
 'use client'
 
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
+import { OpinionImage } from '@/modules/Opinion/classes/Opinion'
 import ContentImage from '@/modules/Opinion/components/OpinionPost/Content/ContentImage'
 
 interface OpinionPostBannerProps {
   className?: string
-  image: string
-  caption: string
+  bannerImage: OpinionImage
 }
 
 const OpinionPostBanner = function OpinionPostBanner({
   className,
-  image,
-  caption,
+  bannerImage,
 }: OpinionPostBannerProps) {
   return (
     <UFullWidthBackgroundBox className={className}>
       <ContentImage
-        image={image}
-        caption={caption}
+        image={bannerImage.src}
+        caption={bannerImage.caption}
         sx={{ margin: 'auto', width: '1400px', maxWidth: '100%' }}
       />
     </UFullWidthBackgroundBox>

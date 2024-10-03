@@ -32,6 +32,7 @@ const HyperLinkTooltip = function HyperLinkTooltip({
           width: 'fit-content',
         }}
         href="#"
+        target="_blank"
       >
         {text}
       </a>
