@@ -5,7 +5,7 @@ import { styled } from '@/common/lib/mui/theme'
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import TitleVersionDialog from '@/modules/Bill/components/SingleBill/TitleVersionDialog'
-import useModal from '@/common/lib/useModal'
+import useModal from '@/common/hooks/useModal'
 
 const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.common.white,

@@ -28,7 +28,7 @@ export class Bill {
   // 法案名稱
   title?: string
   // 法案名稱歷史
-  previousTitles?: string[]
+  previousTitles?: string[] // TODO: 確認 DESC 還是 ASC
   // 提案人
   sponsor?: People
   // 共同提案人

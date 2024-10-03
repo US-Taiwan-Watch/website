@@ -19,7 +19,7 @@ import { PersonIcon } from '@/common/styles/assets/Icons'
 import CloseIcon from '@mui/icons-material/Close'
 import { PartyExperience, People } from '@/modules/People/classes/People'
 import UContentCard from '@/common/components/atoms/UContentCard'
-import useModal from '@/common/lib/useModal'
+import useModal from '@/common/hooks/useModal'
 
 /**
  * 計算經歷的時間

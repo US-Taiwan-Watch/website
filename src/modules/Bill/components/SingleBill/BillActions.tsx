@@ -11,7 +11,7 @@ import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import ActionsDialog from '@/modules/Bill/components/SingleBill/ActionsDialog'
-import useModal from '@/common/lib/useModal'
+import useModal from '@/common/hooks/useModal'
 
 const DATE_FORMAT = 'MM/DD/YYYY'
 

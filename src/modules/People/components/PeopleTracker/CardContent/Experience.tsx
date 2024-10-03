@@ -17,7 +17,7 @@ import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
-import useModal from '@/common/lib/useModal'
+import useModal from '@/common/hooks/useModal'
 
 /**
  * 計算經歷的時間

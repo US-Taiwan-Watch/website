@@ -6,7 +6,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CloseIcon from '@mui/icons-material/Close'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
-import useModal from '@/common/lib/useModal'
+import useModal from '@/common/hooks/useModal'
 
 type PublicationArg = {
   title: string

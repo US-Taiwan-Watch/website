@@ -9,7 +9,7 @@ import CosponsorChart from '@/modules/Bill/components/SingleBill/CosponsorChart'
 import { PARLIAMENT_CHART_DATA_MOCK_1 } from '@/modules/Bill/data'
 import CosponsorDialog from '@/modules/Bill/components/SingleBill/CosponsorDialog'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import useModal from '@/common/lib/useModal'
+import useModal from '@/common/hooks/useModal'
 
 const data = PARLIAMENT_CHART_DATA_MOCK_1
 
