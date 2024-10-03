@@ -2,7 +2,6 @@
 
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import UTimeline from '@/common/components/atoms/UTimeline'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
@@ -11,7 +10,7 @@ import { Box, Stack, Typography, useTheme } from '@mui/material'
 import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
-import UIconButton from '@/common/components/atoms/UIconButton'
+import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 type Props = {
   bill: Bill
@@ -49,9 +48,7 @@ export default function LeftSection({ bill }: Props) {
           <Typography variant="articleH4">
             {Bill.GetBillLatestStatus(bill.status ?? BillStatusEnum.INTRODUCED)}
           </Typography>
-          <UIconButton variant="rounded" color="inherit" size="small">
-            <InfoOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
-          </UIconButton>
+          <UCardInfo content="Tracker" />
         </UHStack>
         <Box mx={-6}>
           <UTimeline

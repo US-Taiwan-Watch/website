@@ -2,12 +2,11 @@
 
 import { TrendIcon } from '@/common/styles/assets/Icons'
 import { Box, CardContent, Stack, Typography, useTheme } from '@mui/material'
-import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import UHStack from '@/common/components/atoms/UHStack'
 import TrendBarCharts from '@/modules/Bill/components/BillLanding/TrendBarCharts'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
@@ -19,11 +18,7 @@ export default function TrendCard() {
         title: 'Trends by Category',
         icon: <TrendIcon />,
         iconColor: 'primary',
-        action: (
-          <UIconButton variant="rounded" color="inherit" size="small">
-            <ErrorOutlineOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
-          </UIconButton>
-        ),
+        action: <UCardInfo content="Trends by Category" />,
       }}
     >
       <CardContent sx={{ padding: 0 }}>

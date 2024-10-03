@@ -14,6 +14,7 @@ import { useMemo } from 'react'
 import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { useRouter } from 'next/navigation'
+import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 const DATE_FORMAT = 'MM/DD/YYYY-hh:mmA'
 
@@ -24,12 +25,13 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
 }))
 
-const StyledTimelineContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(2.5, 3),
+const StyledTimelineContainer = styled(UHStack)(({ theme }) => ({
+  padding: theme.spacing(2.5, 2, 2.5, 3),
   backgroundColor: theme.color.grey[100],
   borderRadius: '15px',
   minWidth: 275,
   height: 'max-content',
+  gap: theme.spacing(1),
 }))
 
 type Props = {
@@ -146,6 +148,14 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               data={billStatusList}
               activeIndex={bill.statusIndex}
             />
+            <Box>
+              <UCardInfo
+                content={billStatusList[bill.statusIndex].title}
+                iconProps={{
+                  sx: { color: theme.color.neutral[300] },
+                }}
+              />
+            </Box>
           </StyledTimelineContainer>
         )}
       </UHStack>
