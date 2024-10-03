@@ -153,6 +153,7 @@ const color = {
   purple: {
     ...colors.purple,
     100: '#C1C1FF', // Secondary
+    200: '#B3B3FE', // Bill Filter
   },
   grey: {
     ...colors.grey,
@@ -180,6 +181,8 @@ const color = {
     2300: '#4F4F4F', // Trend Bar Chart
     2400: '#2B2B2B', // Index Bill Card
     2500: '#F0F1F2', // Index Bill Card
+    2600: '#F6F6F6', // Bill Filter
+    2700: '#C4C4C4', // Bill Filter
   },
   orange: {
     ...colors.orange,

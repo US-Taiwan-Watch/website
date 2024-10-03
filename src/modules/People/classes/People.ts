@@ -44,6 +44,7 @@ interface PeopleArgs {
   tags: Array<string>
   partyExperience: Array<PartyExperienceArgs>
   experience: Array<ExperienceArgs>
+  constituency?: string
 }
 
 export class People {
@@ -67,6 +68,8 @@ export class People {
   partyExperience?: Array<PartyExperience>
   // TODO: 經歷暫定，後續討論
   experience?: Array<Experience>
+  // 選區
+  constituency?: string
 
   constructor(private readonly people: PeopleArgs) {
     if (isString(people.id)) {
@@ -100,6 +103,9 @@ export class People {
     }
     if (isArray(people.experience)) {
       this.experience = People.TransformExperience(people.experience)
+    }
+    if (isString(people.constituency)) {
+      this.constituency = people.constituency
     }
   }
 

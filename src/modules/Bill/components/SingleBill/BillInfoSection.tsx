@@ -10,19 +10,10 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
 import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
+import TitleVersion from '@/modules/Bill/components/SingleBill/TitleVersion'
 
 const StyledInfoContainer = styled(Stack)(() => ({
   flex: 1,
-}))
-
-const StyledLinkButton = styled(UButton)(({ theme }) => ({
-  backgroundColor: theme.color.common.white,
-  color: theme.color.common.black,
-  height: 'max-content',
-  '&:hover': {
-    backgroundColor: theme.color.common.white,
-  },
 }))
 
 const StyledSubscribeButton = styled(UButton)(() => ({
@@ -65,13 +56,7 @@ const BillInfoSection = memo(function BillInfoSection({
 
       {/** Actions */}
       <UHStack spacing={2}>
-        <StyledLinkButton
-          variant="contained"
-          startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}
-          rounded
-        >
-          Title Version
-        </StyledLinkButton>
+        <TitleVersion bill={bill} />
         <StyledSubscribeButton
           variant="contained"
           color="primary"

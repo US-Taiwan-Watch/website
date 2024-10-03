@@ -39,7 +39,7 @@ const BillContentSection = memo(function BillContentSection({
         </Grid>
 
         <Grid size={3.5}>
-          <BillCosponsors />
+          <BillCosponsors bill={bill} />
         </Grid>
       </Grid>
     </Box>

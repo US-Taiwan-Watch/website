@@ -7,7 +7,6 @@ import Link from 'next/link'
 import UButton from '@/common/components/atoms/UButton'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { styled } from '@/common/lib/mui/theme'
-
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import React, { useRef, useState } from 'react'
 import useNavItems, { HeaderNavItem } from './useNavItems'

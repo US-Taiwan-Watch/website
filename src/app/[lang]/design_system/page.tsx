@@ -25,7 +25,14 @@ import {
 import PeopleCard from '@/modules/People/components/PeopleCard'
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import IndexEpisodeCard from '@/modules/Podcast/components/IndexEpisodeCard'
-import { Box, Grid2 as Grid, Stack, Typography, useTheme } from '@mui/material'
+import {
+  Box,
+  Grid2 as Grid,
+  MenuItem,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import people from '@/modules/People/data'
 import UTimeline, { UTimelineData } from '@/common/components/atoms/UTimeline'
 import UContentCard from '@/common/components/atoms/UContentCard'
@@ -33,6 +40,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UHashTag from '@/common/components/atoms/UHashTag'
+import USelect from '@/common/components/atoms/USelect'
 
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
@@ -463,6 +471,26 @@ export default function DesignSystemIconsPage() {
           ))}
         </UHStack>
       </UContentCard>
+
+      <h2>USelect</h2>
+      <UHStack spacing={2}>
+        <USelect isFirstLevel>
+          <MenuItem value="" disabled>
+            First Level
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </USelect>
+        <USelect>
+          <MenuItem value="" disabled>
+            Second Level
+          </MenuItem>
+          <MenuItem value={10}>Ten</MenuItem>
+          <MenuItem value={20}>Twenty</MenuItem>
+          <MenuItem value={30}>Thirty</MenuItem>
+        </USelect>
+      </UHStack>
     </div>
   )
 }

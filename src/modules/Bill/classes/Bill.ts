@@ -4,7 +4,7 @@ import { People } from '@/modules/People/classes/People'
 import { isArray, isString } from 'lodash-es'
 import { ROUTES } from '@/routes'
 
-interface BillAction {
+export interface BillAction {
   date: string
   description?: string
   // 參眾議院
@@ -14,6 +14,7 @@ interface BillAction {
 interface BillArgs {
   id: string
   title: string
+  previousTitles: string[]
   sponsor: People
   cosponsors: People[]
   tags: string[]
@@ -26,6 +27,8 @@ export class Bill {
   id?: string
   // 法案名稱
   title?: string
+  // 法案名稱歷史
+  previousTitles?: string[] // TODO: 確認 DESC 還是 ASC
   // 提案人
   sponsor?: People
   // 共同提案人
@@ -43,6 +46,9 @@ export class Bill {
     }
     if (isString(bill.title)) {
       this.title = bill.title
+    }
+    if (isArray(bill.previousTitles)) {
+      this.previousTitles = bill.previousTitles
     }
     if (bill.sponsor instanceof People) {
       this.sponsor = bill.sponsor
