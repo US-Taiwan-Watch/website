@@ -1,6 +1,7 @@
 'use client'
 
 import { USTWTheme } from '@/common/lib/mui/theme'
+import { ROUTES } from '@/routes'
 import { useTheme } from '@mui/material'
 import {
   axisClasses,
@@ -11,25 +12,22 @@ import {
   ChartsYAxis,
   ResponsiveChartContainer,
 } from '@mui/x-charts'
+import { useRouter } from 'next/navigation'
 
-type Data = {
+const valueFormatter = (value: number | null) => (value ? `${value}th` : '')
+
+export type TrendBarChartData = {
   session: number
   count: number
 }
 
-const data: Data[] = [
-  { session: 113, count: 15 },
-  { session: 114, count: 25 },
-  { session: 115, count: 17 },
-  { session: 116, count: 15 },
-  { session: 117, count: 17 },
-  { session: 118, count: 25 },
-]
+type TrendBarChartsProps = {
+  data: TrendBarChartData[]
+}
 
-const valueFormatter = (value: number | null) => (value ? `${value}th` : '')
-
-export default function TrendBarCharts() {
+export default function TrendBarCharts({ data }: TrendBarChartsProps) {
   const theme = useTheme<USTWTheme>()
+  const router = useRouter()
 
   return (
     <ResponsiveChartContainer
@@ -64,7 +62,12 @@ export default function TrendBarCharts() {
       <ChartsYAxis />
       <ChartsGrid vertical horizontal />
       <ChartsTooltip />
-      <BarPlot grid={{ vertical: true, horizontal: true }} borderRadius={4} />
+      <BarPlot
+        grid={{ vertical: true, horizontal: true }}
+        borderRadius={4}
+        barLabel="value"
+        onItemClick={() => router.push(ROUTES.BILL_LIST)}
+      />
     </ResponsiveChartContainer>
   )
 }
