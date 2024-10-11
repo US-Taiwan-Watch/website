@@ -1,5 +1,5 @@
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Stack, StackProps, Typography, useTheme } from '@mui/material'
+import { Box, Stack, StackProps, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
 
 interface ContentImageProps extends StackProps {
@@ -16,7 +16,7 @@ const ContentImage = function ContentImage({
 
   return (
     <Stack spacing={2} {...props}>
-      <div
+      <Box
         style={{ position: 'relative', width: '100%', paddingBottom: '56.25%' }}
       >
         <Image
@@ -25,7 +25,7 @@ const ContentImage = function ContentImage({
           layout="fill"
           objectFit="cover"
         />
-      </div>
+      </Box>
       {caption && (
         <Typography variant="bodyS" sx={{ color: theme.color.grey[3500] }}>
           {caption}

@@ -1,3 +1,5 @@
+'use client'
+
 import { USTWTheme } from '@/common/lib/mui/theme'
 import {
   Avatar,
@@ -14,6 +16,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UPoliticalPartyIcon, {
   getMainColor,
 } from '@/common/components/atoms/UPoliticalPartyIcon'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const PeopleTooltip = function PeopleTooltip() {
   const theme = useTheme<USTWTheme>()
@@ -57,25 +60,13 @@ const PeopleTooltip = function PeopleTooltip() {
             />
           </Badge>
           <Typography variant="subtitleL" fontWeight={600}>
-            Hakeem Sekou Jeffries
+            Sekou Jeffries
           </Typography>
-          <Typography
-            variant="bodyS"
-            fontWeight={300}
-            sx={{
-              color: theme.color.tooltip.people.bodyColor,
-              display: '-webkit-box',
-              WebkitLineClamp: 4,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden',
-              textOverflow: 'ellipsis',
-              wordBreak: 'break-all',
-            }}
-          >
+          <UHeightLimitedText maxLine={4} variant="bodyS" fontWeight={300}>
             Minim dolor in amet nulla laboris enim dolore consequat..Minim dolor
             in amet nulla laboris enim dolore consequat nulla laboris enim
             dolore consequat..
-          </Typography>
+          </UHeightLimitedText>
           <Link href="/">
             <Button
               variant="text"

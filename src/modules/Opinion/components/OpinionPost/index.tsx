@@ -45,8 +45,12 @@ const OpinionPost = function OpinionPost({ opinionData }: OpinionPostProps) {
 
       {/** Author Section */}
       <OpinionPostDivider />
-      {opinion.author && <OpinionPostAuthor author={opinion.author} />}
-      <OpinionPostDivider />
+      {opinion.author && (
+        <>
+          <OpinionPostAuthor author={opinion.author} />
+          <OpinionPostDivider />
+        </>
+      )}
 
       {/** Related Posts Section */}
       <UFullWidthBackgroundBox>

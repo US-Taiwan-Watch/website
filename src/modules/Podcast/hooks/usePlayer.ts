@@ -155,20 +155,14 @@ export const usePlayerWithUI = ({
 
   const handleBackwardClick = (value: number = 15) => {
     if (playerRef.current) {
-      playerRef.current.seek(
-        playerRef.current.seek() - value < 0
-          ? 0
-          : playerRef.current.seek() - value
-      )
+      playerRef.current.seek(Math.max(playerRef.current.seek() - value, 0))
     }
   }
 
   const handleForwardClick = (value: number = 15) => {
     if (playerRef.current) {
       playerRef.current.seek(
-        playerRef.current.seek() + value > playerRef.current.duration()
-          ? playerRef.current.duration()
-          : playerRef.current.seek() + value
+        Math.min(playerRef.current.seek() + value, playerRef.current.duration())
       )
     }
   }
