@@ -1,7 +1,7 @@
 'use client'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { CosponsorsIcon } from '@/common/styles/assets/Icons'
-import { CardContent, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -40,16 +40,15 @@ export default function BillCosponsors({ bill }: Props) {
             </UIconButton>
           ),
         }}
-      >
-        <CardContent
-          sx={{
+        contentProps={{
+          sx: {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}
-        >
-          <CosponsorChart data={data} />
-        </CardContent>
+          },
+        }}
+      >
+        <CosponsorChart data={data} />
       </UContentCard>
 
       <CosponsorDialog

@@ -1,7 +1,7 @@
 'use client'
 
 import { CongressIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, useTheme } from '@mui/material'
+import { Stack, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import ParliamentChart, {
@@ -40,33 +40,31 @@ export default function CongressCard() {
         action: <UCardInfo content="Congressional Distribution" />,
       }}
     >
-      <CardContent sx={{ padding: 0 }}>
-        <Stack pt={2} alignItems="center">
-          <ParliamentChart data={data} />
-          <UHStack alignItems="center" justifyContent="center" spacing={2}>
-            {[ChamberEnum.HOUSE, ChamberEnum.SENATE].map((congress) => (
-              <UButton
-                key={congress}
-                variant="contained"
-                color="primary"
-                sx={{
-                  backgroundColor:
-                    selectedChamber === congress
-                      ? theme.color.purple[100]
-                      : theme.color.neutral[100],
-                  fontWeight: 600,
-                  fontSize: 16,
-                }}
-                rounded
-                size="small"
-                onClick={() => setSelectedChamber(congress)}
-              >
-                {congress}
-              </UButton>
-            ))}
-          </UHStack>
-        </Stack>
-      </CardContent>
+      <Stack pt={2} alignItems="center">
+        <ParliamentChart data={data} />
+        <UHStack alignItems="center" justifyContent="center" spacing={2}>
+          {[ChamberEnum.HOUSE, ChamberEnum.SENATE].map((congress) => (
+            <UButton
+              key={congress}
+              variant="contained"
+              color="primary"
+              sx={{
+                backgroundColor:
+                  selectedChamber === congress
+                    ? theme.color.purple[100]
+                    : theme.color.neutral[100],
+                fontWeight: 600,
+                fontSize: 16,
+              }}
+              rounded
+              size="small"
+              onClick={() => setSelectedChamber(congress)}
+            >
+              {congress}
+            </UButton>
+          ))}
+        </UHStack>
+      </Stack>
     </UContentCard>
   )
 }

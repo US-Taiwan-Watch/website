@@ -1,7 +1,7 @@
 'use client'
 
 import { SponsorIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
@@ -73,13 +73,11 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
         sx: { borderBottom: 0 },
       }}
     >
-      <CardContent sx={{ padding: 0 }}>
-        <Stack spacing={1} pt={2}>
-          {BILL_SPONSOR_MOCK.map((sponsor, index) => (
-            <SponsorRow key={index} sponsor={sponsor} />
-          ))}
-        </Stack>
-      </CardContent>
+      <Stack spacing={1} pt={2}>
+        {BILL_SPONSOR_MOCK.map((sponsor, index) => (
+          <SponsorRow key={index} sponsor={sponsor} />
+        ))}
+      </Stack>
     </UContentCard>
   )
 }

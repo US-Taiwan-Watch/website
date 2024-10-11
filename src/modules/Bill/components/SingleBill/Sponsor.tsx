@@ -1,7 +1,7 @@
 'use client'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { SponsorIcon } from '@/common/styles/assets/Icons'
-import { Box, CardContent, Stack, Typography } from '@mui/material'
+import { Box, Stack, Typography } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import UHStack from '@/common/components/atoms/UHStack'
@@ -35,34 +35,32 @@ export default function Sponsor({ bill }: Props) {
         iconColor: 'primary',
       }}
     >
-      <CardContent>
-        <UHStack pt={2} spacing={3}>
-          {bill.sponsor?.image && (
-            <StyledImageContainer>
-              <StyledImage
-                src={bill.sponsor.image}
-                alt={bill.sponsor.name ?? ''}
-                fill
-              />
-            </StyledImageContainer>
-          )}
+      <UHStack pt={2} spacing={3}>
+        {bill.sponsor?.image && (
+          <StyledImageContainer>
+            <StyledImage
+              src={bill.sponsor.image}
+              alt={bill.sponsor.name ?? ''}
+              fill
+            />
+          </StyledImageContainer>
+        )}
 
-          <Stack justifyContent="space-between">
-            <Stack spacing={1}>
-              <Typography variant="articleH3">{bill.sponsor?.name}</Typography>
-              <Typography variant="body">{bill.sponsor?.position}</Typography>
-            </Stack>
-
-            <Typography
-              variant="buttonXS"
-              fontWeight={700}
-              textTransform="capitalize"
-            >
-              {bill.sponsor?.party?.toLowerCase()}
-            </Typography>
+        <Stack justifyContent="space-between">
+          <Stack spacing={1}>
+            <Typography variant="articleH3">{bill.sponsor?.name}</Typography>
+            <Typography variant="body">{bill.sponsor?.position}</Typography>
           </Stack>
-        </UHStack>
-      </CardContent>
+
+          <Typography
+            variant="buttonXS"
+            fontWeight={700}
+            textTransform="capitalize"
+          >
+            {bill.sponsor?.party?.toLowerCase()}
+          </Typography>
+        </Stack>
+      </UHStack>
     </UContentCard>
   )
 }

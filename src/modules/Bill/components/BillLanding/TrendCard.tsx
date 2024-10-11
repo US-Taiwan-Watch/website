@@ -1,14 +1,7 @@
 'use client'
 
 import { TrendIcon } from '@/common/styles/assets/Icons'
-import {
-  Box,
-  CardContent,
-  MenuItem,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Box, MenuItem, Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UHStack from '@/common/components/atoms/UHStack'
 import TrendBarCharts, {
@@ -55,35 +48,33 @@ export default function TrendCard() {
         action: <UCardInfo content="Trends by Category" />,
       }}
     >
-      <CardContent sx={{ padding: 0 }}>
-        <Stack mt={3} px={1.5}>
-          <UHStack justifyContent="space-between">
-            <Stack spacing={1}>
-              <Typography variant="menu" color={theme.color.grey[2200]}>
-                Total
-              </Typography>
-              <Typography variant="h4">2048</Typography>
-            </Stack>
+      <Stack mt={3} px={1.5}>
+        <UHStack justifyContent="space-between">
+          <Stack spacing={1}>
+            <Typography variant="menu" color={theme.color.grey[2200]}>
+              Total
+            </Typography>
+            <Typography variant="h4">2048</Typography>
+          </Stack>
 
-            <Box>
-              <USelect
-                value={selectedCategory}
-                onChange={(e) => setSelectedCategory(String(e.target.value))}
-              >
-                <MenuItem value="">All</MenuItem>
-                {categoryOptions.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </USelect>
-            </Box>
-          </UHStack>
-          <Box width="100%">
-            <TrendBarCharts data={chartData} />
+          <Box>
+            <USelect
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(String(e.target.value))}
+            >
+              <MenuItem value="">All</MenuItem>
+              {categoryOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </USelect>
           </Box>
-        </Stack>
-      </CardContent>
+        </UHStack>
+        <Box width="100%">
+          <TrendBarCharts data={chartData} />
+        </Box>
+      </Stack>
     </UContentCard>
   )
 }
