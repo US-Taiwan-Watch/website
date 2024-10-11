@@ -25,6 +25,7 @@
     "@mui/x-charts": "^7.17.0",
     "accept-language": "^3.0.20",
     "dayjs": "^1.11.13",
+    "dompurify": "^3.1.7",
     "highcharts": "^11.4.8",
     "highcharts-react-official": "^3.2.1",
     "howler": "^2.2.4",
@@ -45,6 +46,7 @@
   "devDependencies": {
     "@next/bundle-analyzer": "^14.2.11",
     "@svgr/webpack": "^8.1.0",
+    "@types/dompurify": "^3.0.5",
     "@types/howler": "^2.2.11",
     "@types/lodash-es": "^4.17.12",
     "@types/node": "^20",
