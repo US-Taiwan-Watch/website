@@ -17,10 +17,10 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
   return (
     <Stack spacing={2}>
       {/** Image */}
-      {opinion.image && (
+      {opinion.thumbnailImage && (
         <Image
-          src={opinion.image}
-          alt={opinion.title ?? ''}
+          src={opinion.thumbnailImage.src}
+          alt={opinion.thumbnailImage.caption || opinion.title || ''}
           width={300}
           height={200}
           layout="responsive"

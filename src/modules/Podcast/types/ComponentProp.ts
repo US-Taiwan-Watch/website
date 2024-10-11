@@ -1,4 +1,4 @@
-interface EpisodeCardCallbackParams {
+export interface EpisodeCardCallbackParams {
   podcastId: string
   episodeId: string
 }
@@ -11,6 +11,5 @@ export interface EpisodeCardProps {
 }
 
 export interface EpisodeCardRef {
-  play: () => void
-  pause: () => void
+  togglePlayPause: () => void
 }

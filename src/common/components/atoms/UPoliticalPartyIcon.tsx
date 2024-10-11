@@ -15,7 +15,7 @@ interface UPoliticalPartyIconProps extends Omit<IconButtonProps, 'color'> {
   customFontStyle?: TypographyProps['sx']
 }
 
-const getMainColor = (
+export const getMainColor = (
   theme: USTWTheme,
   party: UPoliticalPartyIconProps['party']
 ) => {
