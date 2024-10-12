@@ -9,9 +9,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import UHStack from '@/common/components/atoms/UHStack'
 import TrendBarCharts, {
   TrendBarChartData,
@@ -20,6 +18,7 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
+import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 const dataAll: TrendBarChartData[] = [
   { session: 113, count: 15 },
@@ -53,11 +52,7 @@ export default function TrendCard() {
         title: 'Trends by Category',
         icon: <TrendIcon />,
         iconColor: 'primary',
-        action: (
-          <UIconButton variant="rounded" color="inherit" size="small">
-            <ErrorOutlineOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
-          </UIconButton>
-        ),
+        action: <UCardInfo content="Trends by Category" />,
       }}
     >
       <CardContent sx={{ padding: 0 }}>
