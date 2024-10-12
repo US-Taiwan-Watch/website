@@ -43,7 +43,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
   const theme = useTheme<USTWTheme>()
 
   const getMarker = useCallback(
-    (party: string) => {
+    (party: string): Highcharts.PointMarkerOptionsObject => {
       switch (party) {
         case 'Democrat':
           return {
@@ -176,6 +176,11 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
           </div>
         `
         },
+      },
+
+      // hide highcharts logo
+      credits: {
+        enabled: false,
       },
     }
   }, [series])
