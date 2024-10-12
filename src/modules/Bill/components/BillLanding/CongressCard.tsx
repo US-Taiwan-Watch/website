@@ -2,9 +2,7 @@
 
 import { CongressIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Stack, useTheme } from '@mui/material'
-import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import ParliamentChart, {
   ParliamentChartData,
@@ -17,6 +15,7 @@ import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import UButton from '@/common/components/atoms/UButton'
 import { ChamberEnum } from '@/common/enums/Chamber'
+import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 export default function CongressCard() {
   const theme = useTheme<USTWTheme>()
@@ -38,11 +37,7 @@ export default function CongressCard() {
         title: 'Congressional Distribution',
         icon: <CongressIcon />,
         iconColor: 'primary',
-        action: (
-          <UIconButton variant="rounded" color="inherit" size="small">
-            <ErrorOutlineOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
-          </UIconButton>
-        ),
+        action: <UCardInfo content="Congressional Distribution" />,
       }}
     >
       <CardContent sx={{ padding: 0 }}>

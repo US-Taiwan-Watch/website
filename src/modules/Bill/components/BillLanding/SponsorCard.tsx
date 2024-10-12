@@ -2,9 +2,7 @@
 
 import { SponsorIcon } from '@/common/styles/assets/Icons'
 import { CardContent, Stack, Typography, useTheme } from '@mui/material'
-import UIconButton from '@/common/components/atoms/UIconButton'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import ErrorOutlineOutlinedIcon from '@mui/icons-material/ErrorOutlineOutlined'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
 import { BILL_SPONSOR_MOCK } from '@/modules/Bill/data'
@@ -12,6 +10,7 @@ import { People } from '@/modules/People/classes/People'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
+import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -59,8 +58,6 @@ type SponsorCardProps = {
 }
 
 export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
-  const theme = useTheme<USTWTheme>()
-
   return (
     <UContentCard
       withHeader
@@ -69,9 +66,9 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
         icon: <SponsorIcon />,
         iconColor: 'primary',
         action: (
-          <UIconButton variant="rounded" color="inherit" size="small">
-            <ErrorOutlineOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
-          </UIconButton>
+          <UCardInfo
+            content={isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor'}
+          />
         ),
         sx: { borderBottom: 0 },
       }}

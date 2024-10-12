@@ -1,12 +1,11 @@
 import { PeopleCheckIcon } from '@/common/styles/assets/Icons'
 import { Box, CardContent, Stack, Typography, useTheme } from '@mui/material'
-import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import { PieChart, PieChartProps } from '@mui/x-charts'
 import type React from 'react'
 import { useMemo } from 'react'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 // TODO: 確認比例來源
 const MOCK_VOTES_WITH_PARTY_PERCENTAGE = 96.12345
@@ -58,7 +57,6 @@ const PieCenterLabel = function PieCenterLabel({ value }: { value: number }) {
 }
 
 const VotesWithParty = function VotesWithParty() {
-  const theme = useTheme<USTWTheme>()
   const { percentage, data } = useVotesWithPartyPercentage()
   return (
     <UContentCard
@@ -67,11 +65,7 @@ const VotesWithParty = function VotesWithParty() {
         title: 'Votes with Party',
         icon: <PeopleCheckIcon />,
         iconColor: 'secondary',
-        action: (
-          <UIconButton variant="rounded" color="inherit" size="small">
-            <InfoOutlinedIcon sx={{ color: theme.color.grey[1800] }} />
-          </UIconButton>
-        ),
+        action: <UCardInfo content="Votes" />,
       }}
     >
       <CardContent sx={{ padding: 0 }}>
