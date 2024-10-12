@@ -114,10 +114,7 @@ const UContentCard = function UContentCard({
   }
 
   return (
-    <StyledContentCardWithHeader
-      {...rest}
-      overflowHidden={headerIconAction === 'modal'}
-    >
+    <StyledContentCardWithHeader {...rest}>
       <UCardHeader
         {...headerProps}
         action={

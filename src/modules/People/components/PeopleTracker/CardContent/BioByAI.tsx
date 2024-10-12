@@ -12,6 +12,7 @@ const BioByAI = function BioByAI() {
         icon: <StarsIcon />,
         iconColor: 'primary',
       }}
+      overflowHidden
     >
       <Typography component="p">
         Senator Pete Ricketts, a Republican, is the junior senator from

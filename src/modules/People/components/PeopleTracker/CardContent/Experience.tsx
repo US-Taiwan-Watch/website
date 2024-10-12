@@ -219,6 +219,7 @@ const Experience = function Experience({ experience }: ExperienceProps) {
         icon: <BriefcaseIcon />,
         iconColor: 'primary',
       }}
+      overflowHidden
     >
       {experience?.map((exp, index) => (
         <ExperienceRow key={index} experience={exp} />

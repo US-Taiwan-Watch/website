@@ -122,6 +122,7 @@ const Publication = function Publication({
           simplified={false}
         />
       ))}
+      overflowHidden
     >
       {publications.map((publication, index) => (
         <PublicationRow
