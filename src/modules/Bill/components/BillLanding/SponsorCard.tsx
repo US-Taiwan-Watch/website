@@ -10,7 +10,6 @@ import { People } from '@/modules/People/classes/People'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
-import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -60,17 +59,16 @@ type SponsorCardProps = {
 export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
   return (
     <UContentCard
+      headerIconAction="tooltip"
       withHeader
       headerProps={{
         title: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
         icon: <SponsorIcon />,
         iconColor: 'primary',
-        action: (
-          <UCardInfo
-            content={isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor'}
-          />
-        ),
         sx: { borderBottom: 0 },
+      }}
+      tooltipProps={{
+        content: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
       }}
     >
       <Stack spacing={1} pt={2}>

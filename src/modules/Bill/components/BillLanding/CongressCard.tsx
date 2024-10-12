@@ -15,7 +15,6 @@ import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import UButton from '@/common/components/atoms/UButton'
 import { ChamberEnum } from '@/common/enums/Chamber'
-import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 export default function CongressCard() {
   const theme = useTheme<USTWTheme>()
@@ -32,12 +31,15 @@ export default function CongressCard() {
 
   return (
     <UContentCard
+      headerIconAction="tooltip"
       withHeader
       headerProps={{
         title: 'Congressional Distribution',
         icon: <CongressIcon />,
         iconColor: 'primary',
-        action: <UCardInfo content="Congressional Distribution" />,
+      }}
+      tooltipProps={{
+        content: 'Congressional Distribution',
       }}
     >
       <Stack pt={2} alignItems="center">

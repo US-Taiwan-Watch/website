@@ -5,7 +5,6 @@ import { Box } from '@mui/material'
 import UTimeline from '@/common/components/atoms/UTimeline'
 import { billStatusList } from '@/modules/Bill/constants'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 type Props = {
   bill: Bill
@@ -14,12 +13,15 @@ type Props = {
 export default function BillTracker({ bill }: Props) {
   return (
     <UContentCard
+      headerIconAction="tooltip"
       withHeader
       headerProps={{
         title: 'Tracker',
         icon: <TrackerIcon />,
         iconColor: 'primary',
-        action: <UCardInfo content="Tracker" />,
+      }}
+      tooltipProps={{
+        content: 'Tracker',
       }}
     >
       <Box pt={2} px={1}>

@@ -11,7 +11,6 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
-import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 const dataAll: TrendBarChartData[] = [
   { session: 113, count: 15 },
@@ -40,12 +39,15 @@ export default function TrendCard() {
 
   return (
     <UContentCard
+      headerIconAction="tooltip"
       withHeader
       headerProps={{
         title: 'Trends by Category',
         icon: <TrendIcon />,
         iconColor: 'primary',
-        action: <UCardInfo content="Trends by Category" />,
+      }}
+      tooltipProps={{
+        content: 'Trends by Category',
       }}
     >
       <Stack mt={3} px={1.5}>

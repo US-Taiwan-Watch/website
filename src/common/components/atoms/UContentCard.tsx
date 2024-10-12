@@ -17,6 +17,7 @@ import React, { cloneElement } from 'react'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CloseIcon from '@mui/icons-material/Close'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
+import UCardInfo, { UCardInfoProps } from '@/common/components/atoms/UCardInfo'
 
 type HeaderIconAction = 'tooltip' | 'modal'
 
@@ -41,7 +42,8 @@ interface UContentCardProps extends CardProps {
    * 點擊事件
    */
   onActionClick?: () => void
-  /** TODO: 實作 Tooltip 相關參數 */
+  /** Tooltip 相關參數 */
+  tooltipProps?: UCardInfoProps
 }
 
 const StyledContentCard = styled(Card)(({ theme }) => ({
@@ -93,6 +95,7 @@ const UContentCard = function UContentCard({
   modalContent,
   isModal,
   onActionClick,
+  tooltipProps,
   ...rest
 }: UContentCardProps) {
   const theme = useTheme<USTWTheme>()
@@ -119,7 +122,7 @@ const UContentCard = function UContentCard({
         {...headerProps}
         action={
           headerIconAction === 'modal' ? (
-            headerProps?.action && headerProps.action ? (
+            headerProps?.action ? (
               cloneElement(headerProps.action as React.ReactElement, {
                 onClick: handleActionClick,
               })
@@ -137,6 +140,8 @@ const UContentCard = function UContentCard({
                 )}
               </UIconButton>
             )
+          ) : headerIconAction === 'tooltip' && tooltipProps ? (
+            <UCardInfo {...tooltipProps} />
           ) : (
             headerProps?.action
           )
