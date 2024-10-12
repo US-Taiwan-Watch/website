@@ -229,6 +229,10 @@ const color = {
     500: '#787F84',
     600: '#EBDACF',
   },
+  pink: {
+    ...colors.pink,
+    1000: '#D855DC',
+  },
 } as const
 
 interface USTWThemeColor {

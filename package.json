@@ -12,7 +12,8 @@
     "test": "echo \"Mock Test\"",
     "prepare": "husky install .husky",
     "pre-commit-lint": "lint-staged",
-    "i18n": "echo building i18n from content manager"
+    "i18n": "echo building i18n from content manager",
+    "prepare-ideology": "node ./scripts/prepare-ideology.mjs"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.1",
