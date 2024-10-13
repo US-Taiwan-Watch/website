@@ -88,9 +88,7 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Article',
-          // FIXME: 暫時隱藏 opinion 的連結
-          // url: ROUTES.OPINION,
-          url: ROUTES.HOME,
+          url: ROUTES.OPINION,
         },
         {
           type: 'subLink',
@@ -105,9 +103,7 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Articles',
-          // FIXME: 暫時隱藏 opinion 的連結
-          // url: ROUTES.OPINION,
-          url: ROUTES.HOME,
+          url: ROUTES.OPINION,
         },
         {
           type: 'subLink',
