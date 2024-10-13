@@ -1,9 +1,6 @@
 import { BriefcaseIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, Typography, useTheme } from '@mui/material'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import UIconButton from '@/common/components/atoms/UIconButton'
+import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import CloseIcon from '@mui/icons-material/Close'
 import { useMemo } from 'react'
 import {
   type Experience as PeopleExperience,
@@ -16,8 +13,6 @@ import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import UContentCard from '@/common/components/atoms/UContentCard'
-import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
-import useModal from '@/common/hooks/useModal'
 
 /**
  * 計算經歷的時間
@@ -205,14 +200,6 @@ interface ExperienceProps {
    * 人物經歷
    */
   experience: PeopleExperience[]
-  /**
-   * 是否是彈窗
-   */
-  isModal?: boolean
-  /**
-   * 點擊事件
-   */
-  onActionClick?: () => void
 }
 
 /**
@@ -222,71 +209,21 @@ interface ExperienceProps {
  * @param onActionClick 點擊事件
  * @returns 人物經歷元件
  */
-const Experience = function Experience({
-  experience,
-  isModal,
-  onActionClick,
-}: ExperienceProps) {
-  const theme = useTheme<USTWTheme>()
-  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
-
-  const handleActionClick = () => {
-    if (!isModal) {
-      handleOpenModal()
-    } else {
-      onActionClick?.()
-    }
-  }
-
+const Experience = function Experience({ experience }: ExperienceProps) {
   return (
     <UContentCard
+      headerIconAction="modal"
       withHeader
       headerProps={{
         title: 'Experience',
         icon: <BriefcaseIcon />,
         iconColor: 'primary',
-        action: (
-          <UIconButton
-            variant="rounded"
-            color="inherit"
-            size="small"
-            onClick={handleActionClick}
-          >
-            {isModal ? (
-              <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-            ) : (
-              <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
-            )}
-          </UIconButton>
-        ),
       }}
-      sx={{
-        ...(isModal && {
-          padding: 0,
-          border: 'none',
-          borderRadius: 0,
-        }),
-      }}
-      overflowHidden={!isModal}
+      overflowHidden
     >
-      <CardContent
-        sx={{
-          padding: 0,
-        }}
-      >
-        {experience?.map((exp, index) => (
-          <ExperienceRow key={index} experience={exp} />
-        ))}
-      </CardContent>
-      {isModalOpen && (
-        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
-          <Experience
-            isModal
-            onActionClick={handleCloseModal}
-            experience={experience}
-          />
-        </UContentCardDialog>
-      )}
+      {experience?.map((exp, index) => (
+        <ExperienceRow key={index} experience={exp} />
+      ))}
     </UContentCard>
   )
 }

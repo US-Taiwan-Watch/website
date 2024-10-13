@@ -1,11 +1,10 @@
 import { PeopleCheckIcon } from '@/common/styles/assets/Icons'
-import { Box, CardContent, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { PieChart, PieChartProps } from '@mui/x-charts'
 import type React from 'react'
 import { useMemo } from 'react'
 import UContentCard from '@/common/components/atoms/UContentCard'
-import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 // TODO: 確認比例來源
 const MOCK_VOTES_WITH_PARTY_PERCENTAGE = 96.12345
@@ -65,45 +64,42 @@ const VotesWithParty = function VotesWithParty() {
         title: 'Votes with Party',
         icon: <PeopleCheckIcon />,
         iconColor: 'secondary',
-        action: <UCardInfo content="Votes" />,
       }}
     >
-      <CardContent sx={{ padding: 0 }}>
-        <Stack spacing={2} alignItems="center" justifyContent="center">
-          <Box
-            width={220}
-            height={220}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            position="relative"
-          >
-            <PieChart
-              series={[
-                {
-                  data,
-                  innerRadius: 70,
-                  outerRadius: 90,
-                },
-              ]}
-              width={200}
-              height={200}
-              margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-              slotProps={{
-                legend: { hidden: true },
-              }}
-              sx={{
-                overflow: 'visible',
-              }}
-            />
-            <PieCenterLabel value={percentage} />
-          </Box>
-          <Typography variant="subtitleM" fontWeight={400} textAlign="center">
-            This statistical data comes from the records of the current
-            Parliament.
-          </Typography>
-        </Stack>
-      </CardContent>
+      <Stack spacing={2} alignItems="center" justifyContent="center">
+        <Box
+          width={220}
+          height={220}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          position="relative"
+        >
+          <PieChart
+            series={[
+              {
+                data,
+                innerRadius: 70,
+                outerRadius: 90,
+              },
+            ]}
+            width={200}
+            height={200}
+            margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+            slotProps={{
+              legend: { hidden: true },
+            }}
+            sx={{
+              overflow: 'visible',
+            }}
+          />
+          <PieCenterLabel value={percentage} />
+        </Box>
+        <Typography variant="subtitleM" fontWeight={400} textAlign="center">
+          This statistical data comes from the records of the current
+          Parliament.
+        </Typography>
+      </Stack>
     </UContentCard>
   )
 }
