@@ -1,7 +1,7 @@
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import { People } from '@/modules/People/classes/People'
-import { isArray, isString } from 'lodash-es'
+import { isArray, isNumber, isString } from 'lodash-es'
 import { ROUTES } from '@/routes'
 
 export interface BillAction {
@@ -14,12 +14,12 @@ export interface BillAction {
 interface BillArgs {
   id: string
   title: string
-  previousTitles: string[]
   sponsor: People
   cosponsors: People[]
   tags: string[]
   status: BillStatusEnum
   actions: BillAction[]
+  congressNumber: number
 }
 
 export class Bill {
@@ -27,8 +27,6 @@ export class Bill {
   id?: string
   // 法案名稱
   title?: string
-  // 法案名稱歷史
-  previousTitles?: string[] // TODO: 確認 DESC 還是 ASC
   // 提案人
   sponsor?: People
   // 共同提案人
@@ -39,6 +37,8 @@ export class Bill {
   status?: BillStatusEnum
   // 法案動作
   actions?: BillAction[]
+  // 國會屆數
+  congressNumber?: number
 
   constructor(private readonly bill: BillArgs) {
     if (isString(bill.id)) {
@@ -46,9 +46,6 @@ export class Bill {
     }
     if (isString(bill.title)) {
       this.title = bill.title
-    }
-    if (isArray(bill.previousTitles)) {
-      this.previousTitles = bill.previousTitles
     }
     if (bill.sponsor instanceof People) {
       this.sponsor = bill.sponsor
@@ -69,10 +66,29 @@ export class Bill {
         chamber: action.chamber,
       }))
     }
+    if (isNumber(bill.congressNumber)) {
+      this.congressNumber = bill.congressNumber
+    }
   }
 
   get link() {
     return `${ROUTES.BILL}/${this.id}`
+  }
+
+  /**
+   * Get the external link of the bill
+   * @returns The external link
+   * @example 'https://www.congress.gov/bill/118th-congress/house-bill/8281'
+   */
+  get externalLink() {
+    const billType =
+      this.latestAction?.chamber === ChamberEnum.HOUSE
+        ? 'house'
+        : this.latestAction?.chamber === ChamberEnum.SENATE
+          ? 'senate'
+          : ''
+    const billNumber = this.id?.replace(/\D/g, '') // Extract only numbers from the ID
+    return `https://www.congress.gov/bill/${this.congressNumber}th-congress/${billType}-bill/${billNumber}`
   }
 
   get introducedDate() {

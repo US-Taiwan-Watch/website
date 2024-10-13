@@ -6,8 +6,13 @@ import { StarsIcon } from '@/common/styles/assets/Icons'
 import { Typography, useTheme } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import { Bill } from '@/modules/Bill/classes/Bill'
 
-export default function BioByAI() {
+type Props = {
+  bill: Bill
+}
+
+export default function BioByAI({ bill }: Props) {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -18,12 +23,7 @@ export default function BioByAI() {
         icon: <StarsIcon />,
         iconColor: 'primary',
         action: (
-          // TODO: link to the bill
-          <a
-            href="https://www.congress.gov/bill/118th-congress/house-bill/8281/all-actions"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={bill.externalLink} target="_blank" rel="noopener noreferrer">
             <UButton
               endIcon={
                 <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />

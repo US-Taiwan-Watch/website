@@ -24,6 +24,14 @@ import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutl
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
 import { useState } from 'react'
 
+const FAKE_PREVIOUS_TITLES = [
+  'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
+  'Promoting Peace and Stability in the Taiwan Strait Act',
+  'Taiwan Defense and Economic Cooperation Enhancement Act',
+  'Strengthening U.S.-Taiwan Relations and Regional Security Act',
+  'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2022 and Promoting Regional Stability',
+]
+
 const FAKE_DESCRIPTION =
   "The United States says its relations with Taiwan are strong, and China expresses dissatisfaction following Taiwan's presidential election. CNN's Will Ripley and Steven Jiang have the detailsThe United States says its relations with Taiwan are strong, and China expresses dissatisfaction following Taiwan's presidential election. CNN's Will Ripley and Steven Jiang have the details"
 
@@ -126,7 +134,7 @@ export default function TitleVersionDialog({
           <Typography variant="articleH4">
             {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
           </Typography>
-          {bill.previousTitles?.map((title, index) => (
+          {FAKE_PREVIOUS_TITLES.map((title, index) => (
             <TitleRow
               key={index}
               title={title}

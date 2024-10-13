@@ -56,7 +56,7 @@ const BillInfoSection = memo(function BillInfoSection({
 
       {/** Actions */}
       <UHStack spacing={2}>
-        <TitleVersion />
+        <TitleVersion bill={bill} />
         <StyledSubscribeButton
           variant="contained"
           color="primary"
