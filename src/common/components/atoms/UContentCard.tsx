@@ -13,7 +13,7 @@ import {
   CardProps,
   useTheme,
 } from '@mui/material'
-import React, { cloneElement } from 'react'
+import React, { cloneElement, useCallback, useMemo } from 'react'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CloseIcon from '@mui/icons-material/Close'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
@@ -101,13 +101,49 @@ const UContentCard = function UContentCard({
   const theme = useTheme<USTWTheme>()
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
 
-  const handleActionClick = () => {
+  const handleActionClick = useCallback(() => {
     if (!isModal) {
       handleOpenModal()
     } else {
       onActionClick?.()
     }
-  }
+  }, [isModal, handleOpenModal, onActionClick])
+
+  const action = useMemo(() => {
+    if (headerIconAction === 'modal') {
+      if (headerProps?.action) {
+        return cloneElement(headerProps.action as React.ReactElement, {
+          onClick: handleActionClick,
+        })
+      } else {
+        return (
+          <UIconButton
+            variant="rounded"
+            color="inherit"
+            size="small"
+            onClick={handleActionClick}
+          >
+            {isModal ? (
+              <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+            ) : (
+              <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
+            )}
+          </UIconButton>
+        )
+      }
+    } else if (headerIconAction === 'tooltip' && tooltipProps) {
+      return <UCardInfo {...tooltipProps} />
+    } else {
+      return headerProps?.action
+    }
+  }, [
+    theme,
+    headerIconAction,
+    isModal,
+    headerProps?.action,
+    tooltipProps,
+    handleActionClick,
+  ])
 
   if (!withHeader) {
     return <StyledContentCard {...rest}>{children}</StyledContentCard>
@@ -115,35 +151,7 @@ const UContentCard = function UContentCard({
 
   return (
     <StyledContentCardWithHeader {...rest}>
-      <UCardHeader
-        {...headerProps}
-        action={
-          headerIconAction === 'modal' ? (
-            headerProps?.action ? (
-              cloneElement(headerProps.action as React.ReactElement, {
-                onClick: handleActionClick,
-              })
-            ) : (
-              <UIconButton
-                variant="rounded"
-                color="inherit"
-                size="small"
-                onClick={handleActionClick}
-              >
-                {isModal ? (
-                  <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-                ) : (
-                  <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
-                )}
-              </UIconButton>
-            )
-          ) : headerIconAction === 'tooltip' && tooltipProps ? (
-            <UCardInfo {...tooltipProps} />
-          ) : (
-            headerProps?.action
-          )
-        }
-      />
+      <UCardHeader {...headerProps} action={action} />
       <CardContent
         sx={{
           padding: 0,
