@@ -5,8 +5,10 @@ import { Language } from '@/common/lib/i18n/types'
 import {
   createUSTWTheme,
   CreateUSTWThemeOverride,
+  globalStyles,
 } from '@/common/lib/mui/theme'
 import type React from 'react'
+import { GlobalStyles } from '@mui/material'
 
 const ThemeProvider = ({
   lang,
@@ -19,6 +21,7 @@ const ThemeProvider = ({
 }) => {
   return (
     <MuiThemeProvider theme={createUSTWTheme('light', lang, override)}>
+      <GlobalStyles styles={globalStyles} />
       {children}
     </MuiThemeProvider>
   )

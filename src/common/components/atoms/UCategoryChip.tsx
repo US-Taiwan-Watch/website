@@ -21,58 +21,42 @@ const getChipHeight = (size: UCategoryChipProps['size']) => {
   }
 }
 
-const getAvatarSize = (
-  size: UCategoryChipProps['size'] = 'small',
-  active?: boolean
-) => {
+const getAvatarSize = (size: UCategoryChipProps['size'] = 'small') => {
   switch (size) {
     case 'small':
       return {
-        width: 32 * (active ? 2 : 1),
+        width: 32,
         height: 32,
       }
     case 'medium':
       return {
-        width: 40 * (active ? 2 : 1),
+        width: 40,
         height: 40,
       }
   }
 }
 
-const StyledChip = styled(Chip)<UCategoryChipProps>(
-  ({ theme, size, active }) => ({
-    position: 'relative',
-    backgroundColor: theme.palette.common.white,
-    height: getChipHeight(size),
-    borderRadius: '100px',
-    '& .MuiChip-avatar': {
-      marginLeft: '0 !important',
-      ...getAvatarSize(size, active),
-    },
-    '& .MuiChip-label': {
-      padding: `0px ${theme.spacing(1.5)}`,
-      fontWeight: 500,
-    },
-    '&:hover': {
-      backgroundColor: theme.palette.common.white,
-      '&::before': {
-        content: '""',
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.5)',
-        borderRadius: 'inherit',
-        zIndex: 1,
-      },
-      cursor: 'pointer',
-    },
-    '&.active': {
-      backgroundColor: theme.palette.primary.main,
-    },
-  })
-) as ComponentType<UCategoryChipProps>
+const StyledChip = styled(Chip)<UCategoryChipProps>(({ theme, size }) => ({
+  position: 'relative',
+  backgroundColor: theme.palette.common.white,
+  height: getChipHeight(size),
+  borderRadius: '100px',
+  '& .MuiChip-avatar': {
+    marginLeft: '0 !important',
+    ...getAvatarSize(size),
+  },
+  '& .MuiChip-label': {
+    padding: `0px ${theme.spacing(1.5)}`,
+    fontWeight: 500,
+  },
+  '&:hover': {
+    backgroundColor: theme.palette.primary.main,
+    cursor: 'pointer',
+  },
+  '&.active': {
+    backgroundColor: theme.palette.primary.main,
+  },
+})) as ComponentType<UCategoryChipProps>
 
 const StyledAvatar = styled(Avatar)(() => ({
   borderRadius: '100px',
@@ -95,11 +79,7 @@ const UCategoryChip = ({
       avatar={
         img ? (
           <StyledAvatar>
-            <Image
-              src={img}
-              alt={props.label || ''}
-              {...getAvatarSize(size, active)}
-            />
+            <Image src={img} alt={props.label || ''} {...getAvatarSize(size)} />
           </StyledAvatar>
         ) : undefined
       }

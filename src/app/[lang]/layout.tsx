@@ -7,7 +7,6 @@ import ThemeProvider from '@/common/lib/mui/themeProvider'
 import Header from '@/common/components/elements/Header'
 import { Container } from '@mui/material'
 import Footer from '@/common/components/elements/Footer'
-import './global.css'
 import ScreenSizeHandler from '@/common/components/elements/UnsupportedScreenSize/ScreenSizeHandler'
 
 export const metadata: Metadata = {

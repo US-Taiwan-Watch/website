@@ -73,6 +73,7 @@ const SearchBar = ({ resultParentEl, onClickAway }: SearchBarProps) => {
               </StyledIcon>
             }
             onChange={handleSearchQueryChange}
+            autoFocus
           />
           <StyledButton
             variant="contained"
