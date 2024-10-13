@@ -12,29 +12,35 @@ export default function BioByAI() {
 
   return (
     <UContentCard
-      headerIconAction="modal"
       withHeader
       headerProps={{
         title: 'Summary From AI',
         icon: <StarsIcon />,
         iconColor: 'primary',
         action: (
-          <UButton
-            endIcon={
-              <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
-            }
-            color="info"
-            variant="outlined"
-            size="small"
-            sx={{
-              py: 0.5,
-              px: 1,
-              borderRadius: '9px',
-              border: `1.5px solid ${theme.color.grey[1400]}`,
-            }}
+          // TODO: link to the bill
+          <a
+            href="https://www.congress.gov/bill/118th-congress/house-bill/8281/all-actions"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <Typography variant="buttonXS">Full Text</Typography>
-          </UButton>
+            <UButton
+              endIcon={
+                <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
+              }
+              color="info"
+              variant="outlined"
+              size="small"
+              sx={{
+                py: 0.5,
+                px: 1,
+                borderRadius: '9px',
+                border: `1.5px solid ${theme.color.grey[1400]}`,
+              }}
+            >
+              <Typography variant="buttonXS">Full Text</Typography>
+            </UButton>
+          </a>
         ),
       }}
     >
