@@ -22,7 +22,6 @@ const OpinionPost = function OpinionPost({ opinionData }: OpinionPostProps) {
   return (
     <Stack gap={4} marginTop={10}>
       <Stack gap={4}>
-        {/** Fixed 放這邊是為了讓他與 Header 切齊，也就是上一層 Container */}
         <OpinionFixed />
         {/** Header Section */}
         <OpinionPostHeader
