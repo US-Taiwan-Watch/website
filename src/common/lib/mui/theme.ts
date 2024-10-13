@@ -366,6 +366,9 @@ const _lightTheme: USTWThemeOptions = {
   },
   components: {
     MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: {
           boxShadow: 'none',
@@ -417,6 +420,9 @@ const _ketagalanTheme: USTWThemeOptions = {
   },
   components: {
     MuiButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
       styleOverrides: {
         root: {
           boxShadow: 'none',
