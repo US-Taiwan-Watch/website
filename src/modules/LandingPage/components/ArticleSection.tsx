@@ -38,8 +38,7 @@ const ArticleSection = () => {
         paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
       }}
     >
-      {/** FIXME: 暫時隱藏 opinion 的連結 */}
-      <SectionTitleWithLink title="Articles" link={ROUTES.HOME} />
+      <SectionTitleWithLink title="Articles" link={ROUTES.OPINION} />
       <Stack gap={5}>
         <UHStack gap={2}>
           {homeCategories.map((category) => (

@@ -1,3 +1,4 @@
+import { ROUTES } from '@/routes'
 import { isString } from 'lodash-es'
 
 export interface OpinionCategoryArgs {
@@ -24,8 +25,6 @@ export default class OpinionCategory {
   }
 
   get link() {
-    // FIXME: 暫時隱藏 opinion 的連結
-    // return `${ROUTES.OPINION}/search/${this.id}`
-    return '#'
+    return `${ROUTES.OPINION}/search/${this.id}`
   }
 }

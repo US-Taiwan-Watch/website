@@ -5,6 +5,7 @@ import {
 import OpinionCategory, {
   OpinionCategoryArgs,
 } from '@/modules/Opinion/classes/OpinionCategory'
+import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
 import { isArray, isObject, isString } from 'lodash-es'
 
@@ -105,8 +106,6 @@ export class Opinion {
   }
 
   get link() {
-    // FIXME: 暫時隱藏 opinion 的連結
-    // return `${ROUTES.OPINION}/${this.id}`
-    return '#'
+    return `${ROUTES.OPINION}/${this.id}`
   }
 }

@@ -22,7 +22,7 @@ const BillContentSection = memo(function BillContentSection({
       <Grid container spacing={2}>
         {/** Row 1 */}
         <Grid size={8.5}>
-          <BioByAI />
+          <BioByAI bill={bill} />
         </Grid>
 
         <Grid size={3.5}>
