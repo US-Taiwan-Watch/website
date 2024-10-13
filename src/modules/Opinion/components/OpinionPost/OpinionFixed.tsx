@@ -23,7 +23,7 @@ const OpinionFixed = () => {
         sx={{
           position: 'absolute',
           top: 0,
-          // hard code 因為要吃掉 opinion post container 的 paddin，使他與 header 對齊
+          // hard code 因為要吃掉 container 的 padding，使他與 header 對齊
           right: theme.spacing(-3),
           backgroundColor: 'white',
           borderRadius: '30px',
