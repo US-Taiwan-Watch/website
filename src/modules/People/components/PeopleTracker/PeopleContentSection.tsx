@@ -6,7 +6,6 @@ import IdeologyLeadershipChart from '@/modules/People/components/PeopleTracker/C
 import NumberLink from '@/modules/People/components/PeopleTracker/CardContent/NumberLink'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
 import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
-import VotesWithParty from '@/modules/People/components/PeopleTracker/CardContent/VotesWithParty'
 import { Box, Grid2 as Grid, useTheme } from '@mui/material'
 import { memo } from 'react'
 
@@ -51,11 +50,6 @@ const PeopleContentSection = memo(function PeopleContentSection({
 
         <Grid size={5}>
           <Experience experience={people.experience ?? []} />
-        </Grid>
-
-        {/** Row 2 */}
-        <Grid size={3}>
-          <VotesWithParty />
         </Grid>
 
         <Grid size={4.5}>

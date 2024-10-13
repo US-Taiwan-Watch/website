@@ -6,7 +6,6 @@ import { VersionIcon } from '@/common/styles/assets/Icons'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import {
-  CardContent,
   Collapse,
   Stack,
   StackProps,
@@ -111,28 +110,26 @@ export default function TitleVersionDialog({
           borderRadius: 0,
         }}
       >
-        <CardContent>
-          <Stack
-            pt={2}
-            sx={{
-              '& > *': {
-                padding: theme.spacing(2.5, 6),
-              },
-            }}
-          >
-            <Typography variant="articleH4">
-              {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
-            </Typography>
-            {bill.previousTitles?.map((title, index) => (
-              <TitleRow
-                key={index}
-                title={title}
-                // TODO: 待釐清設計稿中的文字意涵，暫以假文案代之
-                description={FAKE_DESCRIPTION}
-              />
-            ))}
-          </Stack>
-        </CardContent>
+        <Stack
+          pt={2}
+          sx={{
+            '& > *': {
+              padding: theme.spacing(2.5, 6),
+            },
+          }}
+        >
+          <Typography variant="articleH4">
+            {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
+          </Typography>
+          {bill.previousTitles?.map((title, index) => (
+            <TitleRow
+              key={index}
+              title={title}
+              // TODO: 待釐清設計稿中的文字意涵，暫以假文案代之
+              description={FAKE_DESCRIPTION}
+            />
+          ))}
+        </Stack>
       </UContentCard>
     </UContentCardDialog>
   )

@@ -1,12 +1,7 @@
 import { DocumentIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, Typography, useTheme } from '@mui/material'
-import UIconButton from '@/common/components/atoms/UIconButton'
+import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import CloseIcon from '@mui/icons-material/Close'
 import UContentCard from '@/common/components/atoms/UContentCard'
-import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
-import useModal from '@/common/hooks/useModal'
 
 type PublicationArg = {
   title: string
@@ -100,14 +95,6 @@ interface PublicationProps {
    * 出版品
    */
   publications?: Array<PublicationArg>
-  /**
-   * 是否是彈窗
-   */
-  isModal?: boolean
-  /**
-   * 點擊事件
-   */
-  onActionClick?: () => void
 }
 
 /**
@@ -118,73 +105,32 @@ interface PublicationProps {
  */
 const Publication = function Publication({
   publications = MOCK_PUBLICATIONS,
-  isModal,
-  onActionClick,
 }: PublicationProps) {
-  const theme = useTheme<USTWTheme>()
-  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
-
-  const handleActionClick = () => {
-    if (!isModal) {
-      handleOpenModal()
-    } else {
-      onActionClick?.()
-    }
-  }
-
   return (
     <UContentCard
+      headerIconAction="modal"
       withHeader
       headerProps={{
         title: 'Publication',
         icon: <DocumentIcon />,
         iconColor: 'primary',
-        action: (
-          <UIconButton
-            variant="rounded"
-            color="inherit"
-            size="small"
-            onClick={handleActionClick}
-          >
-            {isModal ? (
-              <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-            ) : (
-              <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
-            )}
-          </UIconButton>
-        ),
       }}
-      sx={{
-        ...(isModal && {
-          padding: 0,
-          border: 'none',
-          borderRadius: 0,
-        }),
-      }}
-      overflowHidden={!isModal}
+      modalContent={publications.map((publication, index) => (
+        <PublicationRow
+          key={index}
+          publication={publication}
+          simplified={false}
+        />
+      ))}
+      overflowHidden
     >
-      <CardContent
-        sx={{
-          padding: 0,
-        }}
-      >
-        {publications.map((publication, index) => (
-          <PublicationRow
-            key={index}
-            publication={publication}
-            simplified={!isModal}
-          />
-        ))}
-      </CardContent>
-      {isModalOpen && (
-        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
-          <Publication
-            isModal
-            onActionClick={handleCloseModal}
-            publications={publications}
-          />
-        </UContentCardDialog>
-      )}
+      {publications.map((publication, index) => (
+        <PublicationRow
+          key={index}
+          publication={publication}
+          simplified={true}
+        />
+      ))}
     </UContentCard>
   )
 }

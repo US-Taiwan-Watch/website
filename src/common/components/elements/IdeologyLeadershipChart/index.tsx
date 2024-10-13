@@ -4,7 +4,7 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import { useTheme } from '@mui/material'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
-import { memo, useCallback, useMemo } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 
 type IdeologyLeadershipDataItem = {
   ID: string

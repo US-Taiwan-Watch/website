@@ -1,7 +1,7 @@
 'use client'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { ActionsIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -43,33 +43,31 @@ export default function BillActions({ bill }: Props) {
           ),
         }}
       >
-        <CardContent>
-          <Stack pt={2}>
-            <UHStack alignItems="center" justifyContent="space-between" mb={2}>
-              <UCategoryTag
-                value={bill.latestAction?.chamber}
-                containerProps={{
-                  sx: {
-                    backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
-                  },
-                }}
-                textProps={{
-                  variant: 'buttonS',
-                }}
-              />
+        <Stack pt={2}>
+          <UHStack alignItems="center" justifyContent="space-between" mb={2}>
+            <UCategoryTag
+              value={bill.latestAction?.chamber}
+              containerProps={{
+                sx: {
+                  backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
+                },
+              }}
+              textProps={{
+                variant: 'buttonS',
+              }}
+            />
 
-              <Typography variant="buttonXS">
-                {dayjs(bill.latestAction?.date).isValid()
-                  ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
-                  : ''}
-              </Typography>
-            </UHStack>
+            <Typography variant="buttonXS">
+              {dayjs(bill.latestAction?.date).isValid()
+                ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
+                : ''}
+            </Typography>
+          </UHStack>
 
-            <UHeightLimitedText maxLine={4} variant="body">
-              {bill.latestAction?.description}
-            </UHeightLimitedText>
-          </Stack>
-        </CardContent>
+          <UHeightLimitedText maxLine={4} variant="body">
+            {bill.latestAction?.description}
+          </UHeightLimitedText>
+        </Stack>
       </UContentCard>
 
       <ActionsDialog

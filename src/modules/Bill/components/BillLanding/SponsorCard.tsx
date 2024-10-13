@@ -1,7 +1,7 @@
 'use client'
 
 import { SponsorIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
@@ -10,7 +10,6 @@ import { People } from '@/modules/People/classes/People'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
-import UCardInfo from '@/common/components/atoms/UCardInfo'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -60,26 +59,23 @@ type SponsorCardProps = {
 export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
   return (
     <UContentCard
+      headerIconAction="tooltip"
       withHeader
       headerProps={{
         title: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
         icon: <SponsorIcon />,
         iconColor: 'primary',
-        action: (
-          <UCardInfo
-            content={isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor'}
-          />
-        ),
         sx: { borderBottom: 0 },
       }}
+      tooltipProps={{
+        content: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
+      }}
     >
-      <CardContent sx={{ padding: 0 }}>
-        <Stack spacing={1} pt={2}>
-          {BILL_SPONSOR_MOCK.map((sponsor, index) => (
-            <SponsorRow key={index} sponsor={sponsor} />
-          ))}
-        </Stack>
-      </CardContent>
+      <Stack spacing={1} pt={2}>
+        {BILL_SPONSOR_MOCK.map((sponsor, index) => (
+          <SponsorRow key={index} sponsor={sponsor} />
+        ))}
+      </Stack>
     </UContentCard>
   )
 }
