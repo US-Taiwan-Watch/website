@@ -365,10 +365,12 @@ const _lightTheme: USTWThemeOptions = {
     },
   },
   components: {
-    MuiButton: {
+    MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
       },
+    },
+    MuiButton: {
       styleOverrides: {
         root: {
           boxShadow: 'none',
@@ -419,10 +421,12 @@ const _ketagalanTheme: USTWThemeOptions = {
     },
   },
   components: {
-    MuiButton: {
+    MuiButtonBase: {
       defaultProps: {
         disableRipple: true,
       },
+    },
+    MuiButton: {
       styleOverrides: {
         root: {
           boxShadow: 'none',
@@ -535,3 +539,21 @@ export const createUSTWTheme = (
   }
 }
 export const styled = muiStyled as CreateMUIStyled<USTWTheme>
+
+/** Global Styles */
+export const globalStyles = {
+  body: {
+    overflowX: 'hidden',
+  },
+  a: {
+    textDecoration: 'none',
+    color: 'inherit',
+  },
+  '.scroll-hidden': {
+    '-ms-overflow-style': 'none',
+    'scrollbar-width': 'none',
+    '&::-webkit-scrollbar': {
+      display: 'none',
+    },
+  },
+}

@@ -89,7 +89,7 @@ const PeopleCard = memo(function PeopleCard({
                   {people.description}
                 </StyledPeopleCardDescription>
               )}
-              <Stack direction="row" gap={2} overflow="scroll">
+              <Stack className="scroll-hidden" direction="row" gap={2}>
                 {/** 只限制四個 */}
                 {people.tags
                   ?.slice(0, 4)
