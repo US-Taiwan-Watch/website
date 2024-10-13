@@ -14,6 +14,7 @@ const StyledCarouselContainer = styled(Stack)(() => ({
   width: '100%',
   '& .slick-slider': {
     width: '100%',
+    userSelect: 'text',
   },
 }))
 
@@ -118,3 +119,16 @@ function Carousel({
 }
 
 export default Carousel
+
+export const withSelectable = <T extends object>(
+  Component: React.ComponentType<T>
+) => {
+  return function WithSelectable(props: T) {
+    return (
+      <Component
+        {...props}
+        onMouseDown={(e: React.MouseEvent) => e.stopPropagation()}
+      />
+    )
+  }
+}
