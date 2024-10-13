@@ -8,6 +8,7 @@ import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import withSelectable from '@/common/hooks/withSelectable'
 
 const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -31,6 +32,7 @@ const StyledLeftSection = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(2, 0),
   height: '100%',
 }))
+const StyledLeftSectionWithSelectable = withSelectable(StyledLeftSection)
 
 const StyledMiddleSection = styled(Stack)(({ theme }) => ({
   margin: theme.spacing(4, 0),
@@ -62,9 +64,9 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
 }: OpinionLandingBannerCardProps) {
   return (
     <StyledOpinionLandingBannerCardContainer>
-      <Grid container spacing={2}>
+      <Grid container spacing={6}>
         <Grid size={5}>
-          <StyledLeftSection direction="column" spacing={4}>
+          <StyledLeftSectionWithSelectable direction="column" spacing={4}>
             {/** Tags */}
             <Stack direction="row" spacing={1}>
               {opinion.categories?.map((category) => (
@@ -103,7 +105,7 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
                 Learn More
               </UButton>
             </Link>
-          </StyledLeftSection>
+          </StyledLeftSectionWithSelectable>
         </Grid>
 
         <Grid size={7}>
