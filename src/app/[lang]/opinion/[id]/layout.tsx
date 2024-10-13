@@ -4,7 +4,6 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import { Container, CssBaseline } from '@mui/material'
-// import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
 
 export const metadata: Metadata = {
   title: 'Opinion Post',
