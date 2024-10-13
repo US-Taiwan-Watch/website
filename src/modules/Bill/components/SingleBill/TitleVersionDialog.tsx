@@ -1,3 +1,8 @@
+/**
+ * 2024/10/13 Design change: No need to display Title Version Dialog, directly link to Congress website instead
+ * Component temporarily retained in case it needs to be added back in the future
+ */
+
 'use client'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'

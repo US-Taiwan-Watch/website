@@ -3,9 +3,6 @@
 import UButton from '@/common/components/atoms/UButton'
 import { styled } from '@/common/lib/mui/theme'
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
-import { Bill } from '@/modules/Bill/classes/Bill'
-import TitleVersionDialog from '@/modules/Bill/components/SingleBill/TitleVersionDialog'
-import useModal from '@/common/hooks/useModal'
 
 const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
@@ -16,31 +13,21 @@ const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   },
 }))
 
-type Props = {
-  bill: Bill
-}
-
-export default function TitleVersion({ bill }: Props) {
-  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
-
+export default function TitleVersion() {
   return (
-    <>
+    // TODO: link to the bill
+    <a
+      href="https://www.congress.gov/bill/118th-congress/house-bill/8281/all-actions"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <StyledTitleVersionButton
         variant="contained"
         startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}
         rounded
-        onClick={handleOpenModal}
       >
         Title Version
       </StyledTitleVersionButton>
-
-      {isModalOpen && (
-        <TitleVersionDialog
-          bill={bill}
-          isModalOpen={isModalOpen}
-          handleCloseModal={handleCloseModal}
-        />
-      )}
-    </>
+    </a>
   )
 }
