@@ -7,7 +7,7 @@ import { styled } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { withSelectable } from '@/common/components/elements/Carousel'
+import withSelectable from '@/common/hooks/withSelectable'
 
 const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
