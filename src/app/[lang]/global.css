@@ -2,6 +2,10 @@
  * 全域樣式
  */
 
+body {
+  overflow-x: hidden;
+}
+
 /** 移除 user agent 樣式 */
 a {
   text-decoration: none;

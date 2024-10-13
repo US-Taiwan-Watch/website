@@ -14,6 +14,7 @@ import SearchBar from '@/modules/Search/components/SearchBar'
 import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
 import { ROUTES } from '@/routes'
 import { useRouter } from 'next/navigation'
+import useFreezeScreen from '@/common/hooks/useFreezeScreen'
 
 interface HeaderProps {
   className?: string
@@ -128,6 +129,7 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
 }))
 
 const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
+  const { freezeScreen, unfreezeScreen } = useFreezeScreen()
   const router = useRouter()
   const { navItems } = useNavItems()
   const [menuOpenNavItem, setMenuOpenNavItem] = useState<HeaderNavItem | null>(
@@ -144,10 +146,14 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
   ) => {
     setNavItemAnchorEl(event.currentTarget)
     setMenuOpenNavItem(item)
+
+    freezeScreen()
   }
   const handleNavMenuClose = () => {
     setNavItemAnchorEl(null)
     setMenuOpenNavItem(null)
+
+    unfreezeScreen()
   }
 
   const headerRef = useRef<HTMLHeadElement>(null)
@@ -236,6 +242,11 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
                       vertical: 'bottom',
                       horizontal: 'center',
                     }}
+                    /**
+                     * 避免 menu 被 header 遮擋，做出 header 與 menu 重疊的效果
+                     * 但同時會導致 menu 的 overlay 不為 body 的 第一層 children
+                     * 因此需要將 body 固定
+                     */
                     container={headerRef.current}
                   >
                     {menuOpenNavItem?.list.map((subItem) => (

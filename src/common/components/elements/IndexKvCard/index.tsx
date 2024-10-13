@@ -1,15 +1,15 @@
 'use client'
 
-import { memo } from 'react'
-import { Box, Stack, Typography } from '@mui/material'
+import { ComponentProps, memo } from 'react'
+import { Box, Stack, StackProps, Typography } from '@mui/material'
 import Image from 'next/image'
 import { styled } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import withSelectable from '@/common/hooks/withSelectable'
 
 const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
-  width: '100%',
   backgroundColor: theme.palette.primary.main,
   padding: theme.spacing(2, 2, 2, 4),
   borderRadius: '30px',
@@ -31,6 +31,8 @@ const StyledImage = styled(Image)(() => ({
 const StyledLeftSection = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(2, 0),
 }))
+const StyledLeftSectionWithSelectable =
+  withSelectable<StackProps>(StyledLeftSection)
 
 const StyledMiddleSection = styled(Stack)(({ theme }) => ({
   margin: theme.spacing(4, 0),
@@ -54,6 +56,7 @@ const StyledDescriptionTypography = styled(Typography)(() => ({
 
 // TODO: 確認類型
 interface IndexKvCardProps {
+  containerSx?: ComponentProps<typeof StyledIndexKvCardContainer>['sx']
   tags: Array<string>
   title: string
   description: string
@@ -63,9 +66,9 @@ interface IndexKvCardProps {
 
 const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
   return (
-    <StyledIndexKvCardContainer>
+    <StyledIndexKvCardContainer sx={props.containerSx}>
       <Stack direction="row" spacing={8}>
-        <StyledLeftSection direction="column" spacing={4}>
+        <StyledLeftSectionWithSelectable direction="column" spacing={4}>
           {/** Tags */}
           <Stack direction="row" spacing={1}>
             {props.tags.map((tag, index) => (
@@ -86,7 +89,7 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
           </StyledMiddleSection>
 
           {/** Learn More Button */}
-          <Link href={props.href}>
+          <Link href={props.href} style={{ width: 'fit-content' }}>
             <UButton
               variant="contained"
               color="info"
@@ -97,7 +100,7 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
               Learn More
             </UButton>
           </Link>
-        </StyledLeftSection>
+        </StyledLeftSectionWithSelectable>
         <StyledImage
           src={props.image}
           alt={props.title}

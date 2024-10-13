@@ -14,6 +14,7 @@ const StyledCarouselContainer = styled(Stack)(() => ({
   width: '100%',
   '& .slick-slider': {
     width: '100%',
+    userSelect: 'text',
   },
 }))
 
