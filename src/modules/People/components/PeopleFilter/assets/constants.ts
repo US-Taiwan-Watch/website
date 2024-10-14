@@ -1,0 +1,2 @@
+export const CONGRESS_SESSION_MIN = 96
+export const CURRENT_CONGRESS_SESSION = 118
