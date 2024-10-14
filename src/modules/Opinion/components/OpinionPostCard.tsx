@@ -1,8 +1,9 @@
 import UButton from '@/common/components/atoms/UButton'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
-import { Skeleton, Stack, Typography, useTheme } from '@mui/material'
+import { Skeleton, Stack, useTheme } from '@mui/material'
 import Image from 'next/image'
 import Link from 'next/link'
 import { memo } from 'react'
@@ -51,33 +52,19 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
           ))}
         </UHStack>
         {/** Title */}
-        <Typography
-          variant="subtitleM"
-          fontWeight={700}
-          sx={{
-            display: '-webkit-box',
-            WebkitLineClamp: 1,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }}
-        >
+        <UHeightLimitedText variant="subtitleM" fontWeight={700} maxLine={1}>
           {opinion.title}
-        </Typography>
+        </UHeightLimitedText>
         {/** Description */}
-        <Typography
+        <UHeightLimitedText
           variant="bodyS"
+          maxLine={4}
           sx={{
             color: theme.color.grey[1500],
-            display: '-webkit-box',
-            WebkitLineClamp: 4,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
           }}
         >
           {opinion.description}
-        </Typography>
+        </UHeightLimitedText>
       </Stack>
     </Link>
   )

@@ -9,6 +9,7 @@ import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import withSelectable from '@/common/hooks/withSelectable'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -36,22 +37,6 @@ const StyledLeftSectionWithSelectable = withSelectable(StyledLeftSection)
 
 const StyledMiddleSection = styled(Stack)(({ theme }) => ({
   margin: theme.spacing(4, 0),
-}))
-
-const StyledTitleTypography = styled(Typography)(() => ({
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}))
-
-const StyledDescriptionTypography = styled(Typography)(() => ({
-  display: '-webkit-box',
-  WebkitLineClamp: 4,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
 // TODO: 確認類型
@@ -82,12 +67,12 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
 
             {/** Middle Section */}
             <StyledMiddleSection direction="column" spacing={2} flex={1}>
-              <StyledTitleTypography variant="h3" fontWeight={500}>
+              <UHeightLimitedText maxLine={2} variant="h3" fontWeight={500}>
                 {opinion.title}
-              </StyledTitleTypography>
-              <StyledDescriptionTypography variant="body1" fontWeight={500}>
+              </UHeightLimitedText>
+              <UHeightLimitedText maxLine={4} variant="body1">
                 {opinion.description}
-              </StyledDescriptionTypography>
+              </UHeightLimitedText>
             </StyledMiddleSection>
 
             {/** Learn More Button */}

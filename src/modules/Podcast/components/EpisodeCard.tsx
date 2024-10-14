@@ -20,6 +20,7 @@ import {
   NorthEastIcon,
 } from '@/common/styles/assets/Icons'
 import Link from 'next/link'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const StyledEpisodeCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
@@ -34,13 +35,8 @@ const StyledCoverImage = styled(Image)(() => ({
   objectFit: 'cover',
 }))
 
-const StyledTitle = styled(Typography)(() => ({
+const StyledTitle = styled(UHeightLimitedText)(() => ({
   fontWeight: 700,
-  display: '-webkit-box',
-  WebkitLineClamp: 1,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
 const StyledDate = styled(Typography)(({ theme }) => ({
@@ -48,13 +44,8 @@ const StyledDate = styled(Typography)(({ theme }) => ({
   color: theme.color.neutral[500],
 }))
 
-const StyledDescription = styled(Typography)(() => ({
+const StyledDescription = styled(UHeightLimitedText)(() => ({
   fontWeight: 500,
-  display: '-webkit-box',
-  WebkitLineClamp: 3,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
 const StyledControlBarContainer = styled(Grid)(({ theme }) => ({
@@ -160,6 +151,7 @@ const EpisodeCard = memo(
                     gutterBottom
                     flex={1}
                     marginBottom={0}
+                    maxLine={1}
                   >
                     {episode.title}
                   </StyledTitle>
@@ -167,7 +159,7 @@ const EpisodeCard = memo(
                     {episode.formattedPublishDate}
                   </StyledDate>
                 </Stack>
-                <StyledDescription variant="body1">
+                <StyledDescription variant="body1" maxLine={3}>
                   {episode.description}
                 </StyledDescription>
               </Stack>
