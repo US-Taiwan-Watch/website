@@ -8,6 +8,7 @@ import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import withSelectable from '@/common/hooks/withSelectable'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -38,22 +39,6 @@ const StyledMiddleSection = styled(Stack)(({ theme }) => ({
   margin: theme.spacing(4, 0),
 }))
 
-const StyledTitleTypography = styled(Typography)(() => ({
-  display: '-webkit-box',
-  WebkitLineClamp: 3,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}))
-
-const StyledDescriptionTypography = styled(Typography)(() => ({
-  display: '-webkit-box',
-  WebkitLineClamp: 5,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
-}))
-
 // TODO: 確認類型
 interface IndexKvCardProps {
   containerSx?: ComponentProps<typeof StyledIndexKvCardContainer>['sx']
@@ -80,12 +65,12 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
 
           {/** Middle Section */}
           <StyledMiddleSection direction="column" spacing={2} flex={1}>
-            <StyledTitleTypography variant="h3" fontWeight={500}>
+            <UHeightLimitedText maxLine={3} variant="h3" fontWeight={500}>
               {props.title}
-            </StyledTitleTypography>
-            <StyledDescriptionTypography variant="body1">
+            </UHeightLimitedText>
+            <UHeightLimitedText maxLine={5} variant="body1">
               {props.description}
-            </StyledDescriptionTypography>
+            </UHeightLimitedText>
           </StyledMiddleSection>
 
           {/** Learn More Button */}

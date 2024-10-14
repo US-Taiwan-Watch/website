@@ -10,6 +10,7 @@ import OpinionPostHeader from '@/modules/Opinion/components/OpinionPost/OpinionP
 import OpinionPostRelatedPosts from '@/modules/Opinion/components/OpinionPost/OpinionPostRelatedPosts'
 import { Container, Stack } from '@mui/material'
 import { Opinion, OpinionArgs } from '@/modules/Opinion/classes/Opinion'
+import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
 
 interface OpinionPostProps {
   opinionData: OpinionArgs
@@ -20,37 +21,40 @@ const OpinionPost = function OpinionPost({ opinionData }: OpinionPostProps) {
 
   return (
     <Stack gap={4} marginTop={10}>
-      {/** Header Section */}
-      <OpinionPostHeader
-        categories={opinion.categories}
-        title={opinion.title}
-        subtitle={opinion.subtitle}
-        date={opinion.date}
-        tags={opinion.tags}
-        repostSources={opinion.repostSources}
-      />
-      {/** Banner Section */}
-      {opinion.bannerImage && (
-        <OpinionPostBanner bannerImage={opinion.bannerImage} />
-      )}
+      <Stack gap={4}>
+        <OpinionFixed />
+        {/** Header Section */}
+        <OpinionPostHeader
+          categories={opinion.categories}
+          title={opinion.title}
+          subtitle={opinion.subtitle}
+          date={opinion.date}
+          tags={opinion.tags}
+          repostSources={opinion.repostSources}
+        />
+        {/** Banner Section */}
+        {opinion.bannerImage && (
+          <OpinionPostBanner bannerImage={opinion.bannerImage} />
+        )}
 
-      {/** Content Section */}
-      {opinion.contentHtml && (
-        <OpinionPostContent contentHtml={opinion.contentHtml} />
-      )}
+        {/** Content Section */}
+        {opinion.contentHtml && (
+          <OpinionPostContent contentHtml={opinion.contentHtml} />
+        )}
 
-      {/** Footer Section */}
-      <OpinionPostDivider />
-      <OpinionPostFooter tags={opinion.tags} resources={opinion.resources} />
+        {/** Footer Section */}
+        <OpinionPostDivider />
+        <OpinionPostFooter tags={opinion.tags} resources={opinion.resources} />
 
-      {/** Author Section */}
-      <OpinionPostDivider />
-      {opinion.author && (
-        <>
-          <OpinionPostAuthor author={opinion.author} />
-          <OpinionPostDivider />
-        </>
-      )}
+        {/** Author Section */}
+        <OpinionPostDivider />
+        {opinion.author && (
+          <>
+            <OpinionPostAuthor author={opinion.author} />
+            <OpinionPostDivider />
+          </>
+        )}
+      </Stack>
 
       {/** Related Posts Section */}
       <UFullWidthBackgroundBox>
