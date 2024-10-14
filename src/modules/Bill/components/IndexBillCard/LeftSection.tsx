@@ -48,7 +48,7 @@ export default function LeftSection({ bill }: Props) {
           <Typography variant="articleH4">
             {Bill.GetBillLatestStatus(bill.status ?? BillStatusEnum.INTRODUCED)}
           </Typography>
-          <UCardInfo content="Tracker" />
+          <UCardInfo content={billStatusList[bill.statusIndex].title} />
         </UHStack>
         <Box mx={-6}>
           <UTimeline
