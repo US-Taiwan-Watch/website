@@ -18,6 +18,7 @@ import {
   PeopleAreaEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
+import UFilterInput from '@/common/components/atoms/UFilterInput'
 
 type SecondLevelSelector = {
   key: PeopleFilterInputKey
@@ -206,23 +207,49 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
               key={selector.key}
               name={selector.key}
               control={form.control}
-              render={({ field }) => (
-                <USelect
-                  {...field}
-                  // 預設值
-                  value={field.value ?? ''}
-                  label={selector.placeholder}
-                >
-                  <MenuItem value="" disabled>
-                    {selector.placeholder}
-                  </MenuItem>
-                  {selector.options.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
+              render={({ field }) => {
+                // district filter，讓使用者輸入數字就好 (int > 0)
+                if (selector.key === 'district') {
+                  return (
+                    <UFilterInput
+                      {...field}
+                      placeholder={selector.placeholder}
+                      disableUnderline
+                      type="number"
+                      inputProps={{
+                        min: 1,
+                      }}
+                      onChange={(e) => {
+                        if (Number.isNaN(parseInt(e.target.value, 10))) {
+                          field.onChange(undefined)
+                        } else {
+                          field.onChange(
+                            Math.max(1, parseInt(e.target.value, 10))
+                          )
+                        }
+                      }}
+                    />
+                  )
+                }
+
+                return (
+                  <USelect
+                    {...field}
+                    // 預設值
+                    value={field.value ?? ''}
+                    label={selector.placeholder}
+                  >
+                    <MenuItem value="" disabled>
+                      {selector.placeholder}
                     </MenuItem>
-                  ))}
-                </USelect>
-              )}
+                    {selector.options.map((option) => (
+                      <MenuItem key={option.value} value={option.value}>
+                        {option.label}
+                      </MenuItem>
+                    ))}
+                  </USelect>
+                )
+              }}
             />
           ))}
         </Filter>

@@ -37,7 +37,7 @@ export const houseRepresentativeSchema = z.object({
   congress: congressSchema,
   party: z.nativeEnum(PeoplePartyEnum).optional(),
   stateRegion: z.string().optional(),
-  district: z.string().optional(),
+  district: z.number().min(1).optional(),
   tag: z.string().optional(),
 })
 
