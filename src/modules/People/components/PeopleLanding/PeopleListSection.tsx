@@ -7,6 +7,7 @@ import LandingSectionWrapper from '@/common/components/elements/Landing/LandingS
 import PeopleCard from '@/modules/People/components/PeopleCard'
 import people from '@/modules/People/data'
 import UPagination from '@/common/components/atoms/UPagination'
+import PeopleFilter from '@/modules/People/components/PeopleFilter'
 
 const PeopleListSection = () => {
   const theme = useTheme<USTWTheme>()
@@ -21,6 +22,8 @@ const PeopleListSection = () => {
     >
       <Container maxWidth="lg">
         <Stack spacing={6} alignItems="center" justifyContent="center">
+          {/** People Filter */}
+          <PeopleFilter onSubmit={(e) => console.log(e)} />
           <Box>
             <Grid container spacing={2}>
               <Grid size={6}>
