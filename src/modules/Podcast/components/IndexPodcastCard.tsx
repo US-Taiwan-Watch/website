@@ -3,7 +3,7 @@ import Podcast, {
   PodcastSourceType,
   PodcastType,
 } from '@/modules/Podcast/classes/Podcast'
-import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid2 as Grid, Stack } from '@mui/material'
 import type React from 'react'
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
@@ -14,6 +14,7 @@ import Link from 'next/link'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UButton from '@/common/components/atoms/UButton'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const StyledIndexPodcastCardBox = styled(Box)(({ theme }) => ({
   '&.WATCH_HERE': {
@@ -36,22 +37,12 @@ const StyledBanner = styled(Image)(() => ({
   objectFit: 'cover',
 }))
 
-const StyledTitle = styled(Typography)(() => ({
+const StyledTitle = styled(UHeightLimitedText)(() => ({
   fontWeight: 700,
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
-const StyledDescription = styled(Typography)(() => ({
+const StyledDescription = styled(UHeightLimitedText)(() => ({
   fontWeight: 500,
-  display: '-webkit-box',
-  WebkitLineClamp: 4,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
 const StyledPodcastSourceIconButton = styled(UIconButton)(({ theme }) => ({
@@ -91,10 +82,10 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
                 height={200}
               />
             )}
-            <StyledTitle variant="h4" fontWeight={700}>
+            <StyledTitle variant="h4" fontWeight={700} maxLine={2}>
               {podcast.title}
             </StyledTitle>
-            <StyledDescription variant="body2">
+            <StyledDescription variant="body2" maxLine={4}>
               {podcast.description}
             </StyledDescription>
             <Stack direction="row" spacing={2}>

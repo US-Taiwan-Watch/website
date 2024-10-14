@@ -2,6 +2,7 @@ import { DocumentIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 type PublicationArg = {
   title: string
@@ -70,21 +71,15 @@ const PublicationRow = function PublicationRow({
       <Typography variant="bodyM" fontWeight={700}>
         {publication.title}
       </Typography>
-      <Typography
-        variant="bodyS"
-        fontWeight={500}
-        sx={{
-          ...(simplified && {
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-          }),
-        }}
-      >
-        {publication.description}
-      </Typography>
+      {simplified ? (
+        <UHeightLimitedText variant="bodyS" fontWeight={500} maxLine={3}>
+          {publication.description}
+        </UHeightLimitedText>
+      ) : (
+        <Typography variant="bodyS" fontWeight={500}>
+          {publication.description}
+        </Typography>
+      )}
     </Stack>
   )
 }

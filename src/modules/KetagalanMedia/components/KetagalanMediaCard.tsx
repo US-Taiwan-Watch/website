@@ -5,6 +5,7 @@ import { USTWTheme, styled } from '@/common/lib/mui/theme'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const StyledImageContainer = styled(Box)(() => ({
   borderRadius: '7px',
@@ -24,13 +25,8 @@ const StyledTag = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(0.5, 1),
 }))
 
-const StyledText = styled(Typography)(({ theme }) => ({
+const StyledText = styled(UHeightLimitedText)(({ theme }) => ({
   color: theme.color.common.white,
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
 type Props = {
@@ -64,8 +60,12 @@ const KetagalanMediaCard = ({ media }: Props) => {
           ))}
         </UHStack>
         <Stack gap={1}>
-          <StyledText variant="articleH4">{media.title}</StyledText>
-          <StyledText variant="articleH6">{media.description}</StyledText>
+          <StyledText maxLine={2} variant="articleH4">
+            {media.title}
+          </StyledText>
+          <StyledText maxLine={2} variant="articleH6">
+            {media.description}
+          </StyledText>
         </Stack>
       </Stack>
     </Stack>

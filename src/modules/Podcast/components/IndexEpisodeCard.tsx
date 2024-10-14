@@ -12,6 +12,7 @@ import {
 import { styled } from '@/common/lib/mui/theme'
 import { usePlayerWithUI } from '@/modules/Podcast/hooks/usePlayer'
 import UIconButton from '@/common/components/atoms/UIconButton'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const StyledIndexEpisodeCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: '#FFFFFF1A', // Opacity 10%
@@ -26,13 +27,8 @@ const StyledCoverImage = styled(Image)(() => ({
   objectFit: 'cover',
 }))
 
-const StyledTitle = styled(Typography)(() => ({
+const StyledTitle = styled(UHeightLimitedText)(() => ({
   fontWeight: 500,
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
 const StyledControlBarContainer = styled(Stack)(({ theme }) => ({
@@ -112,7 +108,7 @@ const IndexEpisodeCard = memo(
           height={200}
         />
         <Stack direction="column" flex={1} spacing={2}>
-          <StyledTitle gutterBottom flex={1}>
+          <StyledTitle gutterBottom flex={1} maxLine={2}>
             {episode.title}
           </StyledTitle>
           <StyledControlBarContainer

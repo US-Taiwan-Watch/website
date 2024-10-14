@@ -11,6 +11,7 @@ import PeopleTag from '@/modules/People/components/PeopleTag'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import Link from 'next/link'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -32,14 +33,9 @@ const StyledPeopleCardImage = styled(Image)(() => ({
   objectFit: 'cover',
 }))
 
-const StyledPeopleCardDescription = styled(Typography)(({ theme }) => ({
+const StyledPeopleCardDescription = styled(UHeightLimitedText)(({ theme }) => ({
   fontWeight: 400,
   color: theme.color.grey[1500],
-  display: '-webkit-box',
-  WebkitLineClamp: 2,
-  WebkitBoxOrient: 'vertical',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }))
 
 const StyledPeopleCardIconButton = styled(UIconButton)(({ theme }) => ({
@@ -85,7 +81,7 @@ const PeopleCard = memo(function PeopleCard({
                 <PeopleCongressTitle congress={people.congress} />
               )}
               {!simplified && (
-                <StyledPeopleCardDescription fontWeight={400}>
+                <StyledPeopleCardDescription maxLine={2} fontWeight={400}>
                   {people.description}
                 </StyledPeopleCardDescription>
               )}

@@ -4,7 +4,6 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import { Container, CssBaseline } from '@mui/material'
-import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
 
 export const metadata: Metadata = {
   title: 'Opinion Post',
@@ -39,8 +38,6 @@ export default function OpinionPostLayout({
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {/** Fixed 放這邊是為了讓他與 Header 切齊，也就是上一層 Container */}
-        <OpinionFixed />
         <Container maxWidth="lg">{children}</Container>
       </ThemeProvider>
     </AppRouterCacheProvider>
