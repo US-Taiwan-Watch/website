@@ -2,7 +2,6 @@
 import { styled } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { Grid2, Stack } from '@mui/material'
-import { useRouter } from 'next/navigation'
 import LeftSection from '@/modules/Bill/components/IndexBillCard/LeftSection'
 import RightSection from '@/modules/Bill/components/IndexBillCard/RightSection'
 
@@ -18,17 +17,8 @@ type Props = {
 }
 
 export default function IndexBillCard({ bill }: Props) {
-  const router = useRouter()
-
   return (
-    <StyledCardContainer
-      sx={{
-        cursor: 'pointer',
-      }}
-      onClick={() => {
-        router.push(bill.link)
-      }}
-    >
+    <StyledCardContainer>
       <Grid2 container spacing={6} height="100%">
         <Grid2 size={6}>
           <LeftSection bill={bill} />
