@@ -15,6 +15,7 @@ import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
+import UTagList from '@/common/components/atoms/UTagList'
 
 const DATE_FORMAT = 'MM/DD/YYYY-hh:mmA'
 
@@ -54,12 +55,15 @@ export default function BillCard({ mode, simplified, bill }: Props) {
     >
       <UHStack gap={4} alignItems="center">
         <Stack>
-          <UHStack gap="6px" mb={2.5}>
-            {/* NOTE: 限制 tags 數量 */}
-            {bill.tags
-              ?.slice(0, isHorizontal ? 5 : 3)
-              .map((tag, index) => <UCategoryTag key={index} value={tag} />)}
-          </UHStack>
+          <UTagList
+            tags={(bill.tags ?? []).map((tag, index) => (
+              <UCategoryTag key={index} value={tag} />
+            ))}
+            containerProps={{
+              gap: '6px',
+              mb: 2.5,
+            }}
+          />
 
           <Typography variant="body" fontWeight={300} mb={1}>
             {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}

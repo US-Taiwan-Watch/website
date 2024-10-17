@@ -10,7 +10,7 @@ const StyledTagContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.color.indigo[50],
 }))
 
-type UCategoryTagProps = {
+export type UCategoryTagProps = {
   value?: string
   renderValue?: ReactNode
   containerProps?: StackProps
