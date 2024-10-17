@@ -13,8 +13,8 @@ import dayjs from 'dayjs'
 import { useMemo } from 'react'
 import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
-import { useRouter } from 'next/navigation'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
+import Link from 'next/link'
 
 const DATE_FORMAT = 'MM/DD/YYYY-hh:mmA'
 
@@ -42,7 +42,6 @@ type Props = {
 
 export default function BillCard({ mode, simplified, bill }: Props) {
   const theme = useTheme<USTWTheme>()
-  const router = useRouter()
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
 
@@ -51,10 +50,6 @@ export default function BillCard({ mode, simplified, bill }: Props) {
       height={isHorizontal || simplified ? 'auto' : 500}
       sx={{
         border: isHorizontal ? 'none' : `1px solid ${theme.color.grey[1600]}`,
-        cursor: 'pointer',
-      }}
-      onClick={() => {
-        router.push(bill.link)
       }}
     >
       <UHStack gap={4} alignItems="center">
@@ -70,9 +65,15 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
           </Typography>
 
-          <UHeightLimitedText maxLine={4} variant="subtitleL" fontWeight={700}>
-            {bill.title}
-          </UHeightLimitedText>
+          <Link href={bill.link}>
+            <UHeightLimitedText
+              maxLine={4}
+              variant="subtitleL"
+              fontWeight={700}
+            >
+              {bill.title}
+            </UHeightLimitedText>
+          </Link>
 
           {!isHorizontal && (
             <Box mx={-2} mt={4}>

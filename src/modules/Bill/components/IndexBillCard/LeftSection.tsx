@@ -11,6 +11,7 @@ import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
+import Link from 'next/link'
 
 type Props = {
   bill: Bill
@@ -37,9 +38,11 @@ export default function LeftSection({ bill }: Props) {
           {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
         </Typography>
 
-        <UHeightLimitedText maxLine={4} variant="h6" fontWeight={700}>
-          {bill.title}
-        </UHeightLimitedText>
+        <Link href={bill.link}>
+          <UHeightLimitedText maxLine={4} variant="h6" fontWeight={700}>
+            {bill.title}
+          </UHeightLimitedText>
+        </Link>
       </Stack>
 
       <Stack gap={2}>
@@ -48,7 +51,7 @@ export default function LeftSection({ bill }: Props) {
           <Typography variant="articleH4">
             {Bill.GetBillLatestStatus(bill.status ?? BillStatusEnum.INTRODUCED)}
           </Typography>
-          <UCardInfo content="Tracker" />
+          <UCardInfo content={billStatusList[bill.statusIndex].title} />
         </UHStack>
         <Box mx={-6}>
           <UTimeline
