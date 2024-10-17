@@ -8,19 +8,19 @@ const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
   padding: theme.spacing(0.5, 1),
   borderRadius: theme.spacing(1),
   '&.HOUSE_REPRESENTATIVE': {
-    backgroundColor: theme.color.wheat[300], // TODO: 確定黨派顏色
+    backgroundColor: theme.color.green[100],
   },
   '&.SENATOR': {
-    backgroundColor: theme.color.green[100], // TODO: 確定黨派顏色
+    backgroundColor: theme.color.wheat[100],
   },
   '&.EXPERT': {
-    backgroundColor: theme.color.wheat[100], // TODO: 確定黨派顏色
+    backgroundColor: theme.color.orange[100],
   },
   '&.OFFICIAL': {
-    backgroundColor: theme.color.purple[100], // TODO: 確定黨派顏色
+    backgroundColor: theme.color.purple[100],
   },
   '&.OTHER': {
-    backgroundColor: theme.color.neutral[300], // TODO: 確定黨派顏色
+    backgroundColor: theme.color.neutral[300],
   },
   fontWeight: 500,
   textTransform: 'capitalize',
