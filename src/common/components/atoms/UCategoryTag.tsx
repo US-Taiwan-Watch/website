@@ -26,6 +26,7 @@ export default function UCategoryTag({
   onClick,
 }: UCategoryTagProps) {
   const { sx: containerSx, ...restContainerProps } = containerProps ?? {}
+  const { sx: textSx, ...restTextProps } = textProps ?? {}
 
   return (
     <StyledTagContainer
@@ -34,10 +35,20 @@ export default function UCategoryTag({
         cursor: onClick ? 'pointer' : 'default',
         ...containerSx,
       }}
+      className="category-tag"
       {...restContainerProps}
     >
       {renderValue ?? (
-        <Typography variant="buttonXS" {...textProps}>
+        <Typography
+          variant="buttonXS"
+          sx={{
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            ...textSx,
+          }}
+          {...restTextProps}
+        >
           {value}
         </Typography>
       )}

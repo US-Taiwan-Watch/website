@@ -63,6 +63,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               gap: '6px',
               mb: 2.5,
             }}
+            maxTags={isHorizontal ? 5 : 2}
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
