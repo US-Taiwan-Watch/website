@@ -31,12 +31,14 @@ export default function UTagList({
 }: Props) {
   const theme = useTheme<USTWTheme>()
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
+  const isOverLimit = tags.length > maxTags
 
   return (
     <>
       <UHStack
         alignItems="center"
-        {...(tags.length > maxTags && {
+        {...(isOverLimit && {
+          // NOTE: 先假設 tag 數量未超過上限時，字數不會爆版。若實際資料單一 tag 字數過長，則一律加上 maxWidth
           sx: {
             '.category-tag': {
               maxWidth: '100px',
@@ -48,7 +50,7 @@ export default function UTagList({
         {tags.slice(0, maxTags).map((tag, index) => (
           <Fragment key={index}>{tag}</Fragment>
         ))}
-        {tags.length > maxTags && (
+        {isOverLimit && (
           <UCategoryTag
             value={`+${tags.length - maxTags}More`}
             containerProps={{
@@ -59,7 +61,10 @@ export default function UTagList({
               },
             }}
             {...moreButtonProps}
-            onClick={handleOpenModal}
+            onClick={() => {
+              handleOpenModal()
+              moreButtonProps?.onClick?.()
+            }}
           />
         )}
       </UHStack>
