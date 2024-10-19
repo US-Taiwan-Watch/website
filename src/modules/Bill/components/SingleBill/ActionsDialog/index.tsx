@@ -7,61 +7,21 @@ import { ActionsIcon } from '@/common/styles/assets/Icons'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Grid2, useTheme } from '@mui/material'
-import DialogFilter, {
-  FilterCategory,
-} from '@/modules/Bill/components/SingleBill/DialogFilter'
-import useDialogFilter from '@/modules/Bill/components/SingleBill/useDialogFilter'
+import {
+  Grid2,
+  useTheme,
+  FormControlLabel,
+  Radio,
+  FormControl,
+  RadioGroup,
+} from '@mui/material'
 import ActionsTable from '@/modules/Bill/components/SingleBill/ActionsDialog/ActionsTable'
+import { useState } from 'react'
 
-export enum ActionsFilterOptionEnum {
-  HOUSE = 'house',
-  SENATE = 'senate',
-  HOUSE2 = 'house2',
-  SENATE2 = 'senate2',
+export enum ActionsTableType {
+  ACTIONS_OVERVIEW = 'ACTIONS_OVERVIEW',
+  ALL_ACTIONS = 'ALL_ACTIONS',
 }
-
-const FAKE_COUNT = 20
-
-const categories: FilterCategory<ActionsFilterOptionEnum>[] = [
-  {
-    id: 'party',
-    name: 'Party of Cosponsor',
-    options: [
-      {
-        id: ActionsFilterOptionEnum.HOUSE,
-        name: 'House Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-      {
-        id: ActionsFilterOptionEnum.SENATE,
-        name: 'Senate Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-    ],
-  },
-  {
-    id: 'territory',
-    name: 'Cosponsors by U.S. State or Territory',
-    // TODO: 待釐清有哪些選項
-    options: [
-      {
-        id: ActionsFilterOptionEnum.HOUSE2,
-        name: 'House Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-      {
-        id: ActionsFilterOptionEnum.SENATE2,
-        name: 'Senate Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-    ],
-  },
-]
-
-const allOptionId: ActionsFilterOptionEnum[] = Object.values(
-  ActionsFilterOptionEnum
-)
 
 type Props = {
   bill: Bill
@@ -75,10 +35,9 @@ export default function ActionsDialog({
   handleCloseModal,
 }: Props) {
   const theme = useTheme<USTWTheme>()
-  const { selectedOptionIdList, handleSelectOption, toggleSelectAllOption } =
-    useDialogFilter<ActionsFilterOptionEnum>({
-      allOptionId,
-    })
+  const [selectedTableType, setSelectedTableType] = useState<ActionsTableType>(
+    ActionsTableType.ACTIONS_OVERVIEW
+  )
 
   return (
     <UContentCardDialog
@@ -117,16 +76,36 @@ export default function ActionsDialog({
         }}
       >
         <Grid2 container mt={2} spacing={2}>
-          <Grid2 size={3} pl={1} pt="3px">
-            <DialogFilter
-              selectedOptionIdList={selectedOptionIdList}
-              onSelectOption={handleSelectOption}
-              toggleSelectAllOption={toggleSelectAllOption}
-              categories={categories}
-            />
+          <Grid2 size={2} pl={1} pt="3px">
+            <FormControl>
+              <RadioGroup
+                defaultValue={ActionsTableType.ACTIONS_OVERVIEW}
+                name="actions-dialog-filter"
+                value={selectedTableType}
+                onChange={(e) =>
+                  setSelectedTableType(
+                    e.target.value as unknown as ActionsTableType
+                  )
+                }
+              >
+                <FormControlLabel
+                  value={ActionsTableType.ACTIONS_OVERVIEW}
+                  control={<Radio color="secondary" />}
+                  label="Action Overview"
+                />
+                <FormControlLabel
+                  value={ActionsTableType.ALL_ACTIONS}
+                  control={<Radio color="secondary" />}
+                  label="All Actions"
+                />
+              </RadioGroup>
+            </FormControl>
           </Grid2>
-          <Grid2 size={9}>
-            <ActionsTable actions={bill.actions ?? []} />
+          <Grid2 size={10}>
+            <ActionsTable
+              actions={bill.actions ?? []}
+              tableType={selectedTableType}
+            />
           </Grid2>
         </Grid2>
       </UContentCard>
