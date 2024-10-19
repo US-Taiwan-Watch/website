@@ -48,6 +48,7 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
                   borderColor: theme.color.orange[900],
                   color: theme.color.orange[900],
                 }}
+                className="category-tag"
               >
                 {category.label}
               </UButton>
