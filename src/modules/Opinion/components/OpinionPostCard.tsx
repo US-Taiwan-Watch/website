@@ -1,6 +1,7 @@
 import UButton from '@/common/components/atoms/UButton'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
+import UTagList from '@/common/components/atoms/UTagList'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import { Skeleton, Stack, useTheme } from '@mui/material'
@@ -16,24 +17,26 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <Link href={opinion.link}>
+    <>
       <Stack spacing={2}>
-        {/** Image */}
-        {opinion.thumbnailImage && (
-          <Image
-            src={opinion.thumbnailImage.src}
-            alt={opinion.thumbnailImage.caption || opinion.title || ''}
-            width={300}
-            height={200}
-            layout="responsive"
-            style={{
-              borderRadius: theme.shape.borderRadius * 3,
-            }}
-          />
-        )}
+        <Link href={opinion.link}>
+          {/** Image */}
+          {opinion.thumbnailImage && (
+            <Image
+              src={opinion.thumbnailImage.src}
+              alt={opinion.thumbnailImage.caption || opinion.title || ''}
+              width={300}
+              height={200}
+              layout="responsive"
+              style={{
+                borderRadius: theme.shape.borderRadius * 3,
+              }}
+            />
+          )}
+        </Link>
         {/** Categories */}
-        <UHStack gap={1}>
-          {opinion.categories?.map((category) => (
+        <UTagList
+          tags={(opinion.categories ?? []).map((category) => (
             <Link href={category.link} key={category.id}>
               <UButton
                 variant="outlined"
@@ -50,23 +53,29 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
               </UButton>
             </Link>
           ))}
-        </UHStack>
-        {/** Title */}
-        <UHeightLimitedText variant="subtitleM" fontWeight={700} maxLine={1}>
-          {opinion.title}
-        </UHeightLimitedText>
-        {/** Description */}
-        <UHeightLimitedText
-          variant="bodyS"
-          maxLine={4}
-          sx={{
-            color: theme.color.grey[1500],
+          containerProps={{
+            gap: 1,
           }}
-        >
-          {opinion.description}
-        </UHeightLimitedText>
+          maxTags={2}
+        />
+        <Link href={opinion.link}>
+          {/** Title */}
+          <UHeightLimitedText variant="subtitleM" fontWeight={700} maxLine={1}>
+            {opinion.title}
+          </UHeightLimitedText>
+          {/** Description */}
+          <UHeightLimitedText
+            variant="bodyS"
+            maxLine={4}
+            sx={{
+              color: theme.color.grey[1500],
+            }}
+          >
+            {opinion.description}
+          </UHeightLimitedText>
+        </Link>
       </Stack>
-    </Link>
+    </>
   )
 }
 

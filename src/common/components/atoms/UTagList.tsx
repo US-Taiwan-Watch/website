@@ -61,9 +61,10 @@ export default function UTagList({
               },
             }}
             {...moreButtonProps}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
               handleOpenModal()
-              moreButtonProps?.onClick?.()
+              moreButtonProps?.onClick?.(e)
             }}
           />
         )}

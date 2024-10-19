@@ -15,7 +15,7 @@ export type UCategoryTagProps = {
   renderValue?: ReactNode
   containerProps?: StackProps
   textProps?: TypographyProps
-  onClick?: () => void
+  onClick?: StackProps['onClick']
 }
 
 export default function UCategoryTag({
