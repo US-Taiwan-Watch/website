@@ -18,6 +18,7 @@ const sponsor1 = new People({
     "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
   party: Party.DEMOCRATIC,
   position: PeoplePosition.SENATOR,
+  chamber: ChamberEnum.SENATE,
   congress: new Congress({
     congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
     startYear: 2023,
@@ -36,7 +37,7 @@ const sponsor1 = new People({
   partyExperience: [],
   experience: [],
   tags: [],
-  constituency: 'Oregon',
+  constituency: 'IL',
 })
 
 const sponsor2 = new People({
@@ -46,7 +47,8 @@ const sponsor2 = new People({
   description:
     "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
   party: Party.REPUBLICAN,
-  position: PeoplePosition.SENATOR,
+  position: PeoplePosition.HOUSE_REPRESENTATIVE,
+  chamber: ChamberEnum.HOUSE,
   congress: new Congress({
     congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
     startYear: 2023,
@@ -65,7 +67,7 @@ const sponsor2 = new People({
   partyExperience: [],
   experience: [],
   tags: [],
-  constituency: 'California',
+  constituency: 'NJ',
 })
 
 const sponsor3 = new People({
@@ -76,6 +78,7 @@ const sponsor3 = new People({
     "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
   party: Party.OTHER,
   position: PeoplePosition.SENATOR,
+  chamber: ChamberEnum.SENATE,
   congress: new Congress({
     congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
     startYear: 2023,
@@ -94,7 +97,7 @@ const sponsor3 = new People({
   partyExperience: [],
   experience: [],
   tags: [],
-  constituency: 'Georgia',
+  constituency: 'WA',
 })
 
 export const BILL_SPONSOR_MOCK: People[] = [
@@ -141,7 +144,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2023 and Promoting Regional Stability',
     sponsor: sponsor1,
-    cosponsors: [sponsor2, sponsor3],
+    cosponsors: [sponsor1, sponsor2, sponsor3],
     tags: ['Environment', 'Energy'],
     status: BillStatusEnum.INTRODUCED,
     congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
