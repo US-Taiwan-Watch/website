@@ -16,6 +16,9 @@ const StyledHashTag = styled(Typography)(({ theme }) => ({
 const StyledPeopleTagText = styled(Typography)(({ theme }) => ({
   fontWeight: 500,
   color: theme.color.common.black,
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 }))
 
 interface PeopleTagProps {
@@ -29,6 +32,7 @@ const PeopleTag = function PeopleTag({ value }: PeopleTagProps) {
       spacing={0.5}
       alignItems="center"
       justifyContent="center"
+      className="category-tag"
     >
       <StyledHashTag>#</StyledHashTag>
       <StyledPeopleTagText>{value}</StyledPeopleTagText>
