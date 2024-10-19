@@ -1,7 +1,8 @@
 'use client'
 
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { styled } from '@/common/lib/mui/theme'
-import { Stack, StackProps, Typography, TypographyProps } from '@mui/material'
+import { Stack, StackProps, TypographyProps } from '@mui/material'
 import { ReactNode } from 'react'
 
 const StyledTagContainer = styled(Stack)(({ theme }) => ({
@@ -39,18 +40,9 @@ export default function UCategoryTag({
       {...restContainerProps}
     >
       {renderValue ?? (
-        <Typography
-          variant="buttonXS"
-          sx={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            ...textSx,
-          }}
-          {...restTextProps}
-        >
+        <UWidthLimitedText variant="buttonXS" sx={textSx} {...restTextProps}>
           {value}
-        </Typography>
+        </UWidthLimitedText>
       )}
     </StyledTagContainer>
   )

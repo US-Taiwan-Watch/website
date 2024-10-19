@@ -1,7 +1,7 @@
 'use client'
 
 import { memo } from 'react'
-import { Box, Grid2 as Grid, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Grid2 as Grid, Stack, useTheme } from '@mui/material'
 import Image from 'next/image'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
@@ -11,6 +11,7 @@ import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import withSelectable from '@/common/hooks/withSelectable'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 
 const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -60,9 +61,9 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
               tags={(opinion.categories ?? []).map((category) => (
                 <Link href={category.link} key={category.id}>
                   <StyledCategory className="category-tag">
-                    <Typography variant="caption" lineHeight={1}>
+                    <UWidthLimitedText variant="caption" lineHeight={1}>
                       {category.label}
-                    </Typography>
+                    </UWidthLimitedText>
                   </StyledCategory>
                 </Link>
               ))}

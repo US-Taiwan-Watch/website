@@ -2,11 +2,12 @@
 
 import { KetagalanMedia } from '@/modules/KetagalanMedia/classes/KetagalanMedia'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
-import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { Box, Stack, useTheme } from '@mui/material'
 import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 
 const StyledImageContainer = styled(Box)(() => ({
   borderRadius: '7px',
@@ -54,9 +55,12 @@ const KetagalanMediaCard = ({ media }: Props) => {
         <UTagList
           tags={(media.tags ?? []).map((tag, index) => (
             <StyledTag key={index} className="category-tag">
-              <Typography variant="buttonXXS" color={theme.color.wheat[200]}>
+              <UWidthLimitedText
+                variant="buttonXXS"
+                color={theme.color.wheat[200]}
+              >
                 {tag}
-              </Typography>
+              </UWidthLimitedText>
             </StyledTag>
           ))}
           containerProps={{
