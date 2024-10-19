@@ -12,7 +12,12 @@ import DialogFilter from '@/modules/Bill/components/SingleBill/CosponsorDialog/D
 import useDialogFilter from '@/modules/Bill/components/SingleBill/CosponsorDialog/useDialogFilter'
 import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
 import { useMemo } from 'react'
-import { createFilterCategories } from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
+import {
+  createFilterCategories,
+  getFilterConstituency,
+  getFilterParty,
+} from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
+import { People } from '@/modules/People/classes/People'
 
 type Props = {
   bill: Bill
@@ -26,9 +31,24 @@ export default function CosponsorDialog({
   handleCloseModal,
 }: Props) {
   const theme = useTheme<USTWTheme>()
-  const { selectedOptionIdList, handleSelectOption, clearAll } =
-    useDialogFilter<string>()
+  const { selectedOptionList, handleSelectOption, clearAll } = useDialogFilter()
   const categories = useMemo(() => createFilterCategories(bill), [bill])
+
+  const cosponsors = useMemo<People[]>(() => {
+    return (bill.cosponsors ?? []).filter((cosponsor) => {
+      const partyMatch = selectedOptionList.party.length
+        ? selectedOptionList.party.includes(getFilterParty(cosponsor.party))
+        : true
+
+      const constituencyMatch = selectedOptionList.constituency.length
+        ? selectedOptionList.constituency.includes(
+            getFilterConstituency(cosponsor.constituency ?? '')
+          )
+        : true
+
+      return partyMatch && constituencyMatch
+    })
+  }, [bill, selectedOptionList])
 
   return (
     <UContentCardDialog
@@ -69,14 +89,14 @@ export default function CosponsorDialog({
         <Grid2 container mt={2} spacing={2}>
           <Grid2 size={3} pl={1} pt="3px">
             <DialogFilter
-              selectedOptionIdList={selectedOptionIdList}
+              selectedOptionList={selectedOptionList}
               onSelectOption={handleSelectOption}
               clearAll={clearAll}
               categories={categories}
             />
           </Grid2>
           <Grid2 size={9}>
-            <CosponsorTable cosponsors={bill.cosponsors ?? []} />
+            <CosponsorTable cosponsors={cosponsors} />
           </Grid2>
         </Grid2>
       </UContentCard>

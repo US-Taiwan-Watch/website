@@ -1,25 +1,42 @@
 'use client'
 
+import {
+  FilterCategory,
+  FilterOption,
+} from '@/modules/Bill/components/SingleBill/CosponsorDialog/DialogFilter'
 import { useCallback, useState } from 'react'
 
-export default function useDialogFilter<T extends string>() {
-  const [selectedOptionIdList, setSelectedOptionIdList] = useState<T[]>([])
+export type SelectedOption = Record<FilterCategory['id'], FilterOption['id'][]>
 
-  const handleSelectOption = useCallback((optionId: T) => {
-    setSelectedOptionIdList((prev) => {
-      if (prev.includes(optionId)) {
-        return prev.filter((id) => id !== optionId)
-      }
-      return [...prev, optionId]
-    })
-  }, [])
+const DEFAULT_SELECTED_OPTION: SelectedOption = {
+  party: [],
+  constituency: [],
+}
+
+export default function useDialogFilter() {
+  const [selectedOptionList, setSelectedOptionList] = useState<SelectedOption>(
+    DEFAULT_SELECTED_OPTION
+  )
+
+  const handleSelectOption = useCallback(
+    (categoryId: FilterCategory['id'], optionId: FilterOption['id']) => {
+      setSelectedOptionList((prev) => {
+        const currentOptions = prev[categoryId] || []
+        const newOptions = currentOptions.includes(optionId)
+          ? currentOptions.filter((id) => id !== optionId)
+          : [...currentOptions, optionId]
+        return { ...prev, [categoryId]: newOptions }
+      })
+    },
+    []
+  )
 
   const clearAll = useCallback(() => {
-    setSelectedOptionIdList([])
+    setSelectedOptionList(DEFAULT_SELECTED_OPTION)
   }, [])
 
   return {
-    selectedOptionIdList,
+    selectedOptionList,
     handleSelectOption,
     clearAll,
   }

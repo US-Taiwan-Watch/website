@@ -3,6 +3,7 @@ import {
   FilterCategory,
   FilterOption,
 } from '@/modules/Bill/components/SingleBill/CosponsorDialog/DialogFilter'
+import { Party } from '@/common/enums/Party'
 
 enum FilterParty {
   DEMOCRATIC = 'DEMOCRATIC',
@@ -15,7 +16,7 @@ type DisplayOption = 'uppercase' | 'lowercase' | 'capitalize'
 const createOptions = (
   countMap: Map<string, number>,
   displayOption?: DisplayOption
-): FilterOption<string>[] => {
+): FilterOption[] => {
   const displayMap: Record<DisplayOption, (key: string) => string> = {
     uppercase: (key) => key.toUpperCase(),
     lowercase: (key) => key.toLowerCase(),
@@ -30,27 +31,29 @@ const createOptions = (
   }))
 }
 
-export const createFilterCategories = (
-  bill: Bill
-): FilterCategory<string>[] => {
+export const getFilterParty = (party: Party | undefined): FilterParty => {
+  if (!party) return FilterParty.INDEPENDENT
+  const _party = party.toUpperCase()
+  return _party === FilterParty.DEMOCRATIC || _party === FilterParty.REPUBLICAN
+    ? _party
+    : FilterParty.INDEPENDENT
+}
+
+export const getFilterConstituency = (constituency: string): string => {
+  return constituency.toUpperCase()
+}
+
+export const createFilterCategories = (bill: Bill): FilterCategory[] => {
   const partyCountMap: Map<FilterParty, number> = new Map()
   const constituencyCountMap: Map<string, number> = new Map()
 
   bill.cosponsors?.forEach((cosponsor) => {
-    if (cosponsor.party) {
-      const party: FilterParty = (() => {
-        const _party = cosponsor.party.toUpperCase()
-        return _party === FilterParty.DEMOCRATIC ||
-          _party === FilterParty.REPUBLICAN
-          ? _party
-          : FilterParty.INDEPENDENT
-      })()
-      const count = partyCountMap.get(party) ?? 0
-      partyCountMap.set(party, count + 1)
-    }
+    const party: FilterParty = getFilterParty(cosponsor.party)
+    const count = partyCountMap.get(party) ?? 0
+    partyCountMap.set(party, count + 1)
 
     if (cosponsor.constituency) {
-      const constituency = cosponsor.constituency.toUpperCase()
+      const constituency = getFilterConstituency(cosponsor.constituency)
       const count = constituencyCountMap.get(constituency) ?? 0
       constituencyCountMap.set(constituency, count + 1)
     }

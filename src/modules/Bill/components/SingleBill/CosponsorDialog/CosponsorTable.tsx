@@ -39,6 +39,17 @@ type Props = {
   cosponsors: People[]
 }
 
+const getPartyDisplayName = (party: Party | undefined) => {
+  switch (party) {
+    case Party.REPUBLICAN:
+      return 'republic'
+    case Party.DEMOCRATIC:
+      return 'democracy'
+    default:
+      return 'other'
+  }
+}
+
 export default function CosponsorTable({ cosponsors }: Props) {
   const theme = useTheme<USTWTheme>()
   return (
@@ -71,13 +82,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 <UHStack spacing={1} alignItems="center">
                   <UPoliticalPartyIcon
                     variant="rounded"
-                    party={
-                      cosponsor?.party === Party.REPUBLICAN
-                        ? 'republic'
-                        : cosponsor?.party === Party.DEMOCRATIC
-                          ? 'democracy'
-                          : 'other'
-                    }
+                    party={getPartyDisplayName(cosponsor.party)}
                     size="small"
                   />
                   <StyledBodyText textTransform="capitalize">
