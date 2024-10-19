@@ -1,7 +1,7 @@
 'use client'
 
 import { ComponentProps, memo } from 'react'
-import { Box, Stack, StackProps, Typography, useTheme } from '@mui/material'
+import { Box, Stack, StackProps, useTheme } from '@mui/material'
 import Image from 'next/image'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
@@ -10,6 +10,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import withSelectable from '@/common/hooks/withSelectable'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 
 const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -17,7 +18,7 @@ const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
   borderRadius: '30px',
 }))
 
-const StyledTag = styled('div')(({ theme }) => ({
+const StyledTag = styled(Box)(({ theme }) => ({
   borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
   padding: '0px 9px',
@@ -61,7 +62,9 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
           <UTagList
             tags={props.tags.map((tag, index) => (
               <StyledTag key={index} className="category-tag">
-                <Typography variant="caption">{tag}</Typography>
+                <UWidthLimitedText variant="caption" component="p">
+                  {tag}
+                </UWidthLimitedText>
               </StyledTag>
             ))}
             containerProps={{

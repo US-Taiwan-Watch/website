@@ -27,7 +27,6 @@ export default function UCategoryTag({
   onClick,
 }: UCategoryTagProps) {
   const { sx: containerSx, ...restContainerProps } = containerProps ?? {}
-  const { sx: textSx, ...restTextProps } = textProps ?? {}
 
   return (
     <StyledTagContainer
@@ -40,7 +39,7 @@ export default function UCategoryTag({
       {...restContainerProps}
     >
       {renderValue ?? (
-        <UWidthLimitedText variant="buttonXS" sx={textSx} {...restTextProps}>
+        <UWidthLimitedText variant="buttonXS" {...textProps}>
           {value}
         </UWidthLimitedText>
       )}
