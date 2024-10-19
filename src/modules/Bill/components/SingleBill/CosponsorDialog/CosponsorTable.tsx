@@ -33,7 +33,7 @@ const StyledBodyText = styled(Typography)(({ theme }) => ({
   ...theme.typography.bodyS,
   color: theme.color.common.black,
 }))
-const headers: string[] = ['Bill Co-Signer', 'Party', 'Constituency', 'Date']
+const headers: string[] = ['Name', 'Party', 'Constituency', 'Date Sponsored']
 
 type Props = {
   cosponsors: People[]

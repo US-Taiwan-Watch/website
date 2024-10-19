@@ -14,54 +14,55 @@ import DialogFilter, {
 import useDialogFilter from '@/modules/Bill/components/SingleBill/useDialogFilter'
 import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
 
-export enum CosponsorFilterOptionEnum {
-  HOUSE = 'house',
-  SENATE = 'senate',
-  HOUSE2 = 'house2',
-  SENATE2 = 'senate2',
+enum CosponsorFilterOptionEnum {
+  DEMOCRATIC = 'democratic',
+  REPUBLICAN = 'republican',
+  INDEPENDENT = 'independent',
 }
 
 const FAKE_COUNT = 20
 
-const categories: FilterCategory<CosponsorFilterOptionEnum>[] = [
+// TODO: categories 是從 all data aggregate 來的
+const categories: FilterCategory<string>[] = [
   {
     id: 'party',
-    name: 'Party of Cosponsor',
+    name: 'Party',
     options: [
       {
-        id: CosponsorFilterOptionEnum.HOUSE,
-        name: 'House Roll Call Vote',
+        id: CosponsorFilterOptionEnum.DEMOCRATIC,
+        name: 'Democratic',
         count: FAKE_COUNT,
       },
       {
-        id: CosponsorFilterOptionEnum.SENATE,
-        name: 'Senate Roll Call Vote',
+        id: CosponsorFilterOptionEnum.REPUBLICAN,
+        name: 'Republican',
+        count: FAKE_COUNT,
+      },
+      {
+        id: CosponsorFilterOptionEnum.INDEPENDENT,
+        name: 'Independent',
         count: FAKE_COUNT,
       },
     ],
   },
   {
     id: 'territory',
-    name: 'Cosponsors by U.S. State or Territory',
+    name: 'U.S. State or Territory',
     // TODO: 待釐清有哪些選項
     options: [
       {
-        id: CosponsorFilterOptionEnum.HOUSE2,
-        name: 'House Roll Call Vote',
+        id: 'AL',
+        name: 'Alabama',
         count: FAKE_COUNT,
       },
       {
-        id: CosponsorFilterOptionEnum.SENATE2,
-        name: 'Senate Roll Call Vote',
+        id: 'CT',
+        name: 'Connecticut',
         count: FAKE_COUNT,
       },
     ],
   },
 ]
-
-const allOptionId: CosponsorFilterOptionEnum[] = Object.values(
-  CosponsorFilterOptionEnum
-)
 
 type Props = {
   bill: Bill
@@ -75,10 +76,8 @@ export default function CosponsorDialog({
   handleCloseModal,
 }: Props) {
   const theme = useTheme<USTWTheme>()
-  const { selectedOptionIdList, handleSelectOption, toggleSelectAllOption } =
-    useDialogFilter<CosponsorFilterOptionEnum>({
-      allOptionId,
-    })
+  const { selectedOptionIdList, handleSelectOption, clearAll } =
+    useDialogFilter<string>()
 
   return (
     <UContentCardDialog
@@ -121,7 +120,7 @@ export default function CosponsorDialog({
             <DialogFilter
               selectedOptionIdList={selectedOptionIdList}
               onSelectOption={handleSelectOption}
-              toggleSelectAllOption={toggleSelectAllOption}
+              clearAll={clearAll}
               categories={categories}
             />
           </Grid2>

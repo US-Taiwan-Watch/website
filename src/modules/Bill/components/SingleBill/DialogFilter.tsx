@@ -2,6 +2,7 @@
 
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import {
+  Box,
   Checkbox,
   Collapse,
   FormControlLabel,
@@ -15,6 +16,7 @@ import RemoveIcon from '@mui/icons-material/Remove'
 import { Fragment, useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
+import UButton from '@/common/components/atoms/UButton'
 
 const StyledOptionContainer = styled(FormGroup)(({ theme }) => ({
   display: 'flex',
@@ -71,14 +73,14 @@ type DialogFilterProps<T extends string> = {
   categories: FilterCategory<T>[]
   selectedOptionIdList?: FilterOption<T>['id'][]
   onSelectOption?: (optionId: FilterOption<T>['id']) => void
-  toggleSelectAllOption?: () => void
+  clearAll?: () => void
 }
 
 export default function DialogFilter<T extends string>({
   categories,
   selectedOptionIdList,
   onSelectOption,
-  toggleSelectAllOption,
+  clearAll,
 }: DialogFilterProps<T>) {
   const theme = useTheme<USTWTheme>()
   const [expandedCategories, setExpandedCategories] = useState<{
@@ -103,33 +105,21 @@ export default function DialogFilter<T extends string>({
     [selectedOptionIdList]
   )
 
-  const totalCount = useMemo(
-    () => categories.flatMap((category) => category.options).length,
-    [categories]
-  )
-
   return (
     <FormGroup>
-      <FormControlLabel
-        control={
-          <Checkbox
-            color="secondary"
-            checked={selectedOptionIdSet.size === totalCount}
-            onChange={toggleSelectAllOption}
-          />
-        }
-        label={
-          <Typography
-            variant="buttonXS"
-            fontWeight={600}
-            sx={{
-              color: theme.color.neutral[500],
-            }}
-          >
-            Select all
-          </Typography>
-        }
-      />
+      <Box>
+        <UButton
+          variant="text"
+          onClick={clearAll}
+          sx={{
+            height: 42, // 對齊表格
+            padding: 0,
+            color: theme.color.neutral[500],
+          }}
+        >
+          Clear All
+        </UButton>
+      </Box>
 
       {categories.map((category) => (
         <Fragment key={category.id}>

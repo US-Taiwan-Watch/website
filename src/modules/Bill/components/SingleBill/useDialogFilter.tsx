@@ -2,13 +2,7 @@
 
 import { useCallback, useState } from 'react'
 
-type Props<T extends string> = {
-  allOptionId: T[]
-}
-
-export default function useDialogFilter<T extends string>({
-  allOptionId,
-}: Props<T>) {
+export default function useDialogFilter<T extends string>() {
   const [selectedOptionIdList, setSelectedOptionIdList] = useState<T[]>([])
 
   const handleSelectOption = useCallback((optionId: T) => {
@@ -20,15 +14,13 @@ export default function useDialogFilter<T extends string>({
     })
   }, [])
 
-  const toggleSelectAllOption = useCallback(() => {
-    setSelectedOptionIdList((prev) =>
-      prev.length === allOptionId.length ? [] : allOptionId
-    )
-  }, [allOptionId])
+  const clearAll = useCallback(() => {
+    setSelectedOptionIdList([])
+  }, [])
 
   return {
     selectedOptionIdList,
     handleSelectOption,
-    toggleSelectAllOption,
+    clearAll,
   }
 }
