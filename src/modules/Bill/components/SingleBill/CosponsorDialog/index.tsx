@@ -8,61 +8,11 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Grid2, useTheme } from '@mui/material'
-import DialogFilter, {
-  FilterCategory,
-} from '@/modules/Bill/components/SingleBill/DialogFilter'
+import DialogFilter from '@/modules/Bill/components/SingleBill/DialogFilter'
 import useDialogFilter from '@/modules/Bill/components/SingleBill/useDialogFilter'
 import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
-
-enum CosponsorFilterOptionEnum {
-  DEMOCRATIC = 'democratic',
-  REPUBLICAN = 'republican',
-  INDEPENDENT = 'independent',
-}
-
-const FAKE_COUNT = 20
-
-// TODO: categories 是從 all data aggregate 來的
-const categories: FilterCategory<string>[] = [
-  {
-    id: 'party',
-    name: 'Party',
-    options: [
-      {
-        id: CosponsorFilterOptionEnum.DEMOCRATIC,
-        name: 'Democratic',
-        count: FAKE_COUNT,
-      },
-      {
-        id: CosponsorFilterOptionEnum.REPUBLICAN,
-        name: 'Republican',
-        count: FAKE_COUNT,
-      },
-      {
-        id: CosponsorFilterOptionEnum.INDEPENDENT,
-        name: 'Independent',
-        count: FAKE_COUNT,
-      },
-    ],
-  },
-  {
-    id: 'territory',
-    name: 'U.S. State or Territory',
-    // TODO: 待釐清有哪些選項
-    options: [
-      {
-        id: 'AL',
-        name: 'Alabama',
-        count: FAKE_COUNT,
-      },
-      {
-        id: 'CT',
-        name: 'Connecticut',
-        count: FAKE_COUNT,
-      },
-    ],
-  },
-]
+import { useMemo } from 'react'
+import { createFilterCategories } from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
 
 type Props = {
   bill: Bill
@@ -78,6 +28,7 @@ export default function CosponsorDialog({
   const theme = useTheme<USTWTheme>()
   const { selectedOptionIdList, handleSelectOption, clearAll } =
     useDialogFilter<string>()
+  const categories = useMemo(() => createFilterCategories(bill), [bill])
 
   return (
     <UContentCardDialog
