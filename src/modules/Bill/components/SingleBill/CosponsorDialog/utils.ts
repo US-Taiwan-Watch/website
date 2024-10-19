@@ -2,7 +2,7 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import {
   FilterCategory,
   FilterOption,
-} from '@/modules/Bill/components/SingleBill/DialogFilter'
+} from '@/modules/Bill/components/SingleBill/CosponsorDialog/DialogFilter'
 
 enum FilterParty {
   DEMOCRATIC = 'DEMOCRATIC',
