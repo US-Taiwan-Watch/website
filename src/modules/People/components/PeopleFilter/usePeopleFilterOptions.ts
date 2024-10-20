@@ -5,12 +5,12 @@ import {
   PeopleCategoryEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
-import states from '@/modules/People/components/PeopleFilter/assets/states'
-import territoriesRegions from '@/modules/People/components/PeopleFilter/assets/territories-regions'
+import states from '@/common/assets/states'
+import territoriesRegions from '@/common/assets/territories-regions'
 import {
   CURRENT_CONGRESS_SESSION,
   CONGRESS_SESSION_MIN,
-} from '@/modules/People/components/PeopleFilter/assets/constants'
+} from '@/common/assets/constants'
 
 export type PeopleFilterOption<T> = {
   value: T

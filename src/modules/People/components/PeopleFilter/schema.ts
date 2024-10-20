@@ -8,7 +8,7 @@ import {
 import {
   CURRENT_CONGRESS_SESSION,
   CONGRESS_SESSION_MIN,
-} from '@/modules/People/components/PeopleFilter/assets/constants'
+} from '@/common/assets/constants'
 import { KeysOfUnion } from '@/common/types/common'
 
 const congressSchema = z.union([
@@ -30,7 +30,7 @@ export const senatorSchema = z.object({
   tag: z.string().optional(),
 })
 
-export type SenatorFilter = z.infer<typeof senatorSchema>
+export type SenatorFilterInput = z.input<typeof senatorSchema>
 
 export const houseRepresentativeSchema = z.object({
   category: z.literal(PeopleCategoryEnum.HouseRepresentative),
@@ -41,7 +41,7 @@ export const houseRepresentativeSchema = z.object({
   tag: z.string().optional(),
 })
 
-export type HouseRepresentativeFilter = z.infer<
+export type HouseRepresentativeFilterInput = z.input<
   typeof houseRepresentativeSchema
 >
 
@@ -50,20 +50,20 @@ export const officialSchema = z.object({
   area: z.nativeEnum(PeopleAreaEnum).optional(),
 })
 
-export type OfficialFilter = z.infer<typeof officialSchema>
+export type OfficialFilterInput = z.input<typeof officialSchema>
 
 export const expertSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Expert),
   affiliation: z.nativeEnum(PeopleAffiliationEnum).optional(),
 })
 
-export type ExpertFilter = z.infer<typeof expertSchema>
+export type ExpertFilterInput = z.input<typeof expertSchema>
 
 export const otherSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Other),
 })
 
-export type OtherFilter = z.infer<typeof otherSchema>
+export type OtherFilterInput = z.input<typeof otherSchema>
 
 export const peopleFilterSchema = z.discriminatedUnion('category', [
   senatorSchema,

@@ -179,82 +179,82 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
   }, [form, onSubmit])
 
   return (
-    <>
-      <form style={{ width: '100%' }}>
-        <Filter
-          firstLevelSelector={
-            <Controller
-              name="category"
-              control={form.control}
-              render={({ field }) => (
-                <USelect {...field} isFirstLevel>
-                  <MenuItem value="" disabled>
-                    Category
-                  </MenuItem>
-                  {categoryOptions.map((option) => (
-                    <MenuItem key={option.value} value={option.value}>
-                      {option.label}
-                    </MenuItem>
-                  ))}
-                </USelect>
-              )}
-            />
-          }
-          handleReset={handleReset}
-        >
-          {secondLevelSelectors.map((selector) => (
-            <Controller
-              key={selector.key}
-              name={selector.key}
-              control={form.control}
-              render={({ field }) => {
-                // district filter，讓使用者輸入數字就好 (int > 0)
-                if (selector.key === 'district') {
-                  return (
-                    <UFilterInput
-                      {...field}
-                      placeholder={selector.placeholder}
-                      disableUnderline
-                      type="number"
-                      inputProps={{
-                        min: 1,
-                      }}
-                      onChange={(e) => {
-                        if (Number.isNaN(parseInt(e.target.value, 10))) {
-                          field.onChange(undefined)
-                        } else {
-                          field.onChange(
-                            Math.max(1, parseInt(e.target.value, 10))
-                          )
-                        }
-                      }}
-                    />
-                  )
-                }
+    <Filter
+      containerProps={{
+        component: 'form',
+        sx: {
+          width: '100%',
+        },
+      }}
+      firstLevelSelector={
+        <Controller
+          name="category"
+          control={form.control}
+          render={({ field }) => (
+            <USelect {...field} isFirstLevel>
+              <MenuItem value="" disabled>
+                Category
+              </MenuItem>
+              {categoryOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </USelect>
+          )}
+        />
+      }
+      handleReset={handleReset}
+    >
+      {secondLevelSelectors.map((selector) => (
+        <Controller
+          key={selector.key}
+          name={selector.key}
+          control={form.control}
+          render={({ field }) => {
+            // district filter，讓使用者輸入數字就好 (int > 0)
+            if (selector.key === 'district') {
+              return (
+                <UFilterInput
+                  {...field}
+                  placeholder={selector.placeholder}
+                  disableUnderline
+                  type="number"
+                  inputProps={{
+                    min: 1,
+                  }}
+                  onChange={(e) => {
+                    if (Number.isNaN(parseInt(e.target.value, 10))) {
+                      field.onChange(undefined)
+                    } else {
+                      field.onChange(Math.max(1, parseInt(e.target.value, 10)))
+                    }
+                  }}
+                />
+              )
+            }
 
-                return (
-                  <USelect
-                    {...field}
-                    // 預設值
-                    value={field.value ?? ''}
-                    label={selector.placeholder}
-                  >
-                    <MenuItem value="" disabled>
-                      {selector.placeholder}
-                    </MenuItem>
-                    {selector.options.map((option) => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.label}
-                      </MenuItem>
-                    ))}
-                  </USelect>
-                )
-              }}
-            />
-          ))}
-        </Filter>
-      </form>
-    </>
+            return (
+              <USelect
+                {...field}
+                // 預設值
+                value={field.value ?? ''}
+                label={selector.placeholder}
+              >
+                <MenuItem value="" disabled>
+                  {selector.placeholder}
+                </MenuItem>
+                {selector.options.map((option) => (
+                  <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                  </MenuItem>
+                ))}
+              </USelect>
+            )
+          }}
+        />
+      ))}
+    </Filter>
   )
 }
 
