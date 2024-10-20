@@ -4,7 +4,7 @@ import { useTheme, Divider } from '@mui/material'
 import UHStack from '@/common/components/atoms/UHStack'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
-import { ReactNode } from 'react'
+import { type ComponentPropsWithoutRef, type ReactNode } from 'react'
 
 const StyledFilterContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 2),
@@ -17,12 +17,14 @@ const StyledFilterContainer = styled(UHStack)(({ theme }) => ({
 }))
 
 type FilterProps = {
+  containerProps?: ComponentPropsWithoutRef<typeof StyledFilterContainer>
   firstLevelSelector: ReactNode
   children?: ReactNode
   handleReset?: () => void
 }
 
 export default function Filter({
+  containerProps,
   firstLevelSelector,
   children,
   handleReset,
@@ -30,7 +32,7 @@ export default function Filter({
   const theme = useTheme<USTWTheme>()
 
   return (
-    <StyledFilterContainer>
+    <StyledFilterContainer {...containerProps}>
       <UHStack spacing={1.5}>
         {firstLevelSelector}
 
