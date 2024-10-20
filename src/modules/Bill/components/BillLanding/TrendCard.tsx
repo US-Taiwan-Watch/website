@@ -1,14 +1,7 @@
 'use client'
 
 import { TrendIcon } from '@/common/styles/assets/Icons'
-import {
-  Box,
-  MenuItem,
-  Slider,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Box, MenuItem, Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UHStack from '@/common/components/atoms/UHStack'
 import TrendBarCharts, {
@@ -18,11 +11,7 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
-import {
-  BILL_TREND_CHART_DATA_MOCK,
-  CONGRESS_CURRENT_SESSION_MOCK,
-  CONGRESS_START_MOCK,
-} from '@/modules/Bill/data'
+import { BILL_TREND_CHART_DATA_MOCK } from '@/modules/Bill/data'
 import { groupBy, map, sumBy } from 'lodash-es'
 import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
 
@@ -47,10 +36,6 @@ export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
   const { categoryOptions } = useBillFilterOptions()
   const [selectedCategory, setSelectedCategory] = useState('')
-  const [congressRange, setCongressRange] = useState<number[]>([
-    CONGRESS_START_MOCK,
-    CONGRESS_CURRENT_SESSION_MOCK,
-  ])
 
   const chartData = useMemo<TrendBarChartData[]>(() => {
     if (selectedCategory === '') return dataAll
@@ -61,27 +46,6 @@ export default function TrendCard() {
   const totalCount = useMemo<number>(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0)
   }, [chartData])
-
-  const handleSliderChange = (
-    _: Event,
-    newValue: number | number[],
-    activeThumb: number
-  ) => {
-    if (!Array.isArray(newValue)) return
-
-    const minDistance = 1
-    if (activeThumb === 0) {
-      setCongressRange([
-        Math.min(newValue[0], congressRange[1] - minDistance),
-        congressRange[1],
-      ])
-    } else {
-      setCongressRange([
-        congressRange[0],
-        Math.max(newValue[1], congressRange[0] + minDistance),
-      ])
-    }
-  }
 
   return (
     <UContentCard
@@ -121,16 +85,6 @@ export default function TrendCard() {
         </UHStack>
         <Box width="100%">
           <TrendBarCharts data={chartData} />
-          <Box mt={1} px={6}>
-            <Slider
-              value={congressRange}
-              onChange={handleSliderChange}
-              valueLabelDisplay="auto"
-              min={CONGRESS_START_MOCK}
-              max={CONGRESS_CURRENT_SESSION_MOCK}
-              color="secondary"
-            />
-          </Box>
         </Box>
       </Stack>
     </UContentCard>
