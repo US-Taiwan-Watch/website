@@ -6,6 +6,8 @@ import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { ChamberEnum } from '@/common/enums/Chamber'
+import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
+import { BillTrendData } from '@/modules/Bill/components/BillLanding/TrendCard'
 
 export const BILL_TOTAL_COUNT_MOCK = 20
 export const CONGRESS_CURRENT_SESSION_MOCK = 118
@@ -401,3 +403,19 @@ export const BILL_DATA_MOCK: Bill[] = [
     ],
   }),
 ]
+
+const CONGRESS_START = 96
+const CONGRESS_END = 118
+
+export const BILL_TREND_CHART_DATA_MOCK: BillTrendData[] = Array.from(
+  { length: CONGRESS_END - CONGRESS_START + 1 },
+  (_, index) => {
+    return Object.values(BillCategoryEnum)
+      .filter((category) => typeof category !== 'string')
+      .map((category) => ({
+        congress: CONGRESS_START + index,
+        count: Math.floor(Math.random() * 10) + 1,
+        category,
+      }))
+  }
+).flat()
