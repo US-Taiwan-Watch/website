@@ -34,11 +34,13 @@ export default function TrendBarCharts({ data }: TrendBarChartsProps) {
       dataset={data}
       xAxis={[
         {
+          label: 'Congress',
           scaleType: 'band',
           dataKey: 'session',
           valueFormatter,
         },
       ]}
+      yAxis={[{ label: 'Bill Count' }]}
       series={[
         {
           type: 'bar',
@@ -53,6 +55,9 @@ export default function TrendBarCharts({ data }: TrendBarChartsProps) {
             strokeWidth: 0,
           },
           [`.${axisClasses.tickLabel}`]: {
+            fill: theme.color.grey[2300],
+          },
+          [`.${axisClasses.label}`]: {
             fill: theme.color.grey[2300],
           },
         },

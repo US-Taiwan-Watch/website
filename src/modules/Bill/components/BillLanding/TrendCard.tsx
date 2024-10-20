@@ -37,6 +37,10 @@ export default function TrendCard() {
     ]
   }, [selectedCategory])
 
+  const totalCount = useMemo<number>(() => {
+    return chartData.reduce((acc, curr) => acc + curr.count, 0)
+  }, [chartData])
+
   return (
     <UContentCard
       headerIconAction="tooltip"
@@ -56,7 +60,7 @@ export default function TrendCard() {
             <Typography variant="menu" color={theme.color.grey[2200]}>
               Total
             </Typography>
-            <Typography variant="h4">2048</Typography>
+            <Typography variant="h4">{totalCount}</Typography>
           </Stack>
 
           <Box>
