@@ -90,6 +90,13 @@ const NumberCard = function ({
             border: 'none',
             borderRadius: 0,
           }}
+          contentProps={{
+            sx: {
+              '& > *:not(:last-child)': {
+                borderBottom: `1px solid ${theme.color.neutral[100]}`,
+              },
+            },
+          }}
         >
           {children}
         </UContentCard>
