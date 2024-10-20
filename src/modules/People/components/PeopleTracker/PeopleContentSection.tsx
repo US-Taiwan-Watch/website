@@ -3,7 +3,9 @@ import BioByAI from '@/modules/People/components/PeopleTracker/CardContent/BioBy
 import Committee from '@/modules/People/components/PeopleTracker/CardContent/Committee'
 import Experience from '@/modules/People/components/PeopleTracker/CardContent/Experience'
 import IdeologyLeadershipChart from '@/modules/People/components/PeopleTracker/CardContent/IdeologyLeadershipChart'
-import NumberLink from '@/modules/People/components/PeopleTracker/CardContent/NumberLink'
+import CoSponsored from '@/modules/People/components/PeopleTracker/CardContent/CoSponsored'
+import Sponsored from '@/modules/People/components/PeopleTracker/CardContent/Sponsored'
+import VotingRecord from '@/modules/People/components/PeopleTracker/CardContent/VotingRecord'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
 import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
 import { Box, Grid2 as Grid, useTheme } from '@mui/material'
@@ -32,15 +34,15 @@ const PeopleContentSection = memo(function PeopleContentSection({
         )}
 
         <Grid size={2}>
-          <NumberLink title="Sponsored" number={2} />
+          <Sponsored />
         </Grid>
 
         <Grid size={2}>
-          <NumberLink title="co-sponsored" number={3} />
+          <CoSponsored />
         </Grid>
 
         <Grid size={2}>
-          <NumberLink title="Voting Record" number={0} />
+          <VotingRecord />
         </Grid>
 
         {/** Row 2 */}
