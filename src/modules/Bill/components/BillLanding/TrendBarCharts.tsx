@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation'
 const valueFormatter = (value: number | null) => (value ? `${value}th` : '')
 
 export type TrendBarChartData = {
-  session: number
+  congress: number
   count: number
 }
 

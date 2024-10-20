@@ -10,6 +10,7 @@ import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { BillTrendData } from '@/modules/Bill/components/BillLanding/TrendCard'
 
 export const BILL_TOTAL_COUNT_MOCK = 20
+export const CONGRESS_START_MOCK = 96
 export const CONGRESS_CURRENT_SESSION_MOCK = 118
 
 const sponsor1 = new People({
@@ -404,16 +405,13 @@ export const BILL_DATA_MOCK: Bill[] = [
   }),
 ]
 
-const CONGRESS_START = 96
-const CONGRESS_END = 118
-
 export const BILL_TREND_CHART_DATA_MOCK: BillTrendData[] = Array.from(
-  { length: CONGRESS_END - CONGRESS_START + 1 },
+  { length: CONGRESS_CURRENT_SESSION_MOCK - CONGRESS_START_MOCK + 1 },
   (_, index) => {
     return Object.values(BillCategoryEnum)
       .filter((category) => typeof category !== 'string')
       .map((category) => ({
-        congress: CONGRESS_START + index,
+        congress: CONGRESS_START_MOCK + index,
         count: Math.floor(Math.random() * 10) + 1,
         category,
       }))
