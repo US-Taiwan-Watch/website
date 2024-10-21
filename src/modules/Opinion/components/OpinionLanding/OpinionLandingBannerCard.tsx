@@ -1,15 +1,17 @@
 'use client'
 
 import { memo } from 'react'
-import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid2 as Grid, Stack, useTheme } from '@mui/material'
 import Image from 'next/image'
-import { styled } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import withSelectable from '@/common/hooks/withSelectable'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import UTagList from '@/common/components/atoms/UTagList'
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 
 const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -47,23 +49,35 @@ interface OpinionLandingBannerCardProps {
 const OpinionLandingBannerCard = function OpinionLandingBannerCard({
   opinion,
 }: OpinionLandingBannerCardProps) {
+  const theme = useTheme<USTWTheme>()
+
   return (
     <StyledOpinionLandingBannerCardContainer>
       <Grid container spacing={6}>
         <Grid size={5}>
           <StyledLeftSectionWithSelectable direction="column" spacing={4}>
             {/** Tags */}
-            <Stack direction="row" spacing={1}>
-              {opinion.categories?.map((category) => (
+            <UTagList
+              tags={(opinion.categories ?? []).map((category) => (
                 <Link href={category.link} key={category.id}>
-                  <StyledCategory>
-                    <Typography variant="caption" lineHeight={1}>
+                  <StyledCategory className="category-tag">
+                    <UWidthLimitedText variant="caption" lineHeight={1}>
                       {category.label}
-                    </Typography>
+                    </UWidthLimitedText>
                   </StyledCategory>
                 </Link>
               ))}
-            </Stack>
+              containerProps={{
+                gap: 1,
+              }}
+              moreButtonProps={{
+                textProps: {
+                  sx: {
+                    color: theme.color.neutral[500],
+                  },
+                },
+              }}
+            />
 
             {/** Middle Section */}
             <StyledMiddleSection direction="column" spacing={2} flex={1}>

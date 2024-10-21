@@ -12,6 +12,7 @@ import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
+import UTagList from '@/common/components/atoms/UTagList'
 
 type Props = {
   bill: Bill
@@ -23,12 +24,16 @@ export default function LeftSection({ bill }: Props) {
   return (
     <Stack justifyContent="space-between" height="100%">
       <Stack>
-        <UHStack spacing={0.5} mb={2}>
-          {/* NOTE: 限制 tags 數量 */}
-          {bill.tags
-            ?.slice(0, 5)
-            .map((tag, index) => <UCategoryTag key={index} value={tag} />)}
-        </UHStack>
+        <UTagList
+          tags={(bill.tags ?? []).map((tag, index) => (
+            <UCategoryTag key={index} value={tag} />
+          ))}
+          containerProps={{
+            gap: 0.5,
+            mb: 2,
+          }}
+          maxTags={4}
+        />
 
         <Typography
           variant="buttonXS"

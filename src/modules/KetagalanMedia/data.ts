@@ -7,7 +7,7 @@ const ketagalanMediaMockData = new KetagalanMedia({
   image: '/assets/category1.jpg',
   description:
     'Make the most of your project updates with our Revamped Text Editor.',
-  tags: ['Military', 'Military', 'Military'],
+  tags: ['Military', 'Military', 'Military', 'Military', 'Military'],
 })
 
 export default ketagalanMediaMockData

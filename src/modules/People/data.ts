@@ -9,7 +9,7 @@ const people = new People({
   image: '/assets/category1.jpg',
   description:
     'Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a ...',
-  tags: ['tag', 'tag2', 'tag3', 'tag4'],
+  tags: ['representative', 'tag2', 'tag3', 'tag4'],
   party: Party.DEMOCRATIC,
   position: PeoplePosition.SENATOR,
   congress: new Congress({

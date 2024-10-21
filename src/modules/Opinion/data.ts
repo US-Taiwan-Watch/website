@@ -18,6 +18,56 @@ export const OpinionResponse = {
       label: '外交貿易',
       image: '/assets/category1.jpg',
     },
+    {
+      id: '3',
+      label: '經濟金融',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '4',
+      label: '環境生態',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '5',
+      label: '社會文化',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '6',
+      label: '教育科研',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '7',
+      label: '健康醫療',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '8',
+      label: '交通運輸',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '9',
+      label: '科技資訊',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '10',
+      label: '藝術設計',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '11',
+      label: '體育運動',
+      image: '/assets/category1.jpg',
+    },
+    {
+      id: '12',
+      label: '政治法律',
+      image: '/assets/category1.jpg',
+    },
   ],
   date: '2024-01-01',
   tags: [
