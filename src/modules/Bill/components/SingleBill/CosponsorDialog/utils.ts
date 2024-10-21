@@ -11,6 +11,7 @@ enum FilterParty {
   INDEPENDENT = 'INDEPENDENT',
 }
 
+// NOTE: 可任意擴充文字顯示方式，例如縮寫、加入符號等，目前以三個 cases 示意
 type DisplayOption = 'uppercase' | 'lowercase' | 'capitalize'
 
 const createOptions = (
