@@ -12,6 +12,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import Link from 'next/link'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import UTagList from '@/common/components/atoms/UTagList'
 
 const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -85,12 +86,16 @@ const PeopleCard = memo(function PeopleCard({
                   {people.description}
                 </StyledPeopleCardDescription>
               )}
-              <Stack className="scroll-hidden" direction="row" gap={2}>
-                {/** 只限制四個 */}
-                {people.tags
-                  ?.slice(0, 4)
-                  .map((tag) => <PeopleTag value={tag} key={tag} />)}
-              </Stack>
+
+              <UTagList
+                tags={(people.tags ?? []).map((tag) => (
+                  <PeopleTag value={tag} key={tag} />
+                ))}
+                containerProps={{
+                  gap: 2,
+                }}
+                maxTags={2}
+              />
             </Stack>
           </Grid>
           <Grid size={2} display="flex" justifyContent="end">

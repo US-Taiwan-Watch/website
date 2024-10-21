@@ -4,7 +4,7 @@ import { Box, Card, Dialog, useTheme, type DialogProps } from '@mui/material'
 const StyledDialog = styled(Dialog)(() => ({
   '& .MuiCardContent-root': {
     maxHeight: '80dvh',
-    overflow: 'scroll',
+    overflow: 'auto',
   },
 }))
 

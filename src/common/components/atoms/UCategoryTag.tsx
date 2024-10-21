@@ -1,7 +1,8 @@
 'use client'
 
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { styled } from '@/common/lib/mui/theme'
-import { Stack, StackProps, Typography, TypographyProps } from '@mui/material'
+import { Stack, StackProps, TypographyProps } from '@mui/material'
 import { ReactNode } from 'react'
 
 const StyledTagContainer = styled(Stack)(({ theme }) => ({
@@ -10,12 +11,12 @@ const StyledTagContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.color.indigo[50],
 }))
 
-type UCategoryTagProps = {
+export type UCategoryTagProps = {
   value?: string
   renderValue?: ReactNode
   containerProps?: StackProps
   textProps?: TypographyProps
-  onClick?: () => void
+  onClick?: StackProps['onClick']
 }
 
 export default function UCategoryTag({
@@ -34,12 +35,13 @@ export default function UCategoryTag({
         cursor: onClick ? 'pointer' : 'default',
         ...containerSx,
       }}
+      className="category-tag"
       {...restContainerProps}
     >
       {renderValue ?? (
-        <Typography variant="buttonXS" {...textProps}>
+        <UWidthLimitedText variant="buttonXS" {...textProps}>
           {value}
-        </Typography>
+        </UWidthLimitedText>
       )}
     </StyledTagContainer>
   )

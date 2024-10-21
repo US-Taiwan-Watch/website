@@ -1,14 +1,16 @@
 'use client'
 
 import { ComponentProps, memo } from 'react'
-import { Box, Stack, StackProps, Typography } from '@mui/material'
+import { Box, Stack, StackProps, useTheme } from '@mui/material'
 import Image from 'next/image'
-import { styled } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import withSelectable from '@/common/hooks/withSelectable'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import UTagList from '@/common/components/atoms/UTagList'
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 
 const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -16,7 +18,7 @@ const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
   borderRadius: '30px',
 }))
 
-const StyledTag = styled('div')(({ theme }) => ({
+const StyledTag = styled(Box)(({ theme }) => ({
   borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
   padding: '0px 9px',
@@ -50,18 +52,30 @@ interface IndexKvCardProps {
 }
 
 const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
+  const theme = useTheme<USTWTheme>()
+
   return (
     <StyledIndexKvCardContainer sx={props.containerSx}>
       <Stack direction="row" spacing={8}>
         <StyledLeftSectionWithSelectable direction="column" spacing={4}>
           {/** Tags */}
-          <Stack direction="row" spacing={1}>
-            {props.tags.map((tag, index) => (
-              <StyledTag key={index}>
-                <Typography variant="caption">{tag}</Typography>
+          <UTagList
+            tags={props.tags.map((tag, index) => (
+              <StyledTag key={index} className="category-tag">
+                <UWidthLimitedText variant="buttonXS">{tag}</UWidthLimitedText>
               </StyledTag>
             ))}
-          </Stack>
+            containerProps={{
+              gap: 1,
+            }}
+            moreButtonProps={{
+              textProps: {
+                sx: {
+                  color: theme.color.neutral[500],
+                },
+              },
+            }}
+          />
 
           {/** Middle Section */}
           <StyledMiddleSection direction="column" spacing={2} flex={1}>

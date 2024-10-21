@@ -1,3 +1,4 @@
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { styled } from '@/common/lib/mui/theme'
 import { Stack, Typography } from '@mui/material'
 
@@ -13,7 +14,7 @@ const StyledHashTag = styled(Typography)(({ theme }) => ({
   color: theme.color.neutral[500],
 }))
 
-const StyledPeopleTagText = styled(Typography)(({ theme }) => ({
+const StyledPeopleTagText = styled(UWidthLimitedText)(({ theme }) => ({
   fontWeight: 500,
   color: theme.color.common.black,
 }))
@@ -29,6 +30,7 @@ const PeopleTag = function PeopleTag({ value }: PeopleTagProps) {
       spacing={0.5}
       alignItems="center"
       justifyContent="center"
+      className="category-tag"
     >
       <StyledHashTag>#</StyledHashTag>
       <StyledPeopleTagText>{value}</StyledPeopleTagText>
