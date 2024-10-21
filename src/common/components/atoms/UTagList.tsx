@@ -16,6 +16,28 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 // NOTE: 預設顯示 5 個（mobile 3 個）
 const DEFAULT_MAX_COUNT = 5
 
+type MoreButtonProps = {
+  count: number
+} & UCategoryTagProps
+
+const MoreButton = ({ count, ...props }: MoreButtonProps) => {
+  const theme = useTheme<USTWTheme>()
+
+  return (
+    <UCategoryTag
+      value={`+${count} More`}
+      containerProps={{
+        sx: {
+          backgroundColor: 'transparent',
+          color: theme.color.grey[600],
+          px: 0.5,
+        },
+      }}
+      {...props}
+    />
+  )
+}
+
 type Props = {
   tags: ReactNode[]
   maxTags?: number
@@ -51,15 +73,8 @@ export default function UTagList({
           <Fragment key={index}>{tag}</Fragment>
         ))}
         {isOverLimit && (
-          <UCategoryTag
-            value={`+${tags.length - maxTags}More`}
-            containerProps={{
-              sx: {
-                backgroundColor: 'transparent',
-                color: theme.color.grey[600],
-                px: 0.5,
-              },
-            }}
+          <MoreButton
+            count={tags.length - maxTags}
             {...moreButtonProps}
             onClick={(e) => {
               e.stopPropagation()
