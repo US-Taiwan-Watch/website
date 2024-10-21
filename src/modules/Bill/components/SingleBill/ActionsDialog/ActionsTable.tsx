@@ -19,6 +19,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import { sortBy } from 'lodash-es'
+import { ActionsTableType } from '@/modules/Bill/components/SingleBill/ActionsDialog'
 
 const EMPTY_CELL = '-'
 const DATE_FORMAT = 'MM/DD/YYYY'
@@ -38,7 +39,6 @@ const StyledBodyText = styled(Typography)(({ theme }) => ({
   ...theme.typography.bodyS,
   color: theme.color.common.black,
 }))
-const headers: string[] = ['Chamber', 'All Actions']
 
 enum SortDirectionEnum {
   ASC = 'ASC',
@@ -47,13 +47,24 @@ enum SortDirectionEnum {
 
 type Props = {
   actions: BillAction[]
+  tableType: ActionsTableType
 }
 
-export default function ActionsTable({ actions }: Props) {
+export default function ActionsTable({ actions, tableType }: Props) {
   const theme = useTheme<USTWTheme>()
   const [sortDirection, setSortDirection] = useState<SortDirectionEnum>(
     SortDirectionEnum.DESC
   )
+
+  const isAllActions = useMemo(
+    () => tableType === ActionsTableType.ALL_ACTIONS,
+    [tableType]
+  )
+
+  const headers: string[] = [
+    ...(isAllActions ? ['Chamber'] : []),
+    'Description',
+  ]
 
   const sortedActions = useMemo<BillAction[]>(() => {
     const sortResult = sortBy(actions, 'date')
@@ -124,11 +135,13 @@ export default function ActionsTable({ actions }: Props) {
                     : EMPTY_CELL}
                 </StyledNameText>
               </TableCell>
-              <TableCell align="left">
-                <StyledBodyText textTransform="capitalize">
-                  {action.chamber.toLowerCase()}
-                </StyledBodyText>
-              </TableCell>
+              {isAllActions && (
+                <TableCell align="left">
+                  <StyledBodyText textTransform="capitalize">
+                    {action.chamber.toLowerCase()}
+                  </StyledBodyText>
+                </TableCell>
+              )}
               <TableCell align="left">
                 <StyledBodyText>
                   {action.description || EMPTY_CELL}

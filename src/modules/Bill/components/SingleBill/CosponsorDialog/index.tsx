@@ -8,60 +8,16 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Grid2, useTheme } from '@mui/material'
-import DialogFilter, {
-  FilterCategory,
-} from '@/modules/Bill/components/SingleBill/DialogFilter'
-import useDialogFilter from '@/modules/Bill/components/SingleBill/useDialogFilter'
+import DialogFilter from '@/modules/Bill/components/SingleBill/CosponsorDialog/DialogFilter'
+import useDialogFilter from '@/modules/Bill/components/SingleBill/CosponsorDialog/useDialogFilter'
 import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
-
-export enum CosponsorFilterOptionEnum {
-  HOUSE = 'house',
-  SENATE = 'senate',
-  HOUSE2 = 'house2',
-  SENATE2 = 'senate2',
-}
-
-const FAKE_COUNT = 20
-
-const categories: FilterCategory<CosponsorFilterOptionEnum>[] = [
-  {
-    id: 'party',
-    name: 'Party of Cosponsor',
-    options: [
-      {
-        id: CosponsorFilterOptionEnum.HOUSE,
-        name: 'House Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-      {
-        id: CosponsorFilterOptionEnum.SENATE,
-        name: 'Senate Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-    ],
-  },
-  {
-    id: 'territory',
-    name: 'Cosponsors by U.S. State or Territory',
-    // TODO: 待釐清有哪些選項
-    options: [
-      {
-        id: CosponsorFilterOptionEnum.HOUSE2,
-        name: 'House Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-      {
-        id: CosponsorFilterOptionEnum.SENATE2,
-        name: 'Senate Roll Call Vote',
-        count: FAKE_COUNT,
-      },
-    ],
-  },
-]
-
-const allOptionId: CosponsorFilterOptionEnum[] = Object.values(
-  CosponsorFilterOptionEnum
-)
+import { useMemo } from 'react'
+import {
+  createFilterCategories,
+  getFilterConstituency,
+  getFilterParty,
+} from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
+import { People } from '@/modules/People/classes/People'
 
 type Props = {
   bill: Bill
@@ -75,10 +31,24 @@ export default function CosponsorDialog({
   handleCloseModal,
 }: Props) {
   const theme = useTheme<USTWTheme>()
-  const { selectedOptionIdList, handleSelectOption, toggleSelectAllOption } =
-    useDialogFilter<CosponsorFilterOptionEnum>({
-      allOptionId,
+  const { selectedOptionList, handleSelectOption, clearAll } = useDialogFilter()
+  const categories = useMemo(() => createFilterCategories(bill), [bill])
+
+  const cosponsors = useMemo<People[]>(() => {
+    return (bill.cosponsors ?? []).filter((cosponsor) => {
+      const partyMatch = selectedOptionList.party.length
+        ? selectedOptionList.party.includes(getFilterParty(cosponsor.party))
+        : true
+
+      const constituencyMatch = selectedOptionList.constituency.length
+        ? selectedOptionList.constituency.includes(
+            getFilterConstituency(cosponsor.constituency ?? '')
+          )
+        : true
+
+      return partyMatch && constituencyMatch
     })
+  }, [bill, selectedOptionList])
 
   return (
     <UContentCardDialog
@@ -119,14 +89,14 @@ export default function CosponsorDialog({
         <Grid2 container mt={2} spacing={2}>
           <Grid2 size={3} pl={1} pt="3px">
             <DialogFilter
-              selectedOptionIdList={selectedOptionIdList}
+              selectedOptionList={selectedOptionList}
               onSelectOption={handleSelectOption}
-              toggleSelectAllOption={toggleSelectAllOption}
+              clearAll={clearAll}
               categories={categories}
             />
           </Grid2>
           <Grid2 size={9}>
-            <CosponsorTable cosponsors={bill.cosponsors ?? []} />
+            <CosponsorTable cosponsors={cosponsors} />
           </Grid2>
         </Grid2>
       </UContentCard>
