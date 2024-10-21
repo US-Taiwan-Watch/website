@@ -62,9 +62,7 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
           <UTagList
             tags={props.tags.map((tag, index) => (
               <StyledTag key={index} className="category-tag">
-                <UWidthLimitedText variant="caption" component="p">
-                  {tag}
-                </UWidthLimitedText>
+                <UWidthLimitedText variant="buttonXS">{tag}</UWidthLimitedText>
               </StyledTag>
             ))}
             containerProps={{
