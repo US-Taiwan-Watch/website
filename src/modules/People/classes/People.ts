@@ -1,4 +1,5 @@
 import { Congress } from '@/common/classes/Congress'
+import { ChamberEnum } from '@/common/enums/Chamber'
 import { Party } from '@/common/enums/Party'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { ROUTES } from '@/routes'
@@ -45,6 +46,7 @@ interface PeopleArgs {
   partyExperience: Array<PartyExperienceArgs>
   experience: Array<ExperienceArgs>
   constituency?: string
+  chamber?: ChamberEnum
 }
 
 export class People {
@@ -70,6 +72,8 @@ export class People {
   experience?: Array<Experience>
   // 選區
   constituency?: string
+  // 參眾議院
+  chamber?: ChamberEnum
 
   constructor(private readonly people: PeopleArgs) {
     if (isString(people.id)) {
@@ -106,6 +110,9 @@ export class People {
     }
     if (isString(people.constituency)) {
       this.constituency = people.constituency
+    }
+    if (isString(people.chamber)) {
+      this.chamber = people.chamber
     }
   }
 

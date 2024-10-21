@@ -23,7 +23,9 @@ interface HeaderProps {
 }
 
 const StyledHeader = styled('header')(({ theme }) => ({
-  position: 'relative',
+  position: 'sticky',
+  top: 10,
+  zIndex: theme.constants.zIndex.header,
   display: 'flex',
   [theme.breakpoints.up('xs')]: {
     height: `${theme.constants.headerHeight.xs}px`,

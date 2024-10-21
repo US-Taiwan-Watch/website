@@ -11,31 +11,41 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
+import { BILL_TREND_CHART_DATA_MOCK } from '@/modules/Bill/data'
+import { groupBy, map, sumBy } from 'lodash-es'
+import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
 
-const dataAll: TrendBarChartData[] = [
-  { session: 113, count: 15 },
-  { session: 114, count: 25 },
-  { session: 115, count: 17 },
-  { session: 116, count: 15 },
-  { session: 117, count: 17 },
-  { session: 118, count: 25 },
-]
+// TODO: 先假設資料是以此格式一筆筆紀錄，後續按照實際資料格式調整
+export type BillTrendData = {
+  congress: number
+  count: number
+  category: BillCategoryEnum
+}
+
+const getChartData = (data: BillTrendData[]) => {
+  return map(groupBy(data, 'congress'), (item) => ({
+    congress: item[0].congress,
+    count: sumBy(item, 'count'),
+  }))
+}
+
+const dataAll: TrendBarChartData[] = getChartData(BILL_TREND_CHART_DATA_MOCK)
+const dataGroupedByCategory = groupBy(BILL_TREND_CHART_DATA_MOCK, 'category')
 
 export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
   const { categoryOptions } = useBillFilterOptions()
   const [selectedCategory, setSelectedCategory] = useState('')
 
-  // TODO: filter data by selected category
   const chartData = useMemo<TrendBarChartData[]>(() => {
     if (selectedCategory === '') return dataAll
-    return [
-      ...Array.from({ length: 6 }, (_, index) => ({
-        session: 113 + index,
-        count: Math.floor(Math.random() * 7),
-      })),
-    ]
+    const data = dataGroupedByCategory[selectedCategory]
+    return getChartData(data)
   }, [selectedCategory])
+
+  const totalCount = useMemo<number>(() => {
+    return chartData.reduce((acc, curr) => acc + curr.count, 0)
+  }, [chartData])
 
   return (
     <UContentCard
@@ -56,7 +66,7 @@ export default function TrendCard() {
             <Typography variant="menu" color={theme.color.grey[2200]}>
               Total
             </Typography>
-            <Typography variant="h4">2048</Typography>
+            <Typography variant="h4">{totalCount}</Typography>
           </Stack>
 
           <Box>

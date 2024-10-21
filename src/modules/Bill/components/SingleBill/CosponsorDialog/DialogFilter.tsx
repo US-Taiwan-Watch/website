@@ -2,6 +2,7 @@
 
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import {
+  Box,
   Checkbox,
   Collapse,
   FormControlLabel,
@@ -12,9 +13,12 @@ import {
 } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import RemoveIcon from '@mui/icons-material/Remove'
-import { Fragment, useMemo, useState } from 'react'
+import { Fragment, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
+import UButton from '@/common/components/atoms/UButton'
+import { SelectedOption } from '@/modules/Bill/components/SingleBill/CosponsorDialog/useDialogFilter'
+import CloseIcon from '@mui/icons-material/Close'
 
 const StyledOptionContainer = styled(FormGroup)(({ theme }) => ({
   display: 'flex',
@@ -55,81 +59,65 @@ const StyledBadge = styled(Stack)(({ theme }) => ({
   marginLeft: theme.spacing(1),
 }))
 
-export type FilterOption<T extends string> = {
-  id: T
+export type FilterOption = {
+  id: string
   name: string
   count: number
 }
 
-export type FilterCategory<T extends string> = {
-  id: string
+export type FilterCategory = {
+  id: 'party' | 'constituency'
   name: string
-  options: FilterOption<T>[]
+  options: FilterOption[]
 }
 
-type DialogFilterProps<T extends string> = {
-  categories: FilterCategory<T>[]
-  selectedOptionIdList?: FilterOption<T>['id'][]
-  onSelectOption?: (optionId: FilterOption<T>['id']) => void
-  toggleSelectAllOption?: () => void
+type DialogFilterProps = {
+  categories: FilterCategory[]
+  selectedOptionList?: SelectedOption
+  onSelectOption?: (
+    categoryId: FilterCategory['id'],
+    optionId: FilterOption['id']
+  ) => void
+  clearAll?: () => void
 }
 
-export default function DialogFilter<T extends string>({
+export default function DialogFilter({
   categories,
-  selectedOptionIdList,
+  selectedOptionList,
   onSelectOption,
-  toggleSelectAllOption,
-}: DialogFilterProps<T>) {
+  clearAll,
+}: DialogFilterProps) {
   const theme = useTheme<USTWTheme>()
   const [expandedCategories, setExpandedCategories] = useState<{
-    [key: FilterCategory<T>['id']]: boolean
-  }>(() => {
-    const initialState: { [key: string]: boolean } = {}
-    categories.forEach((category) => {
-      initialState[category.id] = true
-    })
-    return initialState
+    [key in FilterCategory['id']]: boolean
+  }>({
+    party: true,
+    constituency: true,
   })
 
-  const handleExpandCategory = (categoryId: FilterCategory<T>['id']) => {
+  const handleExpandCategory = (categoryId: FilterCategory['id']) => {
     setExpandedCategories((prev) => ({
       ...prev,
       [categoryId]: !prev[categoryId],
     }))
   }
 
-  const selectedOptionIdSet = useMemo(
-    () => new Set(selectedOptionIdList ?? []),
-    [selectedOptionIdList]
-  )
-
-  const totalCount = useMemo(
-    () => categories.flatMap((category) => category.options).length,
-    [categories]
-  )
-
   return (
     <FormGroup>
-      <FormControlLabel
-        control={
-          <Checkbox
-            color="secondary"
-            checked={selectedOptionIdSet.size === totalCount}
-            onChange={toggleSelectAllOption}
-          />
-        }
-        label={
-          <Typography
-            variant="buttonXS"
-            fontWeight={600}
-            sx={{
-              color: theme.color.neutral[500],
-            }}
-          >
-            Select all
-          </Typography>
-        }
-      />
+      <Box>
+        <UButton
+          variant="text"
+          onClick={clearAll}
+          sx={{
+            height: 42, // 對齊表格
+            padding: 0,
+            color: theme.color.neutral[500],
+          }}
+          startIcon={<CloseIcon fontSize="small" />}
+        >
+          Clear All
+        </UButton>
+      </Box>
 
       {categories.map((category) => (
         <Fragment key={category.id}>
@@ -156,8 +144,10 @@ export default function DialogFilter<T extends string>({
                     <Checkbox
                       color="secondary"
                       size="small"
-                      checked={selectedOptionIdSet.has(option.id)}
-                      onChange={() => onSelectOption?.(option.id)}
+                      checked={selectedOptionList?.[category.id]?.includes(
+                        option.id
+                      )}
+                      onChange={() => onSelectOption?.(category.id, option.id)}
                     />
                   }
                   label={<StyledOptionText>{option.name}</StyledOptionText>}
