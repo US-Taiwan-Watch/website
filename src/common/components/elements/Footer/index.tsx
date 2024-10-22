@@ -78,7 +78,7 @@ const Footer = () => {
                     spacing={2}
                     useFlexGap
                     flexWrap="wrap"
-                    rowGap={2}
+                    rowGap={1.5}
                     columnGap={12}
                   >
                     {item.type === 'title' && (
