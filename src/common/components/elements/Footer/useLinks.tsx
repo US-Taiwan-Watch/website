@@ -43,7 +43,7 @@ export default function useLinks() {
     },
     {
       icon: <PodcastIcon />,
-      url: 'https://open.spotify.com/show/5CnwG4Tfr7YaQ42FETAI5t',
+      url: 'https://podcasts.apple.com/tw/podcast/%E7%BE%8E%E5%9C%8B%E5%8F%B0%E7%81%A3%E8%A7%80%E6%B8%AC%E7%AB%99/id1508245836',
     },
     {
       icon: <ThreadsIcon />,
@@ -95,11 +95,12 @@ export default function useLinks() {
           title: 'Events',
           url: ROUTES.HOME,
         },
-        {
-          type: 'subLink',
-          title: 'Ketagalan Media',
-          url: ROUTES.HOME,
-        },
+      ],
+    },
+    {
+      type: 'title',
+      title: 'Ketagalan Media',
+      subLinks: [
         {
           type: 'subLink',
           title: 'Articles',

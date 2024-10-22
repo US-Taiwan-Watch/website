@@ -83,7 +83,9 @@ const Footer = () => {
                   >
                     {item.type === 'title' && (
                       <>
-                        <Typography fontWeight={700}>{item.title}</Typography>
+                        <Typography paddingBottom={1} fontWeight={700}>
+                          {item.title}
+                        </Typography>
                         {item.subLinks.map(
                           (subItem, subIndex) =>
                             subItem.type === 'subLink' && (
