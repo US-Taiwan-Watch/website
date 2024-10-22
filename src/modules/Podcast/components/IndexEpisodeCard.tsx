@@ -1,7 +1,13 @@
 'use client'
 
 import { useEpisode } from '@/modules/Podcast/hooks/useEpisode'
-import { memo, forwardRef, useImperativeHandle, useMemo } from 'react'
+import {
+  memo,
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  ComponentProps,
+} from 'react'
 import { Typography, Slider, Stack } from '@mui/material'
 import { PlayCircleRounded, Pause } from '@mui/icons-material'
 import Image from 'next/image'
@@ -63,11 +69,22 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
 
 interface IndexEpisodeCardProps extends EpisodeCardProps {
   className?: string
+  containerProps?: Pick<
+    ComponentProps<typeof StyledIndexEpisodeCardContainer>,
+    'onMouseDown'
+  >
 }
 
 const IndexEpisodeCard = memo(
   forwardRef<EpisodeCardRef, IndexEpisodeCardProps>(function IndexEpisodeCard(
-    { className, podcastId, episodeId, onPlay, onPause }: IndexEpisodeCardProps,
+    {
+      className,
+      podcastId,
+      episodeId,
+      onPlay,
+      onPause,
+      containerProps,
+    }: IndexEpisodeCardProps,
     ref
   ) {
     const { episode } = useEpisode(podcastId, episodeId)
@@ -100,6 +117,7 @@ const IndexEpisodeCard = memo(
         alignItems="center"
         spacing={4}
         padding={2}
+        {...containerProps}
       >
         <StyledCoverImage
           src={episode.cover!}

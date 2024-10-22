@@ -15,6 +15,8 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import UButton from '@/common/components/atoms/UButton'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import withSelectable from '@/common/hooks/withSelectable'
+import { type ComponentProps } from 'react'
 
 const StyledIndexPodcastCardBox = styled(Box)(({ theme }) => ({
   '&.WATCH_HERE': {
@@ -36,14 +38,20 @@ const StyledBanner = styled(Image)(() => ({
   width: '100%',
   objectFit: 'cover',
 }))
+const StyledBannerWithSelectable =
+  withSelectable<ComponentProps<typeof StyledBanner>>(StyledBanner)
 
 const StyledTitle = styled(UHeightLimitedText)(() => ({
   fontWeight: 700,
 }))
+const StyledTitleWithSelectable =
+  withSelectable<ComponentProps<typeof StyledTitle>>(StyledTitle)
 
 const StyledDescription = styled(UHeightLimitedText)(() => ({
   fontWeight: 500,
 }))
+const StyledDescriptionWithSelectable =
+  withSelectable<ComponentProps<typeof StyledDescription>>(StyledDescription)
 
 const StyledPodcastSourceIconButton = styled(UIconButton)(({ theme }) => ({
   backgroundColor: theme.color.common.black,
@@ -51,6 +59,16 @@ const StyledPodcastSourceIconButton = styled(UIconButton)(({ theme }) => ({
   borderRadius: '10px',
   padding: '5px',
 }))
+const StyledPodcastSourceIconButtonWithSelectable = withSelectable<
+  ComponentProps<typeof StyledPodcastSourceIconButton>
+>(StyledPodcastSourceIconButton)
+
+const UButtonWithSelectable =
+  withSelectable<ComponentProps<typeof UButton>>(UButton)
+
+const IndexEpisodeCardWithSelectable = withSelectable<
+  ComponentProps<typeof IndexEpisodeCard>
+>(IndexEpisodeCard, 'containerProps.onMouseDown')
 
 interface IndexPodcastCardProps {
   className?: string
@@ -75,33 +93,37 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
             justifyContent="space-between"
           >
             {podcast.bannerImg && (
-              <StyledBanner
+              <StyledBannerWithSelectable
                 src={podcast.bannerImg}
                 alt={podcast.title || ''}
                 width={600}
                 height={200}
               />
             )}
-            <StyledTitle variant="h4" fontWeight={700} maxLine={2}>
+            <StyledTitleWithSelectable
+              variant="h4"
+              fontWeight={700}
+              maxLine={2}
+            >
               {podcast.title}
-            </StyledTitle>
-            <StyledDescription variant="body2" maxLine={4}>
+            </StyledTitleWithSelectable>
+            <StyledDescriptionWithSelectable variant="body2" maxLine={4}>
               {podcast.description}
-            </StyledDescription>
+            </StyledDescriptionWithSelectable>
             <Stack direction="row" spacing={2}>
               {podcast.sources?.map((source, index) => (
                 <Link key={index} href={source.url}>
-                  <StyledPodcastSourceIconButton
+                  <StyledPodcastSourceIconButtonWithSelectable
                     variant="contained"
                     color="black"
                     size="medium"
                   >
                     <PodcastSourceIcon sourceType={source.type} />
-                  </StyledPodcastSourceIconButton>
+                  </StyledPodcastSourceIconButtonWithSelectable>
                 </Link>
               ))}
             </Stack>
-            <UButton
+            <UButtonWithSelectable
               variant="contained"
               color="info"
               rounded
@@ -110,7 +132,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
               sx={{ width: 'max-content' }}
             >
               More Episode
-            </UButton>
+            </UButtonWithSelectable>
           </Stack>
         </Grid>
         <Grid size={5}>
@@ -118,7 +140,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
             {podcast.episodeIdx?.map(
               (episodeId, index) =>
                 podcast.podcastId && (
-                  <IndexEpisodeCard
+                  <IndexEpisodeCardWithSelectable
                     key={index}
                     podcastId={podcast.podcastId}
                     episodeId={episodeId}

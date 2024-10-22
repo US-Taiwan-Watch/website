@@ -9,7 +9,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useModal from '@/common/hooks/useModal'
 import { StackProps, useTheme } from '@mui/material'
-import { Fragment, ReactNode } from 'react'
+import { Fragment, type ReactNode } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
 
@@ -83,49 +83,49 @@ export default function UTagList({
             }}
           />
         )}
-      </UHStack>
 
-      {isModalOpen && (
-        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
-          <UContentCard
-            withHeader={true}
-            headerProps={{
-              title: 'Tags',
-              action: (
-                <UIconButton
-                  variant="rounded"
-                  color="inherit"
-                  size="small"
-                  onClick={handleCloseModal}
-                >
-                  <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-                </UIconButton>
-              ),
-            }}
-            sx={{
-              padding: 0,
-              border: 'none',
-              borderRadius: 0,
-            }}
-          >
-            <UHStack
-              gap={1}
-              pt={3}
-              pb={2}
-              flexWrap="wrap"
+        {isModalOpen && (
+          <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
+            <UContentCard
+              withHeader={true}
+              headerProps={{
+                title: 'Tags',
+                action: (
+                  <UIconButton
+                    variant="rounded"
+                    color="inherit"
+                    size="small"
+                    onClick={handleCloseModal}
+                  >
+                    <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+                  </UIconButton>
+                ),
+              }}
               sx={{
-                '.category-tag': {
-                  maxWidth: 'unset',
-                },
+                padding: 0,
+                border: 'none',
+                borderRadius: 0,
               }}
             >
-              {tags.map((tag, index) => (
-                <Fragment key={index}>{tag}</Fragment>
-              ))}
-            </UHStack>
-          </UContentCard>
-        </UContentCardDialog>
-      )}
+              <UHStack
+                gap={1}
+                pt={3}
+                pb={2}
+                flexWrap="wrap"
+                sx={{
+                  '.category-tag': {
+                    maxWidth: 'unset',
+                  },
+                }}
+              >
+                {tags.map((tag, index) => (
+                  <Fragment key={index}>{tag}</Fragment>
+                ))}
+              </UHStack>
+            </UContentCard>
+          </UContentCardDialog>
+        )}
+      </UHStack>
     </>
   )
 }
