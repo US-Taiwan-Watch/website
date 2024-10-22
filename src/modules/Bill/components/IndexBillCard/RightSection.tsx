@@ -26,6 +26,10 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { Party } from '@/common/enums/Party'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
+import withSelectable from '@/common/hooks/withSelectable'
+import { type ComponentProps } from 'react'
+
+const Grid2WithSelectable = withSelectable<ComponentProps<typeof Grid2>>(Grid2)
 
 const INTRODUCED_DATE_FORMAT = 'YYYY.MM.DD'
 const ACTION_DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
@@ -100,7 +104,7 @@ export default function RightSection({ bill }: Props) {
 
   return (
     <Grid2 container spacing={2}>
-      <Grid2 size={12}>
+      <Grid2WithSelectable size={12}>
         {/* Sponsors */}
         <StyledCardContainer direction="row" alignItems="center">
           <CardIconTitle
@@ -153,10 +157,10 @@ export default function RightSection({ bill }: Props) {
             </Typography>
           </Stack>
         </StyledCardContainer>
-      </Grid2>
+      </Grid2WithSelectable>
 
       {/* Cosponsors */}
-      <Grid2 size={5}>
+      <Grid2WithSelectable size={5}>
         <StyledCardContainer
           direction="row"
           alignItems="center"
@@ -167,10 +171,10 @@ export default function RightSection({ bill }: Props) {
             {bill.cosponsorsCount}
           </Typography>
         </StyledCardContainer>
-      </Grid2>
+      </Grid2WithSelectable>
 
       {/* Introduced */}
-      <Grid2 size={7}>
+      <Grid2WithSelectable size={7}>
         <StyledCardContainer
           direction="row"
           alignItems="center"
@@ -183,10 +187,10 @@ export default function RightSection({ bill }: Props) {
               : ''}
           </Typography>
         </StyledCardContainer>
-      </Grid2>
+      </Grid2WithSelectable>
 
       {/* Latest Action */}
-      <Grid2 size={12}>
+      <Grid2WithSelectable size={12}>
         <StyledCardContainer>
           <CardIconTitle icon={<ActionsIcon />} title="Latest Action" />
           <Divider sx={{ my: 2, borderWidth: 1 }} />
@@ -218,7 +222,7 @@ export default function RightSection({ bill }: Props) {
             </UHeightLimitedText>
           </Stack>
         </StyledCardContainer>
-      </Grid2>
+      </Grid2WithSelectable>
     </Grid2>
   )
 }

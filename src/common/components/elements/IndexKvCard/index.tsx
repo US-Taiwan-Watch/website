@@ -1,7 +1,7 @@
 'use client'
 
 import { ComponentProps, memo } from 'react'
-import { Box, Stack, StackProps, useTheme } from '@mui/material'
+import { Box, Stack, useTheme } from '@mui/material'
 import Image from 'next/image'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
@@ -22,6 +22,7 @@ const StyledTag = styled(Box)(({ theme }) => ({
   borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
   padding: '0px 9px',
+  cursor: 'de',
 }))
 
 const StyledImage = styled(Image)(() => ({
@@ -34,8 +35,15 @@ const StyledImage = styled(Image)(() => ({
 const StyledLeftSection = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(2, 0),
 }))
-const StyledLeftSectionWithSelectable =
-  withSelectable<StackProps>(StyledLeftSection)
+
+const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
+  UTagList,
+  'containerProps.onMouseDown'
+)
+const UHeightLimitedTextWithSelectable =
+  withSelectable<ComponentProps<typeof UHeightLimitedText>>(UHeightLimitedText)
+const UButtonWithSelectable =
+  withSelectable<ComponentProps<typeof UButton>>(UButton)
 
 const StyledMiddleSection = styled(Stack)(({ theme }) => ({
   margin: theme.spacing(4, 0),
@@ -57,9 +65,9 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
   return (
     <StyledIndexKvCardContainer sx={props.containerSx}>
       <Stack direction="row" spacing={8}>
-        <StyledLeftSectionWithSelectable direction="column" spacing={4}>
+        <StyledLeftSection direction="column" spacing={4}>
           {/** Tags */}
-          <UTagList
+          <UTagListWithSelectable
             tags={props.tags.map((tag, index) => (
               <StyledTag key={index} className="category-tag">
                 <UWidthLimitedText variant="buttonXS">{tag}</UWidthLimitedText>
@@ -79,17 +87,21 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
 
           {/** Middle Section */}
           <StyledMiddleSection direction="column" spacing={2} flex={1}>
-            <UHeightLimitedText maxLine={3} variant="h3" fontWeight={500}>
+            <UHeightLimitedTextWithSelectable
+              maxLine={3}
+              variant="h3"
+              fontWeight={500}
+            >
               {props.title}
-            </UHeightLimitedText>
-            <UHeightLimitedText maxLine={5} variant="body1">
+            </UHeightLimitedTextWithSelectable>
+            <UHeightLimitedTextWithSelectable maxLine={5} variant="body1">
               {props.description}
-            </UHeightLimitedText>
+            </UHeightLimitedTextWithSelectable>
           </StyledMiddleSection>
 
           {/** Learn More Button */}
           <Link href={props.href} style={{ width: 'fit-content' }}>
-            <UButton
+            <UButtonWithSelectable
               variant="contained"
               color="info"
               rounded
@@ -97,9 +109,9 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
               endIcon={<ArrowForwardIcon />}
             >
               Learn More
-            </UButton>
+            </UButtonWithSelectable>
           </Link>
-        </StyledLeftSectionWithSelectable>
+        </StyledLeftSection>
         <StyledImage
           src={props.image}
           alt={props.title}

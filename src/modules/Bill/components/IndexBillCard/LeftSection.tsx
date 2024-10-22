@@ -13,6 +13,21 @@ import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
+import withSelectable from '@/common/hooks/withSelectable'
+import { type ComponentProps } from 'react'
+
+const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
+  UTagList,
+  'containerProps.onMouseDown'
+)
+
+const TypographyWithSelectable =
+  withSelectable<ComponentProps<typeof Typography>>(Typography)
+
+const UHeightLimitedTextWithSelectable =
+  withSelectable<ComponentProps<typeof UHeightLimitedText>>(UHeightLimitedText)
+
+const StackWithSelectable = withSelectable<ComponentProps<typeof Stack>>(Stack)
 
 type Props = {
   bill: Bill
@@ -24,7 +39,7 @@ export default function LeftSection({ bill }: Props) {
   return (
     <Stack justifyContent="space-between" height="100%">
       <Stack>
-        <UTagList
+        <UTagListWithSelectable
           tags={(bill.tags ?? []).map((tag, index) => (
             <UCategoryTag key={index} value={tag} />
           ))}
@@ -35,22 +50,26 @@ export default function LeftSection({ bill }: Props) {
           maxTags={4}
         />
 
-        <Typography
+        <TypographyWithSelectable
           variant="buttonXS"
           sx={{ color: theme.color.grey[2400] }}
           mb={1}
         >
           {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
-        </Typography>
+        </TypographyWithSelectable>
 
         <Link href={bill.link}>
-          <UHeightLimitedText maxLine={4} variant="h6" fontWeight={700}>
+          <UHeightLimitedTextWithSelectable
+            maxLine={4}
+            variant="h6"
+            fontWeight={700}
+          >
             {bill.title}
-          </UHeightLimitedText>
+          </UHeightLimitedTextWithSelectable>
         </Link>
       </Stack>
 
-      <Stack gap={2}>
+      <StackWithSelectable gap={2}>
         <UHStack spacing={0.5} alignItems="center">
           <Typography variant="body">Tracker:</Typography>
           <Typography variant="articleH4">
@@ -65,7 +84,7 @@ export default function LeftSection({ bill }: Props) {
             isHorizontal
           />
         </Box>
-      </Stack>
+      </StackWithSelectable>
     </Stack>
   )
 }
