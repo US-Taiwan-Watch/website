@@ -14,7 +14,6 @@ import SearchBar from '@/modules/Search/components/SearchBar'
 import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
 import { ROUTES } from '@/routes'
 import { useRouter } from 'next/navigation'
-import useFreezeScreen from '@/common/hooks/useFreezeScreen'
 
 interface HeaderProps {
   className?: string
@@ -24,7 +23,7 @@ interface HeaderProps {
 
 const StyledHeader = styled('header')(({ theme }) => ({
   position: 'sticky',
-  top: 10,
+  top: theme.spacing(4.5),
   zIndex: theme.constants.zIndex.header,
   display: 'flex',
   [theme.breakpoints.up('xs')]: {
@@ -131,7 +130,6 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
 }))
 
 const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
-  const { freezeScreen, unfreezeScreen } = useFreezeScreen()
   const router = useRouter()
   const { navItems } = useNavItems()
   const [menuOpenNavItem, setMenuOpenNavItem] = useState<HeaderNavItem | null>(
@@ -146,16 +144,19 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
     event: React.MouseEvent<HTMLElement>,
     item: HeaderNavItem
   ) => {
+    event.stopPropagation()
     setNavItemAnchorEl(event.currentTarget)
-    setMenuOpenNavItem(item)
 
-    freezeScreen()
+    // 如果是點擊相同的 nav item，則關閉 menu
+    if (menuOpenNavItem?.id === item.id) {
+      handleNavMenuClose()
+    } else {
+      setMenuOpenNavItem(item)
+    }
   }
   const handleNavMenuClose = () => {
     setNavItemAnchorEl(null)
     setMenuOpenNavItem(null)
-
-    unfreezeScreen()
   }
 
   const headerRef = useRef<HTMLHeadElement>(null)
@@ -171,7 +172,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
   }
 
   return (
-    <StyledHeader ref={headerRef}>
+    <StyledHeader ref={headerRef} onClick={handleNavMenuClose}>
       <StyledHeaderContainer
         className={className}
         display="flex"
@@ -219,6 +220,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
                     className={clsx('nav-item nav-button', {
                       active: item.id === menuOpenNavItem?.id,
                     })}
+                    id={`nav-button-${item.id}`}
                     variant="text"
                     key={item.id}
                     endIcon={<KeyboardArrowDownOutlinedIcon />}
