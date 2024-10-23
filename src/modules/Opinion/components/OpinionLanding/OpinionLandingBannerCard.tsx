@@ -92,7 +92,12 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
             {/** Learn More Button */}
             <Link
               href={opinion.link}
-              style={{ flex: 1, display: 'flex', alignItems: 'flex-end' }}
+              style={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'flex-end',
+                maxWidth: 'max-content',
+              }}
             >
               <UButton
                 variant="contained"
