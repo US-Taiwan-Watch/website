@@ -2,24 +2,16 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { Party as PartyEnum } from '@/common/enums/Party'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import {
-  Box,
-  Card,
-  CardContent,
-  Dialog,
-  Stack,
-  Typography,
-  useTheme,
-} from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import { useMemo } from 'react'
-import UCardHeader from '@/common/components/atoms/UCardHeader'
 import { PersonIcon } from '@/common/styles/assets/Icons'
 import CloseIcon from '@mui/icons-material/Close'
 import { PartyExperience, People } from '@/modules/People/classes/People'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import useModal from '@/common/hooks/useModal'
+import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 
 /**
  * 計算經歷的時間
@@ -96,10 +88,10 @@ const getPartyLogo = (party: PartyEnum) => {
 
 interface PartyProps {
   party: PartyEnum
-  partyExperiences: Array<PartyExperience>
+  partyExperiences?: Array<PartyExperience>
 }
 
-const Party = function ({ party, partyExperiences }: PartyProps) {
+const Party = function ({ party, partyExperiences = [] }: PartyProps) {
   const theme = useTheme<USTWTheme>()
   const partyLogo = getPartyLogo(party)
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
@@ -131,52 +123,35 @@ const Party = function ({ party, partyExperiences }: PartyProps) {
         >
           <StyledArrowOutwardIcon />
         </UIconButton>
-        <Dialog
-          open={isModalOpen}
-          onClose={handleCloseModal}
-          PaperProps={{
-            sx: {
-              width: '100%',
-              borderRadius: theme.shape.borderRadius,
-            },
-          }}
-        >
-          <Box
+        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
+          <UContentCard
+            withHeader
+            headerProps={{
+              title: 'political party',
+              icon: <PersonIcon />,
+              iconColor: 'primary',
+              action: (
+                <UIconButton
+                  variant="rounded"
+                  color="inherit"
+                  size="small"
+                  onClick={handleCloseModal}
+                >
+                  <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+                </UIconButton>
+              ),
+            }}
             sx={{
-              bgcolor: 'background.paper',
+              padding: 0,
+              border: 'none',
+              borderRadius: 0,
             }}
           >
-            <Card
-              sx={{
-                padding: 2,
-                '& .MuiCardContent-root:last-child': {
-                  padding: 0,
-                },
-              }}
-            >
-              <UCardHeader
-                title="political party"
-                icon={<PersonIcon />}
-                iconColor="primary"
-                action={
-                  <UIconButton
-                    variant="rounded"
-                    color="inherit"
-                    size="small"
-                    onClick={handleCloseModal}
-                  >
-                    <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-                  </UIconButton>
-                }
-              />
-              <CardContent sx={{ padding: 0 }}>
-                {partyExperiences.map((partyExperience, index) => (
-                  <PartyRow key={index} partyExperience={partyExperience} />
-                ))}
-              </CardContent>
-            </Card>
-          </Box>
-        </Dialog>
+            {partyExperiences.map((partyExperience, index) => (
+              <PartyRow key={index} partyExperience={partyExperience} />
+            ))}
+          </UContentCard>
+        </UContentCardDialog>
       </UHStack>
     </UContentCard>
   )
