@@ -90,20 +90,26 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
             </StyledMiddleSection>
 
             {/** Learn More Button */}
-            <Link
-              href={opinion.link}
-              style={{ flex: 1, display: 'flex', alignItems: 'flex-end' }}
+            <Box
+              sx={{
+                flex: 1,
+                display: 'flex',
+                alignItems: 'flex-end',
+                maxWidth: 'max-content',
+              }}
             >
-              <UButton
-                variant="contained"
-                color="info"
-                rounded
-                size="large"
-                endIcon={<ArrowForwardIcon />}
-              >
-                Learn More
-              </UButton>
-            </Link>
+              <Link href={opinion.link}>
+                <UButton
+                  variant="contained"
+                  color="info"
+                  rounded
+                  size="large"
+                  endIcon={<ArrowForwardIcon />}
+                >
+                  Learn More
+                </UButton>
+              </Link>
+            </Box>
           </StyledLeftSectionWithSelectable>
         </Grid>
 

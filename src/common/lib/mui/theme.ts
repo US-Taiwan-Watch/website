@@ -138,10 +138,14 @@ declare module '@mui/material/Typography' {
 export const ps = PublicSans({
   subsets: ['latin'],
   display: 'swap',
+  fallback: ['Arial', 'sans-serif'],
+  weight: ['300', '400', '500', '600', '700'],
 })
 export const nstc = NotoSansTC({
   subsets: ['latin'],
   display: 'swap',
+  fallback: ['Arial', 'sans-serif'],
+  weight: ['300', '400', '500', '600', '700'],
 })
 
 const color = {
