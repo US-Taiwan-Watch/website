@@ -1,10 +1,15 @@
 import { Congress } from '@/common/classes/Congress'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import { Party } from '@/common/enums/Party'
+import { Bill } from '@/modules/Bill/classes/Bill'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
 import { isArray, isString } from 'lodash-es'
+
+// TODO: delete it
+const MOCK_BIO_BY_AI =
+  'Senator Pete Ricketts, a Republican, is the junior senator from Nebraska, appointed on January 23, 2023. He is up for reelection in 2024. Ricketts strongly advocates for Taiwan’s security. He co-sponsored the BOLSTER Act to facilitate U.S.-made defense equipment transfers from European NATO countries to Taiwan and promote coordinated sanctions against China. He supports strengthening economic and political ties between Taiwan, the U.S., and Europe, focusing on Taiwan’s integration into international organizations and economic resilience, especially in semiconductors. Ricketts also emphasizes humanitarian aid for Taiwan and counters Chinese propaganda to support Taiwan’s democracy.'
 
 interface PartyExperienceArgs {
   party: Party
@@ -67,13 +72,25 @@ export class People {
   // 標籤
   tags?: Array<string>
   // TODO: 政黨經歷暫定，後續討論
-  partyExperience?: Array<PartyExperience>
+  partyExperience: Array<PartyExperience> = []
   // TODO: 經歷暫定，後續討論
-  experience?: Array<Experience>
+  experience: Array<Experience> = []
   // 選區
   constituency?: string
   // 參眾議院
   chamber?: ChamberEnum
+  // TODO: 資助法案
+  sponsoredBills: Array<Bill> = []
+  // TODO: 共同提案法案
+  coSponsoredBills: Array<Bill> = []
+  // TODO: 投票紀錄
+  votingRecord: Array<unknown> = []
+  // TODO: Bio by AI
+  bioByAI?: string = MOCK_BIO_BY_AI
+  // TODO: 委員會
+  committees: Array<unknown> = []
+  // TODO: 出版品
+  publications: Array<unknown> = []
 
   constructor(private readonly people: PeopleArgs) {
     if (isString(people.id)) {

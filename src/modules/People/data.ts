@@ -3,6 +3,8 @@ import { Party } from '@/common/enums/Party'
 import { People } from '@/modules/People/classes/People'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 
+import { BILL_DATA_MOCK } from '@/modules/Bill/data'
+
 const people = new People({
   id: '1',
   name: 'Ami Bera',
@@ -321,5 +323,7 @@ const people = new People({
     },
   ],
 })
+people.sponsoredBills = BILL_DATA_MOCK
+people.coSponsoredBills = BILL_DATA_MOCK
 
 export default people
