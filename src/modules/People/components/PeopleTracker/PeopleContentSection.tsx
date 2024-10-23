@@ -8,7 +8,7 @@ import Sponsored from '@/modules/People/components/PeopleTracker/CardContent/Spo
 import VotingRecord from '@/modules/People/components/PeopleTracker/CardContent/VotingRecord'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
 import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
-import { Box, Grid2 as Grid, useTheme } from '@mui/material'
+import { Grid2 as Grid, Stack, useTheme } from '@mui/material'
 import { memo } from 'react'
 
 interface PeopleContentSectionProps {
@@ -21,11 +21,11 @@ const PeopleContentSection = memo(function PeopleContentSection({
   const theme = useTheme()
 
   return (
-    <Box sx={{ paddingBottom: theme.spacing(10) }}>
+    <Stack gap={2} sx={{ paddingBottom: theme.spacing(10) }}>
       <Grid container spacing={2}>
         {/** Row 1 */}
-        {people.party && people.partyExperience && (
-          <Grid size={6}>
+        {people.party && (
+          <Grid size="grow">
             <Party
               party={people.party}
               partyExperiences={people.partyExperience}
@@ -44,21 +44,25 @@ const PeopleContentSection = memo(function PeopleContentSection({
         <Grid size={2}>
           <VotingRecord />
         </Grid>
+      </Grid>
 
+      <Grid container spacing={2}>
         {/** Row 2 */}
-        <Grid size={7}>
+        <Grid size="grow">
           <BioByAI />
         </Grid>
 
         <Grid size={5}>
           <Experience experience={people.experience ?? []} />
         </Grid>
+      </Grid>
 
-        <Grid size={4.5}>
+      <Grid container spacing={2}>
+        <Grid size="grow">
           <Committee />
         </Grid>
 
-        <Grid size={4.5}>
+        <Grid size={6}>
           <Publication />
         </Grid>
 
@@ -67,7 +71,7 @@ const PeopleContentSection = memo(function PeopleContentSection({
           <IdeologyLeadershipChart />
         </Grid>
       </Grid>
-    </Box>
+    </Stack>
   )
 })
 
