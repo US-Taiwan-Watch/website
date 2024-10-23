@@ -8,8 +8,9 @@ import Sponsored from '@/modules/People/components/PeopleTracker/CardContent/Spo
 import VotingRecord from '@/modules/People/components/PeopleTracker/CardContent/VotingRecord'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
 import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
-import { Grid2 as Grid, Stack, useTheme } from '@mui/material'
+import { Grid2 as Grid, GridSize, Stack, useTheme } from '@mui/material'
 import { memo } from 'react'
+import type React from 'react'
 
 interface PeopleContentSectionProps {
   people: People
@@ -20,57 +21,112 @@ const PeopleContentSection = memo(function PeopleContentSection({
 }: PeopleContentSectionProps) {
   const theme = useTheme()
 
-  return (
-    <Stack gap={2} sx={{ paddingBottom: theme.spacing(10) }}>
-      <Grid container spacing={2}>
-        {/** Row 1 */}
-        {people.party && (
-          <Grid size="grow">
+  const content: Array<{
+    visible: boolean
+    components: Array<{
+      visible: boolean
+      // 預設 size，當同 Row 只有一個 component 時，會設為 grow
+      size: GridSize
+      component: React.ReactNode
+    }>
+  }> = [
+    {
+      visible:
+        !!people.party ||
+        people.experience.length > 0 ||
+        people.sponsoredBills.length > 0 ||
+        people.coSponsoredBills.length > 0 ||
+        people.votingRecord.length > 0,
+      components: [
+        {
+          visible: !!people.party,
+          size: 'grow',
+          component: (
             <Party
-              party={people.party}
+              party={people.party!}
               partyExperiences={people.partyExperience}
             />
-          </Grid>
-        )}
+          ),
+        },
+        {
+          visible: people.sponsoredBills.length > 0,
+          size: 2,
+          component: <Sponsored />,
+        },
+        {
+          visible: people.coSponsoredBills.length > 0,
+          size: 2,
+          component: <CoSponsored />,
+        },
+        {
+          visible: people.votingRecord.length > 0,
+          size: 2,
+          component: <VotingRecord />,
+        },
+      ],
+    },
+    {
+      visible: !!people.bioByAI?.length || people.experience.length > 0,
+      components: [
+        {
+          visible: !!people.bioByAI?.length,
+          size: 7,
+          component: <BioByAI bioByAI={people.bioByAI} />,
+        },
+        {
+          visible: people.experience.length > 0,
+          size: 5,
+          component: <Experience experience={people.experience} />,
+        },
+      ],
+    },
+    {
+      visible: people.committees.length > 0 || people.publications.length > 0,
+      components: [
+        {
+          visible: people.committees.length > 0,
+          size: 'grow',
+          component: <Committee />,
+        },
+        {
+          visible: people.publications.length > 0,
+          size: 'grow',
+          component: <Publication />,
+        },
+      ],
+    },
+    {
+      visible: true,
+      components: [
+        {
+          visible: true,
+          size: 12,
+          component: <IdeologyLeadershipChart />,
+        },
+      ],
+    },
+  ]
 
-        <Grid size={2}>
-          <Sponsored />
-        </Grid>
+  return (
+    <Stack gap={2} sx={{ paddingBottom: theme.spacing(10) }}>
+      {content.map(({ visible, components }, index) => {
+        const filteredComponents = components.filter((comp) => comp.visible)
 
-        <Grid size={2}>
-          <CoSponsored />
-        </Grid>
-
-        <Grid size={2}>
-          <VotingRecord />
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={2}>
-        {/** Row 2 */}
-        <Grid size="grow">
-          <BioByAI />
-        </Grid>
-
-        <Grid size={5}>
-          <Experience experience={people.experience ?? []} />
-        </Grid>
-      </Grid>
-
-      <Grid container spacing={2}>
-        <Grid size="grow">
-          <Committee />
-        </Grid>
-
-        <Grid size={6}>
-          <Publication />
-        </Grid>
-
-        {/** Row 3 */}
-        <Grid size={12}>
-          <IdeologyLeadershipChart />
-        </Grid>
-      </Grid>
+        return (
+          visible && (
+            <Grid key={index} container spacing={2}>
+              {filteredComponents.map(({ size, component }, index) => (
+                <Grid
+                  key={index}
+                  size={filteredComponents.length === 1 ? 'grow' : size}
+                >
+                  {component}
+                </Grid>
+              ))}
+            </Grid>
+          )
+        )
+      })}
     </Stack>
   )
 })
