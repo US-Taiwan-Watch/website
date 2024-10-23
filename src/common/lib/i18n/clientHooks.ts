@@ -12,6 +12,12 @@ import resourcesToBackend from 'i18next-resources-to-backend'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import { getOptions, languages, cookieName } from './settings'
 import { Language } from './types'
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation'
 
 const runsOnServerSide = typeof window === 'undefined'
 
@@ -72,4 +78,46 @@ export function useTranslation(
     }, [lang, cookies.i18next])
   }
   return ret
+}
+
+export default function useI18n() {
+  const { lang } = useParams<{
+    lang: Language
+  }>()
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  const [language, setLanguage] = useState<Language>(lang)
+
+  const i18n = useTranslation(language)
+
+  const changeLanguage = (lang: Language) => {
+    setLanguage(lang)
+
+    const pathParts = pathname.split('/')
+
+    // 只替換第一個出現的語言代碼
+    if (pathParts[1] === language) {
+      pathParts[1] = lang
+    }
+
+    const newPath = pathParts.join('/')
+
+    // 構建新的 search params
+    const newSearchParams = new URLSearchParams(searchParams.toString())
+
+    // 組合新的 URL
+    const newUrl = `${newPath}${
+      newSearchParams.toString() ? '?' + newSearchParams.toString() : ''
+    }`
+
+    router.push(newUrl)
+  }
+
+  return {
+    i18n,
+    language,
+    changeLanguage,
+  }
 }
