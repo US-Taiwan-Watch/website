@@ -19,6 +19,13 @@ const PeopleContentSection = memo(function PeopleContentSection({
 }: PeopleContentSectionProps) {
   const theme = useTheme()
 
+  /**
+   * 內容排版 (Simulate Mansonry Layout)
+   * 每個 object 代表一個 row，
+   * 每個 row 可以有多個 component，
+   * 每個 component 可以控制 visible 和 size，
+   * 當同 Row 只有一個 component 時，component size 會設為 grow
+   */
   const content: Array<{
     visible: boolean
     components: Array<{
