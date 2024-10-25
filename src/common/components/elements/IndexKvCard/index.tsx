@@ -22,7 +22,7 @@ const StyledTag = styled(Box)(({ theme }) => ({
   borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
   padding: '0px 9px',
-  cursor: 'de',
+  cursor: 'default',
 }))
 
 const StyledImage = styled(Image)(() => ({
