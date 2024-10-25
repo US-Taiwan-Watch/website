@@ -39,6 +39,8 @@ import SvgTrackerIcon from './TrackerIcon.svg'
 import SvgCalenderIcon from './CalenderIcon.svg'
 import SvgNoteIcon from './NoteIcon.svg'
 import SvgVersionIcon from './VersionIcon.svg'
+import SvgPerson2Icon from './Person2Icon.svg'
+import SvgPeopleJoinIcon from './PeopleJoinIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -200,4 +202,12 @@ export const NoteIcon = (props: SvgIconProps) => (
 
 export const VersionIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgVersionIcon} {...props} />
+)
+
+export const Person2Icon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgPerson2Icon} {...props} />
+)
+
+export const PeopleJoinIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgPeopleJoinIcon} {...props} />
 )
