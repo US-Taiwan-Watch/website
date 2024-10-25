@@ -8,6 +8,7 @@ import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
 import { Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import Link from 'next/link'
+import UTagList from '@/common/components/atoms/UTagList'
 
 interface VoteStatusCardProps {
   title: string
@@ -73,12 +74,16 @@ export default function BillVoteCard({ bill, vote, status }: Props) {
     <StyledCardContainer height="auto">
       <UHStack gap={4} alignItems="stretch">
         <Stack>
-          <UHStack gap="6px" mb={2.5}>
-            {/* NOTE: 限制 tags 數量 */}
-            {bill.tags
-              ?.slice(0, 5)
-              .map((tag, index) => <UCategoryTag key={index} value={tag} />)}
-          </UHStack>
+          <UTagList
+            tags={(bill.tags ?? []).map((tag, index) => (
+              <UCategoryTag key={index} value={tag} />
+            ))}
+            containerProps={{
+              gap: '6px',
+              mb: 2.5,
+            }}
+            maxTags={5}
+          />
 
           <Typography variant="body" fontWeight={300} mb={1}>
             {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
