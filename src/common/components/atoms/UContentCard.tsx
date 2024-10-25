@@ -153,9 +153,9 @@ const UContentCard = function UContentCard({
     <StyledContentCardWithHeader {...rest}>
       <UCardHeader {...headerProps} action={action} />
       <CardContent
-        className="scroll-hidden"
         sx={{
           padding: 0,
+          overflow: 'auto',
         }}
         {...contentProps}
       >
