@@ -78,12 +78,14 @@ const Footer = () => {
                     spacing={2}
                     useFlexGap
                     flexWrap="wrap"
-                    rowGap={2}
+                    rowGap={1.5}
                     columnGap={12}
                   >
                     {item.type === 'title' && (
                       <>
-                        <Typography fontWeight={700}>{item.title}</Typography>
+                        <Typography paddingBottom={1} fontWeight={700}>
+                          {item.title}
+                        </Typography>
                         {item.subLinks.map(
                           (subItem, subIndex) =>
                             subItem.type === 'subLink' && (
