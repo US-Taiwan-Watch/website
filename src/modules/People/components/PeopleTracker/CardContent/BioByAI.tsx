@@ -18,8 +18,19 @@ const BioByAI = function ({ bioByAI }: BioByAIProps) {
       }}
       overflowHidden
       modalContent={<Typography component="p">{bioByAI}</Typography>}
+      noContentPlaceholder={
+        <Typography variant="subtitleXL" fontWeight={400}>
+          No Bio by AI
+        </Typography>
+      }
     >
-      <Typography component="p">{bioByAI}</Typography>
+      {bioByAI ? (
+        <Typography component="p">{bioByAI}</Typography>
+      ) : (
+        <Typography variant="h5" fontWeight={400}>
+          No bio by AI
+        </Typography>
+      )}
     </UContentCard>
   )
 }

@@ -6,8 +6,8 @@ import {
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
 import {
-  CURRENT_CONGRESS_SESSION,
-  CONGRESS_SESSION_MIN,
+  CURRENT_CONGRESS_NUMBER,
+  CONGRESS_NUMBER_MIN,
 } from '@/common/assets/constants'
 import { KeysOfUnion } from '@/common/types/common'
 
@@ -16,10 +16,10 @@ const congressSchema = z.union([
   z
     .string()
     .transform((val) => parseInt(val, 10))
-    .pipe(z.number().min(CONGRESS_SESSION_MIN).max(CURRENT_CONGRESS_SESSION))
+    .pipe(z.number().min(CONGRESS_NUMBER_MIN).max(CURRENT_CONGRESS_NUMBER))
     .optional(),
   // Maybe number
-  z.number().min(CONGRESS_SESSION_MIN).max(CURRENT_CONGRESS_SESSION).optional(),
+  z.number().min(CONGRESS_NUMBER_MIN).max(CURRENT_CONGRESS_NUMBER).optional(),
 ])
 
 export const senatorSchema = z.object({

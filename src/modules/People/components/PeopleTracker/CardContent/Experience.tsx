@@ -220,8 +220,13 @@ const Experience = function Experience({ experience }: ExperienceProps) {
         iconColor: 'primary',
       }}
       overflowHidden
+      noContentPlaceholder={
+        <Typography variant="subtitleXL" fontWeight={400}>
+          No experience
+        </Typography>
+      }
     >
-      {experience?.map((exp, index) => (
+      {experience.map((exp, index) => (
         <ExperienceRow key={index} experience={exp} />
       ))}
     </UContentCard>

@@ -9,8 +9,101 @@ import VotingRecord from '@/modules/People/components/PeopleTracker/CardContent/
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
 import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
 import { Grid2 as Grid, GridSize, Stack, useTheme } from '@mui/material'
-import { memo } from 'react'
+import { memo, useMemo } from 'react'
 import type React from 'react'
+import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
+
+const useSectionLayout = (people: People) => {
+  const isHouseRepresentativeOrSenator = useMemo(
+    () =>
+      !!people.position &&
+      [PeoplePosition.HOUSE_REPRESENTATIVE, PeoplePosition.SENATOR].includes(
+        people.position
+      ),
+    [people.position]
+  )
+
+  /**
+   * 現任眾議員或參議員才會出現政黨
+   * TODO: 確認怎麼分辨『現任』
+   */
+  const hasParty = useMemo(
+    () =>
+      !!people.party &&
+      isHouseRepresentativeOrSenator &&
+      People.IsCurrentMember(people),
+    [people, isHouseRepresentativeOrSenator]
+  )
+
+  /**
+   * 眾議員或參議員才會有贊助法案
+   */
+  const hasSponsored = useMemo(
+    () => isHouseRepresentativeOrSenator,
+    [isHouseRepresentativeOrSenator]
+  )
+
+  /**
+   * 眾議員或參議員才會有共同提案法案
+   */
+  const hasCoSponsored = useMemo(
+    () => isHouseRepresentativeOrSenator,
+    [isHouseRepresentativeOrSenator]
+  )
+
+  /**
+   * 眾議員或參議員才會有投票紀錄
+   */
+  const hasVotingRecord = useMemo(
+    () => isHouseRepresentativeOrSenator,
+    [isHouseRepresentativeOrSenator]
+  )
+
+  /**
+   * 每個人都有 AI 生成的 Bio
+   */
+  const hasBioByAI = useMemo(() => true, [])
+
+  /**
+   * 每個人都有經歷
+   */
+  const hasExperience = useMemo(() => true, [])
+
+  /**
+   * 現任眾議員或參議員才會有委員會
+   * TODO: 確認怎麼分辨『現任』
+   */
+  const hasCommittee = useMemo(
+    () => isHouseRepresentativeOrSenator && People.IsCurrentMember(people),
+    [isHouseRepresentativeOrSenator, people]
+  )
+
+  /**
+   * 每個人都有出版品
+   */
+  const hasPublication = useMemo(() => true, [])
+
+  /**
+   * 現任眾議員或參議員才會有理念領導力圖表
+   * TODO: 確認怎麼分辨『現任』
+   */
+  const hasIdeologyLeadershipChart = useMemo(
+    () => isHouseRepresentativeOrSenator && People.IsCurrentMember(people),
+    [isHouseRepresentativeOrSenator, people]
+  )
+
+  return {
+    hasParty,
+    hasSponsored,
+    hasCoSponsored,
+    hasVotingRecord,
+    hasBioByAI,
+    hasExperience,
+    hasCommittee,
+    hasPublication,
+    hasIdeologyLeadershipChart,
+  }
+}
 
 interface PeopleContentSectionProps {
   people: People
@@ -20,6 +113,17 @@ const PeopleContentSection = memo(function PeopleContentSection({
   people,
 }: PeopleContentSectionProps) {
   const theme = useTheme()
+  const {
+    hasParty,
+    hasSponsored,
+    hasCoSponsored,
+    hasVotingRecord,
+    hasBioByAI,
+    hasExperience,
+    hasCommittee,
+    hasPublication,
+    hasIdeologyLeadershipChart,
+  } = useSectionLayout(people)
 
   /**
    * 內容排版 (Simulate Mansonry Layout)
@@ -38,15 +142,10 @@ const PeopleContentSection = memo(function PeopleContentSection({
     }>
   }> = [
     {
-      visible:
-        !!people.party ||
-        people.experience.length > 0 ||
-        people.sponsoredBills.length > 0 ||
-        people.coSponsoredBills.length > 0 ||
-        people.votingRecord.length > 0,
+      visible: hasParty || hasSponsored || hasCoSponsored || hasVotingRecord,
       components: [
         {
-          visible: !!people.party,
+          visible: hasParty,
           size: 'grow',
           component: (
             <Party
@@ -56,57 +155,57 @@ const PeopleContentSection = memo(function PeopleContentSection({
           ),
         },
         {
-          visible: people.sponsoredBills.length > 0,
+          visible: hasSponsored,
           size: 2,
           component: <Sponsored />,
         },
         {
-          visible: people.coSponsoredBills.length > 0,
+          visible: hasCoSponsored,
           size: 2,
           component: <CoSponsored />,
         },
         {
-          visible: people.votingRecord.length > 0,
+          visible: hasVotingRecord,
           size: 2,
           component: <VotingRecord />,
         },
       ],
     },
     {
-      visible: !!people.bioByAI?.length || people.experience.length > 0,
+      visible: hasBioByAI || hasExperience,
       components: [
         {
-          visible: !!people.bioByAI?.length,
+          visible: hasBioByAI,
           size: 7,
           component: <BioByAI bioByAI={people.bioByAI} />,
         },
         {
-          visible: people.experience.length > 0,
+          visible: hasExperience,
           size: 5,
           component: <Experience experience={people.experience} />,
         },
       ],
     },
     {
-      visible: people.committees.length > 0 || people.publications.length > 0,
+      visible: hasCommittee || hasPublication,
       components: [
         {
-          visible: people.committees.length > 0,
+          visible: hasCommittee,
           size: 'grow',
           component: <Committee />,
         },
         {
-          visible: people.publications.length > 0,
+          visible: hasPublication,
           size: 'grow',
           component: <Publication />,
         },
       ],
     },
     {
-      visible: true,
+      visible: hasIdeologyLeadershipChart,
       components: [
         {
-          visible: true,
+          visible: hasIdeologyLeadershipChart,
           size: 12,
           component: <IdeologyLeadershipChart />,
         },
