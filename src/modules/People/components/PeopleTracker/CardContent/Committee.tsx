@@ -1,5 +1,5 @@
 import { PeopleIcon } from '@/common/styles/assets/Icons'
-import { CardContent, Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 
@@ -21,6 +21,10 @@ const MOCK_COMMITTEES = [
   },
   {
     title: 'Special Committee on Aging',
+    description: [
+      'Subcommittee on East Asia, the Pacific, and International Cybersecurity Policy',
+      'Subcommittee on Europe and Regional Security Cooperation (Ranking)',
+    ],
   },
 ]
 
@@ -100,22 +104,21 @@ const Committee = function Committee({
 }: CommitteeProps) {
   return (
     <UContentCard
+      headerIconAction="modal"
       withHeader
       headerProps={{
         title: 'Committee',
         icon: <PeopleIcon />,
         iconColor: 'secondary',
       }}
+      overflowHidden
+      modalContent={committees.map((committee, index) => (
+        <CommitteeRow key={index} committee={committee} />
+      ))}
     >
-      <CardContent
-        sx={{
-          padding: 0,
-        }}
-      >
-        {committees.map((committee, index) => (
-          <CommitteeRow key={index} committee={committee} />
-        ))}
-      </CardContent>
+      {committees.map((committee, index) => (
+        <CommitteeRow key={index} committee={committee} />
+      ))}
     </UContentCard>
   )
 }

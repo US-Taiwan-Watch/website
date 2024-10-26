@@ -155,6 +155,7 @@ const UContentCard = function UContentCard({
       <CardContent
         sx={{
           padding: 0,
+          overflow: 'auto',
         }}
         {...contentProps}
       >
