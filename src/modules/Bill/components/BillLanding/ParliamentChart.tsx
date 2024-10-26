@@ -30,6 +30,11 @@ type Props = {
 export default function ParliamentChart({ data }: Props) {
   const { partyColor } = usePartyColor()
   const theme = useTheme<USTWTheme>()
+
+  const sortedData = useMemo(() => {
+    return data.sort((a, b) => b.count - a.count)
+  }, [data])
+
   const [hoveredParty, setHoveredParty] = useState<Party | null>(null)
 
   const dataPartyCountMap = useMemo<
@@ -73,7 +78,7 @@ export default function ParliamentChart({ data }: Props) {
         {
           type: 'item',
           keys: ['name', 'y', 'color', 'opacity'],
-          data: data.map((item) => [
+          data: sortedData.map((item) => [
             item.party,
             item.count,
             partyColor[item.party] || partyColor[Party.OTHER],
@@ -120,7 +125,7 @@ export default function ParliamentChart({ data }: Props) {
       },
     }
   }, [
-    data,
+    sortedData,
     hoveredParty,
     partyColor,
     setHoveredParty,
@@ -130,7 +135,7 @@ export default function ParliamentChart({ data }: Props) {
 
   return (
     <>
-      <ChartLegend data={data} hoveredParty={hoveredParty} />
+      <ChartLegend data={sortedData} hoveredParty={hoveredParty} />
       <HighchartsReact highcharts={Highcharts} options={options} />
     </>
   )
