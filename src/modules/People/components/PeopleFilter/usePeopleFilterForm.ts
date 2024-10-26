@@ -9,14 +9,18 @@ import {
 export default function usePeopleFilterForm() {
   const form = useForm<PeopleFilterInput>({
     resolver: zodResolver(peopleFilterSchema),
-    defaultValues: {},
-    mode: 'all',
+    defaultValues: {
+      category: '',
+    },
+    mode: 'onSubmit',
   })
 
   const category = form.watch('category')
 
   const handleReset = useCallback(() => {
-    form.reset()
+    form.reset({
+      category: '',
+    })
   }, [form])
 
   const handleSecondLevelReset = useCallback(() => {
