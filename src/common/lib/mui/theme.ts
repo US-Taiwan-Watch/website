@@ -553,12 +553,4 @@ export const globalStyles = {
     textDecoration: 'none',
     color: 'inherit',
   },
-  '.scroll-hidden': {
-    overflow: 'auto',
-    '-ms-overflow-style': 'none',
-    'scrollbar-width': 'none',
-    '&::-webkit-scrollbar': {
-      display: 'none',
-    },
-  },
 }
