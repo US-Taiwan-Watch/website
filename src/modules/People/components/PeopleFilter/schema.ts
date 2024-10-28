@@ -11,21 +11,24 @@ import {
 } from '@/common/assets/constants'
 import { KeysOfUnion } from '@/common/types/common'
 
-const congressSchema = z.union([
-  // Maybe string
-  z
-    .string()
-    .transform((val) => parseInt(val, 10))
-    .pipe(z.number().min(CONGRESS_NUMBER_MIN).max(CURRENT_CONGRESS_NUMBER))
-    .optional(),
-  // Maybe number
-  z.number().min(CONGRESS_NUMBER_MIN).max(CURRENT_CONGRESS_NUMBER).optional(),
-])
+const congressSchema = z.array(
+  z.union([
+    // Maybe string
+    z
+      .string()
+      .transform((val) => parseInt(val, 10))
+      .pipe(z.number().min(CONGRESS_NUMBER_MIN).max(CURRENT_CONGRESS_NUMBER)),
+    // Maybe number
+    z.number().min(CONGRESS_NUMBER_MIN).max(CURRENT_CONGRESS_NUMBER),
+  ])
+)
+
+const partySchema = z.array(z.nativeEnum(PeoplePartyEnum))
 
 export const senatorSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Senator),
-  congress: congressSchema,
-  party: z.nativeEnum(PeoplePartyEnum).optional(),
+  congress: congressSchema.optional(),
+  party: partySchema.optional(),
   state: z.string().optional(),
   tag: z.string().optional(),
 })
@@ -34,11 +37,11 @@ export type SenatorFilterInput = z.input<typeof senatorSchema>
 
 export const houseRepresentativeSchema = z.object({
   category: z.literal(PeopleCategoryEnum.HouseRepresentative),
-  congress: congressSchema,
-  party: z.nativeEnum(PeoplePartyEnum).optional(),
-  stateRegion: z.string().optional(),
+  congress: congressSchema.optional(),
+  party: partySchema.optional(),
+  stateRegion: z.array(z.string()).optional(),
   district: z.number().min(1).optional(),
-  tag: z.string().optional(),
+  tag: z.array(z.string()).optional(),
 })
 
 export type HouseRepresentativeFilterInput = z.input<
@@ -47,14 +50,14 @@ export type HouseRepresentativeFilterInput = z.input<
 
 export const officialSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Official),
-  area: z.nativeEnum(PeopleAreaEnum).optional(),
+  area: z.array(z.nativeEnum(PeopleAreaEnum)).optional(),
 })
 
 export type OfficialFilterInput = z.input<typeof officialSchema>
 
 export const expertSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Expert),
-  affiliation: z.nativeEnum(PeopleAffiliationEnum).optional(),
+  affiliation: z.array(z.nativeEnum(PeopleAffiliationEnum)).optional(),
 })
 
 export type ExpertFilterInput = z.input<typeof expertSchema>

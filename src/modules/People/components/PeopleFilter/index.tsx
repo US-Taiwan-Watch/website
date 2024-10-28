@@ -20,6 +20,7 @@ import {
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
 import UFilterInput from '@/common/components/atoms/UFilterInput'
+import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 
 type SecondLevelSelector = {
   key: PeopleFilterInputKey
@@ -165,7 +166,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
         sx: {
           width: '100%',
         },
-        onSubmit: form.handleSubmit(handleSubmit),
+        onSubmit: form.handleSubmit(handleSubmit, (error) => {
+          console.log(error)
+        }),
       }}
       firstLevelSelector={
         <Controller
@@ -225,21 +228,27 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
             }
 
             return (
-              <USelect
+              <UAutocomplete
+                multiple
+                disableClearable
+                limitTags={1}
+                options={selector.options}
+                getOptionLabel={(option) => option.label}
                 {...field}
-                value={field.value ?? ''}
-                defaultValue={''}
-                label={selector.placeholder}
-              >
-                <MenuItem value="" disabled>
-                  {selector.placeholder}
-                </MenuItem>
-                {selector.options.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </USelect>
+                value={selector.options.find(
+                  (option) => option.value === field.value
+                )}
+                onChange={(_, value) => {
+                  if (Array.isArray(value)) {
+                    field.onChange(value.map((v) => v.value))
+                  } else {
+                    field.onChange([value?.value])
+                  }
+                }}
+                textFieldProps={{
+                  placeholder: selector.placeholder,
+                }}
+              />
             )
           }}
         />
