@@ -384,6 +384,15 @@ const _lightTheme: USTWThemeOptions = {
         },
       },
     },
+    // MuiInputLabel: {
+    //   styleOverrides: {
+    //     root: {
+    //       '&.Mui-focused': {
+    //         color: 'rgba(0, 0, 0, 0.6)', // 預設 MUI 的 Label 顏色
+    //       },
+    //     },
+    //   },
+    // },
   },
 }
 

@@ -35,7 +35,7 @@ export default function Filter({
 
   return (
     <StyledFilterContainer flexWrap="wrap" gap={2} {...containerProps}>
-      <UHStack gap={1.5}>
+      <UHStack gap={1.5} flexWrap="wrap">
         {firstLevelSelector}
 
         <Divider
@@ -47,30 +47,30 @@ export default function Filter({
         />
 
         {children}
-      </UHStack>
 
-      <UHStack gap={1}>
-        <UButton
-          type="button"
-          variant="contained"
-          color="info"
-          rounded
-          size="large"
-          onClick={handleReset}
-        >
-          Reset
-        </UButton>
+        <UHStack gap={1} marginLeft="auto">
+          <UButton
+            type="button"
+            variant="contained"
+            color="info"
+            rounded
+            size="large"
+            onClick={handleReset}
+          >
+            Reset
+          </UButton>
 
-        <UButton
-          type="submit"
-          variant="contained"
-          rounded
-          color="primary"
-          size="large"
-          onClick={handleSubmit}
-        >
-          Submit
-        </UButton>
+          <UButton
+            type="submit"
+            variant="contained"
+            rounded
+            color="primary"
+            size="large"
+            onClick={handleSubmit}
+          >
+            Submit
+          </UButton>
+        </UHStack>
       </UHStack>
     </StyledFilterContainer>
   )
