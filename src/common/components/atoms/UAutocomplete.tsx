@@ -93,7 +93,11 @@ export default forwardRef<HTMLDivElement, UAutocompleteProps>(
              * @see {@link https://github.com/mui/material-ui/issues/37046#issuecomment-1551448279}
              */
             onPointerDown={(event) =>
-              event.currentTarget.setPointerCapture(event.pointerId)
+              /**
+               * 因為只要避免 Tags 右側的空白處 (MuiInputBase-input)，
+               * 因此不需要 currentTarget，只需要 target
+               */
+              (event.target as HTMLElement).setPointerCapture(event.pointerId)
             }
           />
         )}
