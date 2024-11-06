@@ -10,6 +10,9 @@ export enum BillCategoryEnum {
   Other,
 }
 
+/**
+ * TODO: TBD 需要與 Party 的 enum 同步？
+ */
 export enum BillPartyEnum {
   Democrat = 1,
   Republican,

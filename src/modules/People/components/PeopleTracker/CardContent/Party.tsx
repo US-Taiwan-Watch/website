@@ -82,7 +82,8 @@ const StyledArrowOutwardIcon = styled(ArrowOutwardIcon)(({ theme }) => ({
 }))
 
 const getPartyLogo = (party: PartyEnum) => {
-  if (party === PartyEnum.OTHER) return null
+  // TODO: Independent logo 待補
+  if (party === PartyEnum.INDEPENDENT) return null
   return `/assets/party-logo/${party}.png`
 }
 

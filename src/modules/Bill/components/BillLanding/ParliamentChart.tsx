@@ -76,7 +76,7 @@ export default function ParliamentChart({ data }: Props) {
           data: data.map((item) => [
             item.party,
             item.count,
-            partyColor[item.party] || partyColor[Party.OTHER],
+            partyColor[item.party] || partyColor[Party.INDEPENDENT],
             hoveredParty && hoveredParty !== item.party ? 0.6 : 1,
           ]),
           dataLabels: {
