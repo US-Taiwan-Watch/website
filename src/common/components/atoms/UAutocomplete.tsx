@@ -3,10 +3,10 @@
 import Autocomplete, {
   type AutocompleteProps,
 } from '@mui/material/Autocomplete'
-import type { TextFieldProps } from '@mui/material/TextField'
-import { styled } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { forwardRef } from 'react'
 import UFilterTextField from '@/common/components/atoms/UFilterTextField'
+import { useTheme } from '@mui/material/styles'
 
 type AutocompleteValue = {
   label: string
@@ -28,23 +28,63 @@ type UAutocompleteProps = Omit<
   AutocompleteProps<AutocompleteValue, boolean, boolean, undefined>,
   'renderInput'
 > & {
-  textFieldProps?: TextFieldProps
+  /**
+   * TextField 的 label
+   */
+  label?: string
 }
 
 export default forwardRef<HTMLDivElement, UAutocompleteProps>(
-  function UAutocomplete(
-    { textFieldProps, ...props }: UAutocompleteProps,
-    ref
-  ) {
+  function UAutocomplete({ label, ...props }: UAutocompleteProps, ref) {
+    const theme = useTheme<USTWTheme>()
+
     return (
       <StyledAutocomplete
         className="UAutocomplete"
         ref={ref}
         {...props}
+        slotProps={{
+          chip: {
+            size: 'small',
+          },
+          popper: {
+            sx: {
+              minWidth: 'max-content',
+            },
+            placement: 'bottom-start',
+          },
+          paper: {
+            sx: {
+              maxWidth: 'max-content',
+            },
+          },
+          listbox: {
+            sx: {
+              '& .MuiAutocomplete-option': {
+                '&[aria-selected="true"]': {
+                  backgroundColor: `${theme.color.grey[2600]} !important`,
+                },
+                '&:hover': {
+                  backgroundColor: theme.color.grey[2600],
+                },
+              },
+            },
+          },
+          ...props?.slotProps,
+        }}
         renderInput={(params) => (
           <UFilterTextField
             {...params}
-            {...textFieldProps}
+            label={label}
+            size="small"
+            sx={{
+              padding: 0,
+            }}
+            slotProps={{
+              inputLabel: {
+                color: 'info',
+              },
+            }}
             /**
              * TextField 在隱藏多的 Tags 時，避免點擊空白處隱藏的 Tags 出現時，
              * 因為此時 Pointer 已經從 空白處移到 Tags 上，導致 Popper 關閉

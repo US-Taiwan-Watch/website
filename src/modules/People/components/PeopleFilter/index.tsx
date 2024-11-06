@@ -21,8 +21,6 @@ import {
 } from '@/modules/People/components/PeopleFilter/enums'
 import UFilterTextField from '@/common/components/atoms/UFilterTextField'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
-import { useTheme } from '@mui/material/styles'
-import { USTWTheme } from '@/common/lib/mui/theme'
 
 type SecondLevelSelector = {
   key: PeopleFilterInputKey
@@ -39,7 +37,6 @@ interface PeopleFilterProps {
 }
 
 const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
-  const theme = useTheme<USTWTheme>()
   const { form, category, handleReset, handleSecondLevelReset } =
     usePeopleFilterForm()
   const {
@@ -276,46 +273,7 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
                   sx={{
                     height: '100%',
                   }}
-                  slotProps={{
-                    chip: {
-                      size: 'small',
-                    },
-                    popper: {
-                      sx: {
-                        minWidth: 'max-content',
-                      },
-                      placement: 'bottom-start',
-                    },
-                    paper: {
-                      sx: {
-                        maxWidth: 'max-content',
-                      },
-                    },
-                    listbox: {
-                      sx: {
-                        '& .MuiAutocomplete-option': {
-                          '&[aria-selected="true"]': {
-                            backgroundColor: `${theme.color.grey[2600]} !important`,
-                          },
-                          '&:hover': {
-                            backgroundColor: theme.color.grey[2600],
-                          },
-                        },
-                      },
-                    },
-                  }}
-                  textFieldProps={{
-                    label: selector.label,
-                    size: 'small',
-                    sx: {
-                      padding: 0,
-                    },
-                    slotProps: {
-                      inputLabel: {
-                        color: 'info',
-                      },
-                    },
-                  }}
+                  label={selector.label}
                 />
               </div>
             )
