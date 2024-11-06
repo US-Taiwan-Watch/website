@@ -10,7 +10,12 @@ export default function BillList() {
   return (
     <Stack gap={7} alignItems="center" pb={10}>
       <Stack gap={5} alignItems="center">
-        <BillFilter />
+        <BillFilter
+          onSubmit={(filter) => {
+            /** 這邊呼叫 API */
+            console.log(`call API with \n`, JSON.stringify(filter, null, 2))
+          }}
+        />
         <Stack gap={2}>
           {BILL_DATA_MOCK.map((bill, index) => (
             <BillCard key={index} mode="horizontal" bill={bill} />
