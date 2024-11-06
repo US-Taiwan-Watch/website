@@ -143,7 +143,6 @@ export default function BillFilter({ onSubmit }: BillFilterProps) {
                   return field.value === option.value
                 })}
                 onChange={(_, value) => {
-                  console.log(value)
                   if (Array.isArray(value)) {
                     field.onChange(value.map((v) => v.value))
                   } else {
