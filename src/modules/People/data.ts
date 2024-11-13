@@ -12,7 +12,7 @@ const people = new People({
   description:
     'Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a Nunn is the representative for Iowa’s 3rd congressional district (view map) and is a ...',
   tags: ['representative', 'tag2', 'tag3', 'tag4'],
-  party: Party.DEMOCRATIC,
+  party: Party.DEMOCRAT,
   position: PeoplePosition.SENATOR,
   congress: new Congress({
     congressNumber: 118,
@@ -20,19 +20,19 @@ const people = new People({
     endYear: 2025,
     houseMembers: 100,
     houseDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
+      [Party.DEMOCRAT, 50],
       [Party.REPUBLICAN, 50],
     ]),
     senateMembers: 100,
     senateDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
+      [Party.DEMOCRAT, 50],
       [Party.REPUBLICAN, 50],
     ]),
   }),
   // Descending
   partyExperience: [
     {
-      party: Party.DEMOCRATIC,
+      party: Party.DEMOCRAT,
       start: '2023-01-01',
     },
     {
@@ -46,7 +46,7 @@ const people = new People({
       end: '2021-01-01',
     },
     {
-      party: Party.DEMOCRATIC,
+      party: Party.DEMOCRAT,
       start: '2023-01-01',
     },
     {
@@ -60,7 +60,7 @@ const people = new People({
       end: '2021-01-01',
     },
     {
-      party: Party.DEMOCRATIC,
+      party: Party.DEMOCRAT,
       start: '2023-01-01',
     },
     {
@@ -74,7 +74,7 @@ const people = new People({
       end: '2021-01-01',
     },
     {
-      party: Party.DEMOCRATIC,
+      party: Party.DEMOCRAT,
       start: '2023-01-01',
     },
     {
@@ -88,7 +88,7 @@ const people = new People({
       end: '2021-01-01',
     },
     {
-      party: Party.DEMOCRATIC,
+      party: Party.DEMOCRAT,
       start: '2023-01-01',
     },
     {
@@ -102,7 +102,7 @@ const people = new People({
       end: '2021-01-01',
     },
     {
-      party: Party.DEMOCRATIC,
+      party: Party.DEMOCRAT,
       start: '2023-01-01',
     },
     {
@@ -116,7 +116,7 @@ const people = new People({
       end: '2021-01-01',
     },
     {
-      party: Party.DEMOCRATIC,
+      party: Party.DEMOCRAT,
       start: '2023-01-01',
     },
     {

@@ -40,17 +40,6 @@ type Props = {
   cosponsors: People[]
 }
 
-const getPartyDisplayName = (party: Party | undefined) => {
-  switch (party) {
-    case Party.REPUBLICAN:
-      return 'republic'
-    case Party.DEMOCRATIC:
-      return 'democracy'
-    default:
-      return 'other'
-  }
-}
-
 const getName = (people: People) => {
   const chamberAbbreviation =
     people.chamber === ChamberEnum.HOUSE
@@ -95,7 +84,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 <UHStack spacing={1} alignItems="center">
                   <UPoliticalPartyIcon
                     variant="rounded"
-                    party={getPartyDisplayName(cosponsor.party)}
+                    party={cosponsor.party ?? Party.INDEPENDENT}
                     size="small"
                   />
                   <StyledBodyText textTransform="capitalize">

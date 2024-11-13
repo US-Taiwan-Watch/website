@@ -41,6 +41,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UHashTag from '@/common/components/atoms/UHashTag'
 import USelect from '@/common/components/atoms/USelect'
+import { Party } from '@/common/enums/Party'
 
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
@@ -186,9 +187,9 @@ export default function DesignSystemIconsPage() {
       </Box>
       <h2>Political Party Icon</h2>
       <Box display="flex" p={2} gap={2}>
-        <UPoliticalPartyIcon variant="rounded" party="democracy" />
-        <UPoliticalPartyIcon variant="rounded" party="republic" />
-        <UPoliticalPartyIcon variant="rounded" party="other" />
+        <UPoliticalPartyIcon variant="rounded" party={Party.DEMOCRAT} />
+        <UPoliticalPartyIcon variant="rounded" party={Party.REPUBLICAN} />
+        <UPoliticalPartyIcon variant="rounded" party={Party.INDEPENDENT} />
       </Box>
       <h2>Button</h2>
       <Box display="flex" p={2} gap={2}>
