@@ -21,6 +21,7 @@ type FilterProps = {
   firstLevelSelector: ReactNode
   children?: ReactNode
   handleReset?: () => void
+  handleSubmit?: () => void
 }
 
 export default function Filter({
@@ -28,12 +29,13 @@ export default function Filter({
   firstLevelSelector,
   children,
   handleReset,
+  handleSubmit,
 }: FilterProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <StyledFilterContainer {...containerProps}>
-      <UHStack spacing={1.5}>
+    <StyledFilterContainer flexWrap="wrap" gap={2} {...containerProps}>
+      <UHStack gap={1.5} flexWrap="wrap">
         {firstLevelSelector}
 
         <Divider
@@ -45,17 +47,31 @@ export default function Filter({
         />
 
         {children}
-      </UHStack>
 
-      <UButton
-        variant="contained"
-        color="info"
-        rounded
-        size="large"
-        onClick={handleReset}
-      >
-        Reset
-      </UButton>
+        <UHStack gap={1} marginLeft="auto">
+          <UButton
+            type="button"
+            variant="contained"
+            color="info"
+            rounded
+            size="large"
+            onClick={handleReset}
+          >
+            Reset
+          </UButton>
+
+          <UButton
+            type="submit"
+            variant="contained"
+            rounded
+            color="primary"
+            size="large"
+            onClick={handleSubmit}
+          >
+            Submit
+          </UButton>
+        </UHStack>
+      </UHStack>
     </StyledFilterContainer>
   )
 }
