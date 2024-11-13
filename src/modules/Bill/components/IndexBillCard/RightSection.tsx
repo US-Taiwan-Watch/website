@@ -116,7 +116,8 @@ export default function RightSection({ bill }: Props) {
             <StyledImageContainer
               sx={{
                 border: `2px solid`,
-                borderColor: partyColor[bill.sponsor.party ?? Party.OTHER],
+                borderColor:
+                  partyColor[bill.sponsor.party ?? Party.INDEPENDENT],
               }}
             >
               <StyledImage
@@ -128,13 +129,7 @@ export default function RightSection({ bill }: Props) {
                 <UPoliticalPartyIcon
                   variant="rounded"
                   size="small"
-                  party={
-                    bill.sponsor?.party === Party.REPUBLICAN
-                      ? 'republic'
-                      : bill.sponsor?.party === Party.DEMOCRATIC
-                        ? 'democracy'
-                        : 'other'
-                  }
+                  party={bill.sponsor.party ?? Party.INDEPENDENT}
                   sx={{
                     width: '18px',
                     height: '18px',

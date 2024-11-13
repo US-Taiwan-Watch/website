@@ -32,7 +32,7 @@ export default function ChartLegend({ data, hoveredParty }: LegendProps) {
         >
           <CircleIcon
             sx={{
-              color: partyColor[item.party] || partyColor[Party.OTHER],
+              color: partyColor[item.party] || partyColor[Party.INDEPENDENT],
               fontSize: '12px',
             }}
           />

@@ -1,5 +1,6 @@
 'use client'
 
+import { Party } from '@/common/enums/Party'
 import { styled, type USTWTheme } from '@/common/lib/mui/theme'
 import {
   IconButton,
@@ -11,7 +12,7 @@ import type { ComponentType } from 'react'
 
 interface UPoliticalPartyIconProps extends Omit<IconButtonProps, 'color'> {
   variant: 'contained' | 'outlined' | 'rounded'
-  party: 'democracy' | 'republic' | 'other'
+  party: Party
   customFontStyle?: TypographyProps['sx']
 }
 
@@ -20,11 +21,11 @@ export const getMainColor = (
   party: UPoliticalPartyIconProps['party']
 ) => {
   switch (party) {
-    case 'democracy':
+    case Party.DEMOCRAT:
       return theme.color.indigo[600]
-    case 'republic':
+    case Party.REPUBLICAN:
       return theme.color.red[500]
-    case 'other':
+    case Party.INDEPENDENT:
       return theme.color.grey[500]
   }
 }
@@ -34,11 +35,11 @@ const getHoveredBackgroundColor = (
   party: UPoliticalPartyIconProps['party']
 ) => {
   switch (party) {
-    case 'democracy':
+    case Party.DEMOCRAT:
       return theme.color.indigo[600] + 'CC' // 80% opacity
-    case 'republic':
+    case Party.REPUBLICAN:
       return theme.color.red[500] + 'CC' // 80% opacity
-    case 'other':
+    case Party.INDEPENDENT:
       return theme.color.grey[500] + 'CC' // 80% opacity
   }
 }

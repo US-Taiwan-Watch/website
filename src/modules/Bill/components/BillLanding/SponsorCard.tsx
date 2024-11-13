@@ -34,7 +34,7 @@ function SponsorRow({ sponsor }: SponsorRowProps) {
         <UHStack gap="6px" alignItems="center">
           <CircleIcon
             sx={{
-              color: partyColor[sponsor.party ?? Party.OTHER],
+              color: partyColor[sponsor.party ?? Party.INDEPENDENT],
               fontSize: '8px',
             }}
           />

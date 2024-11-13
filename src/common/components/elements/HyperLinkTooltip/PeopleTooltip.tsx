@@ -17,7 +17,7 @@ import UPoliticalPartyIcon, {
   getMainColor,
 } from '@/common/components/atoms/UPoliticalPartyIcon'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
-
+import { Party } from '@/common/enums/Party'
 const PeopleTooltip = function PeopleTooltip() {
   const theme = useTheme<USTWTheme>()
 
@@ -40,7 +40,7 @@ const PeopleTooltip = function PeopleTooltip() {
             badgeContent={
               <UPoliticalPartyIcon
                 variant="rounded"
-                party="democracy"
+                party={Party.DEMOCRAT}
                 size="small"
               />
             }
@@ -53,7 +53,7 @@ const PeopleTooltip = function PeopleTooltip() {
               sx={{
                 width: 80,
                 height: 80,
-                border: `5px solid ${getMainColor(theme, 'democracy')}`,
+                border: `5px solid ${getMainColor(theme, Party.DEMOCRAT)}`,
               }}
               alt="Travis Howard"
               src="/assets/category1.jpg"

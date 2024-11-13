@@ -15,7 +15,6 @@ import { useMemo } from 'react'
 import {
   createFilterCategories,
   getFilterConstituency,
-  getFilterParty,
 } from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
 import { People } from '@/modules/People/classes/People'
 
@@ -36,9 +35,10 @@ export default function CosponsorDialog({
 
   const cosponsors = useMemo<People[]>(() => {
     return (bill.cosponsors ?? []).filter((cosponsor) => {
-      const partyMatch = selectedOptionList.party.length
-        ? selectedOptionList.party.includes(getFilterParty(cosponsor.party))
-        : true
+      const partyMatch =
+        selectedOptionList.party.length && cosponsor.party
+          ? selectedOptionList.party.includes(cosponsor.party)
+          : true
 
       const constituencyMatch = selectedOptionList.constituency.length
         ? selectedOptionList.constituency.includes(

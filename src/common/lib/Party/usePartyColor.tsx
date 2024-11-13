@@ -10,13 +10,9 @@ export default function usePartyColor() {
 
   const partyColor = useMemo<Record<Party, string>>(
     () => ({
-      [Party.DEMOCRATIC]: theme.color.indigo[600],
+      [Party.DEMOCRAT]: theme.color.indigo[600],
       [Party.REPUBLICAN]: theme.color.red[500],
-      [Party.OTHER]: theme.color.grey[500],
       [Party.INDEPENDENT]: theme.color.grey[500],
-      [Party.LIBERTARIAN]: theme.color.grey[500],
-      [Party.GREEN]: theme.color.grey[500],
-      [Party.CONSTITUTION]: theme.color.grey[500],
     }),
     [theme]
   )
