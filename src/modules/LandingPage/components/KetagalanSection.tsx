@@ -1,7 +1,7 @@
 'use client'
 
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
-import SectionTitleWithLink from '@/common/components/elements/Landing/SectionTitleWithLink'
+import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constants'
 import UKetagalanLogo from '@/common/components/atoms/UKetagalanLogo'
