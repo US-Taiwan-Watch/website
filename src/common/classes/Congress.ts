@@ -1,5 +1,6 @@
 // TODO: 先簡單設計給People使用
 
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Party } from '@/common/enums/Party'
 import { isMap, isNumber } from 'lodash-es'
 
@@ -52,4 +53,6 @@ export class Congress {
       this.senateDistribution = congress.senateDistribution
     }
   }
+
+  static CurrentCongressNumber = CURRENT_CONGRESS_NUMBER
 }

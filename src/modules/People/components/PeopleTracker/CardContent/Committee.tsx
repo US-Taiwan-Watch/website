@@ -115,6 +115,11 @@ const Committee = function Committee({
       modalContent={committees.map((committee, index) => (
         <CommitteeRow key={index} committee={committee} />
       ))}
+      noContentPlaceholder={
+        <Typography variant="subtitleXL" fontWeight={400}>
+          No Committee
+        </Typography>
+      }
     >
       {committees.map((committee, index) => (
         <CommitteeRow key={index} committee={committee} />
