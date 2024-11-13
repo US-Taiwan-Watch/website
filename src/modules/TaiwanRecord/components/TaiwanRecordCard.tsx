@@ -42,7 +42,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
       <AccordionDetails>
         <Stack gap={theme.spacing(1.5)}>
           <UHeightLimitedText maxLine={3} variant="bodyM">
-            {taiwanRecord.description}
+            {taiwanRecord.content}
           </UHeightLimitedText>
           <Stack gap={theme.spacing(0.5)}>
             <Typography variant="bodyS">{dateAndAuthor}</Typography>
