@@ -65,13 +65,17 @@ export const otherSchema = z.object({
 
 export type OtherFilterInput = z.input<typeof otherSchema>
 
-export const peopleFilterSchema = z.discriminatedUnion('category', [
-  senatorSchema,
-  houseRepresentativeSchema,
-  officialSchema,
-  expertSchema,
-  otherSchema,
+export const peopleFilterSchema = z.union([
+  z.discriminatedUnion('category', [
+    senatorSchema,
+    houseRepresentativeSchema,
+    officialSchema,
+    expertSchema,
+    otherSchema,
+  ]),
+  z.object({}),
 ])
 
 export type PeopleFilterInput = z.input<typeof peopleFilterSchema>
+export type PeopleFilterOutput = z.output<typeof peopleFilterSchema>
 export type PeopleFilterInputKey = KeysOfUnion<PeopleFilterInput>
