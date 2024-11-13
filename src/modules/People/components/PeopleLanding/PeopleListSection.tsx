@@ -23,7 +23,12 @@ const PeopleListSection = () => {
       <Container maxWidth="lg">
         <Stack spacing={6} alignItems="center" justifyContent="center">
           {/** People Filter */}
-          <PeopleFilter onSubmit={(e) => console.log(e)} />
+          <PeopleFilter
+            onSubmit={(filter) => {
+              /** 這邊呼叫 API */
+              console.log(`call API with \n`, JSON.stringify(filter, null, 2))
+            }}
+          />
           <Box>
             <Grid container spacing={2}>
               <Grid size={6}>

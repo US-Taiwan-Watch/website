@@ -9,8 +9,7 @@ import USelect from '@/common/components/atoms/USelect'
 import MenuItem from '@mui/material/MenuItem'
 import {
   type PeopleFilterInputKey,
-  type PeopleFilterInput,
-  PeopleFilterOutput,
+  type PeopleFilterOutput,
 } from '@/modules/People/components/PeopleFilter/schema'
 import { Controller } from 'react-hook-form'
 import {
@@ -33,7 +32,7 @@ type SecondLevelSelector = {
 }
 
 interface PeopleFilterProps {
-  onSubmit?: (filter: PeopleFilterInput) => void
+  onSubmit?: (filter: PeopleFilterOutput) => void
 }
 
 const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
@@ -260,9 +259,12 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
                   options={selector.options}
                   getOptionLabel={(option) => option.label}
                   fullWidth
-                  value={selector.options.find(
-                    (option) => option.value === field.value
-                  )}
+                  value={selector.options.filter((option) => {
+                    if (Array.isArray(field.value)) {
+                      return field.value.some((val) => val === option.value)
+                    }
+                    return field.value === option.value
+                  })}
                   onChange={(_, value) => {
                     if (Array.isArray(value)) {
                       field.onChange(value.map((v) => v.value))

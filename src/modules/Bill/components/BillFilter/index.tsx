@@ -1,7 +1,7 @@
 'use client'
 
-import { MenuItem } from '@mui/material'
-import { BillFilterState } from '@/modules/Bill/components/BillFilter/useBillFilter'
+import MenuItem from '@mui/material/MenuItem'
+import { Controller } from 'react-hook-form'
 import useBillFilterOptions, {
   BillFilterOption,
 } from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
@@ -12,25 +12,28 @@ import {
   BillTypeEnum,
   BillStatusEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
-import { useMemo } from 'react'
+import { useMemo, useCallback } from 'react'
+import useBillFilterForm from '@/modules/Bill/components/BillFilter/useBillFilterForm'
+import {
+  type BillFilterOutput,
+  type BillFilterInputKey,
+} from '@/modules/Bill/components/BillFilter/schema'
+import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 
 type SecondLevelSelector = {
-  key: keyof BillFilterState
-  placeholder: string
+  key: Exclude<BillFilterInputKey, 'category'>
+  label: string
+  /** MUI Autocomplete 必須設定 minWidth 因為底下 Label 是 absolute 因此 TextField 不會被撐開 */
+  minWidth: number
   options: BillFilterOption<BillPartyEnum | BillTypeEnum | BillStatusEnum>[]
 }
 
 type BillFilterProps = {
-  filterState: BillFilterState
-  handleFilterChange: (field: keyof BillFilterState, value: string) => void
-  handleReset: () => void
+  onSubmit?: (filter: BillFilterOutput) => void
 }
 
-export default function BillFilter({
-  filterState,
-  handleFilterChange,
-  handleReset,
-}: BillFilterProps) {
+export default function BillFilter({ onSubmit }: BillFilterProps) {
+  const { form, handleReset, handleSecondLevelReset } = useBillFilterForm()
   const { categoryOptions, partyOptions, typeOptions, statusOptions } =
     useBillFilterOptions()
 
@@ -38,73 +41,122 @@ export default function BillFilter({
     () => [
       {
         key: 'party',
-        placeholder: 'Party',
+        label: 'Party',
         options: partyOptions,
+        minWidth: 100,
       },
       {
         key: 'type',
-        placeholder: 'Type',
+        label: 'Type',
         options: typeOptions,
+        minWidth: 100,
       },
       {
         key: 'status',
-        placeholder: 'Status',
+        label: 'Status',
         options: statusOptions,
+        minWidth: 100,
       },
       {
         key: 'sponsors',
-        placeholder: 'Sponsors',
+        label: 'Sponsors',
         options: [],
+        minWidth: 140,
       },
       {
         key: 'cosponsors',
-        placeholder: 'Cosponsors',
+        label: 'Cosponsors',
         options: [],
+        minWidth: 160,
       },
     ],
     [partyOptions, statusOptions, typeOptions]
   )
 
+  const handleSubmit = useCallback(
+    (value: BillFilterOutput) => {
+      onSubmit?.(value)
+    },
+    [onSubmit]
+  )
+
   return (
     <Filter
+      containerProps={{
+        component: 'form',
+        sx: {
+          width: '100%',
+        },
+        onSubmit: form.handleSubmit(handleSubmit, (error) => {
+          console.log(error)
+        }),
+      }}
       firstLevelSelector={
-        <USelect
-          isFirstLevel
-          value={filterState.category}
-          onChange={(e) =>
-            handleFilterChange('category', String(e.target.value))
-          }
-        >
-          <MenuItem value="" disabled>
-            Category
-          </MenuItem>
-          {categoryOptions.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </USelect>
+        <Controller
+          name="category"
+          control={form.control}
+          render={({ field }) => (
+            <USelect
+              {...field}
+              value={field.value ?? ''}
+              defaultValue={''}
+              onChange={(e) => {
+                field.onChange(e)
+                handleSecondLevelReset()
+              }}
+              isFirstLevel
+            >
+              <MenuItem value="" disabled>
+                Category
+              </MenuItem>
+              {categoryOptions.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.label}
+                </MenuItem>
+              ))}
+            </USelect>
+          )}
+        />
       }
       handleReset={handleReset}
     >
       {secondLevelSelectors.map((selector) => (
-        <USelect
+        <Controller
           key={selector.key}
-          value={filterState[selector.key]}
-          onChange={(e) =>
-            handleFilterChange(selector.key, String(e.target.value))
-          }
-          disabled={!filterState.category}
-        >
-          <MenuItem value="" disabled>
-            {selector.placeholder}
-          </MenuItem>
-          {selector.options.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </USelect>
+          name={selector.key}
+          control={form.control}
+          render={({ field }) => (
+            <div style={{ minWidth: selector.minWidth }}>
+              <UAutocomplete
+                {...field}
+                multiple
+                disableClearable
+                disableCloseOnSelect
+                limitTags={1}
+                options={selector.options}
+                getOptionLabel={(option) => option.label}
+                fullWidth
+                value={selector.options.filter((option) => {
+                  if (Array.isArray(field.value)) {
+                    return field.value.some((val) => val === option.value)
+                  }
+                  return field.value === option.value
+                })}
+                onChange={(_, value) => {
+                  if (Array.isArray(value)) {
+                    field.onChange(value.map((v) => v.value))
+                  } else {
+                    field.onChange([value?.value])
+                  }
+                }}
+                sx={{
+                  height: '100%',
+                }}
+                label={selector.label}
+              />
+            </div>
+          )}
+        />
       ))}
     </Filter>
   )
