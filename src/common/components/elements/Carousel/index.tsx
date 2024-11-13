@@ -42,7 +42,7 @@ function Carousel({
 }: CarouselProps) {
   const slideCount = isArray(children) ? children.length : children ? 1 : 0
   const sliderRef = useRef<Slider>(null)
-  const [currentSlide, setCurrentSlide] = useState(0)
+  const [currentSlide, setCurrentSlide] = useState(_settings?.initialSlide ?? 0)
 
   const settings: Settings = {
     dots: false,
