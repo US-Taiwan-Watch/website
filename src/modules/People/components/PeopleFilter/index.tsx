@@ -1,5 +1,5 @@
 'use client'
-import { memo, useEffect, useMemo } from 'react'
+import { memo, useCallback, useMemo } from 'react'
 import usePeopleFilterForm from '@/modules/People/components/PeopleFilter/usePeopleFilterForm'
 import usePeopleFilterOptions, {
   PeopleFilterOption,
@@ -10,6 +10,7 @@ import { MenuItem } from '@mui/material'
 import {
   type PeopleFilterInputKey,
   type PeopleFilterInput,
+  PeopleFilterOutput,
 } from '@/modules/People/components/PeopleFilter/schema'
 import { Controller } from 'react-hook-form'
 import {
@@ -33,7 +34,8 @@ interface PeopleFilterProps {
 }
 
 const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
-  const { form, category, handleReset } = usePeopleFilterForm()
+  const { form, category, handleReset, handleSecondLevelReset } =
+    usePeopleFilterForm()
   const {
     categoryOptions,
     partyOptions,
@@ -149,34 +151,12 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     affiliationOptions,
   ])
 
-  // 沒有 Submit 按鈕，假設一變動就會敲 API
-  useEffect(() => {
-    const subscription = form.watch((_value, info) => {
-      form.handleSubmit(
-        (value) => {
-          /**
-           * 第一層 selector: category 變化後，重設 form
-           * 但此時會連帶其他在上一個狀態的欄位一起送出
-           * 會導致先觸發 onSubmit 的 callback 才重設 form
-           * 會導致沒必要的觸發
-           * 因此需要判斷 info.name 是否為 category
-           */
-          if (info.name === 'category') {
-            onSubmit?.({
-              category: value.category,
-            })
-          } else {
-            onSubmit?.(value)
-          }
-        },
-        (errors) => {
-          console.log('errors', errors)
-        }
-      )()
-    })
-
-    return () => subscription.unsubscribe()
-  }, [form, onSubmit])
+  const handleSubmit = useCallback(
+    (value: PeopleFilterOutput) => {
+      onSubmit?.(value)
+    },
+    [onSubmit]
+  )
 
   return (
     <Filter
@@ -185,13 +165,23 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
         sx: {
           width: '100%',
         },
+        onSubmit: form.handleSubmit(handleSubmit),
       }}
       firstLevelSelector={
         <Controller
           name="category"
           control={form.control}
           render={({ field }) => (
-            <USelect {...field} isFirstLevel>
+            <USelect
+              {...field}
+              value={field.value ?? ''}
+              defaultValue={''}
+              onChange={(e) => {
+                field.onChange(e)
+                handleSecondLevelReset()
+              }}
+              isFirstLevel
+            >
               <MenuItem value="" disabled>
                 Category
               </MenuItem>
@@ -237,8 +227,8 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
             return (
               <USelect
                 {...field}
-                // 預設值
                 value={field.value ?? ''}
+                defaultValue={''}
                 label={selector.placeholder}
               >
                 <MenuItem value="" disabled>
