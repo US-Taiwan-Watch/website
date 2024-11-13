@@ -1,12 +1,12 @@
 'use client'
-import { memo, useCallback, useMemo } from 'react'
+import { ChangeEvent, memo, useCallback, useMemo } from 'react'
 import usePeopleFilterForm from '@/modules/People/components/PeopleFilter/usePeopleFilterForm'
 import usePeopleFilterOptions, {
   PeopleFilterOption,
 } from '@/modules/People/components/PeopleFilter/usePeopleFilterOptions'
 import Filter from '@/common/components/elements/Filter'
 import USelect from '@/common/components/atoms/USelect'
-import { MenuItem } from '@mui/material'
+import MenuItem from '@mui/material/MenuItem'
 import {
   type PeopleFilterInputKey,
   type PeopleFilterInput,
@@ -19,11 +19,14 @@ import {
   PeopleAreaEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
-import UFilterInput from '@/common/components/atoms/UFilterInput'
+import UFilterTextField from '@/common/components/atoms/UFilterTextField'
+import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 
 type SecondLevelSelector = {
   key: PeopleFilterInputKey
-  placeholder: string
+  label: string
+  /** MUI Autocomplete 必須設定 minWidth 因為底下 Label 是 absolute 因此 TextField 不會被撐開 */
+  minWidth: number
   options: PeopleFilterOption<
     PeopleAffiliationEnum | PeopleAreaEnum | PeoplePartyEnum | number | string
   >[]
@@ -60,8 +63,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     ) {
       selectors.push({
         key: 'congress',
-        placeholder: 'Congress',
+        label: 'Congress',
         options: congressOptions,
+        minWidth: 140,
       })
     }
 
@@ -74,8 +78,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     ) {
       selectors.push({
         key: 'party',
-        placeholder: 'Party',
+        label: 'Party',
         options: partyOptions,
+        minWidth: 140,
       })
     }
 
@@ -83,8 +88,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.Senator].includes(category)) {
       selectors.push({
         key: 'state',
-        placeholder: 'State',
+        label: 'State',
         options: stateOptions,
+        minWidth: 140,
       })
     }
 
@@ -92,8 +98,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.HouseRepresentative].includes(category)) {
       selectors.push({
         key: 'stateRegion',
-        placeholder: 'State/Region',
+        label: 'State/Region',
         options: stateOrTerritoryOptions,
+        minWidth: 200,
       })
     }
 
@@ -101,8 +108,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.HouseRepresentative].includes(category)) {
       selectors.push({
         key: 'district',
-        placeholder: 'District',
+        label: 'District',
         options: districtOptions,
+        minWidth: 140,
       })
     }
 
@@ -115,8 +123,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     ) {
       selectors.push({
         key: 'tag',
-        placeholder: 'Tag',
+        label: 'Tag',
         options: tagOptions,
+        minWidth: 140,
       })
     }
 
@@ -124,8 +133,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.Official].includes(category)) {
       selectors.push({
         key: 'area',
-        placeholder: 'Area',
+        label: 'Area',
         options: areaOptions,
+        minWidth: 140,
       })
     }
 
@@ -133,8 +143,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.Expert].includes(category)) {
       selectors.push({
         key: 'affiliation',
-        placeholder: 'Affiliation',
+        label: 'Affiliation',
         options: affiliationOptions,
+        minWidth: 200,
       })
     }
 
@@ -165,7 +176,9 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
         sx: {
           width: '100%',
         },
-        onSubmit: form.handleSubmit(handleSubmit),
+        onSubmit: form.handleSubmit(handleSubmit, (error) => {
+          console.log(error)
+        }),
       }}
       firstLevelSelector={
         <Controller
@@ -205,15 +218,27 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
             // district filter，讓使用者輸入數字就好 (int > 0)
             if (selector.key === 'district') {
               return (
-                <UFilterInput
+                <UFilterTextField
                   {...field}
-                  placeholder={selector.placeholder}
-                  disableUnderline
-                  type="number"
-                  inputProps={{
-                    min: 1,
+                  size="small"
+                  label={selector.label}
+                  slotProps={{
+                    inputLabel: {
+                      color: 'info',
+                    },
+                    input: {
+                      inputProps: {
+                        min: 1,
+                      },
+                    },
                   }}
-                  onChange={(e) => {
+                  sx={{
+                    '& .MuiInputBase-root': {
+                      height: '100%',
+                    },
+                  }}
+                  type="number"
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
                     if (Number.isNaN(parseInt(e.target.value, 10))) {
                       field.onChange(undefined)
                     } else {
@@ -225,21 +250,32 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
             }
 
             return (
-              <USelect
-                {...field}
-                value={field.value ?? ''}
-                defaultValue={''}
-                label={selector.placeholder}
-              >
-                <MenuItem value="" disabled>
-                  {selector.placeholder}
-                </MenuItem>
-                {selector.options.map((option) => (
-                  <MenuItem key={option.value} value={option.value}>
-                    {option.label}
-                  </MenuItem>
-                ))}
-              </USelect>
+              <div style={{ minWidth: selector.minWidth }}>
+                <UAutocomplete
+                  {...field}
+                  multiple
+                  disableClearable
+                  disableCloseOnSelect
+                  limitTags={1}
+                  options={selector.options}
+                  getOptionLabel={(option) => option.label}
+                  fullWidth
+                  value={selector.options.find(
+                    (option) => option.value === field.value
+                  )}
+                  onChange={(_, value) => {
+                    if (Array.isArray(value)) {
+                      field.onChange(value.map((v) => v.value))
+                    } else {
+                      field.onChange([value?.value])
+                    }
+                  }}
+                  sx={{
+                    height: '100%',
+                  }}
+                  label={selector.label}
+                />
+              </div>
             )
           }}
         />

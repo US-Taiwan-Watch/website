@@ -6,7 +6,6 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import { forwardRef } from 'react'
 
 const StyledSelect = styled(Select)(({ theme }) => ({
-  width: 140,
   borderRadius: '9px',
   border: `1px solid ${theme.color.grey[1400]}`,
   backgroundColor: theme.color.grey[2600],
