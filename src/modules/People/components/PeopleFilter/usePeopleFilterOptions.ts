@@ -8,8 +8,8 @@ import {
 import states from '@/common/assets/states'
 import territoriesRegions from '@/common/assets/territories-regions'
 import {
-  CURRENT_CONGRESS_SESSION,
-  CONGRESS_SESSION_MIN,
+  CURRENT_CONGRESS_NUMBER,
+  CONGRESS_NUMBER_MIN,
 } from '@/common/assets/constants'
 
 export type PeopleFilterOption<T> = {
@@ -44,8 +44,8 @@ export default function usePeopleFilterOptions() {
   const congressOptions = useMemo<PeopleFilterOption<number>[]>(
     () =>
       Array.from(
-        { length: CURRENT_CONGRESS_SESSION - CONGRESS_SESSION_MIN + 1 },
-        (_, i) => i + CONGRESS_SESSION_MIN
+        { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
+        (_, i) => i + CONGRESS_NUMBER_MIN
       ).map((congress) => ({
         value: congress,
         label: congress.toString(),

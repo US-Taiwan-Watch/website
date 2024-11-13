@@ -7,6 +7,7 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import useModal from '@/common/hooks/useModal'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import {
+  Box,
   Card,
   CardContent,
   CardContentProps,
@@ -18,6 +19,26 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CloseIcon from '@mui/icons-material/Close'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UCardInfo, { UCardInfoProps } from '@/common/components/atoms/UCardInfo'
+
+const hasNoContent = (node: React.ReactNode) => {
+  return !node || (Array.isArray(node) && node.length === 0)
+}
+
+const NoContentPlaceholder = ({ children }: { children: React.ReactNode }) => {
+  return (
+    <Box
+      sx={{
+        paddingTop: 4,
+        paddingBottom: 4,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      {children}
+    </Box>
+  )
+}
 
 type HeaderIconAction = 'tooltip' | 'modal'
 
@@ -44,6 +65,8 @@ interface UContentCardProps extends CardProps {
   onActionClick?: () => void
   /** Tooltip 相關參數 */
   tooltipProps?: UCardInfoProps
+  /** 沒有內容時的顯示文字 */
+  noContentPlaceholder?: React.ReactNode
 }
 
 const StyledContentCard = styled(Card)(({ theme }) => ({
@@ -96,6 +119,7 @@ const UContentCard = function UContentCard({
   isModal,
   onActionClick,
   tooltipProps,
+  noContentPlaceholder,
   ...rest
 }: UContentCardProps) {
   const theme = useTheme<USTWTheme>()
@@ -159,7 +183,11 @@ const UContentCard = function UContentCard({
         }}
         {...contentProps}
       >
-        {children}
+        {hasNoContent(children) ? (
+          <NoContentPlaceholder>{noContentPlaceholder}</NoContentPlaceholder>
+        ) : (
+          children
+        )}
       </CardContent>
       {headerIconAction === 'modal' && isModalOpen && (
         <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
@@ -184,7 +212,13 @@ const UContentCard = function UContentCard({
               borderRadius: 0,
             }}
           >
-            {modalContent || children}
+            {hasNoContent(modalContent) && hasNoContent(children) ? (
+              <NoContentPlaceholder>
+                {noContentPlaceholder}
+              </NoContentPlaceholder>
+            ) : (
+              modalContent || children
+            )}
           </UContentCard>
         </UContentCardDialog>
       )}

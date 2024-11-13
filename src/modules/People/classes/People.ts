@@ -193,4 +193,15 @@ export class People {
 
   // Nov 2022
   static TimeFormat = 'MMM YYYY'
+
+  /**
+   * 判斷是否為現任議員
+   * TODO: 確認怎麼分辨『現任』
+   * @param people
+   * @returns
+   */
+  static IsCurrentMember(people: People) {
+    // FIXME: 確認怎麼分辨『現任』
+    return people.congress?.congressNumber === Congress.CurrentCongressNumber
+  }
 }

@@ -110,7 +110,7 @@ const Publication = function Publication({
         icon: <DocumentIcon />,
         iconColor: 'primary',
       }}
-      modalContent={publications.map((publication, index) => (
+      modalContent={publications?.map((publication, index) => (
         <PublicationRow
           key={index}
           publication={publication}
@@ -118,8 +118,13 @@ const Publication = function Publication({
         />
       ))}
       overflowHidden
+      noContentPlaceholder={
+        <Typography variant="subtitleXL" fontWeight={400}>
+          No Publication
+        </Typography>
+      }
     >
-      {publications.map((publication, index) => (
+      {publications?.map((publication, index) => (
         <PublicationRow
           key={index}
           publication={publication}
