@@ -13,7 +13,7 @@ import {
   Noto_Sans_TC as NotoSansTC,
 } from 'next/font/google'
 import { Language } from '@/common/lib/i18n/types'
-import { colors, CreateMUIStyled } from '@mui/material'
+import { colors, type Components, CreateMUIStyled } from '@mui/material'
 import { CSSProperties } from 'react'
 
 declare module '@mui/material/styles' {
@@ -331,6 +331,34 @@ const ketagalanPalette: PaletteOptions = {
   },
 }
 
+const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
+  MuiContainer: {
+    styleOverrides: {
+      root: {
+        '&.MuiContainer-maxWidthLg': {
+          maxWidth: '1340px',
+          padding: '0 50px',
+        },
+      },
+    },
+  },
+  MuiButtonBase: {
+    defaultProps: {
+      disableRipple: true,
+    },
+  },
+  MuiButton: {
+    styleOverrides: {
+      root: {
+        boxShadow: 'none',
+        '&:hover': {
+          boxShadow: 'none',
+        },
+      },
+    },
+  },
+}
+
 const _lightTheme: USTWThemeOptions = {
   color: {
     ...color,
@@ -369,21 +397,7 @@ const _lightTheme: USTWThemeOptions = {
     },
   },
   components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
-          },
-        },
-      },
-    },
+    ...commonThemeComponents,
   },
 }
 
@@ -425,21 +439,7 @@ const _ketagalanTheme: USTWThemeOptions = {
     },
   },
   components: {
-    MuiButtonBase: {
-      defaultProps: {
-        disableRipple: true,
-      },
-    },
-    MuiButton: {
-      styleOverrides: {
-        root: {
-          boxShadow: 'none',
-          '&:hover': {
-            boxShadow: 'none',
-          },
-        },
-      },
-    },
+    ...commonThemeComponents,
   },
 }
 
