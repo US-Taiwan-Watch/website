@@ -30,7 +30,7 @@ const Footer = () => {
 
   return (
     <UFullWidthBackgroundBox backgroundColor="common.black">
-      <Container>
+      <Container maxWidth="lg">
         <StyledFooter>
           {/** Top Section */}
           <Stack direction="column" spacing={6}>

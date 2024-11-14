@@ -12,7 +12,13 @@ const IndexKVCards = () => {
 
   return (
     <UFullWidthBackgroundBox>
-      <Container>
+      <Container
+        maxWidth="lg"
+        sx={{
+          paddingLeft: `${theme.spacing(2)} !important`,
+          paddingRight: `${theme.spacing(2)} !important`,
+        }}
+      >
         <Carousel>
           <IndexKvCard
             containerSx={{ margin: theme.spacing(0, 1) }}

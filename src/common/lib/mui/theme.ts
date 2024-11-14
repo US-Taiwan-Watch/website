@@ -337,7 +337,22 @@ const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
       root: {
         '&.MuiContainer-maxWidthLg': {
           maxWidth: '1340px',
-          padding: '0 50px',
+        },
+        '@media (min-width:600px)': {
+          paddingLeft: '24px', // Padding for sm up
+          paddingRight: '24px', // Padding for sm up
+        },
+        '@media (min-width:900px)': {
+          paddingLeft: '32px', // Padding for md up
+          paddingRight: '32px', // Padding for md up
+        },
+        '@media (min-width:1200px)': {
+          paddingLeft: '40px', // Padding for lg up
+          paddingRight: '40px', // Padding for lg up
+        },
+        '@media (min-width:1536px)': {
+          paddingLeft: '74px', // Padding for xl up
+          paddingRight: '74px', // Padding for xl up
         },
       },
     },

@@ -10,11 +10,17 @@ type Props = {
   backgroundColor?: string
   children: ReactNode
   contentWrapperSx?: StackProps['sx']
+  /**
+   * 是否與 Header 同寬
+   * @default false
+   */
+  isHeaderWidth?: boolean
 }
 
 const LandingSectionWrapper = ({
   backgroundColor,
   contentWrapperSx,
+  isHeaderWidth = false,
   children,
 }: Props) => {
   const theme = useTheme<USTWTheme>()
@@ -26,7 +32,15 @@ const LandingSectionWrapper = ({
         borderRadius: '30px 30px 0 0',
       }}
     >
-      <Container>
+      <Container
+        maxWidth="lg"
+        sx={{
+          ...(isHeaderWidth && {
+            paddingLeft: `${theme.spacing(3)} !important`,
+            paddingRight: `${theme.spacing(3)} !important`,
+          }),
+        }}
+      >
         <Stack
           sx={{
             padding: '80px 0',

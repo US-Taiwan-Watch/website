@@ -16,7 +16,10 @@ const FreeUsageSection = () => {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <LandingSectionWrapper backgroundColor={theme.color.lime[500]}>
+    <LandingSectionWrapper
+      backgroundColor={theme.color.lime[500]}
+      isHeaderWidth
+    >
       <Stack gap={4}>
         <Typography variant="h2" whiteSpace="pre-line">
           {'Stay Updated On The\nLatest '}
