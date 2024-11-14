@@ -31,7 +31,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
   }, [taiwanRecord])
 
   return (
-    <UAccordion>
+    <UAccordion expanded>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon width={24} height={24} />}
         aria-controls="panel1-content"
