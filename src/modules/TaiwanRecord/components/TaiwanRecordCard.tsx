@@ -28,8 +28,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
   const theme = useTheme<USTWTheme>()
 
   /**
-   * 計算剩餘圖片數量，
-   * 假設圖片總數為 10，最多顯示 4 張，剩餘圖片數量為 5
+   * 計算剩餘圖片數量
    */
   const imageCountLeft = useMemo(() => {
     if (!taiwanRecord.images) return 0
