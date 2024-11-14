@@ -4,7 +4,7 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
-
+import Container from '@mui/material/Container'
 export const metadata: Metadata = {
   title: 'Opinion Search Category',
   description: 'Opinion Search Category',
@@ -38,7 +38,7 @@ export default function OpinionSearchCategoryLayout({
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {children}
+        <Container maxWidth="lg">{children}</Container>
       </ThemeProvider>
     </AppRouterCacheProvider>
   )
