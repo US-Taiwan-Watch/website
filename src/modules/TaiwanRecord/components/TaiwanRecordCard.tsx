@@ -33,7 +33,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
    */
   const imageCountLeft = useMemo(() => {
     if (!taiwanRecord.images) return 0
-    return Math.max(0, taiwanRecord.images.length - (MAX_IMAGE_TO_SHOW - 1))
+    return Math.max(0, taiwanRecord.images.length - MAX_IMAGE_TO_SHOW)
   }, [taiwanRecord])
 
   const dateAndAuthor = useMemo(() => {
@@ -104,7 +104,8 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
                         color={theme.color.common.white}
                         zIndex={10}
                       >
-                        +{imageCountLeft}
+                        {/** 剩餘圖片數量 + 1，因為最後一張圖片也算進去 */}+
+                        {imageCountLeft + 1}
                       </Typography>
                     </Box>
                   )}
