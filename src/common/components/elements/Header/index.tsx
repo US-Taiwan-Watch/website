@@ -30,8 +30,8 @@ const StyledHeaderContainer = styled(Container)(({ theme }) => ({
   top: theme.spacing(4.5),
   zIndex: theme.constants.zIndex.header,
   margin: `${theme.spacing(4.5)} auto`,
-  paddingLeft: `${theme.spacing(3)} !important`,
-  paddingRight: `${theme.spacing(3)} !important`,
+  paddingLeft: `${theme.spacing(0)} !important`,
+  paddingRight: `${theme.spacing(0)} !important`,
 }))
 
 const StyledHeader = styled('header')(({ theme }) => ({

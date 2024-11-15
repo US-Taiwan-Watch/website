@@ -36,8 +36,8 @@ const LandingSectionWrapper = ({
         maxWidth="lg"
         sx={{
           ...(isHeaderWidth && {
-            paddingLeft: `${theme.spacing(3)} !important`,
-            paddingRight: `${theme.spacing(3)} !important`,
+            paddingLeft: `${theme.spacing(0)} !important`,
+            paddingRight: `${theme.spacing(0)} !important`,
           }),
         }}
       >

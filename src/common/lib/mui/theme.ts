@@ -351,8 +351,8 @@ const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
           paddingRight: '40px', // Padding for lg up
         },
         '@media (min-width:1536px)': {
-          paddingLeft: '74px', // Padding for xl up
-          paddingRight: '74px', // Padding for xl up
+          paddingLeft: '50px', // Padding for xl up
+          paddingRight: '50px', // Padding for xl up
         },
       },
     },
