@@ -6,11 +6,12 @@ import BillFilter from '@/modules/Bill/components/BillFilter'
 import {
   billFilterSchema,
   BillFilterInput,
+  BillFilterOutput,
 } from '@/modules/Bill/components/BillFilter/schema'
 import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import { Stack } from '@mui/material'
 import { useSearchParams } from 'next/navigation'
-import { useMemo } from 'react'
+import { useCallback, useMemo, useEffect } from 'react'
 
 export default function BillList() {
   const params = useSearchParams()
@@ -33,13 +34,21 @@ export default function BillList() {
     return result.success ? result.data : {}
   }, [params])
 
+  const onFilterSubmit = useCallback((filter: BillFilterOutput) => {
+    console.log(`call API with \n`, JSON.stringify(filter, null, 2))
+  }, [])
+
+  useEffect(() => {
+    if (Object.keys(filterInitValues).length > 0) {
+      onFilterSubmit(filterInitValues)
+    }
+  }, [filterInitValues, onFilterSubmit])
+
   return (
     <Stack gap={7} alignItems="center" pb={10}>
       <Stack gap={5} alignItems="center">
         <BillFilter
-          onSubmit={(filter) => {
-            console.log(`call API with \n`, JSON.stringify(filter, null, 2))
-          }}
+          onSubmit={onFilterSubmit}
           initialValues={filterInitValues}
         />
         <Stack gap={2}>
