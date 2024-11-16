@@ -17,6 +17,7 @@ import useBillFilterForm from '@/modules/Bill/components/BillFilter/useBillFilte
 import {
   type BillFilterOutput,
   type BillFilterInputKey,
+  BillFilterInput,
 } from '@/modules/Bill/components/BillFilter/schema'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 
@@ -32,10 +33,16 @@ type SecondLevelSelector = {
 
 type BillFilterProps = {
   onSubmit?: (filter: BillFilterOutput) => void
+  initialValues?: BillFilterInput
 }
 
-export default function BillFilter({ onSubmit }: BillFilterProps) {
-  const { form, handleReset, handleSecondLevelReset } = useBillFilterForm()
+export default function BillFilter({
+  onSubmit,
+  initialValues,
+}: BillFilterProps) {
+  const { form, handleReset, handleSecondLevelReset } = useBillFilterForm({
+    initialValues,
+  })
   const {
     categoryOptions,
     partyOptions,

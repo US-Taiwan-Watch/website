@@ -6,10 +6,17 @@ import {
   type BillFilterInput,
 } from '@/modules/Bill/components/BillFilter/schema'
 
-export default function useBillFilterForm() {
+type Props = {
+  initialValues?: BillFilterInput
+}
+
+export default function useBillFilterForm({ initialValues }: Props) {
   const form = useForm<BillFilterInput>({
     resolver: zodResolver(billFilterSchema),
-    defaultValues: {},
+    defaultValues: {
+      category: undefined,
+      congress: initialValues?.congress,
+    },
     mode: 'onSubmit',
   })
 
