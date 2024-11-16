@@ -22,9 +22,9 @@ export const congressSchema = z.array(
 
 export const statusSchema = z.array(z.nativeEnum(BillStatusEnum))
 
-export const sponsorsSchema = z.array(z.string())
+export const sponsorsSchema = z.array(z.number())
 
-export const cosponsorsSchema = z.array(z.string())
+export const cosponsorsSchema = z.array(z.number())
 
 export const billFilterSchema = z.object({
   /**

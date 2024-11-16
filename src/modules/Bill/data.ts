@@ -76,7 +76,7 @@ const sponsor2 = new People({
 })
 
 const sponsor3 = new People({
-  id: '2',
+  id: '3',
   name: 'Jon Ossoff',
   image: '/assets/category1.jpg',
   description:
@@ -105,12 +105,72 @@ const sponsor3 = new People({
   constituency: 'WA',
 })
 
+const sponsor4 = new People({
+  id: '4',
+  name: 'Tammy Baldwin',
+  image: '/assets/category1.jpg',
+  description:
+    "Baldwin is the representative for Wisconsin's 2nd congressional district.",
+  party: Party.DEMOCRAT,
+  position: PeoplePosition.SENATOR,
+  chamber: ChamberEnum.SENATE,
+  congress: new Congress({
+    congressNumber: CURRENT_CONGRESS_NUMBER,
+    startYear: 2023,
+    endYear: 2025,
+    houseMembers: 100,
+    houseDistribution: new Map([
+      [Party.DEMOCRAT, 50],
+      [Party.REPUBLICAN, 50],
+    ]),
+    senateMembers: 100,
+    senateDistribution: new Map([
+      [Party.DEMOCRAT, 50],
+      [Party.REPUBLICAN, 50],
+    ]),
+  }),
+  partyExperience: [],
+  experience: [],
+  tags: [],
+  constituency: 'WI',
+})
+
+const sponsor5 = new People({
+  id: '5',
+  name: 'Liz Cheney',
+  image: '/assets/category1.jpg',
+  description:
+    "Cheney is the representative for Wyoming's at-large congressional district.",
+  party: Party.REPUBLICAN,
+  position: PeoplePosition.HOUSE_REPRESENTATIVE,
+  chamber: ChamberEnum.HOUSE,
+  congress: new Congress({
+    congressNumber: CURRENT_CONGRESS_NUMBER,
+    startYear: 2023,
+    endYear: 2025,
+    houseMembers: 100,
+    houseDistribution: new Map([
+      [Party.DEMOCRAT, 50],
+      [Party.REPUBLICAN, 50],
+    ]),
+    senateMembers: 100,
+    senateDistribution: new Map([
+      [Party.DEMOCRAT, 50],
+      [Party.REPUBLICAN, 50],
+    ]),
+  }),
+  partyExperience: [],
+  experience: [],
+  tags: [],
+  constituency: 'WY',
+})
+
 export const BILL_SPONSOR_MOCK: People[] = [
   sponsor1,
   sponsor2,
   sponsor3,
-  sponsor1,
-  sponsor2,
+  sponsor4,
+  sponsor5,
 ]
 
 export const PARLIAMENT_CHART_DATA_MOCK_1: ParliamentChartData[] = [

@@ -18,9 +18,13 @@ export default function BillList() {
   const filterInitValues = useMemo<BillFilterInput>(() => {
     const category = params.get('category')
     const congress = params.get('congress')
+    const sponsor = params.get('sponsor')
+    const cosponsor = params.get('cosponsor')
     const result = billFilterSchema.safeParse({
       ...(category && { category: Number(category) }),
       ...(congress && { congress: [Number(congress)] }),
+      ...(sponsor && { sponsors: [Number(sponsor)] }),
+      ...(cosponsor && { cosponsors: [Number(cosponsor)] }),
     })
     return result.success ? result.data : {}
   }, [params])

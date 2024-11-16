@@ -49,6 +49,8 @@ export default function BillFilter({
     typeOptions,
     statusOptions,
     congressOptions,
+    sponsorsOptions,
+    cosponsorsOptions,
   } = useBillFilterOptions()
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(
@@ -80,17 +82,24 @@ export default function BillFilter({
       {
         key: 'sponsors',
         label: 'Sponsors',
-        options: [],
+        options: sponsorsOptions,
         minWidth: 140,
       },
       {
         key: 'cosponsors',
         label: 'Cosponsors',
-        options: [],
+        options: cosponsorsOptions,
         minWidth: 160,
       },
     ],
-    [congressOptions, partyOptions, statusOptions, typeOptions]
+    [
+      congressOptions,
+      partyOptions,
+      statusOptions,
+      typeOptions,
+      sponsorsOptions,
+      cosponsorsOptions,
+    ]
   )
 
   const handleSubmit = useCallback(

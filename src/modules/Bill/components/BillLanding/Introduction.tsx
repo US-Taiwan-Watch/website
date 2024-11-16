@@ -20,8 +20,6 @@ const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
   },
 }))
 
-const congressNumber = CURRENT_CONGRESS_NUMBER
-
 export default function Introduction() {
   const theme = useTheme<USTWTheme>()
 
@@ -41,12 +39,12 @@ export default function Introduction() {
       <Link
         href={{
           pathname: ROUTES.BILL_LIST,
-          query: { congress: congressNumber },
+          query: { congress: CURRENT_CONGRESS_NUMBER },
         }}
       >
         <StyledBillTotalCountCard>
           <Typography variant="buttonXS" color={theme.color.grey[2100]} mb={1}>
-            {`Congress ${congressNumber}`}
+            {`Congress ${CURRENT_CONGRESS_NUMBER}`}
           </Typography>
           <Typography variant="h2">{BILL_TOTAL_COUNT_MOCK}</Typography>
         </StyledBillTotalCountCard>

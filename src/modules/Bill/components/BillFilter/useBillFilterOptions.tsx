@@ -8,6 +8,7 @@ import {
   BillTypeEnum,
   BillStatusEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
+import { BILL_SPONSOR_MOCK } from '@/modules/Bill/data'
 import { useMemo } from 'react'
 
 export type BillFilterOption<T> = {
@@ -205,11 +206,24 @@ export default function useBillFilterOptions() {
     []
   )
 
+  const sponsorsOptions = useMemo<BillFilterOption<number>[]>(
+    () =>
+      BILL_SPONSOR_MOCK.map((sponsor) => ({
+        value: Number(sponsor.id),
+        label: sponsor.name ?? '',
+      })),
+    []
+  )
+
+  const cosponsorsOptions = useMemo(() => sponsorsOptions, [sponsorsOptions])
+
   return {
     categoryOptions,
     partyOptions,
     typeOptions,
     statusOptions,
     congressOptions,
+    sponsorsOptions,
+    cosponsorsOptions,
   }
 }

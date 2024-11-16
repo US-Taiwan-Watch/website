@@ -10,6 +10,9 @@ import { People } from '@/modules/People/classes/People'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
+import Link from 'next/link'
+import { ROUTES } from '@/routes'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -73,7 +76,20 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
     >
       <Stack spacing={1} pt={2}>
         {BILL_SPONSOR_MOCK.map((sponsor, index) => (
-          <SponsorRow key={index} sponsor={sponsor} />
+          <Link
+            key={index}
+            href={{
+              pathname: ROUTES.BILL_LIST,
+              query: {
+                congress: CURRENT_CONGRESS_NUMBER,
+                ...(isCosponsor
+                  ? { cosponsor: sponsor.id }
+                  : { sponsor: sponsor.id }),
+              },
+            }}
+          >
+            <SponsorRow sponsor={sponsor} />
+          </Link>
         ))}
       </Stack>
     </UContentCard>
