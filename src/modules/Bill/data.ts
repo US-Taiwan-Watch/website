@@ -8,10 +8,12 @@ import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { BillTrendData } from '@/modules/Bill/components/BillLanding/TrendCard'
+import {
+  CONGRESS_NUMBER_MIN,
+  CURRENT_CONGRESS_NUMBER,
+} from '@/common/assets/constants'
 
 export const BILL_TOTAL_COUNT_MOCK = 20
-export const CONGRESS_START_MOCK = 96
-export const CONGRESS_CURRENT_SESSION_MOCK = 118
 
 const sponsor1 = new People({
   id: '1',
@@ -23,7 +25,7 @@ const sponsor1 = new People({
   position: PeoplePosition.SENATOR,
   chamber: ChamberEnum.SENATE,
   congress: new Congress({
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     startYear: 2023,
     endYear: 2025,
     houseMembers: 100,
@@ -53,7 +55,7 @@ const sponsor2 = new People({
   position: PeoplePosition.HOUSE_REPRESENTATIVE,
   chamber: ChamberEnum.HOUSE,
   congress: new Congress({
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     startYear: 2023,
     endYear: 2025,
     houseMembers: 100,
@@ -83,7 +85,7 @@ const sponsor3 = new People({
   position: PeoplePosition.SENATOR,
   chamber: ChamberEnum.SENATE,
   congress: new Congress({
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     startYear: 2023,
     endYear: 2025,
     houseMembers: 100,
@@ -181,7 +183,7 @@ export const BILL_DATA_MOCK: Bill[] = [
       'National Digital Infrastructure Protection',
     ],
     status: BillStatusEnum.INTRODUCED,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-01-15',
@@ -226,7 +228,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor3, sponsor1],
     tags: ['Technology', 'Security'],
     status: BillStatusEnum.PASSED_SENATE,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-02-01',
@@ -249,7 +251,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor1, sponsor2],
     tags: ['Education', 'Social Policy'],
     status: BillStatusEnum.PASSED_HOUSE,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-02-10',
@@ -271,7 +273,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor2, sponsor3],
     tags: ['Healthcare', 'Social Policy'],
     status: BillStatusEnum.TO_PRESIDENT,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-03-01',
@@ -304,7 +306,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor3, sponsor1],
     tags: ['Economy', 'Business'],
     status: BillStatusEnum.INTRODUCED,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-04-01',
@@ -321,7 +323,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor1, sponsor2],
     tags: ['Veterans', 'Healthcare'],
     status: BillStatusEnum.PASSED_SENATE,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-03-15',
@@ -344,7 +346,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor2, sponsor3],
     tags: ['Infrastructure', 'Economy'],
     status: BillStatusEnum.BECOME_LAW,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-02-20',
@@ -381,7 +383,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor3, sponsor1],
     tags: ['Environment', 'Energy'],
     status: BillStatusEnum.INTRODUCED,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-05-01',
@@ -399,7 +401,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor1, sponsor2],
     tags: ['Housing', 'Social Policy'],
     status: BillStatusEnum.PASSED_HOUSE,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-04-15',
@@ -422,7 +424,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     cosponsors: [sponsor2, sponsor3],
     tags: ['Technology', 'Privacy'],
     status: BillStatusEnum.PASSED_SENATE,
-    congressNumber: CONGRESS_CURRENT_SESSION_MOCK,
+    congressNumber: CURRENT_CONGRESS_NUMBER,
     actions: [
       {
         date: '2023-03-30',
@@ -440,12 +442,12 @@ export const BILL_DATA_MOCK: Bill[] = [
 ]
 
 export const BILL_TREND_CHART_DATA_MOCK: BillTrendData[] = Array.from(
-  { length: CONGRESS_CURRENT_SESSION_MOCK - CONGRESS_START_MOCK + 1 },
+  { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
   (_, index) => {
     return Object.values(BillCategoryEnum)
       .filter((category) => typeof category !== 'string')
       .map((category) => ({
-        congress: CONGRESS_START_MOCK + index,
+        congress: CONGRESS_NUMBER_MIN + index,
         count: Math.floor(Math.random() * 10) + 1,
         category,
       }))

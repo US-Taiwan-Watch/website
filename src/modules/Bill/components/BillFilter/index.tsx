@@ -25,7 +25,9 @@ type SecondLevelSelector = {
   label: string
   /** MUI Autocomplete 必須設定 minWidth 因為底下 Label 是 absolute 因此 TextField 不會被撐開 */
   minWidth: number
-  options: BillFilterOption<BillPartyEnum | BillTypeEnum | BillStatusEnum>[]
+  options: BillFilterOption<
+    BillPartyEnum | BillTypeEnum | BillStatusEnum | number
+  >[]
 }
 
 type BillFilterProps = {
@@ -34,8 +36,13 @@ type BillFilterProps = {
 
 export default function BillFilter({ onSubmit }: BillFilterProps) {
   const { form, handleReset, handleSecondLevelReset } = useBillFilterForm()
-  const { categoryOptions, partyOptions, typeOptions, statusOptions } =
-    useBillFilterOptions()
+  const {
+    categoryOptions,
+    partyOptions,
+    typeOptions,
+    statusOptions,
+    congressOptions,
+  } = useBillFilterOptions()
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(
     () => [
@@ -50,6 +57,12 @@ export default function BillFilter({ onSubmit }: BillFilterProps) {
         label: 'Type',
         options: typeOptions,
         minWidth: 100,
+      },
+      {
+        key: 'congress',
+        label: 'Congress',
+        options: congressOptions,
+        minWidth: 140,
       },
       {
         key: 'status',
@@ -70,7 +83,7 @@ export default function BillFilter({ onSubmit }: BillFilterProps) {
         minWidth: 160,
       },
     ],
-    [partyOptions, statusOptions, typeOptions]
+    [congressOptions, partyOptions, statusOptions, typeOptions]
   )
 
   const handleSubmit = useCallback(

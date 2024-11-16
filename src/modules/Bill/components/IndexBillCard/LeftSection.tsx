@@ -5,7 +5,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UTimeline from '@/common/components/atoms/UTimeline'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
@@ -55,7 +55,7 @@ export default function LeftSection({ bill }: Props) {
           sx={{ color: theme.color.grey[2400] }}
           mb={1}
         >
-          {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
+          {`${bill.chamberPrefix} | ${CURRENT_CONGRESS_NUMBER}th Congress`}
         </TypographyWithSelectable>
 
         <Link href={bill.link}>

@@ -4,7 +4,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import Link from 'next/link'
@@ -86,7 +86,7 @@ export default function BillVoteCard({ bill, vote, status }: Props) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress`}
+            {`${bill.chamberPrefix} | ${CURRENT_CONGRESS_NUMBER}th Congress`}
           </Typography>
 
           <Link href={bill.link}>

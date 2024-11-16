@@ -1,4 +1,8 @@
 import {
+  CONGRESS_NUMBER_MIN,
+  CURRENT_CONGRESS_NUMBER,
+} from '@/common/assets/constants'
+import {
   BillCategoryEnum,
   BillPartyEnum,
   BillTypeEnum,
@@ -189,5 +193,23 @@ export default function useBillFilterOptions() {
     []
   )
 
-  return { categoryOptions, partyOptions, typeOptions, statusOptions }
+  const congressOptions = useMemo<BillFilterOption<number>[]>(
+    () =>
+      Array.from(
+        { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
+        (_, i) => i + CONGRESS_NUMBER_MIN
+      ).map((congress) => ({
+        value: congress,
+        label: congress.toString(),
+      })),
+    []
+  )
+
+  return {
+    categoryOptions,
+    partyOptions,
+    typeOptions,
+    statusOptions,
+    congressOptions,
+  }
 }
