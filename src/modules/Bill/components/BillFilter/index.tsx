@@ -51,6 +51,7 @@ export default function BillFilter({
     congressOptions,
     sponsorsOptions,
     cosponsorsOptions,
+    sorterOptions,
   } = useBillFilterOptions()
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(
@@ -91,6 +92,12 @@ export default function BillFilter({
         options: cosponsorsOptions,
         minWidth: 160,
       },
+      {
+        key: 'sorter',
+        label: 'Sorter',
+        options: sorterOptions,
+        minWidth: 160,
+      },
     ],
     [
       congressOptions,
@@ -99,6 +106,7 @@ export default function BillFilter({
       typeOptions,
       sponsorsOptions,
       cosponsorsOptions,
+      sorterOptions,
     ]
   )
 
@@ -156,33 +164,56 @@ export default function BillFilter({
           control={form.control}
           render={({ field }) => (
             <div style={{ minWidth: selector.minWidth }}>
-              <UAutocomplete
-                {...field}
-                multiple
-                disableClearable
-                disableCloseOnSelect
-                limitTags={1}
-                options={selector.options}
-                getOptionLabel={(option) => option.label}
-                fullWidth
-                value={selector.options.filter((option) => {
-                  if (Array.isArray(field.value)) {
-                    return field.value.some((val) => val === option.value)
+              {selector.key === 'sorter' ? (
+                <UAutocomplete
+                  {...field}
+                  options={sorterOptions}
+                  getOptionLabel={(option) => option.label}
+                  value={
+                    selector.options.find(
+                      (option) => option.value === field.value
+                    ) ?? null
                   }
-                  return field.value === option.value
-                })}
-                onChange={(_, value) => {
-                  if (Array.isArray(value)) {
-                    field.onChange(value.map((v) => v.value))
-                  } else {
-                    field.onChange([value?.value])
-                  }
-                }}
-                sx={{
-                  height: '100%',
-                }}
-                label={selector.label}
-              />
+                  onChange={(_, value) => {
+                    if (!Array.isArray(value)) {
+                      field.onChange(value?.value)
+                    }
+                  }}
+                  fullWidth
+                  sx={{
+                    height: '100%',
+                  }}
+                  label={selector.label}
+                />
+              ) : (
+                <UAutocomplete
+                  {...field}
+                  multiple
+                  disableClearable
+                  disableCloseOnSelect
+                  limitTags={1}
+                  options={selector.options}
+                  getOptionLabel={(option) => option.label}
+                  fullWidth
+                  value={selector.options.filter((option) => {
+                    if (Array.isArray(field.value)) {
+                      return field.value.some((val) => val === option.value)
+                    }
+                    return field.value === option.value
+                  })}
+                  onChange={(_, value) => {
+                    if (Array.isArray(value)) {
+                      field.onChange(value.map((v) => v.value))
+                    } else {
+                      field.onChange([value?.value])
+                    }
+                  }}
+                  sx={{
+                    height: '100%',
+                  }}
+                  label={selector.label}
+                />
+              )}
             </div>
           )}
         />

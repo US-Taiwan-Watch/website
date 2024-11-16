@@ -20,16 +20,16 @@ export default function BillList() {
     const congress = params.get('congress')
     const sponsor = params.get('sponsor')
     const cosponsor = params.get('cosponsor')
+    const sorter = params.get('sorter')
     const result = billFilterSchema.safeParse({
       ...(category && { category: Number(category) }),
       ...(congress && { congress: [Number(congress)] }),
       ...(sponsor && { sponsors: [Number(sponsor)] }),
       ...(cosponsor && { cosponsors: [Number(cosponsor)] }),
+      ...(sorter && { sorter: Number(sorter) }),
     })
     return result.success ? result.data : {}
   }, [params])
-
-  console.log('filterInitValues', filterInitValues)
 
   return (
     <Stack gap={7} alignItems="center" pb={10}>

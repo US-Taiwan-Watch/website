@@ -7,6 +7,8 @@ import SectionTitleWithLink from '@/common/components/elements/Landing/SectionTi
 import BillCardCarousel from '@/modules/Bill/components/BillCardCarousel'
 import { Stack } from '@mui/material'
 import { ROUTES } from '@/routes'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
+import { BillSorterEnum } from '@/modules/Bill/components/BillFilter/enums'
 
 const BillListSection = () => {
   const theme = useTheme<USTWTheme>()
@@ -20,12 +22,29 @@ const BillListSection = () => {
       }}
     >
       <Stack gap={theme.spacing(7.5)}>
-        <SectionTitleWithLink title="Latest Bills" link={ROUTES.BILL_LIST} />
+        <SectionTitleWithLink
+          title="Latest Bills"
+          link={{
+            pathname: ROUTES.BILL_LIST,
+            query: {
+              congress: CURRENT_CONGRESS_NUMBER,
+              sorter: BillSorterEnum.LatestAction,
+            },
+          }}
+        />
         <BillCardCarousel simplified />
       </Stack>
 
       <Stack gap={theme.spacing(7.5)}>
-        <SectionTitleWithLink title="Popular Bills" link={ROUTES.BILL_LIST} />
+        <SectionTitleWithLink
+          title="Popular Bills"
+          link={{
+            pathname: ROUTES.BILL_LIST,
+            query: {
+              sorter: BillSorterEnum.Popularity,
+            },
+          }}
+        />
         <BillCardCarousel simplified />
       </Stack>
     </LandingSectionWrapper>

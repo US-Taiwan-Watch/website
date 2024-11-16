@@ -7,6 +7,7 @@ import {
   BillPartyEnum,
   BillTypeEnum,
   BillStatusEnum,
+  BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
 import { BILL_SPONSOR_MOCK } from '@/modules/Bill/data'
 import { useMemo } from 'react'
@@ -217,6 +218,14 @@ export default function useBillFilterOptions() {
 
   const cosponsorsOptions = useMemo(() => sponsorsOptions, [sponsorsOptions])
 
+  const sorterOptions = useMemo<BillFilterOption<BillSorterEnum>[]>(
+    () => [
+      { value: BillSorterEnum.LatestAction, label: 'Latest Action' },
+      { value: BillSorterEnum.Popularity, label: 'Popularity' },
+    ],
+    []
+  )
+
   return {
     categoryOptions,
     partyOptions,
@@ -225,5 +234,6 @@ export default function useBillFilterOptions() {
     congressOptions,
     sponsorsOptions,
     cosponsorsOptions,
+    sorterOptions,
   }
 }

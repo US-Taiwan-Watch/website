@@ -4,6 +4,7 @@ import {
   BillPartyEnum,
   BillTypeEnum,
   BillStatusEnum,
+  BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
 import {
   CONGRESS_NUMBER_MIN,
@@ -26,6 +27,8 @@ export const sponsorsSchema = z.array(z.number())
 
 export const cosponsorsSchema = z.array(z.number())
 
+export const sorterSchema = z.nativeEnum(BillSorterEnum)
+
 export const billFilterSchema = z.object({
   /**
    * 空字串為預設值，但 Output 不接受空字串
@@ -37,6 +40,7 @@ export const billFilterSchema = z.object({
   status: statusSchema.optional(),
   sponsors: sponsorsSchema.optional(),
   cosponsors: cosponsorsSchema.optional(),
+  sorter: sorterSchema.optional(),
 })
 
 export type BillFilterInput = z.input<typeof billFilterSchema>
