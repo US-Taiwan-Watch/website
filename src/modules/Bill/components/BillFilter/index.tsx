@@ -17,7 +17,7 @@ import useBillFilterForm from '@/modules/Bill/components/BillFilter/useBillFilte
 import {
   type BillFilterOutput,
   type BillFilterInputKey,
-  BillFilterInput,
+  type BillFilterInput,
 } from '@/modules/Bill/components/BillFilter/schema'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 

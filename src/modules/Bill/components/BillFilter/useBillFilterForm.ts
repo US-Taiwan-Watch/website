@@ -13,9 +13,7 @@ type Props = {
 export default function useBillFilterForm({ initialValues }: Props) {
   const form = useForm<BillFilterInput>({
     resolver: zodResolver(billFilterSchema),
-    defaultValues: {
-      category: undefined,
-    },
+    defaultValues: {},
     mode: 'onSubmit',
   })
 

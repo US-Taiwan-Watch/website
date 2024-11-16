@@ -15,9 +15,6 @@ const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
   borderRadius: '15px',
   minWidth: '160px',
   backgroundColor: theme.palette.primary.main,
-  '&:hover': {
-    cursor: 'pointer',
-  },
 }))
 
 export default function Introduction() {
