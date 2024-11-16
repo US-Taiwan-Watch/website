@@ -1,7 +1,6 @@
 'use client'
 
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { ROUTES } from '@/routes'
 import { useTheme, Slider, Box } from '@mui/material'
 import {
   axisClasses,
@@ -12,7 +11,6 @@ import {
   ChartsYAxis,
   ResponsiveChartContainer,
 } from '@mui/x-charts'
-import { useRouter } from 'next/navigation'
 import {
   CONGRESS_NUMBER_MIN,
   CURRENT_CONGRESS_NUMBER,
@@ -28,11 +26,14 @@ export type TrendBarChartData = {
 
 type TrendBarChartsProps = {
   data: TrendBarChartData[]
+  onBarClick?: (clickedData: TrendBarChartData) => void
 }
 
-export default function TrendBarCharts({ data }: TrendBarChartsProps) {
+export default function TrendBarCharts({
+  data,
+  onBarClick,
+}: TrendBarChartsProps) {
   const theme = useTheme<USTWTheme>()
-  const router = useRouter()
   const [congressRange, setCongressRange] = useState<number[]>([
     CONGRESS_NUMBER_MIN,
     CURRENT_CONGRESS_NUMBER,
@@ -124,7 +125,9 @@ export default function TrendBarCharts({ data }: TrendBarChartsProps) {
           grid={{ vertical: true, horizontal: true }}
           borderRadius={4}
           barLabel="value"
-          onItemClick={() => router.push(ROUTES.BILL_LIST)}
+          onItemClick={(_, { dataIndex }) =>
+            onBarClick?.(filteredData[dataIndex])
+          }
         />
       </ResponsiveChartContainer>
 

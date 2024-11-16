@@ -16,15 +16,13 @@ export default function BillList() {
   const params = useSearchParams()
 
   const filterInitValues = useMemo<BillFilterInput>(() => {
+    const category = params.get('category')
     const congress = params.get('congress')
-    const initialValues = { congress: [Number(congress)] }
-    const result = billFilterSchema.safeParse(initialValues)
-
-    if (result.success) {
-      return result.data
-    } else {
-      return {}
-    }
+    const result = billFilterSchema.safeParse({
+      ...(category && { category: Number(category) }),
+      ...(congress && { congress: [Number(congress)] }),
+    })
+    return result.success ? result.data : {}
   }, [params])
 
   console.log('filterInitValues', filterInitValues)
