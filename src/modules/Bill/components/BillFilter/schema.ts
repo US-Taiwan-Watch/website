@@ -27,6 +27,8 @@ export const sponsorsSchema = z.array(z.number())
 
 export const cosponsorsSchema = z.array(z.number())
 
+export const tagSchema = z.array(z.string())
+
 export const sorterSchema = z.nativeEnum(BillSorterEnum)
 
 export const billFilterSchema = z.object({
@@ -40,6 +42,7 @@ export const billFilterSchema = z.object({
   status: statusSchema.optional(),
   sponsors: sponsorsSchema.optional(),
   cosponsors: cosponsorsSchema.optional(),
+  tag: tagSchema.optional(),
   sorter: sorterSchema.optional(),
 })
 

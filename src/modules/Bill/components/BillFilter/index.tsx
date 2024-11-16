@@ -27,7 +27,7 @@ type SecondLevelSelector = {
   /** MUI Autocomplete 必須設定 minWidth 因為底下 Label 是 absolute 因此 TextField 不會被撐開 */
   minWidth: number
   options: BillFilterOption<
-    BillPartyEnum | BillTypeEnum | BillStatusEnum | number
+    BillPartyEnum | BillTypeEnum | BillStatusEnum | number | string
   >[]
 }
 
@@ -52,6 +52,7 @@ export default function BillFilter({
     sponsorsOptions,
     cosponsorsOptions,
     sorterOptions,
+    tagOptions,
   } = useBillFilterOptions()
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(
@@ -93,6 +94,12 @@ export default function BillFilter({
         minWidth: 160,
       },
       {
+        key: 'tag',
+        label: 'Tag',
+        options: tagOptions,
+        minWidth: 140,
+      },
+      {
         key: 'sorter',
         label: 'Sorter',
         options: sorterOptions,
@@ -107,6 +114,7 @@ export default function BillFilter({
       sponsorsOptions,
       cosponsorsOptions,
       sorterOptions,
+      tagOptions,
     ]
   )
 

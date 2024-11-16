@@ -9,7 +9,7 @@ import {
   BillStatusEnum,
   BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
-import { BILL_SPONSOR_MOCK } from '@/modules/Bill/data'
+import { BILL_SPONSOR_MOCK, BILL_TAG_MOCK } from '@/modules/Bill/data'
 import { useMemo } from 'react'
 
 export type BillFilterOption<T> = {
@@ -226,6 +226,16 @@ export default function useBillFilterOptions() {
     []
   )
 
+  // TODO: 確認 tag 怎麼來
+  const tagOptions = useMemo<BillFilterOption<string>[]>(
+    () =>
+      BILL_TAG_MOCK.map((tag) => ({
+        value: tag,
+        label: tag,
+      })),
+    []
+  )
+
   return {
     categoryOptions,
     partyOptions,
@@ -235,5 +245,6 @@ export default function useBillFilterOptions() {
     sponsorsOptions,
     cosponsorsOptions,
     sorterOptions,
+    tagOptions,
   }
 }

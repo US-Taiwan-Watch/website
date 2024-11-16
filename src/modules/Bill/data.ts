@@ -513,3 +513,13 @@ export const BILL_TREND_CHART_DATA_MOCK: BillTrendData[] = Array.from(
       }))
   }
 ).flat()
+
+export const BILL_TAG_MOCK: string[] = [
+  'Health',
+  'Trade',
+  'Environment',
+  'Technology',
+  'Social Policy',
+  'Economy',
+  'Business',
+]
