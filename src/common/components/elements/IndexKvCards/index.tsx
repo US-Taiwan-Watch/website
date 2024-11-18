@@ -3,22 +3,13 @@
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import Carousel from '@/common/components/elements/Carousel'
 import IndexKvCard from '@/common/components/elements/IndexKvCard'
-import { USTWTheme } from '@/common/lib/mui/theme'
 import { ROUTES } from '@/routes'
-import { Container, useTheme } from '@mui/material'
+import { Container } from '@mui/material'
 
 const IndexKVCards = () => {
-  const theme = useTheme<USTWTheme>()
-
   return (
     <UFullWidthBackgroundBox>
-      <Container
-        maxWidth="lg"
-        sx={{
-          paddingLeft: `${theme.spacing(0)} !important`,
-          paddingRight: `${theme.spacing(0)} !important`,
-        }}
-      >
+      <Container maxWidth="xl">
         <Carousel>
           <IndexKvCard
             tags={Array.from({ length: 100 }, (_, i) => `#${i + 1}`)}

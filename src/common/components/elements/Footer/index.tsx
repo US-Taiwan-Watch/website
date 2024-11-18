@@ -11,7 +11,8 @@ import UButton from '@/common/components/atoms/UButton'
 import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
 
 const StyledFooter = styled('footer')(({ theme }) => ({
-  padding: `${theme.spacing(2)} ${theme.spacing(4)}`,
+  paddingTop: theme.spacing(4),
+  paddingBottom: theme.spacing(4),
   color: theme.color.grey[1100],
 }))
 
@@ -30,7 +31,7 @@ const Footer = () => {
 
   return (
     <UFullWidthBackgroundBox backgroundColor="common.black">
-      <Container maxWidth="lg">
+      <Container maxWidth="xl">
         <StyledFooter>
           {/** Top Section */}
           <Stack direction="column" spacing={6}>

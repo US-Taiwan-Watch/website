@@ -13,7 +13,12 @@ import {
   Noto_Sans_TC as NotoSansTC,
 } from 'next/font/google'
 import { Language } from '@/common/lib/i18n/types'
-import { colors, type Components, CreateMUIStyled } from '@mui/material'
+import {
+  BreakpointsOptions,
+  colors,
+  type Components,
+  CreateMUIStyled,
+} from '@mui/material'
 import { CSSProperties } from 'react'
 
 declare module '@mui/material/styles' {
@@ -331,32 +336,17 @@ const ketagalanPalette: PaletteOptions = {
   },
 }
 
-const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
-  MuiContainer: {
-    styleOverrides: {
-      root: {
-        '&.MuiContainer-maxWidthLg': {
-          maxWidth: '1340px',
-        },
-        '@media (min-width:600px)': {
-          paddingLeft: '24px', // Padding for sm up
-          paddingRight: '24px', // Padding for sm up
-        },
-        '@media (min-width:900px)': {
-          paddingLeft: '32px', // Padding for md up
-          paddingRight: '32px', // Padding for md up
-        },
-        '@media (min-width:1200px)': {
-          paddingLeft: '40px', // Padding for lg up
-          paddingRight: '40px', // Padding for lg up
-        },
-        '@media (min-width:1536px)': {
-          paddingLeft: '50px', // Padding for xl up
-          paddingRight: '50px', // Padding for xl up
-        },
-      },
-    },
+const commonThemeBreakpoints: BreakpointsOptions = {
+  values: {
+    xs: 0,
+    sm: 600,
+    md: 900,
+    lg: 1288,
+    xl: 1388,
   },
+}
+
+const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
   MuiButtonBase: {
     defaultProps: {
       disableRipple: true,
@@ -375,6 +365,7 @@ const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
 }
 
 const _lightTheme: USTWThemeOptions = {
+  breakpoints: commonThemeBreakpoints,
   color: {
     ...color,
     header: {
@@ -417,6 +408,7 @@ const _lightTheme: USTWThemeOptions = {
 }
 
 const _ketagalanTheme: USTWThemeOptions = {
+  breakpoints: commonThemeBreakpoints,
   color: {
     ...color,
     header: {

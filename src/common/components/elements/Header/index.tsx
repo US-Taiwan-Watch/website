@@ -30,8 +30,6 @@ const StyledHeaderContainer = styled(Container)(({ theme }) => ({
   top: theme.spacing(4.5),
   zIndex: theme.constants.zIndex.header,
   margin: `${theme.spacing(4.5)} auto`,
-  paddingLeft: `${theme.spacing(0)} !important`,
-  paddingRight: `${theme.spacing(0)} !important`,
 }))
 
 const StyledHeader = styled('header')(({ theme }) => ({
@@ -181,7 +179,7 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
   }
 
   return (
-    <StyledHeaderContainer maxWidth="lg">
+    <StyledHeaderContainer maxWidth="xl">
       <StyledHeader ref={headerRef} onClick={handleNavMenuClose}>
         <StyledHeaderWrapper
           className={className}
