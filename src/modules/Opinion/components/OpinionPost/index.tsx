@@ -8,7 +8,9 @@ import OpinionPostDivider from '@/modules/Opinion/components/OpinionPost/Opinion
 import OpinionPostFooter from '@/modules/Opinion/components/OpinionPost/OpinionPostFooter'
 import OpinionPostHeader from '@/modules/Opinion/components/OpinionPost/OpinionPostHeader'
 import OpinionPostRelatedPosts from '@/modules/Opinion/components/OpinionPost/OpinionPostRelatedPosts'
-import { Container, Stack } from '@mui/material'
+import Box from '@mui/material/Box'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
 import { Opinion, OpinionArgs } from '@/modules/Opinion/classes/Opinion'
 import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
 
@@ -21,44 +23,58 @@ const OpinionPost = function OpinionPost({ opinionData }: OpinionPostProps) {
 
   return (
     <Stack gap={4} marginTop={10}>
-      <Stack gap={4}>
+      <Box>
         <OpinionFixed />
-        {/** Header Section */}
-        <OpinionPostHeader
-          categories={opinion.categories}
-          title={opinion.title}
-          subtitle={opinion.subtitle}
-          date={opinion.date}
-          tags={opinion.tags}
-          repostSources={opinion.repostSources}
-        />
-        {/** Banner Section */}
-        {opinion.bannerImage && (
-          <OpinionPostBanner bannerImage={opinion.bannerImage} />
-        )}
+        <Container maxWidth="lg">
+          <Box
+            sx={{
+              maxWidth: '700px',
+              margin: '0 auto',
+            }}
+          >
+            <Stack gap={4}>
+              {/** Header Section */}
+              <OpinionPostHeader
+                categories={opinion.categories}
+                title={opinion.title}
+                subtitle={opinion.subtitle}
+                date={opinion.date}
+                tags={opinion.tags}
+                repostSources={opinion.repostSources}
+              />
+              {/** Banner Section */}
+              {opinion.bannerImage && (
+                <OpinionPostBanner bannerImage={opinion.bannerImage} />
+              )}
 
-        {/** Content Section */}
-        {opinion.contentHtml && (
-          <OpinionPostContent contentHtml={opinion.contentHtml} />
-        )}
+              {/** Content Section */}
+              {opinion.contentHtml && (
+                <OpinionPostContent contentHtml={opinion.contentHtml} />
+              )}
 
-        {/** Footer Section */}
-        <OpinionPostDivider />
-        <OpinionPostFooter tags={opinion.tags} resources={opinion.resources} />
+              {/** Footer Section */}
+              <OpinionPostDivider />
+              <OpinionPostFooter
+                tags={opinion.tags}
+                resources={opinion.resources}
+              />
 
-        {/** Author Section */}
-        <OpinionPostDivider />
-        {opinion.author && (
-          <>
-            <OpinionPostAuthor author={opinion.author} />
-            <OpinionPostDivider />
-          </>
-        )}
-      </Stack>
+              {/** Author Section */}
+              <OpinionPostDivider />
+              {opinion.author && (
+                <>
+                  <OpinionPostAuthor author={opinion.author} />
+                  <OpinionPostDivider />
+                </>
+              )}
+            </Stack>
+          </Box>
+        </Container>
+      </Box>
 
       {/** Related Posts Section */}
       <UFullWidthBackgroundBox>
-        <Container maxWidth="xl">
+        <Container maxWidth="lg">
           <OpinionPostRelatedPosts />
         </Container>
       </UFullWidthBackgroundBox>

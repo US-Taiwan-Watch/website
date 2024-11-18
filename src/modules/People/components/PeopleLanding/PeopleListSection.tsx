@@ -1,6 +1,8 @@
 'use client'
 
-import { Box, Container, Grid2 as Grid, Stack } from '@mui/material'
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid2'
+import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
@@ -20,34 +22,32 @@ const PeopleListSection = () => {
         paddingBottom: theme.spacing(15),
       }}
     >
-      <Container maxWidth="lg">
-        <Stack spacing={6} alignItems="center" justifyContent="center">
-          {/** People Filter */}
-          <PeopleFilter
-            onSubmit={(filter) => {
-              /** 這邊呼叫 API */
-              console.log(`call API with \n`, JSON.stringify(filter, null, 2))
-            }}
-          />
-          <Box>
-            <Grid container spacing={2}>
-              <Grid size={6}>
-                <PeopleCard people={people} simplified />
-              </Grid>
-              <Grid size={6}>
-                <PeopleCard people={people} simplified />
-              </Grid>
-              <Grid size={6}>
-                <PeopleCard people={people} simplified />
-              </Grid>
-              <Grid size={6}>
-                <PeopleCard people={people} simplified />
-              </Grid>
+      <Stack spacing={6} alignItems="center" justifyContent="center">
+        {/** People Filter */}
+        <PeopleFilter
+          onSubmit={(filter) => {
+            /** 這邊呼叫 API */
+            console.log(`call API with \n`, JSON.stringify(filter, null, 2))
+          }}
+        />
+        <Box>
+          <Grid container spacing={2}>
+            <Grid size={6}>
+              <PeopleCard people={people} simplified />
             </Grid>
-          </Box>
-          <UPagination count={10} page={1} onChange={() => {}} />
-        </Stack>
-      </Container>
+            <Grid size={6}>
+              <PeopleCard people={people} simplified />
+            </Grid>
+            <Grid size={6}>
+              <PeopleCard people={people} simplified />
+            </Grid>
+            <Grid size={6}>
+              <PeopleCard people={people} simplified />
+            </Grid>
+          </Grid>
+        </Box>
+        <UPagination count={10} page={1} onChange={() => {}} />
+      </Stack>
     </LandingSectionWrapper>
   )
 }

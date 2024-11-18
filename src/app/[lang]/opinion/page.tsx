@@ -5,7 +5,8 @@ import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import OpinionLandingBannerCards from '@/modules/Opinion/components/OpinionLanding/OpinionLandingBannerCards'
 import OpinionPostSection from '@/modules/Opinion/components/OpinionLanding/OpinionPostSection'
 import OpinionNavbar from '@/modules/Opinion/components/OpinionNavbar'
-import { Stack } from '@mui/material'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
 import { useEffect } from 'react'
 
 export default function Opinion() {
@@ -20,12 +21,14 @@ export default function Opinion() {
   }, [fetchCategories, fetchHighlightedCategories])
 
   return (
-    <Stack>
-      <UFullWidthBackgroundBox>
-        <OpinionNavbar />
-      </UFullWidthBackgroundBox>
-      <OpinionLandingBannerCards />
-      <OpinionPostSection />
-    </Stack>
+    <Container maxWidth="lg">
+      <Stack>
+        <UFullWidthBackgroundBox>
+          <OpinionNavbar />
+        </UFullWidthBackgroundBox>
+        <OpinionLandingBannerCards />
+        <OpinionPostSection />
+      </Stack>
+    </Container>
   )
 }

@@ -27,7 +27,7 @@ export default function IndexBillCardList({
 }: IndexBillCardListProps) {
   return (
     <StyledUFullWidthBackgroundBox>
-      <Container>
+      <Container maxWidth="lg">
         <Carousel
           centerMode
           settings={{

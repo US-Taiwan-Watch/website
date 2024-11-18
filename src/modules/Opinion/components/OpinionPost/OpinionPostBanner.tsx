@@ -18,7 +18,7 @@ const OpinionPostBanner = function OpinionPostBanner({
       <ContentImage
         image={bannerImage.src}
         caption={bannerImage.caption}
-        sx={{ margin: 'auto', width: '1400px', maxWidth: '100%' }}
+        sx={{ margin: 'auto', width: '1000px', maxWidth: '100%' }}
       />
     </UFullWidthBackgroundBox>
   )

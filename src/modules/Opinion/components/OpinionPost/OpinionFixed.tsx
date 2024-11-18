@@ -3,13 +3,16 @@
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
-import { Box, Stack, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
 
 const OpinionFixed = () => {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <Box
+    <Container
+      maxWidth="lg"
       sx={{
         position: 'sticky',
         top: 300,
@@ -23,8 +26,7 @@ const OpinionFixed = () => {
         sx={{
           position: 'absolute',
           top: 0,
-          // hard code 因為要吃掉 container 的 padding，使他與 header 對齊
-          right: theme.spacing(-3),
+          right: theme.spacing(3),
           backgroundColor: 'white',
           borderRadius: '30px',
         }}
@@ -36,7 +38,7 @@ const OpinionFixed = () => {
           <OutlinedShareIcon />
         </UIconButton>
       </Stack>
-    </Box>
+    </Container>
   )
 }
 
