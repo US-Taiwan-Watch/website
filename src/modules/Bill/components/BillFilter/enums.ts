@@ -63,3 +63,8 @@ export enum BillStatusEnum {
   Introduced,
   EnactedUnknown,
 }
+
+export enum BillSorterEnum {
+  LatestAction = 1,
+  Popularity,
+}

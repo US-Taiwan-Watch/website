@@ -1,7 +1,6 @@
 'use client'
 
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { ROUTES } from '@/routes'
 import { useTheme, Slider, Box } from '@mui/material'
 import {
   axisClasses,
@@ -12,11 +11,10 @@ import {
   ChartsYAxis,
   ResponsiveChartContainer,
 } from '@mui/x-charts'
-import { useRouter } from 'next/navigation'
 import {
-  CONGRESS_CURRENT_SESSION_MOCK,
-  CONGRESS_START_MOCK,
-} from '@/modules/Bill/data'
+  CONGRESS_NUMBER_MIN,
+  CURRENT_CONGRESS_NUMBER,
+} from '@/common/assets/constants'
 import { useMemo, useState, useEffect } from 'react'
 
 const xLabelFormatter = (value: number | null) => (value ? `${value}th` : '')
@@ -28,14 +26,17 @@ export type TrendBarChartData = {
 
 type TrendBarChartsProps = {
   data: TrendBarChartData[]
+  onBarClick?: (clickedData: TrendBarChartData) => void
 }
 
-export default function TrendBarCharts({ data }: TrendBarChartsProps) {
+export default function TrendBarCharts({
+  data,
+  onBarClick,
+}: TrendBarChartsProps) {
   const theme = useTheme<USTWTheme>()
-  const router = useRouter()
   const [congressRange, setCongressRange] = useState<number[]>([
-    CONGRESS_START_MOCK,
-    CONGRESS_CURRENT_SESSION_MOCK,
+    CONGRESS_NUMBER_MIN,
+    CURRENT_CONGRESS_NUMBER,
   ])
   const [debouncedCongressRange, setDebouncedCongressRange] =
     useState<number[]>(congressRange)
@@ -124,7 +125,9 @@ export default function TrendBarCharts({ data }: TrendBarChartsProps) {
           grid={{ vertical: true, horizontal: true }}
           borderRadius={4}
           barLabel="value"
-          onItemClick={() => router.push(ROUTES.BILL_LIST)}
+          onItemClick={(_, { dataIndex }) =>
+            onBarClick?.(filteredData[dataIndex])
+          }
         />
       </ResponsiveChartContainer>
 
@@ -133,8 +136,8 @@ export default function TrendBarCharts({ data }: TrendBarChartsProps) {
           value={congressRange}
           onChange={handleSliderChange}
           valueLabelDisplay="auto"
-          min={CONGRESS_START_MOCK}
-          max={CONGRESS_CURRENT_SESSION_MOCK}
+          min={CONGRESS_NUMBER_MIN}
+          max={CURRENT_CONGRESS_NUMBER}
           color="secondary"
         />
       </Box>

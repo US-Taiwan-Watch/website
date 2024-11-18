@@ -4,6 +4,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import ULinkText from '@/common/components/atoms/ULinkText'
 import { StackProps, Typography, TypographyProps } from '@mui/material'
 import { ReactNode } from 'react'
+import type { UrlObject } from 'url'
 
 export type SectionTitleProps = {
   containerProps?: StackProps
@@ -41,7 +42,7 @@ const SectionTitle = ({
 export default SectionTitle
 
 export type SectionTitleWithLinkProps = SectionTitleProps & {
-  link?: string
+  link?: UrlObject | string
 }
 
 export const SectionTitleWithLink = ({

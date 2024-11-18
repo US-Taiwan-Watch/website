@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -6,7 +6,11 @@ import {
   type BillFilterInput,
 } from '@/modules/Bill/components/BillFilter/schema'
 
-export default function useBillFilterForm() {
+type Props = {
+  initialValues?: BillFilterInput
+}
+
+export default function useBillFilterForm({ initialValues }: Props) {
   const form = useForm<BillFilterInput>({
     resolver: zodResolver(billFilterSchema),
     defaultValues: {},
@@ -24,6 +28,12 @@ export default function useBillFilterForm() {
       category: form.getValues('category'),
     })
   }, [form])
+
+  useEffect(() => {
+    if (initialValues) {
+      form.reset(initialValues)
+    }
+  }, [form, initialValues])
 
   return { form, handleReset, handleSecondLevelReset }
 }
