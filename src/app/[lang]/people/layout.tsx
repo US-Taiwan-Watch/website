@@ -3,7 +3,8 @@ import React from 'react'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
-import { Container, CssBaseline } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
+import Container from '@mui/material/Container'
 
 export const metadata: Metadata = {
   title: 'People',

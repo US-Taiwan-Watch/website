@@ -24,7 +24,7 @@ const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
 const IndexPodcastCards = () => {
   return (
     <StyledUFullWidthBackgroundBox>
-      <Container>
+      <Container maxWidth="lg">
         <Carousel
           centerMode
           settings={{

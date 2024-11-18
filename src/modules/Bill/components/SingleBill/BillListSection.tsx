@@ -3,7 +3,7 @@
 import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
-import SectionTitleWithLink from '@/common/components/elements/Landing/SectionTitleWithLink'
+import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import BillCardCarousel from '@/modules/Bill/components/BillCardCarousel'
 import { Stack } from '@mui/material'
 import { ROUTES } from '@/routes'

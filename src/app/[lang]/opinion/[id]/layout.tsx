@@ -3,7 +3,7 @@ import React from 'react'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
-import { Container, CssBaseline } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline'
 
 export const metadata: Metadata = {
   title: 'Opinion Post',
@@ -38,7 +38,7 @@ export default function OpinionPostLayout({
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Container maxWidth="lg">{children}</Container>
+        {children}
       </ThemeProvider>
     </AppRouterCacheProvider>
   )

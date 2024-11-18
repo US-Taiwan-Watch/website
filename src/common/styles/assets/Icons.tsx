@@ -41,6 +41,7 @@ import SvgNoteIcon from './NoteIcon.svg'
 import SvgVersionIcon from './VersionIcon.svg'
 import SvgPerson2Icon from './Person2Icon.svg'
 import SvgPeopleJoinIcon from './PeopleJoinIcon.svg'
+import SvgExpandMoreIcon from './ExpandMoreIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -210,4 +211,8 @@ export const Person2Icon = (props: SvgIconProps) => (
 
 export const PeopleJoinIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgPeopleJoinIcon} {...props} />
+)
+
+export const ExpandMoreIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgExpandMoreIcon} {...props} />
 )
