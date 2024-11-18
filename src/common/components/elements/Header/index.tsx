@@ -261,21 +261,27 @@ const Header = ({ className, onProfileClick, onSearchClick }: HeaderProps) => {
                        */
                       container={headerRef.current}
                     >
-                      {menuOpenNavItem?.list.map((subItem) => (
-                        <MenuItem onClick={handleNavMenuClose} key={subItem.id}>
-                          {subItem.type === 'link' ? (
-                            <Link href={subItem.href}>
-                              <Typography fontWeight={700}>
-                                {subItem.title}
-                              </Typography>
-                            </Link>
-                          ) : (
+                      {menuOpenNavItem?.list.map((subItem) => {
+                        const menuItem = (
+                          <MenuItem
+                            onClick={handleNavMenuClose}
+                            key={subItem.id}
+                          >
                             <Typography fontWeight={700}>
                               {subItem.title}
                             </Typography>
-                          )}
-                        </MenuItem>
-                      ))}
+                          </MenuItem>
+                        )
+
+                        if (subItem.type === 'link') {
+                          return (
+                            <Link href={subItem.href} key={subItem.id}>
+                              {menuItem}
+                            </Link>
+                          )
+                        }
+                        return menuItem
+                      })}
                     </StyledNavMenu>
                   )}
               </Box>
