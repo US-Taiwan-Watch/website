@@ -104,7 +104,7 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Articles',
-          url: ROUTES.OPINION,
+          url: ROUTES.HOME,
         },
         {
           type: 'subLink',

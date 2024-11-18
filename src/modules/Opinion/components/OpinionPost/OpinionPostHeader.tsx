@@ -41,7 +41,7 @@ const OpinionPostHeader = function OpinionPostHeader({
     <Stack spacing={3}>
       {/** Categories */}
       {categories && (
-        <UHStack gap={2}>
+        <UHStack gap={2} flexWrap="wrap">
           {categories.map((category, index) => (
             <UButton
               key={index}
