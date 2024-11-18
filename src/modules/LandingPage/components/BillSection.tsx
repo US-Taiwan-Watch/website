@@ -2,8 +2,8 @@
 
 import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import Container from '@mui/material/Container'
-import Stack from '@mui/material/Stack'
-import SectionTitleWithLink from '@/common/components/elements/Landing/SectionTitleWithLink'
+import { Stack } from '@mui/material'
+import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import IndexBillCardList from '@/modules/Bill/components/IndexBillCard/IndexBillCardList'
 import { ROUTES } from '@/routes'
 
