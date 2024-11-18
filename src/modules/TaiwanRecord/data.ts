@@ -18,6 +18,9 @@ const TAIWAN_RECORD_DATA_MOCK_LIST = Array.from({ length: 10 }).map(
   (_, index) =>
     new TaiwanRecord({
       ...TAIWAN_RECORD_DATA_MOCK_ARG,
+      images: Array.from({ length: index + 1 }).map(
+        () => `/assets/category1.jpg`
+      ),
       id: index.toString(),
     })
 )
