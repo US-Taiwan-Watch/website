@@ -7,7 +7,8 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
 import { opinions } from '@/modules/Opinion/data'
-import { Container, Stack, useTheme } from '@mui/material'
+import { useTheme } from '@mui/material'
+import Stack from '@mui/material/Stack'
 import { useEffect, useState } from 'react'
 
 const OpinionPostSection = () => {
@@ -31,25 +32,23 @@ const OpinionPostSection = () => {
         paddingBottom: theme.spacing(15),
       }}
     >
-      <Container maxWidth="lg">
-        <Stack spacing={8}>
-          {/** Tags */}
-          <UHStack gap={2} flexWrap="wrap">
-            {categories.map((category) => (
-              <UCategoryChip
-                key={category.id}
-                label={category.label}
-                img={category.image}
-                active={activeCategoryId === category.id}
-                onClick={() => setActiveCategoryId(category.id)}
-              />
-            ))}
-          </UHStack>
+      <Stack spacing={8}>
+        {/** Tags */}
+        <UHStack gap={2} flexWrap="wrap">
+          {categories.map((category) => (
+            <UCategoryChip
+              key={category.id}
+              label={category.label}
+              img={category.image}
+              active={activeCategoryId === category.id}
+              onClick={() => setActiveCategoryId(category.id)}
+            />
+          ))}
+        </UHStack>
 
-          {/** Posts */}
-          <OpinionPostCards opinions={opinions} />
-        </Stack>
-      </Container>
+        {/** Posts */}
+        <OpinionPostCards opinions={opinions} />
+      </Stack>
     </LandingSectionWrapper>
   )
 }
