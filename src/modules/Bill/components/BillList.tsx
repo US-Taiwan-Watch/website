@@ -3,18 +3,53 @@
 import UPagination from '@/common/components/atoms/UPagination'
 import BillCard from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
+import {
+  billFilterSchema,
+  BillFilterInput,
+  BillFilterOutput,
+} from '@/modules/Bill/components/BillFilter/schema'
 import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import { Stack } from '@mui/material'
+import { useSearchParams } from 'next/navigation'
+import { useCallback, useMemo, useEffect } from 'react'
 
 export default function BillList() {
+  const params = useSearchParams()
+
+  const filterInitValues = useMemo<BillFilterInput>(() => {
+    const category = params.get('category')
+    const congress = params.get('congress')
+    const sponsor = params.get('sponsor')
+    const cosponsor = params.get('cosponsor')
+    const tag = params.get('tag')
+    const sorter = params.get('sorter')
+    const result = billFilterSchema.safeParse({
+      ...(category && { category: Number(category) }),
+      ...(congress && { congress: [Number(congress)] }),
+      ...(sponsor && { sponsors: [Number(sponsor)] }),
+      ...(cosponsor && { cosponsors: [Number(cosponsor)] }),
+      ...(tag && { tag: [tag] }),
+      ...(sorter && { sorter: Number(sorter) }),
+    })
+    return result.success ? result.data : {}
+  }, [params])
+
+  const onFilterSubmit = useCallback((filter: BillFilterOutput) => {
+    console.log(`call API with \n`, JSON.stringify(filter, null, 2))
+  }, [])
+
+  useEffect(() => {
+    if (Object.keys(filterInitValues).length > 0) {
+      onFilterSubmit(filterInitValues)
+    }
+  }, [filterInitValues, onFilterSubmit])
+
   return (
     <Stack gap={7} alignItems="center" pb={10}>
       <Stack gap={5} alignItems="center">
         <BillFilter
-          onSubmit={(filter) => {
-            /** 這邊呼叫 API */
-            console.log(`call API with \n`, JSON.stringify(filter, null, 2))
-          }}
+          onSubmit={onFilterSubmit}
+          initialValues={filterInitValues}
         />
         <Stack gap={2}>
           {BILL_DATA_MOCK.map((bill, index) => (

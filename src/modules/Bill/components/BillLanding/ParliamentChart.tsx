@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
 
 itemSeries(Highcharts)
@@ -45,7 +45,7 @@ export default function ParliamentChart({ data }: Props) {
     if (hoveredParty) {
       return `${dataPartyCountMap.get(hoveredParty)}`
     }
-    return `${CONGRESS_CURRENT_SESSION_MOCK}th`
+    return `${CURRENT_CONGRESS_NUMBER}th`
   }, [dataPartyCountMap, hoveredParty])
 
   const options: Highcharts.Options = useMemo(() => {

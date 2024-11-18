@@ -7,9 +7,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { ReactNode, useState } from 'react'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useTheme } from '@mui/material/styles'
+import type { UrlObject } from 'url'
 
 type Props = {
-  link: string
+  link: UrlObject | string
   text?: string
   typographyProps?: TypographyProps
   startIcon?: ReactNode

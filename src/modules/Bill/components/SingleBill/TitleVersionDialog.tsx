@@ -18,7 +18,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { CONGRESS_CURRENT_SESSION_MOCK } from '@/modules/Bill/data'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import UHStack from '@/common/components/atoms/UHStack'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
@@ -132,7 +132,7 @@ export default function TitleVersionDialog({
           }}
         >
           <Typography variant="articleH4">
-            {`${bill.chamberPrefix}${bill.id} | ${CONGRESS_CURRENT_SESSION_MOCK}th Congress (2023-2024)`}
+            {`${bill.chamberPrefix}${bill.id} | ${CURRENT_CONGRESS_NUMBER}th Congress (2023-2024)`}
           </Typography>
           {FAKE_PREVIOUS_TITLES.map((title, index) => (
             <TitleRow

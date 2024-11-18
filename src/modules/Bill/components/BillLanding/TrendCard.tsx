@@ -14,6 +14,8 @@ import { useMemo, useState } from 'react'
 import { BILL_TREND_CHART_DATA_MOCK } from '@/modules/Bill/data'
 import { groupBy, map, sumBy } from 'lodash-es'
 import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
+import { useRouter } from 'next/navigation'
+import { ROUTES } from '@/routes'
 
 // TODO: 先假設資料是以此格式一筆筆紀錄，後續按照實際資料格式調整
 export type BillTrendData = {
@@ -34,6 +36,7 @@ const dataGroupedByCategory = groupBy(BILL_TREND_CHART_DATA_MOCK, 'category')
 
 export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
+  const router = useRouter()
   const { categoryOptions } = useBillFilterOptions()
   const [selectedCategory, setSelectedCategory] = useState('')
 
@@ -46,6 +49,15 @@ export default function TrendCard() {
   const totalCount = useMemo<number>(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0)
   }, [chartData])
+
+  const onBarClick = (clickedData: TrendBarChartData) => {
+    const params = new URLSearchParams()
+    if (selectedCategory) {
+      params.set('category', selectedCategory)
+    }
+    params.set('congress', clickedData.congress.toString())
+    router.push(`${ROUTES.BILL_LIST}?${params.toString()}`)
+  }
 
   return (
     <UContentCard
@@ -84,7 +96,7 @@ export default function TrendCard() {
           </Box>
         </UHStack>
         <Box width="100%">
-          <TrendBarCharts data={chartData} />
+          <TrendBarCharts data={chartData} onBarClick={onBarClick} />
         </Box>
       </Stack>
     </UContentCard>

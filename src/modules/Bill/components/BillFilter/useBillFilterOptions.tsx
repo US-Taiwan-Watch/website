@@ -1,9 +1,15 @@
 import {
+  CONGRESS_NUMBER_MIN,
+  CURRENT_CONGRESS_NUMBER,
+} from '@/common/assets/constants'
+import {
   BillCategoryEnum,
   BillPartyEnum,
   BillTypeEnum,
   BillStatusEnum,
+  BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
+import { BILL_SPONSOR_MOCK, BILL_TAG_MOCK } from '@/modules/Bill/data'
 import { useMemo } from 'react'
 
 export type BillFilterOption<T> = {
@@ -189,5 +195,56 @@ export default function useBillFilterOptions() {
     []
   )
 
-  return { categoryOptions, partyOptions, typeOptions, statusOptions }
+  const congressOptions = useMemo<BillFilterOption<number>[]>(
+    () =>
+      Array.from(
+        { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
+        (_, i) => i + CONGRESS_NUMBER_MIN
+      ).map((congress) => ({
+        value: congress,
+        label: congress.toString(),
+      })),
+    []
+  )
+
+  const sponsorsOptions = useMemo<BillFilterOption<number>[]>(
+    () =>
+      BILL_SPONSOR_MOCK.map((sponsor) => ({
+        value: Number(sponsor.id),
+        label: sponsor.name ?? '',
+      })),
+    []
+  )
+
+  const cosponsorsOptions = useMemo(() => sponsorsOptions, [sponsorsOptions])
+
+  const sorterOptions = useMemo<BillFilterOption<BillSorterEnum>[]>(
+    () => [
+      { value: BillSorterEnum.LatestAction, label: 'Latest Action' },
+      { value: BillSorterEnum.Popularity, label: 'Popularity' },
+    ],
+    []
+  )
+
+  // TODO: 確認 tag 怎麼來
+  const tagOptions = useMemo<BillFilterOption<string>[]>(
+    () =>
+      BILL_TAG_MOCK.map((tag) => ({
+        value: tag,
+        label: tag,
+      })),
+    []
+  )
+
+  return {
+    categoryOptions,
+    partyOptions,
+    typeOptions,
+    statusOptions,
+    congressOptions,
+    sponsorsOptions,
+    cosponsorsOptions,
+    sorterOptions,
+    tagOptions,
+  }
 }

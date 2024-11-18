@@ -1,12 +1,12 @@
 'use client'
 
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
-import {
-  BILL_TOTAL_COUNT_MOCK,
-  CONGRESS_CURRENT_SESSION_MOCK,
-} from '@/modules/Bill/data'
+import { BILL_TOTAL_COUNT_MOCK } from '@/modules/Bill/data'
+import { ROUTES } from '@/routes'
 import { Stack, Typography, useTheme } from '@mui/material'
+import Link from 'next/link'
 
 const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3, 4),
@@ -33,12 +33,19 @@ export default function Introduction() {
         </Typography>
       </Stack>
 
-      <StyledBillTotalCountCard>
-        <Typography variant="buttonXS" color={theme.color.grey[2100]} mb={1}>
-          {`Congress ${CONGRESS_CURRENT_SESSION_MOCK}`}
-        </Typography>
-        <Typography variant="h2">{BILL_TOTAL_COUNT_MOCK}</Typography>
-      </StyledBillTotalCountCard>
+      <Link
+        href={{
+          pathname: ROUTES.BILL_LIST,
+          query: { congress: CURRENT_CONGRESS_NUMBER },
+        }}
+      >
+        <StyledBillTotalCountCard>
+          <Typography variant="buttonXS" color={theme.color.grey[2100]} mb={1}>
+            {`Congress ${CURRENT_CONGRESS_NUMBER}`}
+          </Typography>
+          <Typography variant="h2">{BILL_TOTAL_COUNT_MOCK}</Typography>
+        </StyledBillTotalCountCard>
+      </Link>
     </UHStack>
   )
 }
