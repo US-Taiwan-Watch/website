@@ -86,6 +86,9 @@ yarn
 # 抓取語言檔案
 yarn i18n
 
+# 生成 GraphQL 型別
+yarn generate-graphql-types
+
 # A. 開發
 yarn dev
 
@@ -145,6 +148,40 @@ feature branch 會以 `Squash` 的方式合併到 `develop` 分支。
 ### 頁面跳轉
 
 凡要進行頁面跳轉，請至 `src/routes.ts` 中定義，並使用 `ROUTES` 物件拿取連結，避免於程式碼中寫死字串，以防路由更名。
+
+### GraphQL
+
+使用 GraphQL Codegen 生成 TypeScript 型別，詳細參考：https://www.graphql-code-generator.com/
+`/src/common/lib/graphql/schema.graphql` 可至 Playground 下載 `SDL` 檔案下來替換。
+
+Playground (Development): https://ustw-cms-backend-hbd9avfxadfneybh.westus2-01.azurewebsites.net/api/graphql-playground
+
+#### 使用方法
+
+```bash
+# 先把 gql query 寫好
+e.g.
+export const QUERY_PEOPLES = gql(`
+  query QueryPeople(
+    $limit: Int
+    $page: Int
+    $sort: String
+    $where: People_where
+  ) {
+    Peoples(limit: $limit, page: $page, sort: $sort, where: $where) {
+      docs {
+        id
+        billCount
+        bio
+      }
+    }
+  }
+`)
+
+# 生成 GraphQL 型別 & gql 函數
+# code-gen 會掃描 src 目錄下所有 gql query，並生成對應的型別 & gql 函數
+yarn generate-graphql-types
+```
 
 ---
 
