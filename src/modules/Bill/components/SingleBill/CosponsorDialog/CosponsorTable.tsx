@@ -49,6 +49,8 @@ const getName = (people: People) => {
   //     : people.chamber === ChamberEnum.SENATE
   //       ? 'S.'
   //       : ''
+
+  // TODO: i18n displayName
   return `${chamberAbbreviation}${people.displayName ?? ''}`
 }
 
@@ -79,6 +81,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
             >
               <TableCell component="th" scope="row">
                 <StyledNameText>
+                  {/** TODO: i18n */}
                   {cosponsor.displayName ? getName(cosponsor) : EMPTY_CELL}
                 </StyledNameText>
               </TableCell>

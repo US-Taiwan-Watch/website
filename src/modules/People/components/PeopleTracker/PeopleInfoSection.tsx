@@ -69,6 +69,7 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
       {/** Info */}
       <StyledInfoContainer spacing={2}>
         <PeopleCategory people={people} />
+        {/** TODO: i18n */}
         <Typography variant="h4">{people.displayName}</Typography>
         <Stack direction="row" gap={2} flexWrap="wrap">
           {people.tags?.map((tag) => (

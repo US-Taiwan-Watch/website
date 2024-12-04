@@ -76,6 +76,7 @@ const PeopleCard = memo(function PeopleCard({
             <Stack direction="column" spacing={1}>
               <PeopleCategory people={people} />
               <Typography fontSize={'1.5rem'} fontWeight={600}>
+                {/** TODO: i18n */}
                 {people.displayName}
               </Typography>
               {/** TODO: 待確認 People 有沒有 congress */}
