@@ -34,7 +34,7 @@ export default function usePeopleFilterOptions() {
 
   const partyOptions = useMemo<PeopleFilterOption<PeoplePartyEnum>[]>(
     () => [
-      { value: PeoplePartyEnum.Democrat, label: 'Democrat' },
+      { value: PeoplePartyEnum.Democratic, label: 'Democratic' },
       { value: PeoplePartyEnum.Republican, label: 'Republican' },
       { value: PeoplePartyEnum.Independent, label: 'Independent' },
     ],

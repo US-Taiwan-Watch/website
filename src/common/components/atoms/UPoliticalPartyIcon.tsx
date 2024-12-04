@@ -21,7 +21,7 @@ export const getMainColor = (
   party: UPoliticalPartyIconProps['party']
 ) => {
   switch (party) {
-    case Party.DEMOCRAT:
+    case Party.DEMOCRATIC:
       return theme.color.indigo[600]
     case Party.REPUBLICAN:
       return theme.color.red[500]
@@ -35,7 +35,7 @@ const getHoveredBackgroundColor = (
   party: UPoliticalPartyIconProps['party']
 ) => {
   switch (party) {
-    case Party.DEMOCRAT:
+    case Party.DEMOCRATIC:
       return theme.color.indigo[600] + 'CC' // 80% opacity
     case Party.REPUBLICAN:
       return theme.color.red[500] + 'CC' // 80% opacity

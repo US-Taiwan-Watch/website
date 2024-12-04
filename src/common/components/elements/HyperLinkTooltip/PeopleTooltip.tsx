@@ -40,7 +40,7 @@ const PeopleTooltip = function PeopleTooltip() {
             badgeContent={
               <UPoliticalPartyIcon
                 variant="rounded"
-                party={Party.DEMOCRAT}
+                party={Party.DEMOCRATIC}
                 size="small"
               />
             }
@@ -53,7 +53,7 @@ const PeopleTooltip = function PeopleTooltip() {
               sx={{
                 width: 80,
                 height: 80,
-                border: `5px solid ${getMainColor(theme, Party.DEMOCRAT)}`,
+                border: `5px solid ${getMainColor(theme, Party.DEMOCRATIC)}`,
               }}
               alt="Travis Howard"
               src="/assets/category1.jpg"

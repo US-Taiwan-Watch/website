@@ -28,7 +28,7 @@ interface IdeologyLeadershipChartProps {
   /**
    * @example
    * {
-   *   Democrat: [...],
+   *   Democratic: [...],
    *   Republican: [...],
    *   Independents: [...],
    * }
@@ -45,7 +45,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
   const getMarker = useCallback(
     (party: string): Highcharts.PointMarkerOptionsObject => {
       switch (party) {
-        case 'Democrat':
+        case 'Democratic':
           return {
             symbol: 'circle',
             fillColor: theme.color.indigo[600],

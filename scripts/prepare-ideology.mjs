@@ -42,16 +42,19 @@ const jsonData = lines.slice(1).map((line) => {
 /**
  * Output:
  * {
- *   Democrat: [...],
+ *   Democratic: [...],
  *   Republican: [...],
  *   Independents: [...],
  * }
  */
 const groupedData = jsonData.reduce(
   (acc, item) => {
-    if (item.party === 'Democrat' || item.party === 'Republican') {
+    if (item.party === 'Republican') {
       acc[item.party] = acc[item.party] || []
       acc[item.party].push(item)
+    } else if (item.party === 'Democrat') {
+      acc.Democratic = acc.Democratic || []
+      acc.Democratic.push(item)
     } else {
       acc.Independents = acc.Independents || []
       acc.Independents.push(item)
@@ -60,7 +63,7 @@ const groupedData = jsonData.reduce(
   },
   // 手動定義 legend 排序
   {
-    Democrat: [],
+    Democratic: [],
     Republican: [],
   }
 )
