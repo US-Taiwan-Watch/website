@@ -14,7 +14,7 @@
     "pre-commit-lint": "lint-staged",
     "i18n": "echo building i18n from content manager",
     "prepare-ideology": "node ./scripts/prepare-ideology.mjs",
-    "generate-graphql-types": "graphql-codegen"
+    "graphql-codegen": "graphql-codegen"
   },
   "dependencies": {
     "@apollo/client": "^3.11.10",

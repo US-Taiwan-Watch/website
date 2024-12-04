@@ -87,7 +87,7 @@ yarn
 yarn i18n
 
 # 生成 GraphQL 型別
-yarn generate-graphql-types
+yarn graphql-codegen
 
 # A. 開發
 yarn dev
@@ -181,7 +181,7 @@ export const QUERY_PEOPLES = gql(`
 
 # 生成 GraphQL 型別 & gql 函數
 # code-gen 會掃描 src 目錄下所有 gql query，並生成對應的型別 & gql 函數
-yarn generate-graphql-types
+yarn graphql-codegen
 ```
 
 ---
