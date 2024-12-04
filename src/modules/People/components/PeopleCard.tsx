@@ -1,17 +1,17 @@
 'use client'
 
-import { People } from '@/modules/People/classes/People'
+import { People, PeopleUtils } from '@/modules/People/domains/People.utils'
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
 import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
-import PeopleCongressTitle from '@/modules/People/components/PeopleCongressTitle'
+// import PeopleCongressTitle from '@/modules/People/components/PeopleCongressTitle'
 import PeopleTag from '@/modules/People/components/PeopleTag'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import Link from 'next/link'
-import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+// import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 
 const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
@@ -34,10 +34,10 @@ const StyledPeopleCardImage = styled(Image)(() => ({
   objectFit: 'cover',
 }))
 
-const StyledPeopleCardDescription = styled(UHeightLimitedText)(({ theme }) => ({
-  fontWeight: 400,
-  color: theme.color.grey[1500],
-}))
+// const StyledPeopleCardDescription = styled(UHeightLimitedText)(({ theme }) => ({
+//   fontWeight: 400,
+//   color: theme.color.grey[1500],
+// }))
 
 const StyledPeopleCardIconButton = styled(UIconButton)(({ theme }) => ({
   '& svg': {
@@ -57,7 +57,7 @@ const PeopleCard = memo(function PeopleCard({
   return (
     <StyledPeopleCardContainer>
       <Stack direction="row" spacing={3}>
-        {people.image && (
+        {people.photo?.url && (
           <StyledPeopleCardImageContainer
             display="flex"
             alignItems="center"
@@ -65,8 +65,8 @@ const PeopleCard = memo(function PeopleCard({
             sx={{ width: simplified ? 100 : 160 }}
           >
             <StyledPeopleCardImage
-              src={people.image}
-              alt={people.name || ''}
+              src={people.photo?.url}
+              alt={people.displayName ?? ''}
               fill
             />
           </StyledPeopleCardImageContainer>
@@ -76,20 +76,23 @@ const PeopleCard = memo(function PeopleCard({
             <Stack direction="column" spacing={1}>
               <PeopleCategory people={people} />
               <Typography fontSize={'1.5rem'} fontWeight={600}>
-                {people.name}
+                {people.displayName}
               </Typography>
-              {people.congress && (
+              {/** TODO: 待確認 People 有沒有 congress */}
+              {/* {people.congress && (
                 <PeopleCongressTitle congress={people.congress} />
-              )}
-              {!simplified && (
+              )} */}
+              {/** TODO: 待確認 People 有沒有 description */}
+              {/* {!simplified && (
                 <StyledPeopleCardDescription maxLine={2} fontWeight={400}>
                   {people.description}
                 </StyledPeopleCardDescription>
-              )}
+              )} */}
 
               <UTagList
                 tags={(people.tags ?? []).map((tag) => (
-                  <PeopleTag value={tag} key={tag} />
+                  // TODO: i18n
+                  <PeopleTag value={tag.name ?? ''} key={tag.id} />
                 ))}
                 containerProps={{
                   gap: 2,
@@ -99,7 +102,7 @@ const PeopleCard = memo(function PeopleCard({
             </Stack>
           </Grid>
           <Grid size={2} display="flex" justifyContent="end">
-            <Link href={people.link}>
+            <Link href={PeopleUtils.link(people)}>
               <StyledPeopleCardIconButton variant="rounded" color="inherit">
                 <ArrowForwardIcon />
               </StyledPeopleCardIconButton>

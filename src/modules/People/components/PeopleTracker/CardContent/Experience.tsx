@@ -1,11 +1,7 @@
 import { BriefcaseIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { useMemo } from 'react'
-import {
-  type Experience as PeopleExperience,
-  People,
-} from '@/modules/People/classes/People'
+import { PeopleExperience } from '@/modules/People/domains/People.utils'
 import Timeline from '@mui/lab/Timeline'
 import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
@@ -19,35 +15,40 @@ import UContentCard from '@/common/components/atoms/UContentCard'
  * @param experience 經歷
  * @returns 時間文字
  */
-const useExperienceTime = function (experience: PeopleExperience) {
+const useExperiencePositionTime = function (
+  position: NonNullable<PeopleExperience['positions']>[number]
+) {
+  // FIXME: avoid eslint error
+  console.log(position)
+  // TODO: 根據 PeopleExperience 重構這塊
   // TODO: i18n
-  const durationText = useMemo(() => {
-    const duration = People.CalculateExperienceDuration(experience)
-    let text = ''
-    if (duration.year > 0) {
-      text += `${duration.year} yr${duration.year > 1 ? 's' : ''} `
-    }
-    if (duration.month > 0) {
-      text += `${duration.month} mo${duration.month > 1 ? 's' : ''}`
-    }
-    return text
-  }, [experience])
+  // const durationText = useMemo(() => {
+  //   const duration = PeopleUtils.calculateExperiencePositionDuration(experience)
+  //   let text = ''
+  //   if (duration.year > 0) {
+  //     text += `${duration.year} yr${duration.year > 1 ? 's' : ''} `
+  //   }
+  //   if (duration.month > 0) {
+  //     text += `${duration.month} mo${duration.month > 1 ? 's' : ''}`
+  //   }
+  //   return text
+  // }, [experience])
 
-  // TODO: i18n
-  const timeText = useMemo(() => {
-    if (!experience.start) return ''
+  // // TODO: i18n
+  // const timeText = useMemo(() => {
+  //   if (!experience.start) return ''
 
-    // 現在進行中
-    if (!experience.end) {
-      return `${experience.start.format(People.TimeFormat)} ~ Present`
-    } else if (experience.experience) {
-      return durationText
-    } else {
-      return `${experience.start.format(People.TimeFormat)} ~ ${experience.end.format(People.TimeFormat)} • ${durationText}`
-    }
-  }, [experience, durationText])
+  //   // 現在進行中
+  //   if (!experience.end) {
+  //     return `${experience.start.format(People.TimeFormat)} ~ Present`
+  //   } else if (experience.experience) {
+  //     return durationText
+  //   } else {
+  //     return `${experience.start.format(People.TimeFormat)} ~ ${experience.end.format(People.TimeFormat)} • ${durationText}`
+  //   }
+  // }, [experience, durationText])
 
-  return { timeText, durationText }
+  return { timeText: '', durationText: '' }
 }
 
 /**
@@ -56,15 +57,15 @@ const useExperienceTime = function (experience: PeopleExperience) {
  * @param isLast 是否是最後一個
  * @returns 經歷時間軸項目
  */
-const ExperienceTimelineItem = function ExperienceTimelineItem({
-  experience,
+const ExperiencePositionTimelineItem = function ExperiencePositionTimelineItem({
+  position,
   isLast,
 }: {
-  experience: PeopleExperience
+  position: NonNullable<PeopleExperience['positions']>[number]
   isLast?: boolean
 }) {
   const theme = useTheme<USTWTheme>()
-  const { timeText } = useExperienceTime(experience)
+  const { timeText } = useExperiencePositionTime(position)
 
   return (
     <TimelineItem
@@ -78,7 +79,8 @@ const ExperienceTimelineItem = function ExperienceTimelineItem({
       </TimelineSeparator>
       <TimelineContent>
         <Typography variant="bodyM" fontWeight={700}>
-          {experience.title}
+          {/** TODO: 待確認 People 有沒有 title */}
+          {/* {experience.title} */}
         </Typography>
         <Typography
           variant="bodyS"
@@ -101,10 +103,10 @@ const TIMELINE_DOT_WIDTH_PX = 12
  * @param experience 經歷
  * @returns 經歷時間軸
  */
-const ExperienceTimeline = function ExperienceTimeline({
-  experience,
+const ExperiencePositionTimeline = function ExperiencePositionTimeline({
+  positions = [],
 }: {
-  experience: Array<PeopleExperience>
+  positions?: PeopleExperience['positions']
 }) {
   const theme = useTheme<USTWTheme>()
 
@@ -128,11 +130,11 @@ const ExperienceTimeline = function ExperienceTimeline({
         },
       }}
     >
-      {experience.map((exp, index) => (
-        <ExperienceTimelineItem
+      {positions?.map((position, index) => (
+        <ExperiencePositionTimelineItem
           key={index}
-          experience={exp}
-          isLast={index === experience.length - 1}
+          position={position}
+          isLast={index === positions.length - 1}
         />
       ))}
     </Timeline>
@@ -150,7 +152,9 @@ const ExperienceRow = function ExperienceRow({
   experience: PeopleExperience
 }) {
   const theme = useTheme<USTWTheme>()
-  const { timeText } = useExperienceTime(experience)
+  // TODO: 重構
+  // const { timeText } = useExperiencePositionTime(experience)
+  const timeText = ''
 
   return (
     <Stack
@@ -163,13 +167,15 @@ const ExperienceRow = function ExperienceRow({
       }}
     >
       <Typography variant="bodyM" fontWeight={700}>
-        {experience.title}
+        {/** TODO: 待確認 People 有沒有 title */}
+        {/* {experience.title} */}
       </Typography>
-      {experience.subtitle && (
+      {/** TODO: 待確認 People 有沒有 subtitle */}
+      {/* {experience.subtitle && (
         <Typography variant="bodyS" fontWeight={500}>
           {experience.subtitle}
         </Typography>
-      )}
+      )} */}
       <Typography
         variant="bodyS"
         sx={{ color: theme.color.neutral[500] }}
@@ -177,7 +183,8 @@ const ExperienceRow = function ExperienceRow({
       >
         {timeText}
       </Typography>
-      {experience.descriptions &&
+      {/** TODO: 待確認 People 有沒有 descriptions */}
+      {/* {experience.descriptions &&
         experience.descriptions.map((description, index) => (
           <Typography
             key={index}
@@ -187,10 +194,8 @@ const ExperienceRow = function ExperienceRow({
           >
             {description}
           </Typography>
-        ))}
-      {experience.experience && (
-        <ExperienceTimeline experience={experience.experience} />
-      )}
+        ))} */}
+      <ExperiencePositionTimeline positions={experience.positions} />
     </Stack>
   )
 }
@@ -199,7 +204,7 @@ interface ExperienceProps {
   /**
    * 人物經歷
    */
-  experience: PeopleExperience[]
+  experiences: PeopleExperience[]
 }
 
 /**
@@ -209,7 +214,7 @@ interface ExperienceProps {
  * @param onActionClick 點擊事件
  * @returns 人物經歷元件
  */
-const Experience = function Experience({ experience }: ExperienceProps) {
+const Experience = function Experience({ experiences }: ExperienceProps) {
   return (
     <UContentCard
       headerIconAction="modal"
@@ -226,8 +231,8 @@ const Experience = function Experience({ experience }: ExperienceProps) {
         </Typography>
       }
     >
-      {experience.map((exp, index) => (
-        <ExperienceRow key={index} experience={exp} />
+      {experiences.map((experience, index) => (
+        <ExperienceRow key={index} experience={experience} />
       ))}
     </UContentCard>
   )

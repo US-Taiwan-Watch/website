@@ -16,7 +16,7 @@ import {
   createFilterCategories,
   getFilterConstituency,
 } from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/domains/People.utils'
 
 type Props = {
   bill: Bill
@@ -36,13 +36,15 @@ export default function CosponsorDialog({
   const cosponsors = useMemo<People[]>(() => {
     return (bill.cosponsors ?? []).filter((cosponsor) => {
       const partyMatch =
-        selectedOptionList.party.length && cosponsor.party
-          ? selectedOptionList.party.includes(cosponsor.party)
+        selectedOptionList.party.length && cosponsor.currentParty
+          ? selectedOptionList.party.includes(cosponsor.currentParty)
           : true
 
       const constituencyMatch = selectedOptionList.constituency.length
         ? selectedOptionList.constituency.includes(
-            getFilterConstituency(cosponsor.constituency ?? '')
+            getFilterConstituency('')
+            // TODO: 待確認 People 有沒有 constituency
+            // getFilterConstituency(cosponsor.constituency ?? '')
           )
         : true
 

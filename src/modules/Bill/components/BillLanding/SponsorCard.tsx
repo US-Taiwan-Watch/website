@@ -6,7 +6,7 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
 import { BILL_SPONSOR_MOCK } from '@/modules/Bill/data'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/domains/People.utils'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
@@ -33,11 +33,12 @@ function SponsorRow({ sponsor }: SponsorRowProps) {
   return (
     <StyledSponsorRowContainer>
       <Stack>
-        <Typography variant="articleH5">{sponsor.name}</Typography>
+        {/** TODO: i18n */}
+        <Typography variant="articleH5">{sponsor.displayName}</Typography>
         <UHStack gap="6px" alignItems="center">
           <CircleIcon
             sx={{
-              color: partyColor[sponsor.party ?? Party.INDEPENDENT],
+              color: partyColor[sponsor.currentParty ?? Party.INDEPENDENT],
               fontSize: '8px',
             }}
           />
@@ -46,7 +47,7 @@ function SponsorRow({ sponsor }: SponsorRowProps) {
             color={theme.color.neutral[500]}
             textTransform="capitalize"
           >
-            {sponsor.party?.toLowerCase()}
+            {sponsor.currentParty?.toLowerCase()}
           </Typography>
         </UHStack>
       </Stack>

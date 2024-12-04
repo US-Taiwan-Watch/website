@@ -1,6 +1,6 @@
-import clsx from 'clsx'
+// import clsx from 'clsx'
 import { styled } from '@/common/lib/mui/theme'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/domains/People.utils'
 import { Box } from '@mui/material'
 
 const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
@@ -33,15 +33,18 @@ interface PeopleCategoryProps {
 const PeopleCategory = function PeopleCategory({
   people,
 }: PeopleCategoryProps) {
+  // FIXME: avoid eslint error
+  console.log(people)
+  // TODO: 待確認 People 有沒有 position
   return (
     <StyledPeopleTagContainer
-      className={clsx('', {
-        ...(people.position && {
-          [people.position.replace(' ', '_')]: true,
-        }),
-      })}
+    // className={clsx('', {
+    //   ...(people.position && {
+    //     [people.position.replace(' ', '_')]: true,
+    //   }),
+    // })}
     >
-      {people.position?.toLowerCase()}
+      {/* {people.position?.toLowerCase()} */}
     </StyledPeopleTagContainer>
   )
 }

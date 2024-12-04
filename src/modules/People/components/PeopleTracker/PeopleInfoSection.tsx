@@ -4,7 +4,7 @@ import UButton from '@/common/components/atoms/UButton'
 import UHStack from '@/common/components/atoms/UHStack'
 import { styled } from '@/common/lib/mui/theme'
 import { LinkIcon } from '@/common/styles/assets/Icons'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/domains/People.utils'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
 import PeopleTag from '@/modules/People/components/PeopleTag'
 import { Box, Stack, Typography } from '@mui/material'
@@ -56,18 +56,24 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
   return (
     <StyledPeopleInfoSectionContainer spacing={2}>
       {/** 圖片 */}
-      {people.image && (
+      {people.photo?.url && (
         <StyledImageContainer>
-          <StyledImage src={people.image} alt={people.name ?? ''} fill />
+          <StyledImage
+            src={people.photo.url}
+            alt={people.displayName ?? ''}
+            fill
+          />
         </StyledImageContainer>
       )}
 
       {/** Info */}
       <StyledInfoContainer spacing={2}>
         <PeopleCategory people={people} />
-        <Typography variant="h4">{people.name}</Typography>
+        <Typography variant="h4">{people.displayName}</Typography>
         <Stack direction="row" gap={2} flexWrap="wrap">
-          {people.tags?.map((tag) => <PeopleTag value={tag} key={tag} />)}
+          {people.tags?.map((tag) => (
+            <PeopleTag value={tag.name ?? ''} key={tag.id} />
+          ))}
         </Stack>
       </StyledInfoContainer>
 

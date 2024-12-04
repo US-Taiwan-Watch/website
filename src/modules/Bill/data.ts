@@ -1,8 +1,6 @@
-import { Congress } from '@/common/classes/Congress'
 import { Party } from '@/common/enums/Party'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
-import { People } from '@/modules/People/classes/People'
-import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
+import { PeopleUtils, type People } from '@/modules/People/domains/People.utils'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { ChamberEnum } from '@/common/enums/Chamber'
@@ -15,163 +13,117 @@ import {
 
 export const BILL_TOTAL_COUNT_MOCK = 20
 
-const sponsor1 = new People({
-  id: '1',
-  name: 'Jeff Merkley',
-  image: '/assets/category1.jpg',
-  description:
-    "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
-  party: Party.DEMOCRAT,
-  position: PeoplePosition.SENATOR,
-  chamber: ChamberEnum.SENATE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
+const sponsor1 = PeopleUtils.parse({
+  __typename: 'People',
+  billCount: 0,
+  bio: '[Wikipedia] Donald John Trump (born June 14, 1946) is an American politician, media personality, and businessman who served as the 45th president of the United States from 2017 to 2021.',
+  birthday: {
+    datetime: '1946-06-14T00:00:00.000Z',
+    // @ts-expect-error demo api response
+    precision: ['year', 'month', 'day'],
+  },
+  congressionalData: {
+    bioGuideId: null,
+    committees: [],
+  },
+  cosponsorBills: [],
+  createdAt: '2024-12-03T17:20:04.922Z',
+  currentParty: 'independent',
+  displayName: 'Donald Trump',
+  experiences: [
+    {
+      category: 'Official',
+      company: 'United States',
+      positions: [
+        {
+          title: 'President',
+          start: {
+            datetime: '2017-01-20T00:00:00.000Z',
+          },
+          end: {
+            datetime: '2021-01-20T00:00:00.000Z',
+          },
+        },
+      ],
+    },
+    {
+      category: 'Other',
+      company: 'Trump Organization',
+      positions: [
+        {
+          title: 'President',
+          start: {
+            datetime: '1973-01-01T00:00:00.000Z',
+          },
+          end: {
+            datetime: '2017-01-20T00:00:00.000Z',
+          },
+        },
+      ],
+    },
+  ],
+  // @ts-expect-error demo api response
+  gender: 'male',
+  govTrackId: null,
+  i18n: {
+    en: {
+      displayName: 'Donald Trump',
+      bio: '[Wikipedia] Donald John Trump (born June 14, 1946) is an American politician, media personality, and businessman who served as the 45th president of the United States from 2017 to 2021.',
+    },
+    zh: {
+      displayName: '川普',
+      bio: '[Wikipedia] 唐納·約翰·川普（1946年6月14日—），美國政治人物，目前為2024年美國總統選舉候選人，曾任職第45任美國總統。從政前為企業家、媒體名人。',
+    },
+  },
+  id: '674f3dc4c2061b5227b8f1b0',
+  links: [
+    {
+      id: '674f3dc49ed90400318f042d',
+      link: 'https://www.donaldtrump.com',
+      title: 'Official Website',
+    },
+    {
+      id: '674f3dc49ed90400318f042e',
+      link: 'https://truthsocial.com/@realDonaldTrump',
+      title: 'Truth Social',
+    },
+    {
+      id: '674f3dc49ed90400318f042f',
+      link: 'https://x.com/TrumpWarRoom',
+      title: '@TrumpWarRoom',
+    },
+  ],
+  partyChangeRecords: [],
+  photo: null,
+  publications: [
+    {
+      id: '674f3dc49ed90400318f042a',
+      title: 'Save America',
+      link: null,
+    },
+    {
+      id: '674f3dc49ed90400318f042b',
+      title:
+        'Trumped: Donald Trump Wisdom for Business and Life. Self help book. MAGA 2024',
+      link: null,
+    },
+    {
+      id: '674f3dc49ed90400318f042c',
+      title: 'Time to Get Tough: Make America Great Again',
+      link: null,
+    },
+  ],
+  records: [],
+  sponsorBills: [],
   tags: [],
-  constituency: 'IL',
+  updatedAt: '2024-12-04T14:07:04.401Z',
+  viewCount: 0,
 })
 
-const sponsor2 = new People({
-  id: '2',
-  name: 'Ami Bera',
-  image: '/assets/category1.jpg',
-  description:
-    "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
-  party: Party.REPUBLICAN,
-  position: PeoplePosition.HOUSE_REPRESENTATIVE,
-  chamber: ChamberEnum.HOUSE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'NJ',
-})
-
-const sponsor3 = new People({
-  id: '3',
-  name: 'Jon Ossoff',
-  image: '/assets/category1.jpg',
-  description:
-    "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
-  party: Party.INDEPENDENT,
-  position: PeoplePosition.SENATOR,
-  chamber: ChamberEnum.SENATE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'WA',
-})
-
-const sponsor4 = new People({
-  id: '4',
-  name: 'Tammy Baldwin',
-  image: '/assets/category1.jpg',
-  description:
-    "Baldwin is the representative for Wisconsin's 2nd congressional district.",
-  party: Party.DEMOCRAT,
-  position: PeoplePosition.SENATOR,
-  chamber: ChamberEnum.SENATE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'WI',
-})
-
-const sponsor5 = new People({
-  id: '5',
-  name: 'Liz Cheney',
-  image: '/assets/category1.jpg',
-  description:
-    "Cheney is the representative for Wyoming's at-large congressional district.",
-  party: Party.REPUBLICAN,
-  position: PeoplePosition.HOUSE_REPRESENTATIVE,
-  chamber: ChamberEnum.HOUSE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'WY',
-})
-
-export const BILL_SPONSOR_MOCK: People[] = [
-  sponsor1,
-  sponsor2,
-  sponsor3,
-  sponsor4,
-  sponsor5,
-]
+export const BILL_SPONSOR_MOCK: People[] = Array.from(
+  { length: 5 },
+  () => sponsor1
+)
 
 export const PARLIAMENT_CHART_DATA_MOCK_1: ParliamentChartData[] = [
   {
@@ -209,7 +161,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2023 and Promoting Regional Stability',
     sponsor: sponsor1,
-    cosponsors: [sponsor1, sponsor2, sponsor3],
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: [
       'Environment',
       'Energy',
@@ -284,8 +236,8 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S2345',
     title:
       'Comprehensive Cybersecurity Enhancement and National Digital Infrastructure Protection Act',
-    sponsor: sponsor2,
-    cosponsors: [sponsor3, sponsor1],
+    sponsor: sponsor1,
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Technology', 'Security'],
     status: BillStatusEnum.PASSED_SENATE,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -307,8 +259,8 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'HR3456',
     title:
       'Education Reform Act for Improving K-12 Curriculum, Teacher Training, and Student Success Rates Nationwide',
-    sponsor: sponsor3,
-    cosponsors: [sponsor1, sponsor2],
+    sponsor: sponsor1,
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Education', 'Social Policy'],
     status: BillStatusEnum.PASSED_HOUSE,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -330,7 +282,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Healthcare Accessibility Act to Expand Medical Coverage, Reduce Costs, and Improve Patient Outcomes Across America',
     sponsor: sponsor1,
-    cosponsors: [sponsor2, sponsor3],
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Healthcare', 'Social Policy'],
     status: BillStatusEnum.TO_PRESIDENT,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -362,8 +314,8 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'HR5678',
     title:
       'Small Business Support Act for Promoting Entrepreneurship, Job Creation, and Economic Growth in Local Communities',
-    sponsor: sponsor2,
-    cosponsors: [sponsor3, sponsor1],
+    sponsor: sponsor1,
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Economy', 'Business'],
     status: BillStatusEnum.INTRODUCED,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -379,8 +331,8 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S6789',
     title:
       'Veterans Care Improvement Act to Enhance Medical Services, Mental Health Support, and Benefits for Military Veterans',
-    sponsor: sponsor3,
-    cosponsors: [sponsor1, sponsor2],
+    sponsor: sponsor1,
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Veterans', 'Healthcare'],
     status: BillStatusEnum.PASSED_SENATE,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -403,7 +355,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Infrastructure Modernization Act for Upgrading Roads, Bridges, Public Transit, and Digital Networks Across the Nation',
     sponsor: sponsor1,
-    cosponsors: [sponsor2, sponsor3],
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Infrastructure', 'Economy'],
     status: BillStatusEnum.BECOME_LAW,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -439,8 +391,8 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'S8901',
     title:
       'Climate Change Mitigation Act to Reduce Greenhouse Gas Emissions and Promote Clean Energy Technologies Nationwide',
-    sponsor: sponsor2,
-    cosponsors: [sponsor3, sponsor1],
+    sponsor: sponsor1,
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Environment', 'Energy'],
     status: BillStatusEnum.INTRODUCED,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -457,8 +409,8 @@ export const BILL_DATA_MOCK: Bill[] = [
     id: 'HR9012',
     title:
       'Affordable Housing Act to Increase Availability of Low-Cost Homes and Improve Rental Assistance Programs',
-    sponsor: sponsor3,
-    cosponsors: [sponsor1, sponsor2],
+    sponsor: sponsor1,
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Housing', 'Social Policy'],
     status: BillStatusEnum.PASSED_HOUSE,
     congressNumber: CURRENT_CONGRESS_NUMBER,
@@ -481,7 +433,7 @@ export const BILL_DATA_MOCK: Bill[] = [
     title:
       'Data Privacy Protection Act to Safeguard Personal Information, Regulate Data Collection, and Enforce Consumer Rights Online',
     sponsor: sponsor1,
-    cosponsors: [sponsor2, sponsor3],
+    cosponsors: Array.from({ length: 3 }, () => sponsor1),
     tags: ['Technology', 'Privacy'],
     status: BillStatusEnum.PASSED_SENATE,
     congressNumber: CURRENT_CONGRESS_NUMBER,

@@ -1,4 +1,4 @@
-import { People } from '@/modules/People/classes/People'
+import { People, PeopleUtils } from '@/modules/People/domains/People.utils'
 import BioByAI from '@/modules/People/components/PeopleTracker/CardContent/BioByAI'
 import Committee from '@/modules/People/components/PeopleTracker/CardContent/Committee'
 import Experience from '@/modules/People/components/PeopleTracker/CardContent/Experience'
@@ -11,17 +11,19 @@ import Publication from '@/modules/People/components/PeopleTracker/CardContent/P
 import { Grid2 as Grid, GridSize, Stack, useTheme } from '@mui/material'
 import { memo, useMemo } from 'react'
 import type React from 'react'
-import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
+// import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 
 const useSectionLayout = (people: People) => {
-  const isHouseRepresentativeOrSenator = useMemo(
-    () =>
-      !!people.position &&
-      [PeoplePosition.HOUSE_REPRESENTATIVE, PeoplePosition.SENATOR].includes(
-        people.position
-      ),
-    [people.position]
-  )
+  // TODO: 待確認 People 有沒有 position
+  const isHouseRepresentativeOrSenator = true
+  // const isHouseRepresentativeOrSenator = useMemo(
+  //   () =>
+  //     !!people.position &&
+  //     [PeoplePosition.HOUSE_REPRESENTATIVE, PeoplePosition.SENATOR].includes(
+  //       people.position
+  //     ),
+  //   [people.position]
+  // )
 
   /**
    * 現任眾議員或參議員才會出現政黨
@@ -29,9 +31,9 @@ const useSectionLayout = (people: People) => {
    */
   const hasParty = useMemo(
     () =>
-      !!people.party &&
+      !!people.currentParty &&
       isHouseRepresentativeOrSenator &&
-      People.IsCurrentMember(people),
+      PeopleUtils.isCurrentMember(people),
     [people, isHouseRepresentativeOrSenator]
   )
 
@@ -74,7 +76,7 @@ const useSectionLayout = (people: People) => {
    * TODO: 確認怎麼分辨『現任』
    */
   const hasCommittee = useMemo(
-    () => isHouseRepresentativeOrSenator && People.IsCurrentMember(people),
+    () => isHouseRepresentativeOrSenator && PeopleUtils.isCurrentMember(people),
     [isHouseRepresentativeOrSenator, people]
   )
 
@@ -88,7 +90,7 @@ const useSectionLayout = (people: People) => {
    * TODO: 確認怎麼分辨『現任』
    */
   const hasIdeologyLeadershipChart = useMemo(
-    () => isHouseRepresentativeOrSenator && People.IsCurrentMember(people),
+    () => isHouseRepresentativeOrSenator && PeopleUtils.isCurrentMember(people),
     [isHouseRepresentativeOrSenator, people]
   )
 
@@ -149,8 +151,10 @@ const PeopleContentSection = memo(function PeopleContentSection({
           size: 'grow',
           component: (
             <Party
-              party={people.party!}
-              partyExperiences={people.partyExperience}
+              party={people.currentParty}
+              changeRecords={PeopleUtils.parsePartyChangeRecords(
+                people.partyChangeRecords
+              )}
             />
           ),
         },
@@ -177,12 +181,16 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {
           visible: hasBioByAI,
           size: 7,
-          component: <BioByAI bioByAI={people.bioByAI} />,
+          component: <BioByAI bioByAI={people.bio ?? ''} />,
         },
         {
           visible: hasExperience,
           size: 5,
-          component: <Experience experience={people.experience} />,
+          component: (
+            <Experience
+              experiences={PeopleUtils.parseExperiences(people.experiences)}
+            />
+          ),
         },
       ],
     },

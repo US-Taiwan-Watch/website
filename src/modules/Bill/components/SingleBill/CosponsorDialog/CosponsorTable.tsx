@@ -11,11 +11,11 @@ import {
   useTheme,
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/domains/People.utils'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import { Party } from '@/common/enums/Party'
 import UHStack from '@/common/components/atoms/UHStack'
-import { ChamberEnum } from '@/common/enums/Chamber'
+// import { ChamberEnum } from '@/common/enums/Chamber'
 
 const EMPTY_CELL = '-'
 
@@ -41,13 +41,15 @@ type Props = {
 }
 
 const getName = (people: People) => {
-  const chamberAbbreviation =
-    people.chamber === ChamberEnum.HOUSE
-      ? 'H.R.'
-      : people.chamber === ChamberEnum.SENATE
-        ? 'S.'
-        : ''
-  return `${chamberAbbreviation}${people.name}`
+  // FIXME: 待確認 People 有沒有 chamber
+  const chamberAbbreviation = ''
+  // const chamberAbbreviation =
+  //   people.chamber === ChamberEnum.HOUSE
+  //     ? 'H.R.'
+  //     : people.chamber === ChamberEnum.SENATE
+  //       ? 'S.'
+  //       : ''
+  return `${chamberAbbreviation}${people.displayName ?? ''}`
 }
 
 export default function CosponsorTable({ cosponsors }: Props) {
@@ -72,31 +74,30 @@ export default function CosponsorTable({ cosponsors }: Props) {
         <TableBody>
           {cosponsors.map((cosponsor) => (
             <TableRow
-              key={cosponsor.name}
+              key={cosponsor.displayName}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
                 <StyledNameText>
-                  {cosponsor.name ? getName(cosponsor) : EMPTY_CELL}
+                  {cosponsor.displayName ? getName(cosponsor) : EMPTY_CELL}
                 </StyledNameText>
               </TableCell>
               <TableCell align="left">
                 <UHStack spacing={1} alignItems="center">
                   <UPoliticalPartyIcon
                     variant="rounded"
-                    party={cosponsor.party ?? Party.INDEPENDENT}
+                    party={cosponsor.currentParty ?? Party.INDEPENDENT}
                     size="small"
                   />
                   <StyledBodyText textTransform="capitalize">
-                    {cosponsor.party
-                      ? cosponsor.party.toLowerCase()
-                      : EMPTY_CELL}
+                    {cosponsor.currentParty?.toLowerCase() ?? EMPTY_CELL}
                   </StyledBodyText>
                 </UHStack>
               </TableCell>
               <TableCell align="left">
                 <StyledBodyText>
-                  {cosponsor.constituency || EMPTY_CELL}
+                  {/* TODO: 待確認 People 有沒有 constituency */}
+                  {/* {cosponsor.constituency || EMPTY_CELL} */}
                 </StyledBodyText>
               </TableCell>
               <TableCell align="left">

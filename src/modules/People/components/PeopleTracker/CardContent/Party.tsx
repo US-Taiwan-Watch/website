@@ -5,34 +5,15 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Stack, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import { useMemo } from 'react'
 import { PersonIcon } from '@/common/styles/assets/Icons'
 import CloseIcon from '@mui/icons-material/Close'
-import { PartyExperience, People } from '@/modules/People/classes/People'
+import {
+  PeoplePartyChangeRecord,
+  PeopleUtils,
+} from '@/modules/People/domains/People.utils'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import useModal from '@/common/hooks/useModal'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
-
-/**
- * 計算經歷的時間
- * @param experience 經歷
- * @returns 時間文字
- */
-const usePartyExperienceTime = function (experience: PartyExperience) {
-  // TODO: i18n
-  const timeText = useMemo(() => {
-    if (!experience.start) return ''
-
-    // 現在進行中
-    if (!experience.end) {
-      return `${experience.start?.format(People.TimeFormat)} ~ Present`
-    } else {
-      return `${experience.start?.format(People.TimeFormat)} ~ ${experience.end?.format(People.TimeFormat)}`
-    }
-  }, [experience])
-
-  return { timeText }
-}
 
 /**
  * 政黨行
@@ -40,12 +21,11 @@ const usePartyExperienceTime = function (experience: PartyExperience) {
  * @returns 政黨行
  */
 const PartyRow = function PartyRow({
-  partyExperience,
+  record,
 }: {
-  partyExperience: PartyExperience
+  record: PeoplePartyChangeRecord
 }) {
   const theme = useTheme<USTWTheme>()
-  const { timeText } = usePartyExperienceTime(partyExperience)
 
   return (
     <Stack
@@ -59,14 +39,14 @@ const PartyRow = function PartyRow({
       }}
     >
       <Typography variant="bodyM" fontWeight={700}>
-        {partyExperience.party}
+        {record.newParty}
       </Typography>
       <Typography
         variant="bodyS"
         sx={{ color: theme.color.neutral[500] }}
         fontWeight={400}
       >
-        {timeText}
+        {record.changedAt?.format(PeopleUtils.TimeFormat)}
       </Typography>
     </Stack>
   )
@@ -88,11 +68,14 @@ const getPartyLogo = (party: PartyEnum) => {
 }
 
 interface PartyProps {
-  party: PartyEnum
-  partyExperiences?: Array<PartyExperience>
+  party?: PartyEnum
+  changeRecords?: Array<PeoplePartyChangeRecord>
 }
 
-const Party = function ({ party, partyExperiences = [] }: PartyProps) {
+const Party = function ({
+  party = PartyEnum.INDEPENDENT,
+  changeRecords = [],
+}: PartyProps) {
   const theme = useTheme<USTWTheme>()
   const partyLogo = getPartyLogo(party)
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
@@ -148,8 +131,8 @@ const Party = function ({ party, partyExperiences = [] }: PartyProps) {
               borderRadius: 0,
             }}
           >
-            {partyExperiences.map((partyExperience, index) => (
-              <PartyRow key={index} partyExperience={partyExperience} />
+            {changeRecords.map((record, index) => (
+              <PartyRow key={index} record={record} />
             ))}
           </UContentCard>
         </UContentCardDialog>

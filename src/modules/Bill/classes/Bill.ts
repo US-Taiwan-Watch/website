@@ -1,6 +1,6 @@
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { ChamberEnum } from '@/common/enums/Chamber'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/domains/People.utils'
 import { isArray, isNumber, isString } from 'lodash-es'
 import { ROUTES } from '@/routes'
 
@@ -47,9 +47,7 @@ export class Bill {
     if (isString(bill.title)) {
       this.title = bill.title
     }
-    if (bill.sponsor instanceof People) {
-      this.sponsor = bill.sponsor
-    }
+    this.sponsor = bill.sponsor
     if (isArray(bill.cosponsors)) {
       this.cosponsors = bill.cosponsors
     }
