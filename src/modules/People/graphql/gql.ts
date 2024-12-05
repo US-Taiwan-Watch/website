@@ -13,6 +13,10 @@ export const QUERY_PEOPLES = gql(`
         id
         billCount
         bio
+        gender
+        birthday {
+          datetime
+        }
       }
     }
   }

@@ -1,3 +1,5 @@
+'use client'
+
 import UPagination from '@/common/components/atoms/UPagination'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import TaiwanRecordCard from '@/modules/TaiwanRecord/components/TaiwanRecordCard'

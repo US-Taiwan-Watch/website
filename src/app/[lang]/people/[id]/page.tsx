@@ -1,5 +1,3 @@
-'use client' // for importing mock people data
-
 import PeopleInfoSection from '@/modules/People/components/PeopleTracker/PeopleInfoSection'
 import { Stack } from '@mui/material'
 import people from '@/modules/People/data'

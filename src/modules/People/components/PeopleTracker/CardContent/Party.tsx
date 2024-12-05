@@ -7,13 +7,11 @@ import Image from 'next/image'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import { PersonIcon } from '@/common/styles/assets/Icons'
 import CloseIcon from '@mui/icons-material/Close'
-import {
-  PeoplePartyChangeRecord,
-  PeopleUtils,
-} from '@/modules/People/domains/People.utils'
+import { PeoplePartyChangeRecord } from '@/modules/People/domains/People.utils'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import useModal from '@/common/hooks/useModal'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
+import { CommonUtils } from '@/modules/Common/domain/Common.utils'
 
 /**
  * 政黨行
@@ -46,7 +44,9 @@ const PartyRow = function PartyRow({
         sx={{ color: theme.color.neutral[500] }}
         fontWeight={400}
       >
-        {record.changedAt?.format(PeopleUtils.TimeFormat)}
+        {CommonUtils.parseDateTime(record.changedAt?.datetime)?.format(
+          'YYYY-MM-DD'
+        )}
       </Typography>
     </Stack>
   )

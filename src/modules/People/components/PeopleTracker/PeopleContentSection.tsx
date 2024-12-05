@@ -1,3 +1,5 @@
+'use client'
+
 import { People, PeopleUtils } from '@/modules/People/domains/People.utils'
 import BioByAI from '@/modules/People/components/PeopleTracker/CardContent/BioByAI'
 import Committee from '@/modules/People/components/PeopleTracker/CardContent/Committee'
@@ -152,9 +154,7 @@ const PeopleContentSection = memo(function PeopleContentSection({
           component: (
             <Party
               party={people.currentParty}
-              changeRecords={PeopleUtils.parsePartyChangeRecords(
-                people.partyChangeRecords
-              )}
+              changeRecords={people.partyChangeRecords ?? []}
             />
           ),
         },
@@ -186,11 +186,7 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {
           visible: hasExperience,
           size: 5,
-          component: (
-            <Experience
-              experiences={PeopleUtils.parseExperiences(people.experiences)}
-            />
-          ),
+          component: <Experience experiences={people.experiences ?? []} />,
         },
       ],
     },
