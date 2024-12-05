@@ -14,9 +14,11 @@ export default async function GraphqlSamplePage() {
 
   return (
     <div>
-      <h1>Server</h1>
+      <h1>Server (Raw Data)</h1>
       <pre>{JSON.stringify(data, null, 2)}</pre>
-      <h2>Parsed Data</h2>
+      <h2>
+        Parsed Data (經過 People Utils parse 過的 data, 可直接在 RSC 使用)
+      </h2>
       <pre>
         {JSON.stringify(
           (data.Peoples?.docs ?? [])
@@ -26,7 +28,7 @@ export default async function GraphqlSamplePage() {
           2
         )}
       </pre>
-      <h1>Client</h1>
+      <h1>Client (Client Component)</h1>
       <ClientPeopleDemo />
     </div>
   )

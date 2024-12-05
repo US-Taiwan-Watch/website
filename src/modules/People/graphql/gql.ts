@@ -17,6 +17,7 @@ export const QUERY_PEOPLES = gql(`
         birthday {
           datetime
         }
+        currentParty
       }
     }
   }
