@@ -23,17 +23,11 @@ export default function useBillFilterForm({ initialValues }: Props) {
     })
   }, [form])
 
-  const handleSecondLevelReset = useCallback(() => {
-    form.reset({
-      category: form.getValues('category'),
-    })
-  }, [form])
-
   useEffect(() => {
     if (initialValues) {
       form.reset(initialValues)
     }
   }, [form, initialValues])
 
-  return { form, handleReset, handleSecondLevelReset }
+  return { form, handleReset }
 }

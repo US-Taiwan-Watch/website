@@ -1,12 +1,10 @@
 'use client'
 
-import MenuItem from '@mui/material/MenuItem'
 import { Controller } from 'react-hook-form'
 import useBillFilterOptions, {
   BillFilterOption,
 } from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import Filter from '@/common/components/elements/Filter'
-import USelect from '@/common/components/atoms/USelect'
 import {
   BillPartyEnum,
   BillTypeEnum,
@@ -22,7 +20,7 @@ import {
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 
 type SecondLevelSelector = {
-  key: Exclude<BillFilterInputKey, 'category'>
+  key: BillFilterInputKey
   label: string
   /** MUI Autocomplete 必須設定 minWidth 因為底下 Label 是 absolute 因此 TextField 不會被撐開 */
   minWidth: number
@@ -40,7 +38,7 @@ export default function BillFilter({
   onSubmit,
   initialValues,
 }: BillFilterProps) {
-  const { form, handleReset, handleSecondLevelReset } = useBillFilterForm({
+  const { form, handleReset } = useBillFilterForm({
     initialValues,
   })
   const {
@@ -57,6 +55,12 @@ export default function BillFilter({
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(
     () => [
+      {
+        key: 'category',
+        label: 'Category',
+        options: categoryOptions,
+        minWidth: 140,
+      },
       {
         key: 'party',
         label: 'Party',
@@ -107,14 +111,15 @@ export default function BillFilter({
       },
     ],
     [
-      congressOptions,
+      categoryOptions,
       partyOptions,
-      statusOptions,
       typeOptions,
+      congressOptions,
+      statusOptions,
       sponsorsOptions,
       cosponsorsOptions,
-      sorterOptions,
       tagOptions,
+      sorterOptions,
     ]
   )
 
@@ -136,33 +141,6 @@ export default function BillFilter({
           console.log(error)
         }),
       }}
-      firstLevelSelector={
-        <Controller
-          name="category"
-          control={form.control}
-          render={({ field }) => (
-            <USelect
-              {...field}
-              value={field.value ?? ''}
-              defaultValue={''}
-              onChange={(e) => {
-                field.onChange(e)
-                handleSecondLevelReset()
-              }}
-              isFirstLevel
-            >
-              <MenuItem value="" disabled>
-                Category
-              </MenuItem>
-              {categoryOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </USelect>
-          )}
-        />
-      }
       handleReset={handleReset}
     >
       {secondLevelSelectors.map((selector) => (
