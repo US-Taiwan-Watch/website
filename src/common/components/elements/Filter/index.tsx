@@ -18,7 +18,7 @@ const StyledFilterContainer = styled(UHStack)(({ theme }) => ({
 
 type FilterProps = {
   containerProps?: ComponentPropsWithoutRef<typeof StyledFilterContainer>
-  firstLevelSelector: ReactNode
+  firstLevelSelector?: ReactNode
   children?: ReactNode
   handleReset?: () => void
   handleSubmit?: () => void
@@ -38,13 +38,15 @@ export default function Filter({
       <UHStack gap={1.5} flexWrap="wrap">
         {firstLevelSelector}
 
-        <Divider
-          orientation="vertical"
-          flexItem
-          sx={{
-            borderColor: theme.color.neutral[200],
-          }}
-        />
+        {firstLevelSelector && (
+          <Divider
+            orientation="vertical"
+            flexItem
+            sx={{
+              borderColor: theme.color.neutral[200],
+            }}
+          />
+        )}
 
         {children}
 
