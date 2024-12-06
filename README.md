@@ -101,6 +101,7 @@ yarn lint
 
 # 準備 Ideology Leadership Chart 資料
 # 每屆國會都需要置換 public/data/ideology.txt 並執行一次 scripts/prepare-ideology.mjs，轉成圖表需要的 JSON 格式
+# ref: https://www.govtrack.us/about/analysis#ideology
 yarn prepare-ideology
 ```
 
