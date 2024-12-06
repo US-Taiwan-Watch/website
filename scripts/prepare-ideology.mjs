@@ -53,8 +53,16 @@ const groupedData = jsonData.reduce(
       acc[item.party] = acc[item.party] || []
       acc[item.party].push(item)
     } else if (item.party === 'Democrat') {
+      /**
+       * ideology 的 source data 民主黨是 Democrat，
+       * 本專案民主黨為 Democratic
+       * 因此需要做特例轉換
+       */
       acc.Democratic = acc.Democratic || []
-      acc.Democratic.push(item)
+      acc.Democratic.push({
+        ...item,
+        party: 'Democratic',
+      })
     } else {
       acc.Independents = acc.Independents || []
       acc.Independents.push(item)
