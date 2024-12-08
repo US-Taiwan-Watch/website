@@ -7,24 +7,13 @@ import { LinkIcon } from '@/common/styles/assets/Icons'
 import { People } from '@/modules/People/classes/People'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
 import PeopleTag from '@/modules/People/components/PeopleTag'
-import { Box, Stack, Typography } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import { memo } from 'react'
 
-const StyledPeopleInfoSectionContainer = styled(UHStack)(() => ({
-  minHeight: '240px',
-}))
-
-const StyledImageContainer = styled(Box)(() => ({
-  position: 'relative',
-  width: '200px',
-  borderRadius: '10px',
-  overflow: 'hidden',
-}))
-
 const StyledImage = styled(Image)(() => ({
-  width: '100%',
-  height: '100%',
+  width: '200px',
+  height: '240px',
   objectFit: 'cover',
 }))
 
@@ -54,12 +43,15 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
   people,
 }: PeopleInfoSectionProps) {
   return (
-    <StyledPeopleInfoSectionContainer spacing={2}>
+    <UHStack spacing={2}>
       {/** 圖片 */}
       {people.image && (
-        <StyledImageContainer>
-          <StyledImage src={people.image} alt={people.name ?? ''} fill />
-        </StyledImageContainer>
+        <StyledImage
+          src={people.image}
+          alt={people.name ?? ''}
+          width={200}
+          height={240}
+        />
       )}
 
       {/** Info */}
@@ -84,7 +76,7 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
           Subscribe
         </StyledSubscribeButton>
       </UHStack>
-    </StyledPeopleInfoSectionContainer>
+    </UHStack>
   )
 })
 

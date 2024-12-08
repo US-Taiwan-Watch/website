@@ -1,7 +1,7 @@
 export enum PeoplePosition {
-  HOUSE_REPRESENTATIVE = 'HOUSE REPRESENTATIVE',
-  SENATOR = 'SENATOR',
-  EXPERT = 'EXPERT',
-  OFFICIAL = 'OFFICIAL',
-  OTHER = 'OTHER',
+  HOUSE_REPRESENTATIVE = 'House Representative',
+  SENATOR = 'Senator',
+  EXPERT = 'Expert',
+  OFFICIAL = 'Official',
+  OTHER = 'Other',
 }

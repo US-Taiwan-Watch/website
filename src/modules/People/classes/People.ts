@@ -5,11 +5,16 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
-import { isArray, isString } from 'lodash-es'
-
-// TODO: delete it
-const MOCK_BIO_BY_AI =
-  'Senator Pete Ricketts, a Republican, is the junior senator from Nebraska, appointed on January 23, 2023. He is up for reelection in 2024. Ricketts strongly advocates for Taiwan’s security. He co-sponsored the BOLSTER Act to facilitate U.S.-made defense equipment transfers from European NATO countries to Taiwan and promote coordinated sanctions against China. He supports strengthening economic and political ties between Taiwan, the U.S., and Europe, focusing on Taiwan’s integration into international organizations and economic resilience, especially in semiconductors. Ricketts also emphasizes humanitarian aid for Taiwan and counters Chinese propaganda to support Taiwan’s democracy.'
+import { isArray, isBoolean, isString, uniq } from 'lodash-es'
+import {
+  Maybe,
+  People_Publications as PeoplePublications,
+  People as PeopleDTO,
+  People_CongressionalData_Committees as PeopleCongressionalDataCommittees,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
+import CommonUtils from '@/modules/Common/Common.utils'
+import { z } from 'zod'
 
 interface PartyExperienceArgs {
   party: Party
@@ -40,18 +45,25 @@ export interface Experience {
 }
 
 interface PeopleArgs {
-  id: string
-  name: string
-  image: string
-  description: string
-  party: Party
-  position: PeoplePosition
-  congress: Congress
+  id?: Maybe<string>
+  name?: Maybe<string>
+  image?: Maybe<string>
+  description?: Maybe<string>
+  party?: Party
+  // 目前擔任的職位
+  position?: PeoplePosition
+  // 過去曾經擔任過的職位
+  positions?: Array<PeoplePosition>
+  congress?: Congress
   tags: Array<string>
-  partyExperience: Array<PartyExperienceArgs>
-  experience: Array<ExperienceArgs>
+  partyExperience?: Array<PartyExperienceArgs>
+  experience?: Array<ExperienceArgs>
   constituency?: string
   chamber?: ChamberEnum
+  publications?: Array<PeoplePublications>
+  bioByAI?: string
+  committees?: Array<PeopleCongressionalDataCommittees>
+  isCurrentCongressMember?: boolean
 }
 
 export class People {
@@ -65,15 +77,17 @@ export class People {
   description?: string
   // 政黨
   party?: Party
-  // 位置
+  // 目前擔任的職位
   position?: PeoplePosition
+  // 曾經擔任過的職位
+  positions?: Array<PeoplePosition>
   // 國會
   congress?: Congress
   // 標籤
   tags?: Array<string>
-  // TODO: 政黨經歷暫定，後續討論
+  // 政黨經歷暫定，後續討論
   partyExperience: Array<PartyExperience> = []
-  // TODO: 經歷暫定，後續討論
+  // 經歷暫定，後續討論
   experience: Array<Experience> = []
   // 選區
   constituency?: string
@@ -85,12 +99,14 @@ export class People {
   coSponsoredBills: Array<Bill> = []
   // TODO: 投票紀錄
   votingRecord: Array<unknown> = []
-  // TODO: Bio by AI
-  bioByAI?: string = MOCK_BIO_BY_AI
-  // TODO: 委員會
-  committees: Array<unknown> = []
-  // TODO: 出版品
-  publications: Array<unknown> = []
+  // Bio by AI
+  bioByAI?: string
+  // 委員會
+  committees: Array<PeopleCongressionalDataCommittees> = []
+  // 出版品
+  publications: Array<PeoplePublications> = []
+  // 是否為現任議員
+  isCurrentCongressMember: boolean = false
 
   constructor(private readonly people: PeopleArgs) {
     if (isString(people.id)) {
@@ -111,6 +127,9 @@ export class People {
     if (isString(people.position)) {
       this.position = people.position
     }
+    if (isArray(people.positions)) {
+      this.positions = people.positions
+    }
     if (people.congress instanceof Congress) {
       this.congress = people.congress
     }
@@ -118,12 +137,12 @@ export class People {
       this.tags = people.tags
     }
     if (isArray(people.partyExperience)) {
-      this.partyExperience = People.TransformPartyExperience(
+      this.partyExperience = People.transformPartyExperience(
         people.partyExperience
       )
     }
     if (isArray(people.experience)) {
-      this.experience = People.TransformExperience(people.experience)
+      this.experience = People.transformExperience(people.experience)
     }
     if (isString(people.constituency)) {
       this.constituency = people.constituency
@@ -131,13 +150,25 @@ export class People {
     if (isString(people.chamber)) {
       this.chamber = people.chamber
     }
+    if (isArray(people.publications)) {
+      this.publications = people.publications
+    }
+    if (isString(people.bioByAI)) {
+      this.bioByAI = people.bioByAI
+    }
+    if (isArray(people.committees)) {
+      this.committees = people.committees
+    }
+    if (isBoolean(people.isCurrentCongressMember)) {
+      this.isCurrentCongressMember = people.isCurrentCongressMember
+    }
   }
 
   get link() {
     return `${ROUTES.PEOPLE}/${this.id}`
   }
 
-  static TransformPartyExperience(partyExperience: Array<PartyExperienceArgs>) {
+  static transformPartyExperience(partyExperience: Array<PartyExperienceArgs>) {
     return partyExperience.map((item: PartyExperienceArgs): PartyExperience => {
       return {
         party: item.party,
@@ -155,7 +186,7 @@ export class People {
     })
   }
 
-  static TransformExperience(experience: Array<ExperienceArgs>) {
+  static transformExperience(experience: Array<ExperienceArgs>) {
     return experience.map((item: ExperienceArgs): Experience => {
       return {
         title: item.title,
@@ -172,7 +203,7 @@ export class People {
           : undefined,
         descriptions: item.descriptions,
         experience: item.experience
-          ? People.TransformExperience(item.experience)
+          ? People.transformExperience(item.experience)
           : undefined,
       }
     })
@@ -184,7 +215,7 @@ export class People {
    * @param experience
    * @returns
    */
-  static CalculateExperienceDuration(experience: Experience | PartyExperience) {
+  static calculateExperienceDuration(experience: Experience | PartyExperience) {
     return {
       year: experience.end?.diff(experience.start, 'year') ?? 0,
       month: (experience.end?.diff(experience.start, 'month') ?? 0) % 12,
@@ -195,13 +226,144 @@ export class People {
   static TimeFormat = 'MMM YYYY'
 
   /**
-   * 判斷是否為現任議員
-   * TODO: 確認怎麼分辨『現任』
-   * @param people
+   * Workaround: 把目前後端 DTO 轉成前端 DTO
+   * TODO: 把前端與後端架構做整合，並把 class 設計純粹的 utility class
+   */
+  static fromDTO(dto: PeopleDTO, lang: Language) {
+    return new People({
+      id: dto.id,
+      name: dto.i18n?.[CommonUtils.getI18nkey(lang)]?.displayName,
+      image: dto.photo?.url,
+      description: dto.i18n?.[CommonUtils.getI18nkey(lang)]?.bio,
+      party: CommonUtils.getParty(dto?.currentParty),
+      position: People.parseCurrentPositionFromDTO(dto.experiences),
+      positions: People.parsePositionsFromDTO(dto.experiences),
+      congress: Congress.fromPeopleCongressDTO(dto.congressionalData),
+      tags:
+        dto.tags
+          ?.map((tag) => tag.i18n?.[CommonUtils.getI18nkey(lang)]?.name)
+          .filter((name) => isString(name)) ?? [],
+      partyExperience: People.parsePartyExperienceArgsFromDTO(
+        dto.partyChangeRecords
+      ),
+      experience: People.parseExperienceArgsFromDTO(dto.experiences),
+      // TODO: 如何獲得選區
+      constituency: '',
+      // TODO: 如何確認參眾議院
+      chamber: ChamberEnum.HOUSE,
+      publications: dto.publications ?? [],
+      bioByAI: dto.i18n?.[CommonUtils.getI18nkey(lang)]?.bio ?? '',
+      committees: dto.congressionalData?.committees ?? [],
+      isCurrentCongressMember: People.parseIsCurrentCongressMember(
+        dto.experiences
+      ),
+    })
+  }
+
+  /**
+   * Parse party experience args from DTO
+   * @param dto
    * @returns
    */
-  static IsCurrentMember(people: People) {
-    // FIXME: 確認怎麼分辨『現任』
-    return people.congress?.congressNumber === Congress.CurrentCongressNumber
+  static parsePartyExperienceArgsFromDTO(dto: PeopleDTO['partyChangeRecords']) {
+    if (!isArray(dto)) return []
+
+    const args: Array<PartyExperienceArgs> = []
+    for (let i = 0; i < dto.length; i++) {
+      const item = dto[i]
+      if (!isString(item.newParty)) continue
+      const party = CommonUtils.getParty(item.newParty)
+      if (!party) continue
+      args.push({
+        party,
+        start: item.changedAt?.datetime ?? undefined,
+        end: dto[i + 1]?.changedAt?.datetime ?? undefined,
+      })
+    }
+    return args
+  }
+
+  /**
+   * Parse experience args from DTO
+   * @param dto
+   * @returns
+   */
+  static parseExperienceArgsFromDTO(dto: PeopleDTO['experiences']) {
+    if (!isArray(dto)) return []
+
+    const args: Array<ExperienceArgs> = []
+    for (let i = 0; i < dto.length; i++) {
+      const item = dto[i]
+      const positions = item.positions
+      if (!isArray(positions)) continue
+      if (positions.length === 1) {
+        args.push({
+          title: item.company ?? '',
+          subtitle: positions[0].title ?? '',
+          start: positions[0].start?.datetime ?? undefined,
+          end: positions[0].end?.datetime ?? undefined,
+          descriptions: positions[0].description
+            ? [positions[0].description]
+            : [],
+        })
+      } else {
+        args.push({
+          title: item.company ?? '',
+          experience: positions.map((position) => ({
+            title: position.title ?? '',
+            start: position.start?.datetime ?? undefined,
+            end: position.end?.datetime ?? undefined,
+            descriptions: position.description ? [position.description] : [],
+          })),
+        })
+      }
+    }
+    return args
+  }
+
+  static parseIsCurrentCongressMember(dto: PeopleDTO['experiences']) {
+    if (!isArray(dto)) return false
+    const currentExperience = dto.find(
+      (item) =>
+        item.isCurrent &&
+        (item.category === PeoplePosition.SENATOR ||
+          item.category === PeoplePosition.HOUSE_REPRESENTATIVE)
+    )
+    if (!currentExperience || !isString(currentExperience.category))
+      return false
+    return !!z.nativeEnum(PeoplePosition).safeParse(currentExperience.category)
+      .data
+  }
+
+  /**
+   * 解析目前擔任的職位
+   * @param dto
+   * @returns
+   */
+  static parseCurrentPositionFromDTO(
+    dto: PeopleDTO['experiences']
+  ): PeoplePosition | undefined {
+    if (!isArray(dto)) return undefined
+    const currentExperience = dto.find((item) => item.isCurrent)
+    if (!currentExperience || !isString(currentExperience.category))
+      return undefined
+    return z.nativeEnum(PeoplePosition).safeParse(currentExperience.category)
+      .data
+  }
+
+  /**
+   * 解析過去曾經擔任過的職位
+   * @param dto
+   * @returns
+   */
+  static parsePositionsFromDTO(dto: PeopleDTO['experiences']) {
+    if (!isArray(dto)) return []
+    return uniq(
+      dto
+        .map(
+          (item) => z.nativeEnum(PeoplePosition).safeParse(item.category).data
+        )
+        .filter(Boolean)
+    ) as Array<PeoplePosition>
   }
 }
