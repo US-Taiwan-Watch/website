@@ -21,7 +21,7 @@ const sponsor1 = new People({
   image: '/assets/category1.jpg',
   description:
     "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
-  party: Party.DEMOCRAT,
+  party: Party.DEMOCRATIC,
   position: PeoplePosition.SENATOR,
   chamber: ChamberEnum.SENATE,
   congress: new Congress({
@@ -30,12 +30,12 @@ const sponsor1 = new People({
     endYear: 2025,
     houseMembers: 100,
     houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
     senateMembers: 100,
     senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
   }),
@@ -60,12 +60,12 @@ const sponsor2 = new People({
     endYear: 2025,
     houseMembers: 100,
     houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
     senateMembers: 100,
     senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
   }),
@@ -90,12 +90,12 @@ const sponsor3 = new People({
     endYear: 2025,
     houseMembers: 100,
     houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
     senateMembers: 100,
     senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
   }),
@@ -111,7 +111,7 @@ const sponsor4 = new People({
   image: '/assets/category1.jpg',
   description:
     "Baldwin is the representative for Wisconsin's 2nd congressional district.",
-  party: Party.DEMOCRAT,
+  party: Party.DEMOCRATIC,
   position: PeoplePosition.SENATOR,
   chamber: ChamberEnum.SENATE,
   congress: new Congress({
@@ -120,12 +120,12 @@ const sponsor4 = new People({
     endYear: 2025,
     houseMembers: 100,
     houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
     senateMembers: 100,
     senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
   }),
@@ -150,12 +150,12 @@ const sponsor5 = new People({
     endYear: 2025,
     houseMembers: 100,
     houseDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
     senateMembers: 100,
     senateDistribution: new Map([
-      [Party.DEMOCRAT, 50],
+      [Party.DEMOCRATIC, 50],
       [Party.REPUBLICAN, 50],
     ]),
   }),
@@ -175,7 +175,7 @@ export const BILL_SPONSOR_MOCK: People[] = [
 
 export const PARLIAMENT_CHART_DATA_MOCK_1: ParliamentChartData[] = [
   {
-    party: Party.DEMOCRAT,
+    party: Party.DEMOCRATIC,
     count: 50,
   },
   {
@@ -190,7 +190,7 @@ export const PARLIAMENT_CHART_DATA_MOCK_1: ParliamentChartData[] = [
 
 export const PARLIAMENT_CHART_DATA_MOCK_2: ParliamentChartData[] = [
   {
-    party: Party.DEMOCRAT,
+    party: Party.DEMOCRATIC,
     count: 69,
   },
   {

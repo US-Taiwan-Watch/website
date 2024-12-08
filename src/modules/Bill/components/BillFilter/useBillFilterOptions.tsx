@@ -44,7 +44,7 @@ export default function useBillFilterOptions() {
 
   const partyOptions = useMemo<BillFilterOption<BillPartyEnum>[]>(
     () => [
-      { value: BillPartyEnum.Democrat, label: 'Democrat' },
+      { value: BillPartyEnum.Democratic, label: 'Democratic' },
       { value: BillPartyEnum.Republican, label: 'Republican' },
       { value: BillPartyEnum.Independent, label: 'Independent' },
     ],

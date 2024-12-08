@@ -42,16 +42,27 @@ const jsonData = lines.slice(1).map((line) => {
 /**
  * Output:
  * {
- *   Democrat: [...],
+ *   Democratic: [...],
  *   Republican: [...],
  *   Independents: [...],
  * }
  */
 const groupedData = jsonData.reduce(
   (acc, item) => {
-    if (item.party === 'Democrat' || item.party === 'Republican') {
+    if (item.party === 'Republican') {
       acc[item.party] = acc[item.party] || []
       acc[item.party].push(item)
+    } else if (item.party === 'Democrat') {
+      /**
+       * ideology 的 source data 民主黨是 Democrat，
+       * 本專案民主黨為 Democratic
+       * 因此需要做特例轉換
+       */
+      acc.Democratic = acc.Democratic || []
+      acc.Democratic.push({
+        ...item,
+        party: 'Democratic',
+      })
     } else {
       acc.Independents = acc.Independents || []
       acc.Independents.push(item)
@@ -60,7 +71,7 @@ const groupedData = jsonData.reduce(
   },
   // 手動定義 legend 排序
   {
-    Democrat: [],
+    Democratic: [],
     Republican: [],
   }
 )
