@@ -210,7 +210,7 @@ const color = {
     ...colors.indigo,
     50: '#D6EDFF', // Secondary 2
     400: '#3664E5', // Primary 3
-    600: '#3248BE', // Democrat
+    600: '#3248BE', // Democratic
     700: '#3986FF',
     800: '#2A2E36',
   },
@@ -222,14 +222,14 @@ const color = {
   wheat: {
     100: '#F0D9A1', // Secondary 6
     200: '#E6CA87', // Ketagalan Media 1
-    300: '#F7FFBE', // Democrat 1
+    300: '#F7FFBE', // Democratic 1
   },
   tyrian: {
     50: '#F8D9EF', // Secondary 3
   },
   green: {
     ...colors.green,
-    100: '#D1FCDD', // Democrat 2
+    100: '#D1FCDD', // Democratic 2
   },
   neutral: {
     100: '#E0E0E0',
