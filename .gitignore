@@ -37,7 +37,3 @@ next-env.d.ts
 
 # 等 content manager 決定後，再決定要不要 ignore
 # src/common/lib/i18n/locales/
-
-# generated graphql types
-/src/common/lib/graphql/schema.graphql
-/src/common/lib/graphql/__generated__
