@@ -33,7 +33,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import people from '@/modules/People/data'
+import { findAllPeople } from '@/modules/People/data'
 import UTimeline, { UTimelineData } from '@/common/components/atoms/UTimeline'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
@@ -42,6 +42,7 @@ import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UHashTag from '@/common/components/atoms/UHashTag'
 import USelect from '@/common/components/atoms/USelect'
 import { Party } from '@/common/enums/Party'
+import { People } from '@/modules/People/classes/People'
 
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
@@ -293,73 +294,31 @@ export default function DesignSystemIconsPage() {
       </Box>
       <h2>People Card</h2>
       <Grid container spacing={2}>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} />
-        </Grid>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} />
-        </Grid>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} />
-        </Grid>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} />
-        </Grid>
+        {findAllPeople().map((people, index) => (
+          <Grid
+            key={index}
+            size={{
+              xs: 12,
+              sm: 6,
+            }}
+          >
+            <PeopleCard people={People.fromDTO(people, 'en-US')} />
+          </Grid>
+        ))}
       </Grid>
       <h2>Simplified People Card</h2>
       <Grid container spacing={2}>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} simplified />
-        </Grid>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} simplified />
-        </Grid>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} simplified />
-        </Grid>
-        <Grid
-          size={{
-            xs: 12,
-            sm: 6,
-          }}
-        >
-          <PeopleCard people={people} simplified />
-        </Grid>
+        {findAllPeople().map((people, index) => (
+          <Grid
+            key={index}
+            size={{
+              xs: 12,
+              sm: 6,
+            }}
+          >
+            <PeopleCard people={People.fromDTO(people, 'en-US')} simplified />
+          </Grid>
+        ))}
       </Grid>
 
       <h2>Timeline</h2>
