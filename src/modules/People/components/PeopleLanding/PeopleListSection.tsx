@@ -35,7 +35,7 @@ const PeopleListSection = ({ peoples }: PeopleListSectionProps) => {
           }}
         />
         <Box>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} alignItems="stretch">
             {peoples.map((people) => (
               <Grid key={people.id} size={6}>
                 <PeopleCard people={people} simplified />

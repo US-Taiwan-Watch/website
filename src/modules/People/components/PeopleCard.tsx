@@ -15,6 +15,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 
 const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
+  height: '100%',
   width: '100%',
   padding: theme.spacing(2.5),
   borderRadius: '15px',
@@ -78,8 +79,10 @@ const PeopleCard = memo(function PeopleCard({
               <Typography fontSize={'1.5rem'} fontWeight={600}>
                 {people.name}
               </Typography>
-              {people.congress && (
-                <PeopleCongressTitle congress={people.congress} />
+              {people.congressExperienceRange && (
+                <PeopleCongressTitle
+                  congressExperienceRange={people.congressExperienceRange}
+                />
               )}
               {!simplified && (
                 <StyledPeopleCardDescription maxLine={2} fontWeight={400}>

@@ -34,6 +34,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2021-01-20T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -50,6 +51,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2017-01-20T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -134,6 +136,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T04:56:13.332Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -223,6 +226,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -296,6 +300,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:07:01.473Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -328,6 +333,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2021-01-18T00:00:00.000Z',
             },
+            congresses: [115, 116, 117],
           },
         ],
       },
@@ -344,6 +350,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -407,6 +414,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:13:56.388Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -439,6 +447,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2019-01-03T00:00:00.000Z',
             },
+            congresses: [110, 111, 112, 113, 114, 115],
           },
         ],
       },
@@ -455,6 +464,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -507,6 +517,7 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:21:48.553Z',
     viewCount: 0,
+    votes: [],
   },
 ] as unknown as People[]
 
@@ -620,6 +631,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [114, 115, 116, 117, 118],
           },
         ],
       },
@@ -673,6 +685,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T17:07:19.641Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -740,6 +753,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [116, 117, 118],
           },
         ],
       },
@@ -778,6 +792,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T16:36:47.277Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -883,6 +898,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2007-01-03T00:00:00.000Z',
             },
+            congresses: [103, 104, 105, 106, 107, 108, 109],
           },
         ],
       },
@@ -899,6 +915,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [110, 111, 112, 113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -947,6 +964,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T16:23:11.776Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1031,6 +1049,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [116, 117, 118],
           },
         ],
       },
@@ -1078,6 +1097,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T16:02:16.172Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1151,6 +1171,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2023-01-03T00:00:00.000Z',
             },
+            congresses: [113, 114, 115, 116, 117],
           },
           {
             title: 'Representative for district 6, California',
@@ -1160,6 +1181,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -1195,7 +1217,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Ami_Bera.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1205,8 +1229,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     tags: [],
-    updatedAt: '2024-12-08T05:49:30.237Z',
+    updatedAt: '2024-12-09T03:01:17.893Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1239,6 +1264,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2006-06-09T00:00:00.000Z',
             },
+            congresses: [99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109],
           },
         ],
       },
@@ -1270,6 +1296,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T15:34:44.526Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1385,6 +1412,10 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2013-01-03T00:00:00.000Z',
             },
+            congresses: [
+              94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107,
+              108, 109, 110, 111, 112,
+            ],
           },
           {
             title: 'Representative for district 5, Massachusetts',
@@ -1394,6 +1425,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2013-07-15T00:00:00.000Z',
             },
+            congresses: [113],
           },
         ],
       },
@@ -1410,6 +1442,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -1457,6 +1490,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T15:23:40.825Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1489,6 +1523,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2009-01-03T00:00:00.000Z',
             },
+            congresses: [104, 105, 106, 107, 108, 109, 110],
           },
           {
             title: 'Representative for district 1, Ohio',
@@ -1498,6 +1533,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2023-01-03T00:00:00.000Z',
             },
+            congresses: [112, 113, 114, 115, 116, 117],
           },
         ],
       },
@@ -1530,6 +1566,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T14:45:43.076Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1562,6 +1599,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2006-01-16T00:00:00.000Z',
             },
+            congresses: [103, 104, 105, 106, 107, 108, 109],
           },
         ],
       },
@@ -1578,6 +1616,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2024-08-20T00:00:00.000Z',
             },
+            congresses: [109, 110, 111, 112, 113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -1614,6 +1653,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T16:27:28.282Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1646,6 +1686,10 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '1983-12-03T00:00:00.000Z',
             },
+            congresses: [
+              81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96,
+              97,
+            ],
           },
         ],
       },
@@ -1677,6 +1721,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T14:19:42.419Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1787,6 +1832,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [112, 113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -1856,6 +1902,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T06:26:34.406Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1901,6 +1948,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -1948,6 +1996,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T06:09:18.796Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -1987,6 +2036,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [109, 110, 111, 112, 113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -2027,7 +2077,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Cathy_McMorris_Rodgers.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -2038,8 +2090,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     tags: [],
-    updatedAt: '2024-12-07T05:19:56.242Z',
+    updatedAt: '2024-12-09T03:07:33.284Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2072,6 +2125,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2015-01-03T00:00:00.000Z',
             },
+            congresses: [112, 113],
           },
         ],
       },
@@ -2088,6 +2142,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2021-01-03T00:00:00.000Z',
             },
+            congresses: [114, 115, 116],
           },
         ],
       },
@@ -2120,6 +2175,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T04:44:25.885Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2193,6 +2249,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [111, 112, 113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -2250,6 +2307,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T04:29:43.363Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2282,6 +2340,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2013-01-03T00:00:00.000Z',
             },
+            congresses: [108, 109, 110, 111, 112],
           },
           {
             title: 'Representative for district 13, Ohio',
@@ -2291,6 +2350,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2023-01-03T00:00:00.000Z',
             },
+            congresses: [113, 114, 115, 116, 117],
           },
         ],
       },
@@ -2329,6 +2389,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-07T03:40:07.454Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2362,6 +2423,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -2378,6 +2440,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2023-01-01T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -2423,6 +2486,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:57:05.436Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2455,6 +2519,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
           {
             title:
@@ -2465,6 +2530,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2013-02-08T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -2481,6 +2547,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2024-02-12T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -2513,6 +2580,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:54:54.087Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2545,6 +2613,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -2577,6 +2646,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:52:31.687Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2649,6 +2719,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [113, 114, 115, 116, 117, 118],
           },
         ],
       },
@@ -2689,13 +2760,16 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Ann_Wagner.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
     tags: [],
-    updatedAt: '2024-12-06T07:49:33.927Z',
+    updatedAt: '2024-12-09T03:05:25.516Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2773,6 +2847,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -2805,6 +2880,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:46:22.064Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -2877,6 +2953,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2023-01-03T00:00:00.000Z',
             },
+            congresses: [117],
           },
           {
             title: 'Representative for district 40, California',
@@ -2886,6 +2963,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -2923,6 +3001,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:43:56.020Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3012,6 +3091,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [116, 117, 118],
           },
         ],
       },
@@ -3037,13 +3117,16 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Chris_Pappas.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
     tags: [],
-    updatedAt: '2024-12-06T07:38:38.247Z',
+    updatedAt: '2024-12-09T03:21:33.017Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3116,6 +3199,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2023-01-03T00:00:00.000Z',
             },
+            congresses: [117],
           },
           {
             title: 'Representative for district 18, New York',
@@ -3125,6 +3209,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -3157,6 +3242,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:35:25.201Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3229,6 +3315,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [116, 117, 118],
           },
         ],
       },
@@ -3261,6 +3348,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:24:57.908Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3333,6 +3421,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -3365,6 +3454,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T07:25:30.865Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3442,6 +3532,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2003-01-03T00:00:00.000Z',
             },
+            congresses: [105, 106, 107],
           },
           {
             title: 'Representative for district 27, California',
@@ -3451,6 +3542,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2013-01-03T00:00:00.000Z',
             },
+            congresses: [108, 109, 110, 111, 112],
           },
           {
             title: 'Representative for district 30, California',
@@ -3460,6 +3552,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -3495,13 +3588,16 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Brad_Sherman.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
     tags: [],
-    updatedAt: '2024-12-06T06:13:15.524Z',
+    updatedAt: '2024-12-09T03:04:24.217Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3586,6 +3682,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [114, 115, 116, 117, 118],
           },
         ],
       },
@@ -3638,6 +3735,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T06:05:50.815Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3670,6 +3768,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
           {
             title: 'Vice President',
@@ -3679,6 +3778,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2017-01-20T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -3695,6 +3795,10 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2009-01-15T00:00:00.000Z',
             },
+            congresses: [
+              93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106,
+              107, 108, 109, 110, 111,
+            ],
           },
         ],
       },
@@ -3752,6 +3856,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:59:43.883Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3784,6 +3889,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -3800,6 +3906,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -3816,6 +3923,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -3832,6 +3940,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -3848,6 +3957,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2018-01-01T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -3880,6 +3990,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:25:12.753Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -3912,6 +4023,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2019-01-03T00:00:00.000Z',
             },
+            congresses: [110, 111, 112, 113, 114, 115],
           },
         ],
       },
@@ -3928,6 +4040,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -3980,6 +4093,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:21:48.553Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -4012,6 +4126,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2021-01-18T00:00:00.000Z',
             },
+            congresses: [115, 116, 117],
           },
         ],
       },
@@ -4028,6 +4143,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [],
           },
         ],
       },
@@ -4091,6 +4207,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:13:56.388Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -4180,6 +4297,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: null,
             },
+            congresses: [118],
           },
         ],
       },
@@ -4253,6 +4371,7 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T05:07:01.473Z',
     viewCount: 0,
+    votes: [],
   },
   {
     __typename: 'People',
@@ -4285,6 +4404,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2021-01-20T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -4301,6 +4421,7 @@ export const PEOPLE_DTO_MOCK = [
             end: {
               datetime: '2017-01-20T00:00:00.000Z',
             },
+            congresses: [],
           },
         ],
       },
@@ -4385,5 +4506,6 @@ export const PEOPLE_DTO_MOCK = [
     tags: [],
     updatedAt: '2024-12-06T04:56:13.332Z',
     viewCount: 0,
+    votes: [],
   },
 ] as unknown as People[]
