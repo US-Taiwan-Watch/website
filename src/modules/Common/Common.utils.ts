@@ -4,7 +4,13 @@ import { Language } from '@/common/lib/i18n/types'
 import { z } from 'zod'
 
 export default class CommonUtils {
-  static getI18nkey(lang: Language) {
+  /**
+   * 把前端語言轉換成 API 語言
+   * TODO: 後續前端語言 key 可以改成與 API 一致
+   * @param lang
+   * @returns
+   */
+  static parseAPII18nKey(lang: Language) {
     switch (lang) {
       case 'en-US':
         return 'en'
@@ -15,7 +21,12 @@ export default class CommonUtils {
     }
   }
 
-  static getParty(party?: Maybe<string>) {
+  /**
+   * 把 API 的 party 轉換成前端 enum
+   * @param party
+   * @returns
+   */
+  static parseAPIParty(party?: Maybe<string>) {
     if (!party) return undefined
     return z.nativeEnum(Party).safeParse(party).data
   }

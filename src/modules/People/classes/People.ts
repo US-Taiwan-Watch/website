@@ -232,16 +232,16 @@ export class People {
   static fromDTO(dto: PeopleDTO, lang: Language) {
     return new People({
       id: dto.id,
-      name: dto.i18n?.[CommonUtils.getI18nkey(lang)]?.displayName,
+      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.displayName,
       image: dto.photo?.url,
-      description: dto.i18n?.[CommonUtils.getI18nkey(lang)]?.bio,
-      party: CommonUtils.getParty(dto?.currentParty),
+      description: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio,
+      party: CommonUtils.parseAPIParty(dto?.currentParty),
       position: People.parseCurrentPositionFromDTO(dto.experiences),
       positions: People.parsePositionsFromDTO(dto.experiences),
       congress: Congress.fromPeopleCongressDTO(dto.congressionalData),
       tags:
         dto.tags
-          ?.map((tag) => tag.i18n?.[CommonUtils.getI18nkey(lang)]?.name)
+          ?.map((tag) => tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name)
           .filter((name) => isString(name)) ?? [],
       partyExperience: People.parsePartyExperienceArgsFromDTO(
         dto.partyChangeRecords
@@ -252,7 +252,7 @@ export class People {
       // TODO: 如何確認參眾議院
       chamber: ChamberEnum.HOUSE,
       publications: dto.publications ?? [],
-      bioByAI: dto.i18n?.[CommonUtils.getI18nkey(lang)]?.bio ?? '',
+      bioByAI: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio ?? '',
       committees: dto.congressionalData?.committees ?? [],
       isCurrentCongressMember: People.parseIsCurrentCongressMember(
         dto.experiences
@@ -272,7 +272,7 @@ export class People {
     for (let i = 0; i < dto.length; i++) {
       const item = dto[i]
       if (!isString(item.newParty)) continue
-      const party = CommonUtils.getParty(item.newParty)
+      const party = CommonUtils.parseAPIParty(item.newParty)
       if (!party) continue
       args.push({
         party,
