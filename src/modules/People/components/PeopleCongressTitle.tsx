@@ -10,7 +10,8 @@ const PeopleCongressTitle = function PeopleCongressTitle({
 }: PeopleCongressTitleProps) {
   if (
     !congressExperienceRange.earliestCongress ||
-    !congressExperienceRange.latestCongress
+    !congressExperienceRange.latestCongress ||
+    !congressExperienceRange.earliestCongressYear
   )
     return null
 
