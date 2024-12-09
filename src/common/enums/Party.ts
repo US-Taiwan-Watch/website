@@ -1,6 +1,6 @@
 // List all parties in United States
 export enum Party {
-  DEMOCRAT = 'democratic',
+  DEMOCRATIC = 'democratic',
   REPUBLICAN = 'republican',
   INDEPENDENT = 'independent',
 }
