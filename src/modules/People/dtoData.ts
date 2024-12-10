@@ -4500,6 +4500,105 @@ export const PEOPLE_DTO_MOCK = [
       {
         id: '6755339e264bccd385d21f3c',
         title: '測試Taiwan Record',
+        author: {
+          id: '67498661beb8fe8bfa145cda',
+          fullName: 'USTW Admin',
+        },
+        createdAt: '2024-12-08T05:50:22.055Z',
+        updatedAt: '2024-12-08T12:32:32.717Z',
+        description: '測試Taiwan Record',
+        photos: [
+          {
+            photo: {
+              url: '/assets/category1.jpg',
+            },
+          },
+        ],
+        sources: [
+          {
+            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
+          },
+          {
+            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
+          },
+          {
+            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
+          },
+          {
+            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
+          },
+          {
+            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
+          },
+        ],
+        status: 'approved',
+        versions: [
+          {
+            approvedAt: '2024-12-08T08:44:05.484Z',
+            data: {
+              title: 'asd',
+              description: 'asd',
+              people: '674f3dc4c2061b5227b8f1b0',
+              author: '67498661beb8fe8bfa145cda',
+              sources: [],
+              photos: [{}],
+            },
+            id: '67555c55f8654ebb5031333f',
+            version: 1,
+          },
+          {
+            approvedAt: '2024-12-08T12:29:16.716Z',
+            data: {
+              title: '測試Taiwan Record',
+              description: '測試Taiwan Record',
+              people: '674f3dc4c2061b5227b8f1b0',
+              author: '67498661beb8fe8bfa145cda',
+              sources: [],
+              photos: [],
+            },
+            id: '6755911c0a0e2d08e6a10048',
+            version: 2,
+          },
+          {
+            approvedAt: '2024-12-08T12:31:08.850Z',
+            data: {
+              title: '測試Taiwan Record',
+              description: '測試Taiwan Record',
+              people: '674f3dc4c2061b5227b8f1b0',
+              author: '67498661beb8fe8bfa145cda',
+              sources: [],
+              photos: [],
+            },
+            id: '6755918d7544c909c9c526d2',
+            version: 3,
+          },
+          {
+            approvedAt: '2024-12-08T12:31:25.956Z',
+            data: {
+              title: '測試Taiwan Record',
+              description: '測試Taiwan Record',
+              people: '674f3dc4c2061b5227b8f1b0',
+              author: '67498661beb8fe8bfa145cda',
+              sources: [],
+              photos: [],
+            },
+            id: '6755919e7544c909c9c526d3',
+            version: 4,
+          },
+          {
+            approvedAt: '2024-12-08T12:32:32.510Z',
+            data: {
+              title: '測試Taiwan Record',
+              description: '測試Taiwan Record',
+              people: '674f3dc4c2061b5227b8f1b0',
+              author: '67498661beb8fe8bfa145cda',
+              sources: [],
+              photos: [],
+            },
+            id: '675591e07544c909c9c526d4',
+            version: 5,
+          },
+        ],
       },
     ],
     sponsorBills: [],
