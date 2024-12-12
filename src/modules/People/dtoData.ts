@@ -107,7 +107,9 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Donald_Trump.jpg',
+    },
     publications: [
       {
         id: '674f3dc49ed90400318f042a',
@@ -129,7 +131,94 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
     records: [
       {
         id: '6755339e264bccd385d21f3c',
-        title: '測試Taiwan Record',
+        title: '川普拒絕承諾協防台灣',
+        author: {
+          id: '67498661beb8fe8bfa145cda',
+          fullName: 'USTW Admin',
+        },
+        createdAt: '2024-12-08T05:50:22.055Z',
+        updatedAt: '2024-12-11T02:16:58.567Z',
+        description:
+          '美國總統當選人川普在 12/08/2024 播出的NBC專訪節目中，再度被問及「若中國入侵台灣，是否會承諾保衛台灣？」對此，川普回應：「我永遠不會說」（I never say）。當被主持人維爾克（Kristen Welker）追問時，川普表示：「我不會說，因為我總得進行談判，對吧？」主持人繼續追問，川普也說，他更希望中國不會入侵台灣，強調「我跟習主席的關係很好，我們一直保持溝通。 」',
+        photos: [
+          {
+            id: '6758f61a73b2270032e31f8c',
+            photo: {
+              url: 'https://ustwcmsstorage.blob.core.windows.net/media-taiwan-record/image.png',
+            },
+          },
+        ],
+        sources: [
+          {
+            id: '6758f61a73b2270032e31f8b',
+            link: 'https://www.dw.com/zh-hant/%E5%B7%9D%E6%99%AE%E6%8B%92%E7%B5%95%E6%89%BF%E8%AB%BE%E5%8D%94%E9%98%B2%E5%8F%B0%E7%81%A3/a-71010556',
+          },
+        ],
+        status: 'approved',
+        versions: [
+          {
+            approvedAt: '2024-12-11T02:16:58.494Z',
+            data: {
+              title: '川普拒絕承諾協防台灣',
+              description:
+                '美國總統當選人川普在 12/08/2024 播出的NBC專訪節目中，再度被問及「若中國入侵台灣，是否會承諾保衛台灣？」對此，川普回應：「我永遠不會說」（I never say）。當被主持人維爾克（Kristen Welker）追問時，川普表示：「我不會說，因為我總得進行談判，對吧？」主持人繼續追問，川普也說，他更希望中國不會入侵台灣，強調「我跟習主席的關係很好，我們一直保持溝通。 」',
+              people: '674f3dc4c2061b5227b8f1b0',
+              author: '67498661beb8fe8bfa145cda',
+              sources: [
+                {
+                  link: 'https://www.dw.com/zh-hant/%E5%B7%9D%E6%99%AE%E6%8B%92%E7%B5%95%E6%89%BF%E8%AB%BE%E5%8D%94%E9%98%B2%E5%8F%B0%E7%81%A3/a-71010556',
+                },
+              ],
+              photos: [
+                {
+                  photo: '6758e6cbe981ce40d9597d50',
+                },
+              ],
+            },
+            id: '6758f61a73b2270032e31f8d',
+            version: 1,
+          },
+        ],
+      },
+      {
+        id: '6758e7c1e981ce40d9597db8',
+        title: '川普稱台灣偷走美國晶片產業',
+        author: {
+          id: '67498661beb8fe8bfa145cda',
+          fullName: 'USTW Admin',
+        },
+        createdAt: '2024-12-11T01:15:45.743Z',
+        updatedAt: '2024-12-11T05:05:10.173Z',
+        description:
+          '川普在「彭博商業周刊」（Bloomberg Businessweek）專訪中重申他2023年首次提出的主張，即台灣已從美國搶走「幾乎100%」晶片產業，還說「我們根本不該讓這種情況發生」。',
+        photos: [],
+        sources: [
+          {
+            id: '6758e7cd73b2270032e31f89',
+            link: 'https://www.cna.com.tw/news/aipl/202407240167.aspx',
+          },
+        ],
+        status: 'approved',
+        versions: [
+          {
+            approvedAt: '2024-12-11T01:15:57.377Z',
+            data: {
+              title: '川普稱台灣偷走美國晶片產業',
+              description:
+                '川普在「彭博商業周刊」（Bloomberg Businessweek）專訪中重申他2023年首次提出的主張，即台灣已從美國搶走「幾乎100%」晶片產業，還說「我們根本不該讓這種情況發生」。',
+              people: '674f3dc4c2061b5227b8f1b0',
+              author: '67498661beb8fe8bfa145cda',
+              sources: [
+                {
+                  link: 'https://www.cna.com.tw/news/aipl/202407240167.aspx',
+                },
+              ],
+              photos: [],
+            },
+            id: '6758e7cd73b2270032e31f8a',
+            version: 1,
+          },
+        ],
       },
     ],
     sponsorBills: [],
@@ -287,7 +376,9 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/JD_Vance.jpg',
+    },
     publications: [
       {
         id: '67528675f5009a00321fea01',
@@ -396,7 +487,9 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Kamala_Harris.jpg',
+    },
     publications: [
       {
         id: '67528814f5009a00321fea19',
@@ -510,7 +603,9 @@ export const POPULAR_PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Tim_Walz.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -672,7 +767,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Dan_Sullivan.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -779,7 +876,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Thomas_P_Tiffany.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -951,7 +1050,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Sherrod_Brown.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1085,7 +1186,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Rick_Scott.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1218,7 +1321,7 @@ export const PEOPLE_DTO_MOCK = [
     ],
     partyChangeRecords: [],
     photo: {
-      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Ami_Bera.png',
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Ami_Bera.jpg',
     },
     publications: [],
     records: [],
@@ -1229,7 +1332,7 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     tags: [],
-    updatedAt: '2024-12-09T03:01:17.893Z',
+    updatedAt: '2024-12-11T13:32:29.592Z',
     viewCount: 0,
     votes: [],
   },
@@ -1284,7 +1387,9 @@ export const PEOPLE_DTO_MOCK = [
     id: '67546b14437319f5138be959',
     links: [],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Tom_DeLay.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1478,7 +1583,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Edward_J_Markey.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1553,7 +1660,9 @@ export const PEOPLE_DTO_MOCK = [
     id: '67545f97437319f5138be567',
     links: [],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Steve_Chabot.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1636,7 +1745,9 @@ export const PEOPLE_DTO_MOCK = [
     id: '67545c8f437319f5138be3e5',
     links: [],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Robert_Menendez.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1709,7 +1820,9 @@ export const PEOPLE_DTO_MOCK = [
     id: '6754597e437319f5138be2be',
     links: [],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Clement_J_Zablocki.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -1868,7 +1981,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Marco_Rubio.jpg',
+    },
     publications: [
       {
         id: '6753ea9aa31c960031c15ddd',
@@ -1984,7 +2099,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Jason_Smith.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -2078,7 +2195,7 @@ export const PEOPLE_DTO_MOCK = [
     ],
     partyChangeRecords: [],
     photo: {
-      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Cathy_McMorris_Rodgers.png',
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Cathy_McMorris_Rodgers.jpg',
     },
     publications: [],
     records: [],
@@ -2162,7 +2279,9 @@ export const PEOPLE_DTO_MOCK = [
     id: '6753d2a91e937e031b1b2fcf',
     links: [],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Cory_Gardner.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -2290,7 +2409,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Gerald_E_Connolly.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -2370,7 +2491,9 @@ export const PEOPLE_DTO_MOCK = [
     id: '6752ce4d1e937e031b1b2222',
     links: [],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Tim_Ryan.png',
+    },
     publications: [
       {
         id: '6753c2594b046d7ce13a5aa4',
@@ -2466,7 +2589,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Ian_Easton.png',
+    },
     publications: [
       {
         id: '6752ae51e3d2f20031988645',
@@ -2573,7 +2698,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Kurt_Campbell.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -2639,7 +2766,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Laura_Rosenberger.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -2761,13 +2890,13 @@ export const PEOPLE_DTO_MOCK = [
     ],
     partyChangeRecords: [],
     photo: {
-      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Ann_Wagner.png',
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Ann_Wagner.jpg',
     },
     publications: [],
     records: [],
     sponsorBills: [],
     tags: [],
-    updatedAt: '2024-12-09T03:05:25.516Z',
+    updatedAt: '2024-12-11T09:58:19.768Z',
     viewCount: 0,
     votes: [],
   },
@@ -2873,7 +3002,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Monica_De_La_Cruz.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -2989,7 +3120,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Young_Kim.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -3235,7 +3368,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Patrick_Ryan.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -3341,7 +3476,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Susie_Lee.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -3447,7 +3584,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Michael_Lawler.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -3589,13 +3728,13 @@ export const PEOPLE_DTO_MOCK = [
     ],
     partyChangeRecords: [],
     photo: {
-      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Brad_Sherman.png',
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Brad_Sherman.jpg',
     },
     publications: [],
     records: [],
     sponsorBills: [],
     tags: [],
-    updatedAt: '2024-12-09T03:04:24.217Z',
+    updatedAt: '2024-12-11T10:00:06.874Z',
     viewCount: 0,
     votes: [],
   },
@@ -3723,7 +3862,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/French_Hill.png',
+    },
     publications: [],
     records: [],
     sponsorBills: [
@@ -3849,7 +3990,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Joe_Biden.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -3983,12 +4126,14 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Elon_Musk.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
     tags: [],
-    updatedAt: '2024-12-06T05:25:12.753Z',
+    updatedAt: '2024-12-11T10:14:52.125Z',
     viewCount: 0,
     votes: [],
   },
@@ -4086,7 +4231,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Tim_Walz.jpg',
+    },
     publications: [],
     records: [],
     sponsorBills: [],
@@ -4189,7 +4336,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Kamala_Harris.jpg',
+    },
     publications: [
       {
         id: '67528814f5009a00321fea19',
@@ -4358,7 +4507,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/JD_Vance.jpg',
+    },
     publications: [
       {
         id: '67528675f5009a00321fea01',
@@ -4477,7 +4628,9 @@ export const PEOPLE_DTO_MOCK = [
       },
     ],
     partyChangeRecords: [],
-    photo: null,
+    photo: {
+      url: 'https://ustwcmsstorage.blob.core.windows.net/media-people/Donald_Trump.jpg',
+    },
     publications: [
       {
         id: '674f3dc49ed90400318f042a',
@@ -4499,104 +4652,92 @@ export const PEOPLE_DTO_MOCK = [
     records: [
       {
         id: '6755339e264bccd385d21f3c',
-        title: '測試Taiwan Record',
+        title: '川普拒絕承諾協防台灣',
         author: {
           id: '67498661beb8fe8bfa145cda',
           fullName: 'USTW Admin',
         },
         createdAt: '2024-12-08T05:50:22.055Z',
-        updatedAt: '2024-12-08T12:32:32.717Z',
-        description: '測試Taiwan Record',
+        updatedAt: '2024-12-11T02:16:58.567Z',
+        description:
+          '美國總統當選人川普在 12/08/2024 播出的NBC專訪節目中，再度被問及「若中國入侵台灣，是否會承諾保衛台灣？」對此，川普回應：「我永遠不會說」（I never say）。當被主持人維爾克（Kristen Welker）追問時，川普表示：「我不會說，因為我總得進行談判，對吧？」主持人繼續追問，川普也說，他更希望中國不會入侵台灣，強調「我跟習主席的關係很好，我們一直保持溝通。 」',
         photos: [
           {
+            id: '6758f61a73b2270032e31f8c',
             photo: {
-              url: '/assets/category1.jpg',
+              url: 'https://ustwcmsstorage.blob.core.windows.net/media-taiwan-record/image.png',
             },
           },
         ],
         sources: [
           {
-            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
-          },
-          {
-            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
-          },
-          {
-            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
-          },
-          {
-            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
-          },
-          {
-            link: 'http://localhost:3000/en-US/people/674f3dc4c2061b5227b8f1b0',
+            id: '6758f61a73b2270032e31f8b',
+            link: 'https://www.dw.com/zh-hant/%E5%B7%9D%E6%99%AE%E6%8B%92%E7%B5%95%E6%89%BF%E8%AB%BE%E5%8D%94%E9%98%B2%E5%8F%B0%E7%81%A3/a-71010556',
           },
         ],
         status: 'approved',
         versions: [
           {
-            approvedAt: '2024-12-08T08:44:05.484Z',
+            approvedAt: '2024-12-11T02:16:58.494Z',
             data: {
-              title: 'asd',
-              description: 'asd',
+              title: '川普拒絕承諾協防台灣',
+              description:
+                '美國總統當選人川普在 12/08/2024 播出的NBC專訪節目中，再度被問及「若中國入侵台灣，是否會承諾保衛台灣？」對此，川普回應：「我永遠不會說」（I never say）。當被主持人維爾克（Kristen Welker）追問時，川普表示：「我不會說，因為我總得進行談判，對吧？」主持人繼續追問，川普也說，他更希望中國不會入侵台灣，強調「我跟習主席的關係很好，我們一直保持溝通。 」',
               people: '674f3dc4c2061b5227b8f1b0',
               author: '67498661beb8fe8bfa145cda',
-              sources: [],
-              photos: [{}],
+              sources: [
+                {
+                  link: 'https://www.dw.com/zh-hant/%E5%B7%9D%E6%99%AE%E6%8B%92%E7%B5%95%E6%89%BF%E8%AB%BE%E5%8D%94%E9%98%B2%E5%8F%B0%E7%81%A3/a-71010556',
+                },
+              ],
+              photos: [
+                {
+                  photo: '6758e6cbe981ce40d9597d50',
+                },
+              ],
             },
-            id: '67555c55f8654ebb5031333f',
+            id: '6758f61a73b2270032e31f8d',
             version: 1,
           },
+        ],
+      },
+      {
+        id: '6758e7c1e981ce40d9597db8',
+        title: '川普稱台灣偷走美國晶片產業',
+        author: {
+          id: '67498661beb8fe8bfa145cda',
+          fullName: 'USTW Admin',
+        },
+        createdAt: '2024-12-11T01:15:45.743Z',
+        updatedAt: '2024-12-11T05:05:10.173Z',
+        description:
+          '川普在「彭博商業周刊」（Bloomberg Businessweek）專訪中重申他2023年首次提出的主張，即台灣已從美國搶走「幾乎100%」晶片產業，還說「我們根本不該讓這種情況發生」。',
+        photos: [],
+        sources: [
           {
-            approvedAt: '2024-12-08T12:29:16.716Z',
-            data: {
-              title: '測試Taiwan Record',
-              description: '測試Taiwan Record',
-              people: '674f3dc4c2061b5227b8f1b0',
-              author: '67498661beb8fe8bfa145cda',
-              sources: [],
-              photos: [],
-            },
-            id: '6755911c0a0e2d08e6a10048',
-            version: 2,
+            id: '6758e7cd73b2270032e31f89',
+            link: 'https://www.cna.com.tw/news/aipl/202407240167.aspx',
           },
+        ],
+        status: 'approved',
+        versions: [
           {
-            approvedAt: '2024-12-08T12:31:08.850Z',
+            approvedAt: '2024-12-11T01:15:57.377Z',
             data: {
-              title: '測試Taiwan Record',
-              description: '測試Taiwan Record',
+              title: '川普稱台灣偷走美國晶片產業',
+              description:
+                '川普在「彭博商業周刊」（Bloomberg Businessweek）專訪中重申他2023年首次提出的主張，即台灣已從美國搶走「幾乎100%」晶片產業，還說「我們根本不該讓這種情況發生」。',
               people: '674f3dc4c2061b5227b8f1b0',
               author: '67498661beb8fe8bfa145cda',
-              sources: [],
+              sources: [
+                {
+                  link: 'https://www.cna.com.tw/news/aipl/202407240167.aspx',
+                },
+              ],
               photos: [],
             },
-            id: '6755918d7544c909c9c526d2',
-            version: 3,
-          },
-          {
-            approvedAt: '2024-12-08T12:31:25.956Z',
-            data: {
-              title: '測試Taiwan Record',
-              description: '測試Taiwan Record',
-              people: '674f3dc4c2061b5227b8f1b0',
-              author: '67498661beb8fe8bfa145cda',
-              sources: [],
-              photos: [],
-            },
-            id: '6755919e7544c909c9c526d3',
-            version: 4,
-          },
-          {
-            approvedAt: '2024-12-08T12:32:32.510Z',
-            data: {
-              title: '測試Taiwan Record',
-              description: '測試Taiwan Record',
-              people: '674f3dc4c2061b5227b8f1b0',
-              author: '67498661beb8fe8bfa145cda',
-              sources: [],
-              photos: [],
-            },
-            id: '675591e07544c909c9c526d4',
-            version: 5,
+            id: '6758e7cd73b2270032e31f8a',
+            version: 1,
           },
         ],
       },
