@@ -15,10 +15,10 @@ interface PeoplePageProps {
 
 export default function People({ params }: PeoplePageProps) {
   const popularPeoples = findPopularPeople().map((dto) =>
-    PeopleClass.fromDTO(dto, params.lang)
+    PeopleClass.fromDTO(params.lang, dto)
   )
   const peoples = findAllPeople().map((dto) =>
-    PeopleClass.fromDTO(dto, params.lang)
+    PeopleClass.fromDTO(params.lang, dto)
   )
 
   return (

@@ -302,7 +302,7 @@ export default function DesignSystemIconsPage() {
               sm: 6,
             }}
           >
-            <PeopleCard people={People.fromDTO(people, 'en-US')} />
+            <PeopleCard people={People.fromDTO('en-US', people)} />
           </Grid>
         ))}
       </Grid>
@@ -316,7 +316,7 @@ export default function DesignSystemIconsPage() {
               sm: 6,
             }}
           >
-            <PeopleCard people={People.fromDTO(people, 'en-US')} simplified />
+            <PeopleCard people={People.fromDTO('en-US', people)} simplified />
           </Grid>
         ))}
       </Grid>

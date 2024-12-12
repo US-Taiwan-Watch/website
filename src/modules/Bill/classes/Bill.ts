@@ -1,8 +1,16 @@
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import { People } from '@/modules/People/classes/People'
-import { isArray, isNumber, isString } from 'lodash-es'
+import { isArray, isNull, isNumber, isString } from 'lodash-es'
 import { ROUTES } from '@/routes'
+import {
+  Bill_StatusTracker as BillStatusTracker,
+  Bill as BillDTO,
+  CategoriesBills,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
+import CommonUtils from '@/modules/Common/Common.utils'
+import TagUtils from '@/modules/Common/Tag.utils'
 
 export interface BillAction {
   date: string
@@ -12,14 +20,15 @@ export interface BillAction {
 }
 
 interface BillArgs {
-  id: string
-  title: string
-  sponsor: People
-  cosponsors: People[]
-  tags: string[]
-  status: BillStatusEnum
-  actions: BillAction[]
-  congressNumber: number
+  id?: string
+  title?: string
+  sponsor?: People
+  cosponsors?: People[]
+  tags?: string[]
+  status?: BillStatusEnum
+  actions?: BillAction[]
+  congressNumber?: number
+  statusTracker?: BillStatusTracker
 }
 
 export class Bill {
@@ -30,13 +39,15 @@ export class Bill {
   // 提案人
   sponsor?: People
   // 共同提案人
-  cosponsors?: People[]
+  cosponsors: People[] = []
   // 標籤
-  tags?: string[]
+  tags: string[] = []
   // 法案狀態
   status?: BillStatusEnum
+  // 法案狀態追蹤
+  statusTracker?: BillStatusTracker
   // 法案動作
-  actions?: BillAction[]
+  actions: BillAction[] = []
   // 國會屆數
   congressNumber?: number
 
@@ -68,6 +79,9 @@ export class Bill {
     }
     if (isNumber(bill.congressNumber)) {
       this.congressNumber = bill.congressNumber
+    }
+    if (bill.statusTracker) {
+      this.statusTracker = bill.statusTracker
     }
   }
 
@@ -160,5 +174,41 @@ export class Bill {
       default:
         return 'Unknown'
     }
+  }
+
+  static fromDTO(lang: Language, dto: BillDTO) {
+    return new Bill({
+      id: dto.id ?? undefined,
+      title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? undefined,
+      sponsor: dto.sponsor?.people
+        ? People.fromDTO(lang, dto.sponsor.people)
+        : undefined,
+      cosponsors:
+        dto.cosponsors
+          ?.map((cosponsor) =>
+            cosponsor.people ? People.fromDTO(lang, cosponsor.people) : null
+          )
+          .filter((cosponsor) => !isNull(cosponsor)) ?? [],
+      tags: TagUtils.parseTags(lang, dto.tags),
+      statusTracker: dto.statusTracker ?? undefined,
+      congressNumber: dto.congress,
+    })
+  }
+
+  static parseCategoriesBills(
+    dto: CategoriesBills,
+    lang: Language
+  ): Array<{
+    id: string
+    name: string
+  }> {
+    return (
+      dto?.docs
+        ?.filter((doc) => !isNull(doc))
+        ?.map((doc) => ({
+          id: doc.id ?? '',
+          name: doc.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+        })) ?? []
+    )
   }
 }

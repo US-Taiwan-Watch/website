@@ -11,7 +11,10 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
-import { BILL_TREND_CHART_DATA_MOCK } from '@/modules/Bill/data'
+import {
+  BILL_TREND_CHART_DATA_MOCK,
+  getBillTrendByCategory,
+} from '@/modules/Bill/data'
 import { groupBy, map, sumBy } from 'lodash-es'
 import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { useRouter } from 'next/navigation'
@@ -31,8 +34,8 @@ const getChartData = (data: BillTrendData[]) => {
   }))
 }
 
+// TODO: 此處還沒 API mock data
 const dataAll: TrendBarChartData[] = getChartData(BILL_TREND_CHART_DATA_MOCK)
-const dataGroupedByCategory = groupBy(BILL_TREND_CHART_DATA_MOCK, 'category')
 
 export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
@@ -42,8 +45,8 @@ export default function TrendCard() {
 
   const chartData = useMemo<TrendBarChartData[]>(() => {
     if (selectedCategory === '') return dataAll
-    const data = dataGroupedByCategory[selectedCategory]
-    return getChartData(data)
+    const data = getBillTrendByCategory(selectedCategory)
+    return data
   }, [selectedCategory])
 
   const totalCount = useMemo<number>(() => {

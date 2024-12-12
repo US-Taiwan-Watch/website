@@ -1,15 +1,23 @@
+'use client'
+
 import {
   CONGRESS_NUMBER_MIN,
   CURRENT_CONGRESS_NUMBER,
 } from '@/common/assets/constants'
+import { Language } from '@/common/lib/i18n/types'
 import {
-  BillCategoryEnum,
   BillPartyEnum,
   BillTypeEnum,
   BillStatusEnum,
   BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
-import { BILL_SPONSOR_MOCK, BILL_TAG_MOCK } from '@/modules/Bill/data'
+import {
+  BILL_SPONSOR_MOCK,
+  BILL_TAG_MOCK,
+  getCategoriesBills,
+} from '@/modules/Bill/data'
+import { Bill } from '@/modules/Bill/classes/Bill'
+import { useParams } from 'next/navigation'
 import { useMemo } from 'react'
 
 export type BillFilterOption<T> = {
@@ -18,28 +26,15 @@ export type BillFilterOption<T> = {
 }
 
 export default function useBillFilterOptions() {
-  const categoryOptions = useMemo<BillFilterOption<BillCategoryEnum>[]>(
-    () => [
-      { value: BillCategoryEnum.ArmsSales, label: 'Arms Sales/Transfer' },
-      { value: BillCategoryEnum.Democracy, label: 'Democracy' },
-      {
-        value: BillCategoryEnum.InternationalParticipation,
-        label: 'International Participation',
-      },
-      { value: BillCategoryEnum.TaiwanDefense, label: "Taiwan's Defense" },
-      {
-        value: BillCategoryEnum.USTaiwanRelations,
-        label: 'U.S.-Taiwan Relations',
-      },
-      { value: BillCategoryEnum.GlobalHealth, label: 'Global health' },
-      {
-        value: BillCategoryEnum.TaiwanRelationsAct,
-        label: 'Taiwan Relations Act',
-      },
-      { value: BillCategoryEnum.TradeEconomy, label: 'Trade/Economy' },
-      { value: BillCategoryEnum.Other, label: 'Other' },
-    ],
-    []
+  const { lang } = useParams<{ lang: Language }>()
+  const categoriesBills = getCategoriesBills()
+  const categoryOptions = useMemo<BillFilterOption<string>[]>(
+    () =>
+      Bill.parseCategoriesBills(categoriesBills, lang).map((category) => ({
+        value: category.id,
+        label: category.name,
+      })),
+    [categoriesBills, lang]
   )
 
   const partyOptions = useMemo<BillFilterOption<BillPartyEnum>[]>(

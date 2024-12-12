@@ -25,6 +25,7 @@ import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { z } from 'zod'
 import TaiwanRecord from '@/modules/TaiwanRecord/classes/TaiwanRecord'
+import TagUtils from '@/modules/Common/Tag.utils'
 
 interface PartyExperienceArgs {
   party: Party
@@ -256,7 +257,7 @@ export class People {
    * Workaround: 把目前後端 DTO 轉成前端 DTO
    * TODO: 把前端與後端架構做整合，並把 class 設計純粹的 utility class
    */
-  static fromDTO(dto: PeopleDTO, lang: Language) {
+  static fromDTO(lang: Language, dto: PeopleDTO) {
     return new People({
       id: dto.id,
       name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.displayName,
@@ -268,7 +269,7 @@ export class People {
       congress: Congress.fromPeopleCongressDTO(dto.congressionalData),
       tags:
         dto.tags
-          ?.map((tag) => tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name)
+          ?.map((tag) => TagUtils.parseTag(lang, tag))
           .filter((name) => isString(name)) ?? [],
       partyExperience: People.parsePartyExperienceArgsFromDTO(
         dto.partyChangeRecords
