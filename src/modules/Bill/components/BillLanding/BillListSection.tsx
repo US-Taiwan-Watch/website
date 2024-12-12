@@ -11,12 +11,13 @@ import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { BillSorterEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import { getLatestBills } from '@/modules/Bill/data'
+import { getLatestBills, getPopularBills } from '@/modules/Bill/data'
 
 const BillListSection = () => {
   const theme = useTheme<USTWTheme>()
   const { lang } = useParams<{ lang: Language }>()
   const latestBills = getLatestBills(lang)
+  const popularBills = getPopularBills(lang)
 
   return (
     <LandingSectionWrapper
@@ -50,7 +51,7 @@ const BillListSection = () => {
             },
           }}
         />
-        <BillCardCarousel simplified />
+        <BillCardCarousel simplified data={popularBills} />
       </Stack>
     </LandingSectionWrapper>
   )
