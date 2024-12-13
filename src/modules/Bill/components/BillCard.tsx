@@ -11,7 +11,6 @@ import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
-import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
@@ -83,8 +82,10 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           {!isHorizontal && (
             <Box mx={-2} mt={4}>
               <UTimeline
-                data={billStatusList}
-                activeIndex={bill.statusIndex}
+                data={Bill.getAllBillStatuses(bill).map((status) => ({
+                  title: status, // TODO: add i18n
+                }))}
+                activeIndex={Bill.getStatusIndex(bill)}
                 isHorizontal
               />
             </Box>
@@ -145,12 +146,16 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           <StyledTimelineContainer>
             <UTimeline
               itemMinHeight={50}
-              data={billStatusList}
-              activeIndex={bill.statusIndex}
+              data={Bill.getAllBillStatuses(bill).map((status) => ({
+                title: status, // TODO: add i18n
+              }))}
+              activeIndex={Bill.getStatusIndex(bill)}
             />
             <Box>
               <UCardInfo
-                content={billStatusList[bill.statusIndex].title}
+                content={
+                  Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]
+                }
                 iconProps={{
                   sx: { color: theme.color.neutral[300] },
                 }}

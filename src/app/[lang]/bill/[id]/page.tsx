@@ -2,13 +2,24 @@
 
 import Stack from '@mui/material/Stack'
 import BillInfoSection from '@/modules/Bill/components/SingleBill/BillInfoSection'
-import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import BillListSection from '@/modules/Bill/components/SingleBill/BillListSection'
 import BillContentSection from '@/modules/Bill/components/SingleBill/BillContentSection'
+import { Language } from '@/common/lib/i18n/types'
+import { findBill } from '@/modules/Bill/data'
+import { notFound } from 'next/navigation'
+import { Bill as BillClass } from '@/modules/Bill/classes/Bill'
+interface BillPageProps {
+  params: {
+    lang: Language
+    id: string
+  }
+}
 
-const bill = BILL_DATA_MOCK[0]
+export default function Bill({ params }: BillPageProps) {
+  const dto = findBill(params.id)
+  if (!dto) return notFound()
+  const bill = BillClass.fromDTO(params.lang, dto)
 
-export default function Bill() {
   return (
     <Stack gap={6}>
       <BillInfoSection bill={bill} />
