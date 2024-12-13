@@ -7,8 +7,13 @@ import { SectionTitleWithLink } from '@/common/components/elements/Landing/Secti
 import BillCardCarousel from '@/modules/Bill/components/BillCardCarousel'
 import { Stack } from '@mui/material'
 import { ROUTES } from '@/routes'
+import { Bill } from '@/modules/Bill/classes/Bill'
 
-const BillListSection = () => {
+interface BillListSectionProps {
+  relatedBills: Bill[]
+}
+
+const BillListSection = ({ relatedBills }: BillListSectionProps) => {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -21,7 +26,7 @@ const BillListSection = () => {
     >
       <Stack gap={theme.spacing(7.5)}>
         <SectionTitleWithLink title="Related Bills" link={ROUTES.BILL_LIST} />
-        <BillCardCarousel />
+        <BillCardCarousel data={relatedBills} />
       </Stack>
     </LandingSectionWrapper>
   )

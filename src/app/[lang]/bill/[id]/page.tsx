@@ -24,7 +24,9 @@ export default function Bill({ params }: BillPageProps) {
     <Stack gap={6}>
       <BillInfoSection bill={bill} />
       <BillContentSection bill={bill} />
-      <BillListSection />
+      <BillListSection
+        relatedBills={BillClass.getRelatedBills(dto, params.lang)}
+      />
     </Stack>
   )
 }

@@ -310,4 +310,8 @@ export class Bill {
       },
     ]
   }
+
+  static getRelatedBills(dto: BillDTO, lang: Language): Bill[] {
+    return dto.relatedBills?.map((bill) => Bill.fromDTO(lang, bill)) ?? []
+  }
 }
