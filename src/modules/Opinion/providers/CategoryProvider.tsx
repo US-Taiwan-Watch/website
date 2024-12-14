@@ -3,7 +3,10 @@
 import { Language } from '@/common/lib/i18n/types'
 import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
-import { getOpinionTags } from '@/modules/Opinion/data'
+import {
+  getOpinionTags,
+  highlightedOpinionCategories,
+} from '@/modules/Opinion/data'
 import { useParams } from 'next/navigation'
 import React, { useEffect } from 'react'
 
@@ -14,17 +17,21 @@ interface CategoryProviderProps {
 export default function CategoryProvider({ children }: CategoryProviderProps) {
   const { lang } = useParams<{ lang: Language }>()
 
-  const setCategories = useOpinionStore((state) => state.setCategories)
-  const fetchHighlightedCategories = useOpinionStore(
-    (state) => state.fetchHighlightedCategories
+  const setHomeCategories = useOpinionStore((state) => state.setHomeCategories)
+  const setHomeHighlightedCategories = useOpinionStore(
+    (state) => state.setHomeHighlightedCategories
   )
 
   useEffect(() => {
-    setCategories(
+    setHomeCategories(
       getOpinionTags().map((tag) => OpinionCategory.fromDTO(lang, tag))
     )
-    fetchHighlightedCategories()
-  }, [setCategories, fetchHighlightedCategories, lang])
+    setHomeHighlightedCategories(
+      highlightedOpinionCategories.map((tag) =>
+        OpinionCategory.fromDTO(lang, tag)
+      )
+    )
+  }, [setHomeCategories, setHomeHighlightedCategories, lang])
 
   return <>{children}</>
 }

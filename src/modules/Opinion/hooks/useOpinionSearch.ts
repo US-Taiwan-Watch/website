@@ -4,7 +4,7 @@ import { opinions as MOCK_OPINIONS } from '@/modules/Opinion/data'
 import { useEffect, useMemo, useState } from 'react'
 
 export default function useOpinionSearch(categoryId: string) {
-  const categories = useOpinionStore((state) => state.categories)
+  const homeCategories = useOpinionStore((state) => state.homeCategories)
 
   const [opinions, setOpinions] = useState<Array<Opinion>>([])
   const [isOpinionsLoading, setIsOpinionsLoading] = useState<boolean>(true)
@@ -16,12 +16,12 @@ export default function useOpinionSearch(categoryId: string) {
   }, [categoryId])
 
   const category = useMemo(
-    () => categories.find((category) => category.id === categoryId),
-    [categoryId, categories]
+    () => homeCategories.find((category) => category.id === categoryId),
+    [categoryId, homeCategories]
   )
 
   return {
-    categories,
+    homeCategories,
     category,
     opinions,
     isOpinionsLoading,
