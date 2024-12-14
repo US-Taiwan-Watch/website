@@ -5,6 +5,7 @@ import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
 import { findOpinion } from '@/modules/Opinion/data'
+import CategoryProvider from '@/modules/Opinion/providers/CategoryProvider'
 
 interface OpinionPostLayoutProps {
   params: {
@@ -54,7 +55,7 @@ export default function OpinionPostLayout({
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        {children}
+        <CategoryProvider>{children}</CategoryProvider>
       </ThemeProvider>
     </AppRouterCacheProvider>
   )
