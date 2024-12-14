@@ -143,4 +143,8 @@ export class Opinion {
       })),
     })
   }
+
+  static formatAuthorsName(authors: Array<OpinionAuthor>) {
+    return authors.map((author) => author.name).join(', ')
+  }
 }

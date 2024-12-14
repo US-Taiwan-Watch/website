@@ -21,7 +21,7 @@ const OpinionPostFooter = function OpinionPostFooter({
   return (
     <Stack spacing={2}>
       {/** Tags */}
-      {tags && (
+      {tags && tags.length > 0 && (
         <UHStack gap={1}>
           {tags.map((tag, index) => (
             <OpinionPostTag key={index} tag={tag} />
@@ -30,7 +30,7 @@ const OpinionPostFooter = function OpinionPostFooter({
       )}
 
       {/** Resources */}
-      {resources?.length && (
+      {resources && resources.length > 0 && (
         <Stack spacing={1} sx={{ color: theme.color.grey[3400] }}>
           <Typography variant="bodyS" fontWeight={500}>
             Repost source from:{' '}

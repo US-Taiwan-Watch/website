@@ -39,6 +39,7 @@ const OpinionPost = function OpinionPost({ opinion }: OpinionPostProps) {
                 date={opinion.date}
                 tags={opinion.tags}
                 repostSources={opinion.repostSources}
+                authors={opinion.authors}
               />
               {/** Banner Section */}
               {opinion.bannerImage && (
@@ -51,11 +52,18 @@ const OpinionPost = function OpinionPost({ opinion }: OpinionPostProps) {
               )}
 
               {/** Footer Section */}
-              <OpinionPostDivider />
-              <OpinionPostFooter
-                tags={opinion.tags}
-                resources={opinion.resources}
-              />
+              {opinion.tags &&
+                opinion.tags.length > 0 &&
+                opinion.resources &&
+                opinion.resources.length > 0 && (
+                  <>
+                    <OpinionPostDivider />
+                    <OpinionPostFooter
+                      tags={opinion.tags}
+                      resources={opinion.resources}
+                    />
+                  </>
+                )}
 
               {/** Author Section */}
               <OpinionPostDivider />
