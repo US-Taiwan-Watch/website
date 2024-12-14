@@ -52,7 +52,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
         border: isHorizontal ? 'none' : `1px solid ${theme.color.grey[1600]}`,
       }}
     >
-      <UHStack gap={4} alignItems="center">
+      <UHStack gap={4} alignItems="start" justifyContent="space-between">
         <Stack>
           <UTagList
             tags={(bill.tags ?? []).map((tag, index) => (
