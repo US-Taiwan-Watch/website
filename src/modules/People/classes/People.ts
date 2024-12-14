@@ -60,6 +60,15 @@ export type CongressExperienceRange = {
   earliestCongressYear?: number
   latestCongressYear?: number
 }
+export type PeopleVotes = {
+  id?: string
+  party?: Party
+  stance?: 'noes' | 'ayes' | 'present' | 'notVoting'
+  vote?: {
+    bill?: Bill
+    status?: 'passed' | 'failed' | 'unknown'
+  }
+}
 
 interface PeopleArgs {
   id?: Maybe<string>
@@ -82,6 +91,7 @@ interface PeopleArgs {
   committees?: Array<PeopleCongressionalDataCommittees>
   isCurrentCongressMember?: boolean
   taiwanRecords?: Array<TaiwanRecord>
+  votings?: Array<PeopleVotes>
   rawData?: PeopleDTO
 }
 
@@ -128,6 +138,8 @@ export class People {
   congressExperienceRange?: CongressExperienceRange
   // 台灣紀錄
   taiwanRecords: Array<TaiwanRecord> = []
+  // 投票紀錄
+  votings?: Array<PeopleVotes>
   // Raw data
   rawData?: PeopleDTO
 
@@ -184,6 +196,9 @@ export class People {
     }
     if (isArray(people.taiwanRecords)) {
       this.taiwanRecords = people.taiwanRecords
+    }
+    if (isArray(people.votings)) {
+      this.votings = people.votings
     }
     if (!isUndefined(people.rawData)) {
       this.rawData = people.rawData
@@ -286,6 +301,7 @@ export class People {
         dto.experiences
       ),
       taiwanRecords: People.parseTaiwanRecordFromDTO(dto.records),
+
       rawData: dto,
     })
   }
@@ -443,5 +459,23 @@ export class People {
   static parseTaiwanRecordFromDTO(dto: PeopleDTO['records']) {
     if (!isArray(dto)) return []
     return dto.map((item) => TaiwanRecord.fromDTO(item))
+  }
+
+  static parseVotingRecordFromDTO(
+    lang: Language,
+    dto: PeopleDTO['votes']
+  ): Array<PeopleVotes> {
+    if (!isArray(dto)) return []
+    return dto.map((item) => ({
+      id: item.id ?? '',
+      party: CommonUtils.parseAPIParty(item.party),
+      stance: item.stance as PeopleVotes['stance'],
+      vote: {
+        ...(item.vote?.bill && {
+          bill: Bill.fromDTO(lang, item.vote.bill),
+        }),
+        status: item.vote?.status as NonNullable<PeopleVotes['vote']>['status'],
+      },
+    }))
   }
 }

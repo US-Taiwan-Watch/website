@@ -9,10 +9,11 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
+import { People } from '@/modules/People/classes/People'
 
 interface VoteStatusCardProps {
   title: string
-  value: string
+  value?: string
   active: boolean
 }
 
@@ -65,8 +66,8 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
 
 type Props = {
   bill: Bill
-  vote: 'yea' | 'nay' | 'not_voting'
-  status: 'passed' | 'failed' | 'unknown'
+  vote: NonNullable<People['votings']>[number]['stance']
+  status: NonNullable<NonNullable<People['votings']>[number]['vote']>['status']
 }
 
 export default function BillVoteCard({ bill, vote, status }: Props) {
@@ -101,7 +102,7 @@ export default function BillVoteCard({ bill, vote, status }: Props) {
         </Stack>
 
         <UHStack gap={1} sx={{ minWidth: '300px' }}>
-          <VoteStatusCard title="Vote" value={vote} active={vote === 'yea'} />
+          <VoteStatusCard title="Vote" value={vote} active={vote === 'ayes'} />
           <VoteStatusCard
             title="Status"
             value={status}

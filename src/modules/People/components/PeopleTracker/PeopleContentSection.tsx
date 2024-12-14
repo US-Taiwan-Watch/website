@@ -142,7 +142,7 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {
           visible: hasVotingRecord,
           size: 2,
-          component: <VotingRecord />,
+          component: <VotingRecord votings={people.votings} />,
         },
       ],
     },
