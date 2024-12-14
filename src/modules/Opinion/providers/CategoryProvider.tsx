@@ -27,9 +27,7 @@ export default function CategoryProvider({ children }: CategoryProviderProps) {
       getOpinionTags().map((tag) => OpinionCategory.fromDTO(lang, tag))
     )
     setHomeHighlightedCategories(
-      highlightedOpinionCategories.map((tag) =>
-        OpinionCategory.fromDTO(lang, tag)
-      )
+      highlightedOpinionCategories.map((tag) => new OpinionCategory(tag))
     )
   }, [setHomeCategories, setHomeHighlightedCategories, lang])
 
