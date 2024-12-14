@@ -9,7 +9,6 @@ import { findAllOpinion } from '@/modules/Opinion/data'
 import { Opinion as OpinionClass } from '@/modules/Opinion/classes/Opinion'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import CategoryProvider from '@/modules/Opinion/providers/CategoryProvider'
 
 interface OpinionPageProps {
   params: {
@@ -22,16 +21,14 @@ export default function Opinion({ params }: OpinionPageProps) {
   const opinions = dtos.map((dto) => OpinionClass.fromDTO(params.lang, dto))
 
   return (
-    <CategoryProvider>
-      <Container maxWidth="lg">
-        <Stack>
-          <UFullWidthBackgroundBox>
-            <OpinionNavbar />
-          </UFullWidthBackgroundBox>
-          <OpinionLandingBannerCards />
-          <OpinionPostSection opinions={opinions} />
-        </Stack>
-      </Container>
-    </CategoryProvider>
+    <Container maxWidth="lg">
+      <Stack>
+        <UFullWidthBackgroundBox>
+          <OpinionNavbar />
+        </UFullWidthBackgroundBox>
+        <OpinionLandingBannerCards />
+        <OpinionPostSection opinions={opinions} />
+      </Stack>
+    </Container>
   )
 }
