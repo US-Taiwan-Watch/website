@@ -5,21 +5,23 @@ import { Box } from '@mui/material'
 import { People } from '@/modules/People/classes/People'
 
 interface VotingRecordProps {
-  votings: People['votings']
+  people: People
 }
 
-const VotingRecord = function ({ votings }: VotingRecordProps) {
+const VotingRecord = function ({ people }: VotingRecordProps) {
+  const votes = people.votes
+
   return (
     <NumberCard
       title="Voting Record"
-      number={2}
+      number={votes.length}
       headerProps={{
         title: 'Voting Record',
         icon: <PeopleCheckIcon />,
         iconColor: 'primary',
       }}
     >
-      {votings?.map((voting, index) => (
+      {votes?.map((vote, index) => (
         <Box
           key={index}
           sx={{
@@ -27,12 +29,8 @@ const VotingRecord = function ({ votings }: VotingRecordProps) {
             marginRight: '8px',
           }}
         >
-          {voting.vote?.bill && voting.stance && voting.vote.status && (
-            <BillVoteCard
-              bill={voting.vote.bill}
-              vote={voting.stance}
-              status={voting.vote.status}
-            />
+          {vote.vote?.bill && vote.stance && vote.vote.status && (
+            <BillVoteCard vote={vote} />
           )}
         </Box>
       ))}
