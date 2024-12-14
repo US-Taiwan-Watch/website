@@ -1,24 +1,24 @@
 'use client'
 
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import { Language } from '@/common/lib/i18n/types'
 import OpinionLandingBannerCards from '@/modules/Opinion/components/OpinionLanding/OpinionLandingBannerCards'
 import OpinionPostSection from '@/modules/Opinion/components/OpinionLanding/OpinionPostSection'
 import OpinionNavbar from '@/modules/Opinion/components/OpinionNavbar'
+import { findAllOpinion } from '@/modules/Opinion/data'
+import { Opinion as OpinionClass } from '@/modules/Opinion/classes/Opinion'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import { useEffect } from 'react'
 
-export default function Opinion() {
-  const fetchCategories = useOpinionStore((state) => state.fetchCategories)
-  const fetchHighlightedCategories = useOpinionStore(
-    (state) => state.fetchHighlightedCategories
-  )
+interface OpinionPageProps {
+  params: {
+    lang: Language
+  }
+}
 
-  useEffect(() => {
-    fetchCategories()
-    fetchHighlightedCategories()
-  }, [fetchCategories, fetchHighlightedCategories])
+export default function Opinion({ params }: OpinionPageProps) {
+  const dtos = findAllOpinion()
+  const opinions = dtos.map((dto) => OpinionClass.fromDTO(params.lang, dto))
 
   return (
     <Container maxWidth="lg">
@@ -27,7 +27,7 @@ export default function Opinion() {
           <OpinionNavbar />
         </UFullWidthBackgroundBox>
         <OpinionLandingBannerCards />
-        <OpinionPostSection />
+        <OpinionPostSection opinions={opinions} />
       </Stack>
     </Container>
   )

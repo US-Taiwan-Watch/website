@@ -5,13 +5,17 @@ import UHStack from '@/common/components/atoms/UHStack'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
-import { opinions } from '@/modules/Opinion/data'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { useEffect, useState } from 'react'
 
-const OpinionPostSection = () => {
+interface OpinionPostSectionProps {
+  opinions: Opinion[]
+}
+
+const OpinionPostSection = ({ opinions }: OpinionPostSectionProps) => {
   const theme = useTheme<USTWTheme>()
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
 

@@ -3,7 +3,6 @@ import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
 import {
   highlightedOpinionCategories,
   homeOpinionCategories,
-  opinionCategories,
 } from '@/modules/Opinion/data'
 import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'
@@ -19,7 +18,7 @@ type State = {
 
 type Action = {
   fetchHomeCategories: () => void
-  fetchCategories: () => void
+  setCategories: (categories: Array<OpinionCategory>) => void
   fetchHighlightedCategories: () => void
   clearCategories: () => void
 }
@@ -48,14 +47,7 @@ const useOpinionStore = create<State & Action>((set) => ({
       ),
     }))
   },
-  fetchCategories: () => {
-    // TODO: 從 API 取得資料
-    set(() => ({
-      categories: opinionCategories.map(
-        (category) => new OpinionCategory(category)
-      ),
-    }))
-  },
+  setCategories: (categories) => set(() => ({ categories })),
   clearCategories: () => set(() => ({ categories: [] })),
 }))
 

@@ -5,6 +5,7 @@ import UTagList from '@/common/components/atoms/UTagList'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import { Skeleton, Stack, useTheme } from '@mui/material'
+import Box from '@mui/material/Box'
 import Image from 'next/image'
 import Link from 'next/link'
 import { memo } from 'react'
@@ -20,45 +21,60 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
     <>
       <Stack spacing={2}>
         <Link href={opinion.link}>
-          {/** Image */}
-          {opinion.thumbnailImage && (
-            <Image
-              src={opinion.thumbnailImage.src}
-              alt={opinion.thumbnailImage.caption || opinion.title || ''}
-              width={300}
-              height={200}
-              layout="responsive"
-              style={{
-                borderRadius: theme.shape.borderRadius * 3,
-              }}
-            />
-          )}
+          <Box
+            sx={{
+              aspectRatio: 3 / 2,
+            }}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            overflow="hidden"
+            borderRadius={theme.shape.borderRadius}
+          >
+            {/** Image */}
+            {opinion.thumbnailImage && (
+              <Image
+                src={opinion.thumbnailImage.src}
+                alt={opinion.thumbnailImage.caption || opinion.title || ''}
+                width={300}
+                height={200}
+                layout="responsive"
+                style={{
+                  objectFit: 'cover',
+                  minWidth: '100%',
+                  minHeight: '100%',
+                }}
+              />
+            )}
+          </Box>
         </Link>
         {/** Categories */}
-        <UTagList
-          tags={(opinion.categories ?? []).map((category) => (
-            <Link href={category.link} key={category.id}>
-              <UButton
-                variant="outlined"
-                size="small"
-                sx={{
-                  padding: theme.spacing(0.5, 1),
-                  minWidth: 'fit-content',
-                  lineHeight: 1,
-                  borderColor: theme.color.orange[900],
-                  color: theme.color.orange[900],
-                }}
-                className="category-tag"
-              >
-                {category.label}
-              </UButton>
-            </Link>
-          ))}
-          containerProps={{
-            gap: 1,
-          }}
-          maxTags={2}
-        />
+        {opinion.categories && opinion.categories.length > 0 && (
+          <UTagList
+            tags={opinion.categories.map((category) => (
+              <Link href={category.link} key={category.id}>
+                <UButton
+                  variant="outlined"
+                  size="small"
+                  sx={{
+                    padding: theme.spacing(0.5, 1),
+                    minWidth: 'fit-content',
+                    lineHeight: 1,
+                    borderColor: theme.color.orange[900],
+                    color: theme.color.orange[900],
+                  }}
+                  className="category-tag"
+                >
+                  {category.label}
+                </UButton>
+              </Link>
+            ))}
+            containerProps={{
+              gap: 1,
+            }}
+            maxTags={2}
+          />
+        )}
         <Link href={opinion.link}>
           {/** Title */}
           <UHeightLimitedText variant="subtitleM" fontWeight={700} maxLine={1}>

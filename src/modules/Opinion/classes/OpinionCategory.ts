@@ -1,3 +1,6 @@
+import { CategoriesArticle } from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
+import CommonUtils from '@/modules/Common/Common.utils'
 import { ROUTES } from '@/routes'
 import { isString } from 'lodash-es'
 
@@ -26,5 +29,12 @@ export default class OpinionCategory {
 
   get link() {
     return `${ROUTES.OPINION}/search/${this.id}`
+  }
+
+  static fromDTO(lang: Language, dto: CategoriesArticle) {
+    return new OpinionCategory({
+      id: dto.id ?? undefined,
+      label: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? undefined,
+    })
   }
 }
