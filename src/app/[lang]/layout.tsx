@@ -7,6 +7,7 @@ import ThemeProvider from '@/common/lib/mui/themeProvider'
 import Header from '@/common/components/elements/Header'
 import Footer from '@/common/components/elements/Footer'
 import ScreenSizeHandler from '@/common/components/elements/UnsupportedScreenSize/ScreenSizeHandler'
+import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -30,7 +31,9 @@ export default function RootLayout({
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <Header />
-            <ScreenSizeHandler>{children}</ScreenSizeHandler>
+            <ScreenSizeHandler>
+              <ClientApolloProvider>{children}</ClientApolloProvider>
+            </ScreenSizeHandler>
             <Footer />
           </ThemeProvider>
         </AppRouterCacheProvider>

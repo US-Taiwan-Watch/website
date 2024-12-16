@@ -10,3 +10,6 @@ yarn.lock
 *.ico
 *.bmp
 *.txt
+.gitignore
+.graphql
+src/common/lib/graphql/__generated__/**
