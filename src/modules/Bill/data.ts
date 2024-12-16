@@ -12,6 +12,16 @@ import {
   CONGRESS_NUMBER_MIN,
   CURRENT_CONGRESS_NUMBER,
 } from '@/common/assets/constants'
+import { BILL_DTO_MOCK } from '@/modules/Bill/dtoData'
+import {
+  CategoriesBills,
+  TopCosponsorsQuery,
+  TopSponsorsQuery,
+  TopTagsQuery,
+  TrendByCategoryQuery,
+  Bill as BillDto,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
 
 export const BILL_TOTAL_COUNT_MOCK = 20
 
@@ -523,3 +533,856 @@ export const BILL_TAG_MOCK: string[] = [
   'Economy',
   'Business',
 ]
+
+export const findAllBill = () => {
+  return BILL_DTO_MOCK
+}
+
+export const findBill = (id: string) => {
+  return BILL_DTO_MOCK.find((bill) => bill.id === id)
+}
+
+export const getBillTopTags = (): TopTagsQuery[] => {
+  return [
+    {
+      billCount: 1,
+      tag: {
+        id: '6749a45ca313f435f157fc3a',
+        i18n: {
+          en: {
+            name: 'Taiwan Caucus',
+          },
+          zh: {
+            name: '國會台灣連線',
+          },
+        },
+      },
+    },
+  ]
+}
+
+export const getCategoriesBills = (): CategoriesBills => {
+  return {
+    docs: [
+      {
+        id: '67488795c842897fb7f2a2b9',
+        i18n: {
+          en: {
+            name: 'Other',
+          },
+          zh: {
+            name: '其他',
+          },
+        },
+      },
+      {
+        id: '6748878cc842897fb7f2a2b1',
+        i18n: {
+          en: {
+            name: 'Trade/Economy',
+          },
+          zh: {
+            name: '經濟貿易',
+          },
+        },
+      },
+      {
+        id: '67488781c842897fb7f2a2a9',
+        i18n: {
+          en: {
+            name: 'Taiwan Relations Act',
+          },
+          zh: {
+            name: '台灣相關法案',
+          },
+        },
+      },
+      {
+        id: '67488777c842897fb7f2a2a1',
+        i18n: {
+          en: {
+            name: 'Global health',
+          },
+          zh: {
+            name: '國際公衛',
+          },
+        },
+      },
+      {
+        id: '6748876cc842897fb7f2a299',
+        i18n: {
+          en: {
+            name: 'U.S.-Taiwan Relations',
+          },
+          zh: {
+            name: '美台關係',
+          },
+        },
+      },
+      {
+        id: '6748875ec842897fb7f2a291',
+        i18n: {
+          en: {
+            name: 'Taiwan’s Defense',
+          },
+          zh: {
+            name: '台灣國防',
+          },
+        },
+      },
+      {
+        id: '6748874bc842897fb7f2a289',
+        i18n: {
+          en: {
+            name: 'International Participation',
+          },
+          zh: {
+            name: '國際參與',
+          },
+        },
+      },
+      {
+        id: '67488740c842897fb7f2a281',
+        i18n: {
+          en: {
+            name: 'Democracy',
+          },
+          zh: {
+            name: '民主',
+          },
+        },
+      },
+      {
+        id: '67488731c842897fb7f2a279',
+        i18n: {
+          en: {
+            name: 'Arms Sales/Transfer',
+          },
+          zh: {
+            name: '軍援軍售',
+          },
+        },
+      },
+    ],
+  }
+}
+
+export const getBillTrendByCategory = (
+  category: string
+): Array<{ congress: number; count: number }> => {
+  const map: Record<string, TrendByCategoryQuery[]> = {
+    '67488795c842897fb7f2a2b9': [],
+    '6748878cc842897fb7f2a2b1': [
+      {
+        congress: 117,
+        billCount: 1,
+      },
+      {
+        congress: 118,
+        billCount: 1,
+      },
+    ],
+    '67488781c842897fb7f2a2a9': [],
+    '67488777c842897fb7f2a2a1': [
+      {
+        congress: 105,
+        billCount: 1,
+      },
+    ],
+    '6748876cc842897fb7f2a299': [
+      {
+        congress: 113,
+        billCount: 1,
+      },
+      {
+        congress: 115,
+        billCount: 1,
+      },
+      {
+        congress: 117,
+        billCount: 1,
+      },
+      {
+        congress: 118,
+        billCount: 1,
+      },
+    ],
+    '6748875ec842897fb7f2a291': [
+      {
+        congress: 106,
+        billCount: 1,
+      },
+      {
+        congress: 117,
+        billCount: 1,
+      },
+      {
+        congress: 118,
+        billCount: 3,
+      },
+    ],
+    '6748874bc842897fb7f2a289': [
+      {
+        congress: 105,
+        billCount: 1,
+      },
+      {
+        congress: 116,
+        billCount: 1,
+      },
+      {
+        congress: 118,
+        billCount: 3,
+      },
+    ],
+    '67488740c842897fb7f2a281': [
+      {
+        congress: 118,
+        billCount: 2,
+      },
+    ],
+    '67488731c842897fb7f2a279': [],
+  }
+  const data = map[category]
+  return data.map((item) => ({
+    congress: item.congress!,
+    count: item.billCount!,
+  }))
+}
+
+export const getBillTopSponsors = (lang: Language): People[] => {
+  const data = [
+    {
+      billCount: 2,
+      people: {
+        id: '6753cf371e937e031b1b2e13',
+        i18n: {
+          en: {
+            displayName: 'Gerald E. Connolly',
+          },
+          zh: {
+            displayName: null,
+          },
+        },
+        currentParty: 'democratic',
+        gender: 'male',
+      },
+    },
+    {
+      billCount: 2,
+      people: {
+        id: '67545c8f437319f5138be3e5',
+        i18n: {
+          en: {
+            displayName: 'Robert Menendez',
+          },
+          zh: {
+            displayName: '梅南德茲',
+          },
+        },
+        currentParty: 'independent',
+        gender: 'male',
+      },
+    },
+    {
+      billCount: 1,
+      people: {
+        id: '67547188437319f5138bebdc',
+        i18n: {
+          en: {
+            displayName: 'Rick Scott',
+          },
+          zh: {
+            displayName: '史考特',
+          },
+        },
+        currentParty: 'republican',
+        gender: 'male',
+      },
+    },
+    {
+      billCount: 1,
+      people: {
+        id: '67546e46437319f5138bea95',
+        i18n: {
+          en: {
+            displayName: 'Ami Bera',
+          },
+          zh: {
+            displayName: '貝拉',
+          },
+        },
+        currentParty: 'democratic',
+        gender: 'male',
+      },
+    },
+    {
+      billCount: 1,
+      people: {
+        id: '6754799f437319f5138bf65a',
+        i18n: {
+          en: {
+            displayName: 'Thomas P. Tiffany',
+          },
+          zh: {
+            displayName: '帝芬尼',
+          },
+        },
+        currentParty: 'republican',
+        gender: 'male',
+      },
+    },
+  ] as TopSponsorsQuery[]
+  return data.map((item) => People.fromDTO(lang, item.people!))
+}
+
+export const getBillTopCosponsors = (lang: Language): People[] => {
+  const data = [
+    {
+      billCount: 1,
+      people: {
+        id: '6752ab3c2ddcf95deb375586',
+        i18n: {
+          en: {
+            displayName: 'Young Kim',
+          },
+          zh: {
+            displayName: '金映玉',
+          },
+        },
+        currentParty: 'republican',
+      },
+    },
+    {
+      billCount: 1,
+      people: {
+        id: '6752948c4040f8e6920dece8',
+        i18n: {
+          en: {
+            displayName: 'Brad Sherman',
+          },
+          zh: {
+            displayName: '薛曼',
+          },
+        },
+        currentParty: 'democratic',
+      },
+    },
+    {
+      billCount: 1,
+      people: {
+        id: '6752ac8d2ddcf95deb375652',
+        i18n: {
+          en: {
+            displayName: 'Ann Wagner',
+          },
+          zh: {
+            displayName: '華格納',
+          },
+        },
+        currentParty: 'republican',
+      },
+    },
+    {
+      billCount: 1,
+      people: {
+        id: '6753ea9a1e937e031b1b343f',
+        i18n: {
+          en: {
+            displayName: 'Marco Rubio',
+          },
+          zh: {
+            displayName: '盧比歐',
+          },
+        },
+        currentParty: 'republican',
+      },
+    },
+    {
+      billCount: 1,
+      people: {
+        id: '6752abce2ddcf95deb3755ec',
+        i18n: {
+          en: {
+            displayName: 'Monica De La Cruz',
+          },
+          zh: {
+            displayName: null,
+          },
+        },
+        currentParty: 'republican',
+      },
+    },
+  ] as TopCosponsorsQuery[]
+  return data.map((item) => People.fromDTO(lang, item.people!))
+}
+
+export const getLatestBills = (lang: Language): Bill[] => {
+  const data = [
+    {
+      id: '67548182437319f5138bf983',
+      i18n: {
+        en: {
+          title:
+            "A resolution commending Taiwan for its history of democratic elections, and expressing support of Taiwan's democratic institutions.",
+        },
+        zh: {
+          title: '決議案表揚台灣的民主選舉歷史及支持台灣的民主制度',
+        },
+      },
+      congress: 118,
+      type: 'sres',
+      categories: [
+        {
+          i18n: {
+            en: {
+              name: 'Democracy',
+            },
+            zh: {
+              name: '民主',
+            },
+          },
+        },
+      ],
+      statusTracker: {
+        currentStep: 'agreedToInSenate',
+        passedSteps: ['introduced', 'passedSenate'],
+        futureSteps: [],
+      },
+      sponsor: {
+        party: 'republican',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Dan Sullivan',
+            },
+            zh: {
+              displayName: '蘇利文',
+            },
+          },
+          currentParty: 'republican',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '67547c63437319f5138bf852',
+      i18n: {
+        en: {
+          title:
+            'Commending Taiwan for its history of democratic elections, and expressing support of Taiwan in the preservation of its democratic institutions.',
+        },
+        zh: {
+          title: '表揚台灣的民主選舉歷史及支持台灣維護其民主制度',
+        },
+      },
+      congress: 118,
+      type: 'hres',
+      categories: [
+        {
+          i18n: {
+            en: {
+              name: 'Democracy',
+            },
+            zh: {
+              name: '民主',
+            },
+          },
+        },
+      ],
+      statusTracker: {
+        currentStep: 'introduced',
+        passedSteps: ['introduced'],
+        futureSteps: ['passedHouse'],
+      },
+      sponsor: {
+        party: 'democratic',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Gerald E. Connolly',
+            },
+            zh: {
+              displayName: null,
+            },
+          },
+          currentParty: 'democratic',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '6753eb531e937e031b1b3508',
+      i18n: {
+        en: {
+          title: 'Taiwan Relations Reinforcement Act of 2023',
+        },
+        zh: {
+          title: '台灣關係強化法案',
+        },
+      },
+      congress: 118,
+      type: 's',
+      categories: [],
+      statusTracker: {
+        currentStep: 'introduced',
+        passedSteps: ['introduced'],
+        futureSteps: [
+          'passedSenate',
+          'passedHouse',
+          'toPresident',
+          'becomeLaw',
+        ],
+      },
+      sponsor: {
+        party: 'republican',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Marco Rubio',
+            },
+            zh: {
+              displayName: '盧比歐',
+            },
+          },
+          currentParty: 'republican',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '6753e7131e937e031b1b33cc',
+      i18n: {
+        en: {
+          title: 'United States-Taiwan Expedited Double-Tax Relief Act',
+        },
+        zh: {
+          title: '美台快速雙重稅收減免法案',
+        },
+      },
+      congress: 118,
+      type: 'hr',
+      categories: [],
+      statusTracker: {
+        currentStep: 'introduced',
+        passedSteps: ['introduced'],
+        futureSteps: [
+          'passedHouse',
+          'passedSenate',
+          'toPresident',
+          'becomeLaw',
+        ],
+      },
+      sponsor: {
+        party: 'republican',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Jason Smith',
+            },
+            zh: {
+              displayName: '史密斯',
+            },
+          },
+          currentParty: 'republican',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '67545dbb437319f5138be4fd',
+      i18n: {
+        en: {
+          title: 'Taiwan Tax Agreement Act of 2023',
+        },
+        zh: {
+          title: '台灣租稅協定法案',
+        },
+      },
+      congress: 118,
+      type: 's',
+      categories: [],
+      statusTracker: {
+        currentStep: 'introduced',
+        passedSteps: ['introduced'],
+        futureSteps: [
+          'passedSenate',
+          'passedHouse',
+          'toPresident',
+          'becomeLaw',
+        ],
+      },
+      sponsor: {
+        party: 'democratic',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Robert Menendez',
+            },
+            zh: {
+              displayName: '梅南德茲',
+            },
+          },
+          currentParty: 'independent',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '6753d02c1e937e031b1b2f54',
+      i18n: {
+        en: {
+          title: 'Taiwan International Solidarity Act',
+        },
+        zh: {
+          title: '台灣國際團結法案',
+        },
+      },
+      congress: 118,
+      type: 'hr',
+      categories: [
+        {
+          i18n: {
+            en: {
+              name: 'International Participation',
+            },
+            zh: {
+              name: '國際參與',
+            },
+          },
+        },
+      ],
+      statusTracker: {
+        currentStep: 'passedHouse',
+        passedSteps: ['introduced', 'passedHouse'],
+        futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+      },
+      sponsor: {
+        party: 'democratic',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Gerald E. Connolly',
+            },
+            zh: {
+              displayName: null,
+            },
+          },
+          currentParty: 'democratic',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '67547209437319f5138beca4',
+      i18n: {
+        en: {
+          title: 'Taiwan Invasion Prevention Act',
+        },
+        zh: {
+          title: '防止台灣遭侵略法案',
+        },
+      },
+      congress: 118,
+      type: 's',
+      categories: [
+        {
+          i18n: {
+            en: {
+              name: 'Taiwan’s Defense',
+            },
+            zh: {
+              name: '台灣國防',
+            },
+          },
+        },
+      ],
+      statusTracker: {
+        currentStep: 'introduced',
+        passedSteps: ['introduced'],
+        futureSteps: [
+          'passedSenate',
+          'passedHouse',
+          'toPresident',
+          'becomeLaw',
+        ],
+      },
+      sponsor: {
+        party: 'republican',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Rick Scott',
+            },
+            zh: {
+              displayName: '史考特',
+            },
+          },
+          currentParty: 'republican',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '6753dbc51e937e031b1b320a',
+      i18n: {
+        en: {
+          title:
+            'Making emergency supplemental appropriations for the fiscal year ending September 30, 2024, and for other purposes.',
+        },
+        zh: {
+          title: '2024年國安緊急補充撥款法案',
+        },
+      },
+      congress: 118,
+      type: 'hr',
+      categories: [
+        {
+          i18n: {
+            en: {
+              name: 'Taiwan’s Defense',
+            },
+            zh: {
+              name: '台灣國防',
+            },
+          },
+        },
+      ],
+      statusTracker: {
+        currentStep: 'becomeLaw',
+        passedSteps: [
+          'introduced',
+          'passedHouse',
+          'passedSenate',
+          'resolvingDifferences',
+          'toPresident',
+          'becomeLaw',
+        ],
+        futureSteps: [],
+      },
+      sponsor: {
+        party: 'republican',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Cathy McMorris Rodgers',
+            },
+            zh: {
+              displayName: '羅傑斯',
+            },
+          },
+          currentParty: 'republican',
+        },
+      },
+      tags: [],
+    },
+    {
+      id: '6752b1ca2ddcf95deb37622c',
+      i18n: {
+        en: {
+          title: 'Taiwan Conflict Deterrence Act of 2023',
+        },
+        zh: {
+          title: '台灣衝突嚇阻法案',
+        },
+      },
+      congress: 118,
+      type: 'hr',
+      categories: [
+        {
+          i18n: {
+            en: {
+              name: 'Taiwan’s Defense',
+            },
+            zh: {
+              name: '台灣國防',
+            },
+          },
+        },
+      ],
+      statusTracker: {
+        currentStep: 'passedHouse',
+        passedSteps: ['introduced', 'passedHouse'],
+        futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+      },
+      sponsor: {
+        party: 'republican',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'French Hill',
+            },
+            zh: {
+              displayName: '希爾',
+            },
+          },
+          currentParty: 'republican',
+        },
+      },
+      tags: [
+        {
+          id: '6749a45ca313f435f157fc3a',
+          i18n: {
+            en: {
+              name: 'Taiwan Caucus',
+            },
+            zh: {
+              name: '國會台灣連線',
+            },
+          },
+        },
+      ],
+    },
+    {
+      id: '6754822c437319f5138bfa48',
+      i18n: {
+        en: {
+          title: 'Taiwan Non-Discrimination Act of 2023',
+        },
+        zh: {
+          title: '不歧視台灣法案',
+        },
+      },
+      congress: 118,
+      type: 'hr',
+      categories: [
+        {
+          i18n: {
+            en: {
+              name: 'International Participation',
+            },
+            zh: {
+              name: '國際參與',
+            },
+          },
+        },
+      ],
+      statusTracker: {
+        currentStep: 'passedHouse',
+        passedSteps: ['introduced', 'passedHouse'],
+        futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+      },
+      sponsor: {
+        party: 'republican',
+        people: {
+          i18n: {
+            en: {
+              displayName: 'Young Kim',
+            },
+            zh: {
+              displayName: '金映玉',
+            },
+          },
+          currentParty: 'republican',
+        },
+      },
+      tags: [],
+    },
+  ] as BillDto[]
+  return data.map((item) => Bill.fromDTO(lang, item))
+}
+
+export const getPopularBills = (lang: Language): Bill[] => {
+  // 目前還沒定義Popularity, 先跟Latest Bill拿一樣的
+  return getLatestBills(lang)
+}

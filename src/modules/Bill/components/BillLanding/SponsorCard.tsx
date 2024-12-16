@@ -5,7 +5,6 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
-import { BILL_SPONSOR_MOCK } from '@/modules/Bill/data'
 import { People } from '@/modules/People/classes/People'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
@@ -13,6 +12,9 @@ import usePartyColor from '@/common/lib/Party/usePartyColor'
 import Link from 'next/link'
 import { ROUTES } from '@/routes'
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
+import { getBillTopCosponsors, getBillTopSponsors } from '@/modules/Bill/data'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -60,6 +62,11 @@ type SponsorCardProps = {
 }
 
 export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
+  const { lang } = useParams<{ lang: Language }>()
+  const sponsorsList = isCosponsor
+    ? getBillTopCosponsors(lang)
+    : getBillTopSponsors(lang)
+
   return (
     <UContentCard
       headerIconAction="tooltip"
@@ -75,7 +82,7 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
       }}
     >
       <Stack spacing={1} pt={2}>
-        {BILL_SPONSOR_MOCK.map((sponsor, index) => (
+        {sponsorsList.map((sponsor, index) => (
           <Link
             key={index}
             href={{
