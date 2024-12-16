@@ -13,8 +13,8 @@ import { useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
-import Link from 'next/link'
 import Image from 'next/image'
+import TaiwanRecordSources from '@/modules/TaiwanRecord/components/TaiwanRecordSources'
 
 const DATE_FORMAT = 'MMM DD, YYYY'
 const MAX_IMAGE_TO_SHOW = 4
@@ -113,29 +113,9 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
           </UHStack>
           <Stack gap={theme.spacing(0.5)}>
             <Typography variant="bodyS">{dateAndAuthor}</Typography>
-            <Stack>
-              {taiwanRecord.sources?.links.map((link, index) => (
-                <Link
-                  href={link}
-                  key={index}
-                  rel="noopener noreferrer"
-                  target="_blank"
-                  style={{
-                    maxWidth: 'fit-content',
-                    textDecoration: 'underline',
-                    textDecorationColor: theme.color.neutral[400],
-                  }}
-                >
-                  <Typography
-                    variant="bodyS"
-                    fontSize={12}
-                    color={theme.color.neutral[400]}
-                  >
-                    {link}
-                  </Typography>
-                </Link>
-              ))}
-            </Stack>
+            {taiwanRecord.sources && (
+              <TaiwanRecordSources sources={taiwanRecord.sources} />
+            )}
           </Stack>
         </Stack>
       </AccordionDetails>

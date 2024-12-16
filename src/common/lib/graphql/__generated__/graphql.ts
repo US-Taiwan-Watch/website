@@ -49,7 +49,8 @@ export type AddBillCountPeopleQuery = {
 
 export type Article = {
   __typename?: 'Article';
-  author?: Maybe<Author>;
+  authors?: Maybe<Array<Author>>;
+  categories?: Maybe<Array<CategoriesArticle>>;
   content?: Maybe<Scalars['JSON']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['String']['output']>;
@@ -588,7 +589,16 @@ export type Article_Sources = {
   text?: Maybe<Scalars['String']['output']>;
 };
 
-export type Article_Author_Operator = {
+export type Article_Authors_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type Article_Categories_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   equals?: InputMaybe<Scalars['JSON']['input']>;
   exists?: InputMaybe<Scalars['Boolean']['input']>;
@@ -738,7 +748,8 @@ export type Article_UpdatedAt_Operator = {
 export type Article_Where = {
   AND?: InputMaybe<Array<InputMaybe<Article_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Article_Where_Or>>>;
-  author?: InputMaybe<Article_Author_Operator>;
+  authors?: InputMaybe<Article_Authors_Operator>;
+  categories?: InputMaybe<Article_Categories_Operator>;
   content?: InputMaybe<Article_Content_Operator>;
   createdAt?: InputMaybe<Article_CreatedAt_Operator>;
   id?: InputMaybe<Article_Id_Operator>;
@@ -758,7 +769,8 @@ export type Article_Where = {
 export type Article_Where_And = {
   AND?: InputMaybe<Array<InputMaybe<Article_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Article_Where_Or>>>;
-  author?: InputMaybe<Article_Author_Operator>;
+  authors?: InputMaybe<Article_Authors_Operator>;
+  categories?: InputMaybe<Article_Categories_Operator>;
   content?: InputMaybe<Article_Content_Operator>;
   createdAt?: InputMaybe<Article_CreatedAt_Operator>;
   id?: InputMaybe<Article_Id_Operator>;
@@ -778,7 +790,8 @@ export type Article_Where_And = {
 export type Article_Where_Or = {
   AND?: InputMaybe<Array<InputMaybe<Article_Where_And>>>;
   OR?: InputMaybe<Array<InputMaybe<Article_Where_Or>>>;
-  author?: InputMaybe<Article_Author_Operator>;
+  authors?: InputMaybe<Article_Authors_Operator>;
+  categories?: InputMaybe<Article_Categories_Operator>;
   content?: InputMaybe<Article_Content_Operator>;
   createdAt?: InputMaybe<Article_CreatedAt_Operator>;
   id?: InputMaybe<Article_Id_Operator>;
@@ -836,7 +849,8 @@ export type ArticlesDeleteDocAccess = {
 
 export type ArticlesDocAccessFields = {
   __typename?: 'ArticlesDocAccessFields';
-  author?: Maybe<ArticlesDocAccessFields_Author>;
+  authors?: Maybe<ArticlesDocAccessFields_Authors>;
+  categories?: Maybe<ArticlesDocAccessFields_Categories>;
   content?: Maybe<ArticlesDocAccessFields_Content>;
   createdAt?: Maybe<ArticlesDocAccessFields_CreatedAt>;
   media?: Maybe<ArticlesDocAccessFields_Media>;
@@ -849,31 +863,59 @@ export type ArticlesDocAccessFields = {
   updatedAt?: Maybe<ArticlesDocAccessFields_UpdatedAt>;
 };
 
-export type ArticlesDocAccessFields_Author = {
-  __typename?: 'ArticlesDocAccessFields_author';
-  create?: Maybe<ArticlesDocAccessFields_Author_Create>;
-  delete?: Maybe<ArticlesDocAccessFields_Author_Delete>;
-  read?: Maybe<ArticlesDocAccessFields_Author_Read>;
-  update?: Maybe<ArticlesDocAccessFields_Author_Update>;
+export type ArticlesDocAccessFields_Authors = {
+  __typename?: 'ArticlesDocAccessFields_authors';
+  create?: Maybe<ArticlesDocAccessFields_Authors_Create>;
+  delete?: Maybe<ArticlesDocAccessFields_Authors_Delete>;
+  read?: Maybe<ArticlesDocAccessFields_Authors_Read>;
+  update?: Maybe<ArticlesDocAccessFields_Authors_Update>;
 };
 
-export type ArticlesDocAccessFields_Author_Create = {
-  __typename?: 'ArticlesDocAccessFields_author_Create';
+export type ArticlesDocAccessFields_Authors_Create = {
+  __typename?: 'ArticlesDocAccessFields_authors_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ArticlesDocAccessFields_Author_Delete = {
-  __typename?: 'ArticlesDocAccessFields_author_Delete';
+export type ArticlesDocAccessFields_Authors_Delete = {
+  __typename?: 'ArticlesDocAccessFields_authors_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ArticlesDocAccessFields_Author_Read = {
-  __typename?: 'ArticlesDocAccessFields_author_Read';
+export type ArticlesDocAccessFields_Authors_Read = {
+  __typename?: 'ArticlesDocAccessFields_authors_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ArticlesDocAccessFields_Author_Update = {
-  __typename?: 'ArticlesDocAccessFields_author_Update';
+export type ArticlesDocAccessFields_Authors_Update = {
+  __typename?: 'ArticlesDocAccessFields_authors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Categories = {
+  __typename?: 'ArticlesDocAccessFields_categories';
+  create?: Maybe<ArticlesDocAccessFields_Categories_Create>;
+  delete?: Maybe<ArticlesDocAccessFields_Categories_Delete>;
+  read?: Maybe<ArticlesDocAccessFields_Categories_Read>;
+  update?: Maybe<ArticlesDocAccessFields_Categories_Update>;
+};
+
+export type ArticlesDocAccessFields_Categories_Create = {
+  __typename?: 'ArticlesDocAccessFields_categories_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Categories_Delete = {
+  __typename?: 'ArticlesDocAccessFields_categories_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Categories_Read = {
+  __typename?: 'ArticlesDocAccessFields_categories_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Categories_Update = {
+  __typename?: 'ArticlesDocAccessFields_categories_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -1314,7 +1356,8 @@ export type ArticlesDocAccessFields_UpdatedAt_Update = {
 
 export type ArticlesFields = {
   __typename?: 'ArticlesFields';
-  author?: Maybe<ArticlesFields_Author>;
+  authors?: Maybe<ArticlesFields_Authors>;
+  categories?: Maybe<ArticlesFields_Categories>;
   content?: Maybe<ArticlesFields_Content>;
   createdAt?: Maybe<ArticlesFields_CreatedAt>;
   media?: Maybe<ArticlesFields_Media>;
@@ -1327,31 +1370,59 @@ export type ArticlesFields = {
   updatedAt?: Maybe<ArticlesFields_UpdatedAt>;
 };
 
-export type ArticlesFields_Author = {
-  __typename?: 'ArticlesFields_author';
-  create?: Maybe<ArticlesFields_Author_Create>;
-  delete?: Maybe<ArticlesFields_Author_Delete>;
-  read?: Maybe<ArticlesFields_Author_Read>;
-  update?: Maybe<ArticlesFields_Author_Update>;
+export type ArticlesFields_Authors = {
+  __typename?: 'ArticlesFields_authors';
+  create?: Maybe<ArticlesFields_Authors_Create>;
+  delete?: Maybe<ArticlesFields_Authors_Delete>;
+  read?: Maybe<ArticlesFields_Authors_Read>;
+  update?: Maybe<ArticlesFields_Authors_Update>;
 };
 
-export type ArticlesFields_Author_Create = {
-  __typename?: 'ArticlesFields_author_Create';
+export type ArticlesFields_Authors_Create = {
+  __typename?: 'ArticlesFields_authors_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ArticlesFields_Author_Delete = {
-  __typename?: 'ArticlesFields_author_Delete';
+export type ArticlesFields_Authors_Delete = {
+  __typename?: 'ArticlesFields_authors_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ArticlesFields_Author_Read = {
-  __typename?: 'ArticlesFields_author_Read';
+export type ArticlesFields_Authors_Read = {
+  __typename?: 'ArticlesFields_authors_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type ArticlesFields_Author_Update = {
-  __typename?: 'ArticlesFields_author_Update';
+export type ArticlesFields_Authors_Update = {
+  __typename?: 'ArticlesFields_authors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Categories = {
+  __typename?: 'ArticlesFields_categories';
+  create?: Maybe<ArticlesFields_Categories_Create>;
+  delete?: Maybe<ArticlesFields_Categories_Delete>;
+  read?: Maybe<ArticlesFields_Categories_Read>;
+  update?: Maybe<ArticlesFields_Categories_Update>;
+};
+
+export type ArticlesFields_Categories_Create = {
+  __typename?: 'ArticlesFields_categories_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Categories_Delete = {
+  __typename?: 'ArticlesFields_categories_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Categories_Read = {
+  __typename?: 'ArticlesFields_categories_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Categories_Update = {
+  __typename?: 'ArticlesFields_categories_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -2621,6 +2692,44 @@ export type Bill_CreatedAt_Operator = {
   less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
   like?: InputMaybe<Scalars['DateTime']['input']>;
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type Bill_Filter_Congress_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
+};
+
+export type Bill_Filter_Cosponsors__People_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type Bill_Filter_Sponsor__Party_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Bill_Filter_Sponsor__People_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type Bill_Filter_StatusTracker__CurrentStep_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Bill_Filter_Tags_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type Bill_Filter_Type_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Bill_Filter_Where = {
+  congress?: InputMaybe<Bill_Filter_Congress_Operator>;
+  cosponsors__people?: InputMaybe<Bill_Filter_Cosponsors__People_Operator>;
+  sponsor__party?: InputMaybe<Bill_Filter_Sponsor__Party_Operator>;
+  sponsor__people?: InputMaybe<Bill_Filter_Sponsor__People_Operator>;
+  statusTracker__currentStep?: InputMaybe<Bill_Filter_StatusTracker__CurrentStep_Operator>;
+  tags?: InputMaybe<Bill_Filter_Tags_Operator>;
+  type?: InputMaybe<Bill_Filter_Type_Operator>;
 };
 
 export type Bill_I18n__En__ActionsAll_Operator = {
@@ -5502,6 +5611,21 @@ export type BillsFields_UpdatedAt_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type BillsFilter = {
+  __typename?: 'BillsFilter';
+  docs?: Maybe<Array<Maybe<Bill>>>;
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  hasPrevPage?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
+  pagingCounter?: Maybe<Scalars['Int']['output']>;
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+  totalPages?: Maybe<Scalars['Int']['output']>;
+};
+
 export type BillsReadAccess = {
   __typename?: 'BillsReadAccess';
   permission: Scalars['Boolean']['output'];
@@ -5531,7 +5655,8 @@ export type CategoriesArticle = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   i18n?: Maybe<CategoriesArticle_I18n>;
   id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  nameEn?: Maybe<Scalars['String']['output']>;
+  nameZh?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -5563,7 +5688,8 @@ export type CategoriesArticleDocAccessFields = {
   __typename?: 'CategoriesArticleDocAccessFields';
   createdAt?: Maybe<CategoriesArticleDocAccessFields_CreatedAt>;
   i18n?: Maybe<CategoriesArticleDocAccessFields_I18n>;
-  name?: Maybe<CategoriesArticleDocAccessFields_Name>;
+  nameEn?: Maybe<CategoriesArticleDocAccessFields_NameEn>;
+  nameZh?: Maybe<CategoriesArticleDocAccessFields_NameZh>;
   updatedAt?: Maybe<CategoriesArticleDocAccessFields_UpdatedAt>;
 };
 
@@ -5754,31 +5880,59 @@ export type CategoriesArticleDocAccessFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleDocAccessFields_Name = {
-  __typename?: 'CategoriesArticleDocAccessFields_name';
-  create?: Maybe<CategoriesArticleDocAccessFields_Name_Create>;
-  delete?: Maybe<CategoriesArticleDocAccessFields_Name_Delete>;
-  read?: Maybe<CategoriesArticleDocAccessFields_Name_Read>;
-  update?: Maybe<CategoriesArticleDocAccessFields_Name_Update>;
+export type CategoriesArticleDocAccessFields_NameEn = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameEn';
+  create?: Maybe<CategoriesArticleDocAccessFields_NameEn_Create>;
+  delete?: Maybe<CategoriesArticleDocAccessFields_NameEn_Delete>;
+  read?: Maybe<CategoriesArticleDocAccessFields_NameEn_Read>;
+  update?: Maybe<CategoriesArticleDocAccessFields_NameEn_Update>;
 };
 
-export type CategoriesArticleDocAccessFields_Name_Create = {
-  __typename?: 'CategoriesArticleDocAccessFields_name_Create';
+export type CategoriesArticleDocAccessFields_NameEn_Create = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleDocAccessFields_Name_Delete = {
-  __typename?: 'CategoriesArticleDocAccessFields_name_Delete';
+export type CategoriesArticleDocAccessFields_NameEn_Delete = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleDocAccessFields_Name_Read = {
-  __typename?: 'CategoriesArticleDocAccessFields_name_Read';
+export type CategoriesArticleDocAccessFields_NameEn_Read = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleDocAccessFields_Name_Update = {
-  __typename?: 'CategoriesArticleDocAccessFields_name_Update';
+export type CategoriesArticleDocAccessFields_NameEn_Update = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleDocAccessFields_NameZh = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameZh';
+  create?: Maybe<CategoriesArticleDocAccessFields_NameZh_Create>;
+  delete?: Maybe<CategoriesArticleDocAccessFields_NameZh_Delete>;
+  read?: Maybe<CategoriesArticleDocAccessFields_NameZh_Read>;
+  update?: Maybe<CategoriesArticleDocAccessFields_NameZh_Update>;
+};
+
+export type CategoriesArticleDocAccessFields_NameZh_Create = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleDocAccessFields_NameZh_Delete = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleDocAccessFields_NameZh_Read = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleDocAccessFields_NameZh_Update = {
+  __typename?: 'CategoriesArticleDocAccessFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -5814,7 +5968,8 @@ export type CategoriesArticleFields = {
   __typename?: 'CategoriesArticleFields';
   createdAt?: Maybe<CategoriesArticleFields_CreatedAt>;
   i18n?: Maybe<CategoriesArticleFields_I18n>;
-  name?: Maybe<CategoriesArticleFields_Name>;
+  nameEn?: Maybe<CategoriesArticleFields_NameEn>;
+  nameZh?: Maybe<CategoriesArticleFields_NameZh>;
   updatedAt?: Maybe<CategoriesArticleFields_UpdatedAt>;
 };
 
@@ -6005,31 +6160,59 @@ export type CategoriesArticleFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleFields_Name = {
-  __typename?: 'CategoriesArticleFields_name';
-  create?: Maybe<CategoriesArticleFields_Name_Create>;
-  delete?: Maybe<CategoriesArticleFields_Name_Delete>;
-  read?: Maybe<CategoriesArticleFields_Name_Read>;
-  update?: Maybe<CategoriesArticleFields_Name_Update>;
+export type CategoriesArticleFields_NameEn = {
+  __typename?: 'CategoriesArticleFields_nameEn';
+  create?: Maybe<CategoriesArticleFields_NameEn_Create>;
+  delete?: Maybe<CategoriesArticleFields_NameEn_Delete>;
+  read?: Maybe<CategoriesArticleFields_NameEn_Read>;
+  update?: Maybe<CategoriesArticleFields_NameEn_Update>;
 };
 
-export type CategoriesArticleFields_Name_Create = {
-  __typename?: 'CategoriesArticleFields_name_Create';
+export type CategoriesArticleFields_NameEn_Create = {
+  __typename?: 'CategoriesArticleFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleFields_Name_Delete = {
-  __typename?: 'CategoriesArticleFields_name_Delete';
+export type CategoriesArticleFields_NameEn_Delete = {
+  __typename?: 'CategoriesArticleFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleFields_Name_Read = {
-  __typename?: 'CategoriesArticleFields_name_Read';
+export type CategoriesArticleFields_NameEn_Read = {
+  __typename?: 'CategoriesArticleFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesArticleFields_Name_Update = {
-  __typename?: 'CategoriesArticleFields_name_Update';
+export type CategoriesArticleFields_NameEn_Update = {
+  __typename?: 'CategoriesArticleFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleFields_NameZh = {
+  __typename?: 'CategoriesArticleFields_nameZh';
+  create?: Maybe<CategoriesArticleFields_NameZh_Create>;
+  delete?: Maybe<CategoriesArticleFields_NameZh_Delete>;
+  read?: Maybe<CategoriesArticleFields_NameZh_Read>;
+  update?: Maybe<CategoriesArticleFields_NameZh_Update>;
+};
+
+export type CategoriesArticleFields_NameZh_Create = {
+  __typename?: 'CategoriesArticleFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleFields_NameZh_Delete = {
+  __typename?: 'CategoriesArticleFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleFields_NameZh_Read = {
+  __typename?: 'CategoriesArticleFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesArticleFields_NameZh_Update = {
+  __typename?: 'CategoriesArticleFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -6143,7 +6326,18 @@ export type CategoriesArticle_Id_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type CategoriesArticle_Name_Operator = {
+export type CategoriesArticle_NameEn_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesArticle_NameZh_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
@@ -6172,7 +6366,8 @@ export type CategoriesArticle_Where = {
   i18n__en__name?: InputMaybe<CategoriesArticle_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesArticle_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesArticle_Id_Operator>;
-  name?: InputMaybe<CategoriesArticle_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesArticle_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesArticle_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesArticle_UpdatedAt_Operator>;
 };
 
@@ -6183,7 +6378,8 @@ export type CategoriesArticle_Where_And = {
   i18n__en__name?: InputMaybe<CategoriesArticle_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesArticle_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesArticle_Id_Operator>;
-  name?: InputMaybe<CategoriesArticle_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesArticle_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesArticle_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesArticle_UpdatedAt_Operator>;
 };
 
@@ -6194,7 +6390,8 @@ export type CategoriesArticle_Where_Or = {
   i18n__en__name?: InputMaybe<CategoriesArticle_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesArticle_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesArticle_Id_Operator>;
-  name?: InputMaybe<CategoriesArticle_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesArticle_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesArticle_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesArticle_UpdatedAt_Operator>;
 };
 
@@ -6218,7 +6415,8 @@ export type CategoriesBill = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   i18n?: Maybe<CategoriesBill_I18n>;
   id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  nameEn?: Maybe<Scalars['String']['output']>;
+  nameZh?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -6250,7 +6448,8 @@ export type CategoriesBillDocAccessFields = {
   __typename?: 'CategoriesBillDocAccessFields';
   createdAt?: Maybe<CategoriesBillDocAccessFields_CreatedAt>;
   i18n?: Maybe<CategoriesBillDocAccessFields_I18n>;
-  name?: Maybe<CategoriesBillDocAccessFields_Name>;
+  nameEn?: Maybe<CategoriesBillDocAccessFields_NameEn>;
+  nameZh?: Maybe<CategoriesBillDocAccessFields_NameZh>;
   updatedAt?: Maybe<CategoriesBillDocAccessFields_UpdatedAt>;
 };
 
@@ -6441,31 +6640,59 @@ export type CategoriesBillDocAccessFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillDocAccessFields_Name = {
-  __typename?: 'CategoriesBillDocAccessFields_name';
-  create?: Maybe<CategoriesBillDocAccessFields_Name_Create>;
-  delete?: Maybe<CategoriesBillDocAccessFields_Name_Delete>;
-  read?: Maybe<CategoriesBillDocAccessFields_Name_Read>;
-  update?: Maybe<CategoriesBillDocAccessFields_Name_Update>;
+export type CategoriesBillDocAccessFields_NameEn = {
+  __typename?: 'CategoriesBillDocAccessFields_nameEn';
+  create?: Maybe<CategoriesBillDocAccessFields_NameEn_Create>;
+  delete?: Maybe<CategoriesBillDocAccessFields_NameEn_Delete>;
+  read?: Maybe<CategoriesBillDocAccessFields_NameEn_Read>;
+  update?: Maybe<CategoriesBillDocAccessFields_NameEn_Update>;
 };
 
-export type CategoriesBillDocAccessFields_Name_Create = {
-  __typename?: 'CategoriesBillDocAccessFields_name_Create';
+export type CategoriesBillDocAccessFields_NameEn_Create = {
+  __typename?: 'CategoriesBillDocAccessFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillDocAccessFields_Name_Delete = {
-  __typename?: 'CategoriesBillDocAccessFields_name_Delete';
+export type CategoriesBillDocAccessFields_NameEn_Delete = {
+  __typename?: 'CategoriesBillDocAccessFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillDocAccessFields_Name_Read = {
-  __typename?: 'CategoriesBillDocAccessFields_name_Read';
+export type CategoriesBillDocAccessFields_NameEn_Read = {
+  __typename?: 'CategoriesBillDocAccessFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillDocAccessFields_Name_Update = {
-  __typename?: 'CategoriesBillDocAccessFields_name_Update';
+export type CategoriesBillDocAccessFields_NameEn_Update = {
+  __typename?: 'CategoriesBillDocAccessFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillDocAccessFields_NameZh = {
+  __typename?: 'CategoriesBillDocAccessFields_nameZh';
+  create?: Maybe<CategoriesBillDocAccessFields_NameZh_Create>;
+  delete?: Maybe<CategoriesBillDocAccessFields_NameZh_Delete>;
+  read?: Maybe<CategoriesBillDocAccessFields_NameZh_Read>;
+  update?: Maybe<CategoriesBillDocAccessFields_NameZh_Update>;
+};
+
+export type CategoriesBillDocAccessFields_NameZh_Create = {
+  __typename?: 'CategoriesBillDocAccessFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillDocAccessFields_NameZh_Delete = {
+  __typename?: 'CategoriesBillDocAccessFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillDocAccessFields_NameZh_Read = {
+  __typename?: 'CategoriesBillDocAccessFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillDocAccessFields_NameZh_Update = {
+  __typename?: 'CategoriesBillDocAccessFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -6501,7 +6728,8 @@ export type CategoriesBillFields = {
   __typename?: 'CategoriesBillFields';
   createdAt?: Maybe<CategoriesBillFields_CreatedAt>;
   i18n?: Maybe<CategoriesBillFields_I18n>;
-  name?: Maybe<CategoriesBillFields_Name>;
+  nameEn?: Maybe<CategoriesBillFields_NameEn>;
+  nameZh?: Maybe<CategoriesBillFields_NameZh>;
   updatedAt?: Maybe<CategoriesBillFields_UpdatedAt>;
 };
 
@@ -6692,31 +6920,59 @@ export type CategoriesBillFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillFields_Name = {
-  __typename?: 'CategoriesBillFields_name';
-  create?: Maybe<CategoriesBillFields_Name_Create>;
-  delete?: Maybe<CategoriesBillFields_Name_Delete>;
-  read?: Maybe<CategoriesBillFields_Name_Read>;
-  update?: Maybe<CategoriesBillFields_Name_Update>;
+export type CategoriesBillFields_NameEn = {
+  __typename?: 'CategoriesBillFields_nameEn';
+  create?: Maybe<CategoriesBillFields_NameEn_Create>;
+  delete?: Maybe<CategoriesBillFields_NameEn_Delete>;
+  read?: Maybe<CategoriesBillFields_NameEn_Read>;
+  update?: Maybe<CategoriesBillFields_NameEn_Update>;
 };
 
-export type CategoriesBillFields_Name_Create = {
-  __typename?: 'CategoriesBillFields_name_Create';
+export type CategoriesBillFields_NameEn_Create = {
+  __typename?: 'CategoriesBillFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillFields_Name_Delete = {
-  __typename?: 'CategoriesBillFields_name_Delete';
+export type CategoriesBillFields_NameEn_Delete = {
+  __typename?: 'CategoriesBillFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillFields_Name_Read = {
-  __typename?: 'CategoriesBillFields_name_Read';
+export type CategoriesBillFields_NameEn_Read = {
+  __typename?: 'CategoriesBillFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesBillFields_Name_Update = {
-  __typename?: 'CategoriesBillFields_name_Update';
+export type CategoriesBillFields_NameEn_Update = {
+  __typename?: 'CategoriesBillFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillFields_NameZh = {
+  __typename?: 'CategoriesBillFields_nameZh';
+  create?: Maybe<CategoriesBillFields_NameZh_Create>;
+  delete?: Maybe<CategoriesBillFields_NameZh_Delete>;
+  read?: Maybe<CategoriesBillFields_NameZh_Read>;
+  update?: Maybe<CategoriesBillFields_NameZh_Update>;
+};
+
+export type CategoriesBillFields_NameZh_Create = {
+  __typename?: 'CategoriesBillFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillFields_NameZh_Delete = {
+  __typename?: 'CategoriesBillFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillFields_NameZh_Read = {
+  __typename?: 'CategoriesBillFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesBillFields_NameZh_Update = {
+  __typename?: 'CategoriesBillFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -6830,7 +7086,18 @@ export type CategoriesBill_Id_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type CategoriesBill_Name_Operator = {
+export type CategoriesBill_NameEn_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesBill_NameZh_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
@@ -6859,7 +7126,8 @@ export type CategoriesBill_Where = {
   i18n__en__name?: InputMaybe<CategoriesBill_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesBill_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesBill_Id_Operator>;
-  name?: InputMaybe<CategoriesBill_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesBill_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesBill_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesBill_UpdatedAt_Operator>;
 };
 
@@ -6870,7 +7138,8 @@ export type CategoriesBill_Where_And = {
   i18n__en__name?: InputMaybe<CategoriesBill_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesBill_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesBill_Id_Operator>;
-  name?: InputMaybe<CategoriesBill_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesBill_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesBill_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesBill_UpdatedAt_Operator>;
 };
 
@@ -6881,7 +7150,8 @@ export type CategoriesBill_Where_Or = {
   i18n__en__name?: InputMaybe<CategoriesBill_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesBill_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesBill_Id_Operator>;
-  name?: InputMaybe<CategoriesBill_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesBill_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesBill_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesBill_UpdatedAt_Operator>;
 };
 
@@ -6943,7 +7213,8 @@ export type CategoriesPeopleDocAccessFields = {
   __typename?: 'CategoriesPeopleDocAccessFields';
   createdAt?: Maybe<CategoriesPeopleDocAccessFields_CreatedAt>;
   i18n?: Maybe<CategoriesPeopleDocAccessFields_I18n>;
-  name?: Maybe<CategoriesPeopleDocAccessFields_Name>;
+  nameEn?: Maybe<CategoriesPeopleDocAccessFields_NameEn>;
+  nameZh?: Maybe<CategoriesPeopleDocAccessFields_NameZh>;
   updatedAt?: Maybe<CategoriesPeopleDocAccessFields_UpdatedAt>;
 };
 
@@ -7134,31 +7405,59 @@ export type CategoriesPeopleDocAccessFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleDocAccessFields_Name = {
-  __typename?: 'CategoriesPeopleDocAccessFields_name';
-  create?: Maybe<CategoriesPeopleDocAccessFields_Name_Create>;
-  delete?: Maybe<CategoriesPeopleDocAccessFields_Name_Delete>;
-  read?: Maybe<CategoriesPeopleDocAccessFields_Name_Read>;
-  update?: Maybe<CategoriesPeopleDocAccessFields_Name_Update>;
+export type CategoriesPeopleDocAccessFields_NameEn = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameEn';
+  create?: Maybe<CategoriesPeopleDocAccessFields_NameEn_Create>;
+  delete?: Maybe<CategoriesPeopleDocAccessFields_NameEn_Delete>;
+  read?: Maybe<CategoriesPeopleDocAccessFields_NameEn_Read>;
+  update?: Maybe<CategoriesPeopleDocAccessFields_NameEn_Update>;
 };
 
-export type CategoriesPeopleDocAccessFields_Name_Create = {
-  __typename?: 'CategoriesPeopleDocAccessFields_name_Create';
+export type CategoriesPeopleDocAccessFields_NameEn_Create = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleDocAccessFields_Name_Delete = {
-  __typename?: 'CategoriesPeopleDocAccessFields_name_Delete';
+export type CategoriesPeopleDocAccessFields_NameEn_Delete = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleDocAccessFields_Name_Read = {
-  __typename?: 'CategoriesPeopleDocAccessFields_name_Read';
+export type CategoriesPeopleDocAccessFields_NameEn_Read = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleDocAccessFields_Name_Update = {
-  __typename?: 'CategoriesPeopleDocAccessFields_name_Update';
+export type CategoriesPeopleDocAccessFields_NameEn_Update = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleDocAccessFields_NameZh = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameZh';
+  create?: Maybe<CategoriesPeopleDocAccessFields_NameZh_Create>;
+  delete?: Maybe<CategoriesPeopleDocAccessFields_NameZh_Delete>;
+  read?: Maybe<CategoriesPeopleDocAccessFields_NameZh_Read>;
+  update?: Maybe<CategoriesPeopleDocAccessFields_NameZh_Update>;
+};
+
+export type CategoriesPeopleDocAccessFields_NameZh_Create = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleDocAccessFields_NameZh_Delete = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleDocAccessFields_NameZh_Read = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleDocAccessFields_NameZh_Update = {
+  __typename?: 'CategoriesPeopleDocAccessFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -7194,7 +7493,8 @@ export type CategoriesPeopleFields = {
   __typename?: 'CategoriesPeopleFields';
   createdAt?: Maybe<CategoriesPeopleFields_CreatedAt>;
   i18n?: Maybe<CategoriesPeopleFields_I18n>;
-  name?: Maybe<CategoriesPeopleFields_Name>;
+  nameEn?: Maybe<CategoriesPeopleFields_NameEn>;
+  nameZh?: Maybe<CategoriesPeopleFields_NameZh>;
   updatedAt?: Maybe<CategoriesPeopleFields_UpdatedAt>;
 };
 
@@ -7385,31 +7685,59 @@ export type CategoriesPeopleFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleFields_Name = {
-  __typename?: 'CategoriesPeopleFields_name';
-  create?: Maybe<CategoriesPeopleFields_Name_Create>;
-  delete?: Maybe<CategoriesPeopleFields_Name_Delete>;
-  read?: Maybe<CategoriesPeopleFields_Name_Read>;
-  update?: Maybe<CategoriesPeopleFields_Name_Update>;
+export type CategoriesPeopleFields_NameEn = {
+  __typename?: 'CategoriesPeopleFields_nameEn';
+  create?: Maybe<CategoriesPeopleFields_NameEn_Create>;
+  delete?: Maybe<CategoriesPeopleFields_NameEn_Delete>;
+  read?: Maybe<CategoriesPeopleFields_NameEn_Read>;
+  update?: Maybe<CategoriesPeopleFields_NameEn_Update>;
 };
 
-export type CategoriesPeopleFields_Name_Create = {
-  __typename?: 'CategoriesPeopleFields_name_Create';
+export type CategoriesPeopleFields_NameEn_Create = {
+  __typename?: 'CategoriesPeopleFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleFields_Name_Delete = {
-  __typename?: 'CategoriesPeopleFields_name_Delete';
+export type CategoriesPeopleFields_NameEn_Delete = {
+  __typename?: 'CategoriesPeopleFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleFields_Name_Read = {
-  __typename?: 'CategoriesPeopleFields_name_Read';
+export type CategoriesPeopleFields_NameEn_Read = {
+  __typename?: 'CategoriesPeopleFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type CategoriesPeopleFields_Name_Update = {
-  __typename?: 'CategoriesPeopleFields_name_Update';
+export type CategoriesPeopleFields_NameEn_Update = {
+  __typename?: 'CategoriesPeopleFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleFields_NameZh = {
+  __typename?: 'CategoriesPeopleFields_nameZh';
+  create?: Maybe<CategoriesPeopleFields_NameZh_Create>;
+  delete?: Maybe<CategoriesPeopleFields_NameZh_Delete>;
+  read?: Maybe<CategoriesPeopleFields_NameZh_Read>;
+  update?: Maybe<CategoriesPeopleFields_NameZh_Update>;
+};
+
+export type CategoriesPeopleFields_NameZh_Create = {
+  __typename?: 'CategoriesPeopleFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleFields_NameZh_Delete = {
+  __typename?: 'CategoriesPeopleFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleFields_NameZh_Read = {
+  __typename?: 'CategoriesPeopleFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesPeopleFields_NameZh_Update = {
+  __typename?: 'CategoriesPeopleFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -7470,7 +7798,8 @@ export type CategoriesPerson = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   i18n?: Maybe<CategoriesPerson_I18n>;
   id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  nameEn?: Maybe<Scalars['String']['output']>;
+  nameZh?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -7532,7 +7861,18 @@ export type CategoriesPerson_Id_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type CategoriesPerson_Name_Operator = {
+export type CategoriesPerson_NameEn_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesPerson_NameZh_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
@@ -7561,7 +7901,8 @@ export type CategoriesPerson_Where = {
   i18n__en__name?: InputMaybe<CategoriesPerson_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesPerson_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesPerson_Id_Operator>;
-  name?: InputMaybe<CategoriesPerson_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesPerson_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesPerson_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesPerson_UpdatedAt_Operator>;
 };
 
@@ -7572,7 +7913,8 @@ export type CategoriesPerson_Where_And = {
   i18n__en__name?: InputMaybe<CategoriesPerson_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesPerson_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesPerson_Id_Operator>;
-  name?: InputMaybe<CategoriesPerson_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesPerson_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesPerson_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesPerson_UpdatedAt_Operator>;
 };
 
@@ -7583,7 +7925,8 @@ export type CategoriesPerson_Where_Or = {
   i18n__en__name?: InputMaybe<CategoriesPerson_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<CategoriesPerson_I18n__Zh__Name_Operator>;
   id?: InputMaybe<CategoriesPerson_Id_Operator>;
-  name?: InputMaybe<CategoriesPerson_Name_Operator>;
+  nameEn?: InputMaybe<CategoriesPerson_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesPerson_NameZh_Operator>;
   updatedAt?: InputMaybe<CategoriesPerson_UpdatedAt_Operator>;
 };
 
@@ -18380,11 +18723,11 @@ export type People_Filter_Experiences__Category_Operator = {
 };
 
 export type People_Filter_Experiences__Positions__CompanyType_Operator = {
-  in?: InputMaybe<Scalars['JSON']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type People_Filter_Experiences__Positions__Congresses_Operator = {
-  in?: InputMaybe<Scalars['JSON']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['Int']['input']>>>;
 };
 
 export type People_Filter_Experiences__Positions__District_Operator = {
@@ -18392,19 +18735,19 @@ export type People_Filter_Experiences__Positions__District_Operator = {
 };
 
 export type People_Filter_Experiences__Positions__OfficialAreas_Operator = {
-  in?: InputMaybe<Scalars['JSON']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type People_Filter_Experiences__Positions__Party_Operator = {
-  in?: InputMaybe<Scalars['JSON']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type People_Filter_Experiences__Positions__State_Operator = {
-  in?: InputMaybe<Scalars['JSON']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type People_Filter_Tag_Operator = {
-  in?: InputMaybe<Scalars['JSON']['input']>;
+export type People_Filter_Tags_Operator = {
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
 };
 
 export type People_Filter_Where = {
@@ -18415,7 +18758,7 @@ export type People_Filter_Where = {
   experiences__positions__officialAreas?: InputMaybe<People_Filter_Experiences__Positions__OfficialAreas_Operator>;
   experiences__positions__party?: InputMaybe<People_Filter_Experiences__Positions__Party_Operator>;
   experiences__positions__state?: InputMaybe<People_Filter_Experiences__Positions__State_Operator>;
-  tag?: InputMaybe<People_Filter_Tag_Operator>;
+  tags?: InputMaybe<People_Filter_Tags_Operator>;
 };
 
 export enum People_Gender {
@@ -24672,6 +25015,7 @@ export type PeoplesFilter = {
   limit?: Maybe<Scalars['Int']['output']>;
   nextPage?: Maybe<Scalars['Int']['output']>;
   offset?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
   pagingCounter?: Maybe<Scalars['Int']['output']>;
   prevPage?: Maybe<Scalars['Int']['output']>;
   totalDocs?: Maybe<Scalars['Int']['output']>;
@@ -24716,6 +25060,7 @@ export type Query = {
   BillTopTags?: Maybe<Array<Maybe<TopTagsQuery>>>;
   BillTrendByCategory?: Maybe<Array<Maybe<TrendByCategoryQuery>>>;
   Bills?: Maybe<Bills>;
+  BillsFilter?: Maybe<BillsFilter>;
   CategoriesArticle?: Maybe<CategoriesArticle>;
   CategoriesArticles?: Maybe<CategoriesArticles>;
   CategoriesBill?: Maybe<CategoriesBill>;
@@ -24817,6 +25162,21 @@ export type QueryBillArgs = {
 };
 
 
+export type QueryBillTopCosponsorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryBillTopSponsorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+export type QueryBillTopTagsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
 export type QueryBillTrendByCategoryArgs = {
   category?: InputMaybe<Scalars['String']['input']>;
 };
@@ -24827,6 +25187,14 @@ export type QueryBillsArgs = {
   page?: InputMaybe<Scalars['Int']['input']>;
   sort?: InputMaybe<Scalars['String']['input']>;
   where?: InputMaybe<Bill_Where>;
+};
+
+
+export type QueryBillsFilterArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<Bill_Filter_Where>;
 };
 
 
@@ -25171,7 +25539,8 @@ export type Tag = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   i18n?: Maybe<Tag_I18n>;
   id?: Maybe<Scalars['String']['output']>;
-  name?: Maybe<Scalars['String']['output']>;
+  nameEn?: Maybe<Scalars['String']['output']>;
+  nameZh?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
 
@@ -25233,7 +25602,18 @@ export type Tag_Id_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
-export type Tag_Name_Operator = {
+export type Tag_NameEn_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Tag_NameZh_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
@@ -25262,7 +25642,8 @@ export type Tag_Where = {
   i18n__en__name?: InputMaybe<Tag_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<Tag_I18n__Zh__Name_Operator>;
   id?: InputMaybe<Tag_Id_Operator>;
-  name?: InputMaybe<Tag_Name_Operator>;
+  nameEn?: InputMaybe<Tag_NameEn_Operator>;
+  nameZh?: InputMaybe<Tag_NameZh_Operator>;
   updatedAt?: InputMaybe<Tag_UpdatedAt_Operator>;
 };
 
@@ -25273,7 +25654,8 @@ export type Tag_Where_And = {
   i18n__en__name?: InputMaybe<Tag_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<Tag_I18n__Zh__Name_Operator>;
   id?: InputMaybe<Tag_Id_Operator>;
-  name?: InputMaybe<Tag_Name_Operator>;
+  nameEn?: InputMaybe<Tag_NameEn_Operator>;
+  nameZh?: InputMaybe<Tag_NameZh_Operator>;
   updatedAt?: InputMaybe<Tag_UpdatedAt_Operator>;
 };
 
@@ -25284,7 +25666,8 @@ export type Tag_Where_Or = {
   i18n__en__name?: InputMaybe<Tag_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<Tag_I18n__Zh__Name_Operator>;
   id?: InputMaybe<Tag_Id_Operator>;
-  name?: InputMaybe<Tag_Name_Operator>;
+  nameEn?: InputMaybe<Tag_NameEn_Operator>;
+  nameZh?: InputMaybe<Tag_NameZh_Operator>;
   updatedAt?: InputMaybe<Tag_UpdatedAt_Operator>;
 };
 
@@ -25331,7 +25714,8 @@ export type TagsDocAccessFields = {
   __typename?: 'TagsDocAccessFields';
   createdAt?: Maybe<TagsDocAccessFields_CreatedAt>;
   i18n?: Maybe<TagsDocAccessFields_I18n>;
-  name?: Maybe<TagsDocAccessFields_Name>;
+  nameEn?: Maybe<TagsDocAccessFields_NameEn>;
+  nameZh?: Maybe<TagsDocAccessFields_NameZh>;
   updatedAt?: Maybe<TagsDocAccessFields_UpdatedAt>;
 };
 
@@ -25522,31 +25906,59 @@ export type TagsDocAccessFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsDocAccessFields_Name = {
-  __typename?: 'TagsDocAccessFields_name';
-  create?: Maybe<TagsDocAccessFields_Name_Create>;
-  delete?: Maybe<TagsDocAccessFields_Name_Delete>;
-  read?: Maybe<TagsDocAccessFields_Name_Read>;
-  update?: Maybe<TagsDocAccessFields_Name_Update>;
+export type TagsDocAccessFields_NameEn = {
+  __typename?: 'TagsDocAccessFields_nameEn';
+  create?: Maybe<TagsDocAccessFields_NameEn_Create>;
+  delete?: Maybe<TagsDocAccessFields_NameEn_Delete>;
+  read?: Maybe<TagsDocAccessFields_NameEn_Read>;
+  update?: Maybe<TagsDocAccessFields_NameEn_Update>;
 };
 
-export type TagsDocAccessFields_Name_Create = {
-  __typename?: 'TagsDocAccessFields_name_Create';
+export type TagsDocAccessFields_NameEn_Create = {
+  __typename?: 'TagsDocAccessFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsDocAccessFields_Name_Delete = {
-  __typename?: 'TagsDocAccessFields_name_Delete';
+export type TagsDocAccessFields_NameEn_Delete = {
+  __typename?: 'TagsDocAccessFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsDocAccessFields_Name_Read = {
-  __typename?: 'TagsDocAccessFields_name_Read';
+export type TagsDocAccessFields_NameEn_Read = {
+  __typename?: 'TagsDocAccessFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsDocAccessFields_Name_Update = {
-  __typename?: 'TagsDocAccessFields_name_Update';
+export type TagsDocAccessFields_NameEn_Update = {
+  __typename?: 'TagsDocAccessFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsDocAccessFields_NameZh = {
+  __typename?: 'TagsDocAccessFields_nameZh';
+  create?: Maybe<TagsDocAccessFields_NameZh_Create>;
+  delete?: Maybe<TagsDocAccessFields_NameZh_Delete>;
+  read?: Maybe<TagsDocAccessFields_NameZh_Read>;
+  update?: Maybe<TagsDocAccessFields_NameZh_Update>;
+};
+
+export type TagsDocAccessFields_NameZh_Create = {
+  __typename?: 'TagsDocAccessFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsDocAccessFields_NameZh_Delete = {
+  __typename?: 'TagsDocAccessFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsDocAccessFields_NameZh_Read = {
+  __typename?: 'TagsDocAccessFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsDocAccessFields_NameZh_Update = {
+  __typename?: 'TagsDocAccessFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -25582,7 +25994,8 @@ export type TagsFields = {
   __typename?: 'TagsFields';
   createdAt?: Maybe<TagsFields_CreatedAt>;
   i18n?: Maybe<TagsFields_I18n>;
-  name?: Maybe<TagsFields_Name>;
+  nameEn?: Maybe<TagsFields_NameEn>;
+  nameZh?: Maybe<TagsFields_NameZh>;
   updatedAt?: Maybe<TagsFields_UpdatedAt>;
 };
 
@@ -25773,31 +26186,59 @@ export type TagsFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsFields_Name = {
-  __typename?: 'TagsFields_name';
-  create?: Maybe<TagsFields_Name_Create>;
-  delete?: Maybe<TagsFields_Name_Delete>;
-  read?: Maybe<TagsFields_Name_Read>;
-  update?: Maybe<TagsFields_Name_Update>;
+export type TagsFields_NameEn = {
+  __typename?: 'TagsFields_nameEn';
+  create?: Maybe<TagsFields_NameEn_Create>;
+  delete?: Maybe<TagsFields_NameEn_Delete>;
+  read?: Maybe<TagsFields_NameEn_Read>;
+  update?: Maybe<TagsFields_NameEn_Update>;
 };
 
-export type TagsFields_Name_Create = {
-  __typename?: 'TagsFields_name_Create';
+export type TagsFields_NameEn_Create = {
+  __typename?: 'TagsFields_nameEn_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsFields_Name_Delete = {
-  __typename?: 'TagsFields_name_Delete';
+export type TagsFields_NameEn_Delete = {
+  __typename?: 'TagsFields_nameEn_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsFields_Name_Read = {
-  __typename?: 'TagsFields_name_Read';
+export type TagsFields_NameEn_Read = {
+  __typename?: 'TagsFields_nameEn_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type TagsFields_Name_Update = {
-  __typename?: 'TagsFields_name_Update';
+export type TagsFields_NameEn_Update = {
+  __typename?: 'TagsFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_NameZh = {
+  __typename?: 'TagsFields_nameZh';
+  create?: Maybe<TagsFields_NameZh_Create>;
+  delete?: Maybe<TagsFields_NameZh_Delete>;
+  read?: Maybe<TagsFields_NameZh_Read>;
+  update?: Maybe<TagsFields_NameZh_Update>;
+};
+
+export type TagsFields_NameZh_Create = {
+  __typename?: 'TagsFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_NameZh_Delete = {
+  __typename?: 'TagsFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_NameZh_Read = {
+  __typename?: 'TagsFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_NameZh_Update = {
+  __typename?: 'TagsFields_nameZh_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -26217,7 +26658,6 @@ export type TaiwanRecord_Photos__Id_Operator = {
 
 export type TaiwanRecord_Photos__Photo_Operator = {
   equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -26236,7 +26676,6 @@ export type TaiwanRecord_Sources__Link_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -29556,7 +29995,8 @@ export type MembersDocAccess = {
 };
 
 export type MutationArticleInput = {
-  author?: InputMaybe<Scalars['String']['input']>;
+  authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   content?: InputMaybe<Scalars['JSON']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   media: MutationArticle_MediaInput;
@@ -29570,7 +30010,8 @@ export type MutationArticleInput = {
 };
 
 export type MutationArticleUpdateInput = {
-  author?: InputMaybe<Scalars['String']['input']>;
+  authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   content?: InputMaybe<Scalars['JSON']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   media: MutationArticleUpdate_MediaInput;
@@ -29758,14 +30199,16 @@ export type MutationBill_StatusTrackerInput = {
 export type MutationCategoriesArticleInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationCategoriesArticle_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationCategoriesArticleUpdateInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationCategoriesArticleUpdate_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -29798,14 +30241,16 @@ export type MutationCategoriesArticle_I18n_ZhInput = {
 export type MutationCategoriesBillInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationCategoriesBill_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationCategoriesBillUpdateInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationCategoriesBillUpdate_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -29838,14 +30283,16 @@ export type MutationCategoriesBill_I18n_ZhInput = {
 export type MutationCategoriesPersonInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationCategoriesPerson_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationCategoriesPersonUpdateInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationCategoriesPersonUpdate_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -30506,14 +30953,16 @@ export type MutationPeople_VotesInput = {
 export type MutationTagInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationTag_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationTagUpdateInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationTagUpdate_I18nInput>;
-  name?: InputMaybe<Scalars['String']['input']>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -30571,12 +31020,12 @@ export type MutationTaiwanRecordUpdateInput = {
 
 export type MutationTaiwanRecordUpdate_PhotosInput = {
   id?: InputMaybe<Scalars['String']['input']>;
-  photo?: InputMaybe<Scalars['String']['input']>;
+  photo: Scalars['String']['input'];
 };
 
 export type MutationTaiwanRecordUpdate_SourcesInput = {
   id?: InputMaybe<Scalars['String']['input']>;
-  link?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
 };
 
 export type MutationTaiwanRecordUpdate_VersionsInput = {
@@ -30588,12 +31037,12 @@ export type MutationTaiwanRecordUpdate_VersionsInput = {
 
 export type MutationTaiwanRecord_PhotosInput = {
   id?: InputMaybe<Scalars['String']['input']>;
-  photo?: InputMaybe<Scalars['String']['input']>;
+  photo: Scalars['String']['input'];
 };
 
 export type MutationTaiwanRecord_SourcesInput = {
   id?: InputMaybe<Scalars['String']['input']>;
-  link?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
 };
 
 export type MutationTaiwanRecord_VersionsInput = {

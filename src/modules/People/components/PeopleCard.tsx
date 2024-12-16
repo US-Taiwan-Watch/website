@@ -57,7 +57,7 @@ const PeopleCard = memo(function PeopleCard({
 }: PeopleCardProps) {
   return (
     <StyledPeopleCardContainer>
-      <Stack direction="row" spacing={3}>
+      <Stack direction="row" spacing={3} height="100%">
         {people.image && (
           <StyledPeopleCardImageContainer
             display="flex"

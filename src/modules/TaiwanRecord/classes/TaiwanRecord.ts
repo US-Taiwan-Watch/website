@@ -1,7 +1,10 @@
 import dayjs, { Dayjs } from 'dayjs'
 import { isString } from 'lodash-es'
 import { z } from 'zod'
-import { TaiwanRecord as TaiwanRecordDTO } from '@/common/lib/graphql/__generated__/graphql'
+import {
+  TaiwanRecord_Status as TaiwanRecordStatus,
+  TaiwanRecord as TaiwanRecordDTO,
+} from '@/common/lib/graphql/__generated__/graphql'
 
 interface SourcesArgs {
   /** 來源 */
@@ -33,6 +36,8 @@ interface TaiwanRecordArgs {
   author?: string
   /** 來源 */
   sources?: SourcesArgs
+  /** 狀態 */
+  status?: TaiwanRecordStatus
 }
 
 export default class TaiwanRecord {
@@ -43,7 +48,7 @@ export default class TaiwanRecord {
   createdAt?: Dayjs
   author?: string
   sources?: Sources
-
+  status?: TaiwanRecordStatus
   constructor(args: TaiwanRecordArgs) {
     if (isString(args.id)) this.id = args.id
     if (isString(args.title)) this.title = args.title
@@ -55,6 +60,7 @@ export default class TaiwanRecord {
     if (isString(args.author)) this.author = args.author
     if (args.sources && sourcesSchema.safeParse(args.sources).success)
       this.sources = args.sources
+    this.status = args.status
   }
 
   static fromDTO(dto: TaiwanRecordDTO) {
@@ -70,6 +76,11 @@ export default class TaiwanRecord {
         from: '',
         links: dto.sources?.map((source) => source.link).filter(isString) ?? [],
       },
+      status: dto.status,
     })
+  }
+
+  static isApproved(record: TaiwanRecord) {
+    return record.status === TaiwanRecordStatus.Approved
   }
 }
