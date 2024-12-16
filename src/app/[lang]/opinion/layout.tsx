@@ -6,5 +6,10 @@ export default function OpinionLayout({
 }: {
   children: React.ReactNode
 }) {
-  return <CategoryProvider>{children}</CategoryProvider>
+  return (
+    <>
+      <CategoryProvider />
+      {children}
+    </>
+  )
 }

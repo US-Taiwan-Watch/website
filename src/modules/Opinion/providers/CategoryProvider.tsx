@@ -8,13 +8,9 @@ import {
   highlightedOpinionCategories,
 } from '@/modules/Opinion/data'
 import { useParams } from 'next/navigation'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
-interface CategoryProviderProps {
-  children: React.ReactNode
-}
-
-export default function CategoryProvider({ children }: CategoryProviderProps) {
+export default function CategoryProvider() {
   const { lang } = useParams<{ lang: Language }>()
 
   const setHomeCategories = useOpinionStore((state) => state.setHomeCategories)
@@ -31,5 +27,5 @@ export default function CategoryProvider({ children }: CategoryProviderProps) {
     )
   }, [setHomeCategories, setHomeHighlightedCategories, lang])
 
-  return <>{children}</>
+  return null
 }
