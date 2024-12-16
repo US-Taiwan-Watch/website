@@ -5,7 +5,16 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
-import { isArray, isBoolean, isString, uniq } from 'lodash-es'
+import {
+  isArray,
+  isBoolean,
+  isNumber,
+  isString,
+  min,
+  uniq,
+  max,
+  isUndefined,
+} from 'lodash-es'
 import {
   Maybe,
   People_Publications as PeoplePublications,
@@ -43,6 +52,12 @@ export interface Experience {
   descriptions?: Array<string>
   experience?: Array<Experience>
 }
+export type CongressExperienceRange = {
+  earliestCongress?: number
+  latestCongress?: number
+  earliestCongressYear?: number
+  latestCongressYear?: number
+}
 
 interface PeopleArgs {
   id?: Maybe<string>
@@ -64,6 +79,7 @@ interface PeopleArgs {
   bioByAI?: string
   committees?: Array<PeopleCongressionalDataCommittees>
   isCurrentCongressMember?: boolean
+  rawData?: PeopleDTO
 }
 
 export class People {
@@ -81,8 +97,6 @@ export class People {
   position?: PeoplePosition
   // 曾經擔任過的職位
   positions?: Array<PeoplePosition>
-  // 國會
-  congress?: Congress
   // 標籤
   tags?: Array<string>
   // 政黨經歷暫定，後續討論
@@ -107,6 +121,10 @@ export class People {
   publications: Array<PeoplePublications> = []
   // 是否為現任議員
   isCurrentCongressMember: boolean = false
+  // 國會經歷範圍
+  congressExperienceRange?: CongressExperienceRange
+  // Raw data
+  rawData?: PeopleDTO
 
   constructor(private readonly people: PeopleArgs) {
     if (isString(people.id)) {
@@ -129,9 +147,6 @@ export class People {
     }
     if (isArray(people.positions)) {
       this.positions = people.positions
-    }
-    if (people.congress instanceof Congress) {
-      this.congress = people.congress
     }
     if (isArray(people.tags)) {
       this.tags = people.tags
@@ -162,6 +177,11 @@ export class People {
     if (isBoolean(people.isCurrentCongressMember)) {
       this.isCurrentCongressMember = people.isCurrentCongressMember
     }
+    if (!isUndefined(people.rawData)) {
+      this.rawData = people.rawData
+    }
+    this.congressExperienceRange =
+      People.getCongressExperenceRange(people.rawData?.experiences) ?? undefined
   }
 
   get link() {
@@ -257,6 +277,7 @@ export class People {
       isCurrentCongressMember: People.parseIsCurrentCongressMember(
         dto.experiences
       ),
+      rawData: dto,
     })
   }
 
@@ -365,5 +386,48 @@ export class People {
         )
         .filter(Boolean)
     ) as Array<PeoplePosition>
+  }
+
+  static getCongressExperenceRange(
+    dto: PeopleDTO['experiences']
+  ): CongressExperienceRange | null {
+    if (!isArray(dto)) return null
+    const congressExperiences = dto.filter(
+      (item) =>
+        item.category === PeoplePosition.SENATOR ||
+        item.category === PeoplePosition.HOUSE_REPRESENTATIVE
+    )
+    if (congressExperiences.length === 0) return null
+    const congresses = congressExperiences
+      .flatMap(
+        (item) =>
+          item.positions?.flatMap((position) => position.congresses ?? []) ?? []
+      )
+      .filter(isNumber)
+    const startYears = congressExperiences
+      .flatMap(
+        (item) =>
+          item.positions?.flatMap((position) =>
+            position.start?.datetime
+              ? dayjs(position.start.datetime).year()
+              : []
+          ) ?? []
+      )
+      .filter(isNumber)
+    const endYears = congressExperiences
+      .flatMap(
+        (item) =>
+          item.positions?.flatMap((position) =>
+            position.end?.datetime ? dayjs(position.end.datetime).year() : []
+          ) ?? []
+      )
+      .filter(isNumber)
+    if (congresses.length === 0) return null
+    return {
+      earliestCongress: min(congresses),
+      latestCongress: max(congresses),
+      earliestCongressYear: min(startYears),
+      latestCongressYear: max(endYears),
+    }
   }
 }

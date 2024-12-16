@@ -1,17 +1,24 @@
-import { Congress } from '@/common/classes/Congress'
+import { type CongressExperienceRange } from '@/modules/People/classes/People'
 import { Typography } from '@mui/material'
 
 interface PeopleCongressTitleProps {
-  congress: Congress
+  congressExperienceRange: CongressExperienceRange
 }
 
 const PeopleCongressTitle = function PeopleCongressTitle({
-  congress,
+  congressExperienceRange,
 }: PeopleCongressTitleProps) {
+  if (
+    !congressExperienceRange.earliestCongress ||
+    !congressExperienceRange.latestCongress ||
+    !congressExperienceRange.earliestCongressYear
+  )
+    return null
+
   return (
     <Typography variant="bodyS" fontWeight={600}>
       {/** TODO i18n */}
-      {`${congress.congressNumber}th Congress (${congress.startYear}-${congress.endYear})`}
+      {`${congressExperienceRange.earliestCongress}th - ${congressExperienceRange.latestCongress}th Congress (${congressExperienceRange.earliestCongressYear}-${congressExperienceRange.latestCongressYear ?? 'Present'})`}
     </Typography>
   )
 }
