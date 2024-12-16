@@ -22,7 +22,7 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 const useExperienceTime = function (experience: PeopleExperience) {
   // TODO: i18n
   const durationText = useMemo(() => {
-    const duration = People.CalculateExperienceDuration(experience)
+    const duration = People.calculateExperienceDuration(experience)
     let text = ''
     if (duration.year > 0) {
       text += `${duration.year} yr${duration.year > 1 ? 's' : ''} `

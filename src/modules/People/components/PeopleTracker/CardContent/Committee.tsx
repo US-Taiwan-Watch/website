@@ -2,36 +2,7 @@ import { PeopleIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
-
-const MOCK_COMMITTEES = [
-  {
-    title: 'Committee on Environment and Public Works',
-    description: [
-      'Subcommittee on Clean Air, Climate, and Nuclear Safety (Ranking)',
-      'Subcommittee on Fisheries, Water, and Wildlife',
-      'Subcommittee on Transportation and Infrastructure',
-    ],
-  },
-  {
-    title: 'Committee on Foreign Relations',
-    description: [
-      'Subcommittee on East Asia, the Pacific, and International Cybersecurity Policy',
-      'Subcommittee on Europe and Regional Security Cooperation (Ranking)',
-    ],
-  },
-  {
-    title: 'Special Committee on Aging',
-    description: [
-      'Subcommittee on East Asia, the Pacific, and International Cybersecurity Policy',
-      'Subcommittee on Europe and Regional Security Cooperation (Ranking)',
-    ],
-  },
-]
-
-type CommitteeArg = {
-  title: string
-  description?: Array<string>
-}
+import { People } from '@/modules/People/classes/People'
 
 const StyledDescriptionListItem = styled('li')(({ theme }) => ({
   position: 'relative',
@@ -57,7 +28,7 @@ const StyledDescriptionListItem = styled('li')(({ theme }) => ({
 const CommitteeRow = function CommitteeRow({
   committee,
 }: {
-  committee: CommitteeArg
+  committee: People['committees'][number]
 }) {
   const theme = useTheme<USTWTheme>()
 
@@ -72,7 +43,7 @@ const CommitteeRow = function CommitteeRow({
       }}
     >
       <Typography variant="bodyM" fontWeight={700}>
-        {committee.title}
+        {committee.name}
       </Typography>
       <ul
         style={{
@@ -81,11 +52,11 @@ const CommitteeRow = function CommitteeRow({
           margin: 0,
         }}
       >
-        {committee.description &&
-          committee.description.map((description, index) => (
+        {committee.subcommittees &&
+          committee.subcommittees.map((subcommittee, index) => (
             <StyledDescriptionListItem key={index}>
               <Typography variant="bodyS" fontWeight={500}>
-                {description}
+                {subcommittee.name}
               </Typography>
             </StyledDescriptionListItem>
           ))}
@@ -96,12 +67,10 @@ const CommitteeRow = function CommitteeRow({
 
 // TODO: 確認資料來源
 interface CommitteeProps {
-  committees?: Array<CommitteeArg>
+  committees: People['committees']
 }
 
-const Committee = function Committee({
-  committees = MOCK_COMMITTEES,
-}: CommitteeProps) {
+const Committee = function Committee({ committees }: CommitteeProps) {
   return (
     <UContentCard
       headerIconAction="modal"
@@ -121,9 +90,9 @@ const Committee = function Committee({
         </Typography>
       }
     >
-      {committees.map((committee, index) => (
+      {committees?.map((committee, index) => (
         <CommitteeRow key={index} committee={committee} />
-      ))}
+      )) ?? []}
     </UContentCard>
   )
 }

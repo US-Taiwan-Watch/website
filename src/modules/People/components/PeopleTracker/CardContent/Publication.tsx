@@ -3,46 +3,7 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
-
-type PublicationArg = {
-  title: string
-  description: string
-}
-
-const MOCK_PUBLICATIONS: Array<PublicationArg> = [
-  {
-    title: "Leo Tolstoy's War and Peace (Translated for Cats)",
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-  {
-    title: 'Thus Spoke Zarathustra (For Your Cat) (The Meow Library)',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-  {
-    title: "Leo Tolstoy's War and Peace (Translated for Cats)",
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-  {
-    title: 'Thus Spoke Zarathustra (For Your Cat) (The Meow Library)',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-  {
-    title: "Leo Tolstoy's War and Peace (Translated for Cats)",
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-  {
-    title: 'Thus Spoke Zarathustra (For Your Cat) (The Meow Library)',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-  {
-    title: "Leo Tolstoy's War and Peace (Translated for Cats)",
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-  {
-    title: 'Thus Spoke Zarathustra (For Your Cat) (The Meow Library)',
-    description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.`,
-  },
-]
+import { People } from '@/modules/People/classes/People'
 
 /**
  * 出版品行
@@ -53,7 +14,7 @@ const PublicationRow = function PublicationRow({
   publication,
   simplified = false,
 }: {
-  publication: PublicationArg
+  publication: People['publications'][number]
   simplified?: boolean
 }) {
   const theme = useTheme<USTWTheme>()
@@ -73,11 +34,11 @@ const PublicationRow = function PublicationRow({
       </Typography>
       {simplified ? (
         <UHeightLimitedText variant="bodyS" fontWeight={500} maxLine={3}>
-          {publication.description}
+          {publication.abstract}
         </UHeightLimitedText>
       ) : (
         <Typography variant="bodyS" fontWeight={500}>
-          {publication.description}
+          {publication.abstract}
         </Typography>
       )}
     </Stack>
@@ -89,7 +50,7 @@ interface PublicationProps {
   /**
    * 出版品
    */
-  publications?: Array<PublicationArg>
+  publications: People['publications']
 }
 
 /**
@@ -98,9 +59,7 @@ interface PublicationProps {
  * @param onActionClick 點擊事件
  * @returns 出版品元件
  */
-const Publication = function Publication({
-  publications = MOCK_PUBLICATIONS,
-}: PublicationProps) {
+const Publication = function Publication({ publications }: PublicationProps) {
   return (
     <UContentCard
       headerIconAction="modal"
