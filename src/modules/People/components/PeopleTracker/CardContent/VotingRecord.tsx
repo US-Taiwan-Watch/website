@@ -1,22 +1,27 @@
 import { PeopleCheckIcon } from '@/common/styles/assets/Icons'
 import NumberCard from '@/modules/People/components/PeopleTracker/CardContent/NumberCard'
-import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import BillVoteCard from '@/modules/Bill/components/BillVoteCard'
 import { Box } from '@mui/material'
+import { People } from '@/modules/People/classes/People'
 
-// TODO: 串接 API 介面與資料
-const VotingRecord = function () {
+interface VotingRecordProps {
+  people: People
+}
+
+const VotingRecord = function ({ people }: VotingRecordProps) {
+  const votes = people.votes
+
   return (
     <NumberCard
       title="Voting Record"
-      number={2}
+      number={votes.length}
       headerProps={{
         title: 'Voting Record',
         icon: <PeopleCheckIcon />,
         iconColor: 'primary',
       }}
     >
-      {BILL_DATA_MOCK.map((bill, index) => (
+      {votes?.map((vote, index) => (
         <Box
           key={index}
           sx={{
@@ -24,7 +29,9 @@ const VotingRecord = function () {
             marginRight: '8px',
           }}
         >
-          <BillVoteCard bill={bill} vote="yea" status="failed" />
+          {vote.vote?.bill && vote.stance && vote.vote.status && (
+            <BillVoteCard vote={vote} />
+          )}
         </Box>
       ))}
     </NumberCard>

@@ -1,21 +1,32 @@
+'use client'
+
 import { PeopleJoinIcon } from '@/common/styles/assets/Icons'
 import NumberCard from '@/modules/People/components/PeopleTracker/CardContent/NumberCard'
-import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import BillCard from '@/modules/Bill/components/BillCard'
 import { Box } from '@mui/material'
+import { People } from '@/modules/People/classes/People'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
-const CoSponsored = function () {
+interface CoSponsoredProps {
+  people: People
+}
+
+const CoSponsored = function ({ people }: CoSponsoredProps) {
+  const { lang } = useParams<{ lang: Language }>()
+  const cosponsorBills = People.getCosponsorBills(lang, people)
+
   return (
     <NumberCard
       title="Co-Sponsored"
-      number={2}
+      number={cosponsorBills.length}
       headerProps={{
         title: 'Co-Sponsored',
         icon: <PeopleJoinIcon />,
         iconColor: 'primary',
       }}
     >
-      {BILL_DATA_MOCK.map((bill, index) => (
+      {cosponsorBills.map((bill, index) => (
         <Box
           key={index}
           sx={{

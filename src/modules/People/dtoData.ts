@@ -774,9 +774,95 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Dan Sullivan',
+              },
+              zh: {
+                displayName: '蘇利文',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '67488740c842897fb7f2a281',
+            i18n: {
+              en: {
+                name: 'Democracy',
+              },
+              zh: {
+                name: '民主',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/senate-resolution/521',
+        createdAt: '2024-12-07T17:10:26.203Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-01-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Submitted in the Senate, considered, and agreed to without amendment and with a preamble by Unanimous Consent. (consideration: CR S98-101; text: CR S95-96)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-01-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in Senate: Submitted in the Senate, considered, and agreed to without amendment and with a preamble by Unanimous Consent.(consideration: CR S98-101; text: CR S95-96)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary: 'NA',
+            title:
+              "A resolution commending Taiwan for its history of democratic elections, and expressing support of Taiwan's democratic institutions.",
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '決議案表揚台灣的民主選舉歷史及支持台灣的民主制度',
+          },
+        },
         id: '67548182437319f5138bf983',
+        introducedAt: {
+          datetime: '2024-01-11T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '521',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'agreedToInSenate',
+          futureSteps: [],
+          passedSteps: ['introduced', 'passedSenate'],
+        },
+        summary: 'NA',
+        tags: [],
         title:
           "A resolution commending Taiwan for its history of democratic elections, and expressing support of Taiwan's democratic institutions.",
+        type: 'sres',
+        updatedAt: '2024-12-07T17:10:26.203Z',
       },
     ],
     tags: [],
@@ -883,9 +969,130 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Thomas P. Tiffany',
+              },
+              zh: {
+                displayName: '帝芬尼',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+          {
+            id: '6748876cc842897fb7f2a299',
+            i18n: {
+              en: {
+                name: 'U.S.-Taiwan Relations',
+              },
+              zh: {
+                name: '美台關係',
+              },
+            },
+          },
+          {
+            id: '6748878cc842897fb7f2a2b1',
+            i18n: {
+              en: {
+                name: 'Trade/Economy',
+              },
+              zh: {
+                name: '經濟貿易',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-concurrent-resolution/10',
+        createdAt: '2024-12-07T16:41:07.540Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2023-01-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the Committee on Foreign Affairs, and in addition to the Committee on Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned. (Action By: House of Representatives)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the Committee on Foreign Affairs, and in addition to the Committee on Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned. (Action By: House of Representatives)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Introduced in House (Action By: House of Representatives)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2023-01-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[congress.gov] This concurrent resolution calls on the President to abandon the One China policy in favor of one that recognizes Taiwan as an independent country that is not a part of China. The resolution also urges the President to bolster diplomatic and economic relations between the United States and Taiwan through specified means.',
+            title:
+              "Expressing the sense of Congress that the United States should resume normal diplomatic relations with Taiwan, negotiate a bilateral free trade agreement with Taiwan, and support Taiwan's membership in international organizations.",
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title:
+              '表達國會認為美國應與台灣恢復正常的外交關係、協調雙邊自由貿易協定及支持台灣加入國際組織',
+          },
+        },
         id: '67547aa3437319f5138bf725',
+        introducedAt: {
+          datetime: '2023-01-25T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '10',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: ['agreedToInHouse', 'agreedToInSenate'],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          '[congress.gov] This concurrent resolution calls on the President to abandon the One China policy in favor of one that recognizes Taiwan as an independent country that is not a part of China. The resolution also urges the President to bolster diplomatic and economic relations between the United States and Taiwan through specified means.',
+        tags: [],
         title:
           "Expressing the sense of Congress that the United States should resume normal diplomatic relations with Taiwan, negotiate a bilateral free trade agreement with Taiwan, and support Taiwan's membership in international organizations.",
+        type: 'hconres',
+        updatedAt: '2024-12-07T16:41:07.540Z',
       },
     ],
     tags: [],
@@ -1057,9 +1264,109 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Sherrod Brown',
+              },
+              zh: {
+                displayName: '布朗',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+          {
+            id: '67488777c842897fb7f2a2a1',
+            i18n: {
+              en: {
+                name: 'Global health',
+              },
+              zh: {
+                name: '國際公衛',
+              },
+            },
+          },
+        ],
+        congress: 105,
+        congressGovUrl:
+          'https://www.congress.gov/bill/105th-congress/house-joint-resolution/126',
+        createdAt: '2024-12-07T16:25:32.373Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '1998-07-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the House Committee on International Relations. (Action By: House of Representatives)',
+              },
+              {
+                actionAt: {
+                  datetime: '1998-07-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Introduced in House (Action By: House of Representatives)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '1998-07-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] Expresses the sense of the Congress that: (1) Taiwan should be represented in the World Health Organization; and (2) it should be U.S. policy to support Taiwan's representation in the Organization.",
+            title:
+              "Relating to Taiwan's participation in the World Health Organization.",
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '關於台灣參與世界衛生組織',
+          },
+        },
         id: '675476fc437319f5138bedef',
+        introducedAt: {
+          datetime: '1998-07-22T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '126',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          "[congress.gov] Expresses the sense of the Congress that: (1) Taiwan should be represented in the World Health Organization; and (2) it should be U.S. policy to support Taiwan's representation in the Organization.",
+        tags: [],
         title:
           "Relating to Taiwan's participation in the World Health Organization.",
+        type: 'hjres',
+        updatedAt: '2024-12-07T16:25:32.373Z',
       },
     ],
     tags: [],
@@ -1193,8 +1500,92 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Rick Scott',
+              },
+              zh: {
+                displayName: '史考特',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/senate-bill/477',
+        createdAt: '2024-12-07T16:04:25.248Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2023-02-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Read twice and referred to the Committee on Foreign Relations. (Action By: Senate)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2023-02-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill authorizes the President to use the Armed Forces to defend Taiwan against a direct attack by China's military, a taking of Taiwan's territory by China, or a threat that endangers the lives of civilians in Taiwan or members of Taiwan's military. The bill also directs the Department of Defense to convene an annual regional security dialogue with Taiwan and other partners to improve U.S. security relationships with countries in the Western Pacific.",
+            title: 'Taiwan Invasion Prevention Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '防止台灣遭侵略法案',
+          },
+        },
         id: '67547209437319f5138beca4',
+        introducedAt: {
+          datetime: '2023-02-16T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '477',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [
+            'passedSenate',
+            'passedHouse',
+            'toPresident',
+            'becomeLaw',
+          ],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          "[congress.gov] This bill authorizes the President to use the Armed Forces to defend Taiwan against a direct attack by China's military, a taking of Taiwan's territory by China, or a threat that endangers the lives of civilians in Taiwan or members of Taiwan's military. The bill also directs the Department of Defense to convene an annual regional security dialogue with Taiwan and other partners to improve U.S. security relationships with countries in the Western Pacific.",
+        tags: [],
         title: 'Taiwan Invasion Prevention Act',
+        type: 's',
+        updatedAt: '2024-12-07T16:04:25.248Z',
       },
     ],
     tags: [],
@@ -1327,8 +1718,114 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Ami Bera',
+              },
+              zh: {
+                displayName: '貝拉',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 117,
+        congressGovUrl:
+          'https://www.congress.gov/bill/117th-congress/house-bill/3972',
+        createdAt: '2024-12-07T15:51:09.665Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2021-06-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the Subcommittee on Trade. (Action By: Committee on Ways and Means)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-06-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the Committee on Foreign Affairs, and in addition to the Committee on Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned. (Action By: House of Representatives)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-06-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the Committee on Foreign Affairs, and in addition to the Committee on Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned. (Action By: House of Representatives)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-06-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Introduced in House (Action By: House of Representatives)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2021-06-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill requires various reports to Congress related to Taiwan.\n\nThe Department of State must report on (1) a strategy to advance Taiwan's meaningful participation in certain international organizations, and (2) a plan for strengthening Taiwan's community of civilian defense professionals. (China has taken actions to block Taiwan's participation in certain international organizations, such as opposing Taiwan's attendance at World Health Assembly meetings as an observer.)\n\nThe U.S. Agency for International Development must report on cooperation with Taiwan on trilateral and multilateral development initiatives.\n\nThe U.S. Trade Representative must report a legal template for establishing trade and investment agreements with Taiwan that is consistent with U.S.-Taiwan relations.\n\nThe President must report a whole-of-government strategy to enhance deterrence over a military conflict between China and Taiwan. Among other matters, the strategy must include an examination of the present and future capabilities of the United States and Taiwan to respond to potential actions by China's military, such as a naval blockade.\n\nThe Department of Defense must report on options for (1) supporting Taiwan's defense budgeting and procurement process in a way that is consistent with Taiwan's asymmetric defense strategy, and (2) strengthening Taiwan's implementation of its territorial defense force concept.",
+            title: 'Taiwan Peace and Stability Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣和平及穩定法案',
+          },
+        },
         id: '67546eed437319f5138beb61',
+        introducedAt: {
+          datetime: '2021-06-17T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '3972',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          "[congress.gov] This bill requires various reports to Congress related to Taiwan.\n\nThe Department of State must report on (1) a strategy to advance Taiwan's meaningful participation in certain international organizations, and (2) a plan for strengthening Taiwan's community of civilian defense professionals. (China has taken actions to block Taiwan's participation in certain international organizations, such as opposing Taiwan's attendance at World Health Assembly meetings as an observer.)\n\nThe U.S. Agency for International Development must report on cooperation with Taiwan on trilateral and multilateral development initiatives.\n\nThe U.S. Trade Representative must report a legal template for establishing trade and investment agreements with Taiwan that is consistent with U.S.-Taiwan relations.\n\nThe President must report a whole-of-government strategy to enhance deterrence over a military conflict between China and Taiwan. Among other matters, the strategy must include an examination of the present and future capabilities of the United States and Taiwan to respond to potential actions by China's military, such as a naval blockade.\n\nThe Department of Defense must report on options for (1) supporting Taiwan's defense budgeting and procurement process in a way that is consistent with Taiwan's asymmetric defense strategy, and (2) strengthening Taiwan's implementation of its territorial defense force concept.",
+        tags: [],
         title: 'Taiwan Peace and Stability Act',
+        type: 'hr',
+        updatedAt: '2024-12-07T15:51:09.665Z',
       },
     ],
     tags: [],
@@ -1394,8 +1891,369 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Tom DeLay',
+              },
+              zh: {
+                displayName: null,
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 106,
+        congressGovUrl:
+          'https://www.congress.gov/bill/106th-congress/house-bill/1838',
+        createdAt: '2024-12-07T15:36:37.150Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2000-04-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 503.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-04-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Read the first time. Placed on Senate Legislative Calendar under Read the First Time.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Received in the Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T15:10:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T15:10:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On passage Passed by the Yeas and Nays: 341 - 70 (Roll no. 5).',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T15:02:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered as unfinished business. (consideration: CR H127-128)',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T14:02:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'POSTPONED PROCEEDINGS - The Chair put the question on passage by voice vote and announced that the yeas had prevailed. The yeas and nays were demanded and the Chair announced that further proceedings were postponed until later in the legislative day.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T14:02:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'The previous question was ordered pursuant to the rule.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T13:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with one hour of debate on H.R. 1838.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T13:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Rule provides for consideration of H.R. 1838 with 1 hour of general debate. Previous question shall be considered as ordered without intervening motions except motion to recommit with or without instructions. The amendment recommended by the Committee on International Relations now printed in the bill shall be considered as adopted. Measure will be considered read. A specified amendment is in order.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T13:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under the provisions of rule H. Res. 408. (consideration: CR H110-121; text of measure as reported in House: CR H110-121)',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-02-01T12:58:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description: 'Rule H. Res. 408 passed House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2000-01-31T19:04:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Rules Committee Resolution H. Res. 408 Reported to House. Rule provides for consideration of H.R. 1838 with 1 hour of general debate. Previous question shall be considered as ordered without intervening motions except motion to recommit with or without instructions. The amendment recommended by the Committee on International Relations now printed in the bill shall be considered as adopted. Measure will be considered read. A specified amendment is in order.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-11-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Feb. 4, 2000.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-11-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Nov. 22, 1999.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-11-18T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Nov. 19, 1999.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-11-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Nov. 18, 1999.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-11-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Nov. 17, 1999.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-11-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Nov. 12, 1999.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-11-05T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Nov. 10, 1999.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-10-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House Committee on Armed Services Granted an extension for further consideration ending not later than Nov. 5, 1999.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-10-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on International Relations. H. Rept. 106-423, Part I.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-10-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported (Amended) by the Yeas and Nays: 32 - 6. (Action By: Committee on International Relations)',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-10-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on International Relations)',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the Subcommittee on Asia and the Pacific. (Action By: Committee on International Relations)',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-06-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Executive Comment Requested from DOD.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-05-18T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the Committee on International Relations, and in addition to the Committee on Armed Services, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-05-18T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the Committee on International Relations, and in addition to the Committee on Armed Services, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-05-18T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the Committee on International Relations, and in addition to the Committee on Armed Services, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-05-18T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Sponsor introductory remarks on measure. (CR E998-999)',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-05-18T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2000-02-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On passage Passed by the Yeas and Nays: 341 - 70 (Roll no. 5).',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-10-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on International Relations. H. Rept. 106-423, Part I.',
+              },
+              {
+                actionAt: {
+                  datetime: '1999-05-18T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] Taiwan Security Enhancement Act - Directs the Secretary of Defense and the Secretaries of the military departments to make every effort to reserve additional positions for Taiwan military officers at the National Defense University and specified other professional military education schools, and at the U.S. Military Academy, the U.S. Naval Academy, and the Air Force Academy.\nDirects the Secretary of State, when considering foreign military sales to Taiwan, to take into account Taiwan's special status (including its defense needs in response to the military modernization and weapons procurement efforts by China) and make every effort to ensure it has full and timely access to price and availability data for defense articles and defense services.",
+            title: 'Taiwan Security Enhancement Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '臺灣安全加強法',
+          },
+        },
         id: '67546b85437319f5138bea0c',
+        introducedAt: {
+          datetime: '1999-05-18T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '1838',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: [],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          "[congress.gov] Taiwan Security Enhancement Act - Directs the Secretary of Defense and the Secretaries of the military departments to make every effort to reserve additional positions for Taiwan military officers at the National Defense University and specified other professional military education schools, and at the U.S. Military Academy, the U.S. Naval Academy, and the Air Force Academy.\nDirects the Secretary of State, when considering foreign military sales to Taiwan, to take into account Taiwan's special status (including its defense needs in response to the military modernization and weapons procurement efforts by China) and make every effort to ensure it has full and timely access to price and availability data for defense articles and defense services.",
+        tags: [],
         title: 'Taiwan Security Enhancement Act',
+        type: 'hr',
+        updatedAt: '2024-12-07T15:38:37.555Z',
       },
     ],
     tags: [],
@@ -1590,8 +2448,87 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Edward J. Markey',
+              },
+              zh: {
+                displayName: '馬基',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748876cc842897fb7f2a299',
+            i18n: {
+              en: {
+                name: 'U.S.-Taiwan Relations',
+              },
+              zh: {
+                name: '美台關係',
+              },
+            },
+          },
+        ],
+        congress: 117,
+        congressGovUrl:
+          'https://www.congress.gov/bill/117th-congress/senate-bill/811',
+        createdAt: '2024-12-07T15:26:46.488Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2021-03-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Read twice and referred to the Committee on Foreign Relations. (Action By: Senate)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2021-03-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary:
+              '[congress.gov] This bill directs the Department of State to establish a program to provide fellowships in Taiwan to qualifying U.S. government employees.',
+            title: 'Taiwan Fellowship Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣學人法案',
+          },
+        },
         id: '67546936437319f5138be7df',
+        introducedAt: {
+          datetime: '2021-03-17T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '811',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          '[congress.gov] This bill directs the Department of State to establish a program to provide fellowships in Taiwan to qualifying U.S. government employees.',
+        tags: [],
         title: 'Taiwan Fellowship Act',
+        type: 's',
+        updatedAt: '2024-12-07T15:27:38.661Z',
       },
     ],
     tags: [],
@@ -1667,9 +2604,315 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Steve Chabot',
+              },
+              zh: {
+                displayName: '夏波',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748876cc842897fb7f2a299',
+            i18n: {
+              en: {
+                name: 'U.S.-Taiwan Relations',
+              },
+              zh: {
+                name: '美台關係',
+              },
+            },
+          },
+        ],
+        congress: 115,
+        congressGovUrl:
+          'https://www.congress.gov/bill/115th-congress/house-bill/535',
+        createdAt: '2024-12-07T14:49:05.882Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2018-03-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Became Public Law No: 115-135.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-03-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-03-05T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-03-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Message on Senate action sent to the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Passed Senate without amendment by Unanimous Consent. (consideration: CR S1290-1291)',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Placed on Senate Legislative Calendar under General Orders. Calendar No. 310.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Committee on Foreign Relations. Reported by Senator Corker without amendment. Without written report.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-02-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Committee on Foreign Relations. Ordered to be reported without amendment favorably.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-01-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Foreign Relations.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-01-09T15:32:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-01-09T15:32:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill Agreed to by voice vote. (text: CR H57)',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-01-09T15:12:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 535.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-01-09T15:12:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H57-59)',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-01-09T15:12:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. Royce (CA) moved to suspend the rules and pass the bill.',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-10-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported by Voice Vote. (Action By: Committee on Foreign Affairs)',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-10-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Foreign Affairs)',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-06-15T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Forwarded by Subcommittee to Full Committee by Voice Vote . (Action By: House Foreign Affairs Subcommittee on Asia and the Pacific)',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-06-15T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Subcommittee Consideration and Mark-up Session Held. (Action By: House Foreign Affairs Subcommittee on Asia and the Pacific)',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-02-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the Subcommittee on Asia and the Pacific. (Action By: Committee on Foreign Affairs)',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-01-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Foreign Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-01-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2018-03-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Became Public Law No: 115-135.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-03-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-03-05T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in Senate: Passed Senate without amendment by Unanimous Consent.(consideration: CR S1290-1291)',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Committee on Foreign Relations. Reported by Senator Corker without amendment. Without written report.',
+              },
+              {
+                actionAt: {
+                  datetime: '2018-01-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill Agreed to by voice vote.(text: CR H57)',
+              },
+              {
+                actionAt: {
+                  datetime: '2017-01-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[congress.gov] This bill expresses the sense of Congress that the U.S. government should encourage visits between U.S. and Taiwanese officials at all levels.',
+            title:
+              'An act to encourage visits between the United States and Taiwan at all levels, and for other purposes',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣旅行法',
+          },
+        },
         id: '67546061437319f5138be67c',
+        introducedAt: {
+          datetime: '2017-01-13T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '535',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'becomeLaw',
+          futureSteps: [],
+          passedSteps: [
+            'introduced',
+            'passedHouse',
+            'passedSenate',
+            'toPresident',
+            'becomeLaw',
+          ],
+        },
+        summary:
+          '[congress.gov] This bill expresses the sense of Congress that the U.S. government should encourage visits between U.S. and Taiwanese officials at all levels.',
+        tags: [],
         title:
           'An act to encourage visits between the United States and Taiwan at all levels, and for other purposes',
+        type: 'hr',
+        updatedAt: '2024-12-07T14:49:05.882Z',
       },
     ],
     tags: [],
@@ -1752,13 +2995,200 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Robert Menendez',
+              },
+              zh: {
+                displayName: '梅南德茲',
+              },
+            },
+          },
+        },
+        categories: [],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/senate-bill/1457',
+        createdAt: '2024-12-07T14:37:47.516Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2023-07-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Placed on Senate Legislative Calendar under General Orders. Calendar No. 151. (Action By: Senate)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-07-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Committee on Foreign Relations. Reported by Senator Menendez with an amendment in the nature of a substitute. Without written report.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-07-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Committee on Foreign Relations. Ordered to be reported with an amendment in the nature of a substitute favorably.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-05-04T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Read twice and referred to the Committee on Foreign Relations. (Action By: Senate)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2023-07-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Committee on Foreign Relations. Reported by Senator Menendez with an amendment in the nature of a substitute. Without written report.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-05-04T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary:
+              '[congress.gov] This bill authorizes the United States to enter into a tax agreement with Taiwan.',
+            title: 'Taiwan Tax Agreement Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣租稅協定法案',
+          },
+        },
         id: '67545dbb437319f5138be4fd',
+        introducedAt: {
+          datetime: '2023-05-04T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '1457',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [
+            'passedSenate',
+            'passedHouse',
+            'toPresident',
+            'becomeLaw',
+          ],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          '[congress.gov] This bill authorizes the United States to enter into a tax agreement with Taiwan.',
+        tags: [],
         title: 'Taiwan Tax Agreement Act of 2023',
+        type: 's',
+        updatedAt: '2024-12-07T14:37:47.516Z',
       },
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Robert Menendez',
+              },
+              zh: {
+                displayName: '梅南德茲',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748876cc842897fb7f2a299',
+            i18n: {
+              en: {
+                name: 'U.S.-Taiwan Relations',
+              },
+              zh: {
+                name: '美台關係',
+              },
+            },
+          },
+        ],
+        congress: 113,
+        congressGovUrl:
+          'https://www.congress.gov/bill/113th-congress/senate-joint-resolution/31',
+        createdAt: '2024-12-07T16:29:33.712Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2014-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Read twice and referred to the Committee on Foreign Relations. (Action By: Senate)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2014-02-10T00T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary:
+              '[congress.gov] Favors the proposed agreement for peaceful nuclear energy cooperation between the American Institute in Taiwan and the Taipei Economic and Cultural Representative Office in the United States transmitted to Congress by the President on January 7, 2014.',
+            title:
+              'A joint resolution relating to the approval of the proposed Agreement for Cooperation Between the American Institute in Taiwan and the Taipei Economic and Cultural Representatives Office in the United States Concerning Peaceful Uses of Nuclear Energy.',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '關於AIT及TECRO在安全使用核能的議題上合作的聯合決議案',
+          },
+        },
         id: '675477ed437319f5138bef66',
+        introducedAt: {
+          datetime: '2014-02-10T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '31',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          '[congress.gov] Favors the proposed agreement for peaceful nuclear energy cooperation between the American Institute in Taiwan and the Taipei Economic and Cultural Representative Office in the United States transmitted to Congress by the President on January 7, 2014.',
+        tags: [],
         title:
           'A joint resolution relating to the approval of the proposed Agreement for Cooperation Between the American Institute in Taiwan and the Taipei Economic and Cultural Representatives Office in the United States Concerning Peaceful Uses of Nuclear Energy.',
+        type: 'sjres',
+        updatedAt: '2024-12-07T16:29:33.712Z',
       },
     ],
     tags: [],
@@ -1827,8 +3257,318 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Clement J. Zablocki',
+              },
+              zh: {
+                displayName: null,
+              },
+            },
+          },
+        },
+        categories: [],
+        congress: 96,
+        congressGovUrl:
+          'https://www.congress.gov/bill/96th-congress/house-bill/2479',
+        createdAt: '2024-12-07T14:23:04.726Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '1979-04-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Public Law 96-8.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-04-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-04-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Measure presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-04-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Measure enrolled in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-04-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Measure enrolled in House.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-29T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Senate agreed to conference report, roll call #32 (85-4).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'House agreed to conference report, roll call #62 (339-50).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Conference report filed in House, H. Rept. 96-71.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-15T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Conference scheduled in House.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-14T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Conference scheduled in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-14T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Measure passed Senate, amended, in lieu of S. 245, roll call #17 (90-6).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-14T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Measure considered in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-14T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Measure called up by unanimous consent in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Measure passed House, amended, roll call #38 (345-55).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to recommit to Committee on Foreign Affairs with instructions passed House.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Measure considered in House.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-08T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Measure considered in House.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-08T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Measure called up by special rule in House.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-03T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported to House from the Committee on Foreign Affairs, H. Rept. 96-26.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Referred to House Committee on Foreign Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '1979-04-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Public Law 96-8.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-04-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-04-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Measure presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-29T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Conference report agreed to in Senate: Senate agreed to conference report, roll call #32 (85-4).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Conference report agreed to in House: House agreed to conference report, roll call #62 (339-50).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Conference report filed: Conference report filed in House, H. Rept. 96-71.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-14T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in Senate: Measure passed Senate, amended, in lieu of S. 245, roll call #17 (90-6).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: Measure passed House, amended, roll call #38 (345-55).',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-03-03T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported to House from the Committee on Foreign Affairs, H. Rept. 96-26.',
+              },
+              {
+                actionAt: {
+                  datetime: '1979-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] Taiwan Relations Act - Declares it to be the policy of the United States to preserve and promote extensive, close, and friendly commercial, cultural, and other relations between the people of the United States and the people on Taiwan, as well as the people on the China mainland and all other people of the Western Pacific area. Declares that peace and stability in the area are in the political, security, and economic interests of the United States, and are matters of international concern. States that the United States decision to establish diplomatic relations with the People's Republic of China rests upon the expectation that the future of Taiwan will be determined by peaceful means and that any effort to determine the future of Taiwan by other than peaceful means, including by boycotts or embargoes is considered a threat to the peace and security of the Western Pacific area and of grave concern to the United States. States that the United States shall provide Taiwan with arms of a defensive character and shall maintain the capacity of the United States to resist any resort to force or other forms of coercion that would jeopardize the security, or social or economic system, of the people of Taiwan.",
+            title: 'Taiwan Relations Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣關係法',
+          },
+        },
         id: '67545a48437319f5138be376',
+        introducedAt: {
+          datetime: '1979-02-28T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '2479',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'becomeLaw',
+          futureSteps: [],
+          passedSteps: [
+            'introduced',
+            'passedHouse',
+            'passedSenate',
+            'resolvingDifferences',
+            'toPresident',
+            'becomeLaw',
+          ],
+        },
+        summary:
+          "[congress.gov] Taiwan Relations Act - Declares it to be the policy of the United States to preserve and promote extensive, close, and friendly commercial, cultural, and other relations between the people of the United States and the people on Taiwan, as well as the people on the China mainland and all other people of the Western Pacific area. Declares that peace and stability in the area are in the political, security, and economic interests of the United States, and are matters of international concern. States that the United States decision to establish diplomatic relations with the People's Republic of China rests upon the expectation that the future of Taiwan will be determined by peaceful means and that any effort to determine the future of Taiwan by other than peaceful means, including by boycotts or embargoes is considered a threat to the peace and security of the Western Pacific area and of grave concern to the United States. States that the United States shall provide Taiwan with arms of a defensive character and shall maintain the capacity of the United States to resist any resort to force or other forms of coercion that would jeopardize the security, or social or economic system, of the people of Taiwan.",
+        tags: [],
         title: 'Taiwan Relations Act',
+        type: 'hr',
+        updatedAt: '2024-12-07T14:23:04.726Z',
       },
     ],
     tags: [],
@@ -1924,8 +3664,87 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Edward J. Markey',
+              },
+              zh: {
+                displayName: '馬基',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748876cc842897fb7f2a299',
+            i18n: {
+              en: {
+                name: 'U.S.-Taiwan Relations',
+              },
+              zh: {
+                name: '美台關係',
+              },
+            },
+          },
+        ],
+        congress: 117,
+        congressGovUrl:
+          'https://www.congress.gov/bill/117th-congress/senate-bill/811',
+        createdAt: '2024-12-07T15:26:46.488Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2021-03-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Read twice and referred to the Committee on Foreign Relations. (Action By: Senate)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2021-03-17T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary:
+              '[congress.gov] This bill directs the Department of State to establish a program to provide fellowships in Taiwan to qualifying U.S. government employees.',
+            title: 'Taiwan Fellowship Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣學人法案',
+          },
+        },
         id: '67546936437319f5138be7df',
+        introducedAt: {
+          datetime: '2021-03-17T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '811',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          '[congress.gov] This bill directs the Department of State to establish a program to provide fellowships in Taiwan to qualifying U.S. government employees.',
+        tags: [],
         title: 'Taiwan Fellowship Act',
+        type: 's',
+        updatedAt: '2024-12-07T15:27:38.661Z',
       },
     ],
     createdAt: '2024-12-07T06:26:34.406Z',
@@ -2010,8 +3829,80 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Marco Rubio',
+              },
+              zh: {
+                displayName: '盧比歐',
+              },
+            },
+          },
+        },
+        categories: [],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/senate-bill/3110',
+        createdAt: '2024-12-07T06:29:39.088Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2023-10-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Read twice and referred to the Committee on Foreign Relations. (Action By: Senate)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2023-10-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary:
+              '[congress.gov] The Department of State and other United States Government agencies shall treat the democratically elected Government of Taiwan as the legitimate representative of the people of Taiwan and end the outdated practice of referring to the government in Taiwan as the “authorities”.',
+            title: 'Taiwan Relations Reinforcement Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣關係強化法案',
+          },
+        },
         id: '6753eb531e937e031b1b3508',
+        introducedAt: {
+          datetime: '2023-10-24T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '3110',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [
+            'passedSenate',
+            'passedHouse',
+            'toPresident',
+            'becomeLaw',
+          ],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          '[congress.gov] The Department of State and other United States Government agencies shall treat the democratically elected Government of Taiwan as the legitimate representative of the people of Taiwan and end the outdated practice of referring to the government in Taiwan as the “authorities”.',
+        tags: [],
         title: 'Taiwan Relations Reinforcement Act of 2023',
+        type: 's',
+        updatedAt: '2024-12-07T06:29:39.088Z',
       },
     ],
     tags: [],
@@ -2106,8 +3997,133 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Jason Smith',
+              },
+              zh: {
+                displayName: '史密斯',
+              },
+            },
+          },
+        },
+        categories: [],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/5988',
+        createdAt: '2024-12-07T06:11:31.358Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2023-12-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Placed on the Union Calendar, Calendar No. 249. (Action By: House of Representatives)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Reported (Amended) by the Committee on Ways and Means. H. Rept. 118-309.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-11-30T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 40 - 0. (Action By: Committee on Ways and Means)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-11-30T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Committee Consideration and Mark-up Session Held (Action By: Committee on Ways and Means)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-10-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the House Committee on Ways and Means. (Action By: House of Representatives)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-10-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Introduced in House (Action By: House of Representatives)',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2023-12-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Ways and Means. H. Rept. 118-309.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-10-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[congress.gov] This bill establishes special rules for the taxation of residents of Taiwan with income from sources within the United States. This includes the reduction of the rate of withholding of taxes, the application of permanent establishment rules, treatment of income from employment, and the determination of the residency of citizens of Taiwan.',
+            title: 'United States-Taiwan Expedited Double-Tax Relief Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '美台快速雙重稅收減免法案',
+          },
+        },
         id: '6753e7131e937e031b1b33cc',
+        introducedAt: {
+          datetime: '2023-10-19T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '5988',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: [
+            'passedHouse',
+            'passedSenate',
+            'toPresident',
+            'becomeLaw',
+          ],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          '[congress.gov] This bill establishes special rules for the taxation of residents of Taiwan with income from sources within the United States. This includes the reduction of the rate of withholding of taxes, the application of permanent establishment rules, treatment of income from employment, and the determination of the residency of citizens of Taiwan.',
+        tags: [],
         title: 'United States-Taiwan Expedited Double-Tax Relief Act',
+        type: 'hr',
+        updatedAt: '2024-12-07T06:11:31.358Z',
       },
     ],
     tags: [],
@@ -2201,9 +4217,1139 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Cathy McMorris Rodgers',
+              },
+              zh: {
+                displayName: '羅傑斯',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/815',
+        createdAt: '2024-12-07T05:23:17.629Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-04-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Became Public Law No: 118-50.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Message on Senate action sent to the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Senate agreed to the House amendment to the Senate amendment to H.R. 815 by Yea-Nay Vote. 79 - 18. Record Vote Number: 154.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1843 SA 1843 fell when SA 1842 was withdrawn.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1842 Proposed amendment SA 1842 withdrawn in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to waive all applicable budgetary discipline with respect to the measure (the motion to concur in the House amendment to the Senate amendment) agreed to in Senate by Yea-Nay Vote. 75 - 20. Record Vote Number: 153. (CR S2991)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Point of order by Senator Lee pursuant to section 314(e) of the Congressional Budget Act of 1974 against the measure raised in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'S.Amdt.1846 SA 1846 fell when SA 1845 fell.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1845 SA 1845 fell when SA 1844 (the instructions of the motion to refer) fell.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1844 SA 1844 fell when cloture invoked on the motion to concur in the House amendment to the Senate amendment to H.R. 815.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to refer to Senate Committee on Appropriations with instructions to report back forthwith with the following amendment (SA 1844) fell when cloture was invoked on the motion to concur in the House amendment to the Senate amendment to H.R. 815 in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Cloture on the motion to concur in the House amendment to the Senate amendment to H.R. 815 invoked in Senate by Yea-Nay Vote. 80 - 19. Record Vote Number: 152. (CR S2960-2961)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to table the motion to refer the House message to accompany H.R. 815 to the Committee on Appropriations with instructions to report back forthwith with the following amendment (SA 1844) rejected in Senate by Yea-Nay Vote. 48 - 50. Record Vote Number: 151.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1846 Amendment SA 1846 proposed by Senator Schumer to Amendment SA 1845. (consideration: CR S2944) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1845 Amendment SA 1845 proposed by Senator Schumer to Amendment SA 1844 (the instructions of the motion to refer). (consideration: CR S2944) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1844 Amendment SA 1844 proposed by Senator Schumer. (consideration: CR S2944, S2961) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to refer to Senate Committee on Appropriations the House message to accompany H.R. 815 with instructions to report back forthwith with the following amendment (SA 1844) made in Senate. (CR S2944)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1843 Amendment SA 1843 proposed by Senator Schumer to Amendment SA 1842. (consideration: CR S2944) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1842 Amendment SA 1842 proposed by Senator Schumer. (consideration: CR S2944, S2992) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to concur in the House amendment to the Senate amendment to H.R. 815 with an amendment (SA 1842) made in Senate. (CR S2944)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Cloture motion on the motion to concur in the House amendment to the Senate amendment to H.R. 815 presented in Senate. (CR S2943-2944)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to concur in the House amendment to the Senate amendment to H.R. 815. (CR S2943)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Measure laid before Senate by unanimous consent. (consideration: CR S2943-2992)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Message on House action received in Senate and at desk: House amendment to Senate amendment.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-20T14:03:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-20T14:03:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion that the House agree with an amendment to the Senate amendment Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-20T14:03:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  "Pursuant to the provisions of H. Res. 1160, the House took from the Speaker's table the bill H.R. 815 with the Senate amendment, and agreed to the Senate amendment with the amendment described in section 6.",
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-20T14:03:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Pursuant to H. Res. 1160, the Senate amendment to H.R. 815 is considered as agreed to with the amendment described in section 6 of H. Res. 1160.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Message on Senate action sent to the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Passed Senate with an amendment by Yea-Nay Vote. 70 - 29. Record Vote Number: 48.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Cloture invoked in Senate by Yea-Nay Vote. 66 - 33. Record Vote Number: 47. (CR S907)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Amendment SA 1388 agreed to in Senate by Yea-Nay Vote. 66 - 33. Record Vote Number: 46.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to waive all applicable budgetary discipline with respect to the measure agreed to in Senate by Yea-Nay Vote. 66 - 33. Record Vote Number: 45. (CR S906-907)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Point of order that the emergency designations within the amendment violates the Congressional Budget Act of 1974 raised in Senate with respect to amendment SA 1388.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1578 SA 1578 fell when SA 1577 was tabled.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1577 Motion to table amendment SA 1577 agreed to in Senate by Voice Vote.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1580 SA 1580 fell when SA 1579 was tabled.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1579 Motion to table amendment SA 1579 agreed to in Senate by Voice Vote.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1580 Considered by Senate. (consideration: CR S859)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1579 Considered by Senate. (consideration: CR S859, S906)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1578 Considered by Senate. (consideration: CR S859)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1577 Considered by Senate. (consideration: CR S859, S906)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Considered by Senate. (consideration: CR S859, S907)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Considered by Senate. (consideration: CR S859-953)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'S.Amdt.1583 SA 1583 fell when SA 1582 fell.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1582 SA 1582 fell when SA 1581 (the instructions of the motion to commit) fell.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  "Motion by Senator Schumer to commit to Senate Committee on Veterans' Affairs with instructions to report forthwith with the following Senate amendment (SA 1581) fell when cloture was invoked on amendment SA 1388 in Senate.",
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Cloture on SA 1388 invoked in Senate by Yea-Nay Vote. 67 - 27. Record Vote Number: 44.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  "Motion to table the motion by Senator Schumer to commit the bill (H.R. 815) to Senate Committee on Veterans' Affairs with instructions to report back forthwith with amendment SA 1581 rejected in Senate by Yea-Nay Vote. 40 - 53. Record Vote Number: 43.",
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1583 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1582 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1581 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1580 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1579 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1578 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1577 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Considered by Senate. (consideration: CR S838)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Considered by Senate. (consideration: CR S838-856)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1583 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1582 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1581 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1580 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1579 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1578 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1577 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Considered by Senate. (consideration: CR S805)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Considered by Senate. (consideration: CR S805-831)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Cloture motion on the measure presented in Senate. (CR S594)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1583 Amendment SA 1583 proposed by Senator Schumer to Amendment SA 1582. (consideration: CR S594) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1582 Amendment SA 1582 proposed by Senator Schumer to Amendment SA 1581 (the instructions of the motion to commit). (consideration: CR S594) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1581 Amendment SA 1581 proposed by Senator Schumer. (consideration: CR S593) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  "Motion by Senator Schumer to commit to Senate Committee on Veterans' Affairs with instructions to report back forthwith with the following amendment (SA 1581) made in Senate. (text: CR S593)",
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1580 Amendment SA 1580 proposed by Senator Schumer to Amendment SA 1579. (consideration: CR S593) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1579 Amendment SA 1579 proposed by Senator Schumer to language proposed to be stricken by amendment no. 1388. (consideration: CR S593) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1578 Amendment SA 1578 proposed by Senator Schumer to Amendment SA 1577. (consideration: CR S593) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1577 Amendment SA 1577 proposed by Senator Schumer to Amendment SA 1388. (consideration: CR S593) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Cloture motion on amendment SA 1388 presented in Senate. (CR S593)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.1388 Amendment SA 1388 proposed by Senator Schumer for Senator Murray. (consideration: CR S593) In the nature of a substitute.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Measure laid before Senate by motion. (consideration: CR S593-594)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to reconsider the vote by which the second cloture motion on the motion to proceed to H.R. 815 was not invoked (Record Vote No. 332) rendered moot in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to consideration of measure agreed to in Senate by Yea-Nay Vote. 64 - 19. Record Vote Number: 42.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to measure considered in Senate. (CR S565)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-08T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Upon reconsideration, third cloture motion on the motion to proceed to the measure invoked in Senate by Yea-Nay Vote. 67 - 32. Record Vote Number: 41.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to reconsider the vote by which the second cloture motion on the motion to proceed to H.R. 815 was not invoked (Record Vote No. 332) rendered moot in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to reconsider the vote by which cloture on the motion to proceed to the measure was not invoked (Record Vote No. 39) agreed to in Senate by Yea-Nay Vote. 58 - 41. Record Vote Number: 40.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to reconsider the vote by which the third cloture motion on the motion to proceed to the measure was not invoked (Record Vote No. 39) was agreed to in Senate by Yea-Nay Vote. 58 - 41. Record Vote Number: 40.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Third cloture motion on the motion to proceed to the measure not invoked in Senate by Yea-Nay Vote. 49 - 50. Record Vote Number: 39.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to measure considered in Senate. (CR S427)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-05T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Third cloture motion on the motion to proceed to the measure presented in Senate. (CR S354)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-05T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to consideration of measure made in Senate. (CR S354)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to measure considered in Senate. (CR S5831)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-06T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to reconsider the vote by which the second cloture motion on the motion to proceed to H.R. 815 was not invoked (Record Vote No. 332) entered in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-06T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Second cloture motion on the motion to proceed to the measure not invoked in Senate by Yea-Nay Vote. 49 - 51. Record Vote Number: 332. (CR S5793)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-06T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to consideration of measure made in Senate. (CR S5767)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-04T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Second cloture motion on the motion to proceed to the measure presented in Senate. (CR S5709)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-04T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to consideration of measure made in Senate. (CR S5709)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-11-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Under the order of 11/13/2023, cloture motion on the motion to proceed withdrawn by unanimous consent in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-11-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Cloture motion on the motion to proceed to the measure presented in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-11-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to consideration of measure made in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-21T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Read the second time. Placed on Senate Legislative Calendar under General Orders. Calendar No. 30.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Read the first time. Placed on Senate Legislative Calendar under Read the First Time.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-08T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Received in the Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-07T17:29:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-07T17:29:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H1126)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-07T17:18:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 815.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-07T17:18:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H1126-1127)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-07T17:18:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. Bost moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  "Referred to the Subcommittee on Health. (Action By: Committee on Veterans' Affairs)",
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  "Referred to the House Committee on Veterans' Affairs.",
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-04-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Became Public Law No: 118-50.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Resolving differences -- Senate actions: Senate agreed to the House amendment to the Senate amendment to H.R. 815 by Yea-Nay Vote. 79 - 18. Record Vote Number: 154.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-04-20T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Resolving differences -- House actions: On motion that the House agree with an amendment to the Senate amendment Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-02-13T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in Senate: Passed Senate with an amendment by Yea-Nay Vote. 70 - 29. Record Vote Number: 48.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-03-07T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H1126)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[congress.gov] This act provides FY2024 supplemental appropriations to several federal agencies for assistance to Ukraine, Israel, and U.S. allies in the Indo-Pacific region. The act also addresses various foreign policy issues.',
+            title:
+              'Making emergency supplemental appropriations for the fiscal year ending September 30, 2024, and for other purposes.',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '2024年國安緊急補充撥款法案',
+          },
+        },
         id: '6753dbc51e937e031b1b320a',
+        introducedAt: {
+          datetime: '2023-02-02T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '815',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'becomeLaw',
+          futureSteps: [],
+          passedSteps: [
+            'introduced',
+            'passedHouse',
+            'passedSenate',
+            'resolvingDifferences',
+            'toPresident',
+            'becomeLaw',
+          ],
+        },
+        summary:
+          '[congress.gov] This act provides FY2024 supplemental appropriations to several federal agencies for assistance to Ukraine, Israel, and U.S. allies in the Indo-Pacific region. The act also addresses various foreign policy issues.',
+        tags: [],
         title:
           'Making emergency supplemental appropriations for the fiscal year ending September 30, 2024, and for other purposes.',
+        type: 'hr',
+        updatedAt: '2024-12-07T05:23:17.629Z',
       },
     ],
     tags: [],
@@ -2286,9 +5432,341 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Cory Gardner',
+              },
+              zh: {
+                displayName: '賈德納',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+        ],
+        congress: 116,
+        congressGovUrl:
+          'https://www.congress.gov/bill/116th-congress/senate-bill/1678',
+        createdAt: '2024-12-07T04:48:21.319Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2020-03-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Became Public Law No: 116-135.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Message on Senate action sent to the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Senate agreed to the House amendment to S. 1678 by Unanimous Consent.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Measure laid before Senate by unanimous consent. (consideration: CR S1710)',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-05T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Message on House action received in Senate and at desk: House amendment to Senate bill.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-04T16:32:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-04T16:32:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 415 - 0 (Roll no. 85). (text: 03/03/2020 CR H1452-1453)',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-04T16:01:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered as unfinished business. (consideration: CR H1494-1495)',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-03T12:47:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'At the conclusion of debate, the Yeas and Nays were demanded and ordered. Pursuant to the provisions of clause 8, rule XX, the Chair announced that further proceedings on the motion would be postponed.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-03T12:42:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on S. 1678.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-03T12:42:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H1452-1454)',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-03T12:42:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. Cicilline moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-10-31T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the Committee on Foreign Affairs, and in addition to the Committee on Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-10-31T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the Committee on Foreign Affairs, and in addition to the Committee on Ways and Means, for a period to be subsequently determined by the Speaker, in each case for consideration of such provisions as fall within the jurisdiction of the committee concerned.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-10-31T12:28:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description: 'Received in the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-10-30T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Message on Senate action sent to the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-10-29T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Passed Senate with an amendment by Unanimous Consent. (consideration: CR S6254-6255)',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-09-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Placed on Senate Legislative Calendar under General Orders. Calendar No. 237.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-09-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Committee on Foreign Relations. Reported by Senator Risch with an amendment in the nature of a substitute. Without written report.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-09-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Committee on Foreign Relations. Ordered to be reported with an amendment favorably.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-05-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Read twice and referred to the Committee on Foreign Relations.',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2020-03-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Became Public Law No: 116-135.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Resolving differences -- Senate actions: Senate agreed to the House amendment to S. 1678 by Unanimous Consent.',
+              },
+              {
+                actionAt: {
+                  datetime: '2020-03-04T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by the Yeas and Nays: (2/3 required): 415 - 0 (Roll no. 85).',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-10-29T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in Senate: Passed Senate with an amendment by Unanimous Consent.(consideration: CR S6254-6255)',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-09-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Committee on Foreign Relations. Reported by Senator Risch with an amendment in the nature of a substitute. Without written report.',
+              },
+              {
+                actionAt: {
+                  datetime: '2019-05-23T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in Senate',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill requires the Department of State to annually report to Congress on steps the State Department has taken to help strengthen Taiwan's diplomatic relationships and partnerships around the world. (Taiwan is self-governing, but China considers it a renegade province and has taken actions to encourage countries and international organizations to limit or cut off relations with Taiwan.)",
+            title:
+              'Taiwan Allies International Protection and Enhancement Initiative (TAIPEI) Act of 2019',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '2019年台灣盟邦國際保障與強化倡議法 (台北法)',
+          },
+        },
         id: '6753d3951e937e031b1b3091',
+        introducedAt: {
+          datetime: '2019-05-23T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '1678',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'becomeLaw',
+          futureSteps: [],
+          passedSteps: [
+            'introduced',
+            'passedSenate',
+            'passedHouse',
+            'resolvingDifferences',
+            'toPresident',
+            'becomeLaw',
+          ],
+        },
+        summary:
+          "[congress.gov] This bill requires the Department of State to annually report to Congress on steps the State Department has taken to help strengthen Taiwan's diplomatic relationships and partnerships around the world. (Taiwan is self-governing, but China considers it a renegade province and has taken actions to encourage countries and international organizations to limit or cut off relations with Taiwan.)",
+        tags: [],
         title:
           'Taiwan Allies International Protection and Enhancement Initiative (TAIPEI) Act of 2019',
+        type: 's',
+        updatedAt: '2024-12-07T04:48:21.319Z',
       },
     ],
     tags: [],
@@ -2416,13 +5894,268 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Gerald E. Connolly',
+              },
+              zh: {
+                displayName: null,
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/1176',
+        createdAt: '2024-12-07T04:33:48.684Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2023-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Foreign Relations.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-07-25T16:52:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-07-25T16:52:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill Agreed to by voice vote. (text: CR H3913)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-07-25T16:33:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 1176.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-07-25T16:33:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H3913-3915)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-07-25T16:33:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. Barr moved to suspend the rules and pass the bill.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-05-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported by Voice Vote. (Action By: Committee on Foreign Affairs)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-05-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Foreign Affairs)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Foreign Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2023-07-25T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill Agreed to by voice vote. (text: CR H3913)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-24T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill requires the Department of State to annually report to Congress on efforts by China to undermine Taiwan's participation in international organizations or Taiwan's relationships with other countries.",
+            title: 'Taiwan International Solidarity Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '台灣國際團結法案',
+          },
+        },
         id: '6753d02c1e937e031b1b2f54',
+        introducedAt: {
+          datetime: '2023-02-24T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '1176',
+        popularityRank: 1,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          "[congress.gov] This bill requires the Department of State to annually report to Congress on efforts by China to undermine Taiwan's participation in international organizations or Taiwan's relationships with other countries.",
+        tags: [],
         title: 'Taiwan International Solidarity Act',
+        type: 'hr',
+        updatedAt: '2024-12-08T07:01:09.372Z',
       },
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Gerald E. Connolly',
+              },
+              zh: {
+                displayName: null,
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '67488740c842897fb7f2a281',
+            i18n: {
+              en: {
+                name: 'Democracy',
+              },
+              zh: {
+                name: '民主',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-resolution/955',
+        createdAt: '2024-12-07T16:48:35.771Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-01-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description:
+                  'Referred to the House Committee on Foreign Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-01-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] This resolution commends Taiwan for its example of self-governance and regards Taiwan's democracy as a great strategic strength for the free world. The resolution also expresses concern about Chinese interference in Taiwan's 2024 elections and expresses commitment to continuing a strong partnership with Taiwan, regardless of the outcome of the elections.",
+            title:
+              'Commending Taiwan for its history of democratic elections, and expressing support of Taiwan in the preservation of its democratic institutions.',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '表揚台灣的民主選舉歷史及支持台灣維護其民主制度',
+          },
+        },
         id: '67547c63437319f5138bf852',
+        introducedAt: {
+          datetime: '2024-01-10T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '955',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'introduced',
+          futureSteps: ['passedHouse'],
+          passedSteps: ['introduced'],
+        },
+        summary:
+          "[congress.gov] This resolution commends Taiwan for its example of self-governance and regards Taiwan's democracy as a great strategic strength for the free world. The resolution also expresses concern about Chinese interference in Taiwan's 2024 elections and expresses commitment to continuing a strong partnership with Taiwan, regardless of the outcome of the elections.",
+        tags: [],
         title:
           'Commending Taiwan for its history of democratic elections, and expressing support of Taiwan in the preservation of its democratic institutions.',
+        type: 'hres',
+        updatedAt: '2024-12-07T16:48:35.771Z',
       },
     ],
     tags: [],
@@ -2505,8 +6238,922 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Tim Ryan',
+              },
+              zh: {
+                displayName: '萊恩',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748878cc842897fb7f2a2b1',
+            i18n: {
+              en: {
+                name: 'Trade/Economy',
+              },
+              zh: {
+                name: '經濟貿易',
+              },
+            },
+          },
+        ],
+        congress: 117,
+        congressGovUrl:
+          'https://www.congress.gov/bill/117th-congress/house-bill/4346',
+        createdAt: '2024-12-06T10:19:11.796Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2022-08-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Became Public Law No: 117-167.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-08-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: null,
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-08-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-28T15:10:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-28T15:10:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion that the House agree to the Senate amendment to the House amendment to the Senate amendment Agreed to by the Yeas and Nays: 243 - 187, 1 Present (Roll no. 404). (text: CR H7273-7374)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-28T14:21:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'The previous question was ordered pursuant to the rule.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-28T12:59:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with one hour of debate on the Johnson (TX) motion to concur in the Senate amendment to the House amendment to the Senate amendment to H.R. 4346.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-28T12:58:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Pursuant to the provisions of H.Res. 1289, Ms. Johnson (TX) moved that the House concur in the Senate amendment to the House amendment to the Senate amendment to H.R. 4346. (consideration: CR H7273-7387)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-28T12:58:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Ms. Johnson (TX) moved that the House agree to the Senate amendment to the House amendment to the Senate amendment.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Message on Senate action sent to the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Amendment SA 5135 agreed to in Senate by Yea-Nay Vote. 64 - 33. Record Vote Number: 271.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Senate concurred in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) by Yea-Nay Vote. 64 - 33. Record Vote Number: 271.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Motion to waive all applicable budgetary discipline with respect to amendment SA 5135 agreed to in Senate by Yea-Nay Vote. 64 - 33. Record Vote Number: 270.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5136 Proposed amendment SA 5136 withdrawn in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Point of order that the amendment violates section 4106 of H. Con. Res. 71, 115th Congress, raised in Senate with respect to amendment SA 5135.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Considered by Senate (Message from the House considered). (consideration: S3707¿3715)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5136 Considered by Senate (Message from the House considered). (consideration: CR S3707)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Considered by Senate (Message from the House considered). (consideration: CR S3707)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Motion to waive section 404(a) of S. Con. Res. 13, 111th Congress, as amended by S. Con. Res. 11, 114th Congress, with respect to amendment SA 5135 agreed to in Senate by Yea-Nay Vote. 63 - 32. Record Vote Number: 269.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Point of order that the amendment violates section 404(a) of S. Con. Res. 13, 111th Congress, as amended by S. Con. Res. 11, 114th Congress, raised in Senate with respect to amendment SA 5135.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5138 SA 5138 (the instructions of the motion to refer) fell when SA 5137 fell.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5137 SA 5137 fell when cloture invoked on the motion to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135).',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to refer to Senate Committee on Commerce, Science, and Transportation with instructions to report back forthwith with the following amendment (SA 5137) fell when cloture was invoked on the motion to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) in Senate.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Considered by Senate (Message from the House considered).',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5136 Considered by Senate (Message from the House considered). (consideration: CR S3665)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Considered by Senate (Message from the House considered). (consideration: CR S3665)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Cloture on the motion to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) invoked in Senate by Yea-Nay Vote. 64 - 32. Record Vote Number: 268. (CR S3665)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-21T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Considered by Senate (Message from the House considered). (consideration: CR S3582)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-21T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5138 Considered by Senate (Message from the House considered). (consideration: CR S3582)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-21T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5137 Considered by Senate (Message from the House considered). (consideration: CR S3582)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-21T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5136 Considered by Senate (Message from the House considered). (consideration: CR S3582)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-21T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Considered by Senate (Message from the House considered). (consideration: CR S3582)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-20T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5138 Considered by Senate (Message from the House considered). (consideration: CR S3527)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-20T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5137 Considered by Senate (Message from the House considered). (consideration: CR S3527)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-20T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5136 Considered by Senate (Message from the House considered). (consideration: CR S3527)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-20T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Considered by Senate (Message from the House considered). (consideration: CR S3527)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-20T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Cloture motion on the motion to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) presented in Senate. (CR S3527)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-20T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Considered by Senate (Message from the House considered). (consideration: CR S3527)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5138 Amendment SA 5138 proposed by Senator Schumer to Amendment SA 5137 (the instructions of the motion to refer). (consideration: CR S3362; text: CR S3496) To modify the effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5137 Amendment SA 5137 proposed by Senator Schumer. (consideration: CR S3362; text: CR S3496) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to refer to Senate Committee on Commerce, Science, and Transportation the House message to accompany H.R. 4346 with instructions to report back forthwith with the following amendment (SA 5137) made in Senate. (CR S3362)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5136 Amendment SA 5136 proposed by Senator Schumer to Amendment SA 5135. (consideration: CR S3362; text: CR S3496) To add an effective date.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5135 Amendment SA 5135 proposed by Senator Schumer. (consideration: CR S3362; text: CR S3387-3496) To improve the bill.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion by Senator Schumer to concur in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) made in Senate. (CR S3362)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Measure laid before Senate by motion. (consideration: CR S3362)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-19T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Motion to proceed to consideration of the House message to accompany H.R. 4346 agreed to in Senate by Yea-Nay Vote. 64 - 34. Record Vote Number: 261.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-11T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Message on House action received in Senate and at desk: House amendment to Senate amendment.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-24T11:19:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Pursuant to the provisions of H.Res. 1204, the House agreed to the Senate amendment with amendment. (consideration: CR H5891; text: CR H5891-5892)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description: 'Message on Senate action sent to the House.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Passed Senate with an amendment by Unanimous Consent. (text of amendment in the nature of a substitute: CR S3096-3097)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5120 Amendment SA 5120 agreed to in Senate by Unanimous Consent.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'S.Amdt.5120 Amendment SA 5120 proposed by Senator Whitehouse for Senator Hagerty. (consideration: CR S3096-3097; text: S3096-3097) In the nature of a substitute.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Measure laid before Senate by unanimous consent. (consideration: CR S3096-3097)',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Senate Committee on Appropriations discharged by Unanimous Consent.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-29T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Appropriations.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:56:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'The Clerk was authorized to correct section numbers, punctuation, and cross references, and to make other necessary technical and conforming corrections in the engrossment of H.R. 4346.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:56:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:56:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On passage Passed by the Yeas and Nays: 215 - 207 (Roll no. 239).',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:35:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to recommit Failed by the Yeas and Nays: 202 - 218 (Roll no. 238).',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:14:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'The previous question on the motion to recommit was ordered pursuant to clause 2(b) of rule XIX.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:14:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. Womack moved to recommit to the Committee on Appropriations. (text: CR H4169-4171)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:13:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'The previous question was ordered pursuant to the rule.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:13:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table. Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T18:13:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.95 On agreeing to the Ryan amendments (A004) Failed by the Yeas and Nays: 180 - 243 (Roll no. 237).',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T17:52:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table. Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T17:52:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.93 On agreeing to the Ryan amendments (A002) Agreed to by the Yeas and Nays: 220 - 207 (Roll no. 236).',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T17:09:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'UNFINISHED BUSINESS - The Chair announced that the unfinished business was on agreeing to amendments which had been debated earlier and on which further proceedings had been postponed.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T17:09:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'POSTPONED PROCEEDINGS - At the conclusion of debate on the Ryan amendment en bloc No. 3, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Mr. Ryan demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T17:08:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.95 The previous question was ordered on the amendment (A004) pursuant to the rule.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:59:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - Pursuant to the provisions of H. Res 567, the House proceeded with 20 minutes of debate on the Ryan amendment en bloc No. 3.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:59:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.95 Amendments en bloc (A004) offered by Mr. Ryan. (consideration: CR H4167-4168, H4169; text: CR H4167)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:58:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table. Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:58:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.94 On agreeing to the Ryan amendments (A003) Agreed to by voice vote.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:58:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'The previous question was ordered on the amendment (A003) pursuant to the rule.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:56:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - Pursuant to the provisions of H. Res 567, the House proceeded with 20 minutes of debate on the Ryan amendment en bloc No. 2.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:56:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.94 Amendments en bloc (A003) offered by Mr. Ryan. (consideration: CR H4166-4167; text: CR H4166)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:55:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'POSTPONED PROCEEDINGS - At the conclusion of debate on the Ryan amendment en bloc No. 1, the Chair put the question on adoption of the amendment and by voice vote, announced that the ayes had prevailed. Ms. Herrera Beutler demanded the yeas and nays and the Chair postponed further proceedings until a time to be announced.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:54:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.93 The previous question was ordered on the amendment (A002) pursuant to the rule.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:35:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - Pursuant to the provisions of H. Res 567, the House proceeded with 20 minutes of debate on the Ryan amendment en bloc No. 1.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T16:34:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'H.Amdt.93 Amendments en bloc (A002) offered by Mr. Ryan. (consideration: CR H4164-4166, H4168; text: CR H4164)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T15:36:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with one hour of debate on H.R. 4346.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T15:35:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Rule provides for consideration of H.R. 4346, H.R. 4373 and H.R. 4505. Provides for consideration of H.R. 4346, H.R. 4373, and H.R. 4505 under a structured rule with one hour of general debate for each bill.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T15:35:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under the provisions of rule H. Res. 567. (consideration: CR H4151-4172; text: CR H4152-4158)',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T10:22:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Rules Committee Resolution H. Res. 567 Reported to House. Rule provides for consideration of H.R. 4346, H.R. 4373 and H.R. 4505. Provides for consideration of H.R. 4346, H.R. 4373, and H.R. 4505 under a structured rule with one hour of general debate for each bill.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 55.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'The House Committee on Appropriations reported an original measure, H. Rept. 117-80, by Mr. Ryan.',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2022-08-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Became Public Law No: 117-167.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-08-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Signed by President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-08-02T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Presented to President.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Resolving differences -- House actions: On motion that the House agree to the Senate amendment to the House amendment to the Senate amendment Agreed to by the Yeas and Nays: 243 - 187, 1 Present (Roll no. 404).',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-07-27T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Resolving differences -- Senate actions: Senate concurred in the House amendment to the Senate amendment to H.R. 4346 with an amendment (SA 5135) by Yea-Nay Vote. 64 - 33. Record Vote Number: 271.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in Senate: Passed Senate with an amendment by Unanimous Consent.',
+              },
+              {
+                actionAt: {
+                  datetime: '2022-06-22T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Senate Committee on Appropriations discharged by Unanimous Consent.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On passage Passed by the Yeas and Nays: 215 - 207 (Roll no. 239).',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'The House Committee on Appropriations reported an original measure, H. Rept. 117-80, by Mr. Ryan.',
+              },
+              {
+                actionAt: {
+                  datetime: '2021-07-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[congress.gov] This act provides funds to support the domestic production of semiconductors and authorizes various programs and activities of the federal science agencies.',
+            title: 'CHIPS and Science Act',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '晶片法案',
+          },
+        },
         id: '6752cf9f1e937e031b1b23d5',
+        introducedAt: {
+          datetime: '2021-07-01T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '4346',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'becomeLaw',
+          futureSteps: [],
+          passedSteps: [
+            'introduced',
+            'passedHouse',
+            'passedSenate',
+            'resolvingDifferences',
+            'toPresident',
+            'becomeLaw',
+          ],
+        },
+        summary:
+          '[congress.gov] This act provides funds to support the domestic production of semiconductors and authorizes various programs and activities of the federal science agencies.',
+        tags: [],
         title: 'CHIPS and Science Act',
+        type: 'hr',
+        updatedAt: '2024-12-08T07:12:37.422Z',
       },
     ],
     tags: [],
@@ -2827,8 +7474,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T07:49:33.927Z',
@@ -2955,8 +7806,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T07:46:22.064Z',
@@ -3063,8 +8118,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T07:43:56.020Z',
@@ -3127,8 +8386,218 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Young Kim',
+              },
+              zh: {
+                displayName: '金映玉',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/540',
+        createdAt: '2024-12-07T17:13:16.607Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-01-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Foreign Relations.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:50:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered as unfinished business. (consideration: CR H125)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'At the conclusion of debate, the chair put the question on the motion to suspend the rules. Mr. McHenry objected to the vote on the grounds that a quorum was not present. Further proceedings on the motion were postponed. The point of no quorum was considered as withdrawn.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 540.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H31-33)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. McHenry moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 237.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 38 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-01-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+            title: 'Taiwan Non-Discrimination Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '不歧視台灣法案',
+          },
+        },
         id: '6754822c437319f5138bfa48',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '540',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+        tags: [],
         title: 'Taiwan Non-Discrimination Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-07T17:13:16.607Z',
       },
     ],
     tags: [],
@@ -3203,8 +8672,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T07:38:38.247Z',
@@ -3311,8 +8984,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T07:35:25.201Z',
@@ -3429,8 +9306,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T06:42:34.905Z',
@@ -3537,8 +9618,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T06:36:04.411Z',
@@ -3650,8 +9935,212 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     createdAt: '2024-12-06T06:07:08.308Z',
@@ -3869,8 +10358,212 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+              },
+              zh: {
+                displayName: '希爾',
+              },
+            },
+          },
+        },
+        categories: [
+          {
+            id: '6748875ec842897fb7f2a291',
+            i18n: {
+              en: {
+                name: 'Taiwan’s Defense',
+              },
+              zh: {
+                name: '台灣國防',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/554',
+        createdAt: '2024-12-06T08:11:54.651Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-09-10T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Banking, Housing, and Urban Affairs.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T15:00:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 554.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H5042-5046)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-09-09T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mrs. Kim (CA) moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 236.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 41 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-09-09T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: CR H5042-5043)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-292.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+            title: 'Taiwan Conflict Deterrence Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: '',
+            title: '台灣衝突嚇阻法案',
+          },
+        },
         id: '6752b1ca2ddcf95deb37622c',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: null,
+        number: '554',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+        tags: [
+          {
+            id: '6749a45ca313f435f157fc3a',
+            i18n: {
+              en: {
+                name: 'Taiwan Caucus',
+              },
+              zh: {
+                name: '國會台灣連線',
+              },
+            },
+          },
+        ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-08T06:13:18.102Z',
       },
     ],
     tags: [],
