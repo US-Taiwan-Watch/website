@@ -375,6 +375,46 @@ export const getCategoriesBills = (): CategoriesBills => {
 export const getBillTrendByCategory = (
   category: string
 ): Array<{ congress: number; count: number }> => {
+  if (!category) {
+    const rawData: TrendByCategoryQuery[] = [
+      {
+        congress: 96,
+        billCount: 1,
+      },
+      {
+        congress: 105,
+        billCount: 1,
+      },
+      {
+        congress: 106,
+        billCount: 1,
+      },
+      {
+        congress: 113,
+        billCount: 1,
+      },
+      {
+        congress: 115,
+        billCount: 1,
+      },
+      {
+        congress: 116,
+        billCount: 1,
+      },
+      {
+        congress: 117,
+        billCount: 3,
+      },
+      {
+        congress: 118,
+        billCount: 11,
+      },
+    ]
+    return rawData.map((item) => ({
+      congress: item.congress!,
+      count: item.billCount!,
+    }))
+  }
   const map: Record<string, TrendByCategoryQuery[]> = {
     '67488795c842897fb7f2a2b9': [],
     '6748878cc842897fb7f2a2b1': [
