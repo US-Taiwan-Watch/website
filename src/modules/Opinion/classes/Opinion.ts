@@ -11,6 +11,7 @@ import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
 import { isArray, isObject, isString } from 'lodash-es'
 import { Article } from '@/common/lib/graphql/__generated__/graphql'
+import { slateToHtml, payloadSlateToHtmlConfig } from '@slate-serializers/html'
 
 export type OpinionRepostSource = {
   title: string
@@ -141,6 +142,10 @@ export class Opinion {
         name: author.name,
         descriptionHtml: author.bio,
       })),
+      contentHtml: slateToHtml(dto.content, {
+        ...payloadSlateToHtmlConfig,
+        convertLineBreakToBr: true,
+      }),
     })
   }
 
