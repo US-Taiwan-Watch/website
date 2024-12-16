@@ -1,3 +1,5 @@
+import CommonUtils from '@/modules/Common/Common.utils'
+import { Language } from '@/common/lib/i18n/types'
 import {
   OpinionAuthor,
   OpinionAuthorArgs,
@@ -8,6 +10,7 @@ import OpinionCategory, {
 import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
 import { isArray, isObject, isString } from 'lodash-es'
+import { Article } from '@/common/lib/graphql/__generated__/graphql'
 
 export type OpinionRepostSource = {
   title: string
@@ -30,8 +33,8 @@ export type OpinionResource = {
 }
 
 export interface OpinionArgs {
-  id: string
-  title: string
+  id?: string
+  title?: string
   subtitle?: string
   // TODO: TBD 會是 html 格式？
   description?: string
@@ -43,7 +46,7 @@ export interface OpinionArgs {
   bannerImage?: OpinionImage
   contentHtml?: string
   resources?: Array<OpinionResource>
-  author?: OpinionAuthorArgs
+  authors?: Array<OpinionAuthorArgs>
 }
 
 export class Opinion {
@@ -59,7 +62,7 @@ export class Opinion {
   bannerImage?: OpinionImage
   contentHtml?: string
   resources?: Array<OpinionResource>
-  author?: OpinionAuthor
+  authors?: Array<OpinionAuthor>
 
   constructor(args: OpinionArgs) {
     if (isString(args.id)) {
@@ -100,12 +103,48 @@ export class Opinion {
     if (isArray(args.resources)) {
       this.resources = args.resources
     }
-    if (isObject(args.author)) {
-      this.author = new OpinionAuthor(args.author)
+    if (isArray(args.authors)) {
+      this.authors = args.authors.map((author) => new OpinionAuthor(author))
     }
   }
 
   get link() {
     return `${ROUTES.OPINION}/${this.id}`
+  }
+
+  static fromDTO(lang: Language, dto: Article) {
+    return new Opinion({
+      id: dto.id ?? undefined,
+      title: dto.title,
+      subtitle: dto.subtitle,
+      categories: dto.categories?.map((category) => ({
+        id: category.id ?? undefined,
+        label: category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+      })),
+      date: dto.createdAt,
+      tags: dto.tags?.map((tag) => ({
+        label: tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+      })),
+      resources: dto.sources?.map((source) => ({
+        title: source.text ?? '',
+        link: source.link ?? '',
+      })),
+      bannerImage: {
+        src: dto.media?.photo?.url ?? '',
+        caption: dto.media?.caption ?? '',
+      },
+      thumbnailImage: {
+        src: dto.media?.photo?.url ?? '',
+        caption: dto.media?.caption ?? '',
+      },
+      authors: dto.authors?.map((author) => ({
+        name: author.name,
+        descriptionHtml: author.bio,
+      })),
+    })
+  }
+
+  static formatAuthorsName(authors: Array<OpinionAuthor>) {
+    return authors.map((author) => author.name).join(', ')
   }
 }

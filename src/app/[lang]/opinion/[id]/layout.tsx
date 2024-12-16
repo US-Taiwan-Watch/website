@@ -4,10 +4,26 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
+import { findOpinion } from '@/modules/Opinion/data'
 
-export const metadata: Metadata = {
-  title: 'Opinion Post',
-  description: 'Opinion Post',
+interface OpinionPostLayoutProps {
+  params: {
+    lang: Language
+    id: string
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: OpinionPostLayoutProps): Promise<Metadata> {
+  // fetch data
+  const dto = findOpinion(params.id)
+  if (!dto) return {}
+
+  return {
+    title: dto.title,
+    description: dto.subtitle,
+  }
 }
 
 export default function OpinionPostLayout({

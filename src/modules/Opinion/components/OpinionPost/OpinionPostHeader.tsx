@@ -4,9 +4,11 @@ import UButton from '@/common/components/atoms/UButton'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import {
+  Opinion,
   OpinionRepostSource,
   OpinionTag,
 } from '@/modules/Opinion/classes/Opinion'
+import { OpinionAuthor } from '@/modules/Opinion/classes/OpinionAuther'
 import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
 import OpinionPostTag from '@/modules/Opinion/components/OpinionPost/OpinionPostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
@@ -23,6 +25,7 @@ interface OpinionPostHeaderProps {
   date?: Dayjs
   tags?: Array<OpinionTag>
   repostSources?: Array<OpinionRepostSource>
+  authors?: Array<OpinionAuthor>
 }
 
 const OpinionPostHeader = function OpinionPostHeader({
@@ -32,6 +35,7 @@ const OpinionPostHeader = function OpinionPostHeader({
   date,
   tags,
   repostSources,
+  authors,
 }: OpinionPostHeaderProps) {
   const theme = useTheme<USTWTheme>()
 
@@ -90,7 +94,7 @@ const OpinionPostHeader = function OpinionPostHeader({
           sx={{ color: theme.color.grey[3300] }}
           fontWeight={500}
         >
-          {`Release time: ${formattedDate}   |   By Sam / Tom `}
+          {`Release time: ${formattedDate}   |   By ${Opinion.formatAuthorsName(authors ?? [])}`}
         </Typography>
         {/** Tags */}
         {tags && (
@@ -103,31 +107,33 @@ const OpinionPostHeader = function OpinionPostHeader({
       </Stack>
 
       {/** Repost source from */}
-      <Stack spacing={1}>
-        <Typography
-          variant="bodyS"
-          fontWeight={500}
-          sx={{ color: theme.color.grey[3400] }}
-        >
-          {'Repost source from'}
-        </Typography>
+      {repostSources && repostSources.length > 0 && (
+        <Stack spacing={1}>
+          <Typography
+            variant="bodyS"
+            fontWeight={500}
+            sx={{ color: theme.color.grey[3400] }}
+          >
+            {'Repost source from'}
+          </Typography>
 
-        {/** Links */}
-        {repostSources?.map((repostSource, index) => (
-          <a href={repostSource.link} key={index} target="_blank">
-            <Typography
-              variant="bodyS"
-              fontWeight={400}
-              sx={{
-                color: theme.color.orange[900],
-                textDecoration: 'underline',
-              }}
-            >
-              {repostSource.title}
-            </Typography>
-          </a>
-        ))}
-      </Stack>
+          {/** Links */}
+          {repostSources?.map((repostSource, index) => (
+            <a href={repostSource.link} key={index} target="_blank">
+              <Typography
+                variant="bodyS"
+                fontWeight={400}
+                sx={{
+                  color: theme.color.orange[900],
+                  textDecoration: 'underline',
+                }}
+              >
+                {repostSource.title}
+              </Typography>
+            </a>
+          ))}
+        </Stack>
+      )}
     </Stack>
   )
 }

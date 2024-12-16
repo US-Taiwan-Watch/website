@@ -13,15 +13,8 @@ import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
 import { ROUTES } from '@/routes'
 
 const ArticleSection = () => {
-  const fetchHomeCategories = useOpinionStore(
-    (state) => state.fetchHomeCategories
-  )
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
   const homeCategories = useOpinionStore((state) => state.homeCategories)
-
-  useEffect(() => {
-    fetchHomeCategories()
-  }, [fetchHomeCategories])
 
   // 預設塞第一個
   useEffect(() => {
