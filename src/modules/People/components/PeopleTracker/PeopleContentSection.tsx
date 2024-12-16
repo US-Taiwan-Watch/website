@@ -132,17 +132,17 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {
           visible: hasSponsored,
           size: 2,
-          component: <Sponsored />,
+          component: <Sponsored people={people} />,
         },
         {
           visible: hasCoSponsored,
           size: 2,
-          component: <CoSponsored />,
+          component: <CoSponsored people={people} />,
         },
         {
           visible: hasVotingRecord,
           size: 2,
-          component: <VotingRecord />,
+          component: <VotingRecord people={people} />,
         },
       ],
     },

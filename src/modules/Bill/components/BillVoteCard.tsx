@@ -3,24 +3,19 @@
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
+import { People } from '@/modules/People/classes/People'
 
 interface VoteStatusCardProps {
-  title: string
-  value: string
+  vote: NonNullable<People['votes']>[number]
   active: boolean
 }
 
-const VoteStatusCard = function ({
-  title,
-  value,
-  active,
-}: VoteStatusCardProps) {
+const VoteStatusCard = function ({ vote, active }: VoteStatusCardProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -43,14 +38,20 @@ const VoteStatusCard = function ({
         fontSize={12}
         textTransform={'capitalize'}
       >
-        {title}
+        {/** TODO: i18n */}
+        {vote.stance === 'ayes'
+          ? 'Yea'
+          : vote.stance === 'noes'
+            ? 'Nay'
+            : 'Not Voting'}
       </Typography>
       <Typography
         variant="subtitleL"
         fontWeight={600}
         textTransform={'capitalize'}
       >
-        {value}
+        {/** TODO: i18n */}
+        {vote.vote?.status === 'passed' ? 'Passed' : 'Failed'}
       </Typography>
     </Stack>
   )
@@ -63,19 +64,17 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
 }))
 
-type Props = {
-  bill: Bill
-  vote: 'yea' | 'nay' | 'not_voting'
-  status: 'passed' | 'failed' | 'unknown'
+type BillVoteCardProps = {
+  vote: NonNullable<People['votes']>[number]
 }
 
-export default function BillVoteCard({ bill, vote, status }: Props) {
+export default function BillVoteCard({ vote }: BillVoteCardProps) {
   return (
     <StyledCardContainer height="auto">
       <UHStack gap={4} alignItems="stretch">
         <Stack>
           <UTagList
-            tags={(bill.tags ?? []).map((tag, index) => (
+            tags={(vote.vote?.bill?.tags ?? []).map((tag, index) => (
               <UCategoryTag key={index} value={tag} />
             ))}
             containerProps={{
@@ -86,27 +85,23 @@ export default function BillVoteCard({ bill, vote, status }: Props) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix} | ${CURRENT_CONGRESS_NUMBER}th Congress`}
+            {`${vote.vote?.bill?.chamberPrefix} | ${CURRENT_CONGRESS_NUMBER}th Congress`}
           </Typography>
 
-          <Link href={bill.link}>
+          <Link href={vote.vote?.bill?.link ?? ''}>
             <UHeightLimitedText
               maxLine={4}
               variant="subtitleL"
               fontWeight={700}
             >
-              {bill.title}
+              {vote.vote?.bill?.title}
             </UHeightLimitedText>
           </Link>
         </Stack>
 
         <UHStack gap={1} sx={{ minWidth: '300px' }}>
-          <VoteStatusCard title="Vote" value={vote} active={vote === 'yea'} />
-          <VoteStatusCard
-            title="Status"
-            value={status}
-            active={status === 'passed'}
-          />
+          <VoteStatusCard vote={vote} active={vote.stance === 'notVoting'} />
+          <VoteStatusCard vote={vote} active={vote.vote?.status === 'failed'} />
         </UHStack>
       </UHStack>
     </StyledCardContainer>

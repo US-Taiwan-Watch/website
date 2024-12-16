@@ -60,6 +60,15 @@ export type CongressExperienceRange = {
   earliestCongressYear?: number
   latestCongressYear?: number
 }
+export type PeopleVote = {
+  id?: string
+  party?: Party
+  stance?: 'noes' | 'ayes' | 'present' | 'notVoting'
+  vote?: {
+    bill?: Bill
+    status?: 'passed' | 'failed'
+  }
+}
 
 interface PeopleArgs {
   id?: Maybe<string>
@@ -82,6 +91,7 @@ interface PeopleArgs {
   committees?: Array<PeopleCongressionalDataCommittees>
   isCurrentCongressMember?: boolean
   taiwanRecords?: Array<TaiwanRecord>
+  votes?: Array<PeopleVote>
   rawData?: PeopleDTO
 }
 
@@ -110,10 +120,6 @@ export class People {
   constituency?: string
   // 參眾議院
   chamber?: ChamberEnum
-  // TODO: 資助法案
-  sponsoredBills: Array<Bill> = []
-  // TODO: 共同提案法案
-  coSponsoredBills: Array<Bill> = []
   // TODO: 投票紀錄
   votingRecord: Array<unknown> = []
   // Bio by AI
@@ -128,6 +134,8 @@ export class People {
   congressExperienceRange?: CongressExperienceRange
   // 台灣紀錄
   taiwanRecords: Array<TaiwanRecord> = []
+  // 投票紀錄
+  votes: Array<PeopleVote> = []
   // Raw data
   rawData?: PeopleDTO
 
@@ -184,6 +192,9 @@ export class People {
     }
     if (isArray(people.taiwanRecords)) {
       this.taiwanRecords = people.taiwanRecords
+    }
+    if (isArray(people.votes)) {
+      this.votes = people.votes
     }
     if (!isUndefined(people.rawData)) {
       this.rawData = people.rawData
@@ -286,8 +297,23 @@ export class People {
         dto.experiences
       ),
       taiwanRecords: People.parseTaiwanRecordFromDTO(dto.records),
+      votes: People.parseVotesFromDTO(lang, dto.votes),
       rawData: dto,
     })
+  }
+
+  static getSponsorBills(lang: Language, people: People) {
+    return (
+      people.rawData?.sponsorBills?.map((bill) => Bill.fromDTO(lang, bill)) ??
+      []
+    )
+  }
+
+  static getCosponsorBills(lang: Language, people: People) {
+    return (
+      people.rawData?.cosponsorBills?.map((bill) => Bill.fromDTO(lang, bill)) ??
+      []
+    )
   }
 
   /**
@@ -443,5 +469,23 @@ export class People {
   static parseTaiwanRecordFromDTO(dto: PeopleDTO['records']) {
     if (!isArray(dto)) return []
     return dto.map((item) => TaiwanRecord.fromDTO(item))
+  }
+
+  static parseVotesFromDTO(
+    lang: Language,
+    dto: PeopleDTO['votes']
+  ): Array<PeopleVote> {
+    if (!isArray(dto)) return []
+    return dto.map((item) => ({
+      id: item.id ?? '',
+      party: CommonUtils.parseAPIParty(item.party),
+      stance: item.stance as PeopleVote['stance'],
+      vote: {
+        ...(item.vote?.bill && {
+          bill: Bill.fromDTO(lang, item.vote.bill),
+        }),
+        status: item.vote?.status as NonNullable<PeopleVote['vote']>['status'],
+      },
+    }))
   }
 }
