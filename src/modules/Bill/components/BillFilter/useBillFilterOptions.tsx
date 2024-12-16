@@ -80,111 +80,28 @@ export default function useBillFilterOptions() {
 
   const statusOptions = useMemo<BillFilterOption<BillStatusEnum>[]>(
     () => [
-      {
-        value: BillStatusEnum.ProvKillVeto,
-        label: 'Vetoed (No Override Attempt)',
-      },
-      {
-        value: BillStatusEnum.FailSecondSenate,
-        label: 'Passed House, Failed Senate',
-      },
-      {
-        value: BillStatusEnum.PassedBill,
-        label: 'Passed House & Senate (President next)',
-      },
-      {
-        value: BillStatusEnum.PassedConstamend,
-        label: 'Agreed To (Constitutional Amendment Proposal)',
-      },
-      {
-        value: BillStatusEnum.PassBackSenate,
-        label: 'Passed Senate with Changes (back to House)',
-      },
-      {
-        value: BillStatusEnum.VetoedOverrideFailSecondHouse,
-        label: 'Vetoed & Override Passed Senate, Failed in House',
-      },
-      { value: BillStatusEnum.FailOriginatingHouse, label: 'Failed House' },
-      {
-        value: BillStatusEnum.FailSecondHouse,
-        label: 'Passed Senate, Failed House',
-      },
-      {
-        value: BillStatusEnum.OverridePassOverHouse,
-        label: 'Vetoed & House Overrides (Senate Next)',
-      },
-      {
-        value: BillStatusEnum.OverridePassOverSenate,
-        label: 'Vetoed & Senate Overrides (House Next)',
-      },
-      {
-        value: BillStatusEnum.PassBackHouse,
-        label: 'Passed House with Changes (back to Senate)',
-      },
-      { value: BillStatusEnum.ProvKillCloturefailed, label: 'Failed Cloture' },
-      {
-        value: BillStatusEnum.EnactedVetoOverride,
-        label: 'Enacted — Veto Overridden',
-      },
-      {
-        value: BillStatusEnum.PassedConcurrentres,
-        label: 'Agreed To (Concurrent Resolution)',
-      },
-      {
-        value: BillStatusEnum.ProvKillSuspensionfailed,
-        label: 'Failed Under Suspension',
-      },
-      {
-        value: BillStatusEnum.PassedSimpleres,
-        label: 'Agreed To (Simple Resolution)',
-      },
-      { value: BillStatusEnum.VetoedPocket, label: 'Pocket Vetoed' },
-      {
-        value: BillStatusEnum.VetoedOverrideFailOriginatingHouse,
-        label: 'Vetoed & Override Failed in House',
-      },
-      {
-        value: BillStatusEnum.ConferencePassedSenate,
-        label: 'Conference Report Agreed to by Senate (House next)',
-      },
-      { value: BillStatusEnum.FailOriginatingSenate, label: 'Failed Senate' },
-      {
-        value: BillStatusEnum.PassOverSenate,
-        label: 'Passed Senate (House next)',
-      },
-      {
-        value: BillStatusEnum.ProvKillPingpongfail,
-        label: 'Failed to Resolve Differences',
-      },
-      {
-        value: BillStatusEnum.EnactedSigned,
-        label: 'Enacted — Signed by the President',
-      },
-      {
-        value: BillStatusEnum.PassOverHouse,
-        label: 'Passed House (Senate next)',
-      },
-      {
-        value: BillStatusEnum.ConferencePassedHouse,
-        label: 'Conference Report Agreed to by House (Senate next)',
-      },
-      { value: BillStatusEnum.Reported, label: 'Ordered Reported' },
-      {
-        value: BillStatusEnum.VetoedOverrideFailSecondSenate,
-        label: 'Vetoed & Override Passed House, Failed in Senate',
-      },
-      {
-        value: BillStatusEnum.VetoedOverrideFailOriginatingSenate,
-        label: 'Vetoed & Override Failed in Senate',
-      },
-      {
-        value: BillStatusEnum.EnactedTendayrule,
-        label: 'Enacted — By 10 Day Rule',
-      },
       { value: BillStatusEnum.Introduced, label: 'Introduced' },
+      { value: BillStatusEnum.PassedHouse, label: 'Passed House' },
+      { value: BillStatusEnum.PassedSenate, label: 'Passed Senate' },
+      { value: BillStatusEnum.ToPresident, label: 'To President' },
+      { value: BillStatusEnum.BecomeLaw, label: 'Become Law' },
+      { value: BillStatusEnum.FailedHouse, label: 'Failed House' },
+      { value: BillStatusEnum.FailedSenate, label: 'Failed Senate' },
+      { value: BillStatusEnum.AgreedToInHouse, label: 'Agreed to in House' },
+      { value: BillStatusEnum.AgreedToInSenate, label: 'Agreed to in Senate' },
       {
-        value: BillStatusEnum.EnactedUnknown,
-        label: 'Enacted (Unknown Final Step)',
+        value: BillStatusEnum.ResolvingDifferences,
+        label: 'Resolving Differences',
+      },
+      { value: BillStatusEnum.VetoedByPresident, label: 'Vetoed by President' },
+      {
+        value: BillStatusEnum.FailedToPassOverVeto,
+        label: 'Failed to pass over veto',
+      },
+      { value: BillStatusEnum.PassedOverVeto, label: 'Passed over veto' },
+      {
+        value: BillStatusEnum.PocketVetoedByPresident,
+        label: 'Pocket vetoed by President',
       },
     ],
     []
