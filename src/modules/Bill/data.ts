@@ -376,7 +376,7 @@ export const getBillTrendByCategory = (
   category: string
 ): Array<{ congress: number; count: number }> => {
   if (!category) {
-    const rawData: TrendByCategoryQuery[] = [
+    const allData: TrendByCategoryQuery[] = [
       {
         congress: 96,
         billCount: 1,
@@ -410,7 +410,7 @@ export const getBillTrendByCategory = (
         billCount: 11,
       },
     ]
-    return rawData.map((item) => ({
+    return allData.map((item) => ({
       congress: item.congress!,
       count: item.billCount!,
     }))
@@ -495,7 +495,13 @@ export const getBillTrendByCategory = (
   }))
 }
 
-export const getBillTopSponsors = (lang: Language): People[] => {
+// TODO: 拿掉 adapter 後即可用 TopSponsorsQuery
+export type BillTopSponsorsData = {
+  billCount: number
+  people: People
+}
+
+export const getBillTopSponsors = (lang: Language): BillTopSponsorsData[] => {
   const data = [
     {
       billCount: 2,
@@ -578,10 +584,13 @@ export const getBillTopSponsors = (lang: Language): People[] => {
       },
     },
   ] as TopSponsorsQuery[]
-  return data.map((item) => People.fromDTO(lang, item.people!))
+  return data.map((item) => ({
+    billCount: item.billCount!,
+    people: People.fromDTO(lang, item.people!),
+  }))
 }
 
-export const getBillTopCosponsors = (lang: Language): People[] => {
+export const getBillTopCosponsors = (lang: Language): BillTopSponsorsData[] => {
   const data = [
     {
       billCount: 1,
@@ -659,7 +668,10 @@ export const getBillTopCosponsors = (lang: Language): People[] => {
       },
     },
   ] as TopCosponsorsQuery[]
-  return data.map((item) => People.fromDTO(lang, item.people!))
+  return data.map((item) => ({
+    billCount: item.billCount!,
+    people: People.fromDTO(lang, item.people!),
+  }))
 }
 
 export const getLatestBills = (lang: Language): Bill[] => {
