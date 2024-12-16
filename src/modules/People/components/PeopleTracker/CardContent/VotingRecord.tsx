@@ -4,6 +4,7 @@ import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import BillVoteCard from '@/modules/Bill/components/BillVoteCard'
 import { Box } from '@mui/material'
 
+// TODO: 串接 API 介面與資料
 const VotingRecord = function () {
   return (
     <NumberCard

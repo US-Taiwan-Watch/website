@@ -3,15 +3,19 @@
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Party } from '@/common/enums/Party'
 import { isMap, isNumber } from 'lodash-es'
+import {
+  Maybe,
+  People_CongressionalData as PeopleCongressionalDataDTO,
+} from '@/common/lib/graphql/__generated__/graphql'
 
 interface CongressArgs {
-  congressNumber: number
-  startYear: number
-  endYear: number
-  houseMembers: number
-  houseDistribution: Map<Party, number>
-  senateMembers: number
-  senateDistribution: Map<Party, number>
+  congressNumber?: number
+  startYear?: number
+  endYear?: number
+  houseMembers?: number
+  houseDistribution?: Map<Party, number>
+  senateMembers?: number
+  senateDistribution?: Map<Party, number>
 }
 
 export class Congress {
@@ -55,4 +59,9 @@ export class Congress {
   }
 
   static CurrentCongressNumber = CURRENT_CONGRESS_NUMBER
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  static fromPeopleCongressDTO(dto?: Maybe<PeopleCongressionalDataDTO>) {
+    return new Congress({})
+  }
 }

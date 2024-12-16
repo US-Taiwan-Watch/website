@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from 'dayjs'
 import { isString } from 'lodash-es'
 import { z } from 'zod'
+import { TaiwanRecord as TaiwanRecordDTO } from '@/common/lib/graphql/__generated__/graphql'
 
 interface SourcesArgs {
   /** 來源 */
@@ -9,7 +10,6 @@ interface SourcesArgs {
   links: Array<string>
 }
 export interface Sources {
-  from: string
   links: Array<string>
 }
 const sourcesSchema = z.object({
@@ -20,19 +20,19 @@ const imagesSchema = z.array(z.string())
 
 interface TaiwanRecordArgs {
   /** ID */
-  id: string
+  id?: string
   /** 標題 */
-  title: string
+  title?: string
   /** 內容 */
-  content: string
+  content?: string
   /** 圖片 */
   images?: Array<string>
   /** 建立時間 */
-  createdAt: string
+  createdAt?: string
   /** 作者 */
-  author: string
+  author?: string
   /** 來源 */
-  sources: SourcesArgs
+  sources?: SourcesArgs
 }
 
 export default class TaiwanRecord {
@@ -55,5 +55,21 @@ export default class TaiwanRecord {
     if (isString(args.author)) this.author = args.author
     if (args.sources && sourcesSchema.safeParse(args.sources).success)
       this.sources = args.sources
+  }
+
+  static fromDTO(dto: TaiwanRecordDTO) {
+    return new TaiwanRecord({
+      id: dto.id ?? undefined,
+      title: dto.title ?? '',
+      content: dto.description ?? '',
+      images:
+        dto.photos?.map((photo) => photo.photo?.url).filter(isString) ?? [],
+      createdAt: dto.createdAt ?? '',
+      author: dto.author?.fullName ?? '',
+      sources: {
+        from: '',
+        links: dto.sources?.map((source) => source.link).filter(isString) ?? [],
+      },
+    })
   }
 }

@@ -4,7 +4,7 @@ import UAccordion from '@/common/components/atoms/UAccordion'
 import TaiwanRecord from '@/modules/TaiwanRecord/classes/TaiwanRecord'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import { ExpandMoreIcon, LinkIcon } from '@/common/styles/assets/Icons'
+import { ExpandMoreIcon } from '@/common/styles/assets/Icons'
 import { memo, useMemo } from 'react'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
@@ -13,7 +13,6 @@ import { useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
-import UIconButton from '@/common/components/atoms/UIconButton'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -67,7 +66,8 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
                     height={285}
                     style={{
                       objectFit: 'cover',
-                      width: '100%',
+                      // 如果只有一張圖片，則寬度設為 50%
+                      width: taiwanRecord.images?.length === 1 ? '50%' : '100%',
                     }}
                   />
                   {/** Overlay，在最後一張圖顯示剩餘圖片數量 */}
@@ -113,28 +113,6 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
           </UHStack>
           <Stack gap={theme.spacing(0.5)}>
             <Typography variant="bodyS">{dateAndAuthor}</Typography>
-            {taiwanRecord.sources && (
-              <UHStack gap={theme.spacing(1)}>
-                <UIconButton
-                  variant="rounded"
-                  color="black"
-                  sx={{
-                    backgroundColor: theme.color.grey[3700],
-                    width: 18,
-                    height: 18,
-                    '& svg': {
-                      width: 10,
-                      height: 10,
-                    },
-                  }}
-                >
-                  <LinkIcon />
-                </UIconButton>
-                <Typography variant="bodyS">
-                  Sources From {taiwanRecord.sources.from}
-                </Typography>
-              </UHStack>
-            )}
             <Stack>
               {taiwanRecord.sources?.links.map((link, index) => (
                 <Link

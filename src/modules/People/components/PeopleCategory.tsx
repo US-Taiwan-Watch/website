@@ -2,24 +2,25 @@ import clsx from 'clsx'
 import { styled } from '@/common/lib/mui/theme'
 import { People } from '@/modules/People/classes/People'
 import { Box } from '@mui/material'
+import UHStack from '@/common/components/atoms/UHStack'
 
 const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
   width: 'fit-content',
   padding: theme.spacing(0.5, 1),
   borderRadius: theme.spacing(1),
-  '&.HOUSE_REPRESENTATIVE': {
+  '&.House_Representative': {
     backgroundColor: theme.color.green[100],
   },
-  '&.SENATOR': {
+  '&.Senator': {
     backgroundColor: theme.color.wheat[100],
   },
-  '&.EXPERT': {
+  '&.Expert': {
     backgroundColor: theme.color.orange[100],
   },
-  '&.OFFICIAL': {
+  '&.Official': {
     backgroundColor: theme.color.purple[100],
   },
-  '&.OTHER': {
+  '&.Other': {
     backgroundColor: theme.color.neutral[300],
   },
   fontWeight: 500,
@@ -34,15 +35,18 @@ const PeopleCategory = function PeopleCategory({
   people,
 }: PeopleCategoryProps) {
   return (
-    <StyledPeopleTagContainer
-      className={clsx('', {
-        ...(people.position && {
-          [people.position.replace(' ', '_')]: true,
-        }),
-      })}
-    >
-      {people.position?.toLowerCase()}
-    </StyledPeopleTagContainer>
+    <UHStack spacing={1} flexWrap="wrap">
+      {people.positions?.map((position) => (
+        <StyledPeopleTagContainer
+          key={position}
+          className={clsx({
+            [position.replace(' ', '_')]: true,
+          })}
+        >
+          {position.toLowerCase()}
+        </StyledPeopleTagContainer>
+      ))}
+    </UHStack>
   )
 }
 
