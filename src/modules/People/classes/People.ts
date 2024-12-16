@@ -24,6 +24,7 @@ import {
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { z } from 'zod'
+import TaiwanRecord from '@/modules/TaiwanRecord/classes/TaiwanRecord'
 
 interface PartyExperienceArgs {
   party: Party
@@ -79,6 +80,7 @@ interface PeopleArgs {
   bioByAI?: string
   committees?: Array<PeopleCongressionalDataCommittees>
   isCurrentCongressMember?: boolean
+  taiwanRecords?: Array<TaiwanRecord>
   rawData?: PeopleDTO
 }
 
@@ -123,6 +125,8 @@ export class People {
   isCurrentCongressMember: boolean = false
   // 國會經歷範圍
   congressExperienceRange?: CongressExperienceRange
+  // 台灣紀錄
+  taiwanRecords: Array<TaiwanRecord> = []
   // Raw data
   rawData?: PeopleDTO
 
@@ -176,6 +180,9 @@ export class People {
     }
     if (isBoolean(people.isCurrentCongressMember)) {
       this.isCurrentCongressMember = people.isCurrentCongressMember
+    }
+    if (isArray(people.taiwanRecords)) {
+      this.taiwanRecords = people.taiwanRecords
     }
     if (!isUndefined(people.rawData)) {
       this.rawData = people.rawData
@@ -277,6 +284,7 @@ export class People {
       isCurrentCongressMember: People.parseIsCurrentCongressMember(
         dto.experiences
       ),
+      taiwanRecords: People.parseTaiwanRecordFromDTO(dto.records),
       rawData: dto,
     })
   }
@@ -429,5 +437,10 @@ export class People {
       earliestCongressYear: min(startYears),
       latestCongressYear: max(endYears),
     }
+  }
+
+  static parseTaiwanRecordFromDTO(dto: PeopleDTO['records']) {
+    if (!isArray(dto)) return []
+    return dto.map((item) => TaiwanRecord.fromDTO(item))
   }
 }
