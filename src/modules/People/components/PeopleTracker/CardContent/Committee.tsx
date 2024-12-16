@@ -81,11 +81,9 @@ const Committee = function Committee({ committees }: CommitteeProps) {
         iconColor: 'secondary',
       }}
       overflowHidden
-      modalContent={
-        committees?.map((committee, index) => (
-          <CommitteeRow key={index} committee={committee} />
-        )) ?? []
-      }
+      modalContent={committees.map((committee, index) => (
+        <CommitteeRow key={index} committee={committee} />
+      ))}
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>
           No Committee
