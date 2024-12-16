@@ -13,9 +13,12 @@
     "prepare": "husky install .husky",
     "pre-commit-lint": "lint-staged",
     "i18n": "echo building i18n from content manager",
-    "prepare-ideology": "node ./scripts/prepare-ideology.mjs"
+    "prepare-ideology": "node ./scripts/prepare-ideology.mjs",
+    "graphql-codegen": "graphql-codegen"
   },
   "dependencies": {
+    "@apollo/client": "^3.11.10",
+    "@apollo/experimental-nextjs-app-support": "^0.11.6",
     "@emotion/cache": "^11.13.1",
     "@emotion/react": "^11.13.0",
     "@emotion/styled": "^11.13.0",
@@ -28,6 +31,7 @@
     "accept-language": "^3.0.20",
     "dayjs": "^1.11.13",
     "dompurify": "^3.1.7",
+    "graphql": "^16.9.0",
     "highcharts": "^11.4.8",
     "highcharts-react-official": "^3.2.1",
     "howler": "^2.2.4",
@@ -48,6 +52,9 @@
     "zustand": "^4.5.4"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.3",
+    "@graphql-codegen/client-preset": "^4.5.1",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@next/bundle-analyzer": "^14.2.11",
     "@svgr/webpack": "^8.1.0",
     "@types/dompurify": "^3.0.5",

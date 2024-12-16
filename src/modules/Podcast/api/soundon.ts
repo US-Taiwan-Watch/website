@@ -1,3 +1,4 @@
+import { config } from '@/config'
 import { Episode } from '@/modules/Podcast/classes/Episode'
 import {
   GetEpisodeParams,
@@ -10,7 +11,7 @@ export const getEpisode = async (params: GetEpisodeParams) => {
       `https://api.soundon.fm/v2/client/podcasts/${params.podcastId}/episodes/${params.episodeId}`,
       {
         headers: {
-          'Api-Token': `${process.env.NEXT_PUBLIC_SOUNDON_API_TOKEN}`,
+          'Api-Token': `${config.SOUNDON_API_TOKEN}`,
         },
       }
     )

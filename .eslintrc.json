@@ -6,6 +6,7 @@
     "standard",
     "plugin:prettier/recommended"
   ],
+  "ignorePatterns": ["src/common/lib/graphql/__generated__/**"],
   "rules": {
     "comma-dangle": [
       "error",
