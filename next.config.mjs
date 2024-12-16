@@ -15,6 +15,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'files.soundon.fm',
       },
+      {
+        protocol: 'https',
+        hostname: 'ustwcmsstorage.blob.core.windows.net',
+      },
     ],
   },
 }
