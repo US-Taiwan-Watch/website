@@ -15,7 +15,7 @@ const TaiwanRecordList = () => {
 
   const dto = findPeople(peopleId)
   if (!dto) return null
-  const people = People.fromDTO(dto, lang)
+  const people = People.fromDTO(lang, dto)
   const records = people.taiwanRecords
 
   return (

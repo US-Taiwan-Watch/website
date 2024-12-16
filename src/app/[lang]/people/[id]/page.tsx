@@ -19,7 +19,7 @@ interface PeopleTrackerProps {
 export default function PeopleTracker({ params }: PeopleTrackerProps) {
   const dto = findPeople(params.id)
   if (!dto) return notFound()
-  const people = People.fromDTO(dto, params.lang)
+  const people = People.fromDTO(params.lang, dto)
 
   return (
     <Stack gap={6}>
