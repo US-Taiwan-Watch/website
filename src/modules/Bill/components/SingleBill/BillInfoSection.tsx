@@ -7,7 +7,6 @@ import UHStack from '@/common/components/atoms/UHStack'
 import { styled } from '@/common/lib/mui/theme'
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
 import TitleVersion from '@/modules/Bill/components/SingleBill/TitleVersion'
@@ -45,7 +44,9 @@ const BillInfoSection = memo(function BillInfoSection({
             />
           )}
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix}${bill.id} | ${CURRENT_CONGRESS_NUMBER}th Congress (2023-2024)`}
+            {`${bill.chamberPrefix}${bill.number} | ${bill.congressNumber}th Congress`}{' '}
+            {bill.introducedAt && <>{bill.introducedAt.year()} -</>}{' '}
+            {bill.latestActionAt && <>{bill.latestActionAt.year()}</>}
           </Typography>
         </UHStack>
         <Typography variant="h4">{bill.title}</Typography>

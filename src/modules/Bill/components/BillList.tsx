@@ -1,6 +1,8 @@
 'use client'
 
 import UPagination from '@/common/components/atoms/UPagination'
+import { Language } from '@/common/lib/i18n/types'
+import { Bill } from '@/modules/Bill/classes/Bill'
 import BillCard from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
 import {
@@ -8,12 +10,15 @@ import {
   BillFilterInput,
   BillFilterOutput,
 } from '@/modules/Bill/components/BillFilter/schema'
-import { BILL_DATA_MOCK } from '@/modules/Bill/data'
+import { BILL_DTO_MOCK } from '@/modules/Bill/dtoData'
 import { Stack } from '@mui/material'
-import { useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo, useEffect } from 'react'
 
 export default function BillList() {
+  const { lang } = useParams<{ lang: Language }>()
+  const bills = BILL_DTO_MOCK.map((bill) => Bill.fromDTO(lang, bill))
+
   const params = useSearchParams()
 
   const filterInitValues = useMemo<BillFilterInput>(() => {
@@ -52,7 +57,7 @@ export default function BillList() {
           initialValues={filterInitValues}
         />
         <Stack gap={2}>
-          {BILL_DATA_MOCK.map((bill, index) => (
+          {bills.map((bill, index) => (
             <BillCard key={index} mode="horizontal" bill={bill} />
           ))}
         </Stack>

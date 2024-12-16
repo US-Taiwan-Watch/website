@@ -6,12 +6,9 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import CosponsorChart from '@/modules/Bill/components/SingleBill/CosponsorChart'
-import { PARLIAMENT_CHART_DATA_MOCK_1 } from '@/modules/Bill/data'
 import CosponsorDialog from '@/modules/Bill/components/SingleBill/CosponsorDialog'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import useModal from '@/common/hooks/useModal'
-
-const data = PARLIAMENT_CHART_DATA_MOCK_1
 
 type Props = {
   bill: Bill
@@ -48,7 +45,7 @@ export default function BillCosponsors({ bill }: Props) {
           },
         }}
       >
-        <CosponsorChart data={data} />
+        <CosponsorChart data={Bill.getCosponsorsParliamentData(bill)} />
       </UContentCard>
 
       <CosponsorDialog
