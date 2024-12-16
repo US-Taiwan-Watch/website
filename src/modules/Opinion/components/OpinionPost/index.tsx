@@ -11,16 +11,14 @@ import OpinionPostRelatedPosts from '@/modules/Opinion/components/OpinionPost/Op
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import { Opinion, OpinionArgs } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
 
 interface OpinionPostProps {
-  opinionData: OpinionArgs
+  opinion: Opinion
 }
 
-const OpinionPost = function OpinionPost({ opinionData }: OpinionPostProps) {
-  const opinion = new Opinion(opinionData)
-
+const OpinionPost = function OpinionPost({ opinion }: OpinionPostProps) {
   return (
     <Stack gap={4} marginTop={10}>
       <Box>
@@ -41,6 +39,7 @@ const OpinionPost = function OpinionPost({ opinionData }: OpinionPostProps) {
                 date={opinion.date}
                 tags={opinion.tags}
                 repostSources={opinion.repostSources}
+                authors={opinion.authors}
               />
               {/** Banner Section */}
               {opinion.bannerImage && (
@@ -53,17 +52,26 @@ const OpinionPost = function OpinionPost({ opinionData }: OpinionPostProps) {
               )}
 
               {/** Footer Section */}
-              <OpinionPostDivider />
-              <OpinionPostFooter
-                tags={opinion.tags}
-                resources={opinion.resources}
-              />
+              {opinion.tags &&
+                opinion.tags.length > 0 &&
+                opinion.resources &&
+                opinion.resources.length > 0 && (
+                  <>
+                    <OpinionPostDivider />
+                    <OpinionPostFooter
+                      tags={opinion.tags}
+                      resources={opinion.resources}
+                    />
+                  </>
+                )}
 
               {/** Author Section */}
               <OpinionPostDivider />
-              {opinion.author && (
+              {opinion.authors && (
                 <>
-                  <OpinionPostAuthor author={opinion.author} />
+                  {opinion.authors.map((author) => (
+                    <OpinionPostAuthor key={author.name} author={author} />
+                  ))}
                   <OpinionPostDivider />
                 </>
               )}

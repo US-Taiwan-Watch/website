@@ -1,29 +1,19 @@
-import { Metadata, ResolvingMetadata } from 'next'
-import { getOpinion } from '@/modules/Opinion/api/opinion'
+'use client'
+
 import OpinionPost from '@/modules/Opinion/components/OpinionPost'
+import { Language } from '@/common/lib/i18n/types'
+import { findOpinion } from '@/modules/Opinion/data'
+import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { notFound } from 'next/navigation'
 
-type Props = {
-  params: { id: string }
+type OpinionPageProps = {
+  params: { lang: Language; id: string }
 }
 
-export async function generateMetadata(
-  { params }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
-  console.log('params', params)
-  console.log('parent', parent)
+export default function OpinionPage({ params }: OpinionPageProps) {
+  const dto = findOpinion(params.id)
+  if (!dto) notFound()
+  const opinion = Opinion.fromDTO(params.lang, dto)
 
-  // fetch data
-  const opinion = await getOpinion()
-
-  return {
-    title: opinion.title,
-    description: opinion.description,
-  }
-}
-
-export default async function OpinionPage() {
-  const opinion = await getOpinion()
-
-  return <OpinionPost opinionData={opinion} />
+  return <OpinionPost opinion={opinion} />
 }

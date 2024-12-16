@@ -5,24 +5,28 @@ import UHStack from '@/common/components/atoms/UHStack'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
-import { opinions } from '@/modules/Opinion/data'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { useEffect, useState } from 'react'
 
-const OpinionPostSection = () => {
+interface OpinionPostSectionProps {
+  opinions: Opinion[]
+}
+
+const OpinionPostSection = ({ opinions }: OpinionPostSectionProps) => {
   const theme = useTheme<USTWTheme>()
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
 
-  const categories = useOpinionStore((state) => state.categories)
+  const homeCategories = useOpinionStore((state) => state.homeCategories)
 
   // 預設塞第一個
   useEffect(() => {
-    if (categories.length > 0) {
-      setActiveCategoryId(categories[0].id)
+    if (homeCategories.length > 0) {
+      setActiveCategoryId(homeCategories[0].id)
     }
-  }, [categories])
+  }, [homeCategories])
 
   return (
     <LandingSectionWrapper
@@ -35,7 +39,7 @@ const OpinionPostSection = () => {
       <Stack spacing={8}>
         {/** Tags */}
         <UHStack gap={2} flexWrap="wrap">
-          {categories.map((category) => (
+          {homeCategories.map((category) => (
             <UCategoryChip
               key={category.id}
               label={category.label}
