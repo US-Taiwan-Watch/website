@@ -63,9 +63,9 @@ type SponsorCardProps = {
 
 export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
   const { lang } = useParams<{ lang: Language }>()
-  const sponsors = getBillTopSponsors(lang)
-  const cosponsors = getBillTopCosponsors(lang)
-  const sponsorsList = isCosponsor ? cosponsors : sponsors
+  const sponsorsList = isCosponsor
+    ? getBillTopCosponsors(lang)
+    : getBillTopSponsors(lang)
 
   return (
     <UContentCard

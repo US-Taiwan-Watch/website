@@ -27,7 +27,7 @@ export type BillFilterOption<T> = {
 
 export default function useBillFilterOptions() {
   const { lang } = useParams<{ lang: Language }>()
-  const categoriesBills = getCategoriesBills()
+  const categoriesBills = useMemo(() => getCategoriesBills(), [])
   const categoryOptions = useMemo<BillFilterOption<string>[]>(
     () =>
       Bill.parseCategoriesBills(categoriesBills, lang).map((category) => ({
