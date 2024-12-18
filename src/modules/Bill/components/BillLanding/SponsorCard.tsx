@@ -5,7 +5,6 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHStack from '@/common/components/atoms/UHStack'
-import { People } from '@/modules/People/classes/People'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
@@ -14,7 +13,11 @@ import { ROUTES } from '@/routes'
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import { getBillTopCosponsors, getBillTopSponsors } from '@/modules/Bill/data'
+import {
+  BillTopSponsorsData,
+  getBillTopCosponsors,
+  getBillTopSponsors,
+} from '@/modules/Bill/data'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -25,21 +28,21 @@ const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
 }))
 
 type SponsorRowProps = {
-  sponsor: People
+  data: BillTopSponsorsData
 }
 
-function SponsorRow({ sponsor }: SponsorRowProps) {
+function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
   const theme = useTheme<USTWTheme>()
   const { partyColor } = usePartyColor()
 
   return (
     <StyledSponsorRowContainer>
       <Stack>
-        <Typography variant="articleH5">{sponsor.name}</Typography>
+        <Typography variant="articleH5">{people.name}</Typography>
         <UHStack gap="6px" alignItems="center">
           <CircleIcon
             sx={{
-              color: partyColor[sponsor.party ?? Party.INDEPENDENT],
+              color: partyColor[people.party ?? Party.INDEPENDENT],
               fontSize: '8px',
             }}
           />
@@ -48,11 +51,11 @@ function SponsorRow({ sponsor }: SponsorRowProps) {
             color={theme.color.neutral[500]}
             textTransform="capitalize"
           >
-            {sponsor.party?.toLowerCase()}
+            {people.party?.toLowerCase()}
           </Typography>
         </UHStack>
       </Stack>
-      <Typography variant="h6">2</Typography>
+      <Typography variant="h6">{billCount}</Typography>
     </StyledSponsorRowContainer>
   )
 }
@@ -82,7 +85,7 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
       }}
     >
       <Stack spacing={1} pt={2}>
-        {sponsorsList.map((sponsor, index) => (
+        {sponsorsList.map(({ people, billCount }, index) => (
           <Link
             key={index}
             href={{
@@ -90,12 +93,12 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
               query: {
                 congress: CURRENT_CONGRESS_NUMBER,
                 ...(isCosponsor
-                  ? { cosponsor: sponsor.id }
-                  : { sponsor: sponsor.id }),
+                  ? { cosponsor: people.id }
+                  : { sponsor: people.id }),
               },
             }}
           >
-            <SponsorRow sponsor={sponsor} />
+            <SponsorRow data={{ people, billCount }} />
           </Link>
         ))}
       </Stack>
