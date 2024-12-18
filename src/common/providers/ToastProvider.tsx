@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import Grow from '@mui/material/Grow'
 import { styled } from '@/common/lib/mui/theme'
@@ -30,6 +30,14 @@ export const ToastProviderContext =
   React.createContext<ToastProviderContextType>({
     toast: () => {},
   })
+
+export const useToast = () => {
+  const context = useContext(ToastProviderContext)
+  if (!context) {
+    throw new Error('useToast must be used within a ToastProvider')
+  }
+  return context
+}
 
 interface ToastProviderProps {
   children: React.ReactNode
