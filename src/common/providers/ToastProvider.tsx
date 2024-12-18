@@ -46,6 +46,7 @@ interface ToastProviderProps {
 /**
  * ToastProvider
  * TODO: 根據不同的 toast 類型，顯示不同的 style
+ * TODO: 若需要堆疊則不能使用 MUI Snackbar，需要考慮其他做法
  * @description 提供 toast 功能
  * @example
  * const { toast } = useContext(ToastProviderContext)
