@@ -8,6 +8,7 @@ import Header from '@/common/components/elements/Header'
 import Footer from '@/common/components/elements/Footer'
 import ScreenSizeHandler from '@/common/components/elements/UnsupportedScreenSize/ScreenSizeHandler'
 import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
+import ToastProvider from '@/common/providers/ToastProvider'
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -32,7 +33,9 @@ export default function RootLayout({
             <CssBaseline />
             <Header />
             <ScreenSizeHandler>
-              <ClientApolloProvider>{children}</ClientApolloProvider>
+              <ToastProvider>
+                <ClientApolloProvider>{children}</ClientApolloProvider>
+              </ToastProvider>
             </ScreenSizeHandler>
             <Footer />
           </ThemeProvider>
