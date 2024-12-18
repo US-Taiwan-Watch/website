@@ -49,7 +49,7 @@ interface ToastProviderProps {
  * TODO: 若需要堆疊則不能使用 MUI Snackbar，需要考慮其他做法
  * @description 提供 toast 功能
  * @example
- * const { toast } = useContext(ToastProviderContext)
+ * const { toast } = useToast()
  * toast('success', 'Copied')
  */
 export default function ToastProvider({ children }: ToastProviderProps) {
