@@ -73,7 +73,7 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
           variant="contained"
           startIcon={<LinkIcon width={24} height={24} />}
           rounded
-          onClick={copyCurrentUrl}
+          onClick={() => copyCurrentUrl()}
         >
           Link
         </StyledLinkButton>
