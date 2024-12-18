@@ -22,6 +22,12 @@ type Toast = {
   open: boolean
 }
 
+const defaultToast: Toast = {
+  type: 'success',
+  message: '',
+  open: false,
+}
+
 type ToastProviderContextType = {
   toast: (type: ToastType, message: string) => void
 }
@@ -53,7 +59,7 @@ interface ToastProviderProps {
  * toast('success', 'Copied')
  */
 export default function ToastProvider({ children }: ToastProviderProps) {
-  const [toast, setToast] = useState<Toast | null>(null)
+  const [toast, setToast] = useState<Toast>(defaultToast)
 
   const handleToast = useCallback((type: ToastType, message: string) => {
     setToast({
@@ -64,7 +70,7 @@ export default function ToastProvider({ children }: ToastProviderProps) {
   }, [])
 
   const handleClose = useCallback(() => {
-    setToast((prev) => (prev ? { ...prev, open: false } : null))
+    setToast(defaultToast)
   }, [])
 
   return (
