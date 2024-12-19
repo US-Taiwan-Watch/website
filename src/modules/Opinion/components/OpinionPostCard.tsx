@@ -1,4 +1,5 @@
 import UButton from '@/common/components/atoms/UButton'
+import UHashTag from '@/common/components/atoms/UHashTag'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UTagList from '@/common/components/atoms/UTagList'
@@ -102,21 +103,16 @@ const OpinionPostCard = ({
         {opinion.tags && opinion.tags.length > 0 && (
           <UTagList
             tags={opinion.tags.map((tag) => (
-              <UButton
+              <UHashTag
                 key={tag.label}
-                variant="outlined"
-                size="small"
-                sx={{
-                  padding: theme.spacing(0.5, 1),
-                  minWidth: 'fit-content',
-                  lineHeight: 1,
-                  borderColor: theme.color.grey[1500],
-                  color: theme.color.grey[1500],
+                value={tag.label}
+                containerProps={{
+                  sx: {
+                    backgroundColor: 'transparent',
+                    borderColor: theme.color.neutral[500],
+                  },
                 }}
-                className="category-tag"
-              >
-                {tag.label}
-              </UButton>
+              />
             ))}
             containerProps={{
               gap: 1,
