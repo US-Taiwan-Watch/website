@@ -117,7 +117,7 @@ export class Opinion {
     return new Opinion({
       id: dto.id ?? undefined,
       title: dto.title,
-      subtitle: dto.subtitle,
+      subtitle: dto.subtitle ?? undefined,
       categories: dto.categories?.map((category) => ({
         id: category.id ?? undefined,
         label: category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
