@@ -173,6 +173,8 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
     fetchSourceMetadatas()
   }, [sources])
 
+  if (!sourceMetadatas.length) return null
+
   return (
     <Box width="max-content">
       <Button
