@@ -18,6 +18,7 @@ import useModal from '@/common/hooks/useModal'
 import Button from '@mui/material/Button'
 import Link from 'next/link'
 import Divider from '@mui/material/Divider'
+import { getLinkPreview } from 'link-preview-js'
 
 type SourceMetadata = {
   /** 連結 */
@@ -34,24 +35,21 @@ type SourceMetadata = {
 
 const getMetadata = async (link: string): Promise<SourceMetadata | null> => {
   try {
-    const response = await fetch(link)
-    const html = await response.text()
+    const linkPreview = (await getLinkPreview(link)) as {
+      favicons: string[]
+      siteName: string
+      title: string
+      description: string
+    }
 
-    // 使用正則表達式或 DOM parser 來提取 metadata
-    const favicon = html.match(/<link rel="icon" href="(.*?)"/i)?.[1] || ''
-    const siteName =
-      html.match(/<meta property="og:site_name" content="(.*?)"/i)?.[1] ||
-      new URL(link).hostname
-    const title = html.match(/<title>(.*?)<\/title>/i)?.[1] || ''
-    const description =
-      html.match(/<meta name="description" content="(.*?)"/i)?.[1] || ''
+    const favicon = linkPreview.favicons[0]
 
     return {
       link,
       favicon,
-      siteName,
-      title,
-      description,
+      siteName: linkPreview.siteName,
+      title: linkPreview.title,
+      description: linkPreview.description,
     }
   } catch {
     return null
@@ -59,24 +57,24 @@ const getMetadata = async (link: string): Promise<SourceMetadata | null> => {
 }
 
 interface SourcesDialogProps {
-  sources: Sources
+  sourceMetadatas: SourceMetadata[]
   isModalOpen: boolean
   handleCloseModal: () => void
 }
 
 const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
   const theme = useTheme<USTWTheme>()
-  const { sources, isModalOpen, handleCloseModal } = props
+  const { sourceMetadatas, isModalOpen, handleCloseModal } = props
 
-  const [metadata, setMetadata] = useState<SourceMetadata[]>([])
+  // const [metadata, setMetadata] = useState<SourceMetadata[]>([])
 
-  useEffect(() => {
-    const fetchMetadata = async () => {
-      const metadata = await Promise.all(sources.links.map(getMetadata))
-      setMetadata(metadata.filter((m) => !isNull(m)))
-    }
-    fetchMetadata()
-  }, [sources])
+  // useEffect(() => {
+  //   const fetchMetadata = async () => {
+  //     const metadata = await Promise.all(sources.links.map(getMetadata))
+  //     setMetadata(metadata.filter((m) => !isNull(m)))
+  //   }
+  //   fetchMetadata()
+  // }, [sources])
 
   // TODO: i18n
   return (
@@ -112,7 +110,7 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
             margin: `${theme.spacing(1)} 0`,
           }}
         >
-          {metadata.map((m, index) => (
+          {sourceMetadatas.map((m, index) => (
             <Fragment key={m.link}>
               <Link href={m.link} target="_blank" rel="noopener noreferrer">
                 <Stack
@@ -140,7 +138,7 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
                   </UHeightLimitedText>
                 </Stack>
               </Link>
-              {index !== metadata.length - 1 && (
+              {index !== sourceMetadatas.length - 1 && (
                 <Divider
                   sx={{
                     borderColor: theme.color.neutral[200],
@@ -158,49 +156,60 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
 
 const MAX_FAVICON_AVATAR_COUNT = 4
 
-const getFavicon = async (link: string) => {
-  const url = new URL(link).origin
-  const faviconUrl = `${url}/favicon.ico`
-  const response = await fetch(faviconUrl)
-  const blob = await response.blob()
-  return URL.createObjectURL(blob)
-}
-
 interface TaiwanRecordSourcesProps {
   sources: Sources
 }
 
 const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
+  const theme = useTheme<USTWTheme>()
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
-  const [favicons, setFavicons] = useState<string[]>([])
+  const [sourceMetadatas, setSourceMetadatas] = useState<SourceMetadata[]>([])
 
   useEffect(() => {
-    const fetchFavicons = async () => {
-      try {
-        const favicons = await Promise.all(sources.links.map(getFavicon))
-        setFavicons(favicons)
-      } catch {
-        setFavicons([])
-      }
+    const fetchSourceMetadatas = async () => {
+      const sourceMetadatas = await Promise.all(sources.links.map(getMetadata))
+      setSourceMetadatas(sourceMetadatas.filter((m) => !isNull(m)))
     }
-    fetchFavicons()
+    fetchSourceMetadatas()
   }, [sources])
 
   return (
     <Box width="max-content">
-      <Button onClick={handleOpenModal}>
-        <AvatarGroup total={favicons.length} max={MAX_FAVICON_AVATAR_COUNT}>
-          {favicons.map((favicon, index) => (
+      <Button
+        variant="outlined"
+        color="info"
+        onClick={handleOpenModal}
+        sx={{
+          minWidth: 'fit-content',
+          py: 1,
+          px: 1.5,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 1,
+          borderRadius: theme.shape.borderRadius * 5,
+        }}
+      >
+        <Typography variant="body2">Sources</Typography>
+        <AvatarGroup
+          total={sourceMetadatas.length}
+          max={MAX_FAVICON_AVATAR_COUNT}
+        >
+          {sourceMetadatas.map((m, index) => (
             <Avatar
+              sx={{
+                width: 16,
+                height: 16,
+              }}
               key={index}
               alt={new URL(sources.links[index]).hostname}
-              src={favicon}
+              src={m.favicon}
             />
           ))}
         </AvatarGroup>
       </Button>
       <SourcesDialog
-        sources={sources}
+        sourceMetadatas={sourceMetadatas}
         isModalOpen={isModalOpen}
         handleCloseModal={handleCloseModal}
       />
