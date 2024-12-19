@@ -13,9 +13,10 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 
-const StyledOpinionLandingBannerCardContainer = styled(Box)(() => ({
+const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   borderRadius: '30px',
+  padding: theme.spacing(0, 1),
 }))
 
 const StyledCategory = styled(UButton)(({ theme }) => ({

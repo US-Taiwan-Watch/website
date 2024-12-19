@@ -37,7 +37,6 @@ export interface OpinionArgs {
   id?: string
   title?: string
   subtitle?: string
-  // TODO: TBD 會是 html 格式？
   description?: string
   categories?: Array<OpinionCategoryArgs>
   date?: string
@@ -146,6 +145,7 @@ export class Opinion {
         ...payloadSlateToHtmlConfig,
         convertLineBreakToBr: true,
       }),
+      description: dto.excerpt,
     })
   }
 
