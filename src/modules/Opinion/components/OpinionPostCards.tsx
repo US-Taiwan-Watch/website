@@ -8,19 +8,22 @@ import { Box, Grid2 as Grid, Stack } from '@mui/material'
 interface OpinionPostCardsProps {
   opinions: Array<Opinion>
   pagination?: boolean
+  /** 是否呈現 Category */
+  showCategory?: boolean
 }
 
 const OpinionPostCards = ({
   opinions,
   pagination = true,
+  showCategory = true,
 }: OpinionPostCardsProps) => {
   return (
     <Stack spacing={8}>
       {/** Posts */}
       <Grid container rowSpacing={8} columnSpacing={4}>
         {opinions.map((opinion) => (
-          <Grid size={3} key={opinion.id}>
-            <OpinionPostCard opinion={opinion} />
+          <Grid size={4} key={opinion.id}>
+            <OpinionPostCard opinion={opinion} showCategory={showCategory} />
           </Grid>
         ))}
       </Grid>

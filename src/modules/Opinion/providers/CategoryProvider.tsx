@@ -4,7 +4,7 @@ import { Language } from '@/common/lib/i18n/types'
 import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
 import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
 import {
-  getOpinionTags,
+  getOpinionCategories,
   highlightedOpinionCategories,
 } from '@/modules/Opinion/data'
 import { useParams } from 'next/navigation'
@@ -20,10 +20,14 @@ export default function CategoryProvider() {
 
   useEffect(() => {
     setHomeCategories(
-      getOpinionTags().map((tag) => OpinionCategory.fromDTO(lang, tag))
+      getOpinionCategories().map((category) =>
+        OpinionCategory.fromDTO(lang, category)
+      )
     )
     setHomeHighlightedCategories(
-      highlightedOpinionCategories.map((tag) => new OpinionCategory(tag))
+      highlightedOpinionCategories.map(
+        (category) => new OpinionCategory(category)
+      )
     )
   }, [setHomeCategories, setHomeHighlightedCategories, lang])
 
