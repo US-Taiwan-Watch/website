@@ -250,12 +250,16 @@ export class Bill {
                 chamber: 'house' | 'senate'
               }[]
             | undefined
-        )?.map((action) => ({
-          date: action.actionAt.datetime,
-          description: action.description,
-          chamber:
-            action.chamber === 'house' ? ChamberEnum.HOUSE : ChamberEnum.SENATE,
-        })) ?? [],
+        )
+          ?.map((action) => ({
+            date: action.actionAt.datetime,
+            description: action.description,
+            chamber:
+              action.chamber === 'house'
+                ? ChamberEnum.HOUSE
+                : ChamberEnum.SENATE,
+          }))
+          ?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date))) ?? [],
       introducedAt: dto.introducedAt?.datetime,
       latestActionAt: dto.latestActionTime,
       number: dto.number,
