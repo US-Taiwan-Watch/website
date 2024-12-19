@@ -93,6 +93,7 @@ interface PeopleArgs {
   taiwanRecords?: Array<TaiwanRecord>
   votes?: Array<PeopleVote>
   govTrackId?: string
+  links?: NonNullable<PeopleDTO['links']>
   rawData?: PeopleDTO
 }
 
@@ -139,6 +140,8 @@ export class People {
   votes: Array<PeopleVote> = []
   // GovTrack ID
   govTrackId?: string
+  // Links
+  links: NonNullable<PeopleDTO['links']> = []
   // Raw data
   rawData?: PeopleDTO
 
@@ -201,6 +204,9 @@ export class People {
     }
     if (isString(people.govTrackId)) {
       this.govTrackId = people.govTrackId
+    }
+    if (isArray(people.links)) {
+      this.links = people.links
     }
     if (!isUndefined(people.rawData)) {
       this.rawData = people.rawData
@@ -305,6 +311,7 @@ export class People {
       taiwanRecords: People.parseTaiwanRecordFromDTO(dto.records),
       votes: People.parseVotesFromDTO(lang, dto.votes),
       govTrackId: dto.govTrackId ?? undefined,
+      links: dto.links ?? [],
       rawData: dto,
     })
   }

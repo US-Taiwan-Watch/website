@@ -749,21 +749,25 @@ export const PEOPLE_DTO_MOCK = [
         id: '675480c7d1d49300312fe0ed',
         link: 'https://x.com/SenDanSullivan',
         title: '@SenDanSullivan',
+        type: 'twitter',
       },
       {
         id: '675480c7d1d49300312fe0ee',
         link: 'https://instagram.com/sen_dansullivan',
         title: '@sen_dansullivan',
+        type: 'instagram',
       },
       {
         id: '675480c7d1d49300312fe0ef',
         link: 'https://facebook.com/SenDanSullivan',
         title: '@SenDanSullivan',
+        type: 'facebook',
       },
       {
         id: '675480c7d1d49300312fe0f0',
         link: 'https://youtube.com/channel/UC7tXCm8gKlAhTFo2kuf5ylw',
         title: '@SenatorDanSullivan',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -774,18 +778,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Dan Sullivan',
-              },
-              zh: {
-                displayName: '蘇利文',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '67488740c842897fb7f2a281',
@@ -959,6 +951,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6754799fd1d49300312fe0e4',
         link: 'https://x.com/RepTiffany',
         title: '@RepTiffany',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -969,18 +962,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Thomas P. Tiffany',
-              },
-              zh: {
-                displayName: '帝芬尼',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748874bc842897fb7f2a289',
@@ -1244,16 +1225,19 @@ export const PEOPLE_DTO_MOCK = [
         id: '6754766fd1d49300312fe0d1',
         link: 'https://x.com/SenSherrodBrown',
         title: '@SenSherrodBrown',
+        type: 'twitter',
       },
       {
         id: '6754766fd1d49300312fe0d2',
         link: 'https://facebook.com/SenatorSherrodBrown',
         title: '@SenatorSherrodBrown',
+        type: 'facebook',
       },
       {
         id: '6754766fd1d49300312fe0d3',
         link: 'https://youtube.com/channel/UCgy8jfERh-t_ixkKKoCmglQ',
         title: '@SherrodBrownOhio',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -1264,18 +1248,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Sherrod Brown',
-              },
-              zh: {
-                displayName: '布朗',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748874bc842897fb7f2a289',
@@ -1480,16 +1452,19 @@ export const PEOPLE_DTO_MOCK = [
         id: '67547188d1d49300312fe0c1',
         link: 'https://x.com/SenRickScott',
         title: '@SenRickScott',
+        type: 'twitter',
       },
       {
         id: '67547188d1d49300312fe0c2',
         link: 'https://facebook.com/RickScottSenOffice',
         title: '@RickScottSenOffice',
+        type: 'facebook',
       },
       {
         id: '67547188d1d49300312fe0c3',
         link: 'https://youtube.com/channel/UC-Y9pFmW4PYGZHkC8lcqSkQ',
         title: '@senrickscott8007',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -1500,18 +1475,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Rick Scott',
-              },
-              zh: {
-                displayName: '史考特',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -1585,7 +1548,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Invasion Prevention Act',
         type: 's',
-        updatedAt: '2024-12-07T16:04:25.248Z',
+        updatedAt: '2024-12-19T07:32:35.585Z',
       },
     ],
     tags: [],
@@ -1698,16 +1661,19 @@ export const PEOPLE_DTO_MOCK = [
         id: '67546e46d1d49300312fe0b4',
         link: 'https://x.com/RepBera',
         title: '@RepBera',
+        type: 'twitter',
       },
       {
         id: '67546e46d1d49300312fe0b5',
         link: 'https://facebook.com/RepAmiBera',
         title: '@RepAmiBera',
+        type: 'facebook',
       },
       {
         id: '67546e46d1d49300312fe0b6',
         link: 'https://youtube.com/channel/UClJCTCo53Zk6b4kUL-bbdzg',
         title: '@repamibera',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -1718,18 +1684,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Ami Bera',
-              },
-              zh: {
-                displayName: '貝拉',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -1891,18 +1845,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Tom DeLay',
-              },
-              zh: {
-                displayName: null,
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -2428,16 +2370,19 @@ export const PEOPLE_DTO_MOCK = [
         id: '6754687cd1d49300312fe09a',
         link: 'https://x.com/SenMarkey',
         title: '@SenMarkey',
+        type: 'twitter',
       },
       {
         id: '6754687cd1d49300312fe09b',
         link: 'https://facebook.com/EdJMarkey',
         title: '@EdJMarkey',
+        type: 'facebook',
       },
       {
         id: '6754687cd1d49300312fe09c',
         link: 'https://youtube.com/channel/UCT1ujew5yQy2uMhGrjiKHoA',
         title: '@RepMarkey',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -2448,18 +2393,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Edward J. Markey',
-              },
-              zh: {
-                displayName: '馬基',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748876cc842897fb7f2a299',
@@ -2528,7 +2461,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Fellowship Act',
         type: 's',
-        updatedAt: '2024-12-07T15:27:38.661Z',
+        updatedAt: '2024-12-19T07:48:26.028Z',
       },
     ],
     tags: [],
@@ -2604,18 +2537,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Steve Chabot',
-              },
-              zh: {
-                displayName: '夏波',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748876cc842897fb7f2a299',
@@ -2995,18 +2916,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Robert Menendez',
-              },
-              zh: {
-                displayName: '梅南德茲',
-              },
-            },
-          },
-        },
         categories: [],
         congress: 118,
         congressGovUrl:
@@ -3103,21 +3012,9 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Tax Agreement Act of 2023',
         type: 's',
-        updatedAt: '2024-12-07T14:37:47.516Z',
+        updatedAt: '2024-12-19T07:32:54.329Z',
       },
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Robert Menendez',
-              },
-              zh: {
-                displayName: '梅南德茲',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748876cc842897fb7f2a299',
@@ -3257,18 +3154,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Clement J. Zablocki',
-              },
-              zh: {
-                displayName: null,
-              },
-            },
-          },
-        },
         categories: [],
         congress: 96,
         congressGovUrl:
@@ -3664,18 +3549,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Edward J. Markey',
-              },
-              zh: {
-                displayName: '馬基',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748876cc842897fb7f2a299',
@@ -3744,7 +3617,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Fellowship Act',
         type: 's',
-        updatedAt: '2024-12-07T15:27:38.661Z',
+        updatedAt: '2024-12-19T07:48:26.028Z',
       },
     ],
     createdAt: '2024-12-07T06:26:34.406Z',
@@ -3787,16 +3660,19 @@ export const PEOPLE_DTO_MOCK = [
         id: '6753ea9aa31c960031c15de1',
         link: 'https://x.com/SenRubioPress',
         title: '@SenRubioPress',
+        type: 'twitter',
       },
       {
         id: '6753ea9aa31c960031c15de2',
         link: 'https://facebook.com/SenatorMarcoRubio',
         title: '@SenatorMarcoRubio',
+        type: 'facebook',
       },
       {
         id: '6753ea9aa31c960031c15de3',
         link: 'https://youtube.com/channel/UCh8t7sV_DBKz4A-RkL9feyg',
         title: '@SenatorMarcoRubio',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -3829,18 +3705,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Marco Rubio',
-              },
-              zh: {
-                displayName: '盧比歐',
-              },
-            },
-          },
-        },
         categories: [],
         congress: 118,
         congressGovUrl:
@@ -3977,16 +3841,19 @@ export const PEOPLE_DTO_MOCK = [
         id: '6753e68ea31c960031c15dd6',
         link: 'https://x.com/RepJasonSmith',
         title: '@RepJasonSmith',
+        type: 'twitter',
       },
       {
         id: '6753e68ea31c960031c15dd7',
         link: 'https://facebook.com/repjasonsmith',
         title: '@repjasonsmith',
+        type: 'facebook',
       },
       {
         id: '6753e68ea31c960031c15dd8',
         link: 'https://youtube.com/channel/UCzj9-27Lr4gcqopmZAobXXg',
         title: '@RepJasonSmith',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -3997,18 +3864,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Jason Smith',
-              },
-              zh: {
-                displayName: '史密斯',
-              },
-            },
-          },
-        },
         categories: [],
         congress: 118,
         congressGovUrl:
@@ -4192,21 +4047,25 @@ export const PEOPLE_DTO_MOCK = [
         id: '6753dafca31c960031c15dcf',
         link: 'https://x.com/CathyMcMorris',
         title: '@CathyMcMorris',
+        type: 'twitter',
       },
       {
         id: '6753dafca31c960031c15dd0',
         link: 'https://www.facebook.com/mcmorrisrodgers',
         title: '@mcmorrisrodgers',
+        type: 'facebook',
       },
       {
         id: '6753dafca31c960031c15dd1',
         link: 'https://www.youtube.com/channel/UCRp0lwIxAhq2Ia9_YgRWUkg',
         title: 'mcmorrisrodgers',
+        type: 'youtube',
       },
       {
         id: '6753dafca31c960031c15dd2',
         link: 'https://instagram.com/cathymcmorris',
         title: '@cathymcmorris',
+        type: 'instagram',
       },
     ],
     partyChangeRecords: [],
@@ -4217,18 +4076,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Cathy McMorris Rodgers',
-              },
-              zh: {
-                displayName: '羅傑斯',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -5432,18 +5279,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Cory Gardner',
-              },
-              zh: {
-                displayName: '賈德納',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748874bc842897fb7f2a289',
@@ -5869,21 +5704,25 @@ export const PEOPLE_DTO_MOCK = [
         id: '6753cf37a31c960031c15dbd',
         link: 'https://connolly.house.gov',
         title: 'Offcial Website',
+        type: 'other',
       },
       {
         id: '6753cf37a31c960031c15dbe',
         link: 'https://x.com/GerryConnolly',
         title: '@GerryConnolly',
+        type: 'twitter',
       },
       {
         id: '6753cf37a31c960031c15dbf',
         link: 'https://www.facebook.com/CongressmanGerryConnolly',
         title: '@CongressmanGerryConnolly',
+        type: 'facebook',
       },
       {
         id: '6753cf37a31c960031c15dc0',
         link: 'https://www.youtube.com/channel/UC4WG9PlmoOeSLIuyVjs-RSA',
         title: 'repconnolly',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -5894,18 +5733,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Gerald E. Connolly',
-              },
-              zh: {
-                displayName: null,
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748874bc842897fb7f2a289',
@@ -6062,21 +5889,9 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan International Solidarity Act',
         type: 'hr',
-        updatedAt: '2024-12-08T07:01:09.372Z',
+        updatedAt: '2024-12-19T07:32:44.649Z',
       },
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Gerald E. Connolly',
-              },
-              zh: {
-                displayName: null,
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '67488740c842897fb7f2a281',
@@ -6238,18 +6053,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Tim Ryan',
-              },
-              zh: {
-                displayName: '萊恩',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748878cc842897fb7f2a2b1',
@@ -7153,7 +6956,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'CHIPS and Science Act',
         type: 'hr',
-        updatedAt: '2024-12-08T07:12:37.422Z',
+        updatedAt: '2024-12-19T07:31:32.103Z',
       },
     ],
     tags: [],
@@ -7233,6 +7036,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752ae51e3d2f20031988647',
         link: 'https://x.com/Ian_M_Easton',
         title: '@Ian_M_Easton',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -7342,6 +7146,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752adcee3d2f2003198863f',
         link: 'https://x.com/deputysecstate',
         title: '@deputysecstate',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -7410,6 +7215,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752ad3fe3d2f2003198863b',
         link: 'https://x.com/boardchairait',
         title: '@boardchairait',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -7474,18 +7280,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -7679,7 +7473,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T07:49:33.927Z',
@@ -7722,21 +7516,25 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752ac8de3d2f2003198862f',
         link: 'https://x.com/RepAnnWagner',
         title: '@RepAnnWagner',
+        type: 'twitter',
       },
       {
         id: '6752ac8de3d2f20031988630',
         link: 'https://facebook.com/RepAnnWagner',
         title: '@RepAnnWagner',
+        type: 'facebook',
       },
       {
         id: '6752ac8de3d2f20031988631',
         link: 'https://youtube.com/channel/UCy2v2DXXvQnbRc8Zx77Dnsg',
         title: '@annwagner160',
+        type: 'youtube',
       },
       {
         id: '6752ac8de3d2f20031988632',
         link: 'https://instagram.com/repannwagner',
         title: '@repannwagner',
+        type: 'instagram',
       },
     ],
     partyChangeRecords: [],
@@ -7806,18 +7604,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -8011,7 +7797,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T07:46:22.064Z',
@@ -8054,6 +7840,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752abcee3d2f20031988625',
         link: 'https://x.com/monica4congress',
         title: '@monica4congress',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -8118,18 +7905,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -8323,7 +8098,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T07:43:56.020Z',
@@ -8376,6 +8151,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752ab3ce3d2f2003198861b',
         link: 'https://x.com/RepYoungKim',
         title: '@RepYoungKim',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -8386,18 +8162,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'Young Kim',
-              },
-              zh: {
-                displayName: '金映玉',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748874bc842897fb7f2a289',
@@ -8672,18 +8436,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -8877,7 +8629,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T07:38:38.247Z',
@@ -8920,6 +8672,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752a9fee3d2f2003198860f',
         link: 'https://x.com/RepChrisPappas',
         title: '@RepChrisPappas',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -8984,18 +8737,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -9189,7 +8930,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T07:35:25.201Z',
@@ -9242,6 +8983,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '6752a93de3d2f20031988605',
         link: 'https://x.com/RepPatRyanNY',
         title: '@RepPatRyanNY',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -9306,18 +9048,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -9511,7 +9241,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T06:42:34.905Z',
@@ -9554,6 +9284,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '67529cdaf5009a00321fea4f',
         link: 'https://x.com/RepSusieLee',
         title: '@RepSusieLee',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -9618,18 +9349,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -9823,7 +9542,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T06:36:04.411Z',
@@ -9866,6 +9585,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '67529b8d363aa0029d97df6e',
         link: 'https://x.com/RepMikeLawler',
         title: '@RepMikeLawler',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -9935,18 +9655,6 @@ export const PEOPLE_DTO_MOCK = [
     },
     cosponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -10140,7 +9848,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     createdAt: '2024-12-06T06:07:08.308Z',
@@ -10203,16 +9911,19 @@ export const PEOPLE_DTO_MOCK = [
         id: '67529598363aa0029d97df61',
         link: 'https://x.com/BradSherman',
         title: '@BradSherman',
+        type: 'twitter',
       },
       {
         id: '6752959f363aa0029d97df62',
         link: 'https://www.facebook.com/CongressmanBradSherman',
         title: '@CongressmanBradSherman',
+        type: 'facebook',
       },
       {
         id: '675295a9363aa0029d97df63',
         link: 'https://www.youtube.com/channel/UCPisrz6-SLwVy2l9Mcy8kug',
         title: 'Congressman Brad Sherman',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -10333,21 +10044,25 @@ export const PEOPLE_DTO_MOCK = [
         id: '675293e0f5009a00321fea45',
         link: 'https://x.com/RepFrenchHill',
         title: '@RepFrenchHill',
+        type: 'twitter',
       },
       {
         id: '675293e0f5009a00321fea46',
         link: 'https://www.facebook.com/RepFrenchHill',
         title: '@RepFrenchHill',
+        type: 'facebook',
       },
       {
         id: '675293e0f5009a00321fea47',
         link: 'https://www.instagram.com/repfrenchhill',
         title: '@repfrenchhill',
+        type: 'instagram',
       },
       {
         id: '675293e0f5009a00321fea48',
         link: 'https://www.youtube.com/channel/UCT8uWroJtkwSsCJlVg0IKvQ',
         title: '@RepFrenchHill',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -10358,18 +10073,6 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        sponsor: {
-          people: {
-            i18n: {
-              en: {
-                displayName: 'French Hill',
-              },
-              zh: {
-                displayName: '希爾',
-              },
-            },
-          },
-        },
         categories: [
           {
             id: '6748875ec842897fb7f2a291',
@@ -10563,7 +10266,7 @@ export const PEOPLE_DTO_MOCK = [
         ],
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-08T06:13:18.102Z',
+        updatedAt: '2024-12-19T07:46:49.965Z',
       },
     ],
     tags: [],
@@ -10655,31 +10358,37 @@ export const PEOPLE_DTO_MOCK = [
         id: '675292cff5009a00321fea3a',
         link: 'https://x.com/joebiden',
         title: '@joebiden',
+        type: 'twitter',
       },
       {
         id: '675292cff5009a00321fea3b',
         link: 'https://www.instagram.com/joebiden',
         title: '@joebiden',
+        type: 'instagram',
       },
       {
         id: '675292cff5009a00321fea3c',
         link: 'https://www.facebook.com/joebiden',
         title: '@joebiden',
+        type: 'facebook',
       },
       {
         id: '675292cff5009a00321fea3d',
         link: 'https://www.youtube.com/channel/UCWNpXitY8eJ-ku6M-v25MKw',
         title: '@JoeBiden',
+        type: 'youtube',
       },
       {
         id: '675292cff5009a00321fea3e',
         link: 'https://x.com/potus',
         title: '@potus',
+        type: 'twitter',
       },
       {
         id: '675292cff5009a00321fea3f',
         link: 'https://www.instagram.com/potus',
         title: '@potus',
+        type: 'instagram',
       },
     ],
     partyChangeRecords: [],
@@ -10816,6 +10525,7 @@ export const PEOPLE_DTO_MOCK = [
         id: '67528ab8f5009a00321fea32',
         link: 'https://x.com/elonmusk',
         title: '@elonmusk',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -10901,26 +10611,31 @@ export const PEOPLE_DTO_MOCK = [
         id: '675289ecf5009a00321fea25',
         link: 'https://x.com/tim_walz',
         title: '@tim_walz',
+        type: 'twitter',
       },
       {
         id: '675289ecf5009a00321fea26',
         link: 'https://www.facebook.com/govwalz',
         title: '@govwalz',
+        type: 'facebook',
       },
       {
         id: '675289ecf5009a00321fea27',
         link: 'https://www.youtube.com/channel/UCOOyPFRNz-_VWX6r_2jHW6g',
         title: 'Tim Walz',
+        type: 'youtube',
       },
       {
         id: '675289ecf5009a00321fea28',
         link: 'https://www.facebook.com/GovTimWalz',
         title: '@GovTimWalz',
+        type: 'facebook',
       },
       {
         id: '675289ecf5009a00321fea29',
         link: 'https://www.instagram.com/mngovernor',
         title: '@mngovernor',
+        type: 'instagram',
       },
     ],
     partyChangeRecords: [],
@@ -11006,26 +10721,31 @@ export const PEOPLE_DTO_MOCK = [
         id: '67528814f5009a00321fea1b',
         link: 'https://kamalaharris.com',
         title: 'Official Website',
+        type: 'other',
       },
       {
         id: '67528814f5009a00321fea1c',
         link: 'https://x.com/kamalaharris',
         title: '@kamalaharris',
+        type: 'twitter',
       },
       {
         id: '67528814f5009a00321fea1d',
         link: 'https://www.facebook.com/KamalaHarris',
         title: '@KamalaHarris',
+        type: 'facebook',
       },
       {
         id: '67528814f5009a00321fea1e',
         link: 'https://www.instagram.com/kamalaharris',
         title: '@kamalaharris',
+        type: 'instagram',
       },
       {
         id: '67528814f5009a00321fea1f',
         link: 'https://www.youtube.com/kamalaharris',
         title: '@kamalaharris',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],
@@ -11162,41 +10882,49 @@ export const PEOPLE_DTO_MOCK = [
         id: '67528675f5009a00321fea02',
         link: 'https://www.vance.senate.gov',
         title: 'Official Website',
+        type: 'other',
       },
       {
         id: '67528675f5009a00321fea03',
         link: 'https://www.facebook.com/senatorvance',
         title: '@senatorvance',
+        type: 'facebook',
       },
       {
         id: '67528675f5009a00321fea04',
         link: 'https://www.instagram.com/senatorvance',
         title: '@senatorvance',
+        type: 'instagram',
       },
       {
         id: '67528675f5009a00321fea05',
         link: 'https://www.youtube.com/channel/UCOu1i1eeT8unVAc678Q6LQA',
         title: '@senatorjdvance',
+        type: 'youtube',
       },
       {
         id: '67528675f5009a00321fea06',
         link: 'https://x.com/SenVancePress',
         title: '@SenVancePress',
+        type: 'twitter',
       },
       {
         id: '67528675f5009a00321fea07',
         link: 'https://www.facebook.com/p/JD-Vance-100070055152736',
         title: 'JD Vance',
+        type: 'facebook',
       },
       {
         id: '67528675f5009a00321fea08',
         link: 'https://www.instagram.com/jdvance',
         title: '@jdvance',
+        type: 'instagram',
       },
       {
         id: '67528675f5009a00321fea09',
         link: 'https://x.com/jdvance',
         title: '@JDVance',
+        type: 'twitter',
       },
     ],
     partyChangeRecords: [],
@@ -11288,36 +11016,43 @@ export const PEOPLE_DTO_MOCK = [
         id: '674f3dc49ed90400318f042d',
         link: 'https://www.donaldtrump.com',
         title: 'Official Website',
+        type: 'other',
       },
       {
         id: '674f3dc49ed90400318f042e',
         link: 'https://truthsocial.com/@realDonaldTrump',
         title: 'Truth Social',
+        type: 'other',
       },
       {
         id: '674f3dc49ed90400318f042f',
         link: 'https://x.com/TrumpWarRoom',
         title: '@TrumpWarRoom',
+        type: 'twitter',
       },
       {
         id: '67528397363aa0029d97df00',
         link: 'https://x.com/realdonaldtrump',
         title: '@realDonaldTrump',
+        type: 'twitter',
       },
       {
         id: '675283a8363aa0029d97df01',
         link: 'https://www.instagram.com/realdonaldtrump',
         title: '@realdonaldtrump',
+        type: 'instagram',
       },
       {
         id: '675283b5363aa0029d97df02',
         link: 'https://www.facebook.com/DonaldTrump',
         title: '@DonaldTrump',
+        type: 'facebook',
       },
       {
         id: '675283c2363aa0029d97df03',
         link: 'https://www.youtube.com/channel/UCAql2DyGU2un1Ei2nMYsqOA',
         title: '@DonaldJTrumpforPresident',
+        type: 'youtube',
       },
     ],
     partyChangeRecords: [],

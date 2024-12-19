@@ -42,17 +42,19 @@ import SvgVersionIcon from './VersionIcon.svg'
 import SvgPerson2Icon from './Person2Icon.svg'
 import SvgPeopleJoinIcon from './PeopleJoinIcon.svg'
 import SvgExpandMoreIcon from './ExpandMoreIcon.svg'
+import SvgInternetIcon from './InternetIcon.svg'
+import SvgOpenSecretsIcon from './OpenSecretsIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
   return (
     <SvgIcon
-      {...props.component().props}
-      {...props}
       sx={{
         width: '100%',
         height: '100%',
       }}
+      {...props.component().props}
+      {...props}
     />
   )
 }
@@ -215,4 +217,12 @@ export const PeopleJoinIcon = (props: SvgIconProps) => (
 
 export const ExpandMoreIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgExpandMoreIcon} {...props} />
+)
+
+export const InternetIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgInternetIcon} {...props} />
+)
+
+export const OpenSecretsIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgOpenSecretsIcon} {...props} />
 )
