@@ -122,12 +122,7 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {
           visible: hasParty,
           size: 'grow',
-          component: (
-            <Party
-              party={people.party!}
-              partyExperiences={people.partyExperience}
-            />
-          ),
+          component: <Party party={people.party!} />,
         },
         {
           visible: hasSponsored,
