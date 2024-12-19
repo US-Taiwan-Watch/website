@@ -2,9 +2,9 @@
 
 import DOMPurify from 'dompurify'
 import { styled } from '@/common/lib/mui/theme'
-import ContentImage from '@/modules/Opinion/components/OpinionPost/Content/ContentImage'
 import HyperLinkTooltip from '@/modules/Opinion/components/OpinionPost/Content/HyperLinkTooltip'
 import { Stack } from '@mui/material'
+import { useState, useEffect } from 'react'
 
 const StyledContent = styled(Stack)(({ theme }) => ({
   '& h1': {
@@ -48,6 +48,12 @@ const StyledContent = styled(Stack)(({ theme }) => ({
       transform: 'translateY(-50%)',
     },
   },
+  '& [data-link-type="internal"]': {
+    color: theme.color.orange[900],
+    fontSize: theme.typography.body.fontSize,
+    fontWeight: 400,
+    width: 'fit-content',
+  },
   fontSize: theme.typography.body.fontSize,
   fontWeight: 400,
 }))
@@ -59,6 +65,43 @@ interface OpinionPostContentProps {
 const OpinionPostContent = function OpinionPostContent({
   contentHtml,
 }: OpinionPostContentProps) {
+  const [hoveredInternalLinkElem, setHoveredInternalLinkElem] =
+    useState<HTMLLinkElement | null>(null)
+
+  /**
+   * 在滑鼠進入內部連結時，設定 hover 的內部連結元素
+   */
+  const handleInternalLinkHover = (e: Event) => {
+    setHoveredInternalLinkElem(e.target as HTMLLinkElement)
+  }
+
+  /**
+   * 在滑鼠離開內部連結時，清除 hover 的內部連結元素
+   */
+  const handleInternalLinkLeave = () => {
+    setHoveredInternalLinkElem(null)
+  }
+
+  /**
+   * 監聽內部連結的 hover 事件
+   */
+  useEffect(() => {
+    const internalLinkElems = document.querySelectorAll(
+      '[data-link-type="internal"]'
+    )
+    internalLinkElems.forEach((elem) => {
+      console.log(elem)
+      elem.addEventListener('mouseenter', handleInternalLinkHover)
+      elem.addEventListener('mouseleave', handleInternalLinkLeave)
+    })
+    return () => {
+      internalLinkElems.forEach((elem) => {
+        elem.removeEventListener('mouseenter', handleInternalLinkHover)
+        elem.removeEventListener('mouseleave', handleInternalLinkLeave)
+      })
+    }
+  }, [hoveredInternalLinkElem])
+
   return (
     <Stack spacing={2}>
       <StyledContent
@@ -67,13 +110,10 @@ const OpinionPostContent = function OpinionPostContent({
           __html: DOMPurify.sanitize(contentHtml),
         }}
       />
-      <HyperLinkTooltip text="超連結" />
-      <ContentImage
-        image={'/assets/category1.jpg'}
-        caption={
-          '1967年，中國共產黨主席毛澤東掀起文化大革命，當時在北京市中心展示了他的巨大畫像與標語。（攝影／JEAN VINCENT／AFP）'
-        }
-      />
+      {/** 顯示 hover 的內部連結元素的 tooltip */}
+      {hoveredInternalLinkElem && (
+        <HyperLinkTooltip anchorEl={hoveredInternalLinkElem} />
+      )}
     </Stack>
   )
 }

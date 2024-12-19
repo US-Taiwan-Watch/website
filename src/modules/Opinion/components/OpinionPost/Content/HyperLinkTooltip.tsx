@@ -1,8 +1,9 @@
 'use client'
 
 import PeopleTooltip from '@/common/components/elements/HyperLinkTooltip/PeopleTooltip'
-import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Tooltip, tooltipClasses, TooltipProps, useTheme } from '@mui/material'
+import { styled } from '@/common/lib/mui/theme'
+import { Tooltip, tooltipClasses, TooltipProps } from '@mui/material'
+import Link from 'next/link'
 
 const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -14,28 +15,27 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
 }))
 
 interface HyperLinkTooltipProps {
-  text: string
+  anchorEl: HTMLLinkElement
 }
 
 const HyperLinkTooltip = function HyperLinkTooltip({
-  text,
+  anchorEl,
 }: HyperLinkTooltipProps) {
-  const theme = useTheme<USTWTheme>()
-
   return (
     <StyledTooltip title={<PeopleTooltip />}>
-      <a
+      {/** 偽造一個連結元素，長寬尺寸都與 hover 的內部連結元素相同，並設定 hover 的內部連結元素的 tooltip */}
+      <Link
+        href={anchorEl.href}
         style={{
-          color: theme.color.orange[900],
-          fontSize: theme.typography.body.fontSize,
-          fontWeight: 400,
-          width: 'fit-content',
+          position: 'absolute',
+          top: anchorEl.offsetTop,
+          left: anchorEl.offsetLeft,
+          transform: 'translate(0%, -100%)',
+          width: anchorEl.offsetWidth,
+          height: anchorEl.offsetHeight,
+          cursor: 'pointer',
         }}
-        href="#"
-        target="_blank"
-      >
-        {text}
-      </a>
+      />
     </StyledTooltip>
   )
 }
