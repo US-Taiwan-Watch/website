@@ -12,7 +12,7 @@ const StyledPartyLogo = styled(Image)(() => ({
 
 const getPartyLogo = (party: PartyEnum) => {
   if (party === PartyEnum.INDEPENDENT) return null
-  return `/assets/party-logo/${party}.png`
+  return `/assets/party-logo/${party.toLowerCase()}.png`
 }
 
 interface PartyProps {
