@@ -15,9 +15,11 @@ import type React from 'react'
 const useSectionLayout = (people: People) => {
   /**
    * 現任眾議員或參議員才會出現政黨
-   * TODO: 確認怎麼分辨『現任』
    */
-  const hasParty = useMemo(() => !!people.party, [people])
+  const hasParty = useMemo(
+    () => !!people.party && people.isCurrentCongressMember,
+    [people]
+  )
 
   /**
    * 眾議員或參議員才會有贊助法案
@@ -49,7 +51,6 @@ const useSectionLayout = (people: People) => {
 
   /**
    * 現任眾議員或參議員才會有委員會
-   * TODO: 確認怎麼分辨『現任』
    */
   const hasCommittee = useMemo(() => people.isCurrentCongressMember, [people])
 
@@ -60,7 +61,6 @@ const useSectionLayout = (people: People) => {
 
   /**
    * 現任眾議員或參議員才會有理念領導力圖表
-   * TODO: 確認怎麼分辨『現任』
    */
   const hasIdeologyLeadershipChart = useMemo(
     () => people.isCurrentCongressMember,
