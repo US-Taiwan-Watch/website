@@ -47,8 +47,8 @@ const OpinionPost = function OpinionPost({ opinion }: OpinionPostProps) {
               )}
 
               {/** Content Section */}
-              {opinion.contentHtml && (
-                <OpinionPostContent contentHtml={opinion.contentHtml} />
+              {opinion.content && (
+                <OpinionPostContent content={opinion.content} />
               )}
 
               {/** Footer Section */}
