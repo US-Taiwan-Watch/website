@@ -14,7 +14,7 @@ import { ROUTES } from '@/routes'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import CategoryProvider from '@/modules/Opinion/providers/CategoryProvider'
+import OpinionStoreProvider from '@/modules/Opinion/providers/OpinionStoreProvider'
 
 const ArticleSection = () => {
   const { lang } = useParams<{ lang: Language }>()
@@ -25,7 +25,7 @@ const ArticleSection = () => {
 
   return (
     <>
-      <CategoryProvider />
+      <OpinionStoreProvider />
       <LandingSectionWrapper
         contentWrapperSx={{
           paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
