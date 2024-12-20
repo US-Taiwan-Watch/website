@@ -25,7 +25,6 @@ export type OpinionImage = {
 
 export type OpinionTag = {
   label: string
-  link?: string
 }
 
 export type OpinionResource = {
@@ -56,7 +55,7 @@ export class Opinion {
   description?: string
   categories?: Array<OpinionCategory>
   date?: Dayjs
-  tags?: Array<OpinionTag>
+  tags: Array<OpinionTag> = []
   repostSources?: Array<OpinionRepostSource>
   thumbnailImage?: OpinionImage
   bannerImage?: OpinionImage
