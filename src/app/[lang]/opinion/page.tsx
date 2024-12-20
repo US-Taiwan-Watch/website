@@ -5,10 +5,7 @@ import { Language } from '@/common/lib/i18n/types'
 import OpinionLandingBannerCards from '@/modules/Opinion/components/OpinionLanding/OpinionLandingBannerCards'
 import OpinionPostSection from '@/modules/Opinion/components/OpinionLanding/OpinionPostSection'
 import OpinionNavbar from '@/modules/Opinion/components/OpinionNavbar'
-import {
-  findAllOpinion,
-  findLandingBannerOpinions,
-} from '@/modules/Opinion/data'
+import { findLandingBannerOpinions } from '@/modules/Opinion/data'
 import { Opinion as OpinionClass } from '@/modules/Opinion/classes/Opinion'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -20,8 +17,6 @@ interface OpinionPageProps {
 }
 
 export default function Opinion({ params }: OpinionPageProps) {
-  const dtos = findAllOpinion()
-  const opinions = dtos.map((dto) => OpinionClass.fromDTO(params.lang, dto))
   const landingBannerDtos = findLandingBannerOpinions()
   const landingBannerOpinions = landingBannerDtos.map((dto) =>
     OpinionClass.fromDTO(params.lang, dto)
@@ -34,7 +29,7 @@ export default function Opinion({ params }: OpinionPageProps) {
           <OpinionNavbar />
         </UFullWidthBackgroundBox>
         <OpinionLandingBannerCards opinions={landingBannerOpinions} />
-        <OpinionPostSection opinions={opinions} />
+        <OpinionPostSection />
       </Stack>
     </Container>
   )
