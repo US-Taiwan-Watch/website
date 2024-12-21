@@ -4,7 +4,6 @@ import { Sources } from '@/modules/TaiwanRecord/classes/TaiwanRecord'
 import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import Box from '@mui/material/Box'
-import { isNull } from 'lodash-es'
 import { Fragment, memo, useEffect, useState } from 'react'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import CloseIcon from '@mui/icons-material/Close'
@@ -33,7 +32,7 @@ type SourceMetadata = {
   description: string
 }
 
-const getMetadata = async (link: string): Promise<SourceMetadata | null> => {
+const getMetadata = async (link: string): Promise<SourceMetadata> => {
   try {
     const linkPreview = (await getLinkPreview(link)) as {
       favicons: string[]
@@ -165,7 +164,7 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
   useEffect(() => {
     const fetchSourceMetadatas = async () => {
       const sourceMetadatas = await Promise.all(sources.links.map(getMetadata))
-      setSourceMetadatas(sourceMetadatas.filter((m) => !isNull(m)))
+      setSourceMetadatas(sourceMetadatas)
     }
     fetchSourceMetadatas()
   }, [sources])
