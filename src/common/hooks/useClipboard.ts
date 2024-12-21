@@ -10,7 +10,7 @@ export default function useClipboard() {
    * @param url - 複製的 URL，預設為當前頁面 URL
    * @returns 複製結果
    */
-  const copyCurrentUrl = (url?: string) => {
+  const copyUrl = (url?: string) => {
     if (!navigator.clipboard) return
 
     // TODO: make it more robust, maybe router utils to handle all routes composition
@@ -21,5 +21,5 @@ export default function useClipboard() {
     toast('success', 'Copied')
   }
 
-  return { isCopied, copyCurrentUrl }
+  return { isCopied, copyUrl }
 }
