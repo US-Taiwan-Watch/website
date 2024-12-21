@@ -8,7 +8,7 @@ import { getOpinionCategories } from '@/modules/Opinion/data'
 import { useParams } from 'next/navigation'
 import { useEffect } from 'react'
 
-export default function CategoryProvider() {
+export default function OpinionStoreProvider() {
   const { lang } = useParams<{ lang: Language }>()
 
   const setLandingTags = useOpinionStore((state) => state.setLandingTags)

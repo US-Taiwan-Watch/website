@@ -1,5 +1,5 @@
 import React from 'react'
-import CategoryProvider from '@/modules/Opinion/providers/CategoryProvider'
+import OpinionStoreProvider from '@/modules/Opinion/providers/OpinionStoreProvider'
 
 export default function OpinionLayout({
   children,
@@ -8,7 +8,7 @@ export default function OpinionLayout({
 }) {
   return (
     <>
-      <CategoryProvider />
+      <OpinionStoreProvider />
       {children}
     </>
   )
