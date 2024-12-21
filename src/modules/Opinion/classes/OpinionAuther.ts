@@ -2,19 +2,19 @@ import { isString } from 'lodash-es'
 
 export interface OpinionAuthorArgs {
   name: string
-  descriptionHtml?: string
+  description?: string
 }
 
 export class OpinionAuthor {
   name?: string
-  descriptionHtml?: string
+  description?: string
 
   constructor(args: OpinionAuthorArgs) {
     if (isString(args.name)) {
       this.name = args.name
     }
-    if (isString(args.descriptionHtml)) {
-      this.descriptionHtml = args.descriptionHtml
+    if (isString(args.description)) {
+      this.description = args.description
     }
   }
 }

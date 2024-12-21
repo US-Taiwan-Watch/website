@@ -1,6 +1,5 @@
 'use client'
 
-import DOMPurify from 'dompurify'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { memo } from 'react'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -25,17 +24,16 @@ const OpinionPostAuthor = function OpinionPostAuthor({
           {author.name}
         </Typography>
       )}
-      {author.descriptionHtml && (
+      {author.description && (
         <Typography
           variant="bodyS"
           component={'p'}
-          dangerouslySetInnerHTML={{
-            __html: DOMPurify.sanitize(author.descriptionHtml),
-          }}
           sx={{
             color: theme.color.neutral[500],
           }}
-        />
+        >
+          {author.description}
+        </Typography>
       )}
     </Stack>
   )

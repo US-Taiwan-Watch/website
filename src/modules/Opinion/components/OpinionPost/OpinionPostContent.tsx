@@ -1,10 +1,14 @@
 'use client'
 
-import DOMPurify from 'dompurify'
 import { styled } from '@/common/lib/mui/theme'
-import ContentImage from '@/modules/Opinion/components/OpinionPost/Content/ContentImage'
-import HyperLinkTooltip from '@/modules/Opinion/components/OpinionPost/Content/HyperLinkTooltip'
 import { Stack } from '@mui/material'
+import {
+  Descendant,
+  serializeSlateNode,
+} from '@/modules/Opinion/utils/slateSerializer'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
+import { useMemo } from 'react'
 
 const StyledContent = styled(Stack)(({ theme }) => ({
   '& h1': {
@@ -53,27 +57,21 @@ const StyledContent = styled(Stack)(({ theme }) => ({
 }))
 
 interface OpinionPostContentProps {
-  contentHtml: string
+  content: Descendant[]
 }
 
 const OpinionPostContent = function OpinionPostContent({
-  contentHtml,
+  content,
 }: OpinionPostContentProps) {
+  const { lang } = useParams<{ lang: Language }>()
+  const nodes = useMemo(
+    () => content.map((node) => serializeSlateNode(lang, node)),
+    [content, lang]
+  )
+
   return (
     <Stack spacing={2}>
-      <StyledContent
-        spacing={2}
-        dangerouslySetInnerHTML={{
-          __html: DOMPurify.sanitize(contentHtml),
-        }}
-      />
-      <HyperLinkTooltip text="超連結" />
-      <ContentImage
-        image={'/assets/category1.jpg'}
-        caption={
-          '1967年，中國共產黨主席毛澤東掀起文化大革命，當時在北京市中心展示了他的巨大畫像與標語。（攝影／JEAN VINCENT／AFP）'
-        }
-      />
+      <StyledContent gap={2}>{nodes}</StyledContent>
     </Stack>
   )
 }
