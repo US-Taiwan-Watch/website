@@ -11,8 +11,9 @@ import withSelectable from '@/common/hooks/withSelectable'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
+import { Opinion } from '@/modules/Opinion/classes/Opinion'
 
-const StyledIndexKvCardContainer = styled(Box)(({ theme }) => ({
+const StyledIndexOpinionCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   padding: theme.spacing(2, 2, 2, 4),
   borderRadius: '30px',
@@ -50,40 +51,43 @@ const StyledMiddleSection = styled(Stack)(({ theme }) => ({
 }))
 
 // TODO: 確認類型
-interface IndexKvCardProps {
-  containerSx?: ComponentProps<typeof StyledIndexKvCardContainer>['sx']
-  tags: Array<string>
-  title: string
-  description: string
-  image: string
-  href: string
+interface IndexOpinionCardProps {
+  containerSx?: ComponentProps<typeof StyledIndexOpinionCardContainer>['sx']
+  opinion: Opinion
 }
 
-const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
+const IndexOpinionCard = memo(function IndexOpinionCard({
+  containerSx,
+  opinion,
+}: IndexOpinionCardProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <StyledIndexKvCardContainer sx={props.containerSx}>
+    <StyledIndexOpinionCardContainer sx={containerSx}>
       <Stack direction="row" spacing={8}>
         <StyledLeftSection direction="column" spacing={4}>
           {/** Tags */}
-          <UTagListWithSelectable
-            tags={props.tags.map((tag, index) => (
-              <StyledTag key={index} className="category-tag">
-                <UWidthLimitedText variant="buttonXS">{tag}</UWidthLimitedText>
-              </StyledTag>
-            ))}
-            containerProps={{
-              gap: 1,
-            }}
-            moreButtonProps={{
-              textProps: {
-                sx: {
-                  color: theme.color.neutral[500],
+          {opinion.tags.length > 0 && (
+            <UTagListWithSelectable
+              tags={opinion.tags.map((tag, index) => (
+                <StyledTag key={index} className="category-tag">
+                  <UWidthLimitedText variant="buttonXS">
+                    {tag.label}
+                  </UWidthLimitedText>
+                </StyledTag>
+              ))}
+              containerProps={{
+                gap: 1,
+              }}
+              moreButtonProps={{
+                textProps: {
+                  sx: {
+                    color: theme.color.neutral[500],
+                  },
                 },
-              },
-            }}
-          />
+              }}
+            />
+          )}
 
           {/** Middle Section */}
           <StyledMiddleSection direction="column" spacing={2} flex={1}>
@@ -92,15 +96,15 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
               variant="h3"
               fontWeight={500}
             >
-              {props.title}
+              {opinion.title}
             </UHeightLimitedTextWithSelectable>
             <UHeightLimitedTextWithSelectable maxLine={5} variant="body1">
-              {props.description}
+              {opinion.description}
             </UHeightLimitedTextWithSelectable>
           </StyledMiddleSection>
 
           {/** Learn More Button */}
-          <Link href={props.href} style={{ width: 'fit-content' }}>
+          <Link href={opinion.link} style={{ width: 'fit-content' }}>
             <UButtonWithSelectable
               variant="contained"
               color="info"
@@ -112,15 +116,17 @@ const IndexKvCard = memo(function IndexKvCard(props: IndexKvCardProps) {
             </UButtonWithSelectable>
           </Link>
         </StyledLeftSection>
-        <StyledImage
-          src={props.image}
-          alt={props.title}
-          width={600}
-          height={500}
-        />
+        {opinion.bannerImage && (
+          <StyledImage
+            src={opinion.bannerImage.src}
+            alt={opinion.title ?? ''}
+            width={600}
+            height={500}
+          />
+        )}
       </Stack>
-    </StyledIndexKvCardContainer>
+    </StyledIndexOpinionCardContainer>
   )
 })
 
-export default IndexKvCard
+export default IndexOpinionCard
