@@ -2,8 +2,6 @@
 
 import { USTWTheme } from '@/common/lib/mui/theme'
 import {
-  Avatar,
-  Badge,
   Button,
   Card,
   CardContent,
@@ -13,12 +11,22 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import UPoliticalPartyIcon, {
-  getMainColor,
-} from '@/common/components/atoms/UPoliticalPartyIcon'
+
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
-import { Party } from '@/common/enums/Party'
-const PeopleTooltip = function PeopleTooltip() {
+import { ReactNode } from 'react'
+
+export interface HyperLinkTooltipCardProps {
+  HeaderComponent?: ReactNode
+  title: string
+  description: string
+  link: string
+}
+const HyperLinkTooltipCard = function HyperLinkTooltipCard({
+  HeaderComponent,
+  title,
+  description,
+  link,
+}: HyperLinkTooltipCardProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -34,40 +42,14 @@ const PeopleTooltip = function PeopleTooltip() {
     >
       <CardContent>
         <Stack spacing={3}>
-          <Badge
-            overlap="circular"
-            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-            badgeContent={
-              <UPoliticalPartyIcon
-                variant="rounded"
-                party={Party.DEMOCRATIC}
-                size="small"
-              />
-            }
-            sx={{
-              width: 80,
-              height: 80,
-            }}
-          >
-            <Avatar
-              sx={{
-                width: 80,
-                height: 80,
-                border: `5px solid ${getMainColor(theme, Party.DEMOCRATIC)}`,
-              }}
-              alt="Travis Howard"
-              src="/assets/category1.jpg"
-            />
-          </Badge>
+          {HeaderComponent}
           <Typography variant="subtitleL" fontWeight={600}>
-            Sekou Jeffries
+            {title}
           </Typography>
           <UHeightLimitedText maxLine={4} variant="bodyS" fontWeight={300}>
-            Minim dolor in amet nulla laboris enim dolore consequat..Minim dolor
-            in amet nulla laboris enim dolore consequat nulla laboris enim
-            dolore consequat..
+            {description}
           </UHeightLimitedText>
-          <Link href="/">
+          <Link href={link}>
             <Button
               variant="text"
               sx={{
@@ -90,4 +72,4 @@ const PeopleTooltip = function PeopleTooltip() {
   )
 }
 
-export default PeopleTooltip
+export default HyperLinkTooltipCard

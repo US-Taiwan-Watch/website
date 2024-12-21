@@ -1,4 +1,5 @@
 import UButton from '@/common/components/atoms/UButton'
+import UHashTag from '@/common/components/atoms/UHashTag'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UTagList from '@/common/components/atoms/UTagList'
@@ -12,9 +13,14 @@ import { memo } from 'react'
 
 interface OpinionPostCardProps {
   opinion: Opinion
+  /** 是否呈現 Category */
+  showCategory?: boolean
 }
 
-const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
+const OpinionPostCard = ({
+  opinion,
+  showCategory = true,
+}: OpinionPostCardProps) => {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -49,32 +55,34 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
           </Box>
         </Link>
         {/** Categories */}
-        {opinion.categories && opinion.categories.length > 0 && (
-          <UTagList
-            tags={opinion.categories.map((category) => (
-              <Link href={category.link} key={category.id}>
-                <UButton
-                  variant="outlined"
-                  size="small"
-                  sx={{
-                    padding: theme.spacing(0.5, 1),
-                    minWidth: 'fit-content',
-                    lineHeight: 1,
-                    borderColor: theme.color.orange[900],
-                    color: theme.color.orange[900],
-                  }}
-                  className="category-tag"
-                >
-                  {category.label}
-                </UButton>
-              </Link>
-            ))}
-            containerProps={{
-              gap: 1,
-            }}
-            maxTags={2}
-          />
-        )}
+        {showCategory &&
+          opinion.categories &&
+          opinion.categories.length > 0 && (
+            <UTagList
+              tags={opinion.categories.map((category) => (
+                <Link href={category.link} key={category.id}>
+                  <UButton
+                    variant="outlined"
+                    size="small"
+                    sx={{
+                      padding: theme.spacing(0.5, 1),
+                      minWidth: 'fit-content',
+                      lineHeight: 1,
+                      borderColor: theme.color.orange[900],
+                      color: theme.color.orange[900],
+                    }}
+                    className="category-tag"
+                  >
+                    {category.label}
+                  </UButton>
+                </Link>
+              ))}
+              containerProps={{
+                gap: 1,
+              }}
+              maxTags={2}
+            />
+          )}
         <Link href={opinion.link}>
           {/** Title */}
           <UHeightLimitedText variant="subtitleM" fontWeight={700} maxLine={1}>
@@ -91,6 +99,27 @@ const OpinionPostCard = ({ opinion }: OpinionPostCardProps) => {
             {opinion.description}
           </UHeightLimitedText>
         </Link>
+        {/** Tags */}
+        {opinion.tags && opinion.tags.length > 0 && (
+          <UTagList
+            tags={opinion.tags.map((tag) => (
+              <UHashTag
+                key={tag.label}
+                value={tag.label}
+                containerProps={{
+                  sx: {
+                    backgroundColor: 'transparent',
+                    borderColor: theme.color.neutral[500],
+                  },
+                }}
+              />
+            ))}
+            containerProps={{
+              gap: 1,
+            }}
+            maxTags={2}
+          />
+        )}
       </Stack>
     </>
   )

@@ -11,7 +11,7 @@ import { ROUTES } from '@/routes'
 import dayjs, { Dayjs } from 'dayjs'
 import { isArray, isObject, isString } from 'lodash-es'
 import { Article } from '@/common/lib/graphql/__generated__/graphql'
-import { slateToHtml, payloadSlateToHtmlConfig } from '@slate-serializers/html'
+import { Descendant } from '@/modules/Opinion/utils/slateSerializer'
 
 export type OpinionRepostSource = {
   title: string
@@ -37,7 +37,6 @@ export interface OpinionArgs {
   id?: string
   title?: string
   subtitle?: string
-  // TODO: TBD 會是 html 格式？
   description?: string
   categories?: Array<OpinionCategoryArgs>
   date?: string
@@ -45,7 +44,7 @@ export interface OpinionArgs {
   repostSources?: Array<OpinionRepostSource>
   thumbnailImage?: OpinionImage
   bannerImage?: OpinionImage
-  contentHtml?: string
+  content?: Array<Descendant>
   resources?: Array<OpinionResource>
   authors?: Array<OpinionAuthorArgs>
 }
@@ -61,7 +60,7 @@ export class Opinion {
   repostSources?: Array<OpinionRepostSource>
   thumbnailImage?: OpinionImage
   bannerImage?: OpinionImage
-  contentHtml?: string
+  content?: Array<Descendant>
   resources?: Array<OpinionResource>
   authors?: Array<OpinionAuthor>
 
@@ -98,8 +97,8 @@ export class Opinion {
     if (isObject(args.bannerImage)) {
       this.bannerImage = args.bannerImage
     }
-    if (isString(args.contentHtml)) {
-      this.contentHtml = args.contentHtml
+    if (isArray(args.content)) {
+      this.content = args.content
     }
     if (isArray(args.resources)) {
       this.resources = args.resources
@@ -117,7 +116,7 @@ export class Opinion {
     return new Opinion({
       id: dto.id ?? undefined,
       title: dto.title,
-      subtitle: dto.subtitle,
+      subtitle: dto.subtitle ?? undefined,
       categories: dto.categories?.map((category) => ({
         id: category.id ?? undefined,
         label: category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
@@ -140,12 +139,10 @@ export class Opinion {
       },
       authors: dto.authors?.map((author) => ({
         name: author.name,
-        descriptionHtml: author.bio,
+        description: author.bio,
       })),
-      contentHtml: slateToHtml(dto.content, {
-        ...payloadSlateToHtmlConfig,
-        convertLineBreakToBr: true,
-      }),
+      description: dto.excerpt,
+      content: dto.content,
     })
   }
 

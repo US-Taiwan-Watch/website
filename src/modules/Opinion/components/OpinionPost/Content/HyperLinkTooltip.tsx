@@ -1,6 +1,8 @@
 'use client'
 
-import PeopleTooltip from '@/common/components/elements/HyperLinkTooltip/PeopleTooltip'
+import HyperLinkTooltipCard, {
+  HyperLinkTooltipCardProps,
+} from '@/common/components/elements/HyperLinkTooltipCard'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Tooltip, tooltipClasses, TooltipProps, useTheme } from '@mui/material'
 
@@ -15,15 +17,19 @@ const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
 
 interface HyperLinkTooltipProps {
   text: string
+  hyperLinkTooltipCardProps: HyperLinkTooltipCardProps
 }
 
 const HyperLinkTooltip = function HyperLinkTooltip({
   text,
+  hyperLinkTooltipCardProps,
 }: HyperLinkTooltipProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <StyledTooltip title={<PeopleTooltip />}>
+    <StyledTooltip
+      title={<HyperLinkTooltipCard {...hyperLinkTooltipCardProps} />}
+    >
       <a
         style={{
           color: theme.color.orange[900],

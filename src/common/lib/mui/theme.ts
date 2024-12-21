@@ -200,6 +200,7 @@ const color = {
     3500: '#6E6E6E',
     3600: '#00000033',
     3700: '#686868',
+    3800: '#A5A5A5',
   },
   orange: {
     ...colors.orange,
@@ -213,6 +214,7 @@ const color = {
     600: '#3248BE', // Democratic
     700: '#3986FF',
     800: '#2A2E36',
+    900: '#E7F4FE',
   },
   red: {
     ...colors.red,
