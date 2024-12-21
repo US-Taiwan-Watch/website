@@ -3,7 +3,17 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import IdeologyLeadershipChartElement from '@/common/components/elements/IdeologyLeadershipChart'
 import data from '@/modules/People/assets/data/ideology.json'
 
-const IdeologyLeadershipChart = function IdeologyLeadershipChart() {
+interface IdeologyLeadershipChartProps {
+  isCurrentCongressMember?: boolean
+  govTrackId?: string
+}
+
+const IdeologyLeadershipChart = function IdeologyLeadershipChart({
+  isCurrentCongressMember,
+  govTrackId,
+}: IdeologyLeadershipChartProps) {
+  const activeId = isCurrentCongressMember ? govTrackId : undefined
+
   return (
     <UContentCard
       headerIconAction="modal"
@@ -14,7 +24,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart() {
         iconColor: 'secondary',
       }}
     >
-      <IdeologyLeadershipChartElement activeId={'412190'} data={data} />
+      <IdeologyLeadershipChartElement activeId={activeId} data={data} />
     </UContentCard>
   )
 }

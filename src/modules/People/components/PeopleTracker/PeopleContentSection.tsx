@@ -182,7 +182,12 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {
           visible: hasIdeologyLeadershipChart,
           size: 12,
-          component: <IdeologyLeadershipChart />,
+          component: (
+            <IdeologyLeadershipChart
+              isCurrentCongressMember={people.isCurrentCongressMember}
+              govTrackId={people.govTrackId}
+            />
+          ),
         },
       ],
     },

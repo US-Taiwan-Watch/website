@@ -7,6 +7,7 @@ import { LinkIcon } from '@/common/styles/assets/Icons'
 import { People } from '@/modules/People/classes/People'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
 import PeopleTag from '@/modules/People/components/PeopleTag'
+import useClipboard from '@/common/hooks/useClipboard'
 import { Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import { memo } from 'react'
@@ -15,6 +16,7 @@ const StyledImage = styled(Image)(() => ({
   width: '200px',
   height: '240px',
   objectFit: 'cover',
+  borderRadius: '10px',
 }))
 
 const StyledInfoContainer = styled(Stack)(({ theme }) => ({
@@ -42,6 +44,8 @@ interface PeopleInfoSectionProps {
 const PeopleInfoSection = memo(function PeopleInfoSection({
   people,
 }: PeopleInfoSectionProps) {
+  const { copyCurrentUrl } = useClipboard()
+
   return (
     <UHStack spacing={2}>
       {/** 圖片 */}
@@ -69,6 +73,7 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
           variant="contained"
           startIcon={<LinkIcon width={24} height={24} />}
           rounded
+          onClick={() => copyCurrentUrl()}
         >
           Link
         </StyledLinkButton>

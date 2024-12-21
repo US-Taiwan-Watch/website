@@ -92,6 +92,7 @@ interface PeopleArgs {
   isCurrentCongressMember?: boolean
   taiwanRecords?: Array<TaiwanRecord>
   votes?: Array<PeopleVote>
+  govTrackId?: string
   rawData?: PeopleDTO
 }
 
@@ -136,6 +137,8 @@ export class People {
   taiwanRecords: Array<TaiwanRecord> = []
   // 投票紀錄
   votes: Array<PeopleVote> = []
+  // GovTrack ID
+  govTrackId?: string
   // Raw data
   rawData?: PeopleDTO
 
@@ -195,6 +198,9 @@ export class People {
     }
     if (isArray(people.votes)) {
       this.votes = people.votes
+    }
+    if (isString(people.govTrackId)) {
+      this.govTrackId = people.govTrackId
     }
     if (!isUndefined(people.rawData)) {
       this.rawData = people.rawData
@@ -298,6 +304,7 @@ export class People {
       ),
       taiwanRecords: People.parseTaiwanRecordFromDTO(dto.records),
       votes: People.parseVotesFromDTO(lang, dto.votes),
+      govTrackId: dto.govTrackId ?? undefined,
       rawData: dto,
     })
   }
