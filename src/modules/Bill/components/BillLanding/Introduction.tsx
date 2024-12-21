@@ -3,7 +3,7 @@
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
-import { BILL_TOTAL_COUNT_MOCK } from '@/modules/Bill/data'
+import { getCurrentCongressBillCount } from '@/modules/Bill/data'
 import { ROUTES } from '@/routes'
 import { Stack, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
@@ -19,6 +19,7 @@ const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
 
 export default function Introduction() {
   const theme = useTheme<USTWTheme>()
+  const { totalDocs: billCount } = getCurrentCongressBillCount()
 
   return (
     <UHStack alignItems="center" justifyContent="space-between" width="100%">
@@ -43,7 +44,7 @@ export default function Introduction() {
           <Typography variant="buttonXS" color={theme.color.grey[2100]} mb={1}>
             {`Congress ${CURRENT_CONGRESS_NUMBER}`}
           </Typography>
-          <Typography variant="h2">{BILL_TOTAL_COUNT_MOCK}</Typography>
+          <Typography variant="h2">{billCount}</Typography>
         </StyledBillTotalCountCard>
       </Link>
     </UHStack>

@@ -19,10 +19,9 @@ import {
   TopTagsQuery,
   TrendByCategoryQuery,
   Bill as BillDto,
+  CountBills,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
-
-export const BILL_TOTAL_COUNT_MOCK = 20
 
 const sponsor1 = new People({
   id: '1',
@@ -238,6 +237,12 @@ export const BILL_TAG_MOCK: string[] = [
   'Economy',
   'Business',
 ]
+
+export const getCurrentCongressBillCount = (): CountBills => {
+  return {
+    totalDocs: 11,
+  }
+}
 
 export const findAllBill = () => {
   return BILL_DTO_MOCK
