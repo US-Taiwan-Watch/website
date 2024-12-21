@@ -74,6 +74,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               maxLine={4}
               variant="subtitleL"
               fontWeight={700}
+              minHeight={132} // NOTE: 讓不同卡片的元件對齊
             >
               {bill.title}
             </UHeightLimitedText>
