@@ -5,12 +5,7 @@ import { People } from '@/modules/People/classes/People'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { ChamberEnum } from '@/common/enums/Chamber'
-import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
-import { BillTrendData } from '@/modules/Bill/components/BillLanding/TrendCard'
-import {
-  CONGRESS_NUMBER_MIN,
-  CURRENT_CONGRESS_NUMBER,
-} from '@/common/assets/constants'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import {
   BILL_DTO_MOCK,
   BILL_ID_COSPONSORED_TIME_MAP_DTO_MOCK,
@@ -217,19 +212,6 @@ export const PARLIAMENT_CHART_DATA_MOCK_2: ParliamentChartData[] = [
 export const BILL_DATA_MOCK: Bill[] = BILL_DTO_MOCK.map((dto) =>
   Bill.fromDTO('en-US', dto)
 )
-
-export const BILL_TREND_CHART_DATA_MOCK: BillTrendData[] = Array.from(
-  { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
-  (_, index) => {
-    return Object.values(BillCategoryEnum)
-      .filter((category) => typeof category !== 'string')
-      .map((category) => ({
-        congress: CONGRESS_NUMBER_MIN + index,
-        count: Math.floor(Math.random() * 10) + 1,
-        category,
-      }))
-  }
-).flat()
 
 export const BILL_TAG_MOCK: string[] = [
   'Health',

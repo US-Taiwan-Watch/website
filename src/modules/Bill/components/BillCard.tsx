@@ -7,7 +7,6 @@ import UTimeline from '@/common/components/atoms/UTimeline'
 import { Party } from '@/common/enums/Party'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
@@ -66,7 +65,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix} | ${CURRENT_CONGRESS_NUMBER}th Congress`}
+            {`${bill.chamberPrefix} | ${bill.congressNumber}th Congress`}
           </Typography>
 
           <Link href={bill.link}>

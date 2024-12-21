@@ -10,7 +10,6 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
-import TagUtils from '@/modules/Common/Tag.utils'
 import dayjs, { Dayjs } from 'dayjs'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { Party } from '@/common/enums/Party'
@@ -249,7 +248,10 @@ export class Bill {
             cosponsor.people ? People.fromDTO(lang, cosponsor.people) : null
           )
           .filter((cosponsor) => !isNull(cosponsor)) ?? [],
-      tags: TagUtils.parseTagNames(lang, dto.tags),
+      tags: dto.categories?.map(
+        (category) =>
+          category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
+      ),
       statusTracker: dto.statusTracker ?? undefined,
       congressNumber: dto.congress,
       // TODO: 型態待補

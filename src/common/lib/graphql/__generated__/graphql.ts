@@ -50,7 +50,7 @@ export type AddBillCountPeopleQuery = {
 export type Article = {
   __typename?: 'Article';
   authors?: Maybe<Array<Author>>;
-  categories?: Maybe<Array<CategoriesArticle>>;
+  categories: Array<CategoriesArticle>;
   content?: Maybe<Scalars['JSON']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   excerpt: Scalars['String']['output'];
@@ -603,7 +603,6 @@ export type Article_Authors_Operator = {
 export type Article_Categories_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   not_equals?: InputMaybe<Scalars['JSON']['input']>;
   not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;

@@ -1901,7 +1901,7 @@ type Article {
   isFeatured: Boolean
   releaseTime: DateTime!
   authors: [Author!]
-  categories: [CategoriesArticle!]
+  categories: [CategoriesArticle!]!
   tags: [Tag!]
   updatedAt: DateTime
   createdAt: DateTime
@@ -9143,7 +9143,6 @@ input Article_categories_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
 }
 
 input Article_tags_operator {
