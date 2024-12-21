@@ -5208,7 +5208,7 @@ export const getLatestBills = (lang: Language): Bill[] => {
       updatedAt: '2024-12-07T17:13:16.607Z',
     },
   ] as unknown as BillDto[]
-  return data.map((item) => Bill.fromDTO(lang, item))
+  return data.map((item) => Bill.fromDTO(lang, item)).slice(0, 5)
 }
 
 export const getPopularBills = (lang: Language): Bill[] => {
