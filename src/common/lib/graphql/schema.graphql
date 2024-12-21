@@ -404,6 +404,7 @@ type Bill {
   number: String!
   type: Bill_type!
   introducedAt: Bill_IntroducedAt
+  isFeatured: Boolean
   categories: [CategoriesBill!]
   tags: [Tag!]
   statusTracker: Bill_StatusTracker
@@ -489,6 +490,7 @@ type CategoriesBill_I18n_Zh {
 type Tag {
   id: String
   i18n: Tag_I18n
+  isFeatured: Boolean
   nameEn: String
   nameZh: String
   updatedAt: DateTime
@@ -1805,9 +1807,68 @@ enum Bill_Sponsor_party {
 
 type Bill_Cosponsors {
   people: People
+  constituency: Bill_Cosponsors_constituency
   party: Bill_Cosponsors_party
   cosponsoredAt: Bill_Cosponsors_CosponsoredAt
   id: String
+}
+
+enum Bill_Cosponsors_constituency {
+  alabama
+  alaska
+  arizona
+  arkansas
+  california
+  colorado
+  connecticut
+  delaware
+  florida
+  georgia
+  hawaii
+  idaho
+  illinois
+  indiana
+  iowa
+  kansas
+  kentucky
+  louisiana
+  maine
+  maryland
+  massachusetts
+  michigan
+  minnesota
+  mississippi
+  missouri
+  montana
+  nebraska
+  nevada
+  newHampshire
+  newJersey
+  newMexico
+  newYork
+  northCarolina
+  northDakota
+  ohio
+  oklahoma
+  oregon
+  pennsylvania
+  rhodeIsland
+  southCarolina
+  southDakota
+  tennessee
+  texas
+  utah
+  vermont
+  virginia
+  washington
+  westVirginia
+  wisconsin
+  wyoming
+  districtOfColumbia
+  puertoRico
+  guam
+  virginIslands
+  americanSamoa
 }
 
 enum Bill_Cosponsors_party {
@@ -1831,13 +1892,15 @@ enum Bill_Cosponsors_CosponsoredAt_precision {
 type Article {
   id: String
   title: String!
-  subtitle: String!
+  subtitle: String
+  excerpt: String!
   content(depth: Int): JSON
   sources: [Article_Sources!]
+  podcast: String
   media: Article_Media
+  isFeatured: Boolean
   releaseTime: DateTime!
   authors: [Author!]
-  podcast: String
   categories: [CategoriesArticle!]
   tags: [Tag!]
   updatedAt: DateTime
@@ -6378,6 +6441,7 @@ input Bill_where {
   type: Bill_type_operator
   introducedAt__datetime: Bill_introducedAt__datetime_operator
   introducedAt__precision: Bill_introducedAt__precision_operator
+  isFeatured: Bill_isFeatured_operator
   categories: Bill_categories_operator
   tags: Bill_tags_operator
   statusTracker__currentStep: Bill_statusTracker__currentStep_operator
@@ -6386,6 +6450,7 @@ input Bill_where {
   sponsor__people: Bill_sponsor__people_operator
   sponsor__party: Bill_sponsor__party_operator
   cosponsors__people: Bill_cosponsors__people_operator
+  cosponsors__constituency: Bill_cosponsors__constituency_operator
   cosponsors__party: Bill_cosponsors__party_operator
   cosponsors__cosponsoredAt__datetime: Bill_cosponsors__cosponsoredAt__datetime_operator
   cosponsors__cosponsoredAt__precision: Bill_cosponsors__cosponsoredAt__precision_operator
@@ -6540,6 +6605,12 @@ enum Bill_introducedAt__precision_Input {
   time
 }
 
+input Bill_isFeatured_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
 input Bill_categories_operator {
   equals: JSON
   not_equals: JSON
@@ -6662,6 +6733,72 @@ input Bill_cosponsors__people_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
+}
+
+input Bill_cosponsors__constituency_operator {
+  equals: Bill_cosponsors__constituency_Input
+  not_equals: Bill_cosponsors__constituency_Input
+  in: [Bill_cosponsors__constituency_Input]
+  not_in: [Bill_cosponsors__constituency_Input]
+  all: [Bill_cosponsors__constituency_Input]
+}
+
+enum Bill_cosponsors__constituency_Input {
+  alabama
+  alaska
+  arizona
+  arkansas
+  california
+  colorado
+  connecticut
+  delaware
+  florida
+  georgia
+  hawaii
+  idaho
+  illinois
+  indiana
+  iowa
+  kansas
+  kentucky
+  louisiana
+  maine
+  maryland
+  massachusetts
+  michigan
+  minnesota
+  mississippi
+  missouri
+  montana
+  nebraska
+  nevada
+  newHampshire
+  newJersey
+  newMexico
+  newYork
+  northCarolina
+  northDakota
+  ohio
+  oklahoma
+  oregon
+  pennsylvania
+  rhodeIsland
+  southCarolina
+  southDakota
+  tennessee
+  texas
+  utah
+  vermont
+  virginia
+  washington
+  westVirginia
+  wisconsin
+  wyoming
+  districtOfColumbia
+  puertoRico
+  guam
+  virginIslands
+  americanSamoa
 }
 
 input Bill_cosponsors__party_operator {
@@ -6809,6 +6946,7 @@ input Bill_where_and {
   type: Bill_type_operator
   introducedAt__datetime: Bill_introducedAt__datetime_operator
   introducedAt__precision: Bill_introducedAt__precision_operator
+  isFeatured: Bill_isFeatured_operator
   categories: Bill_categories_operator
   tags: Bill_tags_operator
   statusTracker__currentStep: Bill_statusTracker__currentStep_operator
@@ -6817,6 +6955,7 @@ input Bill_where_and {
   sponsor__people: Bill_sponsor__people_operator
   sponsor__party: Bill_sponsor__party_operator
   cosponsors__people: Bill_cosponsors__people_operator
+  cosponsors__constituency: Bill_cosponsors__constituency_operator
   cosponsors__party: Bill_cosponsors__party_operator
   cosponsors__cosponsoredAt__datetime: Bill_cosponsors__cosponsoredAt__datetime_operator
   cosponsors__cosponsoredAt__precision: Bill_cosponsors__cosponsoredAt__precision_operator
@@ -6847,6 +6986,7 @@ input Bill_where_or {
   type: Bill_type_operator
   introducedAt__datetime: Bill_introducedAt__datetime_operator
   introducedAt__precision: Bill_introducedAt__precision_operator
+  isFeatured: Bill_isFeatured_operator
   categories: Bill_categories_operator
   tags: Bill_tags_operator
   statusTracker__currentStep: Bill_statusTracker__currentStep_operator
@@ -6855,6 +6995,7 @@ input Bill_where_or {
   sponsor__people: Bill_sponsor__people_operator
   sponsor__party: Bill_sponsor__party_operator
   cosponsors__people: Bill_cosponsors__people_operator
+  cosponsors__constituency: Bill_cosponsors__constituency_operator
   cosponsors__party: Bill_cosponsors__party_operator
   cosponsors__cosponsoredAt__datetime: Bill_cosponsors__cosponsoredAt__datetime_operator
   cosponsors__cosponsoredAt__precision: Bill_cosponsors__cosponsoredAt__precision_operator
@@ -6889,6 +7030,7 @@ type BillsDocAccessFields {
   number: BillsDocAccessFields_number
   type: BillsDocAccessFields_type
   introducedAt: BillsDocAccessFields_introducedAt
+  isFeatured: BillsDocAccessFields_isFeatured
   categories: BillsDocAccessFields_categories
   tags: BillsDocAccessFields_tags
   statusTracker: BillsDocAccessFields_statusTracker
@@ -7322,6 +7464,29 @@ type BillsDocAccessFields_introducedAt_precision_Delete {
   permission: Boolean!
 }
 
+type BillsDocAccessFields_isFeatured {
+  create: BillsDocAccessFields_isFeatured_Create
+  read: BillsDocAccessFields_isFeatured_Read
+  update: BillsDocAccessFields_isFeatured_Update
+  delete: BillsDocAccessFields_isFeatured_Delete
+}
+
+type BillsDocAccessFields_isFeatured_Create {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_isFeatured_Read {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_isFeatured_Update {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_isFeatured_Delete {
+  permission: Boolean!
+}
+
 type BillsDocAccessFields_categories {
   create: BillsDocAccessFields_categories_Create
   read: BillsDocAccessFields_categories_Read
@@ -7568,6 +7733,7 @@ type BillsDocAccessFields_cosponsors_Delete {
 
 type BillsDocAccessFields_cosponsors_Fields {
   people: BillsDocAccessFields_cosponsors_people
+  constituency: BillsDocAccessFields_cosponsors_constituency
   party: BillsDocAccessFields_cosponsors_party
   cosponsoredAt: BillsDocAccessFields_cosponsors_cosponsoredAt
   id: BillsDocAccessFields_cosponsors_id
@@ -7593,6 +7759,29 @@ type BillsDocAccessFields_cosponsors_people_Update {
 }
 
 type BillsDocAccessFields_cosponsors_people_Delete {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_cosponsors_constituency {
+  create: BillsDocAccessFields_cosponsors_constituency_Create
+  read: BillsDocAccessFields_cosponsors_constituency_Read
+  update: BillsDocAccessFields_cosponsors_constituency_Update
+  delete: BillsDocAccessFields_cosponsors_constituency_Delete
+}
+
+type BillsDocAccessFields_cosponsors_constituency_Create {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_cosponsors_constituency_Read {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_cosponsors_constituency_Update {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_cosponsors_constituency_Delete {
   permission: Boolean!
 }
 
@@ -8809,15 +8998,17 @@ type Articles {
 input Article_where {
   title: Article_title_operator
   subtitle: Article_subtitle_operator
+  excerpt: Article_excerpt_operator
   content: Article_content_operator
   sources__text: Article_sources__text_operator
   sources__link: Article_sources__link_operator
   sources__id: Article_sources__id_operator
+  podcast: Article_podcast_operator
   media__photo: Article_media__photo_operator
   media__caption: Article_media__caption_operator
+  isFeatured: Article_isFeatured_operator
   releaseTime: Article_releaseTime_operator
   authors: Article_authors_operator
-  podcast: Article_podcast_operator
   categories: Article_categories_operator
   tags: Article_tags_operator
   updatedAt: Article_updatedAt_operator
@@ -8845,6 +9036,14 @@ input Article_subtitle_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
+}
+
+input Article_excerpt_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
 }
 
 input Article_content_operator {
@@ -8886,6 +9085,17 @@ input Article_sources__id_operator {
   exists: Boolean
 }
 
+input Article_podcast_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
 input Article_media__photo_operator {
   equals: String
   not_equals: String
@@ -8899,6 +9109,12 @@ input Article_media__caption_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
+}
+
+input Article_isFeatured_operator {
+  equals: Boolean
+  not_equals: Boolean
   exists: Boolean
 }
 
@@ -8918,17 +9134,6 @@ input Article_authors_operator {
   in: [JSON]
   not_in: [JSON]
   all: [JSON]
-  exists: Boolean
-}
-
-input Article_podcast_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
   exists: Boolean
 }
 
@@ -8986,15 +9191,17 @@ input Article_id_operator {
 input Article_where_and {
   title: Article_title_operator
   subtitle: Article_subtitle_operator
+  excerpt: Article_excerpt_operator
   content: Article_content_operator
   sources__text: Article_sources__text_operator
   sources__link: Article_sources__link_operator
   sources__id: Article_sources__id_operator
+  podcast: Article_podcast_operator
   media__photo: Article_media__photo_operator
   media__caption: Article_media__caption_operator
+  isFeatured: Article_isFeatured_operator
   releaseTime: Article_releaseTime_operator
   authors: Article_authors_operator
-  podcast: Article_podcast_operator
   categories: Article_categories_operator
   tags: Article_tags_operator
   updatedAt: Article_updatedAt_operator
@@ -9007,15 +9214,17 @@ input Article_where_and {
 input Article_where_or {
   title: Article_title_operator
   subtitle: Article_subtitle_operator
+  excerpt: Article_excerpt_operator
   content: Article_content_operator
   sources__text: Article_sources__text_operator
   sources__link: Article_sources__link_operator
   sources__id: Article_sources__id_operator
+  podcast: Article_podcast_operator
   media__photo: Article_media__photo_operator
   media__caption: Article_media__caption_operator
+  isFeatured: Article_isFeatured_operator
   releaseTime: Article_releaseTime_operator
   authors: Article_authors_operator
-  podcast: Article_podcast_operator
   categories: Article_categories_operator
   tags: Article_tags_operator
   updatedAt: Article_updatedAt_operator
@@ -9040,12 +9249,14 @@ type articlesDocAccess {
 type ArticlesDocAccessFields {
   title: ArticlesDocAccessFields_title
   subtitle: ArticlesDocAccessFields_subtitle
+  excerpt: ArticlesDocAccessFields_excerpt
   content: ArticlesDocAccessFields_content
   sources: ArticlesDocAccessFields_sources
+  podcast: ArticlesDocAccessFields_podcast
   media: ArticlesDocAccessFields_media
+  isFeatured: ArticlesDocAccessFields_isFeatured
   releaseTime: ArticlesDocAccessFields_releaseTime
   authors: ArticlesDocAccessFields_authors
-  podcast: ArticlesDocAccessFields_podcast
   categories: ArticlesDocAccessFields_categories
   tags: ArticlesDocAccessFields_tags
   updatedAt: ArticlesDocAccessFields_updatedAt
@@ -9095,6 +9306,29 @@ type ArticlesDocAccessFields_subtitle_Update {
 }
 
 type ArticlesDocAccessFields_subtitle_Delete {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_excerpt {
+  create: ArticlesDocAccessFields_excerpt_Create
+  read: ArticlesDocAccessFields_excerpt_Read
+  update: ArticlesDocAccessFields_excerpt_Update
+  delete: ArticlesDocAccessFields_excerpt_Delete
+}
+
+type ArticlesDocAccessFields_excerpt_Create {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_excerpt_Read {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_excerpt_Update {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_excerpt_Delete {
   permission: Boolean!
 }
 
@@ -9220,6 +9454,29 @@ type ArticlesDocAccessFields_sources_id_Delete {
   permission: Boolean!
 }
 
+type ArticlesDocAccessFields_podcast {
+  create: ArticlesDocAccessFields_podcast_Create
+  read: ArticlesDocAccessFields_podcast_Read
+  update: ArticlesDocAccessFields_podcast_Update
+  delete: ArticlesDocAccessFields_podcast_Delete
+}
+
+type ArticlesDocAccessFields_podcast_Create {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_podcast_Read {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_podcast_Update {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_podcast_Delete {
+  permission: Boolean!
+}
+
 type ArticlesDocAccessFields_media {
   create: ArticlesDocAccessFields_media_Create
   read: ArticlesDocAccessFields_media_Read
@@ -9295,6 +9552,29 @@ type ArticlesDocAccessFields_media_caption_Delete {
   permission: Boolean!
 }
 
+type ArticlesDocAccessFields_isFeatured {
+  create: ArticlesDocAccessFields_isFeatured_Create
+  read: ArticlesDocAccessFields_isFeatured_Read
+  update: ArticlesDocAccessFields_isFeatured_Update
+  delete: ArticlesDocAccessFields_isFeatured_Delete
+}
+
+type ArticlesDocAccessFields_isFeatured_Create {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_isFeatured_Read {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_isFeatured_Update {
+  permission: Boolean!
+}
+
+type ArticlesDocAccessFields_isFeatured_Delete {
+  permission: Boolean!
+}
+
 type ArticlesDocAccessFields_releaseTime {
   create: ArticlesDocAccessFields_releaseTime_Create
   read: ArticlesDocAccessFields_releaseTime_Read
@@ -9338,29 +9618,6 @@ type ArticlesDocAccessFields_authors_Update {
 }
 
 type ArticlesDocAccessFields_authors_Delete {
-  permission: Boolean!
-}
-
-type ArticlesDocAccessFields_podcast {
-  create: ArticlesDocAccessFields_podcast_Create
-  read: ArticlesDocAccessFields_podcast_Read
-  update: ArticlesDocAccessFields_podcast_Update
-  delete: ArticlesDocAccessFields_podcast_Delete
-}
-
-type ArticlesDocAccessFields_podcast_Create {
-  permission: Boolean!
-}
-
-type ArticlesDocAccessFields_podcast_Read {
-  permission: Boolean!
-}
-
-type ArticlesDocAccessFields_podcast_Update {
-  permission: Boolean!
-}
-
-type ArticlesDocAccessFields_podcast_Delete {
   permission: Boolean!
 }
 
@@ -15228,6 +15485,7 @@ type Tags {
 input Tag_where {
   i18n__en__name: Tag_i18n__en__name_operator
   i18n__zh__name: Tag_i18n__zh__name_operator
+  isFeatured: Tag_isFeatured_operator
   nameEn: Tag_nameEn_operator
   nameZh: Tag_nameZh_operator
   updatedAt: Tag_updatedAt_operator
@@ -15255,6 +15513,12 @@ input Tag_i18n__zh__name_operator {
   in: [String]
   not_in: [String]
   all: [String]
+}
+
+input Tag_isFeatured_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
 }
 
 input Tag_nameEn_operator {
@@ -15315,6 +15579,7 @@ input Tag_id_operator {
 input Tag_where_and {
   i18n__en__name: Tag_i18n__en__name_operator
   i18n__zh__name: Tag_i18n__zh__name_operator
+  isFeatured: Tag_isFeatured_operator
   nameEn: Tag_nameEn_operator
   nameZh: Tag_nameZh_operator
   updatedAt: Tag_updatedAt_operator
@@ -15327,6 +15592,7 @@ input Tag_where_and {
 input Tag_where_or {
   i18n__en__name: Tag_i18n__en__name_operator
   i18n__zh__name: Tag_i18n__zh__name_operator
+  isFeatured: Tag_isFeatured_operator
   nameEn: Tag_nameEn_operator
   nameZh: Tag_nameZh_operator
   updatedAt: Tag_updatedAt_operator
@@ -15350,6 +15616,7 @@ type tagsDocAccess {
 
 type TagsDocAccessFields {
   i18n: TagsDocAccessFields_i18n
+  isFeatured: TagsDocAccessFields_isFeatured
   nameEn: TagsDocAccessFields_nameEn
   nameZh: TagsDocAccessFields_nameZh
   updatedAt: TagsDocAccessFields_updatedAt
@@ -15484,6 +15751,29 @@ type TagsDocAccessFields_i18n_zh_name_Update {
 }
 
 type TagsDocAccessFields_i18n_zh_name_Delete {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_isFeatured {
+  create: TagsDocAccessFields_isFeatured_Create
+  read: TagsDocAccessFields_isFeatured_Read
+  update: TagsDocAccessFields_isFeatured_Update
+  delete: TagsDocAccessFields_isFeatured_Delete
+}
+
+type TagsDocAccessFields_isFeatured_Create {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_isFeatured_Read {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_isFeatured_Update {
+  permission: Boolean!
+}
+
+type TagsDocAccessFields_isFeatured_Delete {
   permission: Boolean!
 }
 
@@ -18633,6 +18923,7 @@ type BillsFields {
   number: BillsFields_number
   type: BillsFields_type
   introducedAt: BillsFields_introducedAt
+  isFeatured: BillsFields_isFeatured
   categories: BillsFields_categories
   tags: BillsFields_tags
   statusTracker: BillsFields_statusTracker
@@ -19066,6 +19357,29 @@ type BillsFields_introducedAt_precision_Delete {
   permission: Boolean!
 }
 
+type BillsFields_isFeatured {
+  create: BillsFields_isFeatured_Create
+  read: BillsFields_isFeatured_Read
+  update: BillsFields_isFeatured_Update
+  delete: BillsFields_isFeatured_Delete
+}
+
+type BillsFields_isFeatured_Create {
+  permission: Boolean!
+}
+
+type BillsFields_isFeatured_Read {
+  permission: Boolean!
+}
+
+type BillsFields_isFeatured_Update {
+  permission: Boolean!
+}
+
+type BillsFields_isFeatured_Delete {
+  permission: Boolean!
+}
+
 type BillsFields_categories {
   create: BillsFields_categories_Create
   read: BillsFields_categories_Read
@@ -19312,6 +19626,7 @@ type BillsFields_cosponsors_Delete {
 
 type BillsFields_cosponsors_Fields {
   people: BillsFields_cosponsors_people
+  constituency: BillsFields_cosponsors_constituency
   party: BillsFields_cosponsors_party
   cosponsoredAt: BillsFields_cosponsors_cosponsoredAt
   id: BillsFields_cosponsors_id
@@ -19337,6 +19652,29 @@ type BillsFields_cosponsors_people_Update {
 }
 
 type BillsFields_cosponsors_people_Delete {
+  permission: Boolean!
+}
+
+type BillsFields_cosponsors_constituency {
+  create: BillsFields_cosponsors_constituency_Create
+  read: BillsFields_cosponsors_constituency_Read
+  update: BillsFields_cosponsors_constituency_Update
+  delete: BillsFields_cosponsors_constituency_Delete
+}
+
+type BillsFields_cosponsors_constituency_Create {
+  permission: Boolean!
+}
+
+type BillsFields_cosponsors_constituency_Read {
+  permission: Boolean!
+}
+
+type BillsFields_cosponsors_constituency_Update {
+  permission: Boolean!
+}
+
+type BillsFields_cosponsors_constituency_Delete {
   permission: Boolean!
 }
 
@@ -20199,12 +20537,14 @@ type articlesAccess {
 type ArticlesFields {
   title: ArticlesFields_title
   subtitle: ArticlesFields_subtitle
+  excerpt: ArticlesFields_excerpt
   content: ArticlesFields_content
   sources: ArticlesFields_sources
+  podcast: ArticlesFields_podcast
   media: ArticlesFields_media
+  isFeatured: ArticlesFields_isFeatured
   releaseTime: ArticlesFields_releaseTime
   authors: ArticlesFields_authors
-  podcast: ArticlesFields_podcast
   categories: ArticlesFields_categories
   tags: ArticlesFields_tags
   updatedAt: ArticlesFields_updatedAt
@@ -20254,6 +20594,29 @@ type ArticlesFields_subtitle_Update {
 }
 
 type ArticlesFields_subtitle_Delete {
+  permission: Boolean!
+}
+
+type ArticlesFields_excerpt {
+  create: ArticlesFields_excerpt_Create
+  read: ArticlesFields_excerpt_Read
+  update: ArticlesFields_excerpt_Update
+  delete: ArticlesFields_excerpt_Delete
+}
+
+type ArticlesFields_excerpt_Create {
+  permission: Boolean!
+}
+
+type ArticlesFields_excerpt_Read {
+  permission: Boolean!
+}
+
+type ArticlesFields_excerpt_Update {
+  permission: Boolean!
+}
+
+type ArticlesFields_excerpt_Delete {
   permission: Boolean!
 }
 
@@ -20379,6 +20742,29 @@ type ArticlesFields_sources_id_Delete {
   permission: Boolean!
 }
 
+type ArticlesFields_podcast {
+  create: ArticlesFields_podcast_Create
+  read: ArticlesFields_podcast_Read
+  update: ArticlesFields_podcast_Update
+  delete: ArticlesFields_podcast_Delete
+}
+
+type ArticlesFields_podcast_Create {
+  permission: Boolean!
+}
+
+type ArticlesFields_podcast_Read {
+  permission: Boolean!
+}
+
+type ArticlesFields_podcast_Update {
+  permission: Boolean!
+}
+
+type ArticlesFields_podcast_Delete {
+  permission: Boolean!
+}
+
 type ArticlesFields_media {
   create: ArticlesFields_media_Create
   read: ArticlesFields_media_Read
@@ -20454,6 +20840,29 @@ type ArticlesFields_media_caption_Delete {
   permission: Boolean!
 }
 
+type ArticlesFields_isFeatured {
+  create: ArticlesFields_isFeatured_Create
+  read: ArticlesFields_isFeatured_Read
+  update: ArticlesFields_isFeatured_Update
+  delete: ArticlesFields_isFeatured_Delete
+}
+
+type ArticlesFields_isFeatured_Create {
+  permission: Boolean!
+}
+
+type ArticlesFields_isFeatured_Read {
+  permission: Boolean!
+}
+
+type ArticlesFields_isFeatured_Update {
+  permission: Boolean!
+}
+
+type ArticlesFields_isFeatured_Delete {
+  permission: Boolean!
+}
+
 type ArticlesFields_releaseTime {
   create: ArticlesFields_releaseTime_Create
   read: ArticlesFields_releaseTime_Read
@@ -20497,29 +20906,6 @@ type ArticlesFields_authors_Update {
 }
 
 type ArticlesFields_authors_Delete {
-  permission: Boolean!
-}
-
-type ArticlesFields_podcast {
-  create: ArticlesFields_podcast_Create
-  read: ArticlesFields_podcast_Read
-  update: ArticlesFields_podcast_Update
-  delete: ArticlesFields_podcast_Delete
-}
-
-type ArticlesFields_podcast_Create {
-  permission: Boolean!
-}
-
-type ArticlesFields_podcast_Read {
-  permission: Boolean!
-}
-
-type ArticlesFields_podcast_Update {
-  permission: Boolean!
-}
-
-type ArticlesFields_podcast_Delete {
   permission: Boolean!
 }
 
@@ -24414,6 +24800,7 @@ type tagsAccess {
 
 type TagsFields {
   i18n: TagsFields_i18n
+  isFeatured: TagsFields_isFeatured
   nameEn: TagsFields_nameEn
   nameZh: TagsFields_nameZh
   updatedAt: TagsFields_updatedAt
@@ -24548,6 +24935,29 @@ type TagsFields_i18n_zh_name_Update {
 }
 
 type TagsFields_i18n_zh_name_Delete {
+  permission: Boolean!
+}
+
+type TagsFields_isFeatured {
+  create: TagsFields_isFeatured_Create
+  read: TagsFields_isFeatured_Read
+  update: TagsFields_isFeatured_Update
+  delete: TagsFields_isFeatured_Delete
+}
+
+type TagsFields_isFeatured_Create {
+  permission: Boolean!
+}
+
+type TagsFields_isFeatured_Read {
+  permission: Boolean!
+}
+
+type TagsFields_isFeatured_Update {
+  permission: Boolean!
+}
+
+type TagsFields_isFeatured_Delete {
   permission: Boolean!
 }
 
@@ -25780,6 +26190,7 @@ input mutationBillInput {
   number: String!
   type: Bill_type_MutationInput!
   introducedAt: mutationBill_IntroducedAtInput!
+  isFeatured: Boolean
   categories: [String]
   tags: [String]
   statusTracker: mutationBill_StatusTrackerInput!
@@ -25907,9 +26318,68 @@ enum Bill_Sponsor_party_MutationInput {
 
 input mutationBill_CosponsorsInput {
   people: String
+  constituency: Bill_Cosponsors_constituency_MutationInput!
   party: Bill_Cosponsors_party_MutationInput!
   cosponsoredAt: mutationBill_Cosponsors_CosponsoredAtInput
   id: String
+}
+
+enum Bill_Cosponsors_constituency_MutationInput {
+  alabama
+  alaska
+  arizona
+  arkansas
+  california
+  colorado
+  connecticut
+  delaware
+  florida
+  georgia
+  hawaii
+  idaho
+  illinois
+  indiana
+  iowa
+  kansas
+  kentucky
+  louisiana
+  maine
+  maryland
+  massachusetts
+  michigan
+  minnesota
+  mississippi
+  missouri
+  montana
+  nebraska
+  nevada
+  newHampshire
+  newJersey
+  newMexico
+  newYork
+  northCarolina
+  northDakota
+  ohio
+  oklahoma
+  oregon
+  pennsylvania
+  rhodeIsland
+  southCarolina
+  southDakota
+  tennessee
+  texas
+  utah
+  vermont
+  virginia
+  washington
+  westVirginia
+  wisconsin
+  wyoming
+  districtOfColumbia
+  puertoRico
+  guam
+  virginIslands
+  americanSamoa
 }
 
 enum Bill_Cosponsors_party_MutationInput {
@@ -25936,6 +26406,7 @@ input mutationBillUpdateInput {
   number: String
   type: BillUpdate_type_MutationInput
   introducedAt: mutationBillUpdate_IntroducedAtInput!
+  isFeatured: Boolean
   categories: [String]
   tags: [String]
   statusTracker: mutationBillUpdate_StatusTrackerInput!
@@ -26063,9 +26534,68 @@ enum BillUpdate_Sponsor_party_MutationInput {
 
 input mutationBillUpdate_CosponsorsInput {
   people: String
+  constituency: BillUpdate_Cosponsors_constituency_MutationInput!
   party: BillUpdate_Cosponsors_party_MutationInput!
   cosponsoredAt: mutationBillUpdate_Cosponsors_CosponsoredAtInput
   id: String
+}
+
+enum BillUpdate_Cosponsors_constituency_MutationInput {
+  alabama
+  alaska
+  arizona
+  arkansas
+  california
+  colorado
+  connecticut
+  delaware
+  florida
+  georgia
+  hawaii
+  idaho
+  illinois
+  indiana
+  iowa
+  kansas
+  kentucky
+  louisiana
+  maine
+  maryland
+  massachusetts
+  michigan
+  minnesota
+  mississippi
+  missouri
+  montana
+  nebraska
+  nevada
+  newHampshire
+  newJersey
+  newMexico
+  newYork
+  northCarolina
+  northDakota
+  ohio
+  oklahoma
+  oregon
+  pennsylvania
+  rhodeIsland
+  southCarolina
+  southDakota
+  tennessee
+  texas
+  utah
+  vermont
+  virginia
+  washington
+  westVirginia
+  wisconsin
+  wyoming
+  districtOfColumbia
+  puertoRico
+  guam
+  virginIslands
+  americanSamoa
 }
 
 enum BillUpdate_Cosponsors_party_MutationInput {
@@ -26180,13 +26710,15 @@ input mutationAuthorUpdateInput {
 
 input mutationArticleInput {
   title: String!
-  subtitle: String!
+  subtitle: String
+  excerpt: String!
   content: JSON
   sources: [mutationArticle_SourcesInput]
+  podcast: String
   media: mutationArticle_MediaInput!
+  isFeatured: Boolean
   releaseTime: String!
   authors: [String]
-  podcast: String
   categories: [String]
   tags: [String]
   updatedAt: String
@@ -26207,12 +26739,14 @@ input mutationArticle_MediaInput {
 input mutationArticleUpdateInput {
   title: String
   subtitle: String
+  excerpt: String
   content: JSON
   sources: [mutationArticleUpdate_SourcesInput]
+  podcast: String
   media: mutationArticleUpdate_MediaInput!
+  isFeatured: Boolean
   releaseTime: String
   authors: [String]
-  podcast: String
   categories: [String]
   tags: [String]
   updatedAt: String
@@ -26718,6 +27252,7 @@ input mutationMediaTaiwanRecordUpdate_Sizes_TabletInput {
 
 input mutationTagInput {
   i18n: mutationTag_I18nInput
+  isFeatured: Boolean
   nameEn: String
   nameZh: String
   updatedAt: String
@@ -26739,6 +27274,7 @@ input mutationTag_I18n_ZhInput {
 
 input mutationTagUpdateInput {
   i18n: mutationTagUpdate_I18nInput
+  isFeatured: Boolean
   nameEn: String
   nameZh: String
   updatedAt: String
