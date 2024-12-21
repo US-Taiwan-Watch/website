@@ -84,7 +84,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             <Box mx={-2} mt={4}>
               <UTimeline
                 data={Bill.getAllBillStatuses(bill).map((status) => ({
-                  title: status, // TODO: add i18n
+                  title: Bill.GetBillStatusText(status),
                 }))}
                 activeIndex={Bill.getStatusIndex(bill)}
                 isHorizontal
@@ -148,15 +148,15 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             <UTimeline
               itemMinHeight={50}
               data={Bill.getAllBillStatuses(bill).map((status) => ({
-                title: status, // TODO: add i18n
+                title: Bill.GetBillStatusText(status),
               }))}
               activeIndex={Bill.getStatusIndex(bill)}
             />
             <Box>
               <UCardInfo
-                content={
+                content={Bill.GetBillStatusText(
                   Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]
-                }
+                )}
                 iconProps={{
                   sx: { color: theme.color.neutral[300] },
                 }}

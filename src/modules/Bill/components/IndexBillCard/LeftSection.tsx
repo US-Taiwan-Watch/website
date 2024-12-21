@@ -72,18 +72,20 @@ export default function LeftSection({ bill }: Props) {
         <UHStack spacing={0.5} alignItems="center">
           <Typography variant="body">Tracker:</Typography>
           <Typography variant="articleH4">
-            {Bill.GetBillLatestStatus(
+            {Bill.GetBillStatusText(
               bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED
             )}
           </Typography>
           <UCardInfo
-            content={Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]}
+            content={Bill.GetBillStatusText(
+              Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]
+            )}
           />
         </UHStack>
         <Box mx={-6}>
           <UTimeline
             data={Bill.getAllBillStatuses(bill).map((status) => ({
-              title: status,
+              title: Bill.GetBillStatusText(status),
             }))}
             activeIndex={Bill.getStatusIndex(bill)}
             isHorizontal

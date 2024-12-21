@@ -26,7 +26,7 @@ export default function BillTracker({ bill }: Props) {
       <Box pt={2} px={1}>
         <UTimeline
           data={Bill.getAllBillStatuses(bill).map((status) => ({
-            title: status, // TODO: add i18n
+            title: Bill.GetBillStatusText(status),
           }))}
           activeIndex={Bill.getStatusIndex(bill)}
           itemMinHeight={50}
