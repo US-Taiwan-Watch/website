@@ -52,7 +52,12 @@ const getMetadata = async (link: string): Promise<SourceMetadata | null> => {
       description: linkPreview.description,
     }
   } catch {
-    return null
+    return {
+      link,
+      siteName: new URL(link).hostname,
+      title: '',
+      description: '',
+    }
   }
 }
 
@@ -114,9 +119,9 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
                   }}
                 >
                   <UHStack gap={1} alignItems="center">
-                    {m.favicon && (
-                      <Avatar src={m.favicon} sx={{ width: 16, height: 16 }} />
-                    )}
+                    <Avatar src={m.favicon} sx={{ width: 16, height: 16 }}>
+                      {m.siteName.slice(0, 1)}
+                    </Avatar>
                     <Typography variant="body2">{m.siteName}</Typography>
                   </UHStack>
                   <Typography fontWeight={500}>{m.title}</Typography>
@@ -189,19 +194,19 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
           total={sourceMetadatas.length}
           max={MAX_FAVICON_AVATAR_COUNT}
         >
-          {sourceMetadatas
-            .filter((m) => m.favicon)
-            .map((m, index) => (
-              <Avatar
-                sx={{
-                  width: 16,
-                  height: 16,
-                }}
-                key={index}
-                alt={new URL(sources.links[index]).hostname}
-                src={m.favicon}
-              />
-            ))}
+          {sourceMetadatas.map((m, index) => (
+            <Avatar
+              sx={{
+                width: 16,
+                height: 16,
+              }}
+              key={index}
+              alt={new URL(sources.links[index]).hostname}
+              src={m.favicon}
+            >
+              {m.siteName.slice(0, 1)}
+            </Avatar>
+          ))}
         </AvatarGroup>
       </Button>
       <SourcesDialog
