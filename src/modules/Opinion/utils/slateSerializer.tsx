@@ -94,12 +94,13 @@ const link = (lang: Language, node: LinkElement) => {
   if (node.linkType === 'internal') {
     return (
       <HyperLinkTooltip
-        text={node.children[0].text}
+        text={node.children?.[0]?.text ?? ''}
         hyperLinkTooltipCardProps={getHyperLinkTooltipCardProps(lang, node.doc)}
       />
     )
   }
-  return <Link href="">{node.children[0].text}</Link>
+  // TODO: 後端回傳 link
+  return <Link href={''}>{node.children?.[0]?.text ?? ''}</Link>
 }
 // Slate Text 格式的渲染
 const text = (html: string) => (
