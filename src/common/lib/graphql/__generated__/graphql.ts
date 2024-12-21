@@ -53,12 +53,14 @@ export type Article = {
   categories?: Maybe<Array<CategoriesArticle>>;
   content?: Maybe<Scalars['JSON']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
+  excerpt: Scalars['String']['output'];
   id?: Maybe<Scalars['String']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
   media?: Maybe<Article_Media>;
   podcast?: Maybe<Scalars['String']['output']>;
   releaseTime: Scalars['DateTime']['output'];
   sources?: Maybe<Array<Article_Sources>>;
-  subtitle: Scalars['String']['output'];
+  subtitle?: Maybe<Scalars['String']['output']>;
   tags?: Maybe<Array<Tag>>;
   title: Scalars['String']['output'];
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -626,6 +628,13 @@ export type Article_CreatedAt_Operator = {
   not_equals?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
+export type Article_Excerpt_Operator = {
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+};
+
 export type Article_Id_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -635,6 +644,12 @@ export type Article_Id_Operator = {
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type Article_IsFeatured_Operator = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 export type Article_Media__Caption_Operator = {
@@ -709,6 +724,7 @@ export type Article_Subtitle_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -752,7 +768,9 @@ export type Article_Where = {
   categories?: InputMaybe<Article_Categories_Operator>;
   content?: InputMaybe<Article_Content_Operator>;
   createdAt?: InputMaybe<Article_CreatedAt_Operator>;
+  excerpt?: InputMaybe<Article_Excerpt_Operator>;
   id?: InputMaybe<Article_Id_Operator>;
+  isFeatured?: InputMaybe<Article_IsFeatured_Operator>;
   media__caption?: InputMaybe<Article_Media__Caption_Operator>;
   media__photo?: InputMaybe<Article_Media__Photo_Operator>;
   podcast?: InputMaybe<Article_Podcast_Operator>;
@@ -773,7 +791,9 @@ export type Article_Where_And = {
   categories?: InputMaybe<Article_Categories_Operator>;
   content?: InputMaybe<Article_Content_Operator>;
   createdAt?: InputMaybe<Article_CreatedAt_Operator>;
+  excerpt?: InputMaybe<Article_Excerpt_Operator>;
   id?: InputMaybe<Article_Id_Operator>;
+  isFeatured?: InputMaybe<Article_IsFeatured_Operator>;
   media__caption?: InputMaybe<Article_Media__Caption_Operator>;
   media__photo?: InputMaybe<Article_Media__Photo_Operator>;
   podcast?: InputMaybe<Article_Podcast_Operator>;
@@ -794,7 +814,9 @@ export type Article_Where_Or = {
   categories?: InputMaybe<Article_Categories_Operator>;
   content?: InputMaybe<Article_Content_Operator>;
   createdAt?: InputMaybe<Article_CreatedAt_Operator>;
+  excerpt?: InputMaybe<Article_Excerpt_Operator>;
   id?: InputMaybe<Article_Id_Operator>;
+  isFeatured?: InputMaybe<Article_IsFeatured_Operator>;
   media__caption?: InputMaybe<Article_Media__Caption_Operator>;
   media__photo?: InputMaybe<Article_Media__Photo_Operator>;
   podcast?: InputMaybe<Article_Podcast_Operator>;
@@ -853,6 +875,8 @@ export type ArticlesDocAccessFields = {
   categories?: Maybe<ArticlesDocAccessFields_Categories>;
   content?: Maybe<ArticlesDocAccessFields_Content>;
   createdAt?: Maybe<ArticlesDocAccessFields_CreatedAt>;
+  excerpt?: Maybe<ArticlesDocAccessFields_Excerpt>;
+  isFeatured?: Maybe<ArticlesDocAccessFields_IsFeatured>;
   media?: Maybe<ArticlesDocAccessFields_Media>;
   podcast?: Maybe<ArticlesDocAccessFields_Podcast>;
   releaseTime?: Maybe<ArticlesDocAccessFields_ReleaseTime>;
@@ -972,6 +996,62 @@ export type ArticlesDocAccessFields_CreatedAt_Read = {
 
 export type ArticlesDocAccessFields_CreatedAt_Update = {
   __typename?: 'ArticlesDocAccessFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Excerpt = {
+  __typename?: 'ArticlesDocAccessFields_excerpt';
+  create?: Maybe<ArticlesDocAccessFields_Excerpt_Create>;
+  delete?: Maybe<ArticlesDocAccessFields_Excerpt_Delete>;
+  read?: Maybe<ArticlesDocAccessFields_Excerpt_Read>;
+  update?: Maybe<ArticlesDocAccessFields_Excerpt_Update>;
+};
+
+export type ArticlesDocAccessFields_Excerpt_Create = {
+  __typename?: 'ArticlesDocAccessFields_excerpt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Excerpt_Delete = {
+  __typename?: 'ArticlesDocAccessFields_excerpt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Excerpt_Read = {
+  __typename?: 'ArticlesDocAccessFields_excerpt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_Excerpt_Update = {
+  __typename?: 'ArticlesDocAccessFields_excerpt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_IsFeatured = {
+  __typename?: 'ArticlesDocAccessFields_isFeatured';
+  create?: Maybe<ArticlesDocAccessFields_IsFeatured_Create>;
+  delete?: Maybe<ArticlesDocAccessFields_IsFeatured_Delete>;
+  read?: Maybe<ArticlesDocAccessFields_IsFeatured_Read>;
+  update?: Maybe<ArticlesDocAccessFields_IsFeatured_Update>;
+};
+
+export type ArticlesDocAccessFields_IsFeatured_Create = {
+  __typename?: 'ArticlesDocAccessFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_IsFeatured_Delete = {
+  __typename?: 'ArticlesDocAccessFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_IsFeatured_Read = {
+  __typename?: 'ArticlesDocAccessFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesDocAccessFields_IsFeatured_Update = {
+  __typename?: 'ArticlesDocAccessFields_isFeatured_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -1360,6 +1440,8 @@ export type ArticlesFields = {
   categories?: Maybe<ArticlesFields_Categories>;
   content?: Maybe<ArticlesFields_Content>;
   createdAt?: Maybe<ArticlesFields_CreatedAt>;
+  excerpt?: Maybe<ArticlesFields_Excerpt>;
+  isFeatured?: Maybe<ArticlesFields_IsFeatured>;
   media?: Maybe<ArticlesFields_Media>;
   podcast?: Maybe<ArticlesFields_Podcast>;
   releaseTime?: Maybe<ArticlesFields_ReleaseTime>;
@@ -1479,6 +1561,62 @@ export type ArticlesFields_CreatedAt_Read = {
 
 export type ArticlesFields_CreatedAt_Update = {
   __typename?: 'ArticlesFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Excerpt = {
+  __typename?: 'ArticlesFields_excerpt';
+  create?: Maybe<ArticlesFields_Excerpt_Create>;
+  delete?: Maybe<ArticlesFields_Excerpt_Delete>;
+  read?: Maybe<ArticlesFields_Excerpt_Read>;
+  update?: Maybe<ArticlesFields_Excerpt_Update>;
+};
+
+export type ArticlesFields_Excerpt_Create = {
+  __typename?: 'ArticlesFields_excerpt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Excerpt_Delete = {
+  __typename?: 'ArticlesFields_excerpt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Excerpt_Read = {
+  __typename?: 'ArticlesFields_excerpt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_Excerpt_Update = {
+  __typename?: 'ArticlesFields_excerpt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_IsFeatured = {
+  __typename?: 'ArticlesFields_isFeatured';
+  create?: Maybe<ArticlesFields_IsFeatured_Create>;
+  delete?: Maybe<ArticlesFields_IsFeatured_Delete>;
+  read?: Maybe<ArticlesFields_IsFeatured_Read>;
+  update?: Maybe<ArticlesFields_IsFeatured_Update>;
+};
+
+export type ArticlesFields_IsFeatured_Create = {
+  __typename?: 'ArticlesFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_IsFeatured_Delete = {
+  __typename?: 'ArticlesFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_IsFeatured_Read = {
+  __typename?: 'ArticlesFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type ArticlesFields_IsFeatured_Update = {
+  __typename?: 'ArticlesFields_isFeatured_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -2287,6 +2425,7 @@ export type Bill = {
   i18n?: Maybe<Bill_I18n>;
   id?: Maybe<Scalars['String']['output']>;
   introducedAt?: Maybe<Bill_IntroducedAt>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
   latestActionTime?: Maybe<Scalars['DateTime']['output']>;
   number: Scalars['String']['output'];
   popularityRank?: Maybe<Scalars['Float']['output']>;
@@ -2305,6 +2444,64 @@ export enum BillUpdate_Cosponsors_CosponsoredAt_Precision_MutationInput {
   Month = 'month',
   Time = 'time',
   Year = 'year'
+}
+
+export enum BillUpdate_Cosponsors_Constituency_MutationInput {
+  Alabama = 'alabama',
+  Alaska = 'alaska',
+  AmericanSamoa = 'americanSamoa',
+  Arizona = 'arizona',
+  Arkansas = 'arkansas',
+  California = 'california',
+  Colorado = 'colorado',
+  Connecticut = 'connecticut',
+  Delaware = 'delaware',
+  DistrictOfColumbia = 'districtOfColumbia',
+  Florida = 'florida',
+  Georgia = 'georgia',
+  Guam = 'guam',
+  Hawaii = 'hawaii',
+  Idaho = 'idaho',
+  Illinois = 'illinois',
+  Indiana = 'indiana',
+  Iowa = 'iowa',
+  Kansas = 'kansas',
+  Kentucky = 'kentucky',
+  Louisiana = 'louisiana',
+  Maine = 'maine',
+  Maryland = 'maryland',
+  Massachusetts = 'massachusetts',
+  Michigan = 'michigan',
+  Minnesota = 'minnesota',
+  Mississippi = 'mississippi',
+  Missouri = 'missouri',
+  Montana = 'montana',
+  Nebraska = 'nebraska',
+  Nevada = 'nevada',
+  NewHampshire = 'newHampshire',
+  NewJersey = 'newJersey',
+  NewMexico = 'newMexico',
+  NewYork = 'newYork',
+  NorthCarolina = 'northCarolina',
+  NorthDakota = 'northDakota',
+  Ohio = 'ohio',
+  Oklahoma = 'oklahoma',
+  Oregon = 'oregon',
+  Pennsylvania = 'pennsylvania',
+  PuertoRico = 'puertoRico',
+  RhodeIsland = 'rhodeIsland',
+  SouthCarolina = 'southCarolina',
+  SouthDakota = 'southDakota',
+  Tennessee = 'tennessee',
+  Texas = 'texas',
+  Utah = 'utah',
+  Vermont = 'vermont',
+  VirginIslands = 'virginIslands',
+  Virginia = 'virginia',
+  Washington = 'washington',
+  WestVirginia = 'westVirginia',
+  Wisconsin = 'wisconsin',
+  Wyoming = 'wyoming'
 }
 
 export enum BillUpdate_Cosponsors_Party_MutationInput {
@@ -2390,6 +2587,7 @@ export enum BillUpdate_Type_MutationInput {
 
 export type Bill_Cosponsors = {
   __typename?: 'Bill_Cosponsors';
+  constituency?: Maybe<Bill_Cosponsors_Constituency>;
   cosponsoredAt?: Maybe<Bill_Cosponsors_CosponsoredAt>;
   id?: Maybe<Scalars['String']['output']>;
   party?: Maybe<Bill_Cosponsors_Party>;
@@ -2414,6 +2612,122 @@ export enum Bill_Cosponsors_CosponsoredAt_Precision_MutationInput {
   Month = 'month',
   Time = 'time',
   Year = 'year'
+}
+
+export enum Bill_Cosponsors_Constituency {
+  Alabama = 'alabama',
+  Alaska = 'alaska',
+  AmericanSamoa = 'americanSamoa',
+  Arizona = 'arizona',
+  Arkansas = 'arkansas',
+  California = 'california',
+  Colorado = 'colorado',
+  Connecticut = 'connecticut',
+  Delaware = 'delaware',
+  DistrictOfColumbia = 'districtOfColumbia',
+  Florida = 'florida',
+  Georgia = 'georgia',
+  Guam = 'guam',
+  Hawaii = 'hawaii',
+  Idaho = 'idaho',
+  Illinois = 'illinois',
+  Indiana = 'indiana',
+  Iowa = 'iowa',
+  Kansas = 'kansas',
+  Kentucky = 'kentucky',
+  Louisiana = 'louisiana',
+  Maine = 'maine',
+  Maryland = 'maryland',
+  Massachusetts = 'massachusetts',
+  Michigan = 'michigan',
+  Minnesota = 'minnesota',
+  Mississippi = 'mississippi',
+  Missouri = 'missouri',
+  Montana = 'montana',
+  Nebraska = 'nebraska',
+  Nevada = 'nevada',
+  NewHampshire = 'newHampshire',
+  NewJersey = 'newJersey',
+  NewMexico = 'newMexico',
+  NewYork = 'newYork',
+  NorthCarolina = 'northCarolina',
+  NorthDakota = 'northDakota',
+  Ohio = 'ohio',
+  Oklahoma = 'oklahoma',
+  Oregon = 'oregon',
+  Pennsylvania = 'pennsylvania',
+  PuertoRico = 'puertoRico',
+  RhodeIsland = 'rhodeIsland',
+  SouthCarolina = 'southCarolina',
+  SouthDakota = 'southDakota',
+  Tennessee = 'tennessee',
+  Texas = 'texas',
+  Utah = 'utah',
+  Vermont = 'vermont',
+  VirginIslands = 'virginIslands',
+  Virginia = 'virginia',
+  Washington = 'washington',
+  WestVirginia = 'westVirginia',
+  Wisconsin = 'wisconsin',
+  Wyoming = 'wyoming'
+}
+
+export enum Bill_Cosponsors_Constituency_MutationInput {
+  Alabama = 'alabama',
+  Alaska = 'alaska',
+  AmericanSamoa = 'americanSamoa',
+  Arizona = 'arizona',
+  Arkansas = 'arkansas',
+  California = 'california',
+  Colorado = 'colorado',
+  Connecticut = 'connecticut',
+  Delaware = 'delaware',
+  DistrictOfColumbia = 'districtOfColumbia',
+  Florida = 'florida',
+  Georgia = 'georgia',
+  Guam = 'guam',
+  Hawaii = 'hawaii',
+  Idaho = 'idaho',
+  Illinois = 'illinois',
+  Indiana = 'indiana',
+  Iowa = 'iowa',
+  Kansas = 'kansas',
+  Kentucky = 'kentucky',
+  Louisiana = 'louisiana',
+  Maine = 'maine',
+  Maryland = 'maryland',
+  Massachusetts = 'massachusetts',
+  Michigan = 'michigan',
+  Minnesota = 'minnesota',
+  Mississippi = 'mississippi',
+  Missouri = 'missouri',
+  Montana = 'montana',
+  Nebraska = 'nebraska',
+  Nevada = 'nevada',
+  NewHampshire = 'newHampshire',
+  NewJersey = 'newJersey',
+  NewMexico = 'newMexico',
+  NewYork = 'newYork',
+  NorthCarolina = 'northCarolina',
+  NorthDakota = 'northDakota',
+  Ohio = 'ohio',
+  Oklahoma = 'oklahoma',
+  Oregon = 'oregon',
+  Pennsylvania = 'pennsylvania',
+  PuertoRico = 'puertoRico',
+  RhodeIsland = 'rhodeIsland',
+  SouthCarolina = 'southCarolina',
+  SouthDakota = 'southDakota',
+  Tennessee = 'tennessee',
+  Texas = 'texas',
+  Utah = 'utah',
+  Vermont = 'vermont',
+  VirginIslands = 'virginIslands',
+  Virginia = 'virginia',
+  Washington = 'washington',
+  WestVirginia = 'westVirginia',
+  Wisconsin = 'wisconsin',
+  Wyoming = 'wyoming'
 }
 
 export enum Bill_Cosponsors_Party {
@@ -2623,6 +2937,72 @@ export type Bill_Congress_Operator = {
   less_than?: InputMaybe<Scalars['Float']['input']>;
   less_than_equal?: InputMaybe<Scalars['Float']['input']>;
   not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export enum Bill_Cosponsors__Constituency_Input {
+  Alabama = 'alabama',
+  Alaska = 'alaska',
+  AmericanSamoa = 'americanSamoa',
+  Arizona = 'arizona',
+  Arkansas = 'arkansas',
+  California = 'california',
+  Colorado = 'colorado',
+  Connecticut = 'connecticut',
+  Delaware = 'delaware',
+  DistrictOfColumbia = 'districtOfColumbia',
+  Florida = 'florida',
+  Georgia = 'georgia',
+  Guam = 'guam',
+  Hawaii = 'hawaii',
+  Idaho = 'idaho',
+  Illinois = 'illinois',
+  Indiana = 'indiana',
+  Iowa = 'iowa',
+  Kansas = 'kansas',
+  Kentucky = 'kentucky',
+  Louisiana = 'louisiana',
+  Maine = 'maine',
+  Maryland = 'maryland',
+  Massachusetts = 'massachusetts',
+  Michigan = 'michigan',
+  Minnesota = 'minnesota',
+  Mississippi = 'mississippi',
+  Missouri = 'missouri',
+  Montana = 'montana',
+  Nebraska = 'nebraska',
+  Nevada = 'nevada',
+  NewHampshire = 'newHampshire',
+  NewJersey = 'newJersey',
+  NewMexico = 'newMexico',
+  NewYork = 'newYork',
+  NorthCarolina = 'northCarolina',
+  NorthDakota = 'northDakota',
+  Ohio = 'ohio',
+  Oklahoma = 'oklahoma',
+  Oregon = 'oregon',
+  Pennsylvania = 'pennsylvania',
+  PuertoRico = 'puertoRico',
+  RhodeIsland = 'rhodeIsland',
+  SouthCarolina = 'southCarolina',
+  SouthDakota = 'southDakota',
+  Tennessee = 'tennessee',
+  Texas = 'texas',
+  Utah = 'utah',
+  Vermont = 'vermont',
+  VirginIslands = 'virginIslands',
+  Virginia = 'virginia',
+  Washington = 'washington',
+  WestVirginia = 'westVirginia',
+  Wisconsin = 'wisconsin',
+  Wyoming = 'wyoming'
+}
+
+export type Bill_Cosponsors__Constituency_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Bill_Cosponsors__Constituency_Input>>>;
+  equals?: InputMaybe<Bill_Cosponsors__Constituency_Input>;
+  in?: InputMaybe<Array<InputMaybe<Bill_Cosponsors__Constituency_Input>>>;
+  not_equals?: InputMaybe<Bill_Cosponsors__Constituency_Input>;
+  not_in?: InputMaybe<Array<InputMaybe<Bill_Cosponsors__Constituency_Input>>>;
 };
 
 export type Bill_Cosponsors__CosponsoredAt__Datetime_Operator = {
@@ -2843,6 +3223,12 @@ export type Bill_IntroducedAt__Precision_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Bill_IntroducedAt__Precision_Input>>>;
 };
 
+export type Bill_IsFeatured_Operator = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type Bill_Number_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -3056,6 +3442,7 @@ export type Bill_Where = {
   categories?: InputMaybe<Bill_Categories_Operator>;
   congress?: InputMaybe<Bill_Congress_Operator>;
   congressGovUrl?: InputMaybe<Bill_CongressGovUrl_Operator>;
+  cosponsors__constituency?: InputMaybe<Bill_Cosponsors__Constituency_Operator>;
   cosponsors__cosponsoredAt__datetime?: InputMaybe<Bill_Cosponsors__CosponsoredAt__Datetime_Operator>;
   cosponsors__cosponsoredAt__precision?: InputMaybe<Bill_Cosponsors__CosponsoredAt__Precision_Operator>;
   cosponsors__id?: InputMaybe<Bill_Cosponsors__Id_Operator>;
@@ -3073,6 +3460,7 @@ export type Bill_Where = {
   id?: InputMaybe<Bill_Id_Operator>;
   introducedAt__datetime?: InputMaybe<Bill_IntroducedAt__Datetime_Operator>;
   introducedAt__precision?: InputMaybe<Bill_IntroducedAt__Precision_Operator>;
+  isFeatured?: InputMaybe<Bill_IsFeatured_Operator>;
   number?: InputMaybe<Bill_Number_Operator>;
   popularityRank?: InputMaybe<Bill_PopularityRank_Operator>;
   relatedBills?: InputMaybe<Bill_RelatedBills_Operator>;
@@ -3094,6 +3482,7 @@ export type Bill_Where_And = {
   categories?: InputMaybe<Bill_Categories_Operator>;
   congress?: InputMaybe<Bill_Congress_Operator>;
   congressGovUrl?: InputMaybe<Bill_CongressGovUrl_Operator>;
+  cosponsors__constituency?: InputMaybe<Bill_Cosponsors__Constituency_Operator>;
   cosponsors__cosponsoredAt__datetime?: InputMaybe<Bill_Cosponsors__CosponsoredAt__Datetime_Operator>;
   cosponsors__cosponsoredAt__precision?: InputMaybe<Bill_Cosponsors__CosponsoredAt__Precision_Operator>;
   cosponsors__id?: InputMaybe<Bill_Cosponsors__Id_Operator>;
@@ -3111,6 +3500,7 @@ export type Bill_Where_And = {
   id?: InputMaybe<Bill_Id_Operator>;
   introducedAt__datetime?: InputMaybe<Bill_IntroducedAt__Datetime_Operator>;
   introducedAt__precision?: InputMaybe<Bill_IntroducedAt__Precision_Operator>;
+  isFeatured?: InputMaybe<Bill_IsFeatured_Operator>;
   number?: InputMaybe<Bill_Number_Operator>;
   popularityRank?: InputMaybe<Bill_PopularityRank_Operator>;
   relatedBills?: InputMaybe<Bill_RelatedBills_Operator>;
@@ -3132,6 +3522,7 @@ export type Bill_Where_Or = {
   categories?: InputMaybe<Bill_Categories_Operator>;
   congress?: InputMaybe<Bill_Congress_Operator>;
   congressGovUrl?: InputMaybe<Bill_CongressGovUrl_Operator>;
+  cosponsors__constituency?: InputMaybe<Bill_Cosponsors__Constituency_Operator>;
   cosponsors__cosponsoredAt__datetime?: InputMaybe<Bill_Cosponsors__CosponsoredAt__Datetime_Operator>;
   cosponsors__cosponsoredAt__precision?: InputMaybe<Bill_Cosponsors__CosponsoredAt__Precision_Operator>;
   cosponsors__id?: InputMaybe<Bill_Cosponsors__Id_Operator>;
@@ -3149,6 +3540,7 @@ export type Bill_Where_Or = {
   id?: InputMaybe<Bill_Id_Operator>;
   introducedAt__datetime?: InputMaybe<Bill_IntroducedAt__Datetime_Operator>;
   introducedAt__precision?: InputMaybe<Bill_IntroducedAt__Precision_Operator>;
+  isFeatured?: InputMaybe<Bill_IsFeatured_Operator>;
   number?: InputMaybe<Bill_Number_Operator>;
   popularityRank?: InputMaybe<Bill_PopularityRank_Operator>;
   relatedBills?: InputMaybe<Bill_RelatedBills_Operator>;
@@ -3212,6 +3604,7 @@ export type BillsDocAccessFields = {
   createdAt?: Maybe<BillsDocAccessFields_CreatedAt>;
   i18n?: Maybe<BillsDocAccessFields_I18n>;
   introducedAt?: Maybe<BillsDocAccessFields_IntroducedAt>;
+  isFeatured?: Maybe<BillsDocAccessFields_IsFeatured>;
   number?: Maybe<BillsDocAccessFields_Number>;
   popularityRank?: Maybe<BillsDocAccessFields_PopularityRank>;
   relatedBills?: Maybe<BillsDocAccessFields_RelatedBills>;
@@ -3329,6 +3722,7 @@ export type BillsDocAccessFields_Cosponsors_Delete = {
 
 export type BillsDocAccessFields_Cosponsors_Fields = {
   __typename?: 'BillsDocAccessFields_cosponsors_Fields';
+  constituency?: Maybe<BillsDocAccessFields_Cosponsors_Constituency>;
   cosponsoredAt?: Maybe<BillsDocAccessFields_Cosponsors_CosponsoredAt>;
   id?: Maybe<BillsDocAccessFields_Cosponsors_Id>;
   party?: Maybe<BillsDocAccessFields_Cosponsors_Party>;
@@ -3342,6 +3736,34 @@ export type BillsDocAccessFields_Cosponsors_Read = {
 
 export type BillsDocAccessFields_Cosponsors_Update = {
   __typename?: 'BillsDocAccessFields_cosponsors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_Cosponsors_Constituency = {
+  __typename?: 'BillsDocAccessFields_cosponsors_constituency';
+  create?: Maybe<BillsDocAccessFields_Cosponsors_Constituency_Create>;
+  delete?: Maybe<BillsDocAccessFields_Cosponsors_Constituency_Delete>;
+  read?: Maybe<BillsDocAccessFields_Cosponsors_Constituency_Read>;
+  update?: Maybe<BillsDocAccessFields_Cosponsors_Constituency_Update>;
+};
+
+export type BillsDocAccessFields_Cosponsors_Constituency_Create = {
+  __typename?: 'BillsDocAccessFields_cosponsors_constituency_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_Cosponsors_Constituency_Delete = {
+  __typename?: 'BillsDocAccessFields_cosponsors_constituency_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_Cosponsors_Constituency_Read = {
+  __typename?: 'BillsDocAccessFields_cosponsors_constituency_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_Cosponsors_Constituency_Update = {
+  __typename?: 'BillsDocAccessFields_cosponsors_constituency_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -3972,6 +4394,34 @@ export type BillsDocAccessFields_IntroducedAt_Precision_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type BillsDocAccessFields_IsFeatured = {
+  __typename?: 'BillsDocAccessFields_isFeatured';
+  create?: Maybe<BillsDocAccessFields_IsFeatured_Create>;
+  delete?: Maybe<BillsDocAccessFields_IsFeatured_Delete>;
+  read?: Maybe<BillsDocAccessFields_IsFeatured_Read>;
+  update?: Maybe<BillsDocAccessFields_IsFeatured_Update>;
+};
+
+export type BillsDocAccessFields_IsFeatured_Create = {
+  __typename?: 'BillsDocAccessFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_IsFeatured_Delete = {
+  __typename?: 'BillsDocAccessFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_IsFeatured_Read = {
+  __typename?: 'BillsDocAccessFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_IsFeatured_Update = {
+  __typename?: 'BillsDocAccessFields_isFeatured_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type BillsDocAccessFields_Number = {
   __typename?: 'BillsDocAccessFields_number';
   create?: Maybe<BillsDocAccessFields_Number_Create>;
@@ -4416,6 +4866,7 @@ export type BillsFields = {
   createdAt?: Maybe<BillsFields_CreatedAt>;
   i18n?: Maybe<BillsFields_I18n>;
   introducedAt?: Maybe<BillsFields_IntroducedAt>;
+  isFeatured?: Maybe<BillsFields_IsFeatured>;
   number?: Maybe<BillsFields_Number>;
   popularityRank?: Maybe<BillsFields_PopularityRank>;
   relatedBills?: Maybe<BillsFields_RelatedBills>;
@@ -4533,6 +4984,7 @@ export type BillsFields_Cosponsors_Delete = {
 
 export type BillsFields_Cosponsors_Fields = {
   __typename?: 'BillsFields_cosponsors_Fields';
+  constituency?: Maybe<BillsFields_Cosponsors_Constituency>;
   cosponsoredAt?: Maybe<BillsFields_Cosponsors_CosponsoredAt>;
   id?: Maybe<BillsFields_Cosponsors_Id>;
   party?: Maybe<BillsFields_Cosponsors_Party>;
@@ -4546,6 +4998,34 @@ export type BillsFields_Cosponsors_Read = {
 
 export type BillsFields_Cosponsors_Update = {
   __typename?: 'BillsFields_cosponsors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_Cosponsors_Constituency = {
+  __typename?: 'BillsFields_cosponsors_constituency';
+  create?: Maybe<BillsFields_Cosponsors_Constituency_Create>;
+  delete?: Maybe<BillsFields_Cosponsors_Constituency_Delete>;
+  read?: Maybe<BillsFields_Cosponsors_Constituency_Read>;
+  update?: Maybe<BillsFields_Cosponsors_Constituency_Update>;
+};
+
+export type BillsFields_Cosponsors_Constituency_Create = {
+  __typename?: 'BillsFields_cosponsors_constituency_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_Cosponsors_Constituency_Delete = {
+  __typename?: 'BillsFields_cosponsors_constituency_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_Cosponsors_Constituency_Read = {
+  __typename?: 'BillsFields_cosponsors_constituency_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_Cosponsors_Constituency_Update = {
+  __typename?: 'BillsFields_cosponsors_constituency_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -5173,6 +5653,34 @@ export type BillsFields_IntroducedAt_Precision_Read = {
 
 export type BillsFields_IntroducedAt_Precision_Update = {
   __typename?: 'BillsFields_introducedAt_precision_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_IsFeatured = {
+  __typename?: 'BillsFields_isFeatured';
+  create?: Maybe<BillsFields_IsFeatured_Create>;
+  delete?: Maybe<BillsFields_IsFeatured_Delete>;
+  read?: Maybe<BillsFields_IsFeatured_Read>;
+  update?: Maybe<BillsFields_IsFeatured_Update>;
+};
+
+export type BillsFields_IsFeatured_Create = {
+  __typename?: 'BillsFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_IsFeatured_Delete = {
+  __typename?: 'BillsFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_IsFeatured_Read = {
+  __typename?: 'BillsFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_IsFeatured_Update = {
+  __typename?: 'BillsFields_isFeatured_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -25539,6 +26047,7 @@ export type Tag = {
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   i18n?: Maybe<Tag_I18n>;
   id?: Maybe<Scalars['String']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
   nameEn?: Maybe<Scalars['String']['output']>;
   nameZh?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -25602,6 +26111,12 @@ export type Tag_Id_Operator = {
   not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
+export type Tag_IsFeatured_Operator = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type Tag_NameEn_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -25642,6 +26157,7 @@ export type Tag_Where = {
   i18n__en__name?: InputMaybe<Tag_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<Tag_I18n__Zh__Name_Operator>;
   id?: InputMaybe<Tag_Id_Operator>;
+  isFeatured?: InputMaybe<Tag_IsFeatured_Operator>;
   nameEn?: InputMaybe<Tag_NameEn_Operator>;
   nameZh?: InputMaybe<Tag_NameZh_Operator>;
   updatedAt?: InputMaybe<Tag_UpdatedAt_Operator>;
@@ -25654,6 +26170,7 @@ export type Tag_Where_And = {
   i18n__en__name?: InputMaybe<Tag_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<Tag_I18n__Zh__Name_Operator>;
   id?: InputMaybe<Tag_Id_Operator>;
+  isFeatured?: InputMaybe<Tag_IsFeatured_Operator>;
   nameEn?: InputMaybe<Tag_NameEn_Operator>;
   nameZh?: InputMaybe<Tag_NameZh_Operator>;
   updatedAt?: InputMaybe<Tag_UpdatedAt_Operator>;
@@ -25666,6 +26183,7 @@ export type Tag_Where_Or = {
   i18n__en__name?: InputMaybe<Tag_I18n__En__Name_Operator>;
   i18n__zh__name?: InputMaybe<Tag_I18n__Zh__Name_Operator>;
   id?: InputMaybe<Tag_Id_Operator>;
+  isFeatured?: InputMaybe<Tag_IsFeatured_Operator>;
   nameEn?: InputMaybe<Tag_NameEn_Operator>;
   nameZh?: InputMaybe<Tag_NameZh_Operator>;
   updatedAt?: InputMaybe<Tag_UpdatedAt_Operator>;
@@ -25714,6 +26232,7 @@ export type TagsDocAccessFields = {
   __typename?: 'TagsDocAccessFields';
   createdAt?: Maybe<TagsDocAccessFields_CreatedAt>;
   i18n?: Maybe<TagsDocAccessFields_I18n>;
+  isFeatured?: Maybe<TagsDocAccessFields_IsFeatured>;
   nameEn?: Maybe<TagsDocAccessFields_NameEn>;
   nameZh?: Maybe<TagsDocAccessFields_NameZh>;
   updatedAt?: Maybe<TagsDocAccessFields_UpdatedAt>;
@@ -25906,6 +26425,34 @@ export type TagsDocAccessFields_I18n_Zh_Name_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type TagsDocAccessFields_IsFeatured = {
+  __typename?: 'TagsDocAccessFields_isFeatured';
+  create?: Maybe<TagsDocAccessFields_IsFeatured_Create>;
+  delete?: Maybe<TagsDocAccessFields_IsFeatured_Delete>;
+  read?: Maybe<TagsDocAccessFields_IsFeatured_Read>;
+  update?: Maybe<TagsDocAccessFields_IsFeatured_Update>;
+};
+
+export type TagsDocAccessFields_IsFeatured_Create = {
+  __typename?: 'TagsDocAccessFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsDocAccessFields_IsFeatured_Delete = {
+  __typename?: 'TagsDocAccessFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsDocAccessFields_IsFeatured_Read = {
+  __typename?: 'TagsDocAccessFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsDocAccessFields_IsFeatured_Update = {
+  __typename?: 'TagsDocAccessFields_isFeatured_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type TagsDocAccessFields_NameEn = {
   __typename?: 'TagsDocAccessFields_nameEn';
   create?: Maybe<TagsDocAccessFields_NameEn_Create>;
@@ -25994,6 +26541,7 @@ export type TagsFields = {
   __typename?: 'TagsFields';
   createdAt?: Maybe<TagsFields_CreatedAt>;
   i18n?: Maybe<TagsFields_I18n>;
+  isFeatured?: Maybe<TagsFields_IsFeatured>;
   nameEn?: Maybe<TagsFields_NameEn>;
   nameZh?: Maybe<TagsFields_NameZh>;
   updatedAt?: Maybe<TagsFields_UpdatedAt>;
@@ -26183,6 +26731,34 @@ export type TagsFields_I18n_Zh_Name_Read = {
 
 export type TagsFields_I18n_Zh_Name_Update = {
   __typename?: 'TagsFields_i18n_zh_name_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_IsFeatured = {
+  __typename?: 'TagsFields_isFeatured';
+  create?: Maybe<TagsFields_IsFeatured_Create>;
+  delete?: Maybe<TagsFields_IsFeatured_Delete>;
+  read?: Maybe<TagsFields_IsFeatured_Read>;
+  update?: Maybe<TagsFields_IsFeatured_Update>;
+};
+
+export type TagsFields_IsFeatured_Create = {
+  __typename?: 'TagsFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_IsFeatured_Delete = {
+  __typename?: 'TagsFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_IsFeatured_Read = {
+  __typename?: 'TagsFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type TagsFields_IsFeatured_Update = {
+  __typename?: 'TagsFields_isFeatured_Update';
   permission: Scalars['Boolean']['output'];
 };
 
@@ -29999,11 +30575,13 @@ export type MutationArticleInput = {
   categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   content?: InputMaybe<Scalars['JSON']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  excerpt: Scalars['String']['input'];
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   media: MutationArticle_MediaInput;
   podcast?: InputMaybe<Scalars['String']['input']>;
   releaseTime: Scalars['String']['input'];
   sources?: InputMaybe<Array<InputMaybe<MutationArticle_SourcesInput>>>;
-  subtitle: Scalars['String']['input'];
+  subtitle?: InputMaybe<Scalars['String']['input']>;
   tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   title: Scalars['String']['input'];
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -30014,6 +30592,8 @@ export type MutationArticleUpdateInput = {
   categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   content?: InputMaybe<Scalars['JSON']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
+  excerpt?: InputMaybe<Scalars['String']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   media: MutationArticleUpdate_MediaInput;
   podcast?: InputMaybe<Scalars['String']['input']>;
   releaseTime?: InputMaybe<Scalars['String']['input']>;
@@ -30068,6 +30648,7 @@ export type MutationBillInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationBill_I18nInput>;
   introducedAt: MutationBill_IntroducedAtInput;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   latestActionTime?: InputMaybe<Scalars['String']['input']>;
   number: Scalars['String']['input'];
   popularityRank?: InputMaybe<Scalars['Float']['input']>;
@@ -30089,6 +30670,7 @@ export type MutationBillUpdateInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationBillUpdate_I18nInput>;
   introducedAt: MutationBillUpdate_IntroducedAtInput;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   latestActionTime?: InputMaybe<Scalars['String']['input']>;
   number?: InputMaybe<Scalars['String']['input']>;
   popularityRank?: InputMaybe<Scalars['Float']['input']>;
@@ -30103,6 +30685,7 @@ export type MutationBillUpdateInput = {
 };
 
 export type MutationBillUpdate_CosponsorsInput = {
+  constituency: BillUpdate_Cosponsors_Constituency_MutationInput;
   cosponsoredAt?: InputMaybe<MutationBillUpdate_Cosponsors_CosponsoredAtInput>;
   id?: InputMaybe<Scalars['String']['input']>;
   party: BillUpdate_Cosponsors_Party_MutationInput;
@@ -30150,6 +30733,7 @@ export type MutationBillUpdate_StatusTrackerInput = {
 };
 
 export type MutationBill_CosponsorsInput = {
+  constituency: Bill_Cosponsors_Constituency_MutationInput;
   cosponsoredAt?: InputMaybe<MutationBill_Cosponsors_CosponsoredAtInput>;
   id?: InputMaybe<Scalars['String']['input']>;
   party: Bill_Cosponsors_Party_MutationInput;
@@ -30953,6 +31537,7 @@ export type MutationPeople_VotesInput = {
 export type MutationTagInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationTag_I18nInput>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   nameEn?: InputMaybe<Scalars['String']['input']>;
   nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
@@ -30961,6 +31546,7 @@ export type MutationTagInput = {
 export type MutationTagUpdateInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationTagUpdate_I18nInput>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
   nameEn?: InputMaybe<Scalars['String']['input']>;
   nameZh?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
