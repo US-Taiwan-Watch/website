@@ -1,4 +1,7 @@
-import { CategoriesArticle } from '@/common/lib/graphql/__generated__/graphql'
+import {
+  Article,
+  CategoriesArticle,
+} from '@/common/lib/graphql/__generated__/graphql'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import { OpinionCategoryArgs } from '@/modules/Opinion/classes/OpinionCategory'
 import { OPINION_DTO_MOCK } from '@/modules/Opinion/dtoData'
@@ -251,7 +254,7 @@ export const homeOpinionCategories: Array<OpinionCategoryArgs> = [
   },
 ]
 
-export const getOpinionTags = (): CategoriesArticle[] => {
+export const getOpinionCategories = (): CategoriesArticle[] => {
   return [
     {
       id: '67556e61b3045c861e2c7059',
@@ -271,6 +274,25 @@ export const findAllOpinion = () => {
   return OPINION_DTO_MOCK
 }
 
+const OPINION_MOCK_MAP = OPINION_DTO_MOCK.reduce<Record<string, Article>>(
+  (acc, opinion) => {
+    if (!opinion.id) return acc
+    acc[opinion.id] = opinion
+    return acc
+  },
+  {}
+)
+
 export const findOpinion = (id: string) => {
-  return OPINION_DTO_MOCK.find((opinion) => opinion.id === id)
+  return OPINION_MOCK_MAP[id]
+}
+
+export const findLandingBannerOpinions = () => {
+  return OPINION_DTO_MOCK.filter((opinion) => opinion.isFeatured)
+}
+
+export const filterOpinionsByCategory = (id: string) => {
+  return OPINION_DTO_MOCK.filter((opinion) =>
+    opinion.categories?.some((category) => category.id === id)
+  )
 }

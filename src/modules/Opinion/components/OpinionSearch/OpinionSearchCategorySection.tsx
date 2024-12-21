@@ -72,7 +72,7 @@ const OpinionSearchCategorySection = ({
       </UHStack>
 
       {/** Result */}
-      <OpinionPostCards opinions={opinions} />
+      <OpinionPostCards opinions={opinions} showCategory={false} />
     </Stack>
   )
 }

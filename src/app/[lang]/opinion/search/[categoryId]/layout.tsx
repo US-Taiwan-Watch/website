@@ -5,6 +5,7 @@ import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
+
 export const metadata: Metadata = {
   title: 'Opinion Search Category',
   description: 'Opinion Search Category',
