@@ -86,7 +86,8 @@ export default function CosponsorDialog({
           },
         }}
       >
-        <Grid2 container mt={2} spacing={2}>
+        {/* NOTE: 鎖一個固定高度，避免 filter 改變導致畫面跳動 */}
+        <Grid2 container mt={2} spacing={2} height="500px">
           <Grid2 size={3} pl={1} pt="3px">
             <DialogFilter
               selectedOptionList={selectedOptionList}
