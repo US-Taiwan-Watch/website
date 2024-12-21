@@ -3,30 +3,21 @@
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UHStack from '@/common/components/atoms/UHStack'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
+import { Language } from '@/common/lib/i18n/types'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import CommonUtils from '@/modules/Common/Common.utils'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
+import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
-import { useEffect, useState } from 'react'
+import { useParams } from 'next/navigation'
+import { useState } from 'react'
 
-interface OpinionPostSectionProps {
-  opinions: Opinion[]
-}
-
-const OpinionPostSection = ({ opinions }: OpinionPostSectionProps) => {
+const OpinionPostSection = () => {
+  const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
-  const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
-
-  const homeCategories = useOpinionStore((state) => state.homeCategories)
-
-  // 預設塞第一個
-  useEffect(() => {
-    if (homeCategories.length > 0) {
-      setActiveCategoryId(homeCategories[0].id)
-    }
-  }, [homeCategories])
+  const [activeTagId, setActiveTagId] = useState<string | undefined>()
+  const { opinions, landingTags } = useOpinionIndex(activeTagId)
 
   return (
     <LandingSectionWrapper
@@ -39,15 +30,26 @@ const OpinionPostSection = ({ opinions }: OpinionPostSectionProps) => {
       <Stack spacing={8}>
         {/** Tags */}
         <UHStack gap={2} flexWrap="wrap">
-          {homeCategories.map((category) => (
-            <UCategoryChip
-              key={category.id}
-              label={category.label}
-              img={category.image}
-              active={activeCategoryId === category.id}
-              onClick={() => setActiveCategoryId(category.id)}
-            />
-          ))}
+          {landingTags.map((tag) => {
+            const isActive = activeTagId === tag.id
+
+            return (
+              <UCategoryChip
+                key={tag.id}
+                label={
+                  tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
+                }
+                active={isActive}
+                onClick={() => {
+                  if (isActive) {
+                    setActiveTagId(undefined)
+                  } else {
+                    setActiveTagId(tag.id ?? undefined)
+                  }
+                }}
+              />
+            )
+          })}
         </UHStack>
 
         {/** Posts */}
