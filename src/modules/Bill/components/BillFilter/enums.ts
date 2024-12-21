@@ -1,15 +1,3 @@
-export enum BillCategoryEnum {
-  ArmsSales = 1,
-  Democracy,
-  InternationalParticipation,
-  TaiwanDefense,
-  USTaiwanRelations,
-  GlobalHealth,
-  TaiwanRelationsAct,
-  TradeEconomy,
-  Other,
-}
-
 /**
  * TODO: TBD 需要與 Party 的 enum 同步？
  */

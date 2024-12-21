@@ -45,8 +45,8 @@ const BillInfoSection = memo(function BillInfoSection({
           )}
           <Typography variant="body" fontWeight={300} mb={1}>
             {`${bill.chamberPrefix}${bill.number} | ${bill.congressNumber}th Congress`}{' '}
-            {bill.introducedAt && <>{bill.introducedAt.year()} -</>}{' '}
-            {bill.latestActionAt && <>{bill.latestActionAt.year()}</>}
+            {bill.introducedAt && <>{bill.introducedAt.year()}</>}
+            {bill.latestActionAt && <>{` - ${bill.latestActionAt.year()}`}</>}
           </Typography>
         </UHStack>
         <Typography variant="h4">{bill.title}</Typography>

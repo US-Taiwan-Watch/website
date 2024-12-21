@@ -29,7 +29,7 @@ export default function BillList() {
     const tag = params.get('tag')
     const sorter = params.get('sorter')
     const result = billFilterSchema.safeParse({
-      ...(category && { category: Number(category) }),
+      ...(category && { category: [category] }),
       ...(congress && { congress: [Number(congress)] }),
       ...(sponsor && { sponsors: [Number(sponsor)] }),
       ...(cosponsor && { cosponsors: [Number(cosponsor)] }),
