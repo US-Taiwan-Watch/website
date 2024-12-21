@@ -4,7 +4,10 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import { OpinionCategoryArgs } from '@/modules/Opinion/classes/OpinionCategory'
-import { OPINION_DTO_MOCK } from '@/modules/Opinion/dtoData'
+import {
+  CATEGORIES_DTO_MOCK,
+  OPINION_DTO_MOCK,
+} from '@/modules/Opinion/dtoData'
 
 export const OpinionResponse = {
   id: '1',
@@ -239,19 +242,7 @@ export const homeOpinionCategories: Array<OpinionCategoryArgs> = [
 ]
 
 export const getOpinionCategories = (): CategoriesArticle[] => {
-  return [
-    {
-      id: '67556e61b3045c861e2c7059',
-      i18n: {
-        en: {
-          name: 'U.S.-Taiwan Relations',
-        },
-        zh: {
-          name: '台美關係',
-        },
-      },
-    },
-  ]
+  return CATEGORIES_DTO_MOCK
 }
 
 export const findAllOpinion = () => {

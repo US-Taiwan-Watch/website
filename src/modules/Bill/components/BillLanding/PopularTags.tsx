@@ -18,7 +18,7 @@ export default function PopularTags() {
     <Stack px={2} spacing={2}>
       <Typography variant="subtitleS">Popular Tags :</Typography>
       <UHStack spacing={1}>
-        {TagUtils.parseTags(
+        {TagUtils.parseTagNames(
           lang,
           topTags.map(({ tag }) => tag)
         ).map((tag, index) => (

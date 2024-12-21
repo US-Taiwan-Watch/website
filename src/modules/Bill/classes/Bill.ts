@@ -235,7 +235,7 @@ export class Bill {
             cosponsor.people ? People.fromDTO(lang, cosponsor.people) : null
           )
           .filter((cosponsor) => !isNull(cosponsor)) ?? [],
-      tags: TagUtils.parseTags(lang, dto.tags),
+      tags: TagUtils.parseTagNames(lang, dto.tags),
       statusTracker: dto.statusTracker ?? undefined,
       congressNumber: dto.congress,
       // TODO: 型態待補

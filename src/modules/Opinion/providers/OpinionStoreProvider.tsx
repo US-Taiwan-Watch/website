@@ -2,34 +2,28 @@
 
 import { Language } from '@/common/lib/i18n/types'
 import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import { TAGS_DTO_MOCK } from '@/modules/Common/dtoData'
 import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
-import {
-  getOpinionCategories,
-  highlightedOpinionCategories,
-} from '@/modules/Opinion/data'
+import { getOpinionCategories } from '@/modules/Opinion/data'
 import { useParams } from 'next/navigation'
 import { useEffect } from 'react'
 
-export default function CategoryProvider() {
+export default function OpinionStoreProvider() {
   const { lang } = useParams<{ lang: Language }>()
 
-  const setHomeCategories = useOpinionStore((state) => state.setHomeCategories)
+  const setLandingTags = useOpinionStore((state) => state.setLandingTags)
   const setHomeHighlightedCategories = useOpinionStore(
     (state) => state.setHomeHighlightedCategories
   )
 
   useEffect(() => {
-    setHomeCategories(
+    setLandingTags(TAGS_DTO_MOCK.filter((tag) => tag.isFeatured))
+    setHomeHighlightedCategories(
       getOpinionCategories().map((category) =>
         OpinionCategory.fromDTO(lang, category)
       )
     )
-    setHomeHighlightedCategories(
-      highlightedOpinionCategories.map(
-        (category) => new OpinionCategory(category)
-      )
-    )
-  }, [setHomeCategories, setHomeHighlightedCategories, lang])
+  }, [setLandingTags, setHomeHighlightedCategories, lang])
 
   return null
 }
