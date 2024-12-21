@@ -97,7 +97,7 @@ export default function CosponsorDialog({
             />
           </Grid2>
           <Grid2 size={9}>
-            <CosponsorTable cosponsors={cosponsors} />
+            <CosponsorTable billId={bill.id ?? ''} cosponsors={cosponsors} />
           </Grid2>
         </Grid2>
       </UContentCard>

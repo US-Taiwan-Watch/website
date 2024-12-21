@@ -8470,3 +8470,99 @@ export const BILL_DTO_MOCK = [
     updatedAt: '2024-12-08T06:13:18.102Z',
   },
 ] as unknown as Bill[]
+
+const BILL_COSPONSORS_DTO_MOCK = [
+  {
+    id: '6754822c437319f5138bfa48',
+    cosponsors: [
+      {
+        people: {
+          id: '67529b544040f8e6920df153',
+        },
+        cosponsoredAt: {
+          datetime: '2023-02-14T00:00:00.000Z',
+        },
+      },
+      {
+        people: {
+          id: '67529cda4040f8e6920df1d0',
+        },
+        cosponsoredAt: {
+          datetime: '2023-03-17T00:00:00.000Z',
+        },
+      },
+      {
+        people: {
+          id: '6752abce2ddcf95deb3755ec',
+        },
+        cosponsoredAt: {
+          datetime: '2023-06-05T00:00:00.000Z',
+        },
+      },
+    ],
+  },
+  {
+    id: '67548182437319f5138bf983',
+    cosponsors: [],
+  },
+  {
+    id: '67547c63437319f5138bf852',
+    cosponsors: [],
+  },
+  {
+    id: '67547aa3437319f5138bf725',
+    cosponsors: [],
+  },
+  {
+    id: '675477ed437319f5138bef66',
+    cosponsors: [],
+  },
+  {
+    id: '675476fc437319f5138bedef',
+    cosponsors: [],
+  },
+  {
+    id: '67547209437319f5138beca4',
+    cosponsors: [],
+  },
+  {
+    id: '67546eed437319f5138beb61',
+    cosponsors: [],
+  },
+  {
+    id: '67546b85437319f5138bea0c',
+    cosponsors: [],
+  },
+  {
+    id: '67546936437319f5138be7df',
+    cosponsors: [
+      {
+        people: {
+          id: '6753ea9a1e937e031b1b343f',
+        },
+        cosponsoredAt: {
+          datetime: '2021-03-17T00:00:00.000Z',
+        },
+      },
+    ],
+  },
+] as unknown as Bill[]
+
+type CosponorIdTimeMap = Record<string, string>
+type BillIdCosponsoredTimeMap = Record<string, CosponorIdTimeMap>
+
+// TODO: 之後串 API 改從 single Bill 拿 cosponsors 資料，因為只有 Bill 頁面需要用到 consponsoredAt，這些資料不必跟著 Bills 一起回傳
+export const BILL_ID_COSPONSORED_TIME_MAP_DTO_MOCK: BillIdCosponsoredTimeMap =
+  BILL_COSPONSORS_DTO_MOCK.reduce<BillIdCosponsoredTimeMap>((billAcc, bill) => {
+    if (!bill.id || !bill.cosponsors) return billAcc
+    billAcc[bill.id] = bill.cosponsors.reduce<CosponorIdTimeMap>(
+      (peopleAcc, cosponsor) => {
+        if (!cosponsor.people?.id || !cosponsor.cosponsoredAt?.datetime)
+          return peopleAcc
+        peopleAcc[cosponsor.people.id] = cosponsor.cosponsoredAt.datetime
+        return peopleAcc
+      },
+      {}
+    )
+    return billAcc
+  }, {})
