@@ -30,20 +30,26 @@ const OpinionPostSection = () => {
       <Stack spacing={8}>
         {/** Tags */}
         <UHStack gap={2} flexWrap="wrap">
-          {landingTags.map((tag) => (
-            <UCategoryChip
-              key={tag.id}
-              label={tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''}
-              active={activeTagId === tag.id}
-              onClick={() => {
-                if (activeTagId === tag.id) {
-                  setActiveTagId(undefined)
-                } else {
-                  setActiveTagId(tag.id ?? undefined)
+          {landingTags.map((tag) => {
+            const isActive = activeTagId === tag.id
+
+            return (
+              <UCategoryChip
+                key={tag.id}
+                label={
+                  tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
                 }
-              }}
-            />
-          ))}
+                active={isActive}
+                onClick={() => {
+                  if (isActive) {
+                    setActiveTagId(undefined)
+                  } else {
+                    setActiveTagId(tag.id ?? undefined)
+                  }
+                }}
+              />
+            )
+          })}
         </UHStack>
 
         {/** Posts */}

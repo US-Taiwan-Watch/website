@@ -19,9 +19,10 @@ export default function useOpinionIndex(tagId?: string) {
     // TODO: 從 API 取得資料
     if (tagId) {
       setOpinions(
-        OPINION_DTO_MOCK.filter((opinion) =>
-          opinion.tags?.some((tag) => tag.id === tagId)
-        ).map((dto) => Opinion.fromDTO(lang, dto))
+        OPINION_DTO_MOCK.filter((opinion) => {
+          const tagSet = new Set(opinion.tags?.map((tag) => tag.id))
+          return tagSet.has(tagId)
+        }).map((dto) => Opinion.fromDTO(lang, dto))
       )
     } else {
       setOpinions(OPINION_DTO_MOCK.map((dto) => Opinion.fromDTO(lang, dto)))
