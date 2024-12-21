@@ -1,4 +1,4 @@
-import IndexKvCards from '@/common/components/elements/IndexKvCards'
+import IndexKvCards from '@/common/components/elements/IndexOpinionCarousel'
 import Stack from '@mui/material/Stack'
 import ArticleSection from '@/modules/LandingPage/components/ArticleSection'
 import KetagalanSection from '@/modules/LandingPage/components/KetagalanSection'
