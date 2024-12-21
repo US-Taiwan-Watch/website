@@ -56,7 +56,12 @@ const PeopleCard = memo(function PeopleCard({
   simplified = false,
 }: PeopleCardProps) {
   return (
-    <StyledPeopleCardContainer>
+    <StyledPeopleCardContainer
+      sx={{
+        // TODO: RWD
+        minHeight: simplified ? 180 : 250,
+      }}
+    >
       <Stack direction="row" spacing={3} height="100%">
         {people.image && (
           <StyledPeopleCardImageContainer
