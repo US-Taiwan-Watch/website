@@ -7,7 +7,6 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
-import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
@@ -83,7 +82,9 @@ export default function LeftSection({ bill }: Props) {
         </UHStack>
         <Box mx={-6}>
           <UTimeline
-            data={billStatusList}
+            data={Bill.getAllBillStatuses(bill).map((status) => ({
+              title: status,
+            }))}
             activeIndex={Bill.getStatusIndex(bill)}
             isHorizontal
           />
