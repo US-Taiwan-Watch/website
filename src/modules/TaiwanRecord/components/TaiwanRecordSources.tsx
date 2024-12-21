@@ -24,7 +24,7 @@ type SourceMetadata = {
   /** 連結 */
   link: string
   /** 網站 favicon */
-  favicon: string
+  favicon?: string
   /** 網站名稱 */
   siteName: string
   /** 網站 title */
@@ -66,17 +66,6 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
   const theme = useTheme<USTWTheme>()
   const { sourceMetadatas, isModalOpen, handleCloseModal } = props
 
-  // const [metadata, setMetadata] = useState<SourceMetadata[]>([])
-
-  // useEffect(() => {
-  //   const fetchMetadata = async () => {
-  //     const metadata = await Promise.all(sources.links.map(getMetadata))
-  //     setMetadata(metadata.filter((m) => !isNull(m)))
-  //   }
-  //   fetchMetadata()
-  // }, [sources])
-
-  // TODO: i18n
   return (
     <UContentCardDialog
       open={isModalOpen}
@@ -87,6 +76,7 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
       <UContentCard
         withHeader
         headerProps={{
+          // TODO: i18n
           title: 'Sources',
           action: (
             <UIconButton
@@ -124,7 +114,9 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
                   }}
                 >
                   <UHStack gap={1} alignItems="center">
-                    <Avatar src={m.favicon} sx={{ width: 16, height: 16 }} />
+                    {m.favicon && (
+                      <Avatar src={m.favicon} sx={{ width: 16, height: 16 }} />
+                    )}
                     <Typography variant="body2">{m.siteName}</Typography>
                   </UHStack>
                   <Typography fontWeight={500}>{m.title}</Typography>
@@ -197,17 +189,19 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
           total={sourceMetadatas.length}
           max={MAX_FAVICON_AVATAR_COUNT}
         >
-          {sourceMetadatas.map((m, index) => (
-            <Avatar
-              sx={{
-                width: 16,
-                height: 16,
-              }}
-              key={index}
-              alt={new URL(sources.links[index]).hostname}
-              src={m.favicon}
-            />
-          ))}
+          {sourceMetadatas
+            .filter((m) => m.favicon)
+            .map((m, index) => (
+              <Avatar
+                sx={{
+                  width: 16,
+                  height: 16,
+                }}
+                key={index}
+                alt={new URL(sources.links[index]).hostname}
+                src={m.favicon}
+              />
+            ))}
         </AvatarGroup>
       </Button>
       <SourcesDialog
