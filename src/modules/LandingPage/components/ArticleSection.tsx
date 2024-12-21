@@ -11,17 +11,21 @@ import { useEffect, useState } from 'react'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
 import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
 import { ROUTES } from '@/routes'
+import CommonUtils from '@/modules/Common/Common.utils'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 const ArticleSection = () => {
+  const { lang } = useParams<{ lang: Language }>()
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
-  const homeCategories = useOpinionStore((state) => state.homeCategories)
+  const landingTags = useOpinionStore((state) => state.landingTags)
 
   // 預設塞第一個
   useEffect(() => {
-    if (homeCategories.length > 0) {
-      setActiveCategoryId(homeCategories[0].id)
+    if (landingTags.length > 0) {
+      setActiveCategoryId(landingTags[0]?.id ?? undefined)
     }
-  }, [homeCategories])
+  }, [landingTags])
 
   const { opinions } = useOpinionIndex(activeCategoryId)
 
@@ -34,13 +38,12 @@ const ArticleSection = () => {
       <SectionTitleWithLink title="Articles" link={ROUTES.OPINION} />
       <Stack gap={5}>
         <UHStack gap={2}>
-          {homeCategories.map((category) => (
+          {landingTags.map((tag) => (
             <UCategoryChip
-              key={category.id}
-              label={category.label}
-              img={category.image}
-              active={activeCategoryId === category.id}
-              onClick={() => setActiveCategoryId(category.id)}
+              key={tag.id}
+              label={tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''}
+              active={activeCategoryId === tag.id}
+              onClick={() => setActiveCategoryId(tag.id ?? undefined)}
             />
           ))}
         </UHStack>

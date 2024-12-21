@@ -7,7 +7,9 @@ import { useEffect, useMemo, useState } from 'react'
 
 export default function useOpinionSearch(categoryId: string) {
   const { lang } = useParams<{ lang: Language }>()
-  const homeCategories = useOpinionStore((state) => state.homeCategories)
+  const highlightedCategories = useOpinionStore(
+    (state) => state.highlightedCategories
+  )
 
   const [opinions, setOpinions] = useState<Array<Opinion>>([])
   const [isOpinionsLoading, setIsOpinionsLoading] = useState<boolean>(true)
@@ -23,12 +25,12 @@ export default function useOpinionSearch(categoryId: string) {
   }, [categoryId, lang])
 
   const category = useMemo(
-    () => homeCategories.find((category) => category.id === categoryId),
-    [categoryId, homeCategories]
+    () => highlightedCategories.find((category) => category.id === categoryId),
+    [categoryId, highlightedCategories]
   )
 
   return {
-    homeCategories,
+    highlightedCategories,
     category,
     opinions,
     isOpinionsLoading,

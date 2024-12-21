@@ -292,7 +292,7 @@ export class People {
       congress: Congress.fromPeopleCongressDTO(dto.congressionalData),
       tags:
         dto.tags
-          ?.map((tag) => TagUtils.parseTag(lang, tag))
+          ?.map((tag) => TagUtils.parseTagName(lang, tag))
           .filter((name) => isString(name)) ?? [],
       partyExperience: People.parsePartyExperienceArgsFromDTO(
         dto.partyChangeRecords

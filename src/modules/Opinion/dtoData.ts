@@ -1,4 +1,7 @@
-import { Article } from '@/common/lib/graphql/__generated__/graphql'
+import {
+  Article,
+  CategoriesArticle,
+} from '@/common/lib/graphql/__generated__/graphql'
 
 export const OPINION_DTO_MOCK = [
   {
@@ -3357,3 +3360,61 @@ export const OPINION_DTO_MOCK = [
     createdAt: '2024-12-09T02:46:45.238Z',
   },
 ] as unknown as Article[]
+
+export const CATEGORIES_DTO_MOCK = [
+  {
+    id: '67651455bc0742133dc7db2e',
+    i18n: {
+      en: {
+        name: 'International Politics',
+      },
+      zh: {
+        name: '國際政治',
+      },
+    },
+  },
+  {
+    id: '67651449bc0742133dc7db26',
+    i18n: {
+      en: {
+        name: 'International Economy',
+      },
+      zh: {
+        name: '國際經濟',
+      },
+    },
+  },
+  {
+    id: '6765143ebc0742133dc7db1e',
+    i18n: {
+      en: {
+        name: 'International News',
+      },
+      zh: {
+        name: '國際新聞',
+      },
+    },
+  },
+  {
+    id: '67651431bc0742133dc7db16',
+    i18n: {
+      en: {
+        name: 'US Legislation',
+      },
+      zh: {
+        name: '美國法案',
+      },
+    },
+  },
+  {
+    id: '67556e61b3045c861e2c7059',
+    i18n: {
+      en: {
+        name: 'U.S.-Taiwan Relations',
+      },
+      zh: {
+        name: '台美關係',
+      },
+    },
+  },
+] as unknown as CategoriesArticle[]
