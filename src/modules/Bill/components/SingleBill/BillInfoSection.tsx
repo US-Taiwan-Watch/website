@@ -31,9 +31,9 @@ const BillInfoSection = memo(function BillInfoSection({
       {/** Info */}
       <StyledInfoContainer spacing={2}>
         <UHStack spacing={2} alignItems="center">
-          {bill.tags?.[0] && (
+          {bill.categories?.[0] && (
             <UCategoryTag
-              value={bill.tags[0]}
+              value={bill.categories[0]}
               containerProps={{
                 borderRadius: '6px',
                 sx: {

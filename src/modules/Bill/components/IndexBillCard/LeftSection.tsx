@@ -39,8 +39,8 @@ export default function LeftSection({ bill }: Props) {
     <Stack justifyContent="space-between" height="100%">
       <Stack>
         <UTagListWithSelectable
-          tags={(bill.tags ?? []).map((tag, index) => (
-            <UCategoryTag key={index} value={tag} />
+          tags={(bill.categories ?? []).map((category, index) => (
+            <UCategoryTag key={index} value={category} />
           ))}
           containerProps={{
             gap: 0.5,
