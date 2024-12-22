@@ -17,6 +17,7 @@ export default function OpinionPage({ params }: OpinionPageProps) {
 
   const relatedDto = findAllOpinion()
   const relatedOpinions = relatedDto
+    .filter((dto) => dto.id !== params.id)
     .map((dto) => Opinion.fromDTO(params.lang, dto))
     .sort((a, b) => b.date?.diff(a.date) ?? 0)
     .slice(0, 3)
