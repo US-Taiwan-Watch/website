@@ -6,10 +6,7 @@ import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
-import {
-  BILL_DTO_MOCK,
-  BILL_ID_COSPONSORED_TIME_MAP_DTO_MOCK,
-} from '@/modules/Bill/dtoData'
+import { BILL_DTO_MOCK } from '@/modules/Bill/dtoData'
 import {
   CategoriesBills,
   TopCosponsorsQuery,
@@ -235,10 +232,6 @@ export const findAllBill = () => {
 
 export const findBill = (id: string) => {
   return BILL_DTO_MOCK.find((bill) => bill.id === id)
-}
-
-export const getBillCosponsorsTimeMap = (billId: string) => {
-  return BILL_ID_COSPONSORED_TIME_MAP_DTO_MOCK[billId] ?? {}
 }
 
 export const getBillTopTags = (): TopTagsQuery[] => {

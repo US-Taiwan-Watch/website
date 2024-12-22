@@ -16,8 +16,8 @@ import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import { Party } from '@/common/enums/Party'
 import UHStack from '@/common/components/atoms/UHStack'
 import { ChamberEnum } from '@/common/enums/Chamber'
-import { getBillCosponsorsTimeMap } from '@/modules/Bill/data'
 import dayjs from 'dayjs'
+import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 
 const EMPTY_CELL = '-'
 
@@ -39,8 +39,7 @@ const StyledBodyText = styled(Typography)(({ theme }) => ({
 const headers: string[] = ['Name', 'Party', 'Constituency', 'Date Sponsored']
 
 type Props = {
-  billId: string
-  cosponsors: People[]
+  cosponsors: BillCosponsor[]
 }
 
 const getName = (people: People) => {
@@ -53,9 +52,8 @@ const getName = (people: People) => {
   return `${chamberAbbreviation}${people.name}`
 }
 
-export default function CosponsorTable({ billId, cosponsors }: Props) {
+export default function CosponsorTable({ cosponsors }: Props) {
   const theme = useTheme<USTWTheme>()
-  const billCosponsorsTimeMap = getBillCosponsorsTimeMap(billId)
 
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>
@@ -75,36 +73,37 @@ export default function CosponsorTable({ billId, cosponsors }: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {cosponsors.map((cosponsor) => {
-            const cosponsoredAt = billCosponsorsTimeMap[cosponsor.id ?? '']
+          {cosponsors.map((cosponsor, index) => {
+            const cosponsoredAt = cosponsor.cosponsoredAt
+            const people = cosponsor.people
 
             return (
               <TableRow
-                key={cosponsor.name}
+                key={index}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
                   <StyledNameText>
-                    {cosponsor.name ? getName(cosponsor) : EMPTY_CELL}
+                    {people?.name ? getName(people) : EMPTY_CELL}
                   </StyledNameText>
                 </TableCell>
                 <TableCell align="left">
                   <UHStack spacing={1} alignItems="center">
                     <UPoliticalPartyIcon
                       variant="rounded"
-                      party={cosponsor.party ?? Party.INDEPENDENT}
+                      party={people?.party ?? Party.INDEPENDENT}
                       size="small"
                     />
                     <StyledBodyText textTransform="capitalize">
-                      {cosponsor.party
-                        ? cosponsor.party.toLowerCase()
-                        : EMPTY_CELL}
+                      {people?.party ? people.party.toLowerCase() : EMPTY_CELL}
                     </StyledBodyText>
                   </UHStack>
                 </TableCell>
                 <TableCell align="left">
                   <StyledBodyText>
-                    {cosponsor.constituency || EMPTY_CELL}
+                    {cosponsor.constituency
+                      ? cosponsor.constituency.toUpperCase()
+                      : EMPTY_CELL}
                   </StyledBodyText>
                 </TableCell>
                 <TableCell align="left">

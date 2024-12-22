@@ -14,6 +14,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { Party } from '@/common/enums/Party'
 import TagUtils from '@/modules/Common/Tag.utils'
+import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 
 export interface BillAction {
   date: string
@@ -26,7 +27,7 @@ interface BillArgs {
   id?: string
   title?: string
   sponsor?: People
-  cosponsors?: People[]
+  cosponsors?: BillCosponsor[]
   categories?: string[]
   tags?: string[]
   status?: BillStatusEnum
@@ -48,7 +49,7 @@ export class Bill {
   // 提案人
   sponsor?: People
   // 共同提案人
-  cosponsors: People[] = []
+  cosponsors: BillCosponsor[] = []
   // 類別
   categories?: string[]
   // 標籤
@@ -252,7 +253,7 @@ export class Bill {
       cosponsors:
         dto.cosponsors
           ?.map((cosponsor) =>
-            cosponsor.people ? People.fromDTO(lang, cosponsor.people) : null
+            cosponsor.people ? BillCosponsor.fromDto(lang, cosponsor) : null
           )
           .filter((cosponsor) => !isNull(cosponsor)) ?? [],
       categories: dto.categories?.map(
@@ -320,22 +321,27 @@ export class Bill {
   }
 
   static getCosponsorsParliamentData(bill: Bill): ParliamentChartData[] {
+    const cosponsors =
+      bill.cosponsors
+        .map((cosponsor) => cosponsor.people)
+        .filter((people) => !!people) ?? []
+
     return [
       {
         party: Party.DEMOCRATIC,
-        count: bill.cosponsors.filter(
+        count: cosponsors.filter(
           (cosponsor) => cosponsor.party === Party.DEMOCRATIC
         ).length,
       },
       {
         party: Party.REPUBLICAN,
-        count: bill.cosponsors.filter(
+        count: cosponsors.filter(
           (cosponsor) => cosponsor.party === Party.REPUBLICAN
         ).length,
       },
       {
         party: Party.INDEPENDENT,
-        count: bill.cosponsors.filter(
+        count: cosponsors.filter(
           (cosponsor) => cosponsor.party === Party.INDEPENDENT
         ).length,
       },

@@ -16,7 +16,7 @@ import {
   createFilterCategories,
   getFilterConstituency,
 } from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
-import { People } from '@/modules/People/classes/People'
+import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 
 type Props = {
   bill: Bill
@@ -33,16 +33,16 @@ export default function CosponsorDialog({
   const { selectedOptionList, handleSelectOption, clearAll } = useDialogFilter()
   const filterCategories = useMemo(() => createFilterCategories(bill), [bill])
 
-  const cosponsors = useMemo<People[]>(() => {
-    return (bill.cosponsors ?? []).filter((cosponsor) => {
+  const cosponsors = useMemo<BillCosponsor[]>(() => {
+    return (bill.cosponsors ?? []).filter(({ people, constituency }) => {
       const partyMatch =
-        selectedOptionList.party.length && cosponsor.party
-          ? selectedOptionList.party.includes(cosponsor.party)
+        selectedOptionList.party.length && people?.party
+          ? selectedOptionList.party.includes(people.party)
           : true
 
       const constituencyMatch = selectedOptionList.constituency.length
         ? selectedOptionList.constituency.includes(
-            getFilterConstituency(cosponsor.constituency ?? '')
+            getFilterConstituency(constituency ?? '')
           )
         : true
 
@@ -97,7 +97,7 @@ export default function CosponsorDialog({
             />
           </Grid2>
           <Grid2 size={9}>
-            <CosponsorTable billId={bill.id ?? ''} cosponsors={cosponsors} />
+            <CosponsorTable cosponsors={cosponsors} />
           </Grid2>
         </Grid2>
       </UContentCard>
