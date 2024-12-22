@@ -46,6 +46,7 @@ export interface OpinionArgs {
   content?: Array<Descendant>
   resources?: Array<OpinionResource>
   authors?: Array<OpinionAuthorArgs>
+  episodeId?: string
 }
 
 export class Opinion {
@@ -62,6 +63,7 @@ export class Opinion {
   content?: Array<Descendant>
   resources?: Array<OpinionResource>
   authors?: Array<OpinionAuthor>
+  episodeId?: string
 
   constructor(args: OpinionArgs) {
     if (isString(args.id)) {
@@ -105,6 +107,9 @@ export class Opinion {
     if (isArray(args.authors)) {
       this.authors = args.authors.map((author) => new OpinionAuthor(author))
     }
+    if (isString(args.episodeId)) {
+      this.episodeId = args.episodeId
+    }
   }
 
   get link() {
@@ -142,6 +147,7 @@ export class Opinion {
       })),
       description: dto.excerpt,
       content: dto.content,
+      episodeId: dto.podcast ?? undefined,
     })
   }
 

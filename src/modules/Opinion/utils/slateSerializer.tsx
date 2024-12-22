@@ -1,4 +1,3 @@
-import escapeHtml from 'escape-html'
 import { Text } from 'slate'
 import { ReactNode } from 'react'
 import Typography from '@mui/material/Typography'
@@ -141,7 +140,7 @@ export const serializeSlateNode = (
       ...payloadSlateToHtmlConfig,
       convertLineBreakToBr: true,
     })
-    return MUI_COMPONENT_MAP.text(escapeHtml(html))
+    return MUI_COMPONENT_MAP.text(html)
   }
 
   const type = ((node as CustomElement).type || 'paragraph') as Exclude<

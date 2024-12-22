@@ -2,7 +2,7 @@
 
 import OpinionPost from '@/modules/Opinion/components/OpinionPost'
 import { Language } from '@/common/lib/i18n/types'
-import { findOpinion } from '@/modules/Opinion/data'
+import { findAllOpinion, findOpinion } from '@/modules/Opinion/data'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import { notFound } from 'next/navigation'
 
@@ -15,5 +15,11 @@ export default function OpinionPage({ params }: OpinionPageProps) {
   if (!dto) notFound()
   const opinion = Opinion.fromDTO(params.lang, dto)
 
-  return <OpinionPost opinion={opinion} />
+  const relatedDto = findAllOpinion()
+  const relatedOpinions = relatedDto
+    .map((dto) => Opinion.fromDTO(params.lang, dto))
+    .sort((a, b) => b.date?.diff(a.date) ?? 0)
+    .slice(0, 3)
+
+  return <OpinionPost opinion={opinion} relatedOpinions={relatedOpinions} />
 }

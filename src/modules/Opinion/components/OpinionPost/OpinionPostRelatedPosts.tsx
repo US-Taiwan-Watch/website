@@ -5,7 +5,6 @@ import ULinkText from '@/common/components/atoms/ULinkText'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
-import { opinions as mockOpinions } from '@/modules/Opinion/data'
 import { ROUTES } from '@/routes'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { memo } from 'react'
@@ -17,10 +16,9 @@ interface OpinionPostRelatedPostsProps {
 const OpinionPostRelatedPosts = ({
   opinions,
 }: OpinionPostRelatedPostsProps) => {
-  // TODO: Mock 之後砍掉
-  const _opinions = opinions ?? mockOpinions.slice(0, 4)
-
   const theme = useTheme<USTWTheme>()
+
+  if (!opinions || !opinions.length) return null
 
   return (
     <Stack spacing={6} marginTop={10} marginBottom={16}>
@@ -40,7 +38,7 @@ const OpinionPostRelatedPosts = ({
         />
       </UHStack>
 
-      <OpinionPostCards opinions={_opinions} pagination={false} />
+      <OpinionPostCards opinions={opinions} pagination={false} />
     </Stack>
   )
 }

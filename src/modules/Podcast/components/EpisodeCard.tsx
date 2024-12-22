@@ -102,7 +102,7 @@ const EpisodeCard = memo(
     { className, podcastId, episodeId, onPlay, onPause }: EpisodeCardProps,
     ref
   ) {
-    const { episode } = useEpisode(podcastId, episodeId)
+    const { episode, soundonLink } = useEpisode(podcastId, episodeId)
     const memoizedEpisode = useMemo(() => episode, [episode])
 
     const {
@@ -170,8 +170,11 @@ const EpisodeCard = memo(
               alignItems="flex-start"
               justifyContent="end"
             >
-              {/** TODO: Add link to episode */}
-              <Link href={'/#'}>
+              <Link
+                href={soundonLink}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <StyledLinkIconButton
                   variant="rounded"
                   color="default"

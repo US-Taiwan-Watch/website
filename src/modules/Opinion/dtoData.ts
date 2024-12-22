@@ -823,7 +823,10 @@ export const OPINION_DTO_MOCK = [
                       currentParty: 'republican',
                       records: [],
                       sponsorBills: [],
-                      cosponsorBills: ['6752b1ca2ddcf95deb37622c'],
+                      cosponsorBills: [
+                        '6752b1ca2ddcf95deb37622c',
+                        '6754822c437319f5138bfa48',
+                      ],
                     },
                     constituency: 'newYork',
                     party: 'republican',
@@ -990,7 +993,10 @@ export const OPINION_DTO_MOCK = [
                       billCount: 0,
                       records: [],
                       sponsorBills: [],
-                      cosponsorBills: ['6752b1ca2ddcf95deb37622c'],
+                      cosponsorBills: [
+                        '6752b1ca2ddcf95deb37622c',
+                        '6754822c437319f5138bfa48',
+                      ],
                     },
                     constituency: 'nevada',
                     party: 'democratic',
@@ -1717,7 +1723,10 @@ export const OPINION_DTO_MOCK = [
                       currentParty: 'republican',
                       records: [],
                       sponsorBills: [],
-                      cosponsorBills: ['6752b1ca2ddcf95deb37622c'],
+                      cosponsorBills: [
+                        '6752b1ca2ddcf95deb37622c',
+                        '6754822c437319f5138bfa48',
+                      ],
                     },
                     constituency: 'texas',
                     party: 'republican',
@@ -1920,6 +1929,7 @@ export const OPINION_DTO_MOCK = [
                 title: 'Taiwan Conflict Deterrence Act of 2023',
                 summary:
                   '[Congress.Gov] This bill, in the event of a threat to U.S. interests by China, (1) requires additional reporting on the domestic and foreign financial activity of specified Chinese officials, and (2) prohibits certain financial transactions with specified Chinese officials.',
+                latestActionTime: '2024-09-10T00:00:00.000Z',
                 createdAt: '2024-12-06T08:11:54.651Z',
                 updatedAt: '2024-12-19T07:46:49.965Z',
                 tags: [
@@ -1961,8 +1971,20 @@ export const OPINION_DTO_MOCK = [
       },
     ],
     podcast: '8f96259e-eb1b-452d-9b29-30f1d8988d46',
-    categories: [],
-    updatedAt: '2024-12-19T07:29:30.768Z',
+    categories: [
+      {
+        id: '67556e61b3045c861e2c7059',
+        i18n: {
+          zh: {
+            name: '台美關係',
+          },
+          en: {
+            name: 'U.S.-Taiwan Relations',
+          },
+        },
+      },
+    ],
+    updatedAt: '2024-12-21T02:42:35.027Z',
     createdAt: '2024-12-09T02:53:25.666Z',
   },
   {
@@ -3074,6 +3096,7 @@ export const OPINION_DTO_MOCK = [
                 title: 'CHIPS and Science Act',
                 summary:
                   '[congress.gov] This act provides funds to support the domestic production of semiconductors and authorizes various programs and activities of the federal science agencies.',
+                latestActionTime: '2022-08-09T00:00:00.000Z',
                 createdAt: '2024-12-06T10:19:11.796Z',
                 updatedAt: '2024-12-19T07:31:32.103Z',
                 popularityRank: null,
@@ -3098,8 +3121,20 @@ export const OPINION_DTO_MOCK = [
       },
     ],
     podcast: null,
-    categories: [],
-    updatedAt: '2024-12-19T08:56:27.614Z',
+    categories: [
+      {
+        id: '67651449bc0742133dc7db26',
+        i18n: {
+          zh: {
+            name: '國際經濟',
+          },
+          en: {
+            name: 'International Economy',
+          },
+        },
+      },
+    ],
+    updatedAt: '2024-12-20T06:54:47.219Z',
     createdAt: '2024-12-09T02:51:46.609Z',
   },
   {
@@ -3305,8 +3340,20 @@ export const OPINION_DTO_MOCK = [
       },
     ],
     podcast: null,
-    categories: [],
-    updatedAt: '2024-12-19T07:27:54.209Z',
+    categories: [
+      {
+        id: '67651455bc0742133dc7db2e',
+        i18n: {
+          zh: {
+            name: '國際政治',
+          },
+          en: {
+            name: 'International Politics',
+          },
+        },
+      },
+    ],
+    updatedAt: '2024-12-20T06:54:54.253Z',
     createdAt: '2024-12-09T02:48:30.693Z',
   },
   {
@@ -3355,8 +3402,20 @@ export const OPINION_DTO_MOCK = [
       },
     ],
     podcast: null,
-    categories: [],
-    updatedAt: '2024-12-19T07:28:11.486Z',
+    categories: [
+      {
+        id: '67556e61b3045c861e2c7059',
+        i18n: {
+          zh: {
+            name: '台美關係',
+          },
+          en: {
+            name: 'U.S.-Taiwan Relations',
+          },
+        },
+      },
+    ],
+    updatedAt: '2024-12-20T06:55:18.168Z',
     createdAt: '2024-12-09T02:46:45.238Z',
   },
 ] as unknown as Article[]
