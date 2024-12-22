@@ -6460,6 +6460,7 @@ input Bill_where {
   relatedBills: Bill_relatedBills_operator
   title: Bill_title_operator
   summary: Bill_summary_operator
+  latestActionTime: Bill_latestActionTime_operator
   updatedAt: Bill_updatedAt_operator
   createdAt: Bill_createdAt_operator
   id: Bill_id_operator
@@ -6899,6 +6900,17 @@ input Bill_summary_operator {
   exists: Boolean
 }
 
+input Bill_latestActionTime_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
 input Bill_updatedAt_operator {
   equals: DateTime
   not_equals: DateTime
@@ -6965,6 +6977,7 @@ input Bill_where_and {
   relatedBills: Bill_relatedBills_operator
   title: Bill_title_operator
   summary: Bill_summary_operator
+  latestActionTime: Bill_latestActionTime_operator
   updatedAt: Bill_updatedAt_operator
   createdAt: Bill_createdAt_operator
   id: Bill_id_operator
@@ -7005,6 +7018,7 @@ input Bill_where_or {
   relatedBills: Bill_relatedBills_operator
   title: Bill_title_operator
   summary: Bill_summary_operator
+  latestActionTime: Bill_latestActionTime_operator
   updatedAt: Bill_updatedAt_operator
   createdAt: Bill_createdAt_operator
   id: Bill_id_operator
@@ -7041,6 +7055,7 @@ type BillsDocAccessFields {
   relatedBills: BillsDocAccessFields_relatedBills
   title: BillsDocAccessFields_title
   summary: BillsDocAccessFields_summary
+  latestActionTime: BillsDocAccessFields_latestActionTime
   updatedAt: BillsDocAccessFields_updatedAt
   createdAt: BillsDocAccessFields_createdAt
 }
@@ -8018,6 +8033,29 @@ type BillsDocAccessFields_summary_Update {
 }
 
 type BillsDocAccessFields_summary_Delete {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_latestActionTime {
+  create: BillsDocAccessFields_latestActionTime_Create
+  read: BillsDocAccessFields_latestActionTime_Read
+  update: BillsDocAccessFields_latestActionTime_Update
+  delete: BillsDocAccessFields_latestActionTime_Delete
+}
+
+type BillsDocAccessFields_latestActionTime_Create {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_latestActionTime_Read {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_latestActionTime_Update {
+  permission: Boolean!
+}
+
+type BillsDocAccessFields_latestActionTime_Delete {
   permission: Boolean!
 }
 
@@ -18933,6 +18971,7 @@ type BillsFields {
   relatedBills: BillsFields_relatedBills
   title: BillsFields_title
   summary: BillsFields_summary
+  latestActionTime: BillsFields_latestActionTime
   updatedAt: BillsFields_updatedAt
   createdAt: BillsFields_createdAt
 }
@@ -19910,6 +19949,29 @@ type BillsFields_summary_Update {
 }
 
 type BillsFields_summary_Delete {
+  permission: Boolean!
+}
+
+type BillsFields_latestActionTime {
+  create: BillsFields_latestActionTime_Create
+  read: BillsFields_latestActionTime_Read
+  update: BillsFields_latestActionTime_Update
+  delete: BillsFields_latestActionTime_Delete
+}
+
+type BillsFields_latestActionTime_Create {
+  permission: Boolean!
+}
+
+type BillsFields_latestActionTime_Read {
+  permission: Boolean!
+}
+
+type BillsFields_latestActionTime_Update {
+  permission: Boolean!
+}
+
+type BillsFields_latestActionTime_Delete {
   permission: Boolean!
 }
 

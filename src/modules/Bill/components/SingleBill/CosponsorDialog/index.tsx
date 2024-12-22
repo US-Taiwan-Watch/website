@@ -31,7 +31,7 @@ export default function CosponsorDialog({
 }: Props) {
   const theme = useTheme<USTWTheme>()
   const { selectedOptionList, handleSelectOption, clearAll } = useDialogFilter()
-  const categories = useMemo(() => createFilterCategories(bill), [bill])
+  const filterCategories = useMemo(() => createFilterCategories(bill), [bill])
 
   const cosponsors = useMemo<People[]>(() => {
     return (bill.cosponsors ?? []).filter((cosponsor) => {
@@ -93,7 +93,7 @@ export default function CosponsorDialog({
               selectedOptionList={selectedOptionList}
               onSelectOption={handleSelectOption}
               clearAll={clearAll}
-              categories={categories}
+              categories={filterCategories}
             />
           </Grid2>
           <Grid2 size={9}>

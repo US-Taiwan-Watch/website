@@ -134,7 +134,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                       : ''}
                   </Typography>
                 </UHStack>
-                <UHeightLimitedText maxLine={3} variant="body" fontWeight={300}>
+                <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
                   {bill.latestAction?.description}
                 </UHeightLimitedText>
               </Stack>
