@@ -321,31 +321,28 @@ export class Bill {
   }
 
   static getCosponsorsParliamentData(bill: Bill): ParliamentChartData[] {
-    const cosponsors =
-      bill.cosponsors
-        .map((cosponsor) => cosponsor.people)
-        .filter((people) => !!people) ?? []
+    const parliamentMap = bill.cosponsors.reduce<Record<Party, number>>(
+      (acc, curr) => {
+        const people = curr.people
+        if (!people) return acc
 
-    return [
-      {
-        party: Party.DEMOCRATIC,
-        count: cosponsors.filter(
-          (cosponsor) => cosponsor.party === Party.DEMOCRATIC
-        ).length,
+        const party = people.party
+        if (!party) return acc
+
+        acc[party] += 1
+        return acc
       },
       {
-        party: Party.REPUBLICAN,
-        count: cosponsors.filter(
-          (cosponsor) => cosponsor.party === Party.REPUBLICAN
-        ).length,
-      },
-      {
-        party: Party.INDEPENDENT,
-        count: cosponsors.filter(
-          (cosponsor) => cosponsor.party === Party.INDEPENDENT
-        ).length,
-      },
-    ]
+        [Party.DEMOCRATIC]: 0,
+        [Party.REPUBLICAN]: 0,
+        [Party.INDEPENDENT]: 0,
+      }
+    )
+
+    return Object.entries(parliamentMap).map(([party, count]) => ({
+      party: party as Party,
+      count,
+    }))
   }
 
   static getRelatedBills(dto: BillDTO, lang: Language): Bill[] {
