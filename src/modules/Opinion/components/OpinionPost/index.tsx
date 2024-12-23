@@ -13,12 +13,18 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
+import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
+import { config } from '@/config'
 
 interface OpinionPostProps {
   opinion: Opinion
+  relatedOpinions?: Array<Opinion>
 }
 
-const OpinionPost = function OpinionPost({ opinion }: OpinionPostProps) {
+const OpinionPost = function OpinionPost({
+  opinion,
+  relatedOpinions,
+}: OpinionPostProps) {
   return (
     <Stack gap={4} marginTop={10}>
       <Box>
@@ -49,6 +55,14 @@ const OpinionPost = function OpinionPost({ opinion }: OpinionPostProps) {
               {/** Content Section */}
               {opinion.content && (
                 <OpinionPostContent content={opinion.content} />
+              )}
+
+              {/** Podcast Section */}
+              {opinion.episodeId && config.SOUNDON_PODCAST_ID && (
+                <EpisodeCard
+                  podcastId={config.SOUNDON_PODCAST_ID}
+                  episodeId={opinion.episodeId}
+                />
               )}
 
               {/** Footer Section */}
@@ -83,7 +97,7 @@ const OpinionPost = function OpinionPost({ opinion }: OpinionPostProps) {
       {/** Related Posts Section */}
       <UFullWidthBackgroundBox>
         <Container maxWidth="lg">
-          <OpinionPostRelatedPosts />
+          <OpinionPostRelatedPosts opinions={relatedOpinions} />
         </Container>
       </UFullWidthBackgroundBox>
     </Stack>

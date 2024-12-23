@@ -15,6 +15,7 @@ import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 
 const StyledOpinionLandingBannerCardContainer = styled(Box)(({ theme }) => ({
   width: '100%',
+  height: '100%',
   borderRadius: '30px',
   padding: theme.spacing(0, 1),
 }))
@@ -114,15 +115,26 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
         </Grid>
 
         <Grid size={7}>
-          {opinion.thumbnailImage && (
-            <StyledImage
-              src={opinion.thumbnailImage.src}
-              alt={opinion.thumbnailImage.caption || opinion.title || ''}
-              width={600}
-              height={500}
-              layout="responsive"
-            />
-          )}
+          <Box
+            sx={{
+              aspectRatio: '16/9',
+            }}
+          >
+            {opinion.thumbnailImage && (
+              <StyledImage
+                src={opinion.thumbnailImage.src}
+                alt={opinion.thumbnailImage.caption || opinion.title || ''}
+                width={600}
+                height={500}
+                layout="responsive"
+                sx={{
+                  maxWidth: '100%',
+                  maxHeight: '100%',
+                }}
+                objectFit="cover"
+              />
+            )}
+          </Box>
         </Grid>
       </Grid>
     </StyledOpinionLandingBannerCardContainer>

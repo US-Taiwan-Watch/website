@@ -35,6 +35,7 @@ const HyperLinkTooltip = function HyperLinkTooltip({
           color: theme.color.orange[900],
           fontSize: theme.typography.body.fontSize,
           fontWeight: 400,
+          display: 'inline-block',
           width: 'fit-content',
         }}
         href="#"
