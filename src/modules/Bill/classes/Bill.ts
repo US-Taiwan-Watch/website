@@ -10,10 +10,11 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
-import TagUtils from '@/modules/Common/Tag.utils'
 import dayjs, { Dayjs } from 'dayjs'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { Party } from '@/common/enums/Party'
+import TagUtils from '@/modules/Common/Tag.utils'
+import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 
 export interface BillAction {
   date: string
@@ -26,7 +27,8 @@ interface BillArgs {
   id?: string
   title?: string
   sponsor?: People
-  cosponsors?: People[]
+  cosponsors?: BillCosponsor[]
+  categories?: string[]
   tags?: string[]
   status?: BillStatusEnum
   actions?: BillAction[]
@@ -47,7 +49,9 @@ export class Bill {
   // 提案人
   sponsor?: People
   // 共同提案人
-  cosponsors: People[] = []
+  cosponsors: BillCosponsor[] = []
+  // 類別
+  categories?: string[]
   // 標籤
   tags: string[] = []
   // 法案狀態
@@ -86,6 +90,9 @@ export class Bill {
     }
     if (isArray(bill.cosponsors)) {
       this.cosponsors = bill.cosponsors
+    }
+    if (isArray(bill.categories)) {
+      this.categories = bill.categories
     }
     if (isArray(bill.tags)) {
       this.tags = bill.tags
@@ -201,11 +208,7 @@ export class Bill {
     return hasPassedHouse && hasPassedSenate
   }
 
-  /**
-   * Get the current status of the bill
-   * @returns The latest achieved status
-   */
-  static GetBillLatestStatus(status: BillStatusEnum): string {
+  static GetBillStatusText(status: BillStatusEnum): string {
     switch (status) {
       case BillStatusEnum.BECOME_LAW:
         return 'Become Law'
@@ -217,6 +220,24 @@ export class Bill {
         return 'Passed House'
       case BillStatusEnum.INTRODUCED:
         return 'Introduced'
+      case BillStatusEnum.AGREED_TO_IN_HOUSE:
+        return 'Agreed to in House'
+      case BillStatusEnum.AGREED_TO_IN_SENATE:
+        return 'Agreed to in Senate'
+      case BillStatusEnum.FAILED_HOUSE:
+        return 'Failed in House'
+      case BillStatusEnum.FAILED_SENATE:
+        return 'Failed in Senate'
+      case BillStatusEnum.FAILED_TO_PASS_OVER_VETO:
+        return 'Failed to Pass Over Veto'
+      case BillStatusEnum.PASSED_OVER_VETO:
+        return 'Passed Over Veto'
+      case BillStatusEnum.POCKET_VETOED_BY_PRESIDENT:
+        return 'Pocket Vetoed by President'
+      case BillStatusEnum.RESOLVING_DIFFERENCES:
+        return 'Resolving Differences'
+      case BillStatusEnum.VETOED_BY_PRESIDENT:
+        return 'Vetoed by President'
       default:
         return 'Unknown'
     }
@@ -232,10 +253,17 @@ export class Bill {
       cosponsors:
         dto.cosponsors
           ?.map((cosponsor) =>
-            cosponsor.people ? People.fromDTO(lang, cosponsor.people) : null
+            cosponsor.people ? BillCosponsor.fromDto(lang, cosponsor) : null
           )
           .filter((cosponsor) => !isNull(cosponsor)) ?? [],
-      tags: TagUtils.parseTagNames(lang, dto.tags),
+      categories: dto.categories?.map(
+        (category) =>
+          category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
+      ),
+      tags:
+        dto.tags
+          ?.map((tag) => TagUtils.parseTagName(lang, tag))
+          .filter((name) => isString(name)) ?? [],
       statusTracker: dto.statusTracker ?? undefined,
       congressNumber: dto.congress,
       // TODO: 型態待補
@@ -250,12 +278,16 @@ export class Bill {
                 chamber: 'house' | 'senate'
               }[]
             | undefined
-        )?.map((action) => ({
-          date: action.actionAt.datetime,
-          description: action.description,
-          chamber:
-            action.chamber === 'house' ? ChamberEnum.HOUSE : ChamberEnum.SENATE,
-        })) ?? [],
+        )
+          ?.map((action) => ({
+            date: action.actionAt.datetime,
+            description: action.description,
+            chamber:
+              action.chamber === 'house'
+                ? ChamberEnum.HOUSE
+                : ChamberEnum.SENATE,
+          }))
+          ?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date))) ?? [],
       introducedAt: dto.introducedAt?.datetime,
       latestActionAt: dto.latestActionTime,
       number: dto.number,
@@ -289,26 +321,28 @@ export class Bill {
   }
 
   static getCosponsorsParliamentData(bill: Bill): ParliamentChartData[] {
-    return [
-      {
-        party: Party.DEMOCRATIC,
-        count: bill.cosponsors.filter(
-          (cosponsor) => cosponsor.party === Party.DEMOCRATIC
-        ).length,
+    const parliamentMap = bill.cosponsors.reduce<Record<Party, number>>(
+      (acc, curr) => {
+        const people = curr.people
+        if (!people) return acc
+
+        const party = people.party
+        if (!party) return acc
+
+        acc[party] += 1
+        return acc
       },
       {
-        party: Party.REPUBLICAN,
-        count: bill.cosponsors.filter(
-          (cosponsor) => cosponsor.party === Party.REPUBLICAN
-        ).length,
-      },
-      {
-        party: Party.INDEPENDENT,
-        count: bill.cosponsors.filter(
-          (cosponsor) => cosponsor.party === Party.INDEPENDENT
-        ).length,
-      },
-    ]
+        [Party.DEMOCRATIC]: 0,
+        [Party.REPUBLICAN]: 0,
+        [Party.INDEPENDENT]: 0,
+      }
+    )
+
+    return Object.entries(parliamentMap).map(([party, count]) => ({
+      party: party as Party,
+      count,
+    }))
   }
 
   static getRelatedBills(dto: BillDTO, lang: Language): Bill[] {

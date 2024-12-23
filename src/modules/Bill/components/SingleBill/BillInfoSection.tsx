@@ -31,9 +31,9 @@ const BillInfoSection = memo(function BillInfoSection({
       {/** Info */}
       <StyledInfoContainer spacing={2}>
         <UHStack spacing={2} alignItems="center">
-          {bill.tags?.[0] && (
+          {bill.categories?.[0] && (
             <UCategoryTag
-              value={bill.tags[0]}
+              value={bill.categories[0]}
               containerProps={{
                 borderRadius: '6px',
                 sx: {
@@ -45,8 +45,8 @@ const BillInfoSection = memo(function BillInfoSection({
           )}
           <Typography variant="body" fontWeight={300} mb={1}>
             {`${bill.chamberPrefix}${bill.number} | ${bill.congressNumber}th Congress`}{' '}
-            {bill.introducedAt && <>{bill.introducedAt.year()} -</>}{' '}
-            {bill.latestActionAt && <>{bill.latestActionAt.year()}</>}
+            {bill.introducedAt && <>{bill.introducedAt.year()}</>}
+            {bill.latestActionAt && <>{` - ${bill.latestActionAt.year()}`}</>}
           </Typography>
         </UHStack>
         <Typography variant="h4">{bill.title}</Typography>

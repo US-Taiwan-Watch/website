@@ -12,16 +12,8 @@ import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFi
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
 import { getBillTrendByCategory } from '@/modules/Bill/data'
-import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { useRouter } from 'next/navigation'
 import { ROUTES } from '@/routes'
-
-// TODO: 先假設資料是以此格式一筆筆紀錄，後續按照實際資料格式調整
-export type BillTrendData = {
-  congress: number
-  count: number
-  category: BillCategoryEnum
-}
 
 export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
