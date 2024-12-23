@@ -1,6 +1,6 @@
 import { getEpisode } from '@/modules/Podcast/api/soundon'
 import { Episode } from '@/modules/Podcast/classes/Episode'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 export function useEpisode(podcastId: string, episodeId: string) {
   const [episode, setEpisode] = useState<Episode | null>(null)
@@ -14,7 +14,12 @@ export function useEpisode(podcastId: string, episodeId: string) {
     fetchEpisode()
   }, [fetchEpisode])
 
+  const soundonLink = useMemo(() => {
+    return `https://player.soundon.fm/p/${podcastId}/episodes/${episodeId}`
+  }, [podcastId, episodeId])
+
   return {
     episode,
+    soundonLink,
   }
 }
