@@ -1457,7 +1457,19 @@ export const BILL_DTO_MOCK = [
           precision: ['year', 'month', 'day'],
         },
         isFeatured: false,
-        categories: [],
+        categories: [
+          {
+            id: '67488781c842897fb7f2a2a9',
+            i18n: {
+              en: {
+                name: 'Taiwan Relations Act',
+              },
+              zh: {
+                name: '台灣相關法案',
+              },
+            },
+          },
+        ],
         tags: [],
         statusTracker: {
           currentStep: 'introduced',
@@ -3058,7 +3070,19 @@ export const BILL_DTO_MOCK = [
           precision: ['year', 'month', 'day'],
         },
         isFeatured: false,
-        categories: [],
+        categories: [
+          {
+            id: '67488781c842897fb7f2a2a9',
+            i18n: {
+              en: {
+                name: 'Taiwan Relations Act',
+              },
+              zh: {
+                name: '台灣相關法案',
+              },
+            },
+          },
+        ],
         tags: [],
         statusTracker: {
           currentStep: 'becomeLaw',
@@ -3214,7 +3238,19 @@ export const BILL_DTO_MOCK = [
           precision: ['year', 'month', 'day'],
         },
         isFeatured: false,
-        categories: [],
+        categories: [
+          {
+            id: '67488781c842897fb7f2a2a9',
+            i18n: {
+              en: {
+                name: 'Taiwan Relations Act',
+              },
+              zh: {
+                name: '台灣相關法案',
+              },
+            },
+          },
+        ],
         tags: [],
         statusTracker: {
           currentStep: 'introduced',
@@ -5028,7 +5064,19 @@ export const BILL_DTO_MOCK = [
           precision: ['year', 'month', 'day'],
         },
         isFeatured: false,
-        categories: [],
+        categories: [
+          {
+            id: '67488781c842897fb7f2a2a9',
+            i18n: {
+              en: {
+                name: 'Taiwan Relations Act',
+              },
+              zh: {
+                name: '台灣相關法案',
+              },
+            },
+          },
+        ],
         tags: [],
         statusTracker: {
           currentStep: 'becomeLaw',
@@ -5184,7 +5232,19 @@ export const BILL_DTO_MOCK = [
           precision: ['year', 'month', 'day'],
         },
         isFeatured: false,
-        categories: [],
+        categories: [
+          {
+            id: '67488781c842897fb7f2a2a9',
+            i18n: {
+              en: {
+                name: 'Taiwan Relations Act',
+              },
+              zh: {
+                name: '台灣相關法案',
+              },
+            },
+          },
+        ],
         tags: [],
         statusTracker: {
           currentStep: 'introduced',
