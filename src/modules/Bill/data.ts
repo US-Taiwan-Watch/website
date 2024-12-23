@@ -5,16 +5,8 @@ import { People } from '@/modules/People/classes/People'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { ChamberEnum } from '@/common/enums/Chamber'
-import { BillCategoryEnum } from '@/modules/Bill/components/BillFilter/enums'
-import { BillTrendData } from '@/modules/Bill/components/BillLanding/TrendCard'
-import {
-  CONGRESS_NUMBER_MIN,
-  CURRENT_CONGRESS_NUMBER,
-} from '@/common/assets/constants'
-import {
-  BILL_DTO_MOCK,
-  BILL_ID_COSPONSORED_TIME_MAP_DTO_MOCK,
-} from '@/modules/Bill/dtoData'
+import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
+import { BILL_DTO_MOCK } from '@/modules/Bill/dtoData'
 import {
   CategoriesBills,
   TopCosponsorsQuery,
@@ -218,19 +210,6 @@ export const BILL_DATA_MOCK: Bill[] = BILL_DTO_MOCK.map((dto) =>
   Bill.fromDTO('en-US', dto)
 )
 
-export const BILL_TREND_CHART_DATA_MOCK: BillTrendData[] = Array.from(
-  { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
-  (_, index) => {
-    return Object.values(BillCategoryEnum)
-      .filter((category) => typeof category !== 'string')
-      .map((category) => ({
-        congress: CONGRESS_NUMBER_MIN + index,
-        count: Math.floor(Math.random() * 10) + 1,
-        category,
-      }))
-  }
-).flat()
-
 export const BILL_TAG_MOCK: string[] = [
   'Health',
   'Trade',
@@ -253,10 +232,6 @@ export const findAllBill = () => {
 
 export const findBill = (id: string) => {
   return BILL_DTO_MOCK.find((bill) => bill.id === id)
-}
-
-export const getBillCosponsorsTimeMap = (billId: string) => {
-  return BILL_ID_COSPONSORED_TIME_MAP_DTO_MOCK[billId] ?? {}
 }
 
 export const getBillTopTags = (): TopTagsQuery[] => {
@@ -5226,7 +5201,7 @@ export const getLatestBills = (lang: Language): Bill[] => {
       updatedAt: '2024-12-07T17:13:16.607Z',
     },
   ] as unknown as BillDto[]
-  return data.map((item) => Bill.fromDTO(lang, item))
+  return data.map((item) => Bill.fromDTO(lang, item)).slice(0, 5)
 }
 
 export const getPopularBills = (lang: Language): Bill[] => {

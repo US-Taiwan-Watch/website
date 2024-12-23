@@ -50,7 +50,7 @@ export type AddBillCountPeopleQuery = {
 export type Article = {
   __typename?: 'Article';
   authors?: Maybe<Array<Author>>;
-  categories?: Maybe<Array<CategoriesArticle>>;
+  categories: Array<CategoriesArticle>;
   content?: Maybe<Scalars['JSON']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   excerpt: Scalars['String']['output'];
@@ -603,7 +603,6 @@ export type Article_Authors_Operator = {
 export type Article_Categories_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   equals?: InputMaybe<Scalars['JSON']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
   not_equals?: InputMaybe<Scalars['JSON']['input']>;
   not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
@@ -3229,6 +3228,17 @@ export type Bill_IsFeatured_Operator = {
   not_equals?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type Bill_LatestActionTime_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
 export type Bill_Number_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
@@ -3461,6 +3471,7 @@ export type Bill_Where = {
   introducedAt__datetime?: InputMaybe<Bill_IntroducedAt__Datetime_Operator>;
   introducedAt__precision?: InputMaybe<Bill_IntroducedAt__Precision_Operator>;
   isFeatured?: InputMaybe<Bill_IsFeatured_Operator>;
+  latestActionTime?: InputMaybe<Bill_LatestActionTime_Operator>;
   number?: InputMaybe<Bill_Number_Operator>;
   popularityRank?: InputMaybe<Bill_PopularityRank_Operator>;
   relatedBills?: InputMaybe<Bill_RelatedBills_Operator>;
@@ -3501,6 +3512,7 @@ export type Bill_Where_And = {
   introducedAt__datetime?: InputMaybe<Bill_IntroducedAt__Datetime_Operator>;
   introducedAt__precision?: InputMaybe<Bill_IntroducedAt__Precision_Operator>;
   isFeatured?: InputMaybe<Bill_IsFeatured_Operator>;
+  latestActionTime?: InputMaybe<Bill_LatestActionTime_Operator>;
   number?: InputMaybe<Bill_Number_Operator>;
   popularityRank?: InputMaybe<Bill_PopularityRank_Operator>;
   relatedBills?: InputMaybe<Bill_RelatedBills_Operator>;
@@ -3541,6 +3553,7 @@ export type Bill_Where_Or = {
   introducedAt__datetime?: InputMaybe<Bill_IntroducedAt__Datetime_Operator>;
   introducedAt__precision?: InputMaybe<Bill_IntroducedAt__Precision_Operator>;
   isFeatured?: InputMaybe<Bill_IsFeatured_Operator>;
+  latestActionTime?: InputMaybe<Bill_LatestActionTime_Operator>;
   number?: InputMaybe<Bill_Number_Operator>;
   popularityRank?: InputMaybe<Bill_PopularityRank_Operator>;
   relatedBills?: InputMaybe<Bill_RelatedBills_Operator>;
@@ -3605,6 +3618,7 @@ export type BillsDocAccessFields = {
   i18n?: Maybe<BillsDocAccessFields_I18n>;
   introducedAt?: Maybe<BillsDocAccessFields_IntroducedAt>;
   isFeatured?: Maybe<BillsDocAccessFields_IsFeatured>;
+  latestActionTime?: Maybe<BillsDocAccessFields_LatestActionTime>;
   number?: Maybe<BillsDocAccessFields_Number>;
   popularityRank?: Maybe<BillsDocAccessFields_PopularityRank>;
   relatedBills?: Maybe<BillsDocAccessFields_RelatedBills>;
@@ -4422,6 +4436,34 @@ export type BillsDocAccessFields_IsFeatured_Update = {
   permission: Scalars['Boolean']['output'];
 };
 
+export type BillsDocAccessFields_LatestActionTime = {
+  __typename?: 'BillsDocAccessFields_latestActionTime';
+  create?: Maybe<BillsDocAccessFields_LatestActionTime_Create>;
+  delete?: Maybe<BillsDocAccessFields_LatestActionTime_Delete>;
+  read?: Maybe<BillsDocAccessFields_LatestActionTime_Read>;
+  update?: Maybe<BillsDocAccessFields_LatestActionTime_Update>;
+};
+
+export type BillsDocAccessFields_LatestActionTime_Create = {
+  __typename?: 'BillsDocAccessFields_latestActionTime_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_LatestActionTime_Delete = {
+  __typename?: 'BillsDocAccessFields_latestActionTime_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_LatestActionTime_Read = {
+  __typename?: 'BillsDocAccessFields_latestActionTime_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsDocAccessFields_LatestActionTime_Update = {
+  __typename?: 'BillsDocAccessFields_latestActionTime_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
 export type BillsDocAccessFields_Number = {
   __typename?: 'BillsDocAccessFields_number';
   create?: Maybe<BillsDocAccessFields_Number_Create>;
@@ -4867,6 +4909,7 @@ export type BillsFields = {
   i18n?: Maybe<BillsFields_I18n>;
   introducedAt?: Maybe<BillsFields_IntroducedAt>;
   isFeatured?: Maybe<BillsFields_IsFeatured>;
+  latestActionTime?: Maybe<BillsFields_LatestActionTime>;
   number?: Maybe<BillsFields_Number>;
   popularityRank?: Maybe<BillsFields_PopularityRank>;
   relatedBills?: Maybe<BillsFields_RelatedBills>;
@@ -5681,6 +5724,34 @@ export type BillsFields_IsFeatured_Read = {
 
 export type BillsFields_IsFeatured_Update = {
   __typename?: 'BillsFields_isFeatured_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_LatestActionTime = {
+  __typename?: 'BillsFields_latestActionTime';
+  create?: Maybe<BillsFields_LatestActionTime_Create>;
+  delete?: Maybe<BillsFields_LatestActionTime_Delete>;
+  read?: Maybe<BillsFields_LatestActionTime_Read>;
+  update?: Maybe<BillsFields_LatestActionTime_Update>;
+};
+
+export type BillsFields_LatestActionTime_Create = {
+  __typename?: 'BillsFields_latestActionTime_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_LatestActionTime_Delete = {
+  __typename?: 'BillsFields_latestActionTime_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_LatestActionTime_Read = {
+  __typename?: 'BillsFields_latestActionTime_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type BillsFields_LatestActionTime_Update = {
+  __typename?: 'BillsFields_latestActionTime_Update';
   permission: Scalars['Boolean']['output'];
 };
 
