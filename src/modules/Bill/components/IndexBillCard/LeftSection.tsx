@@ -7,7 +7,6 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
-import { billStatusList } from '@/modules/Bill/constants'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
@@ -40,8 +39,8 @@ export default function LeftSection({ bill }: Props) {
     <Stack justifyContent="space-between" height="100%">
       <Stack>
         <UTagListWithSelectable
-          tags={(bill.tags ?? []).map((tag, index) => (
-            <UCategoryTag key={index} value={tag} />
+          tags={(bill.categories ?? []).map((category, index) => (
+            <UCategoryTag key={index} value={category} />
           ))}
           containerProps={{
             gap: 0.5,
@@ -73,17 +72,21 @@ export default function LeftSection({ bill }: Props) {
         <UHStack spacing={0.5} alignItems="center">
           <Typography variant="body">Tracker:</Typography>
           <Typography variant="articleH4">
-            {Bill.GetBillLatestStatus(
+            {Bill.GetBillStatusText(
               bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED
             )}
           </Typography>
           <UCardInfo
-            content={Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]}
+            content={Bill.GetBillStatusText(
+              Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]
+            )}
           />
         </UHStack>
         <Box mx={-6}>
           <UTimeline
-            data={billStatusList}
+            data={Bill.getAllBillStatuses(bill).map((status) => ({
+              title: Bill.GetBillStatusText(status),
+            }))}
             activeIndex={Bill.getStatusIndex(bill)}
             isHorizontal
           />

@@ -16,6 +16,8 @@ import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import { Party } from '@/common/enums/Party'
 import UHStack from '@/common/components/atoms/UHStack'
 import { ChamberEnum } from '@/common/enums/Chamber'
+import dayjs from 'dayjs'
+import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 
 const EMPTY_CELL = '-'
 
@@ -37,7 +39,7 @@ const StyledBodyText = styled(Typography)(({ theme }) => ({
 const headers: string[] = ['Name', 'Party', 'Constituency', 'Date Sponsored']
 
 type Props = {
-  cosponsors: People[]
+  cosponsors: BillCosponsor[]
 }
 
 const getName = (people: People) => {
@@ -52,6 +54,7 @@ const getName = (people: People) => {
 
 export default function CosponsorTable({ cosponsors }: Props) {
   const theme = useTheme<USTWTheme>()
+
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>
       <Table stickyHeader>
@@ -70,41 +73,49 @@ export default function CosponsorTable({ cosponsors }: Props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {cosponsors.map((cosponsor) => (
-            <TableRow
-              key={cosponsor.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                <StyledNameText>
-                  {cosponsor.name ? getName(cosponsor) : EMPTY_CELL}
-                </StyledNameText>
-              </TableCell>
-              <TableCell align="left">
-                <UHStack spacing={1} alignItems="center">
-                  <UPoliticalPartyIcon
-                    variant="rounded"
-                    party={cosponsor.party ?? Party.INDEPENDENT}
-                    size="small"
-                  />
-                  <StyledBodyText textTransform="capitalize">
-                    {cosponsor.party
-                      ? cosponsor.party.toLowerCase()
+          {cosponsors.map((cosponsor, index) => {
+            const cosponsoredAt = cosponsor.cosponsoredAt
+            const people = cosponsor.people
+
+            return (
+              <TableRow
+                key={index}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  <StyledNameText>
+                    {people?.name ? getName(people) : EMPTY_CELL}
+                  </StyledNameText>
+                </TableCell>
+                <TableCell align="left">
+                  <UHStack spacing={1} alignItems="center">
+                    <UPoliticalPartyIcon
+                      variant="rounded"
+                      party={people?.party ?? Party.INDEPENDENT}
+                      size="small"
+                    />
+                    <StyledBodyText textTransform="capitalize">
+                      {people?.party ? people.party.toLowerCase() : EMPTY_CELL}
+                    </StyledBodyText>
+                  </UHStack>
+                </TableCell>
+                <TableCell align="left">
+                  <StyledBodyText>
+                    {cosponsor.constituency
+                      ? cosponsor.constituency.toUpperCase()
                       : EMPTY_CELL}
                   </StyledBodyText>
-                </UHStack>
-              </TableCell>
-              <TableCell align="left">
-                <StyledBodyText>
-                  {cosponsor.constituency || EMPTY_CELL}
-                </StyledBodyText>
-              </TableCell>
-              <TableCell align="left">
-                {/* TODO: 待確認日期是跟著法案or人 */}
-                <StyledBodyText>01/01/2024</StyledBodyText>
-              </TableCell>
-            </TableRow>
-          ))}
+                </TableCell>
+                <TableCell align="left">
+                  <StyledBodyText>
+                    {cosponsoredAt && dayjs(cosponsoredAt).isValid()
+                      ? dayjs(cosponsoredAt).format('MM/DD/YYYY')
+                      : EMPTY_CELL}
+                  </StyledBodyText>
+                </TableCell>
+              </TableRow>
+            )
+          })}
         </TableBody>
       </Table>
     </TableContainer>

@@ -7,7 +7,6 @@ import UTimeline from '@/common/components/atoms/UTimeline'
 import { Party } from '@/common/enums/Party'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
@@ -53,10 +52,10 @@ export default function BillCard({ mode, simplified, bill }: Props) {
       }}
     >
       <UHStack gap={4} alignItems="start" justifyContent="space-between">
-        <Stack>
+        <Stack flexGrow={1}>
           <UTagList
-            tags={(bill.tags ?? []).map((tag, index) => (
-              <UCategoryTag key={index} value={tag} />
+            tags={(bill.categories ?? []).map((category, index) => (
+              <UCategoryTag key={index} value={category} />
             ))}
             containerProps={{
               gap: '6px',
@@ -66,7 +65,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix} | ${CURRENT_CONGRESS_NUMBER}th Congress`}
+            {`${bill.chamberPrefix} | ${bill.congressNumber}th Congress`}
           </Typography>
 
           <Link href={bill.link}>
@@ -74,6 +73,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               maxLine={4}
               variant="subtitleL"
               fontWeight={700}
+              minHeight={132} // NOTE: 讓不同卡片的元件對齊
             >
               {bill.title}
             </UHeightLimitedText>
@@ -83,7 +83,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             <Box mx={-2} mt={4}>
               <UTimeline
                 data={Bill.getAllBillStatuses(bill).map((status) => ({
-                  title: status, // TODO: add i18n
+                  title: Bill.GetBillStatusText(status),
                 }))}
                 activeIndex={Bill.getStatusIndex(bill)}
                 isHorizontal
@@ -134,7 +134,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                       : ''}
                   </Typography>
                 </UHStack>
-                <UHeightLimitedText maxLine={3} variant="body" fontWeight={300}>
+                <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
                   {bill.latestAction?.description}
                 </UHeightLimitedText>
               </Stack>
@@ -147,15 +147,15 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             <UTimeline
               itemMinHeight={50}
               data={Bill.getAllBillStatuses(bill).map((status) => ({
-                title: status, // TODO: add i18n
+                title: Bill.GetBillStatusText(status),
               }))}
               activeIndex={Bill.getStatusIndex(bill)}
             />
             <Box>
               <UCardInfo
-                content={
+                content={Bill.GetBillStatusText(
                   Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]
-                }
+                )}
                 iconProps={{
                   sx: { color: theme.color.neutral[300] },
                 }}

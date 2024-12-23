@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import {
-  BillCategoryEnum,
   BillPartyEnum,
   BillTypeEnum,
   BillStatusEnum,
@@ -11,7 +10,7 @@ import {
   CURRENT_CONGRESS_NUMBER,
 } from '@/common/assets/constants'
 
-export const categorySchema = z.array(z.nativeEnum(BillCategoryEnum))
+export const categorySchema = z.array(z.string())
 
 export const partySchema = z.array(z.nativeEnum(BillPartyEnum))
 
