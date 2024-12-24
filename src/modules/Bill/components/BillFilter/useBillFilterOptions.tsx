@@ -11,14 +11,13 @@ import {
   BillStatusEnum,
   BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
-import {
-  BILL_SPONSOR_MOCK,
-  BILL_TAG_MOCK,
-  getCategoriesBills,
-} from '@/modules/Bill/data'
+import { getAllTags, getCategoriesBills } from '@/modules/Bill/data'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { useParams } from 'next/navigation'
 import { useMemo } from 'react'
+import { findAllPeople } from '@/modules/People/data'
+import { People } from '@/modules/People/classes/People'
+import TagUtils from '@/modules/Common/Tag.utils'
 
 export type BillFilterOption<T> = {
   value: T
@@ -119,13 +118,16 @@ export default function useBillFilterOptions() {
     []
   )
 
-  const sponsorsOptions = useMemo<BillFilterOption<number>[]>(
+  const sponsorsOptions = useMemo<BillFilterOption<string>[]>(
     () =>
-      BILL_SPONSOR_MOCK.map((sponsor) => ({
-        value: Number(sponsor.id),
-        label: sponsor.name ?? '',
-      })),
-    []
+      findAllPeople().map((dto) => {
+        const people = People.fromDTO(lang, dto)
+        return {
+          value: people.id ?? '',
+          label: people.name ?? '',
+        }
+      }),
+    [lang]
   )
 
   const cosponsorsOptions = useMemo(() => sponsorsOptions, [sponsorsOptions])
@@ -138,14 +140,13 @@ export default function useBillFilterOptions() {
     []
   )
 
-  // TODO: 確認 tag 怎麼來
   const tagOptions = useMemo<BillFilterOption<string>[]>(
     () =>
-      BILL_TAG_MOCK.map((tag) => ({
-        value: tag,
-        label: tag,
+      (getAllTags()?.docs ?? []).map((tag) => ({
+        value: tag?.id ?? '',
+        label: TagUtils.parseTagName(lang, tag) ?? '',
       })),
-    []
+    [lang]
   )
 
   return {
