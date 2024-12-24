@@ -31,8 +31,8 @@ export default function BillList() {
     const result = billFilterSchema.safeParse({
       ...(category && { category: [category] }),
       ...(congress && { congress: [Number(congress)] }),
-      ...(sponsor && { sponsors: [Number(sponsor)] }),
-      ...(cosponsor && { cosponsors: [Number(cosponsor)] }),
+      ...(sponsor && { sponsors: [sponsor] }),
+      ...(cosponsor && { cosponsors: [cosponsor] }),
       ...(tag && { tag: [tag] }),
       ...(sorter && { sorter: Number(sorter) }),
     })

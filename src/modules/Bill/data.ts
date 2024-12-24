@@ -1,11 +1,7 @@
-import { Congress } from '@/common/classes/Congress'
 import { Party } from '@/common/enums/Party'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { People } from '@/modules/People/classes/People'
-import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { ChamberEnum } from '@/common/enums/Chamber'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { BILL_DTO_MOCK } from '@/modules/Bill/dtoData'
 import {
   CategoriesBills,
@@ -15,166 +11,9 @@ import {
   TrendByCategoryQuery,
   Bill as BillDto,
   CountBills,
+  Tags,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
-
-const sponsor1 = new People({
-  id: '1',
-  name: 'Jeff Merkley',
-  image: '/assets/category1.jpg',
-  description:
-    "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
-  party: Party.DEMOCRATIC,
-  position: PeoplePosition.SENATOR,
-  chamber: ChamberEnum.SENATE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'IL',
-})
-
-const sponsor2 = new People({
-  id: '2',
-  name: 'Ami Bera',
-  image: '/assets/category1.jpg',
-  description:
-    "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
-  party: Party.REPUBLICAN,
-  position: PeoplePosition.HOUSE_REPRESENTATIVE,
-  chamber: ChamberEnum.HOUSE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'NJ',
-})
-
-const sponsor3 = new People({
-  id: '3',
-  name: 'Jon Ossoff',
-  image: '/assets/category1.jpg',
-  description:
-    "Nunn is the representative for Iowa's 3rd congressional district(view map) and is a Nunn is the representative for Iowa's 3rd congressional district (view map) and is a Nunn is the representative for Iowa's 3rd congressional district(view map)",
-  party: Party.INDEPENDENT,
-  position: PeoplePosition.SENATOR,
-  chamber: ChamberEnum.SENATE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'WA',
-})
-
-const sponsor4 = new People({
-  id: '4',
-  name: 'Tammy Baldwin',
-  image: '/assets/category1.jpg',
-  description:
-    "Baldwin is the representative for Wisconsin's 2nd congressional district.",
-  party: Party.DEMOCRATIC,
-  position: PeoplePosition.SENATOR,
-  chamber: ChamberEnum.SENATE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'WI',
-})
-
-const sponsor5 = new People({
-  id: '5',
-  name: 'Liz Cheney',
-  image: '/assets/category1.jpg',
-  description:
-    "Cheney is the representative for Wyoming's at-large congressional district.",
-  party: Party.REPUBLICAN,
-  position: PeoplePosition.HOUSE_REPRESENTATIVE,
-  chamber: ChamberEnum.HOUSE,
-  congress: new Congress({
-    congressNumber: CURRENT_CONGRESS_NUMBER,
-    startYear: 2023,
-    endYear: 2025,
-    houseMembers: 100,
-    houseDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-    senateMembers: 100,
-    senateDistribution: new Map([
-      [Party.DEMOCRATIC, 50],
-      [Party.REPUBLICAN, 50],
-    ]),
-  }),
-  partyExperience: [],
-  experience: [],
-  tags: [],
-  constituency: 'WY',
-})
-
-export const BILL_SPONSOR_MOCK: People[] = [
-  sponsor1,
-  sponsor2,
-  sponsor3,
-  sponsor4,
-  sponsor5,
-]
 
 export const PARLIAMENT_CHART_DATA_MOCK_1: ParliamentChartData[] = [
   {
@@ -210,16 +49,6 @@ export const BILL_DATA_MOCK: Bill[] = BILL_DTO_MOCK.map((dto) =>
   Bill.fromDTO('en-US', dto)
 )
 
-export const BILL_TAG_MOCK: string[] = [
-  'Health',
-  'Trade',
-  'Environment',
-  'Technology',
-  'Social Policy',
-  'Economy',
-  'Business',
-]
-
 export const getCurrentCongressBillCount = (): CountBills => {
   return {
     totalDocs: 11,
@@ -251,6 +80,49 @@ export const getBillTopTags = (): TopTagsQuery[] => {
       },
     },
   ]
+}
+
+export const getAllTags = (): Tags => {
+  return {
+    docs: [
+      {
+        id: '6758e385e981ce40d9597c90',
+        i18n: {
+          en: {
+            name: 'TSMC',
+          },
+          zh: {
+            name: '台積電',
+          },
+        },
+        isFeatured: true,
+      },
+      {
+        id: '6758e2c4e981ce40d9597c5a',
+        i18n: {
+          en: {
+            name: 'Shutsung Liao',
+          },
+          zh: {
+            name: '廖述宗',
+          },
+        },
+        isFeatured: true,
+      },
+      {
+        id: '6749a45ca313f435f157fc3a',
+        i18n: {
+          en: {
+            name: 'Taiwan Caucus',
+          },
+          zh: {
+            name: '國會台灣連線',
+          },
+        },
+        isFeatured: true,
+      },
+    ],
+  }
 }
 
 export const getCategoriesBills = (): CategoriesBills => {
