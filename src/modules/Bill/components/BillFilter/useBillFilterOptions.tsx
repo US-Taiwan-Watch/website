@@ -118,18 +118,16 @@ export default function useBillFilterOptions() {
     []
   )
 
-  const allPeople = useMemo<People[]>(
-    () => findAllPeople().map((dto) => People.fromDTO(lang, dto)),
-    [lang]
-  )
-
   const sponsorsOptions = useMemo<BillFilterOption<string>[]>(
     () =>
-      allPeople.map((people) => ({
-        value: people.id ?? '',
-        label: people.name ?? '',
-      })),
-    [allPeople]
+      findAllPeople().map((dto) => {
+        const people = People.fromDTO(lang, dto)
+        return {
+          value: people.id ?? '',
+          label: people.name ?? '',
+        }
+      }),
+    [lang]
   )
 
   const cosponsorsOptions = useMemo(() => sponsorsOptions, [sponsorsOptions])
