@@ -18,20 +18,21 @@ export default function PopularTags() {
     <Stack px={2} spacing={2}>
       <Typography variant="subtitleS">Popular Tags :</Typography>
       <UHStack spacing={1}>
-        {TagUtils.parseTagNames(
-          lang,
-          topTags.map(({ tag }) => tag)
-        ).map((tag, index) => (
+        {topTags.map(({ tag }, index) => (
           <Link
             href={{
               pathname: ROUTES.BILL_LIST,
               query: {
-                tag,
+                tag: tag?.id ?? '',
               },
             }}
             key={index}
           >
-            <UCategoryChip label={tag} active={index === 0} size="medium" />
+            <UCategoryChip
+              label={TagUtils.parseTagName(lang, tag)}
+              active={index === 0}
+              size="medium"
+            />
           </Link>
         ))}
       </UHStack>

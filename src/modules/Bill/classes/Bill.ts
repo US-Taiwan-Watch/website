@@ -256,10 +256,13 @@ export class Bill {
             cosponsor.people ? BillCosponsor.fromDto(lang, cosponsor) : null
           )
           .filter((cosponsor) => !isNull(cosponsor)) ?? [],
-      categories: dto.categories?.map(
-        (category) =>
-          category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
-      ),
+      categories:
+        dto.categories
+          ?.map(
+            (category) =>
+              category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name
+          )
+          .filter((name) => isString(name)) ?? [],
       tags:
         dto.tags
           ?.map((tag) => TagUtils.parseTagName(lang, tag))
