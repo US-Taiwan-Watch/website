@@ -15,7 +15,7 @@ export enum PeoplePartyEnum {
   Independent,
 }
 
-export enum PeopleAreaEnum {
+export enum PeopleOfficialAreaEnum {
   TradeEconomy = 1,
   DefenseSecurity,
   Diplomacy,
@@ -24,7 +24,7 @@ export enum PeopleAreaEnum {
   Other,
 }
 
-export enum PeopleAffiliationEnum {
+export enum PeopleCompanyTypeEnum {
   ThinkTank = 1,
   Academic,
   Media,

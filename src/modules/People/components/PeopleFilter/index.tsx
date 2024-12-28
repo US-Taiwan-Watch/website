@@ -14,8 +14,8 @@ import {
 import { Controller } from 'react-hook-form'
 import {
   PeopleCategoryEnum,
-  PeopleAffiliationEnum,
-  PeopleAreaEnum,
+  PeopleCompanyTypeEnum,
+  PeopleOfficialAreaEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
 import UFilterTextField from '@/common/components/atoms/UFilterTextField'
@@ -27,7 +27,11 @@ type SecondLevelSelector = {
   /** MUI Autocomplete 必須設定 minWidth 因為底下 Label 是 absolute 因此 TextField 不會被撐開 */
   minWidth: number
   options: PeopleFilterOption<
-    PeopleAffiliationEnum | PeopleAreaEnum | PeoplePartyEnum | number | string
+    | PeopleCompanyTypeEnum
+    | PeopleOfficialAreaEnum
+    | PeoplePartyEnum
+    | number
+    | string
   >[]
 }
 
@@ -46,8 +50,8 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     stateOrTerritoryOptions,
     districtOptions,
     tagOptions,
-    areaOptions,
-    affiliationOptions,
+    officialAreaOptions,
+    companyTypeOptions,
   } = usePeopleFilterOptions()
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(() => {
@@ -131,19 +135,19 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     // Area
     if ([PeopleCategoryEnum.Official].includes(category)) {
       selectors.push({
-        key: 'area',
-        label: 'Area',
-        options: areaOptions,
+        key: 'officialArea',
+        label: 'Official Area',
+        options: officialAreaOptions,
         minWidth: 140,
       })
     }
 
-    // Affiliation
+    // Company Type
     if ([PeopleCategoryEnum.Expert].includes(category)) {
       selectors.push({
-        key: 'affiliation',
-        label: 'Affiliation',
-        options: affiliationOptions,
+        key: 'companyType',
+        label: 'Company Type',
+        options: companyTypeOptions,
         minWidth: 200,
       })
     }
@@ -157,8 +161,8 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     stateOrTerritoryOptions,
     districtOptions,
     tagOptions,
-    areaOptions,
-    affiliationOptions,
+    officialAreaOptions,
+    companyTypeOptions,
   ])
 
   const handleSubmit = useCallback(

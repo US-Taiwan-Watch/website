@@ -467,7 +467,10 @@ export class People {
       .flatMap(
         (item) =>
           item.positions?.flatMap((position) =>
-            position.end?.datetime ? dayjs(position.end.datetime).year() : []
+            // 如果沒有 end，代表還在任職中，所以取目前年份
+            position.end?.datetime
+              ? dayjs(position.end.datetime).year()
+              : dayjs().year()
           ) ?? []
       )
       .filter(isNumber)
