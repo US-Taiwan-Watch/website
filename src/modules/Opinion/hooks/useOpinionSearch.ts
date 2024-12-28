@@ -1,5 +1,5 @@
 import { Language } from '@/common/lib/i18n/types'
-import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import { filterOpinionsByCategory } from '@/modules/Opinion/data'
 import { useParams } from 'next/navigation'

@@ -1,8 +1,8 @@
 import { Tag } from '@/common/lib/graphql/__generated__/graphql'
-import { config } from '@/config'
+import createSelectors from '@/common/lib/zustand/hooks/createSelectors'
 import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
-import { mountStoreDevtool } from 'simple-zustand-devtools'
 import { create } from 'zustand'
+import { devtools } from 'zustand/middleware'
 
 type State = {
   /** 首頁 Tags */
@@ -21,15 +21,20 @@ const initialState: State = {
   highlightedCategories: [],
 }
 
-const useOpinionStore = create<State & Action>((set) => ({
-  ...initialState,
-  setLandingTags: (tags) => set(() => ({ landingTags: tags })),
-  setHomeHighlightedCategories: (categories) =>
-    set(() => ({ highlightedCategories: categories })),
-}))
+const useOpinionStore = createSelectors(
+  create<State & Action>()(
+    devtools(
+      (set) => ({
+        ...initialState,
+        setLandingTags: (tags) => set(() => ({ landingTags: tags })),
+        setHomeHighlightedCategories: (categories) =>
+          set(() => ({ highlightedCategories: categories })),
+      }),
+      {
+        name: 'OpinionStore',
+      }
+    )
+  )
+)
 
 export default useOpinionStore
-
-if (config.NODE_ENV === 'development') {
-  mountStoreDevtool('OpinionStore', useOpinionStore)
-}

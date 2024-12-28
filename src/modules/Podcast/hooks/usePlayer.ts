@@ -102,25 +102,22 @@ export interface UsePlayerWithUIParams
 // 加上 UI 控制組件的 usePlayer
 export const usePlayerWithUI = ({
   audioUrl,
-  episodeId,
-  podcastId,
+  episode,
   onPlay,
   onPause,
 }: UsePlayerWithUIParams) => {
   const memoizedAudioUrl = useMemo(() => audioUrl, [audioUrl])
   const memoizedOnPlay = useCallback(() => {
     onPlay?.({
-      podcastId,
-      episodeId,
+      episode,
     })
-  }, [onPlay, podcastId, episodeId])
+  }, [onPlay, episode])
 
   const memoizedOnPause = useCallback(() => {
     onPause?.({
-      podcastId,
-      episodeId,
+      episode,
     })
-  }, [onPause, podcastId, episodeId])
+  }, [onPause, episode])
 
   const { playerRef, playing, progress, remainingTime, play, pause } =
     usePlayer({

@@ -1,6 +1,5 @@
 'use client'
 
-import { useEpisode } from '@/modules/Podcast/hooks/useEpisode'
 import {
   memo,
   forwardRef,
@@ -79,15 +78,13 @@ const IndexEpisodeCard = memo(
   forwardRef<EpisodeCardRef, IndexEpisodeCardProps>(function IndexEpisodeCard(
     {
       className,
-      podcastId,
-      episodeId,
+      episode,
       onPlay,
       onPause,
       containerProps,
     }: IndexEpisodeCardProps,
     ref
   ) {
-    const { episode } = useEpisode(podcastId, episodeId)
     const memoizedEpisode = useMemo(() => episode, [episode])
 
     const {
@@ -98,8 +95,7 @@ const IndexEpisodeCard = memo(
       handleSliderChange,
     } = usePlayerWithUI({
       audioUrl: memoizedEpisode?.audioUrl,
-      episodeId,
-      podcastId,
+      episode: memoizedEpisode,
       onPlay,
       onPause,
     })

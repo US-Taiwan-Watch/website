@@ -2,7 +2,7 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 

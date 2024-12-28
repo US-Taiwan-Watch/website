@@ -1,6 +1,5 @@
 'use client'
 
-import { useEpisode } from '@/modules/Podcast/hooks/useEpisode'
 import { memo, forwardRef, useImperativeHandle, useMemo } from 'react'
 
 import { Typography, Slider, Stack, Grid2 as Grid } from '@mui/material'
@@ -99,10 +98,9 @@ interface EpisodeCardProps extends GeneralEpisodeCardProps {
 
 const EpisodeCard = memo(
   forwardRef<EpisodeCardRef, EpisodeCardProps>(function EpisodeCard(
-    { className, podcastId, episodeId, onPlay, onPause }: EpisodeCardProps,
+    { className, episode, onPlay, onPause }: EpisodeCardProps,
     ref
   ) {
-    const { episode, soundonLink } = useEpisode(podcastId, episodeId)
     const memoizedEpisode = useMemo(() => episode, [episode])
 
     const {
@@ -115,8 +113,7 @@ const EpisodeCard = memo(
       handleForwardClick,
     } = usePlayerWithUI({
       audioUrl: memoizedEpisode?.audioUrl,
-      episodeId,
-      podcastId,
+      episode: memoizedEpisode,
       onPlay,
       onPause,
     })
@@ -171,7 +168,7 @@ const EpisodeCard = memo(
               justifyContent="end"
             >
               <Link
-                href={soundonLink}
+                href={episode.soundonLink}
                 target="_blank"
                 rel="noopener noreferrer"
               >
