@@ -1,6 +1,6 @@
 'use client'
 
-import { memo, forwardRef, useImperativeHandle, useMemo } from 'react'
+import { memo, forwardRef, useImperativeHandle } from 'react'
 
 import { Typography, Slider, Stack, Grid2 as Grid } from '@mui/material'
 import { PlayCircleRounded, Pause, MoreHoriz } from '@mui/icons-material'
@@ -101,8 +101,6 @@ const EpisodeCard = memo(
     { className, episode, onPlay, onPause }: EpisodeCardProps,
     ref
   ) {
-    const memoizedEpisode = useMemo(() => episode, [episode])
-
     const {
       playing,
       progress,
@@ -112,8 +110,8 @@ const EpisodeCard = memo(
       handleBackwardClick,
       handleForwardClick,
     } = usePlayerWithUI({
-      audioUrl: memoizedEpisode?.audioUrl,
-      episode: memoizedEpisode,
+      audioUrl: episode?.audioUrl,
+      episode,
       onPlay,
       onPause,
     })
