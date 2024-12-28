@@ -19,7 +19,7 @@ import OpinionStoreProvider from '@/modules/Opinion/providers/OpinionStoreProvid
 const ArticleSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
-  const landingTags = useOpinionStore((state) => state.landingTags)
+  const landingTags = useOpinionStore.use.landingTags()
 
   const { opinions } = useOpinionIndex(activeCategoryId, 3)
 

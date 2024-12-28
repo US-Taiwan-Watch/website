@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
  */
 export default function useOpinionIndex(tagId?: string, limit?: number) {
   const { lang } = useParams<{ lang: Language }>()
-  const landingTags = useOpinionStore((state) => state.landingTags)
+  const landingTags = useOpinionStore.use.landingTags()
 
   const [opinions, setOpinions] = useState<Array<Opinion>>([])
   const [isOpinionsLoading, setIsOpinionsLoading] = useState<boolean>(true)

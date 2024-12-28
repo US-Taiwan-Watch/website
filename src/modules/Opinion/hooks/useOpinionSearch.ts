@@ -7,9 +7,7 @@ import { useEffect, useMemo, useState } from 'react'
 
 export default function useOpinionSearch(categoryId: string) {
   const { lang } = useParams<{ lang: Language }>()
-  const highlightedCategories = useOpinionStore(
-    (state) => state.highlightedCategories
-  )
+  const highlightedCategories = useOpinionStore.use.highlightedCategories()
 
   const [opinions, setOpinions] = useState<Array<Opinion>>([])
   const [isOpinionsLoading, setIsOpinionsLoading] = useState<boolean>(true)

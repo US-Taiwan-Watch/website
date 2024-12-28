@@ -13,9 +13,7 @@ interface OpinionNavbarProps {
 const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
   const theme = useTheme<USTWTheme>()
 
-  const highlightedCategories = useOpinionStore(
-    (state) => state.highlightedCategories
-  )
+  const highlightedCategories = useOpinionStore.use.highlightedCategories()
 
   return (
     <Box

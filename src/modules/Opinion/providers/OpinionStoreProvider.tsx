@@ -12,9 +12,8 @@ export default function OpinionStoreProvider() {
   const { lang } = useParams<{ lang: Language }>()
 
   const setLandingTags = useOpinionStore((state) => state.setLandingTags)
-  const setHomeHighlightedCategories = useOpinionStore(
-    (state) => state.setHomeHighlightedCategories
-  )
+  const setHomeHighlightedCategories =
+    useOpinionStore.use.setHomeHighlightedCategories()
 
   useEffect(() => {
     setLandingTags(TAGS_DTO_MOCK.filter((tag) => tag.isFeatured))
