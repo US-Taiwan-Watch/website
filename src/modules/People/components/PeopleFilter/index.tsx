@@ -132,13 +132,13 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
       })
     }
 
-    // Area
+    // Official Area
     if ([PeopleCategoryEnum.Official].includes(category)) {
       selectors.push({
         key: 'officialArea',
         label: 'Official Area',
         options: officialAreaOptions,
-        minWidth: 140,
+        minWidth: 160,
       })
     }
 
