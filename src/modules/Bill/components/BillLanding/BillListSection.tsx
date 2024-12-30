@@ -7,13 +7,18 @@ import { SectionTitleWithLink } from '@/common/components/elements/Landing/Secti
 import BillCardCarousel from '@/modules/Bill/components/BillCardCarousel'
 import { Stack } from '@mui/material'
 import { ROUTES } from '@/routes'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { BillSorterEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import { getLatestBills, getPopularBills } from '@/modules/Bill/data'
+import { Congress } from '@/common/classes/Congress'
+import { useMemo } from 'react'
 
 const BillListSection = () => {
+  const currentCongressNumber = useMemo(
+    () => Congress.getCurrentCongressNumber(),
+    []
+  )
   const theme = useTheme<USTWTheme>()
   const { lang } = useParams<{ lang: Language }>()
   const latestBills = getLatestBills(lang)
@@ -33,7 +38,7 @@ const BillListSection = () => {
           link={{
             pathname: ROUTES.BILL_LIST,
             query: {
-              congress: CURRENT_CONGRESS_NUMBER,
+              congress: currentCongressNumber,
               sorter: BillSorterEnum.LatestAction,
             },
           }}

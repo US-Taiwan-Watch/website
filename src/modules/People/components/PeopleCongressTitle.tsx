@@ -1,3 +1,4 @@
+import { Congress } from '@/common/classes/Congress'
 import { type CongressExperienceRange } from '@/modules/People/classes/People'
 import { Typography } from '@mui/material'
 import dayjs from 'dayjs'
@@ -10,12 +11,23 @@ interface PeopleCongressTitleProps {
 const PeopleCongressTitle = function PeopleCongressTitle({
   congressExperienceRange,
 }: PeopleCongressTitleProps) {
+  const currentCongressNumber = useMemo(
+    () => Congress.getCurrentCongressNumber(),
+    []
+  )
   const isPresent = useMemo(() => {
     // 如果沒有 end，代表還在任職中，所以取目前年份
     if (!congressExperienceRange.latestCongressYear) return true
     // 如果 end 是現在，代表還在任職中，所以取目前年份
-    return congressExperienceRange.latestCongressYear === dayjs().year()
-  }, [congressExperienceRange])
+    const isLatestCongressYearPresent =
+      congressExperienceRange.latestCongressYear === dayjs().year()
+    if (
+      isLatestCongressYearPresent &&
+      congressExperienceRange.latestCongress === currentCongressNumber
+    )
+      return true
+    return false
+  }, [congressExperienceRange, currentCongressNumber])
 
   if (
     !congressExperienceRange.earliestCongress ||
