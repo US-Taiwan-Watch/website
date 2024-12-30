@@ -841,7 +841,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2024-01-11T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-01-11T00:00:00.000Z',
         number: '521',
         popularityRank: null,
         statusTracker: {
@@ -854,7 +854,7 @@ export const PEOPLE_DTO_MOCK = [
         title:
           "A resolution commending Taiwan for its history of democratic elections, and expressing support of Taiwan's democratic institutions.",
         type: 'sres',
-        updatedAt: '2024-12-07T17:10:26.203Z',
+        updatedAt: '2024-12-26T05:16:12.299Z',
       },
     ],
     tags: [],
@@ -1059,7 +1059,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-25T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2023-01-25T00:00:00.000Z',
         number: '10',
         popularityRank: null,
         statusTracker: {
@@ -1324,7 +1324,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '1998-07-22T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '1998-07-22T00:00:00.000Z',
         number: '126',
         popularityRank: null,
         statusTracker: {
@@ -1530,7 +1530,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-02-16T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2023-02-16T00:00:00.000Z',
         number: '477',
         popularityRank: null,
         statusTracker: {
@@ -1766,7 +1766,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2021-06-17T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2021-06-17T00:00:00.000Z',
         number: '3972',
         popularityRank: null,
         statusTracker: {
@@ -2182,7 +2182,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '1999-05-18T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2000-04-13T00:00:00.000Z',
         number: '1838',
         popularityRank: null,
         statusTracker: {
@@ -2448,7 +2448,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2021-03-17T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2021-03-17T00:00:00.000Z',
         number: '811',
         popularityRank: null,
         statusTracker: {
@@ -2813,7 +2813,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2017-01-13T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2018-03-16T00:00:00.000Z',
         number: '535',
         popularityRank: null,
         statusTracker: {
@@ -2916,7 +2916,19 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        categories: [],
+        categories: [
+          {
+            id: '6748878cc842897fb7f2a2b1',
+            i18n: {
+              en: {
+                name: 'Trade/Economy',
+              },
+              zh: {
+                name: '經濟貿易',
+              },
+            },
+          },
+        ],
         congress: 118,
         congressGovUrl:
           'https://www.congress.gov/bill/118th-congress/senate-bill/1457',
@@ -2994,7 +3006,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-05-04T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2023-07-25T00:00:00.000Z',
         number: '1457',
         popularityRank: null,
         statusTracker: {
@@ -3012,7 +3024,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Tax Agreement Act of 2023',
         type: 's',
-        updatedAt: '2024-12-19T07:32:54.329Z',
+        updatedAt: '2024-12-23T14:02:22.976Z',
       },
       {
         categories: [
@@ -3071,7 +3083,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2014-02-10T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2014-02-10T00:00:00.000Z',
         number: '31',
         popularityRank: null,
         statusTracker: {
@@ -3154,7 +3166,19 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        categories: [],
+        categories: [
+          {
+            id: '67488781c842897fb7f2a2a9',
+            i18n: {
+              en: {
+                name: 'Taiwan Relations Act',
+              },
+              zh: {
+                name: '台灣相關法案',
+              },
+            },
+          },
+        ],
         congress: 96,
         congressGovUrl:
           'https://www.congress.gov/bill/96th-congress/house-bill/2479',
@@ -3433,7 +3457,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '1979-02-28T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '1979-04-10T00:00:00.000Z',
         number: '2479',
         popularityRank: null,
         statusTracker: {
@@ -3453,7 +3477,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Relations Act',
         type: 'hr',
-        updatedAt: '2024-12-07T14:23:04.726Z',
+        updatedAt: '2024-12-23T14:02:03.794Z',
       },
     ],
     tags: [],
@@ -3604,7 +3628,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2021-03-17T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2021-03-17T00:00:00.000Z',
         number: '811',
         popularityRank: null,
         statusTracker: {
@@ -3705,7 +3729,19 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        categories: [],
+        categories: [
+          {
+            id: '67488781c842897fb7f2a2a9',
+            i18n: {
+              en: {
+                name: 'Taiwan Relations Act',
+              },
+              zh: {
+                name: '台灣相關法案',
+              },
+            },
+          },
+        ],
         congress: 118,
         congressGovUrl:
           'https://www.congress.gov/bill/118th-congress/senate-bill/3110',
@@ -3748,7 +3784,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-10-24T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2023-10-24T00:00:00.000Z',
         number: '3110',
         popularityRank: null,
         statusTracker: {
@@ -3766,7 +3802,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Relations Reinforcement Act of 2023',
         type: 's',
-        updatedAt: '2024-12-07T06:29:39.088Z',
+        updatedAt: '2024-12-23T14:01:54.212Z',
       },
     ],
     tags: [],
@@ -3864,7 +3900,19 @@ export const PEOPLE_DTO_MOCK = [
     records: [],
     sponsorBills: [
       {
-        categories: [],
+        categories: [
+          {
+            id: '6748878cc842897fb7f2a2b1',
+            i18n: {
+              en: {
+                name: 'Trade/Economy',
+              },
+              zh: {
+                name: '經濟貿易',
+              },
+            },
+          },
+        ],
         congress: 118,
         congressGovUrl:
           'https://www.congress.gov/bill/118th-congress/house-bill/5988',
@@ -3960,7 +4008,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-10-19T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2023-12-12T00:00:00.000Z',
         number: '5988',
         popularityRank: null,
         statusTracker: {
@@ -3978,7 +4026,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'United States-Taiwan Expedited Double-Tax Relief Act',
         type: 'hr',
-        updatedAt: '2024-12-07T06:11:31.358Z',
+        updatedAt: '2024-12-23T14:01:36.311Z',
       },
     ],
     tags: [],
@@ -5175,7 +5223,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-02-02T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-04-24T00:00:00.000Z',
         number: '815',
         popularityRank: null,
         statusTracker: {
@@ -5580,7 +5628,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2019-05-23T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2020-03-26T00:00:00.000Z',
         number: '1678',
         popularityRank: null,
         statusTracker: {
@@ -5876,7 +5924,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-02-24T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2023-07-26T00:00:00.000Z',
         number: '1176',
         popularityRank: 1,
         statusTracker: {
@@ -5956,7 +6004,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2024-01-10T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-01-10T00:00:00.000Z',
         number: '955',
         popularityRank: null,
         statusTracker: {
@@ -5970,7 +6018,7 @@ export const PEOPLE_DTO_MOCK = [
         title:
           'Commending Taiwan for its history of democratic elections, and expressing support of Taiwan in the preservation of its democratic institutions.',
         type: 'hres',
-        updatedAt: '2024-12-07T16:48:35.771Z',
+        updatedAt: '2024-12-26T05:16:18.734Z',
       },
     ],
     tags: [],
@@ -6936,7 +6984,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2021-07-01T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2022-08-09T00:00:00.000Z',
         number: '4346',
         popularityRank: null,
         statusTracker: {
@@ -7448,7 +7496,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -7772,7 +7820,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -7798,6 +7846,208 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+      },
+      {
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/540',
+        createdAt: '2024-12-07T17:13:16.607Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-01-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Foreign Relations.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:50:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered as unfinished business. (consideration: CR H125)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'At the conclusion of debate, the chair put the question on the motion to suspend the rules. Mr. McHenry objected to the vote on the grounds that a quorum was not present. Further proceedings on the motion were postponed. The point of no quorum was considered as withdrawn.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 540.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H31-33)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. McHenry moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 237.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 38 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-01-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+            title: 'Taiwan Non-Discrimination Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '不歧視台灣法案',
+          },
+        },
+        id: '6754822c437319f5138bfa48',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: '2024-01-16T00:00:00.000Z',
+        number: '540',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+        tags: [],
+        title: 'Taiwan Non-Discrimination Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-20T14:54:55.257Z',
       },
     ],
     createdAt: '2024-12-06T07:46:22.064Z',
@@ -8073,7 +8323,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -8348,7 +8598,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-01-16T00:00:00.000Z',
         number: '540',
         popularityRank: null,
         statusTracker: {
@@ -8361,7 +8611,7 @@ export const PEOPLE_DTO_MOCK = [
         tags: [],
         title: 'Taiwan Non-Discrimination Act of 2023',
         type: 'hr',
-        updatedAt: '2024-12-07T17:13:16.607Z',
+        updatedAt: '2024-12-20T14:54:55.257Z',
       },
     ],
     tags: [],
@@ -8604,7 +8854,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -8905,7 +9155,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -9216,7 +9466,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -9242,6 +9492,208 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+      },
+      {
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/540',
+        createdAt: '2024-12-07T17:13:16.607Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-01-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Foreign Relations.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:50:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered as unfinished business. (consideration: CR H125)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'At the conclusion of debate, the chair put the question on the motion to suspend the rules. Mr. McHenry objected to the vote on the grounds that a quorum was not present. Further proceedings on the motion were postponed. The point of no quorum was considered as withdrawn.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 540.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H31-33)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. McHenry moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 237.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 38 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-01-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+            title: 'Taiwan Non-Discrimination Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '不歧視台灣法案',
+          },
+        },
+        id: '6754822c437319f5138bfa48',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: '2024-01-16T00:00:00.000Z',
+        number: '540',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+        tags: [],
+        title: 'Taiwan Non-Discrimination Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-20T14:54:55.257Z',
       },
     ],
     createdAt: '2024-12-06T06:42:34.905Z',
@@ -9517,7 +9969,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -9543,6 +9995,208 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+      },
+      {
+        categories: [
+          {
+            id: '6748874bc842897fb7f2a289',
+            i18n: {
+              en: {
+                name: 'International Participation',
+              },
+              zh: {
+                name: '國際參與',
+              },
+            },
+          },
+        ],
+        congress: 118,
+        congressGovUrl:
+          'https://www.congress.gov/bill/118th-congress/house-bill/540',
+        createdAt: '2024-12-07T17:13:16.607Z',
+        i18n: {
+          en: {
+            actionsAll: [
+              {
+                actionAt: {
+                  datetime: '2024-01-16T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'senate',
+                description:
+                  'Received in the Senate and Read twice and referred to the Committee on Foreign Relations.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Motion to reconsider laid on the table Agreed to without objection.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:51:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-12T10:50:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered as unfinished business. (consideration: CR H125)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'At the conclusion of debate, the chair put the question on the motion to suspend the rules. Mr. McHenry objected to the vote on the grounds that a quorum was not present. Further proceedings on the motion were postponed. The point of no quorum was considered as withdrawn.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:40:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'DEBATE - The House proceeded with forty minutes of debate on H.R. 540.',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Considered under suspension of the rules. (consideration: CR H31-33)',
+              },
+              {
+                actionAt: {
+                  datetime: '2024-01-10T14:39:00.000Z',
+                  precision: ['year', 'month', 'day', 'time'],
+                },
+                chamber: 'house',
+                description:
+                  'Mr. McHenry moved to suspend the rules and pass the bill, as amended.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Placed on the Union Calendar, Calendar No. 237.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Ordered to be Reported in the Nature of a Substitute (Amended) by the Yeas and Nays: 38 - 0. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-02-28T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Committee Consideration and Mark-up Session Held. (Action By: Committee on Financial Services)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description:
+                  'Referred to the House Committee on Financial Services.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                chamber: 'house',
+                description: 'Introduced in House',
+              },
+            ],
+            actionsOverview: [
+              {
+                actionAt: {
+                  datetime: '2024-01-12T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Passed/agreed to in House: On motion to suspend the rules and pass the bill, as amended Agreed to by voice vote. (text: 1/10/2024 CR H31-32)',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-12-01T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description:
+                  'Reported (Amended) by the Committee on Financial Services. H. Rept. 118-293.',
+              },
+              {
+                actionAt: {
+                  datetime: '2023-01-26T00:00:00.000Z',
+                  precision: ['year', 'month', 'day'],
+                },
+                description: 'Introduced in House',
+              },
+            ],
+            summary:
+              "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+            title: 'Taiwan Non-Discrimination Act of 2023',
+          },
+          zh: {
+            actionsAll: null,
+            actionsOverview: null,
+            summary: null,
+            title: '不歧視台灣法案',
+          },
+        },
+        id: '6754822c437319f5138bfa48',
+        introducedAt: {
+          datetime: '2023-01-26T00:00:00.000Z',
+          precision: ['year', 'month', 'day'],
+        },
+        latestActionTime: '2024-01-16T00:00:00.000Z',
+        number: '540',
+        popularityRank: null,
+        statusTracker: {
+          currentStep: 'passedHouse',
+          futureSteps: ['passedSenate', 'toPresident', 'becomeLaw'],
+          passedSteps: ['introduced', 'passedHouse'],
+        },
+        summary:
+          "[congress.gov] This bill requires actions to support Taiwan's participation in the International Monetary Fund (IMF).\n\nThe U.S. Governor of the IMF must advocate for (1) Taiwan's admission into the IMF as a member, to the extent Taiwan seeks to be a member; (2) Taiwan's participation in the IMF's regular surveillance activities relating to Taiwan's economic and financial policies; (3) employment opportunities at the IMF for Taiwan nationals; and (4) Taiwan's ability to receive IMF technical assistance and training.",
+        tags: [],
+        title: 'Taiwan Non-Discrimination Act of 2023',
+        type: 'hr',
+        updatedAt: '2024-12-20T14:54:55.257Z',
       },
     ],
     createdAt: '2024-12-06T06:36:04.411Z',
@@ -9823,7 +10477,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
@@ -10241,7 +10895,7 @@ export const PEOPLE_DTO_MOCK = [
           datetime: '2023-01-26T00:00:00.000Z',
           precision: ['year', 'month', 'day'],
         },
-        latestActionTime: null,
+        latestActionTime: '2024-09-10T00:00:00.000Z',
         number: '554',
         popularityRank: null,
         statusTracker: {
