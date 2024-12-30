@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import {
-  PeopleAreaEnum,
-  PeopleAffiliationEnum,
+  PeopleOfficialAreaEnum,
+  PeopleCompanyTypeEnum,
   PeopleCategoryEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
@@ -50,14 +50,14 @@ export type HouseRepresentativeFilterInput = z.input<
 
 export const officialSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Official),
-  area: z.array(z.nativeEnum(PeopleAreaEnum)).optional(),
+  officialArea: z.array(z.nativeEnum(PeopleOfficialAreaEnum)).optional(),
 })
 
 export type OfficialFilterInput = z.input<typeof officialSchema>
 
 export const expertSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Expert),
-  affiliation: z.array(z.nativeEnum(PeopleAffiliationEnum)).optional(),
+  companyType: z.array(z.nativeEnum(PeopleCompanyTypeEnum)).optional(),
 })
 
 export type ExpertFilterInput = z.input<typeof expertSchema>

@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import {
-  PeopleAffiliationEnum,
-  PeopleAreaEnum,
+  PeopleCompanyTypeEnum,
+  PeopleOfficialAreaEnum,
   PeopleCategoryEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
@@ -78,26 +78,34 @@ export default function usePeopleFilterOptions() {
   // TODO: 確認 tag 怎麼來
   const tagOptions = useMemo<PeopleFilterOption<string>[]>(() => [], [])
 
-  const areaOptions = useMemo<PeopleFilterOption<PeopleAreaEnum>[]>(
+  const officialAreaOptions = useMemo<
+    PeopleFilterOption<PeopleOfficialAreaEnum>[]
+  >(
     () => [
-      { value: PeopleAreaEnum.TradeEconomy, label: 'Trade & Economy' },
-      { value: PeopleAreaEnum.DefenseSecurity, label: 'Defense & Security' },
-      { value: PeopleAreaEnum.Diplomacy, label: 'Diplomacy' },
-      { value: PeopleAreaEnum.PublicHealth, label: 'Public Health' },
-      { value: PeopleAreaEnum.Judicial, label: 'Judicial' },
-      { value: PeopleAreaEnum.Other, label: 'Other' },
+      {
+        value: PeopleOfficialAreaEnum.TradeEconomy,
+        label: 'Trade & Economy',
+      },
+      {
+        value: PeopleOfficialAreaEnum.DefenseSecurity,
+        label: 'Defense & Security',
+      },
+      { value: PeopleOfficialAreaEnum.Diplomacy, label: 'Diplomacy' },
+      { value: PeopleOfficialAreaEnum.PublicHealth, label: 'Public Health' },
+      { value: PeopleOfficialAreaEnum.Judicial, label: 'Judicial' },
+      { value: PeopleOfficialAreaEnum.Other, label: 'Other' },
     ],
     []
   )
 
-  const affiliationOptions = useMemo<
-    PeopleFilterOption<PeopleAffiliationEnum>[]
+  const companyTypeOptions = useMemo<
+    PeopleFilterOption<PeopleCompanyTypeEnum>[]
   >(
     () => [
-      { value: PeopleAffiliationEnum.ThinkTank, label: 'Think Tank' },
-      { value: PeopleAffiliationEnum.Academic, label: 'Academic' },
-      { value: PeopleAffiliationEnum.Media, label: 'Media' },
-      { value: PeopleAffiliationEnum.Other, label: 'Other' },
+      { value: PeopleCompanyTypeEnum.ThinkTank, label: 'Think Tank' },
+      { value: PeopleCompanyTypeEnum.Academic, label: 'Academic' },
+      { value: PeopleCompanyTypeEnum.Media, label: 'Media' },
+      { value: PeopleCompanyTypeEnum.Other, label: 'Other' },
     ],
     []
   )
@@ -111,7 +119,7 @@ export default function usePeopleFilterOptions() {
     stateOrTerritoryOptions,
     districtOptions,
     tagOptions,
-    areaOptions,
-    affiliationOptions,
+    officialAreaOptions,
+    companyTypeOptions,
   }
 }
