@@ -18,9 +18,10 @@ const PeopleCongressTitle = function PeopleCongressTitle({
   const isPresent = useMemo(() => {
     // 如果沒有 end，代表還在任職中，所以取目前年份
     if (!congressExperienceRange.latestCongressYear) return true
-    // 如果 end 是現在，代表還在任職中，所以取目前年份
+    // 最新國會年份為今年
     const isLatestCongressYearPresent =
       congressExperienceRange.latestCongressYear === dayjs().year()
+    // 如果最新的國會屆數是目前國會屆數，代表還在任職中
     if (
       isLatestCongressYearPresent &&
       congressExperienceRange.latestCongress === currentCongressNumber
