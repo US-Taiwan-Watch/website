@@ -7,10 +7,7 @@ import {
 } from '@/modules/People/components/PeopleFilter/enums'
 import states from '@/common/assets/states'
 import territoriesRegions from '@/common/assets/territories-regions'
-import {
-  CURRENT_CONGRESS_NUMBER,
-  CONGRESS_NUMBER_MIN,
-} from '@/common/assets/constants'
+import { Congress } from '@/common/classes/Congress'
 
 export type PeopleFilterOption<T> = {
   value: T
@@ -41,16 +38,21 @@ export default function usePeopleFilterOptions() {
     []
   )
 
+  const currentCongressNumber = useMemo(
+    () => Congress.getCurrentCongressNumber(),
+    []
+  )
+
   const congressOptions = useMemo<PeopleFilterOption<number>[]>(
     () =>
       Array.from(
-        { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
-        (_, i) => i + CONGRESS_NUMBER_MIN
+        { length: currentCongressNumber - Congress.minCongressNumber() + 1 },
+        (_, i) => i + Congress.minCongressNumber()
       ).map((congress) => ({
         value: congress,
         label: congress.toString(),
       })),
-    []
+    [currentCongressNumber]
   )
 
   const stateOptions = useMemo<PeopleFilterOption<string>[]>(
