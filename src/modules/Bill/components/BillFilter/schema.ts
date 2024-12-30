@@ -5,10 +5,7 @@ import {
   BillStatusEnum,
   BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
-import {
-  CONGRESS_NUMBER_MIN,
-  CURRENT_CONGRESS_NUMBER,
-} from '@/common/assets/constants'
+import { Congress } from '@/common/classes/Congress'
 
 export const categorySchema = z.array(z.string())
 
@@ -17,7 +14,10 @@ export const partySchema = z.array(z.nativeEnum(BillPartyEnum))
 export const typeSchema = z.array(z.nativeEnum(BillTypeEnum))
 
 export const congressSchema = z.array(
-  z.number().min(CONGRESS_NUMBER_MIN).max(CURRENT_CONGRESS_NUMBER)
+  z
+    .number()
+    .min(Congress.minCongressNumber())
+    .max(Congress.getCurrentCongressNumber())
 )
 
 export const statusSchema = z.array(z.nativeEnum(BillStatusEnum))

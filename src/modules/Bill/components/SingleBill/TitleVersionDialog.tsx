@@ -18,11 +18,11 @@ import {
   useTheme,
 } from '@mui/material'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import UHStack from '@/common/components/atoms/UHStack'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
+import { Congress } from '@/common/classes/Congress'
 
 const FAKE_PREVIOUS_TITLES = [
   'Deterring Communist Chinese Aggression Against Taiwan Through Financial Sanctions Act of 2021',
@@ -93,6 +93,10 @@ export default function TitleVersionDialog({
   handleCloseModal,
 }: Props) {
   const theme = useTheme<USTWTheme>()
+  const currentCongressNumber = useMemo(
+    () => Congress.getCurrentCongressNumber(),
+    []
+  )
 
   return (
     <UContentCardDialog
@@ -132,7 +136,7 @@ export default function TitleVersionDialog({
           }}
         >
           <Typography variant="articleH4">
-            {`${bill.chamberPrefix}${bill.id} | ${CURRENT_CONGRESS_NUMBER}th Congress (2023-2024)`}
+            {`${bill.chamberPrefix}${bill.id} | ${currentCongressNumber}th Congress (2023-2024)`}
           </Typography>
           {FAKE_PREVIOUS_TITLES.map((title, index) => (
             <TitleRow

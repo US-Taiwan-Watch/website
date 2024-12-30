@@ -1,9 +1,5 @@
 'use client'
 
-import {
-  CONGRESS_NUMBER_MIN,
-  CURRENT_CONGRESS_NUMBER,
-} from '@/common/assets/constants'
 import { Language } from '@/common/lib/i18n/types'
 import {
   BillPartyEnum,
@@ -18,6 +14,7 @@ import { useMemo } from 'react'
 import { findAllPeople } from '@/modules/People/data'
 import { People } from '@/modules/People/classes/People'
 import TagUtils from '@/modules/Common/Tag.utils'
+import { Congress } from '@/common/classes/Congress'
 
 export type BillFilterOption<T> = {
   value: T
@@ -106,16 +103,22 @@ export default function useBillFilterOptions() {
     []
   )
 
+  const currentCongressNumber = useMemo(
+    () => Congress.getCurrentCongressNumber(),
+    []
+  )
   const congressOptions = useMemo<BillFilterOption<number>[]>(
     () =>
       Array.from(
-        { length: CURRENT_CONGRESS_NUMBER - CONGRESS_NUMBER_MIN + 1 },
-        (_, i) => i + CONGRESS_NUMBER_MIN
+        {
+          length: currentCongressNumber - Congress.minCongressNumber() + 1,
+        },
+        (_, i) => i + Congress.minCongressNumber()
       ).map((congress) => ({
         value: congress,
         label: congress.toString(),
       })),
-    []
+    [currentCongressNumber]
   )
 
   const sponsorsOptions = useMemo<BillFilterOption<string>[]>(

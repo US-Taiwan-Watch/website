@@ -10,7 +10,6 @@ import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import Link from 'next/link'
 import { ROUTES } from '@/routes'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import {
@@ -18,6 +17,8 @@ import {
   getBillTopCosponsors,
   getBillTopSponsors,
 } from '@/modules/Bill/data'
+import { Congress } from '@/common/classes/Congress'
+import { useMemo } from 'react'
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -65,6 +66,10 @@ type SponsorCardProps = {
 }
 
 export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
+  const currentCongressNumber = useMemo(
+    () => Congress.getCurrentCongressNumber(),
+    []
+  )
   const { lang } = useParams<{ lang: Language }>()
   const sponsorsList = isCosponsor
     ? getBillTopCosponsors(lang)
@@ -91,7 +96,7 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
             href={{
               pathname: ROUTES.BILL_LIST,
               query: {
-                congress: CURRENT_CONGRESS_NUMBER,
+                congress: currentCongressNumber,
                 ...(isCosponsor
                   ? { cosponsor: people.id }
                   : { sponsor: people.id }),

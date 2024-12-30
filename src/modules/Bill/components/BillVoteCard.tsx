@@ -3,12 +3,12 @@
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 import { People } from '@/modules/People/classes/People'
+import { Congress } from '@/common/classes/Congress'
 
 interface VoteStatusCardProps {
   vote: NonNullable<People['votes']>[number]
@@ -85,7 +85,7 @@ export default function BillVoteCard({ vote }: BillVoteCardProps) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${vote.vote?.bill?.chamberPrefix} | ${CURRENT_CONGRESS_NUMBER}th Congress`}
+            {`${vote.vote?.bill?.chamberPrefix} | ${Congress.getCurrentCongressNumber()}th Congress`}
           </Typography>
 
           <Link href={vote.vote?.bill?.link ?? ''}>

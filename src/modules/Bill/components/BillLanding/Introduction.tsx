@@ -1,12 +1,13 @@
 'use client'
 
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
+import { Congress } from '@/common/classes/Congress'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
 import { getCurrentCongressBillCount } from '@/modules/Bill/data'
 import { ROUTES } from '@/routes'
 import { Stack, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
+import { useMemo } from 'react'
 
 const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
   padding: theme.spacing(3, 4),
@@ -20,6 +21,10 @@ const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
 export default function Introduction() {
   const theme = useTheme<USTWTheme>()
   const { totalDocs: billCount } = getCurrentCongressBillCount()
+  const currentCongressNumber = useMemo(
+    () => Congress.getCurrentCongressNumber(),
+    []
+  )
 
   return (
     <UHStack alignItems="center" justifyContent="space-between" width="100%">
@@ -37,12 +42,12 @@ export default function Introduction() {
       <Link
         href={{
           pathname: ROUTES.BILL_LIST,
-          query: { congress: CURRENT_CONGRESS_NUMBER },
+          query: { congress: currentCongressNumber },
         }}
       >
         <StyledBillTotalCountCard>
           <Typography variant="buttonXS" color={theme.color.grey[2100]} mb={1}>
-            {`Congress ${CURRENT_CONGRESS_NUMBER}`}
+            {`Congress ${currentCongressNumber}`}
           </Typography>
           <Typography variant="h2">{billCount}</Typography>
         </StyledBillTotalCountCard>

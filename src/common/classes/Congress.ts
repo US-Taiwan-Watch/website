@@ -1,12 +1,10 @@
-// TODO: 先簡單設計給People使用
-
-import { CURRENT_CONGRESS_NUMBER } from '@/common/assets/constants'
 import { Party } from '@/common/enums/Party'
 import { isMap, isNumber } from 'lodash-es'
 import {
   Maybe,
   People_CongressionalData as PeopleCongressionalDataDTO,
 } from '@/common/lib/graphql/__generated__/graphql'
+import dayjs from 'dayjs'
 
 interface CongressArgs {
   congressNumber?: number
@@ -18,6 +16,9 @@ interface CongressArgs {
   senateDistribution?: Map<Party, number>
 }
 
+/**
+ * 管理國會資料
+ */
 export class Congress {
   // 屆數
   congressNumber?: number
@@ -58,10 +59,41 @@ export class Congress {
     }
   }
 
-  static CurrentCongressNumber = CURRENT_CONGRESS_NUMBER
-
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   static fromPeopleCongressDTO(dto?: Maybe<PeopleCongressionalDataDTO>) {
     return new Congress({})
+  }
+
+  /**
+   * 取得目前國會屆數
+   * @returns 目前國會屆數
+   */
+  static getCurrentCongressNumber() {
+    const baseYear = 1789 // 第一屆國會開始年份
+    const baseNumber = 1 // 第一屆國會屆數
+
+    const today = dayjs()
+    const currentYear = today.year()
+    const currentMonth = today.month() // 0-11
+    const currentDay = today.date() // 1-31
+
+    // 計算從基準年到現在過了幾個兩年期
+    let congressNumber = Math.floor((currentYear - baseYear) / 2) + baseNumber
+
+    // 如果現在是 1月1日 或 1月2日，要減一屆
+    // 因為新的國會要到 1月3日 才就職
+    if (currentMonth === 0 && currentDay < 3) {
+      congressNumber--
+    }
+
+    return congressNumber
+  }
+
+  /**
+   * 取得國會屆數最小值，站內提供資訊的最小國會屆數，不代表現實
+   * @returns 國會屆數最小值
+   */
+  static minCongressNumber() {
+    return 96
   }
 }
