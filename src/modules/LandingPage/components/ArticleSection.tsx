@@ -6,7 +6,7 @@ import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constants'
-import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
 import { useState } from 'react'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
 import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
@@ -19,7 +19,7 @@ import OpinionStoreProvider from '@/modules/Opinion/providers/OpinionStoreProvid
 const ArticleSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
-  const landingTags = useOpinionStore((state) => state.landingTags)
+  const landingTags = useOpinionStore.use.landingTags()
 
   const { opinions } = useOpinionIndex(activeCategoryId, 3)
 

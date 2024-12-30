@@ -13,8 +13,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
-import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
-import { config } from '@/config'
+import OpinionPodcast from '@/modules/Opinion/components/OpinionPost/Content/OpinionPodcast'
 
 interface OpinionPostProps {
   opinion: Opinion
@@ -58,11 +57,8 @@ const OpinionPost = function OpinionPost({
               )}
 
               {/** Podcast Section */}
-              {opinion.episodeId && config.SOUNDON_PODCAST_ID && (
-                <EpisodeCard
-                  podcastId={config.SOUNDON_PODCAST_ID}
-                  episodeId={opinion.episodeId}
-                />
+              {opinion.episodeId && (
+                <OpinionPodcast episodeId={opinion.episodeId} />
               )}
 
               {/** Footer Section */}

@@ -1,7 +1,7 @@
 /** 首頁的精選文章 */
 
 import { Language } from '@/common/lib/i18n/types'
-import useOpinionStore from '@/common/lib/zustand/hooks/useOpinionStore'
+import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
 import { Opinion } from '@/modules/Opinion/classes/Opinion'
 import { OPINION_DTO_MOCK } from '@/modules/Opinion/dtoData'
 import { useParams } from 'next/navigation'
@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react'
  */
 export default function useOpinionIndex(tagId?: string, limit?: number) {
   const { lang } = useParams<{ lang: Language }>()
-  const landingTags = useOpinionStore((state) => state.landingTags)
+  const landingTags = useOpinionStore.use.landingTags()
 
   const [opinions, setOpinions] = useState<Array<Opinion>>([])
   const [isOpinionsLoading, setIsOpinionsLoading] = useState<boolean>(true)

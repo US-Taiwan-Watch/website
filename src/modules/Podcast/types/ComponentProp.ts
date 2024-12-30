@@ -1,11 +1,11 @@
+import { Episode } from '@/modules/Podcast/classes/Episode'
+
 export interface EpisodeCardCallbackParams {
-  podcastId: string
-  episodeId: string
+  episode: Episode
 }
 
 export interface EpisodeCardProps {
-  podcastId: string
-  episodeId: string
+  episode: Episode
   onPlay?: (params: EpisodeCardCallbackParams) => void
   onPause?: (params: EpisodeCardCallbackParams) => void
 }

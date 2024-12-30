@@ -3,7 +3,26 @@ import { Episode } from '@/modules/Podcast/classes/Episode'
 import {
   GetEpisodeParams,
   GetEpisodeResponse,
-} from '@/modules/Podcast/types/GetEpisode'
+  GetEpisodesParams,
+  GetEpisodesResponse,
+} from '@/modules/Podcast/api/ApiType'
+
+export const getEpisodes = async (params: GetEpisodesParams) => {
+  try {
+    const res = await fetch(
+      `https://api.soundon.fm/v2/client/podcasts/${params.podcastId}/episodes`,
+      {
+        headers: {
+          'Api-Token': `${config.SOUNDON_API_TOKEN}`,
+        },
+      }
+    )
+    const data = (await res.json()) as GetEpisodesResponse
+    return data.data.map((episode) => new Episode(episode.data))
+  } catch {
+    return []
+  }
+}
 
 export const getEpisode = async (params: GetEpisodeParams) => {
   try {
@@ -17,8 +36,7 @@ export const getEpisode = async (params: GetEpisodeParams) => {
     )
     const data = (await res.json()) as GetEpisodeResponse
     return new Episode(data.data.data)
-  } catch (error) {
-    console.error(error)
+  } catch {
     return null
   }
 }

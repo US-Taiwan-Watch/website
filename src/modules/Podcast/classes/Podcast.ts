@@ -1,4 +1,5 @@
-import { isArray, isString } from 'lodash-es'
+import { Episode } from '@/modules/Podcast/classes/Episode'
+import { isString } from 'lodash-es'
 
 // TODO: 類性待確定
 export enum PodcastSourceType {
@@ -13,27 +14,25 @@ interface PodcastSource {
   url: string
 }
 
-// 控制背景顏色用，我想顏色應該不是用 Array index 去控制...
 export enum PodcastType {
-  WATCH_HERE = 'WATCH_HERE',
-  WATCH_INFO = 'WATCH_INFO',
-  WATCH_BOOK_CLUB = 'WATCH_BOOK_CLUB',
+  WATCH_HERE = 'WATCH_HERE', // 觀測站底加辣
+  WATCH_INFO = 'WATCH_INFO', // 觀測站予你知
+  WATCH_BOOK_CLUB = 'WATCH_BOOK_CLUB', // 觀測站讀書會
 }
 
+/**
+ * 過濾 Episode 的排序方式
+ */
+type FilterEpisodesSort = 'CREATED_AT_ASC' | 'CREATED_AT_DESC'
+
 interface PodcastArgs {
-  id: string
   type: PodcastType
   bannerImg: string
   title: string
   description: string
-  sources: Array<PodcastSource>
-  podcastId: string
-  episodeIdx: Array<string>
 }
 
 export default class Podcast {
-  /** DB ID */
-  id?: string
   /** Podcast Type */
   type?: PodcastType
   /** Podcast Title */
@@ -42,17 +41,8 @@ export default class Podcast {
   bannerImg?: string
   /** Podcast Description */
   description?: string
-  /** Podcast Sources */
-  sources?: Array<PodcastSource>
-  /** SoundOn Podcast ID */
-  podcastId?: string
-  /** SoundOn Episode ID */
-  episodeIdx?: Array<string>
 
   constructor(private args: PodcastArgs) {
-    if (isString(args.id)) {
-      this.id = args.id
-    }
     if (isString(args.type)) {
       this.type = args.type
     }
@@ -65,14 +55,67 @@ export default class Podcast {
     if (isString(args.description)) {
       this.description = args.description
     }
-    if (isArray(args.sources)) {
-      this.sources = args.sources
-    }
-    if (isString(args.podcastId)) {
-      this.podcastId = args.podcastId
-    }
-    if (isArray(args.episodeIdx)) {
-      this.episodeIdx = args.episodeIdx
-    }
+  }
+
+  static sources: Array<PodcastSource> = [
+    {
+      type: PodcastSourceType.APPLE,
+      url: 'https://podcasts.apple.com/tw/podcast/%E7%BE%8E%E5%9C%8B%E5%8F%B0%E7%81%A3%E8%A7%80%E6%B8%AC%E7%AB%99/id1508245836',
+    },
+    {
+      type: PodcastSourceType.SPOTIFY,
+      url: 'https://open.spotify.com/show/5CnwG4Tfr7YaQ42FETAI5t?si=94e8ae59fd124371',
+    },
+    {
+      type: PodcastSourceType.SOUND_ON,
+      url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
+    },
+  ]
+
+  /**
+   * 根據 Podcast Type 過濾 Episode
+   * @param podcast - Podcast
+   * @param episodes - 所有 Episode
+   * @param sort - 排序方式
+   * @param limit - 限制數量
+   * @returns 過濾後的 Episode
+   */
+  static filterEpisodes(
+    podcast: Podcast,
+    episodes: Array<Episode>,
+    sort?: FilterEpisodesSort,
+    limit?: number
+  ): Array<Episode> {
+    if (!podcast.type) return []
+    const regex = Podcast.watchEpisodeTitleRegexMap[podcast.type]
+    return episodes
+      .filter((episode) => episode.title && regex.test(episode.title))
+      .sort((a, b) => {
+        if (sort === 'CREATED_AT_ASC')
+          return a.createdAt?.diff(b.createdAt) ?? 0
+        if (sort === 'CREATED_AT_DESC')
+          return b.createdAt?.diff(a.createdAt) ?? 0
+        return 0
+      })
+      .slice(0, limit)
+  }
+
+  /**
+   * Episode Title 不包含「觀測站予你知」和「觀測站讀書會」
+   */
+  static watchHereEpisodeTitleRegex = /(?!.*觀測站予你知|觀測站讀書會)/
+  /**
+   * Episode Title 有包含「觀測站予你知」
+   */
+  static watchInfoEpisodeTitleRegex = /觀測站予你知/
+  /**
+   * Episode Title 有包含「觀測站讀書會」
+   */
+  static watchBookClubEpisodeTitleRegex = /觀測站讀書會/
+
+  static watchEpisodeTitleRegexMap: Record<PodcastType, RegExp> = {
+    [PodcastType.WATCH_HERE]: Podcast.watchHereEpisodeTitleRegex,
+    [PodcastType.WATCH_INFO]: Podcast.watchInfoEpisodeTitleRegex,
+    [PodcastType.WATCH_BOOK_CLUB]: Podcast.watchBookClubEpisodeTitleRegex,
   }
 }
