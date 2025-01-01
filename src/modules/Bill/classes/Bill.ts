@@ -15,6 +15,8 @@ import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/Parli
 import { Party } from '@/common/enums/Party'
 import TagUtils from '@/modules/Common/Tag.utils'
 import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
+import { BillTypeEnum } from '@/modules/Bill/components/BillFilter/enums'
+import { z } from 'zod'
 
 export interface BillAction {
   date: string
@@ -25,6 +27,7 @@ export interface BillAction {
 
 interface BillArgs {
   id?: string
+  type?: BillTypeEnum
   title?: string
   sponsor?: People
   cosponsors?: BillCosponsor[]
@@ -45,6 +48,8 @@ interface BillArgs {
 export class Bill {
   // ID
   id?: string
+  // 法案類型
+  type?: BillTypeEnum
   // 法案名稱
   title?: string
   // 提案人
@@ -87,6 +92,9 @@ export class Bill {
     }
     if (isString(bill.title)) {
       this.title = bill.title
+    }
+    if (isString(bill.type)) {
+      this.type = bill.type
     }
     if (bill.sponsor instanceof People) {
       this.sponsor = bill.sponsor
@@ -169,11 +177,17 @@ export class Bill {
   }
 
   get chamberPrefix(): string {
-    return this.latestAction?.chamber === ChamberEnum.HOUSE
-      ? 'H.R.'
-      : this.latestAction?.chamber === ChamberEnum.SENATE
-        ? 'S.'
-        : ''
+    const billTypeEnumTextMap: Record<BillTypeEnum, string> = {
+      [BillTypeEnum.HouseBill]: 'H.R.',
+      [BillTypeEnum.SenateBill]: 'S.',
+      [BillTypeEnum.HouseJointResolution]: 'H.J.Res.',
+      [BillTypeEnum.SenateJointResolution]: 'S.J.Res.',
+      [BillTypeEnum.HouseConcurrentResolution]: 'H.Con.Res.',
+      [BillTypeEnum.SenateConcurrentResolution]: 'S.Con.Res.',
+      [BillTypeEnum.HouseSimpleResolution]: 'H.Res.',
+      [BillTypeEnum.SenateSimpleResolution]: 'S.Res.',
+    }
+    return billTypeEnumTextMap[this.type as BillTypeEnum] ?? ''
   }
 
   get cosponsorsCount() {
@@ -236,6 +250,9 @@ export class Bill {
   static fromDTO(lang: Language, dto: BillDTO) {
     return new Bill({
       id: dto.id ?? undefined,
+      type: dto.type
+        ? z.nativeEnum(BillTypeEnum).safeParse(dto.type).data
+        : undefined,
       title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? undefined,
       sponsor: dto.sponsor?.people
         ? People.fromDTO(lang, dto.sponsor.people)
