@@ -194,24 +194,6 @@ export class Bill {
     return (this.cosponsors ?? []).length
   }
 
-  /**
-   * Check if the bill has passed both chambers
-   * @returns true if the bill has passed both House and Senate
-   */
-  hasPassedBothChambers(): boolean {
-    const hasPassedHouse = (this.actions ?? []).some(
-      (action) =>
-        action.chamber === ChamberEnum.HOUSE &&
-        action.description?.includes('Passed')
-    )
-    const hasPassedSenate = (this.actions ?? []).some(
-      (action) =>
-        action.chamber === ChamberEnum.SENATE &&
-        action.description?.includes('Passed')
-    )
-    return hasPassedHouse && hasPassedSenate
-  }
-
   static GetBillStatusText(status: BillStatusEnum): string {
     switch (status) {
       case BillStatusEnum.BECOME_LAW:
