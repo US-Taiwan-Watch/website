@@ -84,7 +84,6 @@ interface PeopleArgs {
   tags: Array<string>
   partyExperience?: Array<PartyExperienceArgs>
   experience?: Array<ExperienceArgs>
-  constituency?: string
   chamber?: ChamberEnum
   publications?: Array<PeoplePublications>
   bioByAI?: string
@@ -118,8 +117,6 @@ export class People {
   partyExperience: Array<PartyExperience> = []
   // 經歷暫定，後續討論
   experience: Array<Experience> = []
-  // 選區
-  constituency?: string
   // 參眾議院
   chamber?: ChamberEnum
   // TODO: 投票紀錄
@@ -177,9 +174,6 @@ export class People {
     }
     if (isArray(people.experience)) {
       this.experience = People.transformExperience(people.experience)
-    }
-    if (isString(people.constituency)) {
-      this.constituency = people.constituency
     }
     if (isString(people.chamber)) {
       this.chamber = people.chamber
@@ -298,8 +292,6 @@ export class People {
         dto.partyChangeRecords
       ),
       experience: People.parseExperienceArgsFromDTO(dto.experiences),
-      // TODO: 如何獲得選區
-      constituency: '',
       // TODO: 如何確認參眾議院
       chamber: ChamberEnum.HOUSE,
       publications: dto.publications ?? [],

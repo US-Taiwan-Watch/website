@@ -65,7 +65,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix} | ${bill.congressNumber}th Congress`}
+            {`${bill.chamberPrefix}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
           </Typography>
 
           <Link href={bill.link}>
