@@ -18,6 +18,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import dayjs from 'dayjs'
 import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
+import CommonUtils from '@/modules/Common/Common.utils'
 
 const EMPTY_CELL = '-'
 
@@ -102,7 +103,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 <TableCell align="left">
                   <StyledBodyText>
                     {cosponsor.constituency
-                      ? cosponsor.constituency.toUpperCase()
+                      ? CommonUtils.formatConstituency(cosponsor.constituency)
                       : EMPTY_CELL}
                   </StyledBodyText>
                 </TableCell>
