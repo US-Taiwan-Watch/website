@@ -79,6 +79,34 @@ export const getBillTopTags = (): TopTagsQuery[] => {
         },
       },
     },
+    {
+      billCount: 0,
+      tag: {
+        id: '6758e2c4e981ce40d9597c5a',
+        i18n: {
+          en: {
+            name: 'Shutsung Liao',
+          },
+          zh: {
+            name: '廖述宗',
+          },
+        },
+      },
+    },
+    {
+      billCount: 0,
+      tag: {
+        id: '6758e385e981ce40d9597c90',
+        i18n: {
+          en: {
+            name: 'TSMC',
+          },
+          zh: {
+            name: '台積電',
+          },
+        },
+      },
+    },
   ]
 }
 
