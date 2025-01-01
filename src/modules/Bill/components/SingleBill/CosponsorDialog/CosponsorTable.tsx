@@ -11,11 +11,9 @@ import {
   useTheme,
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { People } from '@/modules/People/classes/People'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import { Party } from '@/common/enums/Party'
 import UHStack from '@/common/components/atoms/UHStack'
-import { ChamberEnum } from '@/common/enums/Chamber'
 import dayjs from 'dayjs'
 import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 import CommonUtils from '@/modules/Common/Common.utils'
@@ -41,16 +39,6 @@ const headers: string[] = ['Name', 'Party', 'Constituency', 'Date Sponsored']
 
 type Props = {
   cosponsors: BillCosponsor[]
-}
-
-const getName = (people: People) => {
-  const chamberAbbreviation =
-    people.chamber === ChamberEnum.HOUSE
-      ? 'H.R.'
-      : people.chamber === ChamberEnum.SENATE
-        ? 'S.'
-        : ''
-  return `${chamberAbbreviation}${people.name}`
 }
 
 export default function CosponsorTable({ cosponsors }: Props) {
@@ -85,7 +73,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
               >
                 <TableCell component="th" scope="row">
                   <StyledNameText>
-                    {people?.name ? getName(people) : EMPTY_CELL}
+                    {people?.name ? people.name : EMPTY_CELL}
                   </StyledNameText>
                 </TableCell>
                 <TableCell align="left">

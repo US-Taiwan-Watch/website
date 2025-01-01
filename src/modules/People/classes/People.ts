@@ -1,5 +1,4 @@
 import { Congress } from '@/common/classes/Congress'
-import { ChamberEnum } from '@/common/enums/Chamber'
 import { Party } from '@/common/enums/Party'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
@@ -84,7 +83,6 @@ interface PeopleArgs {
   tags: Array<string>
   partyExperience?: Array<PartyExperienceArgs>
   experience?: Array<ExperienceArgs>
-  chamber?: ChamberEnum
   publications?: Array<PeoplePublications>
   bioByAI?: string
   committees?: Array<PeopleCongressionalDataCommittees>
@@ -117,8 +115,6 @@ export class People {
   partyExperience: Array<PartyExperience> = []
   // 經歷暫定，後續討論
   experience: Array<Experience> = []
-  // 參眾議院
-  chamber?: ChamberEnum
   // TODO: 投票紀錄
   votingRecord: Array<unknown> = []
   // Bio by AI
@@ -174,9 +170,6 @@ export class People {
     }
     if (isArray(people.experience)) {
       this.experience = People.transformExperience(people.experience)
-    }
-    if (isString(people.chamber)) {
-      this.chamber = people.chamber
     }
     if (isArray(people.publications)) {
       this.publications = people.publications
@@ -292,8 +285,6 @@ export class People {
         dto.partyChangeRecords
       ),
       experience: People.parseExperienceArgsFromDTO(dto.experiences),
-      // TODO: 如何確認參眾議院
-      chamber: ChamberEnum.HOUSE,
       publications: dto.publications ?? [],
       bioByAI: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio ?? '',
       committees: dto.congressionalData?.committees ?? [],
