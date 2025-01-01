@@ -23,7 +23,11 @@ export default function BioByAI({ bill }: Props) {
         icon: <StarsIcon />,
         iconColor: 'primary',
         action: (
-          <a href={bill.externalLink} target="_blank" rel="noopener noreferrer">
+          <a
+            href={bill.congressGovUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <UButton
               endIcon={
                 <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />

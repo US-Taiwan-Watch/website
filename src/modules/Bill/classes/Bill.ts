@@ -39,6 +39,7 @@ interface BillArgs {
   number?: string
   summary?: string
   rawData?: BillDTO
+  congressGovUrl?: string
 }
 
 export class Bill {
@@ -77,6 +78,8 @@ export class Bill {
   summary?: string
   // Raw Data
   rawData?: BillDTO
+  // congress.gov 的法案頁面
+  congressGovUrl?: string
 
   constructor(private readonly bill: BillArgs) {
     if (isString(bill.id)) {
@@ -133,26 +136,13 @@ export class Bill {
     if (!isUndefined(bill.rawData)) {
       this.rawData = bill.rawData
     }
+    if (isString(bill.congressGovUrl)) {
+      this.congressGovUrl = bill.congressGovUrl
+    }
   }
 
   get link() {
     return `${ROUTES.BILL}/${this.id}`
-  }
-
-  /**
-   * Get the external link of the bill
-   * @returns The external link
-   * @example 'https://www.congress.gov/bill/118th-congress/house-bill/8281'
-   */
-  get externalLink() {
-    const billType =
-      this.latestAction?.chamber === ChamberEnum.HOUSE
-        ? 'house'
-        : this.latestAction?.chamber === ChamberEnum.SENATE
-          ? 'senate'
-          : ''
-    const billNumber = this.id?.replace(/\D/g, '') // Extract only numbers from the ID
-    return `https://www.congress.gov/bill/${this.congressNumber}th-congress/${billType}-bill/${billNumber}`
   }
 
   get introducedDate() {
@@ -296,6 +286,7 @@ export class Bill {
       number: dto.number,
       summary: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.summary ?? '',
       rawData: dto,
+      congressGovUrl: dto.congressGovUrl ?? '',
     })
   }
 
