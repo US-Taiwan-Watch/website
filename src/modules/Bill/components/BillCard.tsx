@@ -29,6 +29,7 @@ const StyledTimelineContainer = styled(UHStack)(({ theme }) => ({
   backgroundColor: theme.color.grey[100],
   borderRadius: '15px',
   minWidth: 275,
+  width: 275,
   height: 'max-content',
   gap: theme.spacing(1),
 }))
