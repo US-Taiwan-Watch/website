@@ -30,4 +30,15 @@ export default class CommonUtils {
     if (!party) return undefined
     return z.nativeEnum(Party).safeParse(party).data
   }
+
+  /**
+   * 取得國會屆數的開始與結束年份
+   * @param congressNumber
+   * @returns
+   */
+  static getCongressYears(congressNumber: number): string {
+    const startYear = 1789 + (congressNumber - 1) * 2 // 每屆兩年
+    const endYear = startYear + 1
+    return `${startYear}-${endYear}`
+  }
 }
