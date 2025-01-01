@@ -16,6 +16,7 @@ import {
   Box,
   stepConnectorClasses,
   StepConnector,
+  Tooltip,
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 
@@ -84,26 +85,28 @@ function HorizontalTimeline({ data, activeIndex }: UTimelineProps) {
         const isActiveDot = index === activeIndex
 
         return (
-          <Step key={index}>
-            <StepLabel
-              StepIconComponent={() => (
-                <Box
-                  sx={{
-                    width: TIMELINE_DOT_WIDTH_PX,
-                    height: TIMELINE_DOT_WIDTH_PX,
-                    borderRadius: '50%',
-                    backgroundColor: isActiveDot
-                      ? theme.color.purple[100]
-                      : theme.color.common.black,
-                    outline: isActiveDot
-                      ? `3px solid ${theme.color.common.black}`
-                      : 'none',
-                    zIndex: 1,
-                  }}
-                />
-              )}
-            />
-          </Step>
+          <Tooltip key={index} title={data[index].title} arrow>
+            <Step>
+              <StepLabel
+                StepIconComponent={() => (
+                  <Box
+                    sx={{
+                      width: TIMELINE_DOT_WIDTH_PX,
+                      height: TIMELINE_DOT_WIDTH_PX,
+                      borderRadius: '50%',
+                      backgroundColor: isActiveDot
+                        ? theme.color.purple[100]
+                        : theme.color.common.black,
+                      outline: isActiveDot
+                        ? `3px solid ${theme.color.common.black}`
+                        : 'none',
+                      zIndex: 1,
+                    }}
+                  />
+                )}
+              />
+            </Step>
+          </Tooltip>
         )
       })}
     </Stepper>
