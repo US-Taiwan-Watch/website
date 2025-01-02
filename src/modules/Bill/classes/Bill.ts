@@ -1,5 +1,4 @@
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
-import { ChamberEnum } from '@/common/enums/Chamber'
 import { People } from '@/modules/People/classes/People'
 import { isArray, isNull, isNumber, isString, isUndefined } from 'lodash-es'
 import { ROUTES } from '@/routes'
@@ -15,23 +14,40 @@ import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/Parli
 import { Party } from '@/common/enums/Party'
 import TagUtils from '@/modules/Common/Tag.utils'
 import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
+import { BillTypeEnum } from '@/modules/Bill/components/BillFilter/enums'
+import { z } from 'zod'
+import { ChamberEnum } from '@/common/enums/Chamber'
+
+// FIXME: 若後端有固定格式則改用實際的 Dto
+interface BillActionOverviewDto {
+  actionAt: {
+    datetime: string
+  }
+  description: string
+}
+
+interface BillActionAllDto extends BillActionOverviewDto {
+  chamber: 'house' | 'senate'
+}
 
 export interface BillAction {
   date: string
   description?: string
   // 參眾議院
-  chamber: ChamberEnum
+  chamber?: ChamberEnum
 }
 
 interface BillArgs {
   id?: string
+  type?: BillTypeEnum
   title?: string
   sponsor?: People
   cosponsors?: BillCosponsor[]
   categories?: string[]
   tags?: string[]
   status?: BillStatusEnum
-  actions?: BillAction[]
+  actionsOverview?: BillAction[]
+  actionsAll?: BillAction[]
   congressNumber?: number
   statusTracker?: BillStatusTracker
   introducedAt?: string
@@ -39,11 +55,14 @@ interface BillArgs {
   number?: string
   summary?: string
   rawData?: BillDTO
+  congressGovUrl?: string
 }
 
 export class Bill {
   // ID
   id?: string
+  // 法案類型
+  type?: BillTypeEnum
   // 法案名稱
   title?: string
   // 提案人
@@ -63,8 +82,10 @@ export class Bill {
     futureStatus?: BillStatusEnum[]
   }
 
-  // 法案動作
-  actions: BillAction[] = []
+  // 法案動作 overview
+  actionsOverview: BillAction[] = []
+  // 法案動作 all
+  actionsAll: BillAction[] = []
   // 國會屆數
   congressNumber?: number
   // 法案發起日期
@@ -77,6 +98,8 @@ export class Bill {
   summary?: string
   // Raw Data
   rawData?: BillDTO
+  // congress.gov 的法案頁面
+  congressGovUrl?: string
 
   constructor(private readonly bill: BillArgs) {
     if (isString(bill.id)) {
@@ -84,6 +107,9 @@ export class Bill {
     }
     if (isString(bill.title)) {
       this.title = bill.title
+    }
+    if (isString(bill.type)) {
+      this.type = bill.type
     }
     if (bill.sponsor instanceof People) {
       this.sponsor = bill.sponsor
@@ -97,8 +123,14 @@ export class Bill {
     if (isArray(bill.tags)) {
       this.tags = bill.tags
     }
-    if (isArray(bill.actions)) {
-      this.actions = bill.actions.map((action) => ({
+    if (isArray(bill.actionsOverview)) {
+      this.actionsOverview = bill.actionsOverview.map((action) => ({
+        date: action.date,
+        description: action.description,
+      }))
+    }
+    if (isArray(bill.actionsAll)) {
+      this.actionsAll = bill.actionsAll.map((action) => ({
         date: action.date,
         description: action.description,
         chamber: action.chamber,
@@ -133,30 +165,17 @@ export class Bill {
     if (!isUndefined(bill.rawData)) {
       this.rawData = bill.rawData
     }
+    if (isString(bill.congressGovUrl)) {
+      this.congressGovUrl = bill.congressGovUrl
+    }
   }
 
   get link() {
     return `${ROUTES.BILL}/${this.id}`
   }
 
-  /**
-   * Get the external link of the bill
-   * @returns The external link
-   * @example 'https://www.congress.gov/bill/118th-congress/house-bill/8281'
-   */
-  get externalLink() {
-    const billType =
-      this.latestAction?.chamber === ChamberEnum.HOUSE
-        ? 'house'
-        : this.latestAction?.chamber === ChamberEnum.SENATE
-          ? 'senate'
-          : ''
-    const billNumber = this.id?.replace(/\D/g, '') // Extract only numbers from the ID
-    return `https://www.congress.gov/bill/${this.congressNumber}th-congress/${billType}-bill/${billNumber}`
-  }
-
   get introducedDate() {
-    return this.actions?.[0]?.date
+    return this.actionsOverview?.[0]?.date
   }
 
   /**
@@ -164,7 +183,7 @@ export class Bill {
    * @returns The latest action
    */
   get latestAction() {
-    return this.actions?.[this.actions.length - 1]
+    return this.actionsOverview?.[this.actionsOverview.length - 1]
   }
 
   /**
@@ -178,34 +197,23 @@ export class Bill {
     return bill.statusTracker.passedStatus.length - 1
   }
 
+  static billTypeEnumTextMap: Record<BillTypeEnum, string> = {
+    [BillTypeEnum.HouseBill]: 'H.R.',
+    [BillTypeEnum.SenateBill]: 'S.',
+    [BillTypeEnum.HouseJointResolution]: 'H.J.Res.',
+    [BillTypeEnum.SenateJointResolution]: 'S.J.Res.',
+    [BillTypeEnum.HouseConcurrentResolution]: 'H.Con.Res.',
+    [BillTypeEnum.SenateConcurrentResolution]: 'S.Con.Res.',
+    [BillTypeEnum.HouseSimpleResolution]: 'H.Res.',
+    [BillTypeEnum.SenateSimpleResolution]: 'S.Res.',
+  }
+
   get chamberPrefix(): string {
-    return this.latestAction?.chamber === ChamberEnum.HOUSE
-      ? 'H.R.'
-      : this.latestAction?.chamber === ChamberEnum.SENATE
-        ? 'S.'
-        : ''
+    return Bill.billTypeEnumTextMap[this.type as BillTypeEnum] ?? ''
   }
 
   get cosponsorsCount() {
     return (this.cosponsors ?? []).length
-  }
-
-  /**
-   * Check if the bill has passed both chambers
-   * @returns true if the bill has passed both House and Senate
-   */
-  hasPassedBothChambers(): boolean {
-    const hasPassedHouse = (this.actions ?? []).some(
-      (action) =>
-        action.chamber === ChamberEnum.HOUSE &&
-        action.description?.includes('Passed')
-    )
-    const hasPassedSenate = (this.actions ?? []).some(
-      (action) =>
-        action.chamber === ChamberEnum.SENATE &&
-        action.description?.includes('Passed')
-    )
-    return hasPassedHouse && hasPassedSenate
   }
 
   static GetBillStatusText(status: BillStatusEnum): string {
@@ -246,6 +254,9 @@ export class Bill {
   static fromDTO(lang: Language, dto: BillDTO) {
     return new Bill({
       id: dto.id ?? undefined,
+      type: dto.type
+        ? z.nativeEnum(BillTypeEnum).safeParse(dto.type).data
+        : undefined,
       title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? undefined,
       sponsor: dto.sponsor?.people
         ? People.fromDTO(lang, dto.sponsor.people)
@@ -269,26 +280,27 @@ export class Bill {
           .filter((name) => isString(name)) ?? [],
       statusTracker: dto.statusTracker ?? undefined,
       congressNumber: dto.congress,
-      // TODO: 型態待補
-      actions:
+      actionsOverview:
         (
-          dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.actionsAll as
-            | {
-                actionAt: {
-                  datetime: string
-                }
-                description: string
-                chamber: 'house' | 'senate'
-              }[]
+          dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.actionsOverview as
+            | BillActionOverviewDto[]
             | undefined
         )
           ?.map((action) => ({
             date: action.actionAt.datetime,
             description: action.description,
-            chamber:
-              action.chamber === 'house'
-                ? ChamberEnum.HOUSE
-                : ChamberEnum.SENATE,
+          }))
+          ?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date))) ?? [],
+      actionsAll:
+        (
+          dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.actionsAll as
+            | BillActionAllDto[]
+            | undefined
+        )
+          ?.map((action) => ({
+            date: action.actionAt.datetime,
+            description: action.description,
+            chamber: z.nativeEnum(ChamberEnum).safeParse(action.chamber).data,
           }))
           ?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date))) ?? [],
       introducedAt: dto.introducedAt?.datetime,
@@ -296,6 +308,7 @@ export class Bill {
       number: dto.number,
       summary: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.summary ?? '',
       rawData: dto,
+      congressGovUrl: dto.congressGovUrl ?? '',
     })
   }
 

@@ -30,7 +30,6 @@ export default function PopularTags() {
           >
             <UCategoryChip
               label={TagUtils.parseTagName(lang, tag)}
-              active={index === 0}
               size="medium"
             />
           </Link>

@@ -3,7 +3,18 @@
     "source.fixAll.eslint": "always"
   },
   "editor.tabSize": 2,
-  "cSpell.words": ["USTW", "Ketagalan", "highcharts"],
+  "cSpell.words": [
+    "USTW",
+    "Ketagalan",
+    "highcharts",
+    "titlecase",
+    "hjres",
+    "sjres",
+    "hconres",
+    "sconres",
+    "hres",
+    "sres"
+  ],
   "eslint.lintTask.enable": true,
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["src/common/lib/i18n/locales"],

@@ -96,4 +96,19 @@ export class Congress {
   static minCongressNumber() {
     return 96
   }
+
+  static congressEstablishYear = 1789
+
+  /**
+   * 取得國會屆數的開始與結束年份
+   * @param congressNumber
+   * @returns
+   */
+  static getCongressYearsByCongressNumber(
+    congressNumber: number
+  ): [number, number] {
+    const startYear = this.congressEstablishYear + (congressNumber - 1) * 2 // 每屆兩年
+    const endYear = startYear + 1
+    return [startYear, endYear]
+  }
 }

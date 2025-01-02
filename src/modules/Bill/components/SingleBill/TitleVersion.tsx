@@ -20,7 +20,7 @@ type Props = {
 
 export default function TitleVersion({ bill }: Props) {
   return (
-    <a href={bill.externalLink} target="_blank" rel="noopener noreferrer">
+    <a href={bill.congressGovUrl} target="_blank" rel="noopener noreferrer">
       <StyledTitleVersionButton
         variant="contained"
         startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}

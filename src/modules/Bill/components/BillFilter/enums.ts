@@ -8,14 +8,14 @@ export enum BillPartyEnum {
 }
 
 export enum BillTypeEnum {
-  HouseBill = 1,
-  SenateBill,
-  HouseJointResolution,
-  SenateJointResolution,
-  HouseConcurrentResolution,
-  SenateConcurrentResolution,
-  HouseSimpleResolution,
-  SenateSimpleResolution,
+  HouseBill = 'hr',
+  SenateBill = 's',
+  HouseJointResolution = 'hjres',
+  SenateJointResolution = 'sjres',
+  HouseConcurrentResolution = 'hconres',
+  SenateConcurrentResolution = 'sconres',
+  HouseSimpleResolution = 'hres',
+  SenateSimpleResolution = 'sres',
 }
 
 export enum BillStatusEnum {
