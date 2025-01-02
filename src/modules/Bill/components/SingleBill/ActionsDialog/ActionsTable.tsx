@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { BillAction } from '@/modules/Bill/classes/Bill'
+import { Bill, BillAction } from '@/modules/Bill/classes/Bill'
 import dayjs from 'dayjs'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
@@ -46,11 +46,11 @@ enum SortDirectionEnum {
 }
 
 type Props = {
-  actions: BillAction[]
+  bill: Bill
   tableType: ActionsTableType
 }
 
-export default function ActionsTable({ actions, tableType }: Props) {
+export default function ActionsTable({ bill, tableType }: Props) {
   const theme = useTheme<USTWTheme>()
   const [sortDirection, setSortDirection] = useState<SortDirectionEnum>(
     SortDirectionEnum.DESC
@@ -67,11 +67,12 @@ export default function ActionsTable({ actions, tableType }: Props) {
   ]
 
   const sortedActions = useMemo<BillAction[]>(() => {
+    const actions = isAllActions ? bill.actionsAll : bill.actionsOverview
     const sortResult = sortBy(actions, 'date')
     return sortDirection === SortDirectionEnum.DESC
       ? sortResult.reverse()
       : sortResult
-  }, [actions, sortDirection])
+  }, [bill.actionsAll, bill.actionsOverview, isAllActions, sortDirection])
 
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>
@@ -138,7 +139,7 @@ export default function ActionsTable({ actions, tableType }: Props) {
               {isAllActions && (
                 <TableCell align="left">
                   <StyledBodyText textTransform="capitalize">
-                    {action.chamber.toLowerCase()}
+                    {action.chamber ? action.chamber.toLowerCase() : EMPTY_CELL}
                   </StyledBodyText>
                 </TableCell>
               )}

@@ -110,31 +110,14 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               <Divider sx={{ my: 2 }} />
 
               <Stack gap={1.5}>
-                <UHStack
-                  justifyContent={isHorizontal ? 'flex-start' : 'space-between'}
-                  alignItems="center"
-                  {...(isHorizontal && { gap: 3 })}
+                <Typography
+                  variant="buttonS"
+                  {...(isHorizontal && { color: theme.color.grey[400] })}
                 >
-                  <UCategoryTag
-                    value={bill.latestAction?.chamber}
-                    containerProps={{
-                      sx: {
-                        backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
-                      },
-                    }}
-                    textProps={{
-                      variant: 'buttonS',
-                    }}
-                  />
-                  <Typography
-                    variant="buttonS"
-                    {...(isHorizontal && { color: theme.color.grey[400] })}
-                  >
-                    {dayjs(bill.latestAction?.date).isValid()
-                      ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
-                      : ''}
-                  </Typography>
-                </UHStack>
+                  {dayjs(bill.latestAction?.date).isValid()
+                    ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
+                    : ''}
+                </Typography>
                 <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
                   {bill.latestAction?.description}
                 </UHeightLimitedText>

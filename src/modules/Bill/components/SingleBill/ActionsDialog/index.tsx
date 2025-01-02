@@ -75,7 +75,7 @@ export default function ActionsDialog({
           },
         }}
       >
-        <Grid2 container mt={2} spacing={2}>
+        <Grid2 container mt={2} spacing={2} height="500px">
           <Grid2 size={2} pl={1} pt="3px">
             <FormControl>
               <RadioGroup
@@ -102,10 +102,7 @@ export default function ActionsDialog({
             </FormControl>
           </Grid2>
           <Grid2 size={10}>
-            <ActionsTable
-              actions={bill.actions ?? []}
-              tableType={selectedTableType}
-            />
+            <ActionsTable bill={bill} tableType={selectedTableType} />
           </Grid2>
         </Grid2>
       </UContentCard>
