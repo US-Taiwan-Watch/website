@@ -1,4 +1,4 @@
 export enum ChamberEnum {
-  HOUSE = 'House',
-  SENATE = 'Senate',
+  HOUSE = 'house',
+  SENATE = 'senate',
 }
