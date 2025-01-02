@@ -50,7 +50,7 @@ const BillInfoSection = memo(function BillInfoSection({
               (() => {
                 const [startYear, endYear] =
                   Congress.getCongressYearsByCongressNumber(bill.congressNumber)
-                return `${startYear}-${endYear}`
+                return ` (${startYear}-${endYear})`
               })()}
           </Typography>
         </UHStack>
