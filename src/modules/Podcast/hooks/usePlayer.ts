@@ -17,7 +17,7 @@ export default function usePlayer({
   const [playing, setPlaying] = useState(false)
   const [progress, setProgress] = useState(0)
   const playerRef = useRef<Howl | null>(null)
-  const [remainingTime, setRemainingTime] = useState('0:00')
+  const [runningTime, setRunningTime] = useState('0:00')
 
   const memoizedAudioUrl = useMemo(() => audioUrl, [audioUrl])
   const memoizedOnPlayCallback = useCallback(
@@ -59,7 +59,7 @@ export default function usePlayer({
         const seek = playerRef.current.seek() || 0
         const duration = playerRef.current.duration() || 0
         setProgress(seek / duration || 0)
-        setRemainingTime(formatTime(duration - seek))
+        setRunningTime(formatTime(seek))
       }
     }
 
@@ -89,7 +89,7 @@ export default function usePlayer({
     playerRef,
     playing,
     progress,
-    remainingTime,
+    runningTime,
     play,
     pause,
   }
@@ -119,12 +119,11 @@ export const usePlayerWithUI = ({
     })
   }, [onPause, episode])
 
-  const { playerRef, playing, progress, remainingTime, play, pause } =
-    usePlayer({
-      audioUrl: memoizedAudioUrl,
-      onPlayCallback: memoizedOnPlay,
-      onPauseCallback: memoizedOnPause,
-    })
+  const { playerRef, playing, progress, runningTime, play, pause } = usePlayer({
+    audioUrl: memoizedAudioUrl,
+    onPlayCallback: memoizedOnPlay,
+    onPauseCallback: memoizedOnPause,
+  })
 
   const togglePlayPause = () => {
     if (playerRef.current) {
@@ -168,7 +167,7 @@ export const usePlayerWithUI = ({
     playerRef,
     playing,
     progress,
-    remainingTime,
+    runningTime,
     togglePlayPause,
     handleSliderChange,
     handleBackwardClick,

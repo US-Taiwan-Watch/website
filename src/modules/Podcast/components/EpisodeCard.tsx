@@ -3,7 +3,7 @@
 import { memo, forwardRef, useImperativeHandle } from 'react'
 
 import { Typography, Slider, Stack, Grid2 as Grid } from '@mui/material'
-import { PlayCircleRounded, Pause, MoreHoriz } from '@mui/icons-material'
+import { PlayCircleRounded, Pause } from '@mui/icons-material'
 import Image from 'next/image'
 import {
   EpisodeCardProps as GeneralEpisodeCardProps,
@@ -104,7 +104,7 @@ const EpisodeCard = memo(
     const {
       playing,
       progress,
-      remainingTime,
+      runningTime,
       togglePlayPause,
       handleSliderChange,
       handleBackwardClick,
@@ -228,15 +228,7 @@ const EpisodeCard = memo(
                     <ForwardIcon />
                   </UIconButton>
                 </Stack>
-                <Typography variant="body2">{remainingTime}</Typography>
-                <UIconButton
-                  className="more-button"
-                  variant="rounded"
-                  color="default"
-                  size="medium"
-                >
-                  <MoreHoriz />
-                </UIconButton>
+                <Typography variant="body2">{runningTime}</Typography>
               </Stack>
             </Grid>
             <Grid
