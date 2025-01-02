@@ -6,8 +6,6 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
-import UHStack from '@/common/components/atoms/UHStack'
-import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import ActionsDialog from '@/modules/Bill/components/SingleBill/ActionsDialog'
@@ -44,26 +42,11 @@ export default function BillActions({ bill }: Props) {
         }}
       >
         <Stack pt={2}>
-          <UHStack alignItems="center" justifyContent="space-between" mb={2}>
-            <UCategoryTag
-              value={bill.latestAction?.chamber}
-              containerProps={{
-                sx: {
-                  backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
-                },
-              }}
-              textProps={{
-                variant: 'buttonS',
-              }}
-            />
-
-            <Typography variant="buttonXS">
-              {dayjs(bill.latestAction?.date).isValid()
-                ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
-                : ''}
-            </Typography>
-          </UHStack>
-
+          <Typography variant="buttonXS" mb={2}>
+            {dayjs(bill.latestAction?.date).isValid()
+              ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
+              : ''}
+          </Typography>
           <UHeightLimitedText maxLine={4} variant="body">
             {bill.latestAction?.description}
           </UHeightLimitedText>

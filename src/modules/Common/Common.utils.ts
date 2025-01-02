@@ -30,4 +30,17 @@ export default class CommonUtils {
     if (!party) return undefined
     return z.nativeEnum(Party).safeParse(party).data
   }
+
+  /**
+   * 後端回傳的 constituency 格式為 newYork，轉換成 titlecase，即 New York
+   * @param constituency
+   * @returns
+   */
+  static formatConstituency(constituency: string) {
+    const withSpaces = constituency.replace(/([a-z])([A-Z])/g, '$1 $2')
+    const formatted = withSpaces.replace(/\b\w+/g, function (word) {
+      return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+    })
+    return formatted
+  }
 }

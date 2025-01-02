@@ -29,6 +29,7 @@ const StyledTimelineContainer = styled(UHStack)(({ theme }) => ({
   backgroundColor: theme.color.grey[100],
   borderRadius: '15px',
   minWidth: 275,
+  width: 275,
   height: 'max-content',
   gap: theme.spacing(1),
 }))
@@ -65,7 +66,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix} | ${bill.congressNumber}th Congress`}
+            {`${bill.chamberPrefix}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
           </Typography>
 
           <Link href={bill.link}>
@@ -109,31 +110,14 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               <Divider sx={{ my: 2 }} />
 
               <Stack gap={1.5}>
-                <UHStack
-                  justifyContent={isHorizontal ? 'flex-start' : 'space-between'}
-                  alignItems="center"
-                  {...(isHorizontal && { gap: 3 })}
+                <Typography
+                  variant="buttonS"
+                  {...(isHorizontal && { color: theme.color.grey[400] })}
                 >
-                  <UCategoryTag
-                    value={bill.latestAction?.chamber}
-                    containerProps={{
-                      sx: {
-                        backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
-                      },
-                    }}
-                    textProps={{
-                      variant: 'buttonS',
-                    }}
-                  />
-                  <Typography
-                    variant="buttonS"
-                    {...(isHorizontal && { color: theme.color.grey[400] })}
-                  >
-                    {dayjs(bill.latestAction?.date).isValid()
-                      ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
-                      : ''}
-                  </Typography>
-                </UHStack>
+                  {dayjs(bill.latestAction?.date).isValid()
+                    ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
+                    : ''}
+                </Typography>
                 <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
                   {bill.latestAction?.description}
                 </UHeightLimitedText>

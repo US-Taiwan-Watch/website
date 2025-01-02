@@ -12,10 +12,7 @@ import DialogFilter from '@/modules/Bill/components/SingleBill/CosponsorDialog/D
 import useDialogFilter from '@/modules/Bill/components/SingleBill/CosponsorDialog/useDialogFilter'
 import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
 import { useMemo } from 'react'
-import {
-  createFilterCategories,
-  getFilterConstituency,
-} from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
+import { createFilterCategories } from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
 import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 
 type Props = {
@@ -41,9 +38,7 @@ export default function CosponsorDialog({
           : true
 
       const constituencyMatch = selectedOptionList.constituency.length
-        ? selectedOptionList.constituency.includes(
-            getFilterConstituency(constituency ?? '')
-          )
+        ? selectedOptionList.constituency.includes(constituency ?? '')
         : true
 
       return partyMatch && constituencyMatch

@@ -38,13 +38,13 @@ const CosponsorChart = ({ data }: Props) => {
     () => ({
       chart: {
         type: 'pie',
-        height: 150,
+        height: 120,
       },
       title: {
         text: amount,
         align: 'center',
         verticalAlign: 'middle',
-        y: 60,
+        y: 50,
         style: {
           fontSize: '42px',
         },
@@ -57,7 +57,7 @@ const CosponsorChart = ({ data }: Props) => {
           startAngle: -90,
           endAngle: 90,
           center: ['50%', '100%'],
-          size: '170%',
+          size: '220%',
           borderWidth: 0,
           borderRadius: 0,
         },
