@@ -197,7 +197,7 @@ const EpisodeCard = memo(
                 <Stack
                   direction="row"
                   spacing={1}
-                  alignItems="flex-end"
+                  alignItems="center"
                   justifyContent="center"
                   flex={1}
                 >
