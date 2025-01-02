@@ -32,17 +32,6 @@ export default class CommonUtils {
   }
 
   /**
-   * 取得國會屆數的開始與結束年份
-   * @param congressNumber
-   * @returns
-   */
-  static getCongressYears(congressNumber: number): string {
-    const startYear = 1789 + (congressNumber - 1) * 2 // 每屆兩年
-    const endYear = startYear + 1
-    return `${startYear}-${endYear}`
-  }
-
-  /**
    * 後端回傳的 constituency 格式為 newYork，轉換成 titlecase，即 New York
    * @param constituency
    * @returns

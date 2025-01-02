@@ -197,18 +197,19 @@ export class Bill {
     return bill.statusTracker.passedStatus.length - 1
   }
 
+  static billTypeEnumTextMap: Record<BillTypeEnum, string> = {
+    [BillTypeEnum.HouseBill]: 'H.R.',
+    [BillTypeEnum.SenateBill]: 'S.',
+    [BillTypeEnum.HouseJointResolution]: 'H.J.Res.',
+    [BillTypeEnum.SenateJointResolution]: 'S.J.Res.',
+    [BillTypeEnum.HouseConcurrentResolution]: 'H.Con.Res.',
+    [BillTypeEnum.SenateConcurrentResolution]: 'S.Con.Res.',
+    [BillTypeEnum.HouseSimpleResolution]: 'H.Res.',
+    [BillTypeEnum.SenateSimpleResolution]: 'S.Res.',
+  }
+
   get chamberPrefix(): string {
-    const billTypeEnumTextMap: Record<BillTypeEnum, string> = {
-      [BillTypeEnum.HouseBill]: 'H.R.',
-      [BillTypeEnum.SenateBill]: 'S.',
-      [BillTypeEnum.HouseJointResolution]: 'H.J.Res.',
-      [BillTypeEnum.SenateJointResolution]: 'S.J.Res.',
-      [BillTypeEnum.HouseConcurrentResolution]: 'H.Con.Res.',
-      [BillTypeEnum.SenateConcurrentResolution]: 'S.Con.Res.',
-      [BillTypeEnum.HouseSimpleResolution]: 'H.Res.',
-      [BillTypeEnum.SenateSimpleResolution]: 'S.Res.',
-    }
-    return billTypeEnumTextMap[this.type as BillTypeEnum] ?? ''
+    return Bill.billTypeEnumTextMap[this.type as BillTypeEnum] ?? ''
   }
 
   get cosponsorsCount() {

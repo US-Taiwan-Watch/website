@@ -10,7 +10,7 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
 import TitleVersion from '@/modules/Bill/components/SingleBill/TitleVersion'
-import CommonUtils from '@/modules/Common/Common.utils'
+import { Congress } from '@/common/classes/Congress'
 
 const StyledInfoContainer = styled(Stack)(() => ({
   flex: 1,
@@ -47,7 +47,11 @@ const BillInfoSection = memo(function BillInfoSection({
           <Typography variant="body" fontWeight={300} mb={1}>
             {`${bill.chamberPrefix}${bill.number} | ${bill.congressNumber}th Congress`}
             {bill.congressNumber &&
-              ` (${CommonUtils.getCongressYears(bill.congressNumber)})`}
+              (() => {
+                const [startYear, endYear] =
+                  Congress.getCongressYearsByCongressNumber(bill.congressNumber)
+                return `${startYear}-${endYear}`
+              })()}
           </Typography>
         </UHStack>
         <Typography variant="h4">{bill.title}</Typography>
