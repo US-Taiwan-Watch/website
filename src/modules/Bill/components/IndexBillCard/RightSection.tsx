@@ -21,7 +21,6 @@ import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
 import { ReactNode } from 'react'
 import dayjs from 'dayjs'
-import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { Party } from '@/common/enums/Party'
@@ -190,28 +189,15 @@ export default function RightSection({ bill }: Props) {
           <CardIconTitle icon={<ActionsIcon />} title="Latest Action" />
           <Divider sx={{ my: 2, borderWidth: 1 }} />
           <Stack gap={1.5}>
-            <UHStack justifyContent="space-between" alignItems="center">
-              <UCategoryTag
-                value={bill.latestAction?.chamber}
-                containerProps={{
-                  sx: {
-                    backgroundColor: `${theme.color.purple[100]}80`, // 50% opacity
-                  },
-                }}
-                textProps={{
-                  variant: 'buttonS',
-                }}
-              />
-              <Typography
-                variant="buttonXS"
-                fontSize={15}
-                sx={{ color: theme.color.grey[1200] }}
-              >
-                {dayjs(bill.latestAction?.date).isValid()
-                  ? dayjs(bill.latestAction?.date).format(ACTION_DATE_FORMAT)
-                  : ''}
-              </Typography>
-            </UHStack>
+            <Typography
+              variant="buttonXS"
+              fontSize={15}
+              sx={{ color: theme.color.grey[1200] }}
+            >
+              {dayjs(bill.latestAction?.date).isValid()
+                ? dayjs(bill.latestAction?.date).format(ACTION_DATE_FORMAT)
+                : ''}
+            </Typography>
             <UHeightLimitedText maxLine={3} variant="buttonXS">
               {bill.latestAction?.description}
             </UHeightLimitedText>

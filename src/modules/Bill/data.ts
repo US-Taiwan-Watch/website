@@ -45,9 +45,9 @@ export const PARLIAMENT_CHART_DATA_MOCK_2: ParliamentChartData[] = [
   },
 ]
 
-export const BILL_DATA_MOCK: Bill[] = BILL_DTO_MOCK.map((dto) =>
-  Bill.fromDTO('en-US', dto)
-)
+export const FEATURED_BILLS: Bill[] = BILL_DTO_MOCK.filter(
+  (bill) => bill.isFeatured
+).map((dto) => Bill.fromDTO('en-US', dto))
 
 export const getCurrentCongressBillCount = (): CountBills => {
   return {
