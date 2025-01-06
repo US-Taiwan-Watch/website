@@ -69,6 +69,6 @@ export class Episode {
   }
 
   get soundonLink() {
-    return `https://player.soundon.fm/p/${this.podcastId}/episodes/${this.episode}`
+    return `https://player.soundon.fm/p/${this.podcastId}/episodes/${this.id}`
   }
 }
