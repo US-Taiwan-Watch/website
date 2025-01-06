@@ -4,7 +4,6 @@ import Carousel from '@/common/components/elements/Carousel'
 import { styled } from '@/common/lib/mui/theme'
 import { Box, Container } from '@mui/material'
 import BillCard from '@/modules/Bill/components/BillCard'
-import { BILL_DATA_MOCK } from '@/modules/Bill/data'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import ArrowPagination from '@/common/components/elements/Carousel/ArrowPagination'
 import { Bill } from '@/modules/Bill/classes/Bill'
@@ -23,13 +22,10 @@ const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
 
 type Props = {
   simplified?: boolean
-  data?: Bill[]
+  data: Bill[]
 }
 
-export default function BillCardCarousel({
-  simplified,
-  data = BILL_DATA_MOCK,
-}: Props) {
+export default function BillCardCarousel({ simplified, data }: Props) {
   return (
     <StyledCarouselContainer>
       <Container maxWidth="lg">
