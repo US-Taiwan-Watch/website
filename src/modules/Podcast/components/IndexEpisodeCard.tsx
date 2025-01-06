@@ -82,7 +82,7 @@ const IndexEpisodeCard = memo(
     const {
       playing,
       progress,
-      remainingTime,
+      runningTime,
       togglePlayPause,
       handleSliderChange,
     } = usePlayerWithUI({
@@ -142,7 +142,7 @@ const IndexEpisodeCard = memo(
               onChange={handleSliderChange}
               aria-labelledby="continuous-slider"
             />
-            <Typography variant="body2">{remainingTime}</Typography>
+            <Typography variant="body2">{runningTime}</Typography>
           </StyledControlBarContainer>
         </Stack>
       </StyledIndexEpisodeCardContainer>

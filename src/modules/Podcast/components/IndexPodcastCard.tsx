@@ -160,7 +160,7 @@ export const WatchHerePodcastCard = () => {
     () =>
       new Podcast({
         type: PodcastType.WATCH_HERE,
-        bannerImg: '/assets/podcast1.png',
+        bannerImg: '/assets/podcast/podcast_banner_WATCH_HERE.png',
         title: 'USTW - 觀測站底加辣',
         description:
           '《觀測站底加辣》迎來第三季，每週為您帶來台美關係最新動態與深入分析，並邀請來賓如前參謀總長李喜明、美國聖湯瑪斯大學葉耀元教授等。感謝您的支持，節目超過150集，下載量突破200萬，聽眾遍全球。與我們一起用耳朵追時事，解析台美中地緣政治。主持群：李可心、陳方隅、Jerry、Ledo、Ting。',
@@ -180,7 +180,7 @@ export const WatchInfoPodcastCard = () => {
     () =>
       new Podcast({
         type: PodcastType.WATCH_INFO,
-        bannerImg: '/assets/podcast1.png',
+        bannerImg: '/assets/podcast/podcast_banner_WATCH_INFO.png',
         title: 'USTW - 觀測站予你知',
         description: '予你知',
       }),
@@ -199,7 +199,7 @@ export const WatchBookClubPodcastCard = () => {
     () =>
       new Podcast({
         type: PodcastType.WATCH_BOOK_CLUB,
-        bannerImg: '/assets/podcast1.png',
+        bannerImg: '/assets/podcast/podcast_banner_WATCH_BOOK_CLUB.png',
         title: 'USTW - 觀測站讀書會',
         description: '讀書會',
       }),
