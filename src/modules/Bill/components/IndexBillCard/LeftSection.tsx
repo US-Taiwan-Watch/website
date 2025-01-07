@@ -12,7 +12,7 @@ import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 import withSelectable from '@/common/hooks/withSelectable'
-import { useMemo, type ComponentProps } from 'react'
+import { type ComponentProps } from 'react'
 import { Congress } from '@/common/classes/Congress'
 
 const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
@@ -34,10 +34,6 @@ type Props = {
 
 export default function LeftSection({ bill }: Props) {
   const theme = useTheme<USTWTheme>()
-  const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
-    []
-  )
 
   return (
     <Stack justifyContent="space-between" height="100%">
@@ -58,7 +54,13 @@ export default function LeftSection({ bill }: Props) {
           sx={{ color: theme.color.grey[2400] }}
           mb={1}
         >
-          {`${bill.chamberPrefix} | ${currentCongressNumber}th Congress`}
+          {`${bill.chamberPrefix}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
+          {bill.congressNumber &&
+            (() => {
+              const [startYear, endYear] =
+                Congress.getCongressYearsByCongressNumber(bill.congressNumber)
+              return ` (${startYear}-${endYear})`
+            })()}
         </TypographyWithSelectable>
 
         <Link href={bill.link}>
