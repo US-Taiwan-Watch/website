@@ -21,7 +21,7 @@ const KetagalanSection = () => {
       }}
     >
       <SectionTitleWithLink renderTitle={() => <UKetagalanLogo />} />
-      <Grid container spacing={5}>
+      <Grid container rowSpacing={8} columnSpacing={4}>
         {KETAGALAN_MEDIA_MOCK_DATA.map((media) => (
           <Grid
             size={{

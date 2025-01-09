@@ -13,6 +13,10 @@ const StyledImageContainer = styled(Box)(() => ({
   borderRadius: '7px',
   overflow: 'hidden',
   width: '100%',
+  aspectRatio: '3/2',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
 }))
 
 const StyledImage = styled(Image)(() => ({
@@ -39,7 +43,7 @@ const KetagalanMediaCard = ({ media }: Props) => {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <Stack width="100%" height={365} gap="20px">
+    <Stack width="100%" gap="20px">
       <StyledImageContainer>
         {media.image && (
           <StyledImage
@@ -48,6 +52,11 @@ const KetagalanMediaCard = ({ media }: Props) => {
             width={380}
             height={200}
             layout="responsive"
+            style={{
+              objectFit: 'cover',
+              minWidth: '100%',
+              minHeight: '100%',
+            }}
           />
         )}
       </StyledImageContainer>
