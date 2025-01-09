@@ -73,7 +73,7 @@ const KetagalanMediaCard = ({ media }: Props) => {
           <StyledText maxLine={2} variant="articleH4">
             {media.title}
           </StyledText>
-          <StyledText maxLine={2} variant="articleH6">
+          <StyledText maxLine={3} variant="articleH6">
             {media.description}
           </StyledText>
         </Stack>
