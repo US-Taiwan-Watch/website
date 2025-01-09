@@ -163,7 +163,7 @@ export const WatchHerePodcastCard = () => {
         bannerImg: '/assets/podcast/podcast_banner_WATCH_HERE.png',
         title: 'USTW - 觀測站底加辣',
         description:
-          '《觀測站底加辣》迎來第三季，每週為您帶來台美關係最新動態與深入分析，並邀請來賓如前參謀總長李喜明、美國聖湯瑪斯大學葉耀元教授等。感謝您的支持，節目超過150集，下載量突破200萬，聽眾遍全球。與我們一起用耳朵追時事，解析台美中地緣政治。主持群：李可心、陳方隅、Jerry、Ledo、Ting。',
+          '《觀測站底加辣》從2020年四月上線以來，已經邁入第三季，且目前連續進行超過160集，全年無休為大家深入分析台美關係最新動態。我們的聽眾遍布全球，下載量突破200萬，歡迎大家一起和我們用耳朵追時事，解析台美中地緣政治。另外我們也不定時加入「觀測站予你知」，訪談各界重量級來賓，為大家增加重要的新知、認識新出版的好書，以及開拓更廣的視野。主持群：李可心、陳方隅、Ledo、Jerry、Ting、Cathy。',
       }),
     []
   )
@@ -182,7 +182,8 @@ export const WatchInfoPodcastCard = () => {
         type: PodcastType.WATCH_INFO,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_INFO.png',
         title: 'USTW - 觀測站予你知',
-        description: '予你知',
+        description:
+          '《觀測站予你知》是本站《觀測站底加辣》podcast的子品牌，旨在提供各種重要的資訊，包括新書出版、好書推薦、作者或學者或政治工作者的訪談，我們把所有關於美中台關係當中的重要議題都放在這個予你知的節目專題當中，設定20分鐘的時間跟您聊聊重要的資訊，增廣見聞。其實一開始設定是要聊「輕鬆」一點的生活話題，但我們很顯然都是一群（太過）認真嚴肅的人，然後工作又太忙了些，所以，這個系列大家就佛系收聽囉！',
       }),
     []
   )
@@ -201,7 +202,8 @@ export const WatchBookClubPodcastCard = () => {
         type: PodcastType.WATCH_BOOK_CLUB,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_BOOK_CLUB.png',
         title: 'USTW - 觀測站讀書會',
-        description: '讀書會',
+        description:
+          '《觀測站讀書會》是本站《觀測站底加辣》podcast的子品牌，有別於每週的時事更新，以橫切面方式關注美中台議題，《觀測站讀書會》則是希望透過一本書，以縱面聚焦的方式專注討論特定議題，並邀請作者或學者或政治工作者等專業來賓共同討論選書。每集讀書會約20至30分鐘，除了有簡單的選書導讀，還會透過精彩的分析與提問增添討論豐富度，不管有沒有讀過選書，都歡迎收聽！',
       }),
     []
   )
