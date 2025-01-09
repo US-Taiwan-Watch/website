@@ -8,8 +8,8 @@ import ParliamentChart, {
   ParliamentChartData,
 } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import {
-  PARLIAMENT_CHART_DATA_MOCK_1,
-  PARLIAMENT_CHART_DATA_MOCK_2,
+  PARLIAMENT_CHART_DATA_MOCK_HOUSE,
+  PARLIAMENT_CHART_DATA_MOCK_SENATE,
 } from '@/modules/Bill/data'
 import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
@@ -24,9 +24,9 @@ export default function CongressCard() {
 
   const data = useMemo<ParliamentChartData[]>(() => {
     if (selectedChamber === ChamberEnum.HOUSE) {
-      return PARLIAMENT_CHART_DATA_MOCK_1
+      return PARLIAMENT_CHART_DATA_MOCK_HOUSE
     }
-    return PARLIAMENT_CHART_DATA_MOCK_2
+    return PARLIAMENT_CHART_DATA_MOCK_SENATE
   }, [selectedChamber])
 
   return (

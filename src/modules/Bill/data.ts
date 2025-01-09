@@ -15,34 +15,35 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 
-export const PARLIAMENT_CHART_DATA_MOCK_1: ParliamentChartData[] = [
+export const PARLIAMENT_CHART_DATA_MOCK_HOUSE: ParliamentChartData[] = [
   {
     party: Party.DEMOCRATIC,
-    count: 50,
+    count: 215,
   },
   {
     party: Party.REPUBLICAN,
-    count: 62,
+    count: 220,
   },
-  {
-    party: Party.INDEPENDENT,
-    count: 6,
-  },
+  // 119th 沒有 INDEPENDENT
+  // {
+  //   party: Party.INDEPENDENT,
+  //   count: 0,
+  // },
 ]
 
-export const PARLIAMENT_CHART_DATA_MOCK_2: ParliamentChartData[] = [
+export const PARLIAMENT_CHART_DATA_MOCK_SENATE: ParliamentChartData[] = [
   {
     party: Party.DEMOCRATIC,
-    count: 69,
+    count: 47,
   },
   {
     party: Party.REPUBLICAN,
-    count: 45,
+    count: 53,
   },
-  {
-    party: Party.INDEPENDENT,
-    count: 4,
-  },
+  // {
+  //   party: Party.INDEPENDENT,
+  //   count: 0,
+  // },
 ]
 
 export const FEATURED_BILLS: Bill[] = BILL_DTO_MOCK.filter(
@@ -51,7 +52,7 @@ export const FEATURED_BILLS: Bill[] = BILL_DTO_MOCK.filter(
 
 export const getCurrentCongressBillCount = (): CountBills => {
   return {
-    totalDocs: 11,
+    totalDocs: 20,
   }
 }
 
