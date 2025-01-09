@@ -3480,6 +3480,12 @@ export const CATEGORIES_DTO_MOCK = [
   },
 ] as unknown as CategoriesArticle[]
 
+/**
+ * 模擬 API 行為
+ * @param lang 語言
+ * @param tagId 標籤 ID
+ * @param limit 限制數量
+ */
 export const getOpinions = (lang: Language, tagId?: string, limit?: number) => {
   let opinions: Opinion[] = []
   if (tagId) {
