@@ -26,9 +26,7 @@ const KetagalanSection = () => {
           <Grid
             size={{
               xs: 12,
-              sm: 6,
-              md: 6,
-              lg: 4,
+              sm: 4,
             }}
             key={media.id}
           >

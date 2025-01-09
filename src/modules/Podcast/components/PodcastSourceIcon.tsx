@@ -12,17 +12,18 @@ interface PodcastSourceIconProps extends SvgIconProps {
 }
 
 const PodcastSourceIcon = (props: PodcastSourceIconProps) => {
-  switch (props.sourceType) {
+  const { sourceType, ...rest } = props
+  switch (sourceType) {
     case PodcastSourceType.APPLE:
-      return <ApplePodcastIcon {...props} />
+      return <ApplePodcastIcon {...rest} />
     case PodcastSourceType.GOOGLE:
-      return <GooglePodcastIcon {...props} />
+      return <GooglePodcastIcon {...rest} />
     case PodcastSourceType.SPOTIFY:
-      return <SpotifyIcon {...props} />
+      return <SpotifyIcon {...rest} />
     case PodcastSourceType.SOUND_ON:
-      return <SoundOnPodcastIcon {...props} />
+      return <SoundOnPodcastIcon {...rest} />
     default:
-      return <ApplePodcastIcon {...props} />
+      return <ApplePodcastIcon {...rest} />
   }
 }
 
