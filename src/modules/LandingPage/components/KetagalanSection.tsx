@@ -7,7 +7,7 @@ import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constan
 import UKetagalanLogo from '@/common/components/atoms/UKetagalanLogo'
 import { useTheme } from '@mui/material/styles'
 import KetagalanMediaCard from '@/modules/KetagalanMedia/components/KetagalanMediaCard'
-import ketagalanMediaMockData from '@/modules/KetagalanMedia/data'
+import { KETAGALAN_MEDIA_MOCK_DATA } from '@/modules/KetagalanMedia/data'
 import { Grid2 as Grid } from '@mui/material'
 
 const KetagalanSection = () => {
@@ -22,7 +22,7 @@ const KetagalanSection = () => {
     >
       <SectionTitleWithLink renderTitle={() => <UKetagalanLogo />} />
       <Grid container spacing={5}>
-        {Array.from({ length: 3 }).map((_, index) => (
+        {KETAGALAN_MEDIA_MOCK_DATA.map((media) => (
           <Grid
             size={{
               xs: 12,
@@ -30,9 +30,9 @@ const KetagalanSection = () => {
               md: 6,
               lg: 4,
             }}
-            key={index}
+            key={media.id}
           >
-            <KetagalanMediaCard media={ketagalanMediaMockData} />
+            <KetagalanMediaCard media={media} />
           </Grid>
         ))}
       </Grid>
