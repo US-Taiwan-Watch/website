@@ -22,7 +22,7 @@ const KetagalanSection = () => {
     >
       <SectionTitleWithLink renderTitle={() => <UKetagalanLogo />} />
       <Grid container spacing={5}>
-        {KETAGALAN_MEDIA_MOCK_DATA.map((media, index) => (
+        {KETAGALAN_MEDIA_MOCK_DATA.map((media) => (
           <Grid
             size={{
               xs: 12,
@@ -30,7 +30,7 @@ const KetagalanSection = () => {
               md: 6,
               lg: 4,
             }}
-            key={index}
+            key={media.id}
           >
             <KetagalanMediaCard media={media} />
           </Grid>

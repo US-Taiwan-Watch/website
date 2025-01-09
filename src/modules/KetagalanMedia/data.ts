@@ -1,5 +1,6 @@
 import { KetagalanMedia } from '@/modules/KetagalanMedia/classes/KetagalanMedia'
 
+// TODO: 移除 mock data 時，須一併移除 /assets/ketagalan/x.webp
 const ketagalanMediaMockData1 = new KetagalanMedia({
   id: '1',
   title:
