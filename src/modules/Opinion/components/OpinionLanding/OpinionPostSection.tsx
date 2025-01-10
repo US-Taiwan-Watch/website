@@ -7,17 +7,22 @@ import { Language } from '@/common/lib/i18n/types'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import CommonUtils from '@/modules/Common/Common.utils'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
-import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
+import { getOpinions } from '@/modules/Opinion/dtoData'
+import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 
 const OpinionPostSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
-  const { opinions, landingTags } = useOpinionIndex(activeTagId)
+  const landingTags = useOpinionStore.use.landingTags()
+  const opinions = useMemo(
+    () => getOpinions(lang, activeTagId),
+    [lang, activeTagId]
+  )
 
   return (
     <LandingSectionWrapper

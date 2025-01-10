@@ -7,9 +7,9 @@ import LandingSectionWrapper from '@/common/components/elements/Landing/LandingS
 import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constants'
 import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
-import useOpinionIndex from '@/modules/Opinion/hooks/useOpinionIndex'
+import { getOpinions } from '@/modules/Opinion/dtoData'
 import { ROUTES } from '@/routes'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { useParams } from 'next/navigation'
@@ -20,9 +20,10 @@ const ArticleSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
   const landingTags = useOpinionStore.use.landingTags()
-
-  const { opinions } = useOpinionIndex(activeCategoryId, 3)
-
+  const opinions = useMemo(
+    () => getOpinions(lang, activeCategoryId, 3),
+    [lang, activeCategoryId]
+  )
   return (
     <>
       <OpinionStoreProvider />

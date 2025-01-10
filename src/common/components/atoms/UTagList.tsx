@@ -59,6 +59,7 @@ export default function UTagList({
     <>
       <UHStack
         alignItems="center"
+        flexWrap="wrap"
         {...(isOverLimit && {
           // NOTE: 先假設 tag 數量未超過上限時，字數不會爆版。若實際資料單一 tag 字數過長，則一律加上 maxWidth
           sx: {
