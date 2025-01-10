@@ -2,6 +2,8 @@ import {
   Article,
   CategoriesArticle,
 } from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
+import { Opinion } from '@/modules/Opinion/classes/Opinion'
 
 export const OPINION_DTO_MOCK = [
   {
@@ -3477,3 +3479,22 @@ export const CATEGORIES_DTO_MOCK = [
     },
   },
 ] as unknown as CategoriesArticle[]
+
+/**
+ * 模擬 API 行為
+ * @param lang 語言
+ * @param tagId 標籤 ID
+ * @param limit 限制數量
+ */
+export const getOpinions = (lang: Language, tagId?: string, limit?: number) => {
+  let opinions: Opinion[] = []
+  if (tagId) {
+    opinions = OPINION_DTO_MOCK.filter((opinion) => {
+      const tagSet = new Set(opinion.tags?.map((tag) => tag.id))
+      return tagSet.has(tagId)
+    }).map((dto) => Opinion.fromDTO(lang, dto))
+  } else {
+    opinions = OPINION_DTO_MOCK.map((dto) => Opinion.fromDTO(lang, dto))
+  }
+  return opinions.sort((a, b) => b.date?.diff(a.date) ?? 0).slice(0, limit)
+}

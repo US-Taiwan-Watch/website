@@ -84,7 +84,6 @@ const UCategoryChip = ({
         ) : undefined
       }
       size={size}
-      active={active}
       {...props}
     />
   )

@@ -8,11 +8,8 @@ interface UButtonProps extends ButtonProps {
   rounded?: boolean
 }
 
-const UButton = styled(Button)<UButtonProps>(
-  ({ theme, rounded, color, disabled }) => ({
-    ...(rounded && {
-      borderRadius: '50px',
-    }),
+const StyledButton = styled(Button)<UButtonProps>(
+  ({ theme, color, disabled }) => ({
     textTransform: 'none', // 消除文字大寫
     padding: `${theme.spacing(1)} ${theme.spacing(3)}`,
     ...(color === 'primary' &&
@@ -21,5 +18,21 @@ const UButton = styled(Button)<UButtonProps>(
       }),
   })
 ) as ComponentType<UButtonProps>
+
+const UButton = ({ children, rounded, ...props }: UButtonProps) => {
+  return (
+    <StyledButton
+      {...props}
+      sx={{
+        ...props.sx,
+        ...(rounded && {
+          borderRadius: '50px',
+        }),
+      }}
+    >
+      {children}
+    </StyledButton>
+  )
+}
 
 export default UButton
