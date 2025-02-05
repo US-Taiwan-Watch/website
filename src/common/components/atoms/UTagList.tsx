@@ -14,6 +14,11 @@ import { Fragment, ReactNode, useRef, useState, useEffect } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
 
+/**
+ * 為了避免計算時的誤差，多加 32px 的 buffer
+ */
+const BUFFER_CONTAINER_CALCULATION_IN_PX = 0
+
 type MoreButtonProps = {
   count: number
 } & UCategoryTagProps
@@ -54,28 +59,33 @@ export default function UTagList({
   const [visibleIndex, setVisibleIndex] = useState<number>(tags.length - 1)
   const [calculated, setCalculated] = useState<boolean>(false)
 
-  // 計算超出寬度的標籤數量
   useEffect(() => {
-    if (!containerRef.current) return
-
     const container = containerRef.current
     if (!container) return
+
+    const containerGap = getComputedStyle(container).gap
+    const containerGapNumber = parseInt(containerGap)
 
     const moreButton = moreButtonRef.current
     if (!moreButton) return
 
-    const maxWidth = container.clientWidth - moreButton.clientWidth - 8 // 8px for gap
+    const maxWidth =
+      container.clientWidth -
+      moreButton.offsetWidth -
+      containerGapNumber -
+      BUFFER_CONTAINER_CALCULATION_IN_PX
 
     let currentWidth = 0
     let newVisibleIndex = 0
 
-    // 重置所有標籤為可見
     container.querySelectorAll('.category-tag').forEach((tag, index) => {
-      const tagWidth = (tag as HTMLElement).offsetWidth
+      const tagElement = tag as HTMLElement
+      const tagWidth = tagElement.offsetWidth
+
       if (currentWidth + tagWidth < maxWidth) {
         newVisibleIndex = index
       }
-      currentWidth += tagWidth + 8 // 8px for gap
+      currentWidth += tagWidth + containerGapNumber
     })
 
     setVisibleIndex(newVisibleIndex)
@@ -89,8 +99,8 @@ export default function UTagList({
       <UHStack
         ref={containerRef}
         alignItems="center"
-        width="100%"
         overflow="hidden"
+        width="100%"
         visibility={calculated ? 'visible' : 'hidden'}
         flexWrap={calculated ? 'wrap' : 'nowrap'}
         {...containerProps}

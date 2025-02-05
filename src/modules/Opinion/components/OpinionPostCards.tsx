@@ -21,7 +21,7 @@ const OpinionPostCards = ({
     <Stack spacing={8}>
       {/** Posts */}
       <Grid container rowSpacing={8} columnSpacing={4}>
-        {opinions.map((opinion) => (
+        {opinions.slice(0, 1).map((opinion) => (
           <Grid size={4} key={opinion.id}>
             <OpinionPostCard opinion={opinion} showCategory={showCategory} />
           </Grid>

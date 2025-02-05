@@ -72,7 +72,7 @@ export default function BillVoteCard({ vote }: BillVoteCardProps) {
   return (
     <StyledCardContainer height="auto">
       <UHStack gap={4} alignItems="stretch">
-        <Stack>
+        <Stack width="100%">
           <UTagList
             tags={(vote.vote?.bill?.tags ?? []).map((tag, index) => (
               <UCategoryTag key={index} value={tag} />

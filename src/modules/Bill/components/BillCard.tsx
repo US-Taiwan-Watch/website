@@ -53,7 +53,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
       }}
     >
       <UHStack gap={4} alignItems="start" justifyContent="space-between">
-        <Stack flexGrow={1}>
+        <Stack flexGrow={1} width="100%">
           <UTagList
             tags={(bill.categories ?? []).map((category, index) => (
               <UCategoryTag key={index} value={category} />

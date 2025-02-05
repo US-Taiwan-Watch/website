@@ -46,7 +46,6 @@ export default function LeftSection({ bill }: Props) {
             gap: 0.5,
             mb: 2,
           }}
-          maxTags={4}
         />
 
         <TypographyWithSelectable

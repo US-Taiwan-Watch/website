@@ -25,7 +25,7 @@ const OpinionPostCard = ({
 
   return (
     <>
-      <Stack spacing={2}>
+      <Stack spacing={2} width="100%">
         <Link href={opinion.link}>
           <Box
             sx={{
@@ -101,7 +101,16 @@ const OpinionPostCard = ({
         {/** Tags */}
         {opinion.tags && opinion.tags.length > 0 && (
           <UTagList
-            tags={opinion.tags.map((tag) => (
+            tags={[
+              ...opinion.tags,
+              ...opinion.tags,
+              ...opinion.tags,
+              ...opinion.tags,
+              ...opinion.tags,
+              ...opinion.tags,
+              ...opinion.tags,
+              ...opinion.tags,
+            ].map((tag) => (
               <UHashTag
                 key={tag.label}
                 value={tag.label}
