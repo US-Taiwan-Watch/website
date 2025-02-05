@@ -81,6 +81,7 @@ export default function BillVoteCard({ vote }: BillVoteCardProps) {
               gap: '6px',
               mb: 2.5,
             }}
+            maxTags={5}
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>

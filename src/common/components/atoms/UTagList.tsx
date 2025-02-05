@@ -38,12 +38,22 @@ const MoreButton = ({ count, ...props }: MoreButtonProps) => {
 
 type Props = {
   tags: ReactNode[]
+  /**
+   * 最多顯示的標籤數量
+   */
+  maxTags?: number
+  /**
+   * 當所有標籤寬度總和超過容器寬度時，是否隱藏超出寬度的標籤
+   */
+  hideWiderThanContainer?: boolean
   containerProps?: StackProps
   moreButtonProps?: UCategoryTagProps
 }
 
 export default function UTagList({
   tags,
+  maxTags,
+  hideWiderThanContainer = false,
   containerProps,
   moreButtonProps,
 }: Props) {
@@ -51,11 +61,15 @@ export default function UTagList({
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
   const containerRef = useRef<HTMLDivElement>(null)
   const moreButtonRef = useRef<HTMLDivElement>(null)
-  const [visibleIndex, setVisibleIndex] = useState<number>(tags.length - 1)
+  const [visibleIndex, setVisibleIndex] = useState<number>(
+    maxTags ? maxTags - 1 : tags.length - 1
+  )
   const [calculated, setCalculated] = useState<boolean>(false)
 
   // 計算超出寬度的標籤數量
   useEffect(() => {
+    if (!hideWiderThanContainer) return
+
     if (!containerRef.current) return
 
     const container = containerRef.current
@@ -80,7 +94,7 @@ export default function UTagList({
 
     setVisibleIndex(newVisibleIndex)
     setCalculated(true)
-  }, [tags])
+  }, [tags, hideWiderThanContainer])
 
   const tagLeftCount = tags.length - 1 - visibleIndex
 
@@ -91,8 +105,11 @@ export default function UTagList({
         alignItems="center"
         width="100%"
         overflow="hidden"
-        visibility={calculated ? 'visible' : 'hidden'}
-        flexWrap={calculated ? 'wrap' : 'nowrap'}
+        flexWrap="wrap"
+        {...(hideWiderThanContainer && {
+          visibility: calculated ? 'visible' : 'hidden',
+          flexWrap: calculated ? 'wrap' : 'nowrap',
+        })}
         {...containerProps}
       >
         {tags.slice(0, visibleIndex + 1).map((tag, index) => (

@@ -78,6 +78,7 @@ const KetagalanMediaCard = ({ media }: Props) => {
           containerProps={{
             gap: 1,
           }}
+          hideWiderThanContainer
         />
 
         <Stack gap={1}>
