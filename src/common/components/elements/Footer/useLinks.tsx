@@ -87,7 +87,7 @@ export default function useLinks() {
         },
         {
           type: 'subLink',
-          title: 'Articles',
+          title: 'Article',
           url: ROUTES.OPINION,
         },
         {

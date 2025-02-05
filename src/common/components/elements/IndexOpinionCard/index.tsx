@@ -67,12 +67,12 @@ const IndexOpinionCard = memo(function IndexOpinionCard({
       <Stack direction="row" spacing={8}>
         <StyledLeftSection direction="column" spacing={4}>
           {/** Tags */}
-          {opinion.categories && opinion.categories.length > 0 && (
+          {opinion.tags.length > 0 && (
             <UTagListWithSelectable
-              tags={opinion.categories.map((category, index) => (
+              tags={opinion.tags.map((tag, index) => (
                 <StyledTag key={index} className="category-tag">
                   <UWidthLimitedText variant="buttonXS">
-                    {category.label}
+                    {tag.label}
                   </UWidthLimitedText>
                 </StyledTag>
               ))}
