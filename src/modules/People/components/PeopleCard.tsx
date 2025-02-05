@@ -102,7 +102,6 @@ const PeopleCard = memo(function PeopleCard({
                 containerProps={{
                   gap: 2,
                 }}
-                maxTags={2}
               />
             </Stack>
           </Grid>

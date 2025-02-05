@@ -80,7 +80,6 @@ const OpinionPostCard = ({
               containerProps={{
                 gap: 1,
               }}
-              maxTags={2}
             />
           )}
         <Link href={opinion.link}>
@@ -117,7 +116,6 @@ const OpinionPostCard = ({
             containerProps={{
               gap: 1,
             }}
-            maxTags={2}
           />
         )}
       </Stack>
