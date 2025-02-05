@@ -7,7 +7,7 @@ import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
-import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
+import Typography from '@mui/material/Typography'
 
 const StyledImageContainer = styled(Box)(() => ({
   borderRadius: '7px',
@@ -29,6 +29,7 @@ const StyledTag = styled(UHStack)(({ theme }) => ({
   border: `0.5px solid ${theme.color.wheat[200]}`,
   borderRadius: '5px',
   padding: theme.spacing(0.5, 1),
+  width: 'fit-content',
 }))
 
 const StyledText = styled(UHeightLimitedText)(({ theme }) => ({
@@ -64,18 +65,20 @@ const KetagalanMediaCard = ({ media }: Props) => {
         <UTagList
           tags={(media.tags ?? []).map((tag, index) => (
             <StyledTag key={index} className="category-tag">
-              <UWidthLimitedText
-                variant="buttonXXS"
+              <Typography
+                variant="bodyS"
+                fontWeight={500}
                 color={theme.color.wheat[200]}
+                whiteSpace="nowrap"
               >
                 {tag}
-              </UWidthLimitedText>
+              </Typography>
             </StyledTag>
           ))}
           containerProps={{
             gap: 1,
           }}
-          maxTags={3}
+          hideWiderThanContainer
         />
 
         <Stack gap={1}>

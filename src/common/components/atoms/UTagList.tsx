@@ -9,12 +9,10 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useModal from '@/common/hooks/useModal'
 import { StackProps, useTheme } from '@mui/material'
-import { Fragment, ReactNode } from 'react'
+import Box from '@mui/material/Box'
+import { Fragment, ReactNode, useRef, useState, useEffect } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
-
-// NOTE: 預設顯示 5 個（mobile 3 個）
-const DEFAULT_MAX_COUNT = 5
 
 type MoreButtonProps = {
   count: number
@@ -40,42 +38,91 @@ const MoreButton = ({ count, ...props }: MoreButtonProps) => {
 
 type Props = {
   tags: ReactNode[]
+  /**
+   * 最多顯示的標籤數量
+   */
   maxTags?: number
+  /**
+   * 當所有標籤寬度總和超過容器寬度時，是否隱藏超出寬度的標籤
+   */
+  hideWiderThanContainer?: boolean
   containerProps?: StackProps
   moreButtonProps?: UCategoryTagProps
 }
 
 export default function UTagList({
   tags,
-  maxTags = DEFAULT_MAX_COUNT,
+  maxTags,
+  hideWiderThanContainer = false,
   containerProps,
   moreButtonProps,
 }: Props) {
   const theme = useTheme<USTWTheme>()
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
-  const isOverLimit = tags.length > maxTags
+  const containerRef = useRef<HTMLDivElement>(null)
+  const moreButtonRef = useRef<HTMLDivElement>(null)
+  const [visibleIndex, setVisibleIndex] = useState<number>(
+    maxTags ? maxTags - 1 : tags.length - 1
+  )
+  const [calculated, setCalculated] = useState<boolean>(false)
+
+  // 計算超出寬度的標籤數量
+  useEffect(() => {
+    if (!hideWiderThanContainer) return
+
+    if (!containerRef.current) return
+
+    const container = containerRef.current
+    if (!container) return
+
+    const moreButton = moreButtonRef.current
+    if (!moreButton) return
+
+    const maxWidth = container.clientWidth - moreButton.clientWidth - 8 // 8px for gap
+
+    let currentWidth = 0
+    let newVisibleIndex = 0
+
+    // 重置所有標籤為可見
+    container.querySelectorAll('.category-tag').forEach((tag, index) => {
+      const tagWidth = (tag as HTMLElement).offsetWidth
+      if (currentWidth + tagWidth < maxWidth) {
+        newVisibleIndex = index
+      }
+      currentWidth += tagWidth + 8 // 8px for gap
+    })
+
+    setVisibleIndex(newVisibleIndex)
+    setCalculated(true)
+  }, [tags, hideWiderThanContainer])
+
+  const tagLeftCount = tags.length - 1 - visibleIndex
 
   return (
     <>
       <UHStack
+        ref={containerRef}
         alignItems="center"
+        width="100%"
+        overflow="hidden"
         flexWrap="wrap"
-        {...(isOverLimit && {
-          // NOTE: 先假設 tag 數量未超過上限時，字數不會爆版。若實際資料單一 tag 字數過長，則一律加上 maxWidth
-          sx: {
-            '.category-tag': {
-              maxWidth: '100px',
-            },
-          },
+        {...(hideWiderThanContainer && {
+          visibility: calculated ? 'visible' : 'hidden',
+          flexWrap: calculated ? 'wrap' : 'nowrap',
         })}
         {...containerProps}
       >
-        {tags.slice(0, maxTags).map((tag, index) => (
+        {tags.slice(0, visibleIndex + 1).map((tag, index) => (
           <Fragment key={index}>{tag}</Fragment>
         ))}
-        {isOverLimit && (
+        <Box
+          sx={{
+            visibility: tagLeftCount > 0 ? 'visible' : 'hidden',
+          }}
+          ref={moreButtonRef}
+        >
           <MoreButton
-            count={tags.length - maxTags}
+            count={tagLeftCount}
             {...moreButtonProps}
             onClick={(e) => {
               e.stopPropagation()
@@ -83,7 +130,7 @@ export default function UTagList({
               moreButtonProps?.onClick?.(e)
             }}
           />
-        )}
+        </Box>
       </UHStack>
 
       {isModalOpen && (

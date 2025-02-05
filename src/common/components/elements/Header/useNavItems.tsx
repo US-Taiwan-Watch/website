@@ -27,7 +27,7 @@ export default function useNavItems() {
           {
             id: 'discover-bill',
             type: 'link',
-            title: 'Bill',
+            title: 'Bills',
             href: ROUTES.BILL,
           },
           {
