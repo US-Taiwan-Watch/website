@@ -20,7 +20,13 @@ const IndexOpinionCarousel = () => {
       <Container maxWidth="xl">
         <Carousel>
           {opinions.map((opinion) => (
-            <IndexOpinionCard opinion={opinion} key={opinion.id} />
+            <IndexOpinionCard
+              containerSx={{
+                mx: 1,
+              }}
+              opinion={opinion}
+              key={opinion.id}
+            />
           ))}
         </Carousel>
       </Container>
