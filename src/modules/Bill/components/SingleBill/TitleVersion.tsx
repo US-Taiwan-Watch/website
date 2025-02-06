@@ -4,6 +4,7 @@ import UButton from '@/common/components/atoms/UButton'
 import { styled } from '@/common/lib/mui/theme'
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
 import { Bill } from '@/modules/Bill/classes/Bill'
+import Link from 'next/link'
 
 const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
@@ -14,13 +15,21 @@ const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   },
 }))
 
+const StyledLink = styled(Link)({
+  height: 'max-content',
+})
+
 type Props = {
   bill: Bill
 }
 
 export default function TitleVersion({ bill }: Props) {
   return (
-    <a href={bill.congressGovUrl} target="_blank" rel="noopener noreferrer">
+    <StyledLink
+      href={bill.congressGovUrl ?? ''}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
       <StyledTitleVersionButton
         variant="contained"
         startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}
@@ -28,6 +37,6 @@ export default function TitleVersion({ bill }: Props) {
       >
         Title Version
       </StyledTitleVersionButton>
-    </a>
+    </StyledLink>
   )
 }
