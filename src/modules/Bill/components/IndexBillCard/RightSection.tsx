@@ -109,7 +109,7 @@ export default function RightSection({ bill }: Props) {
           <CardIconTitle
             containerProps={{ mr: 3 }}
             icon={<SponsorIcon />}
-            title="Sponsors"
+            title="Sponsor"
           />
           {bill.sponsor?.image && (
             <StyledImageContainer
