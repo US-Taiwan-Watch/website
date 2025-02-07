@@ -95,15 +95,16 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
                 fillColor: theme.color.pink[1000],
                 radius: 8,
               },
+              zIndex: 10,
             }
             return null
           } else {
             return {
               x: Number(item.ideology),
               y: Number(item.leadership),
-              // TODO: Sen. John Cornyn
               name: item.name,
               item,
+              zIndex: 1,
             }
           }
         }),

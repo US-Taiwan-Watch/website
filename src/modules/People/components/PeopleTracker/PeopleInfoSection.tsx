@@ -11,6 +11,7 @@ import {
   InstagramIcon,
   XIcon,
   YoutubeIcon,
+  BookmarkIcon,
 } from '@/common/styles/assets/Icons'
 import { People } from '@/modules/People/classes/People'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
@@ -93,7 +94,7 @@ const LinkMenuActivator = memo(function LinkMenuActivator({
       <StyledLinkButton
         id="link-button"
         variant="contained"
-        startIcon={<LinkIcon width={24} height={24} />}
+        startIcon={<LinkIcon sx={{ width: 16 }} />}
         rounded
         onClick={handleLinkBtnClick}
       >
@@ -186,7 +187,12 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
       {/** Actions */}
       <UHStack spacing={2}>
         <LinkMenuActivator people={people} />
-        <StyledSubscribeButton variant="contained" color="primary" rounded>
+        <StyledSubscribeButton
+          variant="contained"
+          color="primary"
+          rounded
+          startIcon={<BookmarkIcon sx={{ width: 16 }} />}
+        >
           Subscribe
         </StyledSubscribeButton>
       </UHStack>

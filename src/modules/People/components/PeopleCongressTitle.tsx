@@ -30,8 +30,8 @@ const PeopleCongressTitle = function PeopleCongressTitle({
     <Typography variant="bodyS" fontWeight={600}>
       {/** TODO i18n */}
       {`${congressExperienceRange.earliestCongress}th 
-      - ${congressExperienceRange.latestCongress}th Congress 
-      (${congressExperienceRange.earliestCongressYear}
+      - ${congressExperienceRange.latestCongress}th Congress
+       (${congressExperienceRange.earliestCongressYear}
       -${isPresent ? 'Present' : (congressExperienceRange.latestCongressYear ?? '')})`}
     </Typography>
   )

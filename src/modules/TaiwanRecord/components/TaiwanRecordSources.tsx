@@ -18,6 +18,7 @@ import Button from '@mui/material/Button'
 import Link from 'next/link'
 import Divider from '@mui/material/Divider'
 import { getLinkPreview } from 'link-preview-js'
+import { LinkIcon } from '@/common/styles/assets/Icons'
 
 type SourceMetadata = {
   /** 連結 */
@@ -119,7 +120,7 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
                 >
                   <UHStack gap={1} alignItems="center">
                     <Avatar src={m.favicon} sx={{ width: 16, height: 16 }}>
-                      {m.siteName.slice(0, 1)}
+                      <LinkIcon sx={{ width: 12, height: 12 }} />
                     </Avatar>
                     <Typography variant="body2">{m.siteName}</Typography>
                   </UHStack>
@@ -203,7 +204,7 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
               alt={new URL(sources.links[index]).hostname}
               src={m.favicon}
             >
-              {m.siteName.slice(0, 1)}
+              <LinkIcon sx={{ width: 12, height: 12 }} />
             </Avatar>
           ))}
         </AvatarGroup>
