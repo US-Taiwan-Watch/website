@@ -259,7 +259,10 @@ export class Bill {
         : undefined,
       title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? undefined,
       sponsor: dto.sponsor?.people
-        ? People.fromDTO(lang, dto.sponsor.people)
+        ? People.fromDTO(lang, {
+            ...dto.sponsor.people,
+            currentParty: dto.sponsor.party, // 提案當下的政黨
+          })
         : undefined,
       cosponsors:
         dto.cosponsors
