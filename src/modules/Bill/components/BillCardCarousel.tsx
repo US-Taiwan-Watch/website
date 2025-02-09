@@ -26,6 +26,10 @@ type Props = {
 }
 
 export default function BillCardCarousel({ simplified, data }: Props) {
+  // 顯示三張的話，最後兩張不可能成為 currentSlide，故藉 availableSlideCount 控制 handleNext
+  const slidesToShow = 3
+  const availableSlideCount = data.length - (slidesToShow - 1)
+
   return (
     <StyledCarouselContainer>
       <Container maxWidth="lg">
@@ -34,12 +38,21 @@ export default function BillCardCarousel({ simplified, data }: Props) {
           settings={{
             infinite: false,
             centerPadding: '0px',
-            slidesToShow: 3,
+            slidesToShow,
             slidesToScroll: 1,
             centerMode: false,
           }}
           renderPagination={(props) => (
-            <ArrowPagination {...props} showDot={true} />
+            <ArrowPagination
+              {...props}
+              slideCount={availableSlideCount}
+              handleNext={() => {
+                if (props.currentSlide + 1 < availableSlideCount) {
+                  props.sliderRef?.current?.slickNext()
+                }
+              }}
+              showDot
+            />
           )}
         >
           {data.map((bill, index) => (

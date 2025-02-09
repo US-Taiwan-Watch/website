@@ -25,6 +25,7 @@ export interface PaginationProps {
   handleNext?: () => void
   handleDotClick?: (index: number) => void
   showDot?: boolean
+  sliderRef?: React.RefObject<Slider>
 }
 
 interface CarouselProps {
@@ -104,6 +105,7 @@ function Carousel({
           handlePrev,
           handleNext,
           handleDotClick,
+          sliderRef,
         })
       ) : (
         <ArrowPagination
