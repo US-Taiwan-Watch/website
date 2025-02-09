@@ -855,6 +855,21 @@ export const PEOPLE_DTO_MOCK = [
           "A resolution commending Taiwan for its history of democratic elections, and expressing support of Taiwan's democratic institutions.",
         type: 'sres',
         updatedAt: '2024-12-26T05:16:12.299Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Dan Sullivan',
+                bio: '[Wikipedia] Daniel Scott Sullivan (born November 13, 1964) is an American politician and attorney serving as the junior United States senator from Alaska since 2015. A member of the Republican Party, Sullivan previously served as the commissioner of the Alaska Department of Natural Resources from 2010 to 2013, and as the Alaska Attorney General from 2009 to 2010.',
+              },
+              zh: {
+                displayName: '蘇利文',
+                bio: '[Wikipedia] 丹尼爾·史考特·蘇利文（英語：Daniel Scott Sullivan；1964年11月13日—），是一位美國共和黨政治人物，現任阿拉斯加州的聯邦參議員。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -1074,6 +1089,21 @@ export const PEOPLE_DTO_MOCK = [
           "Expressing the sense of Congress that the United States should resume normal diplomatic relations with Taiwan, negotiate a bilateral free trade agreement with Taiwan, and support Taiwan's membership in international organizations.",
         type: 'hconres',
         updatedAt: '2024-12-07T16:41:07.540Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Thomas P. Tiffany',
+                bio: "[Wikipedia] Thomas P. Tiffany (born December 30, 1957) is an American businessman and politician serving as the U.S. representative for Wisconsin's 7th congressional district since winning a special election in 2020. A member of the Republican Party, he previously served seven years in the Wisconsin Senate and two years in the State Assembly, representing the northeast region of the state.",
+              },
+              zh: {
+                displayName: '帝芬尼',
+                bio: '[Wikipedia] 湯瑪斯·P·蒂芬尼（英語：Thomas P. Tiffany，1957年12月30日—），美國商人、政治家，2020年起接替尚恩·達菲，當選威斯康辛州第七國會選區聯邦眾議院議員，共和黨員。此前曾當選威斯康辛州眾議院議員和威斯康辛州參議院議員。2021年2月，與賓夕法尼亞州聯邦眾議員史考特·佩里提出共同決議案，呼籲拜登政府終結「一個中國政策」並與台灣建立外交關係。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -1339,6 +1369,21 @@ export const PEOPLE_DTO_MOCK = [
           "Relating to Taiwan's participation in the World Health Organization.",
         type: 'hjres',
         updatedAt: '2024-12-07T16:25:32.373Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Sherrod Brown',
+                bio: "[Wikipedia] Sherrod Campbell Brown (born November 9, 1952) is an American politician serving since 2007 as the senior United States senator from Ohio. A member of the Democratic Party, he was the U.S. representative for Ohio's 13th congressional district from 1993 to 2007 and the 47th secretary of state of Ohio from 1983 to 1991. He started his political career in 1975 as a state representative.",
+              },
+              zh: {
+                displayName: '布朗',
+                bio: '[Wikipedia] 謝羅德·坎貝爾·布朗（英語：Sherrod Campbell Brown；1952年11月9日—），是一位美國民主黨政治人物，自2007年成為俄亥俄州聯邦參議院議員。此前他曾是美國眾議院1993年至2007年期間俄亥俄州第十三國會選區代表議員、第47任俄亥俄州州務卿（1983年－1991年任職）及俄亥俄州眾議院1975年至1982年期間第六十一選區議員代表議員。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     tags: [],
@@ -1549,6 +1594,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Invasion Prevention Act',
         type: 's',
         updatedAt: '2024-12-19T07:32:35.585Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Rick Scott',
+                bio: '[Wikipedia] Richard Lynn Scott (born December 1, 1952) is an American attorney, businessman, and politician who has been the junior United States senator from Florida since 2019. A member of the Republican Party, he served two terms as the 45th governor of Florida from 2011 to 2019.',
+              },
+              zh: {
+                displayName: '史考特',
+                bio: '[Wikipedia] 李察·「瑞克」·林恩·史考特（英語：Richard "Rick" Lynn Scott；1952年12月1日—）是美國一位共和黨籍的政治家和商人，現任佛羅里達州聯邦參議員。他曾於2011年當選佛羅里達州州長，2014年再次當選連任。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -1780,6 +1840,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Peace and Stability Act',
         type: 'hr',
         updatedAt: '2024-12-07T15:51:09.665Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Ami Bera',
+                bio: '[Wikipedia] Amerish Babulal "Ami" Bera (born March 2, 1965) is an American physician and politician who has been serving as a member of the United States House of Representatives from California since 2013. He is a member of the Democratic Party and represents California\'s 6th congressional district, which is in Sacramento County.',
+              },
+              zh: {
+                displayName: '貝拉',
+                bio: '[Wikipedia] 阿米·貝拉（英語：Amerish Babulal "Ami" Bera，1965年3月2日—），美國醫生，是印度裔美國人，民主黨政治家，生於加利福尼亞州洛杉磯，畢業於加利福尼亞大學爾灣分校，2013年起任美國聯邦眾議員，代表加利福尼亞州第七國會選區，現為美國眾議院外交委員會成員。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     tags: [],
@@ -2196,6 +2271,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Security Enhancement Act',
         type: 'hr',
         updatedAt: '2024-12-07T15:38:37.555Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Tom DeLay',
+                bio: "[Wikipedia] Thomas Dale DeLay (born April 8, 1947) is an American author and retired politician who served as a member of the United States House of Representatives. A Republican, DeLay represented Texas's 22nd congressional district from 1985 until 2006. He served as House majority leader from 2003 to 2005.",
+              },
+              zh: {
+                displayName: null,
+                bio: '[Wikipedia] 湯·德利（英語：Thomas Dale DeLay，1947年4月8日—）是美國一位已退休的政治家，所屬政黨是共和黨。從1985年至2006年他擔任來自德克薩斯州第二十二國會選區的聯邦眾議員。2003年至2005年，他擔任眾議院多數黨領袖。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -2462,6 +2552,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Fellowship Act',
         type: 's',
         updatedAt: '2024-12-19T07:48:26.028Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Edward J. Markey',
+                bio: "[Wikipedia] Edward John Markey (born July 11, 1946) is an American politician serving as the junior United States senator from Massachusetts since 2013. A member of the Democratic Party, he served 20 terms (18 full, two partial) as the U.S. representative for Massachusetts's 7th congressional district from 1976 to 2013. Before his congressional career, he was a member of the Massachusetts House of Representatives from 1973 to 1976.",
+              },
+              zh: {
+                displayName: '馬基',
+                bio: '[Wikipedia] 愛德華·約翰·｢艾德｣·馬基（英語：Edward John "Ed" Markey、1946年7月11日—），是一位美國民主黨政治人物，從1976年至2013年擔任麻薩諸塞州第七國會區代表，自2005年成為麻薩諸塞州聯邦參議院議員。他在美國參議院的2013年特別選舉擊敗共和黨候選人加布里埃爾·E·戈麥斯成為繼莫·科文後新任州聯邦參議員。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     tags: [],
@@ -2834,6 +2939,21 @@ export const PEOPLE_DTO_MOCK = [
           'An act to encourage visits between the United States and Taiwan at all levels, and for other purposes',
         type: 'hr',
         updatedAt: '2024-12-07T14:49:05.882Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Steve Chabot',
+                bio: "[Wikipedia] Steven Joseph Chabot (born January 22, 1953) is an American politician and lawyer who represented Ohio's 1st congressional district in the United States House of Representatives from 1995 to 2009 and again from 2011 to 2023. A member of the Republican Party, he lost his 2022 reelection bid to Democrat Greg Landsman. Until his election loss, he was the dean of Ohio's GOP delegation to the House of Representatives, after the retirement of former Speaker John Boehner.",
+              },
+              zh: {
+                displayName: '夏波',
+                bio: '[Wikipedia] 史蒂芬·約瑟夫·夏波（英語：Steven Joseph Chabot；1953年1月22日—）是一名共和黨籍的美國政治家和律師，曾擔任聯邦眾議員。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -3025,6 +3145,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Tax Agreement Act of 2023',
         type: 's',
         updatedAt: '2024-12-23T14:02:22.976Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Robert Menendez',
+                bio: '[Wikipedia] Robert Menendez (born January 1, 1954) is an American lawyer and politician who served as a United States senator from New Jersey from 2006 until his resignation in 2024 following his conviction on 16 counts in a political corruption case. A member of the Democratic Party and the Cuban–American lobby, he was first appointed to the Senate by Governor Jon Corzine, and chaired the United States Senate Committee on Foreign Relations from 2013 to 2015 and from 2021 to 2023.',
+              },
+              zh: {
+                displayName: '梅南德茲',
+                bio: '[Wikipedia] 羅伯特·「鮑勃」·梅南德茲（英語：Robert "Bob" Menendez；1954年1月1日—），是一位美國民主黨政治人物，2006年至2024年擔任紐澤西州聯邦參議院議員，亦曾任參議院外交委員會主席。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
       {
         categories: [
@@ -3060,7 +3195,7 @@ export const PEOPLE_DTO_MOCK = [
             actionsOverview: [
               {
                 actionAt: {
-                  datetime: '2014-02-10T00T00:00:00.000Z',
+                  datetime: '2014-02-10T00:00:00.000Z',
                   precision: ['year', 'month', 'day'],
                 },
                 description: 'Introduced in Senate',
@@ -3097,7 +3232,22 @@ export const PEOPLE_DTO_MOCK = [
         title:
           'A joint resolution relating to the approval of the proposed Agreement for Cooperation Between the American Institute in Taiwan and the Taipei Economic and Cultural Representatives Office in the United States Concerning Peaceful Uses of Nuclear Energy.',
         type: 'sjres',
-        updatedAt: '2024-12-07T16:29:33.712Z',
+        updatedAt: '2025-02-09T10:28:26.586Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Robert Menendez',
+                bio: '[Wikipedia] Robert Menendez (born January 1, 1954) is an American lawyer and politician who served as a United States senator from New Jersey from 2006 until his resignation in 2024 following his conviction on 16 counts in a political corruption case. A member of the Democratic Party and the Cuban–American lobby, he was first appointed to the Senate by Governor Jon Corzine, and chaired the United States Senate Committee on Foreign Relations from 2013 to 2015 and from 2021 to 2023.',
+              },
+              zh: {
+                displayName: '梅南德茲',
+                bio: '[Wikipedia] 羅伯特·「鮑勃」·梅南德茲（英語：Robert "Bob" Menendez；1954年1月1日—），是一位美國民主黨政治人物，2006年至2024年擔任紐澤西州聯邦參議院議員，亦曾任參議院外交委員會主席。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     tags: [],
@@ -3478,6 +3628,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Relations Act',
         type: 'hr',
         updatedAt: '2024-12-23T14:02:03.794Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Clement J. Zablocki',
+                bio: "[Wikipedia] Clement John Zablocki (November 18, 1912 – December 3, 1983) was a Polish American politician from Milwaukee, Wisconsin. He was one of Wisconsin's longest-serving members of the U.S. House of Representatives, representing Wisconsin's 4th congressional district for 18 terms, from 1949 until his death in 1983.",
+              },
+              zh: {
+                displayName: null,
+                bio: '[Wikipedia] 克萊門特·約翰·扎布洛基（英語：Clement John Zablocki；1912年11月18日—1983年12月3日），是一名美國民主黨籍政治家。曾任美國眾議院外交委員會主席、美國聯邦眾議員。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     tags: [],
@@ -3642,6 +3807,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Fellowship Act',
         type: 's',
         updatedAt: '2024-12-19T07:48:26.028Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Edward J. Markey',
+                bio: "[Wikipedia] Edward John Markey (born July 11, 1946) is an American politician serving as the junior United States senator from Massachusetts since 2013. A member of the Democratic Party, he served 20 terms (18 full, two partial) as the U.S. representative for Massachusetts's 7th congressional district from 1976 to 2013. Before his congressional career, he was a member of the Massachusetts House of Representatives from 1973 to 1976.",
+              },
+              zh: {
+                displayName: '馬基',
+                bio: '[Wikipedia] 愛德華·約翰·｢艾德｣·馬基（英語：Edward John "Ed" Markey、1946年7月11日—），是一位美國民主黨政治人物，從1976年至2013年擔任麻薩諸塞州第七國會區代表，自2005年成為麻薩諸塞州聯邦參議院議員。他在美國參議院的2013年特別選舉擊敗共和黨候選人加布里埃爾·E·戈麥斯成為繼莫·科文後新任州聯邦參議員。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     createdAt: '2024-12-07T06:26:34.406Z',
@@ -3803,6 +3983,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Relations Reinforcement Act of 2023',
         type: 's',
         updatedAt: '2024-12-23T14:01:54.212Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Marco Rubio',
+                bio: '[Wikipedia] Marco Antonio Rubio (born May 28, 1971) is an American politician and lawyer serving as the senior United States senator from Florida, a seat he has held since 2011. A member of the Republican Party, he served as Speaker of the Florida House of Representatives from 2006 to 2008. Rubio sought the Republican nomination for president of the United States in 2016.',
+              },
+              zh: {
+                displayName: '盧比歐',
+                bio: '[Wikipedia] 馬可·安東尼奧·盧比歐（英語：Marco Antonio Rubio；1971年5月28日—），美國古巴裔政治人物、律師，生於美國佛羅里達州邁阿密，共和黨黨員，現任佛羅里達州資深聯邦參議員，自2011年起擔任該職務。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -4027,6 +4222,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'United States-Taiwan Expedited Double-Tax Relief Act',
         type: 'hr',
         updatedAt: '2024-12-23T14:01:36.311Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Jason Smith',
+                bio: "[Wikipedia] Jason Thomas Smith (born June 16, 1980) is an American businessman and politician who has been the U.S. representative for Missouri's 8th congressional district since 2013. The district comprises 30 counties, covering just under 20,000 square miles of southeastern and southern Missouri.",
+              },
+              zh: {
+                displayName: '史密斯',
+                bio: '[Wikipedia] 傑森·T·史密斯（英語：Jason T. Smith；1980年6月16日—）是美國的一位政治人物。自2013年開始，他是密蘇里州第8選舉區選出的美國眾議院議員。他的黨籍是共和黨。他是共和黨在眾議院內第二年輕的議員。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -5245,6 +5455,21 @@ export const PEOPLE_DTO_MOCK = [
           'Making emergency supplemental appropriations for the fiscal year ending September 30, 2024, and for other purposes.',
         type: 'hr',
         updatedAt: '2024-12-07T05:23:17.629Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Cathy McMorris Rodgers',
+                bio: "[Wikipedia] Cathy Anne McMorris Rodgers (born May 22, 1969) is an American politician who is the United States representative for Washington's 5th congressional district, which encompasses the eastern third of the state and includes Spokane, the state's second-largest city. A Republican, McMorris Rodgers previously served in the Washington House of Representatives. From 2013 to 2019, she chaired the House Republican Conference.",
+              },
+              zh: {
+                displayName: '羅傑斯',
+                bio: '[Wikipedia] 凱西·安妮·麥克莫里斯·羅傑斯（英語：Cathy Anne McMorris Rodgers，1969年5月22日—），是美國政治人物，現任代表華盛頓州第五國會選區聯邦眾議員，該選區涵蓋該州東部三分之一的面積，包括該州第二大城市斯波坎。曾在華盛頓眾議院任職。2013年至2019年擔任眾議院共和黨會議主席，2023年成為美國眾議院能源和商業委員會主席。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -5650,6 +5875,21 @@ export const PEOPLE_DTO_MOCK = [
           'Taiwan Allies International Protection and Enhancement Initiative (TAIPEI) Act of 2019',
         type: 's',
         updatedAt: '2024-12-07T04:48:21.319Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Cory Gardner',
+                bio: "[Wikipedia] Cory Scott Gardner (born August 22, 1974) is an American attorney and politician who served as a United States senator from Colorado from 2015 to 2021. A Republican, he was the U.S. representative for Colorado's 4th congressional district from 2011 to 2015 and a member of the Colorado House of Representatives from 2005 to 2011.",
+              },
+              zh: {
+                displayName: '賈德納',
+                bio: '[Wikipedia] 柯瑞·史考特·賈德納（英語：Cory Scott Gardner；1974年8月22日—），是美國一位共和黨籍的政治人物，曾任科羅拉多州聯邦參議員和聯邦眾議員，以及科羅拉多州眾議院議員。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -5938,6 +6178,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan International Solidarity Act',
         type: 'hr',
         updatedAt: '2024-12-19T07:32:44.649Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Gerald E. Connolly',
+                bio: "[Wikipedia] Gerald Edward Connolly (born March 30, 1950) is an American politician serving as the U.S. representative for Virginia's 11th congressional district, first elected in 2008. The district is anchored in Fairfax County, an affluent suburban county west of Washington, D.C. It includes all of Fairfax City and part of Prince William County. Connolly is a Democrat.",
+              },
+              zh: {
+                displayName: null,
+                bio: null,
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
       {
         categories: [
@@ -6019,6 +6274,21 @@ export const PEOPLE_DTO_MOCK = [
           'Commending Taiwan for its history of democratic elections, and expressing support of Taiwan in the preservation of its democratic institutions.',
         type: 'hres',
         updatedAt: '2024-12-26T05:16:18.734Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Gerald E. Connolly',
+                bio: "[Wikipedia] Gerald Edward Connolly (born March 30, 1950) is an American politician serving as the U.S. representative for Virginia's 11th congressional district, first elected in 2008. The district is anchored in Fairfax County, an affluent suburban county west of Washington, D.C. It includes all of Fairfax City and part of Prince William County. Connolly is a Democrat.",
+              },
+              zh: {
+                displayName: null,
+                bio: null,
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     tags: [],
@@ -7005,6 +7275,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'CHIPS and Science Act',
         type: 'hr',
         updatedAt: '2024-12-19T07:31:32.103Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Tim Ryan',
+                bio: "[Wikipedia] Timothy John Ryan (born July 16, 1973) is an American politician who served as a U.S. representative for Ohio from 2003 to 2023. A member of the Democratic Party, he represented Ohio's 13th congressional district from 2013 to 2023, having previously represented Ohio's 17th congressional district from 2003 to 2013. Ryan's district included a large swath of northeastern Ohio, from Youngstown to Akron. He was the Democratic nominee in the 2022 United States Senate election in Ohio, which he lost to JD Vance.",
+              },
+              zh: {
+                displayName: '萊恩',
+                bio: '[Wikipedia] 提摩西·約翰·瑞安（英語：Timothy John Ryan，1973年7月16日—）是一名美國政治人物，2003年-2023年期間擔任俄亥俄州聯邦眾議員。他是民主黨籍，自2013年起代表俄亥俄州第13國會選區，在重新劃分選區前曾代表俄亥俄州第17國會選區。瑞安的選區現在包括俄亥俄州東北部的一大片地區，從揚斯敦到亞克朗。他是2022年俄亥俄州聯邦參議員選舉中的民主黨提名人。',
+              },
+            },
+          },
+          party: 'democratic',
+        },
       },
     ],
     tags: [],
@@ -7522,6 +7807,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T07:49:33.927Z',
@@ -7846,6 +8146,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
       {
         categories: [
@@ -8048,6 +8363,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Non-Discrimination Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-20T14:54:55.257Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Young Kim',
+                bio: "[Wikipedia] Young Oak Kim (née Choe, Korean: 최영옥; born October 18, 1962) is a South Korean-born American politician and businesswoman serving as the U.S. representative for California's 40th congressional district, previously representing the 39th congressional district from 2021 to 2023. Her district includes northern parts of Orange County. In the 2020 United States House of Representatives elections, Kim, Michelle Park Steel, and Marilyn Strickland became the first three Korean-American women elected to the United States Congress. Kim and Steel are also the first Korean-Americans elected to Congress from California since Jay Kim (no relation).",
+              },
+              zh: {
+                displayName: '金映玉',
+                bio: '[Wikipedia] 金映玉（英語：Young Oak Kim，韓語：최영옥；1962年10月18日—），本姓崔（金為夫姓），是一位韓裔美籍政治家和商人，現任加利福尼亞州第40國會選區的眾議員，此前曾於2021年至2023年任第39國會選區的眾議員。在2020年美國眾議院選舉中，金映玉、朴銀珠和瑪麗蓮·斯特里克蘭成為首批當選美國國會議員的三位韓裔女性。 她和朴銀珠也是自金昌準後第一批當選國會議員的韓裔加州人。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T07:46:22.064Z',
@@ -8349,6 +8679,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T07:43:56.020Z',
@@ -8612,6 +8957,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Non-Discrimination Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-20T14:54:55.257Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Young Kim',
+                bio: "[Wikipedia] Young Oak Kim (née Choe, Korean: 최영옥; born October 18, 1962) is a South Korean-born American politician and businesswoman serving as the U.S. representative for California's 40th congressional district, previously representing the 39th congressional district from 2021 to 2023. Her district includes northern parts of Orange County. In the 2020 United States House of Representatives elections, Kim, Michelle Park Steel, and Marilyn Strickland became the first three Korean-American women elected to the United States Congress. Kim and Steel are also the first Korean-Americans elected to Congress from California since Jay Kim (no relation).",
+              },
+              zh: {
+                displayName: '金映玉',
+                bio: '[Wikipedia] 金映玉（英語：Young Oak Kim，韓語：최영옥；1962年10月18日—），本姓崔（金為夫姓），是一位韓裔美籍政治家和商人，現任加利福尼亞州第40國會選區的眾議員，此前曾於2021年至2023年任第39國會選區的眾議員。在2020年美國眾議院選舉中，金映玉、朴銀珠和瑪麗蓮·斯特里克蘭成為首批當選美國國會議員的三位韓裔女性。 她和朴銀珠也是自金昌準後第一批當選國會議員的韓裔加州人。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
@@ -8880,6 +9240,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T07:38:38.247Z',
@@ -9181,6 +9556,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T07:35:25.201Z',
@@ -9492,6 +9882,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
       {
         categories: [
@@ -9694,6 +10099,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Non-Discrimination Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-20T14:54:55.257Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Young Kim',
+                bio: "[Wikipedia] Young Oak Kim (née Choe, Korean: 최영옥; born October 18, 1962) is a South Korean-born American politician and businesswoman serving as the U.S. representative for California's 40th congressional district, previously representing the 39th congressional district from 2021 to 2023. Her district includes northern parts of Orange County. In the 2020 United States House of Representatives elections, Kim, Michelle Park Steel, and Marilyn Strickland became the first three Korean-American women elected to the United States Congress. Kim and Steel are also the first Korean-Americans elected to Congress from California since Jay Kim (no relation).",
+              },
+              zh: {
+                displayName: '金映玉',
+                bio: '[Wikipedia] 金映玉（英語：Young Oak Kim，韓語：최영옥；1962年10月18日—），本姓崔（金為夫姓），是一位韓裔美籍政治家和商人，現任加利福尼亞州第40國會選區的眾議員，此前曾於2021年至2023年任第39國會選區的眾議員。在2020年美國眾議院選舉中，金映玉、朴銀珠和瑪麗蓮·斯特里克蘭成為首批當選美國國會議員的三位韓裔女性。 她和朴銀珠也是自金昌準後第一批當選國會議員的韓裔加州人。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T06:42:34.905Z',
@@ -9995,6 +10415,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
       {
         categories: [
@@ -10197,6 +10632,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Non-Discrimination Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-20T14:54:55.257Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'Young Kim',
+                bio: "[Wikipedia] Young Oak Kim (née Choe, Korean: 최영옥; born October 18, 1962) is a South Korean-born American politician and businesswoman serving as the U.S. representative for California's 40th congressional district, previously representing the 39th congressional district from 2021 to 2023. Her district includes northern parts of Orange County. In the 2020 United States House of Representatives elections, Kim, Michelle Park Steel, and Marilyn Strickland became the first three Korean-American women elected to the United States Congress. Kim and Steel are also the first Korean-Americans elected to Congress from California since Jay Kim (no relation).",
+              },
+              zh: {
+                displayName: '金映玉',
+                bio: '[Wikipedia] 金映玉（英語：Young Oak Kim，韓語：최영옥；1962年10月18日—），本姓崔（金為夫姓），是一位韓裔美籍政治家和商人，現任加利福尼亞州第40國會選區的眾議員，此前曾於2021年至2023年任第39國會選區的眾議員。在2020年美國眾議院選舉中，金映玉、朴銀珠和瑪麗蓮·斯特里克蘭成為首批當選美國國會議員的三位韓裔女性。 她和朴銀珠也是自金昌準後第一批當選國會議員的韓裔加州人。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T06:36:04.411Z',
@@ -10503,6 +10953,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     createdAt: '2024-12-06T06:07:08.308Z',
@@ -10921,6 +11386,21 @@ export const PEOPLE_DTO_MOCK = [
         title: 'Taiwan Conflict Deterrence Act of 2023',
         type: 'hr',
         updatedAt: '2024-12-19T07:46:49.965Z',
+        sponsor: {
+          people: {
+            i18n: {
+              en: {
+                displayName: 'French Hill',
+                bio: "[Wikipedia] James French Hill (born December 5, 1956) is an American businessman and politician serving as the U.S. representative for Arkansas's 2nd congressional district since 2015. He is a member of the Republican Party.",
+              },
+              zh: {
+                displayName: '希爾',
+                bio: '[Wikipedia] 弗蘭奇·希爾（英語：French Hill；1956年12月5日—）是美國的一位政治人物。自2015年開始，他是阿肯色州第2選舉區選出的美國眾議院議員。他的黨籍是共和黨。他的2014年的眾議員選舉中首次當選。希爾畢業於范德堡大學。',
+              },
+            },
+          },
+          party: 'republican',
+        },
       },
     ],
     tags: [],
