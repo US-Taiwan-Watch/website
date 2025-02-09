@@ -355,10 +355,12 @@ export class Bill {
       }
     )
 
-    return Object.entries(parliamentMap).map(([party, count]) => ({
-      party: party as Party,
-      count,
-    }))
+    return Object.entries(parliamentMap)
+      .map(([party, count]) => ({
+        party: party as Party,
+        count,
+      }))
+      .sort((a, b) => b.count - a.count)
   }
 
   static getRelatedBills(dto: BillDTO, lang: Language): Bill[] {
