@@ -6,6 +6,7 @@ import { styled } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import UHStack from '@/common/components/atoms/UHStack'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const StyledImageContainer = styled(Box)(() => ({
   position: 'relative',
@@ -37,18 +38,22 @@ export default function Sponsor({ bill }: Props) {
     >
       <UHStack pt={2} spacing={3}>
         {bill.sponsor?.image && (
-          <StyledImageContainer>
-            <StyledImage
-              src={bill.sponsor.image}
-              alt={bill.sponsor.name ?? ''}
-              fill
-            />
-          </StyledImageContainer>
+          <Link href={bill.sponsor?.link ?? ''}>
+            <StyledImageContainer>
+              <StyledImage
+                src={bill.sponsor.image}
+                alt={bill.sponsor.name ?? ''}
+                fill
+              />
+            </StyledImageContainer>
+          </Link>
         )}
 
         <Stack justifyContent="space-between">
           <Stack spacing={1}>
-            <Typography variant="articleH3">{bill.sponsor?.name}</Typography>
+            <Link href={bill.sponsor?.link ?? ''}>
+              <Typography variant="articleH3">{bill.sponsor?.name}</Typography>
+            </Link>
             <Typography variant="body">{bill.sponsor?.position}</Typography>
           </Stack>
 
