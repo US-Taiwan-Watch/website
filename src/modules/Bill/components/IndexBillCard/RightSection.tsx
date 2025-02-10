@@ -124,20 +124,22 @@ export default function RightSection({ bill }: Props) {
                 alt={bill.sponsor.name ?? ''}
                 fill
               />
-              <StyledPartyIconContainer>
-                <UPoliticalPartyIcon
-                  variant="rounded"
-                  size="small"
-                  party={bill.sponsor.party ?? Party.INDEPENDENT}
-                  sx={{
-                    width: '18px',
-                    height: '18px',
-                  }}
-                  customFontStyle={{
-                    fontSize: '12px',
-                  }}
-                />
-              </StyledPartyIconContainer>
+              {bill.sponsor.party && (
+                <StyledPartyIconContainer>
+                  <UPoliticalPartyIcon
+                    variant="rounded"
+                    size="small"
+                    party={bill.sponsor.party}
+                    sx={{
+                      width: '18px',
+                      height: '18px',
+                    }}
+                    customFontStyle={{
+                      fontSize: '12px',
+                    }}
+                  />
+                </StyledPartyIconContainer>
+              )}
             </StyledImageContainer>
           )}
           <Stack>

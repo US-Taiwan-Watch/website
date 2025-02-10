@@ -4,7 +4,6 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import UTimeline from '@/common/components/atoms/UTimeline'
-import { Party } from '@/common/enums/Party'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
@@ -15,7 +14,7 @@ import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 
-const DATE_FORMAT = 'MM/DD/YYYY-hh:mmA'
+const DATE_FORMAT = 'MM/DD/YYYY'
 
 const StyledCardContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -95,11 +94,13 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           {!isHorizontal && <Divider sx={{ mt: 3 }} />}
 
           <UHStack px={1} gap={1.5} alignItems="center" mt={2}>
-            <UPoliticalPartyIcon
-              variant="rounded"
-              party={bill.sponsor?.party ?? Party.INDEPENDENT}
-              size="small"
-            />
+            {bill.sponsor?.party && (
+              <UPoliticalPartyIcon
+                variant="rounded"
+                party={bill.sponsor.party}
+                size="small"
+              />
+            )}
             <Typography variant="subtitleS" fontWeight={700}>
               {bill.sponsor?.name}
             </Typography>
@@ -114,8 +115,9 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                   variant="buttonS"
                   {...(isHorizontal && { color: theme.color.grey[400] })}
                 >
-                  {dayjs(bill.latestAction?.date).isValid()
-                    ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
+                  {bill.latestAction?.date &&
+                  dayjs(bill.latestAction.date).isValid()
+                    ? dayjs(bill.latestAction.date).format(DATE_FORMAT)
                     : ''}
                 </Typography>
                 <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
