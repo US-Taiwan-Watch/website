@@ -6795,7 +6795,7 @@ export const BILL_DTO_MOCK = [
         actionsOverview: [
           {
             actionAt: {
-              datetime: '2014-02-10T00T00:00:00.000Z',
+              datetime: '2014-02-10T00:00:00.000Z',
               precision: ['year', 'month', 'day'],
             },
             description: 'Introduced in Senate',
