@@ -17,6 +17,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import dayjs from 'dayjs'
 import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 import CommonUtils from '@/modules/Common/Common.utils'
+import Link from 'next/link'
 
 const EMPTY_CELL = '-'
 
@@ -72,9 +73,11 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  <StyledNameText>
-                    {people?.name ? people.name : EMPTY_CELL}
-                  </StyledNameText>
+                  <Link href={people?.link ?? ''}>
+                    <StyledNameText>
+                      {people?.name ? people.name : EMPTY_CELL}
+                    </StyledNameText>
+                  </Link>
                 </TableCell>
                 <TableCell align="left">
                   <UHStack spacing={1} alignItems="center">
