@@ -95,7 +95,12 @@ export default function TrendBarCharts({
             valueFormatter: xLabelFormatter,
           },
         ]}
-        yAxis={[{ label: 'Bill Count' }]}
+        yAxis={[
+          {
+            label: 'Bill Count',
+            tickMinStep: 1,
+          },
+        ]}
         series={[
           {
             type: 'bar',
@@ -140,6 +145,16 @@ export default function TrendBarCharts({
           min={Congress.minCongressNumber()}
           max={currentCongressNumber}
           color="secondary"
+          marks={[
+            {
+              value: Congress.minCongressNumber(),
+              label: `${Congress.minCongressNumber()}th`,
+            },
+            {
+              value: currentCongressNumber,
+              label: `${currentCongressNumber}th`,
+            },
+          ]}
         />
       </Box>
     </>
