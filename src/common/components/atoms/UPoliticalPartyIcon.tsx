@@ -11,7 +11,6 @@ import {
 import type { ComponentType } from 'react'
 
 interface UPoliticalPartyIconProps extends Omit<IconButtonProps, 'color'> {
-  variant: 'contained' | 'outlined' | 'rounded'
   party: Party
   customFontStyle?: TypographyProps['sx']
 }
@@ -27,20 +26,6 @@ export const getMainColor = (
       return theme.color.red[500]
     case Party.INDEPENDENT:
       return theme.color.grey[500]
-  }
-}
-
-const getHoveredBackgroundColor = (
-  theme: USTWTheme,
-  party: UPoliticalPartyIconProps['party']
-) => {
-  switch (party) {
-    case Party.DEMOCRATIC:
-      return theme.color.indigo[600] + 'CC' // 80% opacity
-    case Party.REPUBLICAN:
-      return theme.color.red[500] + 'CC' // 80% opacity
-    case Party.INDEPENDENT:
-      return theme.color.grey[500] + 'CC' // 80% opacity
   }
 }
 
@@ -101,40 +86,13 @@ const getTypographyProps = (
 }
 
 const StyledPoliticalPartyIcon = styled(IconButton)<UPoliticalPartyIconProps>(
-  ({ theme, variant, party, size }) => ({
-    ...(variant === 'rounded' && {
-      backgroundColor: getMainColor(theme, party),
-      color: theme.color.common.white,
-      '&:hover': {
-        backgroundColor: getHoveredBackgroundColor(theme, party),
-      },
-      '.party-icon': {
-        ...getIconSize(size),
-      },
-    }),
-    ...(variant === 'contained' && {
-      backgroundColor: getMainColor(theme, party),
-      color: theme.color.common.white,
-      borderRadius: theme.shape.borderRadius, // 使用主題中定義的標準圓角
-      '&:hover': {
-        backgroundColor: getHoveredBackgroundColor(theme, party),
-      },
-      '.party-icon': {
-        ...getIconSize(size),
-      },
-    }),
-    ...(variant === 'outlined' && {
-      backgroundColor: 'transparent',
-      color: theme.palette.common.white,
-      border: `1px solid ${getMainColor(theme, party)}`,
-      borderRadius: theme.shape.borderRadius,
-      '&:hover': {
-        backgroundColor: theme.palette.action.hover,
-      },
-      '.party-icon': {
-        ...getIconSize(size),
-      },
-    }),
+  ({ theme, party, size }) => ({
+    cursor: 'default',
+    backgroundColor: getMainColor(theme, party),
+    color: theme.color.common.white,
+    '.party-icon': {
+      ...getIconSize(size),
+    },
   })
 ) as ComponentType<UPoliticalPartyIconProps>
 
@@ -142,7 +100,7 @@ const UPoliticalPartyIcon = (props: UPoliticalPartyIconProps) => {
   const { customFontStyle, ...restProps } = props
 
   return (
-    <StyledPoliticalPartyIcon {...restProps}>
+    <StyledPoliticalPartyIcon disableRipple {...restProps}>
       <div
         className="party-icon"
         style={{
