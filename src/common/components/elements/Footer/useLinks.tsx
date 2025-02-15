@@ -68,32 +68,32 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Our Mission',
-          url: ROUTES.HOME,
+          url: '#our-mission',
         },
         {
           type: 'subLink',
           title: 'Our Footprints',
-          url: ROUTES.HOME,
+          url: '#our-footprints',
         },
         {
           type: 'subLink',
           title: 'Our Ｍember',
-          url: ROUTES.HOME,
+          url: '#our-member',
         },
         {
           type: 'subLink',
           title: 'Our Newsroom',
-          url: ROUTES.HOME,
+          url: '#our-newsroom',
         },
         {
           type: 'subLink',
           title: 'Our Data',
-          url: ROUTES.HOME,
+          url: '#our-data',
         },
         {
           type: 'subLink',
           title: 'FAQ',
-          url: ROUTES.HOME,
+          url: '#faq',
         },
         {
           type: 'subLink',
@@ -103,7 +103,7 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Events',
-          url: ROUTES.HOME,
+          url: '#events',
         },
       ],
     },
@@ -114,12 +114,12 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Articles',
-          url: ROUTES.HOME,
+          url: '#articles',
         },
         {
           type: 'subLink',
           title: 'About',
-          url: ROUTES.HOME,
+          url: '#about',
         },
       ],
     },
@@ -146,17 +146,17 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: '觀測站底加辣',
-          url: ROUTES.HOME,
+          url: '#觀測站底加辣',
         },
         {
           type: 'subLink',
           title: '觀測站予你知',
-          url: ROUTES.HOME,
+          url: '#觀測站予你知',
         },
         {
           type: 'subLink',
           title: '觀測站讀書會',
-          url: ROUTES.HOME,
+          url: '#觀測站讀書會',
         },
       ],
     },
