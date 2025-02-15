@@ -90,7 +90,12 @@ const Footer = () => {
                         {item.subLinks.map(
                           (subItem, subIndex) =>
                             subItem.type === 'subLink' && (
-                              <Link href={subItem.url} key={subIndex}>
+                              <Link
+                                href={subItem.url}
+                                key={subIndex}
+                                // phase1 還沒有做的頁面以 # 開頭
+                                scroll={!subItem.url.startsWith('#')}
+                              >
                                 <Typography>{subItem.title}</Typography>
                               </Link>
                             )
