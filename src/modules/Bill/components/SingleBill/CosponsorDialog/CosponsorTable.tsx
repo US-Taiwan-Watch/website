@@ -12,7 +12,6 @@ import {
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
-import { Party } from '@/common/enums/Party'
 import UHStack from '@/common/components/atoms/UHStack'
 import dayjs from 'dayjs'
 import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
@@ -81,11 +80,9 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 </TableCell>
                 <TableCell align="left">
                   <UHStack spacing={1} alignItems="center">
-                    <UPoliticalPartyIcon
-                      variant="rounded"
-                      party={people?.party ?? Party.INDEPENDENT}
-                      size="small"
-                    />
+                    {people?.party && (
+                      <UPoliticalPartyIcon party={people.party} size="small" />
+                    )}
                     <StyledBodyText textTransform="capitalize">
                       {people?.party ? people.party.toLowerCase() : EMPTY_CELL}
                     </StyledBodyText>

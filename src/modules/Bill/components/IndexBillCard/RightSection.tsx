@@ -127,7 +127,6 @@ export default function RightSection({ bill }: Props) {
               {bill.sponsor.party && (
                 <StyledPartyIconContainer>
                   <UPoliticalPartyIcon
-                    variant="rounded"
                     size="small"
                     party={bill.sponsor.party}
                     sx={{

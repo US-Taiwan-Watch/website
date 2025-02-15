@@ -95,11 +95,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
 
           <UHStack px={1} gap={1.5} alignItems="center" mt={2}>
             {bill.sponsor?.party && (
-              <UPoliticalPartyIcon
-                variant="rounded"
-                party={bill.sponsor.party}
-                size="small"
-              />
+              <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
             )}
             <Typography variant="subtitleS" fontWeight={700}>
               {bill.sponsor?.name}
