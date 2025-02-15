@@ -19,7 +19,7 @@ const StyledFooter = styled('footer')(({ theme }) => ({
 const StyledSubLinkContainer = styled(Stack)(() => ({}))
 
 const StyledSubLinkBlock = styled(Stack)(() => ({
-  maxHeight: '300px',
+  maxHeight: '320px',
 }))
 
 // const StyledBottomLink = styled(Link)(() => ({
@@ -90,7 +90,12 @@ const Footer = () => {
                         {item.subLinks.map(
                           (subItem, subIndex) =>
                             subItem.type === 'subLink' && (
-                              <Link href={subItem.url} key={subIndex}>
+                              <Link
+                                href={subItem.url}
+                                key={subIndex}
+                                // phase1 還沒有做的頁面以 # 開頭
+                                scroll={!subItem.url.startsWith('#')}
+                              >
                                 <Typography>{subItem.title}</Typography>
                               </Link>
                             )
@@ -112,8 +117,6 @@ const Footer = () => {
               {/** Links: not for phase1 */}
               {/* <Stack direction="row" spacing={2} flex={1}>
                 <StyledBottomLink href="/">User Agreement and Privacy Policy</StyledBottomLink>
-                <StyledBottomLink href="/">FAQ</StyledBottomLink>
-                <StyledBottomLink href="/">Data</StyledBottomLink>
               </Stack> */}
               {/** Copyright */}
               <Typography>
