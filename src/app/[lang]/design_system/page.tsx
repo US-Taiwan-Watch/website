@@ -189,9 +189,9 @@ export default function DesignSystemIconsPage() {
       </Box>
       <h2>Political Party Icon</h2>
       <Box display="flex" p={2} gap={2}>
-        <UPoliticalPartyIcon variant="rounded" party={Party.DEMOCRATIC} />
-        <UPoliticalPartyIcon variant="rounded" party={Party.REPUBLICAN} />
-        <UPoliticalPartyIcon variant="rounded" party={Party.INDEPENDENT} />
+        <UPoliticalPartyIcon party={Party.DEMOCRATIC} />
+        <UPoliticalPartyIcon party={Party.REPUBLICAN} />
+        <UPoliticalPartyIcon party={Party.INDEPENDENT} />
       </Box>
       <h2>Button</h2>
       <Box display="flex" p={2} gap={2}>
