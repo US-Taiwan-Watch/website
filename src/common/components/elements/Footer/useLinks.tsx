@@ -87,6 +87,16 @@ export default function useLinks() {
         },
         {
           type: 'subLink',
+          title: 'Our Data',
+          url: ROUTES.HOME,
+        },
+        {
+          type: 'subLink',
+          title: 'FAQ',
+          url: ROUTES.HOME,
+        },
+        {
+          type: 'subLink',
           title: 'Articles',
           url: ROUTES.OPINION,
         },
