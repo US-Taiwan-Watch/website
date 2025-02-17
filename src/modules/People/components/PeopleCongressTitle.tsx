@@ -19,20 +19,36 @@ const PeopleCongressTitle = function PeopleCongressTitle({
     return false
   }, [congressExperienceRange])
 
-  if (
-    !congressExperienceRange.earliestCongress ||
-    !congressExperienceRange.latestCongress ||
-    !congressExperienceRange.earliestCongressYear
-  )
-    return null
+  const congressRangeText = useMemo(() => {
+    if (
+      !congressExperienceRange.earliestCongress ||
+      !congressExperienceRange.latestCongress
+    )
+      return null
+    const start = congressExperienceRange.earliestCongress
+    const end = congressExperienceRange.latestCongress
+
+    // TODO: i18n
+    return [`${start}th`, `${end}th`].join(' - ')
+  }, [congressExperienceRange])
+
+  const yearRangeText = useMemo(() => {
+    if (!congressExperienceRange.earliestCongressYear) return null
+
+    const start = congressExperienceRange.earliestCongressYear
+    const end = isPresent
+      ? 'Present'
+      : (congressExperienceRange.latestCongressYear ?? '')
+
+    return [start, end].join(' - ')
+  }, [congressExperienceRange, isPresent])
+
+  if (!congressRangeText && !yearRangeText) return null
 
   return (
     <Typography variant="bodyS" fontWeight={600}>
       {/** TODO i18n */}
-      {`${congressExperienceRange.earliestCongress}th 
-      - ${congressExperienceRange.latestCongress}th Congress
-       (${congressExperienceRange.earliestCongressYear}
-      -${isPresent ? 'Present' : (congressExperienceRange.latestCongressYear ?? '')})`}
+      {[congressRangeText, `(${yearRangeText})`].join(' ')}
     </Typography>
   )
 }
