@@ -7,6 +7,7 @@ import { Bill } from '@/modules/Bill/classes/Bill'
 import UHStack from '@/common/components/atoms/UHStack'
 import Image from 'next/image'
 import Link from 'next/link'
+import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 
 const StyledImageContainer = styled(Box)(() => ({
   position: 'relative',
@@ -57,13 +58,18 @@ export default function Sponsor({ bill }: Props) {
             <Typography variant="body">{bill.sponsor?.position}</Typography>
           </Stack>
 
-          <Typography
-            variant="buttonXS"
-            fontWeight={700}
-            textTransform="capitalize"
-          >
-            {bill.sponsor?.party?.toLowerCase()}
-          </Typography>
+          <UHStack gap={1.5} alignItems="center">
+            {bill.sponsor?.party && (
+              <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
+            )}
+            <Typography
+              variant="buttonXS"
+              fontWeight={700}
+              textTransform="capitalize"
+            >
+              {bill.sponsor?.party?.toLowerCase()}
+            </Typography>
+          </UHStack>
         </Stack>
       </UHStack>
     </UContentCard>
