@@ -44,6 +44,7 @@ import SvgPeopleJoinIcon from './PeopleJoinIcon.svg'
 import SvgExpandMoreIcon from './ExpandMoreIcon.svg'
 import SvgInternetIcon from './InternetIcon.svg'
 import SvgOpenSecretsIcon from './OpenSecretsIcon.svg'
+import SvgExpandIcon from './ExpandIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -225,4 +226,8 @@ export const InternetIcon = (props: SvgIconProps) => (
 
 export const OpenSecretsIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgOpenSecretsIcon} {...props} />
+)
+
+export const ExpandIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgExpandIcon} {...props} />
 )

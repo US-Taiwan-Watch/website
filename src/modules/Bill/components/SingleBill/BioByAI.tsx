@@ -1,51 +1,30 @@
 'use client'
 
-import UButton from '@/common/components/atoms/UButton'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { StarsIcon } from '@/common/styles/assets/Icons'
-import { Typography, useTheme } from '@mui/material'
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { Typography } from '@mui/material'
 import { Bill } from '@/modules/Bill/classes/Bill'
+import CardExpandButton from '@/modules/Bill/components/SingleBill/CardExpandButton'
 
 type Props = {
   bill: Bill
 }
 
 export default function BioByAI({ bill }: Props) {
-  const theme = useTheme<USTWTheme>()
-
   return (
     <UContentCard
       withHeader
+      headerIconAction="modal"
+      modalContent={
+        <Typography variant="body" pt={2}>
+          {bill.summary}
+        </Typography>
+      }
       headerProps={{
         title: 'Summary From AI',
         icon: <StarsIcon />,
         iconColor: 'primary',
-        action: (
-          <a
-            href={bill.congressGovUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <UButton
-              endIcon={
-                <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
-              }
-              color="info"
-              variant="outlined"
-              size="small"
-              sx={{
-                py: 0.5,
-                px: 1,
-                borderRadius: '9px',
-                border: `1.5px solid ${theme.color.grey[1400]}`,
-              }}
-            >
-              <Typography variant="buttonXS">Full Text</Typography>
-            </UButton>
-          </a>
-        ),
+        action: <CardExpandButton />,
       }}
     >
       <Typography variant="body" pt={2}>
