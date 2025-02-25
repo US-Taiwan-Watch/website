@@ -2,9 +2,9 @@
 
 import UButton from '@/common/components/atoms/UButton'
 import { styled } from '@/common/lib/mui/theme'
-import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import Link from 'next/link'
+import { CongressIcon } from '@/common/styles/assets/Icons'
 
 const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
@@ -23,6 +23,7 @@ type Props = {
   bill: Bill
 }
 
+// 設計稿上是 Title Version，但 phase1 改為導向到國會網站
 export default function TitleVersion({ bill }: Props) {
   return (
     <StyledLink
@@ -32,10 +33,10 @@ export default function TitleVersion({ bill }: Props) {
     >
       <StyledTitleVersionButton
         variant="contained"
-        startIcon={<AccessTimeOutlinedIcon width={24} height={24} />}
+        startIcon={<CongressIcon width={24} height={24} />}
         rounded
       >
-        Title Version
+        Congress.gov
       </StyledTitleVersionButton>
     </StyledLink>
   )
