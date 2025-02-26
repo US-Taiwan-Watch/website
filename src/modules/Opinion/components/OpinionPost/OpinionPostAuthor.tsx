@@ -3,7 +3,7 @@
 import { Stack, Typography, useTheme } from '@mui/material'
 import { memo } from 'react'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { OpinionAuthor } from '@/modules/Opinion/classes/OpinionAuther'
+import { OpinionAuthor } from '@/modules/Opinion/business/OpinionAuther'
 
 interface OpinionPostAuthorProps {
   author: OpinionAuthor

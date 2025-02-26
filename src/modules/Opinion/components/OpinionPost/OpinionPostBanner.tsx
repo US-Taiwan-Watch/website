@@ -1,12 +1,12 @@
 'use client'
 
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import { OpinionImage } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/business/Opinion'
 import ContentImage from '@/modules/Opinion/components/OpinionPost/Content/ContentImage'
 
 interface OpinionPostBannerProps {
   className?: string
-  bannerImage: OpinionImage
+  bannerImage: NonNullable<Opinion['bannerImage']>
 }
 
 const OpinionPostBanner = function OpinionPostBanner({

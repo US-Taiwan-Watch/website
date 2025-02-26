@@ -3,43 +3,32 @@
 import UButton from '@/common/components/atoms/UButton'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import {
-  Opinion,
-  OpinionRepostSource,
-  OpinionTag,
-} from '@/modules/Opinion/classes/Opinion'
-import { OpinionAuthor } from '@/modules/Opinion/classes/OpinionAuther'
-import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
+import { Opinion, OpinionUtils } from '@/modules/Opinion/business/Opinion'
 import OpinionPostTag from '@/modules/Opinion/components/OpinionPost/OpinionPostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
+import { useMemo } from 'react'
 
 const dateFormat = 'YYYY-MM-DD'
 
 // TODO: 定義介面
 
 interface OpinionPostHeaderProps {
-  categories?: Array<OpinionCategory>
-  title?: string
-  subtitle?: string
-  date?: Dayjs
-  tags?: Array<OpinionTag>
-  repostSources?: Array<OpinionRepostSource>
-  authors?: Array<OpinionAuthor>
+  opinion: Opinion
 }
 
 const OpinionPostHeader = function OpinionPostHeader({
-  categories,
-  title,
-  subtitle,
-  date,
-  tags,
-  repostSources,
-  authors,
+  opinion,
 }: OpinionPostHeaderProps) {
+  const { categories, title, subtitle, date, tags, repostSources, authors } =
+    opinion
   const theme = useTheme<USTWTheme>()
 
-  const formattedDate = date?.isValid() ? date.format(dateFormat) : ''
+  const formattedDate = useMemo(() => {
+    if (!date) return ''
+    const dayjsDate = dayjs(date)
+    return dayjsDate.isValid() ? dayjsDate.format(dateFormat) : ''
+  }, [date])
 
   return (
     <Stack spacing={3}>
@@ -94,7 +83,7 @@ const OpinionPostHeader = function OpinionPostHeader({
           sx={{ color: theme.color.grey[3300] }}
           fontWeight={500}
         >
-          {`Release time: ${formattedDate}   |   By ${Opinion.formatAuthorsName(authors ?? [])}`}
+          {`Release time: ${formattedDate}   |   By ${OpinionUtils.formatAuthorsName(authors ?? [])}`}
         </Typography>
         {/** Tags */}
         {tags && (

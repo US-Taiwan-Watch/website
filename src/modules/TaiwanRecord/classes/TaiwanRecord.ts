@@ -49,6 +49,7 @@ export default class TaiwanRecord {
   author?: string
   sources?: Sources
   status?: TaiwanRecordStatus
+
   constructor(args: TaiwanRecordArgs) {
     if (isString(args.id)) this.id = args.id
     if (isString(args.title)) this.title = args.title

@@ -11,7 +11,7 @@ import withSelectable from '@/common/hooks/withSelectable'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { Opinion, OpinionUtils } from '@/modules/Opinion/business/Opinion'
 
 const StyledIndexOpinionCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -104,7 +104,10 @@ const IndexOpinionCard = memo(function IndexOpinionCard({
           </StyledMiddleSection>
 
           {/** Learn More Button */}
-          <Link href={opinion.link} style={{ width: 'fit-content' }}>
+          <Link
+            href={OpinionUtils.getLink(opinion)}
+            style={{ width: 'fit-content' }}
+          >
             <UButtonWithSelectable
               variant="contained"
               color="info"

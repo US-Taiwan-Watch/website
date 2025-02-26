@@ -2,14 +2,14 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { OpinionResource, OpinionTag } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/business/Opinion'
 import OpinionPostTag from '@/modules/Opinion/components/OpinionPost/OpinionPostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { memo } from 'react'
 
 interface OpinionPostFooterProps {
-  tags?: Array<OpinionTag>
-  resources?: Array<OpinionResource>
+  tags?: Opinion['tags']
+  resources?: Opinion['repostSources']
 }
 
 const OpinionPostFooter = function OpinionPostFooter({

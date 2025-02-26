@@ -7,23 +7,57 @@ import LandingSectionWrapper from '@/common/components/elements/Landing/LandingS
 import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constants'
 import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
-import { useState, useMemo } from 'react'
-import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
-import { getOpinions } from '@/modules/Opinion/dtoData'
+import { useState, useMemo, useEffect } from 'react'
+import OpinionPostCards, {
+  OpinionPostCardsSkeleton,
+} from '@/modules/Opinion/components/OpinionPostCards'
 import { ROUTES } from '@/routes'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import OpinionStoreProvider from '@/modules/Opinion/providers/OpinionStoreProvider'
+import { OpinionUtils } from '@/modules/Opinion/business/Opinion'
+import { QUERY_ARTICLES } from '@/modules/Opinion/graphql/gql'
+import {
+  ArticlesQueryVariables,
+  ArticlesQuery,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { isNull } from 'lodash-es'
+import { useQuery } from '@apollo/client'
 
 const ArticleSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
   const landingTags = useOpinionStore.use.landingTags()
-  const opinions = useMemo(
-    () => getOpinions(lang, activeCategoryId, 3),
-    [lang, activeCategoryId]
+
+  const queryVariables = useMemo<ArticlesQueryVariables>(
+    () => ({
+      limit: 3,
+      where: {
+        categories: {
+          equals: activeCategoryId ?? '',
+        },
+      },
+    }),
+    [activeCategoryId]
   )
+  const { loading, data, refetch } = useQuery<
+    ArticlesQuery,
+    ArticlesQueryVariables
+  >(QUERY_ARTICLES, {
+    variables: queryVariables,
+  })
+
+  useEffect(() => {
+    refetch(queryVariables)
+  }, [queryVariables, refetch])
+
+  const articles = data?.Articles
+  const opinions =
+    articles?.docs
+      ?.filter((article) => !isNull(article))
+      .map((article) => OpinionUtils.parse(lang, article)) ?? []
+
   return (
     <>
       <OpinionStoreProvider />
@@ -54,7 +88,11 @@ const ArticleSection = () => {
           </UHStack>
 
           {/** Posts */}
-          <OpinionPostCards opinions={opinions} pagination={false} />
+          {loading ? (
+            <OpinionPostCardsSkeleton count={3} />
+          ) : (
+            <OpinionPostCards opinions={opinions} pagination={false} />
+          )}
         </Stack>
       </LandingSectionWrapper>
     </>

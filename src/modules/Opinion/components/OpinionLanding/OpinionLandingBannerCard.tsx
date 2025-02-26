@@ -7,7 +7,7 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { Opinion, OpinionUtils } from '@/modules/Opinion/business/Opinion'
 import withSelectable from '@/common/hooks/withSelectable'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
@@ -60,7 +60,10 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
             {/** Tags */}
             <UTagList
               tags={(opinion.categories ?? []).map((category) => (
-                <Link href={category.link} key={category.id}>
+                <Link
+                  href={OpinionUtils.getCategoryLink(category)}
+                  key={category.id}
+                >
                   <StyledCategory className="category-tag">
                     <UWidthLimitedText variant="caption" lineHeight={1}>
                       {category.label}
@@ -99,7 +102,7 @@ const OpinionLandingBannerCard = function OpinionLandingBannerCard({
                 maxWidth: 'max-content',
               }}
             >
-              <Link href={opinion.link}>
+              <Link href={OpinionUtils.getLink(opinion)}>
                 <UButton
                   variant="contained"
                   color="info"

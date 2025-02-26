@@ -4,7 +4,13 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
-import { findOpinion } from '@/modules/Opinion/data'
+import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { QUERY_ARTICLE_METADATA } from '@/modules/Opinion/graphql/gql'
+import {
+  ArticleMetadataQuery,
+  ArticleMetadataQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { OpinionUtils } from '@/modules/Opinion/business/Opinion'
 
 interface OpinionPostLayoutProps {
   params: {
@@ -16,13 +22,18 @@ interface OpinionPostLayoutProps {
 export async function generateMetadata({
   params,
 }: OpinionPostLayoutProps): Promise<Metadata> {
-  // fetch data
-  const dto = findOpinion(params.id)
-  if (!dto) return {}
-
+  const { data } = await query<
+    ArticleMetadataQuery,
+    ArticleMetadataQueryVariables
+  >({
+    query: QUERY_ARTICLE_METADATA,
+    variables: { id: params.id },
+  })
+  if (!data?.Article) return {}
+  const opinion = OpinionUtils.parse(params.lang, data.Article)
   return {
-    title: dto.title,
-    description: dto.subtitle,
+    title: opinion.title,
+    description: opinion.description,
   }
 }
 

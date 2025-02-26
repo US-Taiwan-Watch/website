@@ -1,26 +1,47 @@
 import { Language } from '@/common/lib/i18n/types'
 import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
-import { filterOpinionsByCategory } from '@/modules/Opinion/data'
+import { OpinionUtils } from '@/modules/Opinion/business/Opinion'
 import { useParams } from 'next/navigation'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo } from 'react'
+import {
+  ArticlesQuery,
+  ArticlesQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { QUERY_ARTICLES } from '@/modules/Opinion/graphql/gql'
+import { isEmpty, isNull } from 'lodash-es'
+import { useQuery } from '@apollo/client'
 
 export default function useOpinionSearch(categoryId: string) {
   const { lang } = useParams<{ lang: Language }>()
   const highlightedCategories = useOpinionStore.use.highlightedCategories()
 
-  const [opinions, setOpinions] = useState<Array<Opinion>>([])
-  const [isOpinionsLoading, setIsOpinionsLoading] = useState<boolean>(true)
+  const queryVariables = useMemo<ArticlesQueryVariables>(
+    () => ({
+      where: {
+        ...(!isEmpty(categoryId) && {
+          categories: {
+            equals: categoryId,
+          },
+        }),
+      },
+    }),
+    [categoryId]
+  )
 
-  useEffect(() => {
-    // TODO: 從 API 取得資料
-    setOpinions(
-      filterOpinionsByCategory(categoryId).map((opinion) =>
-        Opinion.fromDTO(lang, opinion)
-      )
+  const { loading: isOpinionsLoading, data } = useQuery<
+    ArticlesQuery,
+    ArticlesQueryVariables
+  >(QUERY_ARTICLES, {
+    variables: queryVariables,
+  })
+  const opinions = useMemo(() => {
+    if (!data?.Articles) return []
+    return (
+      data.Articles.docs
+        ?.filter((article) => !isNull(article))
+        .map((article) => OpinionUtils.parse(lang, article)) ?? []
     )
-    setIsOpinionsLoading(false)
-  }, [categoryId, lang])
+  }, [data, lang])
 
   const category = useMemo(
     () => highlightedCategories.find((category) => category.id === categoryId),

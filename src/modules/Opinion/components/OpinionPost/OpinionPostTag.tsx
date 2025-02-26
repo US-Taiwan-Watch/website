@@ -1,8 +1,8 @@
 import UHashTag from '@/common/components/atoms/UHashTag'
-import { OpinionTag } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/business/Opinion'
 
 interface OpinionPostTagProps {
-  tag: OpinionTag
+  tag: NonNullable<Opinion['tags']>[number]
 }
 
 const OpinionPostTag = function OpinionPostTag({ tag }: OpinionPostTagProps) {

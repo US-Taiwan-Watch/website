@@ -1,16 +1,21 @@
-'use client'
-
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UHStack from '@/common/components/atoms/UHStack'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
+import {
+  ArticlesQuery,
+  ArticlesQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import CommonUtils from '@/modules/Common/Common.utils'
+import { OpinionUtils } from '@/modules/Opinion/business/Opinion'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
-import { getOpinions } from '@/modules/Opinion/dtoData'
+import { QUERY_ARTICLES } from '@/modules/Opinion/graphql/gql'
 import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
+import { useQuery } from '@apollo/client'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
+import { isNull } from 'lodash-es'
 import { useParams } from 'next/navigation'
 import { useMemo, useState } from 'react'
 
@@ -19,10 +24,32 @@ const OpinionPostSection = () => {
   const theme = useTheme<USTWTheme>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
   const landingTags = useOpinionStore.use.landingTags()
-  const opinions = useMemo(
-    () => getOpinions(lang, activeTagId),
-    [lang, activeTagId]
+
+  const queryVariables = useMemo<ArticlesQueryVariables>(
+    () => ({
+      limit: 3,
+      where: {
+        tags: {
+          equals: activeTagId ?? '',
+        },
+      },
+    }),
+    [activeTagId]
   )
+
+  const { data } = useQuery<ArticlesQuery, ArticlesQueryVariables>(
+    QUERY_ARTICLES,
+    {
+      variables: queryVariables,
+    }
+  )
+
+  const articles = data?.Articles
+  if (!articles) return null
+  const opinions =
+    articles.docs
+      ?.filter((article) => !isNull(article))
+      .map((article) => OpinionUtils.parse(lang, article)) ?? []
 
   return (
     <LandingSectionWrapper

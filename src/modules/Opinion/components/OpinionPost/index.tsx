@@ -1,5 +1,3 @@
-'use client'
-
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import OpinionPostAuthor from '@/modules/Opinion/components/OpinionPost/OpinionPostAuthor'
 import OpinionPostBanner from '@/modules/Opinion/components/OpinionPost/OpinionPostBanner'
@@ -11,7 +9,7 @@ import OpinionPostRelatedPosts from '@/modules/Opinion/components/OpinionPost/Op
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/business/Opinion'
 import OpinionFixed from '@/modules/Opinion/components/OpinionPost/OpinionFixed'
 import OpinionPodcast from '@/modules/Opinion/components/OpinionPost/Content/OpinionPodcast'
 
@@ -37,15 +35,7 @@ const OpinionPost = function OpinionPost({
           >
             <Stack gap={4}>
               {/** Header Section */}
-              <OpinionPostHeader
-                categories={opinion.categories}
-                title={opinion.title}
-                subtitle={opinion.subtitle}
-                date={opinion.date}
-                tags={opinion.tags}
-                repostSources={opinion.repostSources}
-                authors={opinion.authors}
-              />
+              <OpinionPostHeader opinion={opinion} />
               {/** Banner Section */}
               {opinion.bannerImage && (
                 <OpinionPostBanner bannerImage={opinion.bannerImage} />
