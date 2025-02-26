@@ -2,11 +2,19 @@
 
 import { Language } from '@/common/lib/i18n/types'
 import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
-import { TAGS_DTO_MOCK } from '@/modules/Common/dtoData'
-import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
-import { getOpinionCategories } from '@/modules/Opinion/data'
 import { useParams } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
+import {
+  CategoriesArticlesQuery,
+  CategoriesArticlesQueryVariables,
+  TagsQuery,
+  TagsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { QUERY_TAGS } from '@/modules/Common/graphql/gql'
+import { useQuery } from '@apollo/client'
+import { isNull } from 'lodash-es'
+import { QUERY_CATEGORIES_ARTICLES } from '@/modules/Opinion/graphql/gql'
+import { OpinionCategoryUtils } from '@/modules/Opinion/business/OpinionCategory'
 
 export default function OpinionStoreProvider() {
   const { lang } = useParams<{ lang: Language }>()
@@ -15,14 +23,49 @@ export default function OpinionStoreProvider() {
   const setHomeHighlightedCategories =
     useOpinionStore.use.setHomeHighlightedCategories()
 
+  const landingTagsVariables = useMemo<TagsQueryVariables>(
+    () => ({
+      where: {
+        isFeatured: {
+          equals: true,
+        },
+      },
+    }),
+    []
+  )
+
+  const { data: landingTagsData } = useQuery<TagsQuery, TagsQueryVariables>(
+    QUERY_TAGS,
+    {
+      variables: landingTagsVariables,
+    }
+  )
+
   useEffect(() => {
-    setLandingTags(TAGS_DTO_MOCK.filter((tag) => tag.isFeatured))
-    setHomeHighlightedCategories(
-      getOpinionCategories().map((category) =>
-        OpinionCategory.fromDTO(lang, category)
-      )
+    if (!landingTagsData) return
+    setLandingTags(
+      (landingTagsData?.Tags?.docs ?? []).filter((tag) => !isNull(tag))
     )
-  }, [setLandingTags, setHomeHighlightedCategories, lang])
+  }, [landingTagsData, setLandingTags, lang])
+
+  const highlightedCategoriesVariables =
+    useMemo<CategoriesArticlesQueryVariables>(() => ({}), [])
+
+  const { data: highlightedCategoriesData } = useQuery<
+    CategoriesArticlesQuery,
+    CategoriesArticlesQueryVariables
+  >(QUERY_CATEGORIES_ARTICLES, {
+    variables: highlightedCategoriesVariables,
+  })
+
+  useEffect(() => {
+    if (!highlightedCategoriesData) return
+    setHomeHighlightedCategories(
+      (highlightedCategoriesData?.CategoriesArticles?.docs ?? [])
+        .filter((category) => !isNull(category))
+        .map((category) => OpinionCategoryUtils.parse(lang, category))
+    )
+  }, [highlightedCategoriesData, setHomeHighlightedCategories, lang])
 
   return null
 }

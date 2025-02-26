@@ -1,6 +1,6 @@
 import { Tag } from '@/common/lib/graphql/__generated__/graphql'
 import createSelectors from '@/common/lib/zustand/hooks/createSelectors'
-import OpinionCategory from '@/modules/Opinion/classes/OpinionCategory'
+import { OpinionCategory } from '@/modules/Opinion/business/OpinionCategory'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 

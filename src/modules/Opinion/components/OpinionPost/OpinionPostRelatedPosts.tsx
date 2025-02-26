@@ -3,7 +3,7 @@
 import UHStack from '@/common/components/atoms/UHStack'
 import ULinkText from '@/common/components/atoms/ULinkText'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/business/Opinion'
 import OpinionPostCards from '@/modules/Opinion/components/OpinionPostCards'
 import { ROUTES } from '@/routes'
 import { Stack, Typography, useTheme } from '@mui/material'

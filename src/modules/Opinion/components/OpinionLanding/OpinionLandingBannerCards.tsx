@@ -3,7 +3,7 @@
 import Carousel from '@/common/components/elements/Carousel'
 import DotPagination from '@/common/components/elements/Carousel/DotPagination'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/business/Opinion'
 import OpinionLandingBannerCard from '@/modules/Opinion/components/OpinionLanding/OpinionLandingBannerCard'
 import { Box, useTheme } from '@mui/material'
 

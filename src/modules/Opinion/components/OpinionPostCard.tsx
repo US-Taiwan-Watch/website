@@ -4,7 +4,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UTagList from '@/common/components/atoms/UTagList'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { Opinion, OpinionUtils } from '@/modules/Opinion/business/Opinion'
 import { Skeleton, Stack, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Image from 'next/image'
@@ -26,7 +26,7 @@ const OpinionPostCard = ({
   return (
     <>
       <Stack spacing={2}>
-        <Link href={opinion.link}>
+        <Link href={OpinionUtils.getLink(opinion)}>
           <Box
             sx={{
               aspectRatio: 3 / 2,
@@ -60,7 +60,10 @@ const OpinionPostCard = ({
           opinion.categories.length > 0 && (
             <UTagList
               tags={opinion.categories.map((category) => (
-                <Link href={category.link} key={category.id}>
+                <Link
+                  href={OpinionUtils.getCategoryLink(category)}
+                  key={category.id}
+                >
                   <UButton
                     variant="outlined"
                     size="small"
@@ -83,7 +86,7 @@ const OpinionPostCard = ({
               maxTags={2}
             />
           )}
-        <Link href={opinion.link}>
+        <Link href={OpinionUtils.getLink(opinion)}>
           {/** Title */}
           <UHeightLimitedText variant="subtitleM" fontWeight={700} maxLine={1}>
             {opinion.title}

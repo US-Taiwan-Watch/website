@@ -1,5 +1,5 @@
 import UPagination from '@/common/components/atoms/UPagination'
-import { Opinion } from '@/modules/Opinion/classes/Opinion'
+import { Opinion } from '@/modules/Opinion/business/Opinion'
 import OpinionPostCard, {
   OpinionPostCardSkeleton,
 } from '@/modules/Opinion/components/OpinionPostCard'
@@ -39,10 +39,15 @@ const OpinionPostCards = ({
 
 export default OpinionPostCards
 
-export const OpinionPostCardsSkeleton = () => {
+export const OpinionPostCardsSkeleton = ({
+  count = 12,
+}: {
+  /** 呈現的卡片數量 */
+  count?: number
+}) => {
   return (
     <Grid container rowSpacing={8} columnSpacing={4}>
-      {Array.from({ length: 12 }).map((_, index) => (
+      {Array.from({ length: count }).map((_, index) => (
         <Grid size={3} key={index}>
           <OpinionPostCardSkeleton />
         </Grid>
