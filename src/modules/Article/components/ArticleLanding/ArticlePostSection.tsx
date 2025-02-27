@@ -21,17 +21,26 @@ import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { isNull } from 'lodash-es'
 import { useParams } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import Box from '@mui/material/Box'
+import UPagination, {
+  usePagination,
+} from '@/common/components/atoms/UPagination'
+
+/** 每頁呈現的卡片數量 */
+const ARTICLE_POST_COUNT = 9
 
 const ArticlePostSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
   const landingTags = useArticleStore.use.landingTags()
+  const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
   const queryVariables = useMemo<ArticlesQueryVariables>(
     () => ({
-      limit: 10,
+      limit: ARTICLE_POST_COUNT,
+      page,
       where: {
         ...(activeTagId && {
           tags: {
@@ -40,15 +49,23 @@ const ArticlePostSection = () => {
         }),
       },
     }),
-    [activeTagId]
+    [activeTagId, page]
   )
 
-  const { loading, data } = useQuery<ArticlesQuery, ArticlesQueryVariables>(
-    QUERY_ARTICLES,
-    {
-      variables: queryVariables,
-    }
-  )
+  const { loading, data, refetch } = useQuery<
+    ArticlesQuery,
+    ArticlesQueryVariables
+  >(QUERY_ARTICLES, {
+    variables: queryVariables,
+  })
+
+  useEffect(() => {
+    setTotalPages(data?.Articles?.totalPages ?? 1)
+  }, [data?.Articles?.totalPages, setTotalPages])
+
+  useEffect(() => {
+    refetch(queryVariables)
+  }, [queryVariables, refetch])
 
   const articles =
     data?.Articles?.docs
@@ -92,7 +109,21 @@ const ArticlePostSection = () => {
         {loading ? (
           <ArticlePostCardsSkeleton count={10} />
         ) : (
-          <ArticlePostCards articles={articles} />
+          <>
+            <ArticlePostCards articles={articles} />
+            {/** Pagination */}
+            {totalPages > 1 && (
+              <Box display="flex" alignItems="center" justifyContent="center">
+                <UPagination
+                  count={totalPages}
+                  page={page}
+                  onChange={(_, page) => {
+                    handlePageChange(page)
+                  }}
+                />
+              </Box>
+            )}
+          </>
         )}
       </Stack>
     </LandingSectionWrapper>

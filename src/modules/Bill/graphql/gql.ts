@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { PAGINATION_FIELDS, TAG_FRAGMENT } from '@/modules/Common/graphql/gql'
+import { TAG_FRAGMENT } from '@/modules/Common/graphql/gql'
 import {
   MEDIA_PERSON_FRAGMENT,
   PEOPLE_EXPERIENCES_FRAGMENT,
@@ -168,7 +168,16 @@ export const FULL_BILL_FRAGMENT = gql`
 export const QUERY_BILLS = gql`
   query Bills($where: Bill_where, $limit: Int, $page: Int, $sort: String) {
     Bills(where: $where, limit: $limit, page: $page, sort: $sort) {
-      ${PAGINATION_FIELDS}
+      hasNextPage
+      hasPrevPage
+      limit
+      nextPage
+      offset
+      page
+      pagingCounter
+      prevPage
+      totalDocs
+      totalPages
       docs {
         id
         i18n {

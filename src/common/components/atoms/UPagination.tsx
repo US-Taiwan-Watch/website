@@ -1,5 +1,8 @@
+'use client'
+
 import { styled } from '@/common/lib/mui/theme'
 import { Pagination } from '@mui/material'
+import { useCallback, useState } from 'react'
 
 const UPagination = styled(Pagination)(({ theme }) => ({
   backgroundColor: theme.color.pagination.backgroundColor,
@@ -19,3 +22,23 @@ const UPagination = styled(Pagination)(({ theme }) => ({
 }))
 
 export default UPagination
+
+export const usePagination = ({
+  totalPages: externalTotalPages = 1,
+}: {
+  /** 總頁數 @default 1 */
+  totalPages?: number
+} = {}) => {
+  const [totalPages, setTotalPages] = useState(externalTotalPages)
+  const [page, setPage] = useState(1)
+
+  const handlePageChange = useCallback(
+    (page: number) => {
+      if (page < 1 || page > totalPages) return
+      setPage(page)
+    },
+    [totalPages]
+  )
+
+  return { totalPages, setTotalPages, page, handlePageChange }
+}
