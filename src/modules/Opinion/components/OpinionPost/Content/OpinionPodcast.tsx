@@ -1,3 +1,5 @@
+'use client'
+
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
 import { useEpisode } from '@/modules/Podcast/hooks/useEpisode'
 

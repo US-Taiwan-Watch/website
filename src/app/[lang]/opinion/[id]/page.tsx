@@ -38,7 +38,7 @@ export default async function OpinionPage({ params }: OpinionPageProps) {
           not_equals: params.id,
         },
       },
-      sort: 'createdAt:desc', // TODO: 確認呼叫方式
+      sort: '-releaseTime',
     },
   })
 
