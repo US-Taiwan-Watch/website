@@ -9,6 +9,7 @@ import Footer from '@/common/components/elements/Footer'
 import ScreenSizeHandler from '@/common/components/elements/UnsupportedScreenSize/ScreenSizeHandler'
 import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
 import ToastProvider from '@/common/providers/ToastProvider'
+import Stack from '@mui/material/Stack'
 
 export const metadata: Metadata = {
   title: 'USTW',
@@ -31,13 +32,17 @@ export default function RootLayout({
           <ThemeProvider lang={params.lang}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Header />
-            <ScreenSizeHandler>
-              <ToastProvider>
-                <ClientApolloProvider>{children}</ClientApolloProvider>
-              </ToastProvider>
-            </ScreenSizeHandler>
-            <Footer />
+            <Stack minHeight="100dvh">
+              <Header />
+              <ScreenSizeHandler>
+                <ToastProvider>
+                  <ClientApolloProvider>
+                    <Stack flexGrow={1}>{children}</Stack>
+                  </ClientApolloProvider>
+                </ToastProvider>
+              </ScreenSizeHandler>
+              <Footer />
+            </Stack>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>
