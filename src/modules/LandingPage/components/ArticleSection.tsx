@@ -6,18 +6,18 @@ import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constants'
-import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
+import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { useState, useMemo, useEffect } from 'react'
-import OpinionPostCards, {
-  OpinionPostCardsSkeleton,
-} from '@/modules/Opinion/components/OpinionPostCards'
+import ArticlePostCards, {
+  ArticlePostCardsSkeleton,
+} from '@/modules/Article/components/ArticlePostCards'
 import { ROUTES } from '@/routes'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import OpinionStoreProvider from '@/modules/Opinion/providers/OpinionStoreProvider'
-import { OpinionUtils } from '@/modules/Opinion/business/Opinion'
-import { QUERY_ARTICLES } from '@/modules/Opinion/graphql/gql'
+import ArticleStoreProvider from '@/modules/Article/providers/ArticleStoreProvider'
+import { ArticleUtils } from '@/modules/Article/business/Article'
+import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
 import {
   ArticlesQueryVariables,
   ArticlesQuery,
@@ -28,7 +28,7 @@ import { useQuery } from '@apollo/client'
 const ArticleSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
-  const landingTags = useOpinionStore.use.landingTags()
+  const landingTags = useArticleStore.use.landingTags()
 
   const queryVariables = useMemo<ArticlesQueryVariables>(
     () => ({
@@ -55,21 +55,20 @@ const ArticleSection = () => {
     refetch(queryVariables)
   }, [queryVariables, refetch])
 
-  const articles = data?.Articles
-  const opinions =
-    articles?.docs
+  const articles =
+    data?.Articles?.docs
       ?.filter((article) => !isNull(article))
-      .map((article) => OpinionUtils.parse(lang, article)) ?? []
+      .map((article) => ArticleUtils.parse(lang, article)) ?? []
 
   return (
     <>
-      <OpinionStoreProvider />
+      <ArticleStoreProvider />
       <LandingSectionWrapper
         contentWrapperSx={{
           paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
         }}
       >
-        <SectionTitleWithLink title="Articles" link={ROUTES.OPINION} />
+        <SectionTitleWithLink title="Articles" link={ROUTES.ARTICLE} />
         <Stack gap={5}>
           <UHStack gap={2}>
             {landingTags.map((tag) => (
@@ -92,9 +91,9 @@ const ArticleSection = () => {
 
           {/** Posts */}
           {loading ? (
-            <OpinionPostCardsSkeleton count={3} />
+            <ArticlePostCardsSkeleton count={3} />
           ) : (
-            <OpinionPostCards opinions={opinions} pagination={false} />
+            <ArticlePostCards articles={articles} pagination={false} />
           )}
         </Stack>
       </LandingSectionWrapper>

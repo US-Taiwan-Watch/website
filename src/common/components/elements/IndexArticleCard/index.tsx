@@ -1,0 +1,135 @@
+'use client'
+
+import { ComponentProps, memo } from 'react'
+import { Box, Stack, useTheme } from '@mui/material'
+import Image from 'next/image'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
+import UButton from '@/common/components/atoms/UButton'
+import Link from 'next/link'
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
+import withSelectable from '@/common/hooks/withSelectable'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import UTagList from '@/common/components/atoms/UTagList'
+import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
+import { Article, ArticleUtils } from '@/modules/Article/business/Article'
+
+const StyledIndexArticleCardContainer = styled(Box)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  padding: theme.spacing(2, 2, 2, 4),
+  borderRadius: '30px',
+}))
+
+const StyledTag = styled(Box)(({ theme }) => ({
+  borderRadius: '5px',
+  border: `1px solid ${theme.color.common.black}`,
+  padding: '0px 9px',
+  cursor: 'default',
+}))
+
+const StyledImage = styled(Image)(() => ({
+  width: '600px',
+  height: '500px',
+  objectFit: 'cover',
+  borderRadius: '10px',
+}))
+
+const StyledLeftSection = styled(Stack)(({ theme }) => ({
+  padding: theme.spacing(2, 0),
+}))
+
+const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
+  UTagList,
+  'containerProps.onMouseDown'
+)
+const UHeightLimitedTextWithSelectable =
+  withSelectable<ComponentProps<typeof UHeightLimitedText>>(UHeightLimitedText)
+const UButtonWithSelectable =
+  withSelectable<ComponentProps<typeof UButton>>(UButton)
+
+const StyledMiddleSection = styled(Stack)(({ theme }) => ({
+  margin: theme.spacing(4, 0),
+}))
+
+// TODO: 確認類型
+interface IndexArticleCardProps {
+  containerSx?: ComponentProps<typeof StyledIndexArticleCardContainer>['sx']
+  article: Article
+}
+
+const IndexArticleCard = memo(function IndexArticleCard({
+  containerSx,
+  article,
+}: IndexArticleCardProps) {
+  const theme = useTheme<USTWTheme>()
+
+  return (
+    <StyledIndexArticleCardContainer sx={containerSx}>
+      <Stack direction="row" spacing={8}>
+        <StyledLeftSection direction="column" spacing={4}>
+          {/** Tags */}
+          {article.categories && article.categories.length > 0 && (
+            <UTagListWithSelectable
+              tags={article.categories.map((category, index) => (
+                <StyledTag key={index} className="category-tag">
+                  <UWidthLimitedText variant="buttonXS">
+                    {category.label}
+                  </UWidthLimitedText>
+                </StyledTag>
+              ))}
+              containerProps={{
+                gap: 1,
+              }}
+              moreButtonProps={{
+                textProps: {
+                  sx: {
+                    color: theme.color.neutral[500],
+                  },
+                },
+              }}
+            />
+          )}
+
+          {/** Middle Section */}
+          <StyledMiddleSection direction="column" spacing={2} flex={1}>
+            <UHeightLimitedTextWithSelectable
+              maxLine={3}
+              variant="h3"
+              fontWeight={500}
+            >
+              {article.title}
+            </UHeightLimitedTextWithSelectable>
+            <UHeightLimitedTextWithSelectable maxLine={5} variant="body1">
+              {article.description}
+            </UHeightLimitedTextWithSelectable>
+          </StyledMiddleSection>
+
+          {/** Learn More Button */}
+          <Link
+            href={ArticleUtils.getLink(article)}
+            style={{ width: 'fit-content' }}
+          >
+            <UButtonWithSelectable
+              variant="contained"
+              color="info"
+              rounded
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+            >
+              Learn More
+            </UButtonWithSelectable>
+          </Link>
+        </StyledLeftSection>
+        {article.bannerImage && (
+          <StyledImage
+            src={article.bannerImage.src}
+            alt={article.title ?? ''}
+            width={600}
+            height={500}
+          />
+        )}
+      </Stack>
+    </StyledIndexArticleCardContainer>
+  )
+})
+
+export default IndexArticleCard

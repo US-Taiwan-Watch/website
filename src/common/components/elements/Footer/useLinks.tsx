@@ -98,7 +98,7 @@ export default function useLinks() {
         {
           type: 'subLink',
           title: 'Articles',
-          url: ROUTES.OPINION,
+          url: ROUTES.ARTICLE,
         },
         {
           type: 'subLink',
