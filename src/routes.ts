@@ -3,6 +3,6 @@ export const ROUTES = {
   BILL: '/bill',
   BILL_LIST: '/bill-list',
   PEOPLE: '/people',
-  OPINION: '/opinion',
+  ARTICLE: '/article',
   SEARCH: '/search',
 }

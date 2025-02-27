@@ -1,4 +1,4 @@
-import IndexKvCards from '@/common/components/elements/IndexOpinionCarousel'
+import IndexArticleCarousel from '@/common/components/elements/IndexArticleCarousel'
 import Stack from '@mui/material/Stack'
 import ArticleSection from '@/modules/LandingPage/components/ArticleSection'
 import KetagalanSection from '@/modules/LandingPage/components/KetagalanSection'
@@ -17,7 +17,7 @@ interface HomeProps {
 export default function Home({ params }: HomeProps) {
   return (
     <Stack alignContent="center" justifyContent="center">
-      <IndexKvCards lang={params.lang} />
+      <IndexArticleCarousel lang={params.lang} />
       <BillSection />
       <ArticleSection />
       <Stack
