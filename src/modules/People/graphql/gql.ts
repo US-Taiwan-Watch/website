@@ -3,7 +3,7 @@ import {
   BILL_I18N_FRAGMENT,
   CATEGORIES_BILL_FRAGMENT,
 } from '@/modules/Bill/graphql/gql'
-import { PAGINATION_FIELDS, TAG_FRAGMENT } from '@/modules/Common/graphql/gql'
+import { TAG_FRAGMENT } from '@/modules/Common/graphql/gql'
 import { TAIWAN_RECORD_FRAGMENT } from '@/modules/TaiwanRecord/graphql/gql'
 
 export const PEOPLE_I18N_FRAGMENT = gql`
@@ -367,7 +367,16 @@ export const QUERY_PEOPLE_VOTES = gql`
 export const QUERY_PEOPLES = gql`
   query peoples($limit: Int, $sort: String, $page: Int, $where: People_where) {
     Peoples(limit: $limit, sort: $sort, page: $page, where: $where) {
-      ${PAGINATION_FIELDS}
+      hasNextPage
+      hasPrevPage
+      limit
+      nextPage
+      offset
+      page
+      pagingCounter
+      prevPage
+      totalDocs
+      totalPages
       docs {
         id
         i18n {

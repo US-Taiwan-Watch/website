@@ -1,20 +1,17 @@
-import UPagination from '@/common/components/atoms/UPagination'
 import { Article } from '@/modules/Article/business/Article'
 import ArticlePostCard, {
   ArticlePostCardSkeleton,
 } from '@/modules/Article/components/ArticlePostCard'
-import { Box, Grid2 as Grid, Stack } from '@mui/material'
+import { Grid2 as Grid, Stack } from '@mui/material'
 
 interface ArticlePostCardsProps {
   articles: Array<Article>
-  pagination?: boolean
   /** 是否呈現 Category */
   showCategory?: boolean
 }
 
 const ArticlePostCards = ({
   articles,
-  pagination = true,
   showCategory = true,
 }: ArticlePostCardsProps) => {
   return (
@@ -27,12 +24,6 @@ const ArticlePostCards = ({
           </Grid>
         ))}
       </Grid>
-      {/** Pagination */}
-      {pagination && (
-        <Box display="flex" alignItems="center" justifyContent="center">
-          <UPagination count={10} />
-        </Box>
-      )}
     </Stack>
   )
 }

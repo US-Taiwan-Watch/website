@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client'
-import { PAGINATION_FIELDS, TAG_FRAGMENT } from '@/modules/Common/graphql/gql'
+import { TAG_FRAGMENT } from '@/modules/Common/graphql/gql'
 
 export const CATEGORIES_ARTICLE_FRAGMENT = gql`
   fragment CategoriesArticle on CategoriesArticle {
@@ -89,40 +89,44 @@ export const QUERY_ARTICLE = gql`
 `
 
 export const QUERY_ARTICLES = gql`
-    query Articles(
-        $where: Article_where
-        $limit: Int
-        $page: Int
-        $sort: String
-    ) {
-        Articles(
-            where: $where
-            limit: $limit
-            page: $page
-            sort: $sort
-        ) {
-            ${PAGINATION_FIELDS}
-            docs {
-                id
-                title
-                subtitle
-                excerpt
-                categories {
-                    ...CategoriesArticle
-                }
-                tags {
-                    ...Tag
-                }
-                media {
-                    ...ArticleMedia
-                }
-            }
+  query Articles(
+    $where: Article_where
+    $limit: Int
+    $page: Int
+    $sort: String
+  ) {
+    Articles(where: $where, limit: $limit, page: $page, sort: $sort) {
+      hasNextPage
+      hasPrevPage
+      limit
+      nextPage
+      offset
+      page
+      pagingCounter
+      prevPage
+      totalDocs
+      totalPages
+      docs {
+        id
+        title
+        subtitle
+        excerpt
+        categories {
+          ...CategoriesArticle
         }
+        tags {
+          ...Tag
+        }
+        media {
+          ...ArticleMedia
+        }
+      }
     }
+  }
 
-    ${CATEGORIES_ARTICLE_FRAGMENT}
-    ${TAG_FRAGMENT}
-    ${ARTICLE_MEDIA_FRAGMENT}
+  ${CATEGORIES_ARTICLE_FRAGMENT}
+  ${TAG_FRAGMENT}
+  ${ARTICLE_MEDIA_FRAGMENT}
 `
 
 export const QUERY_CATEGORIES_ARTICLES = gql`

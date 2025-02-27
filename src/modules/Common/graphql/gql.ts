@@ -1,18 +1,5 @@
 import { gql } from '@apollo/client'
 
-export const PAGINATION_FIELDS = `
-  hasNextPage
-  hasPrevPage
-  limit
-  nextPage
-  offset
-  page
-  pagingCounter
-  prevPage
-  totalDocs
-  totalPages
-`
-
 export const TAG_FRAGMENT = gql`
   fragment Tag on Tag {
     id
@@ -37,19 +24,18 @@ export const MEMBER_FRAGMENT = gql`
 `
 
 export const QUERY_TAGS = gql`
-  query Tags(
-    $where: Tag_where
-    $limit: Int
-    $page: Int
-    $sort: String
-  ) {
-    Tags(
-      where: $where
-      limit: $limit
-      page: $page
-      sort: $sort
-    ) {
-      ${PAGINATION_FIELDS}
+  query Tags($where: Tag_where, $limit: Int, $page: Int, $sort: String) {
+    Tags(where: $where, limit: $limit, page: $page, sort: $sort) {
+      hasNextPage
+      hasPrevPage
+      limit
+      nextPage
+      offset
+      page
+      pagingCounter
+      prevPage
+      totalDocs
+      totalPages
       docs {
         ...Tag
       }
