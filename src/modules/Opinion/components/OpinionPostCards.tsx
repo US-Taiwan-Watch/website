@@ -48,7 +48,7 @@ export const OpinionPostCardsSkeleton = ({
   return (
     <Grid container rowSpacing={8} columnSpacing={4}>
       {Array.from({ length: count }).map((_, index) => (
-        <Grid size={3} key={index}>
+        <Grid size={4} key={index}>
           <OpinionPostCardSkeleton />
         </Grid>
       ))}

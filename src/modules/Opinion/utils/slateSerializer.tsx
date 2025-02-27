@@ -1,13 +1,17 @@
 import { Text } from 'slate'
 import { ReactNode } from 'react'
 import Typography from '@mui/material/Typography'
-import { Bill as BillDTO } from '@/common/lib/graphql/__generated__/graphql'
+import {
+  Article,
+  Bill as BillDTO,
+} from '@/common/lib/graphql/__generated__/graphql'
 import HyperLinkTooltip from '@/modules/Opinion/components/OpinionPost/Content/HyperLinkTooltip'
 import Link from 'next/link'
 import { payloadSlateToHtmlConfig, slateToHtml } from '@slate-serializers/html'
 import { Bill } from '@/modules/Bill/classes/Bill'
 import { Language } from '@/common/lib/i18n/types'
 import { HyperLinkTooltipCardProps } from '@/common/components/elements/HyperLinkTooltipCard'
+import { OpinionUtils } from '@/modules/Opinion/business/Opinion'
 
 // 定義客製化 Slate element type
 type CustomElementType =
@@ -26,10 +30,15 @@ type BaseText = {
   text: string
 }
 
-export type LinkDoc = {
-  relationTo: 'bills'
-  value: BillDTO
-}
+export type LinkDoc =
+  | {
+      relationTo: 'bills'
+      value: BillDTO
+    }
+  | {
+      relationTo: 'articles'
+      value: Article
+    }
 const getHyperLinkTooltipCardProps = (
   lang: Language,
   doc: LinkDoc
@@ -40,6 +49,15 @@ const getHyperLinkTooltipCardProps = (
       title: bill.title ?? '',
       description: bill.summary ?? '',
       link: bill.link ?? '',
+    }
+  }
+
+  if (doc.relationTo === 'articles') {
+    const article = OpinionUtils.parse(lang, doc.value)
+    return {
+      title: article.title ?? '',
+      description: article.description ?? '',
+      link: OpinionUtils.getLink(article) ?? '',
     }
   }
 

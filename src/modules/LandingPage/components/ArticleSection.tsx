@@ -27,19 +27,22 @@ import { useQuery } from '@apollo/client'
 
 const ArticleSection = () => {
   const { lang } = useParams<{ lang: Language }>()
-  const [activeCategoryId, setActiveCategoryId] = useState<string | undefined>()
+  const [activeTagId, setActiveTagId] = useState<string | undefined>()
   const landingTags = useOpinionStore.use.landingTags()
 
   const queryVariables = useMemo<ArticlesQueryVariables>(
     () => ({
       limit: 3,
+      sort: '-releaseTime',
       where: {
-        categories: {
-          equals: activeCategoryId ?? '',
-        },
+        ...(activeTagId && {
+          tags: {
+            equals: activeTagId ?? '',
+          },
+        }),
       },
     }),
-    [activeCategoryId]
+    [activeTagId]
   )
   const { loading, data, refetch } = useQuery<
     ArticlesQuery,
@@ -75,12 +78,12 @@ const ArticleSection = () => {
                 label={
                   tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
                 }
-                active={activeCategoryId === tag.id}
+                active={activeTagId === tag.id}
                 onClick={() => {
-                  if (activeCategoryId === tag.id) {
-                    setActiveCategoryId(undefined)
+                  if (activeTagId === tag.id) {
+                    setActiveTagId(undefined)
                   } else {
-                    setActiveCategoryId(tag.id ?? undefined)
+                    setActiveTagId(tag.id ?? undefined)
                   }
                 }}
               />

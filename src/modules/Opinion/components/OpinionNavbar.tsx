@@ -2,6 +2,7 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import { OpinionUtils } from '@/modules/Opinion/business/Opinion'
 import useOpinionStore from '@/modules/Opinion/store/useOpinionStore'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
@@ -32,7 +33,7 @@ const OpinionNavbar = ({ activeId }: OpinionNavbarProps) => {
         }}
       >
         {highlightedCategories.map((item) => (
-          <Link href={item.link} key={item.id}>
+          <Link href={OpinionUtils.getCategoryLink(item)} key={item.id}>
             <Typography
               variant="menu"
               sx={{
