@@ -42,9 +42,6 @@ const articleSchema = z.object({
 export type Article = z.infer<typeof articleSchema>
 
 export class ArticleUtils {
-  /**
-   * Article -> Article
-   */
   static parse(lang: Language, dto: Partial<ApiArticle>) {
     return articleSchema.parse({
       id: dto.id ?? undefined,
