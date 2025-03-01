@@ -1,3 +1,5 @@
+'use client'
+
 import { PeopleCheckIcon } from '@/common/styles/assets/Icons'
 import NumberCard from '@/modules/People/components/PeopleTracker/CardContent/NumberCard'
 import BillVoteCard from '@/modules/Bill/components/BillVoteCard'

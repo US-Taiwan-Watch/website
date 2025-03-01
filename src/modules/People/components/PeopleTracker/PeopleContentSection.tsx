@@ -1,3 +1,5 @@
+'use client'
+
 import BioByAI from '@/modules/People/components/PeopleTracker/CardContent/BioByAI'
 import Committee from '@/modules/People/components/PeopleTracker/CardContent/Committee'
 import Experience from '@/modules/People/components/PeopleTracker/CardContent/Experience'

@@ -33,10 +33,10 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
   const queryVariables: PeoplesQueryVariables = useMemo(
     () => ({
       limit: 10,
-      page: 1,
+      page,
       sort: '-viewCount',
     }),
-    []
+    [page]
   )
 
   const { data, refetch } = useQuery<PeoplesQuery, PeoplesQueryVariables>(

@@ -180,7 +180,9 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
         <PeopleCategory people={people} />
         <Typography variant="h4">{people.name}</Typography>
         <Stack direction="row" gap={2} flexWrap="wrap">
-          {people.tags?.map((tag) => <PeopleTag value={tag} key={tag} />)}
+          {people.tags.map((tag) => (
+            <PeopleTag key={tag.id} value={tag.name} />
+          ))}
         </Stack>
       </StyledInfoContainer>
 

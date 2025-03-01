@@ -81,8 +81,8 @@ export default function BillVoteCard({ vote }: BillVoteCardProps) {
       <UHStack gap={4} alignItems="stretch">
         <Stack>
           <UTagList
-            tags={(vote.vote?.bill?.tags ?? []).map((tag, index) => (
-              <UCategoryTag key={index} value={tag} />
+            tags={(vote.vote?.bill?.tags ?? []).map((tag) => (
+              <UCategoryTag key={tag.id} value={tag.name} />
             ))}
             containerProps={{
               gap: '6px',

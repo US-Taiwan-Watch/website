@@ -221,7 +221,10 @@ export const PEOPLE_VOTES_FRAGMENT = gql`
     }
   }
 
+  ${PEOPLE_I18N_FRAGMENT}
   ${BILL_I18N_FRAGMENT}
+  ${CATEGORIES_BILL_FRAGMENT}
+  ${TAG_FRAGMENT}
 `
 
 export const FULL_PEOPLE_FRAGMENT = gql`

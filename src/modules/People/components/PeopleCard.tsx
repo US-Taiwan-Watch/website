@@ -97,7 +97,7 @@ const PeopleCard = memo(function PeopleCard({
 
               <UTagList
                 tags={people.tags.map((tag) => (
-                  <PeopleTag value={tag} key={tag} />
+                  <PeopleTag key={tag.id} value={tag.name} />
                 ))}
                 containerProps={{
                   gap: 2,

@@ -7,7 +7,7 @@ import CommonUtils from '@/modules/Common/Common.utils'
 import dayjs from 'dayjs'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { Party } from '@/common/enums/Party'
-import TagUtils from '@/modules/Common/Tag.utils'
+import TagUtils, { tagSchema } from '@/modules/Common/Tag.utils'
 import { BillTypeEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { z } from 'zod'
 import { ChamberEnum } from '@/common/enums/Chamber'
@@ -48,7 +48,7 @@ export const billSchema = z.object({
   sponsor: peopleSchema.optional(),
   cosponsors: z.array(billCosponsorSchema),
   categories: z.array(z.string()),
-  tags: z.array(z.string()),
+  tags: z.array(tagSchema),
   status: z.nativeEnum(BillStatusEnum).optional(),
   statusTracker: z
     .object({
@@ -98,7 +98,14 @@ export class BillUtils {
           ?.map((tag) => TagUtils.parse(lang, tag))
           .filter((tag) => !isUndefined(tag.id) && !isUndefined(tag.name)) ??
         [],
-      statusTracker: dto.statusTracker ?? undefined,
+      // Avoid __typename
+      statusTracker: dto.statusTracker
+        ? {
+            currentStatus: dto.statusTracker.currentStep,
+            passedStatus: dto.statusTracker.passedSteps,
+            futureStatus: dto.statusTracker.futureSteps,
+          }
+        : undefined,
       congressNumber: dto.congress,
       actionsOverview:
         (

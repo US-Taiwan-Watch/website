@@ -1,3 +1,5 @@
+'use client'
+
 import { PeopleIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
