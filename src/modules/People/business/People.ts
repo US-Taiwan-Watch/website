@@ -19,7 +19,7 @@ import {
   taiwanRecordSchema,
   TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
-import TagUtils from '@/modules/Common/Tag.utils'
+import TagUtils, { tagSchema } from '@/modules/Common/Tag.utils'
 
 export interface PartyExperience {
   party: Party
@@ -68,7 +68,7 @@ export const peopleSchema = z.object({
   party: z.nativeEnum(Party).optional(),
   position: z.nativeEnum(PeoplePosition).optional(),
   positions: z.array(z.nativeEnum(PeoplePosition)),
-  tags: z.array(z.string()),
+  tags: z.array(tagSchema),
   partyExperience: z.array(partyExperienceSchema),
   experience: z.array(
     experienceSchema.extend({
@@ -78,7 +78,7 @@ export const peopleSchema = z.object({
   publications: z.array(
     z.object({
       id: z.string().optional(),
-      title: z.string(),
+      title: z.string().optional(),
       abstract: z.string().optional(),
       link: z.string().optional(),
     })
@@ -148,9 +148,28 @@ export class PeopleUtils {
         [],
       partyExperience: PeopleUtils.parsePartyExperience(dto.partyChangeRecords),
       experience: PeopleUtils.parseExperience(dto.experiences),
-      publications: dto.publications ?? [],
+      publications:
+        dto.publications?.map((publication) => ({
+          id: publication.id ?? undefined,
+          title: publication.title ?? undefined,
+          abstract: publication.abstract ?? undefined,
+          link: publication.link ?? undefined,
+        })) ?? [],
       bioByAI: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio ?? '',
-      committees: dto.congressionalData?.committees ?? [],
+      committees:
+        dto.congressionalData?.committees?.map((committee) => ({
+          id: committee.id ?? undefined,
+          name: committee.name ?? undefined,
+          systemCode: committee.systemCode ?? undefined,
+          title: committee.title ?? undefined,
+          subcommittees:
+            committee.subcommittees?.map((subcommittee) => ({
+              id: subcommittee.id ?? undefined,
+              name: subcommittee.name ?? undefined,
+              systemCode: subcommittee.systemCode ?? undefined,
+              title: subcommittee.title ?? undefined,
+            })) ?? [],
+        })) ?? [],
       isCurrentCongressMember: PeopleUtils.parseIsCurrentCongressMember(
         dto.experiences
       ),

@@ -1,3 +1,5 @@
+'use client'
+
 import UButton from '@/common/components/atoms/UButton'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import SectionTitle from '@/common/components/elements/Landing/SectionTitle'

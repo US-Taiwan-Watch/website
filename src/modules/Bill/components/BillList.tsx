@@ -1,6 +1,8 @@
 'use client'
 
-import UPagination from '@/common/components/atoms/UPagination'
+import UPagination, {
+  usePagination,
+} from '@/common/components/atoms/UPagination'
 import {
   BillsQuery,
   BillsQueryVariables,
@@ -54,22 +56,41 @@ export default function BillList() {
     }
   }, [filterInitValues, onFilterSubmit])
 
+  const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
+
   const queryVariables = useMemo<BillsQueryVariables>(() => {
     return {
+      limit: 10,
+      page,
       where: {
         // TODO: BillFilterOutput -> Bill_where
       },
     }
-  }, [])
+  }, [page])
 
-  const { data } = useQuery<BillsQuery, BillsQueryVariables>(QUERY_BILLS, {
-    variables: queryVariables,
-  })
+  const { data, refetch } = useQuery<BillsQuery, BillsQueryVariables>(
+    QUERY_BILLS,
+    {
+      variables: queryVariables,
+    }
+  )
+
+  useEffect(() => {
+    if (data?.Bills?.totalPages) {
+      setTotalPages(data.Bills.totalPages)
+    }
+  }, [data?.Bills?.totalPages, setTotalPages])
+
+  useEffect(() => {
+    refetch(queryVariables)
+  }, [queryVariables, refetch])
 
   const bills =
     data?.Bills?.docs
       ?.filter((bill) => !isNull(bill))
       .map((bill) => BillUtils.parse(lang, bill)) ?? []
+
+  // TODO: loading skeleton
 
   return (
     <Stack gap={7} alignItems="center" pb={10}>
@@ -84,7 +105,13 @@ export default function BillList() {
           ))}
         </Stack>
       </Stack>
-      <UPagination count={10} page={1} onChange={() => {}} />
+      {totalPages > 1 && (
+        <UPagination
+          count={totalPages}
+          page={page}
+          onChange={(_, page) => handlePageChange(page)}
+        />
+      )}
     </Stack>
   )
 }
