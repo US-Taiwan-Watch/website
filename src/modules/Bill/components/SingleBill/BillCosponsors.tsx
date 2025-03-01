@@ -7,7 +7,7 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import CosponsorChart from '@/modules/Bill/components/SingleBill/CosponsorChart'
 import CosponsorDialog from '@/modules/Bill/components/SingleBill/CosponsorDialog'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import useModal from '@/common/hooks/useModal'
 
 type Props = {
@@ -45,7 +45,7 @@ export default function BillCosponsors({ bill }: Props) {
           },
         }}
       >
-        <CosponsorChart data={Bill.getCosponsorsParliamentData(bill)} />
+        <CosponsorChart data={BillUtils.getCosponsorsParliamentData(bill)} />
       </UContentCard>
 
       <CosponsorDialog

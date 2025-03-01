@@ -3,7 +3,7 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import { TrackerIcon } from '@/common/styles/assets/Icons'
 import { Box } from '@mui/material'
 import UTimeline from '@/common/components/atoms/UTimeline'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 
 type Props = {
   bill: Bill
@@ -25,10 +25,10 @@ export default function BillTracker({ bill }: Props) {
     >
       <Box pt={2} px={1}>
         <UTimeline
-          data={Bill.getAllBillStatuses(bill).map((status) => ({
-            title: Bill.GetBillStatusText(status),
+          data={BillUtils.getAllBillStatuses(bill).map((status) => ({
+            title: BillUtils.getBillStatusText(status),
           }))}
-          activeIndex={Bill.getStatusIndex(bill)}
+          activeIndex={BillUtils.getStatusIndex(bill)}
           itemMinHeight={50}
         />
       </Box>

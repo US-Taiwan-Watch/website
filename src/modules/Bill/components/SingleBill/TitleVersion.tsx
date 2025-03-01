@@ -3,7 +3,7 @@
 import UButton from '@/common/components/atoms/UButton'
 import { styled } from '@/common/lib/mui/theme'
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import Link from 'next/link'
 
 const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({

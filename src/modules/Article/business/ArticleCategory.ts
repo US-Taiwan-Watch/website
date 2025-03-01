@@ -4,12 +4,12 @@ import CommonUtils from '@/modules/Common/Common.utils'
 import { ROUTES } from '@/routes'
 import { z } from 'zod'
 
-export const ArticleCategorySchema = z.object({
+export const articleCategorySchema = z.object({
   id: z.string().optional(),
   label: z.string().optional(),
 })
 
-export type ArticleCategory = z.infer<typeof ArticleCategorySchema>
+export type ArticleCategory = z.infer<typeof articleCategorySchema>
 
 export class ArticleCategoryUtils {
   static getLink(id: string) {
@@ -20,7 +20,7 @@ export class ArticleCategoryUtils {
    * CategoriesArticle -> ArticleCategory
    */
   static parse(lang: Language, dto: CategoriesArticle) {
-    return ArticleCategorySchema.parse({
+    return articleCategorySchema.parse({
       id: dto.id ?? undefined,
       label: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? undefined,
     })

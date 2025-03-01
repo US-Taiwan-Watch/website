@@ -6,7 +6,7 @@ import { StarsIcon } from '@/common/styles/assets/Icons'
 import { Typography, useTheme } from '@mui/material'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 
 type Props = {
   bill: Bill

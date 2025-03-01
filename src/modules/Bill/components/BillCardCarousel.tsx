@@ -6,7 +6,7 @@ import { Box, Container } from '@mui/material'
 import BillCard from '@/modules/Bill/components/BillCard'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import ArrowPagination from '@/common/components/elements/Carousel/ArrowPagination'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 
 const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
   overflow: 'hidden',

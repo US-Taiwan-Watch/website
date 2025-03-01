@@ -4,9 +4,17 @@ import NumberCard from '@/modules/People/components/PeopleTracker/CardContent/Nu
 import BillCard from '@/modules/Bill/components/BillCard'
 import { Person2Icon } from '@/common/styles/assets/Icons'
 import { Box } from '@mui/material'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/business/People'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
+import {
+  PeopleSponsorBillsQuery,
+  PeopleSponsorBillsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { useQuery } from '@apollo/client'
+import { QUERY_PEOPLE_SPONSOR_BILLS } from '@/modules/People/graphql/gql'
+import { isNull } from 'lodash-es'
+import { BillUtils } from '@/modules/Bill/business/Bill'
 
 interface SponsoredProps {
   people: People
@@ -14,7 +22,20 @@ interface SponsoredProps {
 
 const Sponsored = function ({ people }: SponsoredProps) {
   const { lang } = useParams<{ lang: Language }>()
-  const sponsorBills = People.getSponsorBills(lang, people)
+
+  const { data } = useQuery<
+    PeopleSponsorBillsQuery,
+    PeopleSponsorBillsQueryVariables
+  >(QUERY_PEOPLE_SPONSOR_BILLS, {
+    variables: {
+      id: people.id ?? '',
+    },
+  })
+
+  const sponsorBills =
+    data?.People?.sponsorBills
+      ?.filter((bill) => !isNull(bill))
+      .map((bill) => BillUtils.parse(lang, bill)) ?? []
 
   return (
     <NumberCard

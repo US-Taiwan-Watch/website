@@ -2,7 +2,7 @@
 
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import Carousel from '@/common/components/elements/Carousel'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import IndexBillCard from '@/modules/Bill/components/IndexBillCard'
 import { Container } from '@mui/material'
 import { styled } from '@mui/material/styles'

@@ -1,4 +1,3 @@
-import { People } from '@/modules/People/classes/People'
 import BioByAI from '@/modules/People/components/PeopleTracker/CardContent/BioByAI'
 import Committee from '@/modules/People/components/PeopleTracker/CardContent/Committee'
 import Experience from '@/modules/People/components/PeopleTracker/CardContent/Experience'
@@ -11,31 +10,38 @@ import Publication from '@/modules/People/components/PeopleTracker/CardContent/P
 import { Grid2 as Grid, GridSize, Stack, useTheme } from '@mui/material'
 import { memo, useMemo } from 'react'
 import type React from 'react'
+import { People } from '@/modules/People/business/People'
 
 const useSectionLayout = (people: People) => {
   /**
    * 現任眾議員或參議員才會出現政黨
    */
   const hasParty = useMemo(
-    () => !!people.party && people.isCurrentCongressMember,
+    () => (!!people.party && people.isCurrentCongressMember) || false,
     [people]
   )
 
   /**
    * 眾議員或參議員才會有贊助法案
    */
-  const hasSponsored = useMemo(() => people.isCurrentCongressMember, [people])
+  const hasSponsored = useMemo(
+    () => !!people.isCurrentCongressMember || false,
+    [people]
+  )
 
   /**
    * 眾議員或參議員才會有共同提案法案
    */
-  const hasCoSponsored = useMemo(() => people.isCurrentCongressMember, [people])
+  const hasCoSponsored = useMemo(
+    () => !!people.isCurrentCongressMember || false,
+    [people]
+  )
 
   /**
    * 眾議員或參議員才會有投票紀錄
    */
   const hasVotingRecord = useMemo(
-    () => people.isCurrentCongressMember,
+    () => !!people.isCurrentCongressMember || false,
     [people]
   )
 
@@ -52,7 +58,10 @@ const useSectionLayout = (people: People) => {
   /**
    * 現任眾議員或參議員才會有委員會
    */
-  const hasCommittee = useMemo(() => people.isCurrentCongressMember, [people])
+  const hasCommittee = useMemo(
+    () => !!people.isCurrentCongressMember || false,
+    [people]
+  )
 
   /**
    * 每個人都有出版品
@@ -63,7 +72,7 @@ const useSectionLayout = (people: People) => {
    * 現任眾議員或參議員才會有理念領導力圖表
    */
   const hasIdeologyLeadershipChart = useMemo(
-    () => people.isCurrentCongressMember,
+    () => !!people.isCurrentCongressMember || false,
     [people]
   )
 
@@ -152,7 +161,7 @@ const PeopleContentSection = memo(function PeopleContentSection({
         {
           visible: hasExperience,
           size: 5,
-          component: <Experience experience={people.experience} />,
+          component: <Experience experience={people.experience ?? []} />,
         },
       ],
     },

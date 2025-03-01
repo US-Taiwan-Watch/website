@@ -7,16 +7,59 @@ import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import PeopleCard from '@/modules/People/components/PeopleCard'
-import UPagination from '@/common/components/atoms/UPagination'
+import UPagination, {
+  usePagination,
+} from '@/common/components/atoms/UPagination'
 import PeopleFilter from '@/modules/People/components/PeopleFilter'
-import { People } from '@/modules/People/classes/People'
+import { Language } from '@/common/lib/i18n/types'
+import { useEffect, useMemo } from 'react'
+import {
+  PeoplesQuery,
+  PeoplesQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { useQuery } from '@apollo/client'
+import { QUERY_PEOPLES } from '@/modules/People/graphql/gql'
+import { PeopleUtils } from '@/modules/People/business/People'
+import { isNull } from 'lodash-es'
 
 interface PeopleListSectionProps {
-  peoples: People[]
+  lang: Language
 }
 
-const PeopleListSection = ({ peoples }: PeopleListSectionProps) => {
+const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
   const theme = useTheme<USTWTheme>()
+  const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
+
+  const queryVariables: PeoplesQueryVariables = useMemo(
+    () => ({
+      limit: 10,
+      page: 1,
+      sort: '-viewCount',
+    }),
+    []
+  )
+
+  const { data, refetch } = useQuery<PeoplesQuery, PeoplesQueryVariables>(
+    QUERY_PEOPLES,
+    {
+      variables: queryVariables,
+    }
+  )
+
+  useEffect(() => {
+    setTotalPages(data?.Peoples?.totalPages ?? 1)
+  }, [data?.Peoples?.totalPages, setTotalPages])
+
+  useEffect(() => {
+    refetch(queryVariables)
+  }, [queryVariables, refetch])
+
+  const peoples =
+    data?.Peoples?.docs
+      ?.filter((people) => !isNull(people))
+      .map((people) => PeopleUtils.parse(lang, people)) ?? []
+
+  // TODO: loading skeleton
 
   return (
     <LandingSectionWrapper
@@ -43,7 +86,15 @@ const PeopleListSection = ({ peoples }: PeopleListSectionProps) => {
             ))}
           </Grid>
         </Box>
-        <UPagination count={10} page={1} onChange={() => {}} />
+        {totalPages > 1 && (
+          <UPagination
+            count={totalPages}
+            page={page}
+            onChange={(_, page) => {
+              handlePageChange(page)
+            }}
+          />
+        )}
       </Stack>
     </LandingSectionWrapper>
   )

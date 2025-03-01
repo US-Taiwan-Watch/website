@@ -3,29 +3,28 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import TaiwanRecordCard from '@/modules/TaiwanRecord/components/TaiwanRecordCard'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
-import TaiwanRecord from '@/modules/TaiwanRecord/classes/TaiwanRecord'
-import { useParams } from 'next/navigation'
-import { findPeople } from '@/modules/People/data'
-import { People } from '@/modules/People/classes/People'
-import { Language } from '@/common/lib/i18n/types'
+import {
+  TaiwanRecord,
+  TaiwanRecordUtils,
+} from '@/modules/TaiwanRecord/business/TaiwanRecord'
 
-const TaiwanRecordList = () => {
-  const { id: peopleId, lang } = useParams<{ id: string; lang: Language }>()
+interface TaiwanRecordListProps {
+  records: TaiwanRecord[]
+}
+
+const TaiwanRecordList = ({ records }: TaiwanRecordListProps) => {
   const theme = useTheme<USTWTheme>()
-
-  const dto = findPeople(peopleId)
-  if (!dto) return null
-  const people = People.fromDTO(lang, dto)
-  const records = people.taiwanRecords
 
   return (
     <Stack gap={theme.spacing(7.5)}>
       <Stack gap={theme.spacing(1.5)}>
-        {records.filter(TaiwanRecord.isApproved).map((item) => (
-          <div key={item.id}>
-            <TaiwanRecordCard taiwanRecord={item} />
-          </div>
-        ))}
+        {records
+          .filter((record) => TaiwanRecordUtils.isApproved(record))
+          .map((item) => (
+            <div key={item.id}>
+              <TaiwanRecordCard taiwanRecord={item} />
+            </div>
+          ))}
       </Stack>
       {
         // FIXME: 因為是 mock data，所以先固定 5 筆，之後改動態 api 取得

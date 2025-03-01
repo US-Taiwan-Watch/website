@@ -2,7 +2,7 @@ import { PeopleIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/business/People'
 
 const StyledDescriptionListItem = styled('li')(({ theme }) => ({
   position: 'relative',

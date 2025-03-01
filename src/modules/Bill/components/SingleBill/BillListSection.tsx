@@ -7,7 +7,7 @@ import { SectionTitleWithLink } from '@/common/components/elements/Landing/Secti
 import BillCardCarousel from '@/modules/Bill/components/BillCardCarousel'
 import { Stack } from '@mui/material'
 import { ROUTES } from '@/routes'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 
 interface BillListSectionProps {
   relatedBills: Bill[]

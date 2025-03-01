@@ -28,6 +28,9 @@ export const TAIWAN_RECORD_FRAGMENT = gql`
     }
     createdAt
     updatedAt
+    people {
+      gender
+    }
   }
 
   ${MEMBER_FRAGMENT}

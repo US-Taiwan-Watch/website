@@ -20,6 +20,8 @@ export const MEMBER_FRAGMENT = gql`
     id
     fullName
     email
+    provider
+    providerId
   }
 `
 

@@ -18,7 +18,7 @@ export default function Home({ params }: HomeProps) {
   return (
     <Stack alignContent="center" justifyContent="center">
       <IndexArticleCarousel lang={params.lang} />
-      <BillSection />
+      <BillSection lang={params.lang} />
       <ArticleSection />
       <Stack
         sx={{

@@ -12,13 +12,29 @@ import Link from 'next/link'
 import { ROUTES } from '@/routes'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import {
-  BillTopSponsorsData,
-  getBillTopCosponsors,
-  getBillTopSponsors,
-} from '@/modules/Bill/data'
-import { Congress } from '@/common/classes/Congress'
 import { useMemo } from 'react'
+import { CongressUtils } from '@/common/business/Congress'
+import { People, PeopleUtils } from '@/modules/People/business/People'
+import { useQuery } from '@apollo/client'
+import {
+  QUERY_BILL_TOP_COSPONSORS,
+  QUERY_BILL_TOP_SPONSORS,
+} from '@/modules/Bill/graphql/gql'
+import {
+  BillTopCosponsorsQuery,
+  BillTopCosponsorsQueryVariables,
+  BillTopSponsorsQuery,
+  BillTopSponsorsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { isNull, isUndefined } from 'lodash-es'
+
+const TOP_SPONSORS_LIMIT = 5
+const TOP_COSPONSORS_LIMIT = 5
+
+type SponsorRowData = {
+  people: People
+  billCount: number
+}
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -29,7 +45,7 @@ const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
 }))
 
 type SponsorRowProps = {
-  data: BillTopSponsorsData
+  data: SponsorRowData
 }
 
 function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
@@ -67,13 +83,50 @@ type SponsorCardProps = {
 
 export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
   const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
+    () => CongressUtils.getCurrentCongressNumber(),
     []
   )
   const { lang } = useParams<{ lang: Language }>()
-  const sponsorsList = isCosponsor
-    ? getBillTopCosponsors(lang)
-    : getBillTopSponsors(lang)
+
+  const { data: sponsorsData } = useQuery<
+    BillTopSponsorsQuery,
+    BillTopSponsorsQueryVariables
+  >(QUERY_BILL_TOP_SPONSORS, {
+    variables: { limit: TOP_SPONSORS_LIMIT },
+  })
+
+  const { data: cosponsorsData } = useQuery<
+    BillTopCosponsorsQuery,
+    BillTopCosponsorsQueryVariables
+  >(QUERY_BILL_TOP_COSPONSORS, {
+    variables: { limit: TOP_COSPONSORS_LIMIT },
+  })
+
+  const sponsorsList = useMemo(() => {
+    if (isCosponsor) {
+      return (
+        cosponsorsData?.BillTopCosponsors?.filter((doc) => !isNull(doc))
+          ?.filter(
+            (cosponsor) =>
+              !isNull(cosponsor?.people) && !isUndefined(cosponsor?.people)
+          )
+          ?.map(({ people, billCount }) => ({
+            people: PeopleUtils.parse(lang, people!),
+            billCount: billCount ?? 0,
+          })) ?? []
+      )
+    }
+    return (
+      sponsorsData?.BillTopSponsors?.filter((doc) => !isNull(doc))
+        ?.filter(
+          (sponsor) => !isNull(sponsor?.people) && !isUndefined(sponsor?.people)
+        )
+        .map(({ people, billCount }) => ({
+          people: PeopleUtils.parse(lang, people!),
+          billCount: billCount ?? 0,
+        })) ?? []
+    )
+  }, [lang, isCosponsor, cosponsorsData, sponsorsData])
 
   return (
     <UContentCard

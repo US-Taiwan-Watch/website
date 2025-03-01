@@ -1,6 +1,5 @@
 'use client'
 
-import { People } from '@/modules/People/classes/People'
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
 import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
@@ -13,6 +12,7 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import Link from 'next/link'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
+import { People, PeopleUtils } from '@/modules/People/business/People'
 
 const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
   height: '100%',
@@ -96,7 +96,7 @@ const PeopleCard = memo(function PeopleCard({
               )}
 
               <UTagList
-                tags={(people.tags ?? []).map((tag) => (
+                tags={people.tags.map((tag) => (
                   <PeopleTag value={tag} key={tag} />
                 ))}
                 containerProps={{
@@ -107,7 +107,7 @@ const PeopleCard = memo(function PeopleCard({
             </Stack>
           </Grid>
           <Grid size={2} display="flex" justifyContent="end">
-            <Link href={people.link}>
+            <Link href={PeopleUtils.getLink(people)}>
               <StyledPeopleCardIconButton variant="rounded" color="inherit">
                 <ArrowForwardIcon />
               </StyledPeopleCardIconButton>

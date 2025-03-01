@@ -4,7 +4,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UTimeline from '@/common/components/atoms/UTimeline'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
@@ -13,7 +13,7 @@ import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
 
 const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
   UTagList,
@@ -54,16 +54,18 @@ export default function LeftSection({ bill }: Props) {
           sx={{ color: theme.color.grey[2400] }}
           mb={1}
         >
-          {`${bill.chamberPrefix}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
+          {`${BillUtils.getChamberPrefix(bill)}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
           {bill.congressNumber &&
             (() => {
               const [startYear, endYear] =
-                Congress.getCongressYearsByCongressNumber(bill.congressNumber)
+                CongressUtils.getCongressYearsByCongressNumber(
+                  bill.congressNumber
+                )
               return ` (${startYear}-${endYear})`
             })()}
         </TypographyWithSelectable>
 
-        <Link href={bill.link}>
+        <Link href={BillUtils.getLink(bill)}>
           <UHeightLimitedTextWithSelectable
             maxLine={4}
             variant="h6"
@@ -78,22 +80,22 @@ export default function LeftSection({ bill }: Props) {
         <UHStack spacing={0.5} alignItems="center">
           <Typography variant="body">Tracker:</Typography>
           <Typography variant="articleH4">
-            {Bill.GetBillStatusText(
+            {BillUtils.getBillStatusText(
               bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED
             )}
           </Typography>
           <UCardInfo
-            content={Bill.GetBillStatusText(
-              Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]
+            content={BillUtils.getBillStatusText(
+              BillUtils.getAllBillStatuses(bill)[BillUtils.getStatusIndex(bill)]
             )}
           />
         </UHStack>
         <Box mx={-6}>
           <UTimeline
-            data={Bill.getAllBillStatuses(bill).map((status) => ({
-              title: Bill.GetBillStatusText(status),
+            data={BillUtils.getAllBillStatuses(bill).map((status) => ({
+              title: BillUtils.getBillStatusText(status),
             }))}
-            activeIndex={Bill.getStatusIndex(bill)}
+            activeIndex={BillUtils.getStatusIndex(bill)}
             isHorizontal
           />
         </Box>

@@ -2,10 +2,6 @@ import { BriefcaseIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useMemo } from 'react'
-import {
-  type Experience as PeopleExperience,
-  People,
-} from '@/modules/People/classes/People'
 import Timeline from '@mui/lab/Timeline'
 import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
@@ -13,6 +9,11 @@ import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import {
+  Experience as PeopleExperience,
+  PeopleUtils,
+} from '@/modules/People/business/People'
+import dayjs from 'dayjs'
 
 /**
  * 計算經歷的時間
@@ -22,7 +23,7 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 const useExperienceTime = function (experience: PeopleExperience) {
   // TODO: i18n
   const durationText = useMemo(() => {
-    const duration = People.calculateExperienceDuration(experience)
+    const duration = PeopleUtils.calculateExperienceDuration(experience)
     let text = ''
     if (duration.year > 0) {
       text += `${duration.year} yr${duration.year > 1 ? 's' : ''} `
@@ -35,15 +36,19 @@ const useExperienceTime = function (experience: PeopleExperience) {
 
   // TODO: i18n
   const timeText = useMemo(() => {
-    if (!experience.start) return ''
+    if (!dayjs(experience.start).isValid() || !dayjs(experience.end).isValid())
+      return ''
+
+    const start = dayjs(experience.start)
+    const end = dayjs(experience.end)
 
     // 現在進行中
     if (!experience.end) {
-      return `${experience.start.format(People.TimeFormat)} ~ Present`
+      return `${start.format(PeopleUtils.ExperienceTimeFormat)} ~ Present`
     } else if (experience.experience) {
       return durationText
     } else {
-      return `${experience.start.format(People.TimeFormat)} ~ ${experience.end.format(People.TimeFormat)} • ${durationText}`
+      return `${start.format(PeopleUtils.ExperienceTimeFormat)} ~ ${end.format(PeopleUtils.ExperienceTimeFormat)} • ${durationText}`
     }
   }, [experience, durationText])
 

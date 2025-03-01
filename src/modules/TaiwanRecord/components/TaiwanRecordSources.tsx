@@ -1,6 +1,6 @@
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
-import { Sources } from '@/modules/TaiwanRecord/classes/TaiwanRecord'
+import { Sources } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import Box from '@mui/material/Box'

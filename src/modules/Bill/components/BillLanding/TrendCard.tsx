@@ -11,9 +11,12 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
-import { getBillTrendByCategory } from '@/modules/Bill/data'
 import { useRouter } from 'next/navigation'
 import { ROUTES } from '@/routes'
+import { BillTrendByCategoryQuery } from '@/common/lib/graphql/__generated__/graphql'
+import { useQuery } from '@apollo/client'
+import { QUERY_BILL_TREND_BY_CATEGORY } from '@/modules/Bill/graphql/gql'
+import { isNull, isUndefined } from 'lodash-es'
 
 export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
@@ -21,9 +24,24 @@ export default function TrendCard() {
   const { categoryOptions } = useBillFilterOptions()
   const [selectedCategory, setSelectedCategory] = useState('')
 
+  const { data } = useQuery<BillTrendByCategoryQuery>(
+    QUERY_BILL_TREND_BY_CATEGORY,
+    {
+      variables: {
+        ...(selectedCategory.length > 0 && { category: selectedCategory }),
+      },
+    }
+  )
   const chartData = useMemo<TrendBarChartData[]>(() => {
-    return getBillTrendByCategory(selectedCategory)
-  }, [selectedCategory])
+    return (
+      data?.BillTrendByCategory?.filter(
+        (item) => !isNull(item) && !isUndefined(item.congress)
+      ).map((item) => ({
+        congress: item?.congress ?? 0,
+        count: item?.billCount ?? 0,
+      })) ?? []
+    )
+  }, [data])
 
   const totalCount = useMemo<number>(() => {
     return chartData.reduce((acc, curr) => acc + curr.count, 0)

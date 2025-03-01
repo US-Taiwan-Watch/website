@@ -1,13 +1,14 @@
 'use client'
 
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
-import { getCurrentCongressBillCount } from '@/modules/Bill/data'
+import { useQuery } from '@apollo/client'
 import { ROUTES } from '@/routes'
 import { Stack, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
-import { useMemo } from 'react'
+import { CurrentCongressBillCountQuery } from '@/common/lib/graphql/__generated__/graphql'
+import { QUERY_CURRENT_CONGRESS_BILL_COUNT } from '@/modules/Bill/graphql/gql'
 
 const PAGE_TITLE = 'Update from this Congress'
 const PAGE_DESCRIPTION =
@@ -24,11 +25,19 @@ const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
 
 export default function Introduction() {
   const theme = useTheme<USTWTheme>()
-  const { totalDocs: billCount } = getCurrentCongressBillCount()
-  const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
-    []
+
+  const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
+
+  const { data } = useQuery<CurrentCongressBillCountQuery>(
+    QUERY_CURRENT_CONGRESS_BILL_COUNT,
+    {
+      variables: {
+        congress: currentCongressNumber,
+      },
+    }
   )
+
+  const billCount = data?.Bills?.totalDocs ?? 0
 
   return (
     <UHStack alignItems="center" justifyContent="space-between" width="100%">
