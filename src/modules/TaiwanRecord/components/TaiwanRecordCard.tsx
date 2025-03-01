@@ -1,7 +1,7 @@
 'use client'
 
 import UAccordion from '@/common/components/atoms/UAccordion'
-import TaiwanRecord from '@/modules/TaiwanRecord/classes/TaiwanRecord'
+import TaiwanRecord from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import { ExpandMoreIcon } from '@/common/styles/assets/Icons'

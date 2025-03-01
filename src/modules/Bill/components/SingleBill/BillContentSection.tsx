@@ -1,5 +1,7 @@
+'use client'
+
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import BillActions from '@/modules/Bill/components/SingleBill/BillActions'
 import BillCosponsors from '@/modules/Bill/components/SingleBill/BillCosponsors'
 import BillTracker from '@/modules/Bill/components/SingleBill/BillTracker'

@@ -6,9 +6,9 @@ import {
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
 import { KeysOfUnion } from '@/common/types/common'
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
 
-const currentCongressNumber = Congress.getCurrentCongressNumber()
+const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
 
 const congressSchema = z.array(
   z.union([
@@ -17,10 +17,16 @@ const congressSchema = z.array(
       .string()
       .transform((val) => parseInt(val, 10))
       .pipe(
-        z.number().min(Congress.minCongressNumber()).max(currentCongressNumber)
+        z
+          .number()
+          .min(CongressUtils.minCongressNumber())
+          .max(currentCongressNumber)
       ),
     // Maybe number
-    z.number().min(Congress.minCongressNumber()).max(currentCongressNumber),
+    z
+      .number()
+      .min(CongressUtils.minCongressNumber())
+      .max(currentCongressNumber),
   ])
 )
 

@@ -1,6 +1,6 @@
 'use client'
 import { styled } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import { Grid2, Stack } from '@mui/material'
 import LeftSection from '@/modules/Bill/components/IndexBillCard/LeftSection'
 import RightSection from '@/modules/Bill/components/IndexBillCard/RightSection'

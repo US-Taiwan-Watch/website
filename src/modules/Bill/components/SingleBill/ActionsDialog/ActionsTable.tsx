@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Bill, BillAction } from '@/modules/Bill/classes/Bill'
+import { Bill, BillAction } from '@/modules/Bill/business/Bill'
 import dayjs from 'dayjs'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'

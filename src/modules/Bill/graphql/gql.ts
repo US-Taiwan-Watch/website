@@ -40,6 +40,7 @@ export const CATEGORIES_BILL_FRAGMENT = gql`
 export const BILL_SPONSOR_FRAGMENT = gql`
   fragment BillSponsor on Bill_Sponsor {
     people {
+      gender
       id
       i18n {
         ...PeopleI18n
@@ -65,6 +66,7 @@ export const BILL_COSPONSOR_FRAGMENT = gql`
   fragment BillCosponsors on Bill_Cosponsors {
     id
     people {
+      gender
       id
       i18n {
         ...PeopleI18n
@@ -85,17 +87,22 @@ export const BILL_COSPONSOR_FRAGMENT = gql`
       precision
     }
   }
+
+  ${PEOPLE_I18N_FRAGMENT}
+  ${MEDIA_PERSON_FRAGMENT}
+  ${PEOPLE_EXPERIENCES_FRAGMENT}
 `
 
 export const FULL_BILL_FRAGMENT = gql`
   fragment FullBill on Bill {
+    congress
+    number
+    type
+    congressGovUrl
     id
     i18n {
       ...BillI18n
     }
-    congress
-    number
-    type
     introducedAt {
       datetime
       precision
@@ -126,6 +133,10 @@ export const FULL_BILL_FRAGMENT = gql`
     updatedAt
     createdAt
     relatedBills {
+      congress
+      number
+      type
+      congressGovUrl
       id
       i18n {
         ...BillI18n
@@ -148,7 +159,6 @@ export const FULL_BILL_FRAGMENT = gql`
       sponsor {
         ...BillSponsor
       }
-      congressGovUrl
       popularityRank
       title
       summary
@@ -165,6 +175,16 @@ export const FULL_BILL_FRAGMENT = gql`
   ${BILL_COSPONSOR_FRAGMENT}
 `
 
+export const QUERY_BILL = gql`
+  query Bill($id: String!) {
+    Bill(id: $id) {
+      ...FullBill
+    }
+  }
+
+  ${FULL_BILL_FRAGMENT}
+`
+
 export const QUERY_BILLS = gql`
   query Bills($where: Bill_where, $limit: Int, $page: Int, $sort: String) {
     Bills(where: $where, limit: $limit, page: $page, sort: $sort) {
@@ -179,13 +199,14 @@ export const QUERY_BILLS = gql`
       totalDocs
       totalPages
       docs {
+        congress
+        number
+        type
+        congressGovUrl
         id
         i18n {
           ...BillI18n
         }
-        congress
-        number
-        type
         introducedAt {
           datetime
           precision
@@ -205,7 +226,6 @@ export const QUERY_BILLS = gql`
         sponsor {
           ...BillSponsor
         }
-        congressGovUrl
         popularityRank
         title
         summary
@@ -268,7 +288,7 @@ export const QUERY_CATEGORIES_BILLS = gql`
 `
 
 export const QUERY_BILL_TREND_BY_CATEGORY = gql`
-  query BillTrendByCategory($category: String!) {
+  query BillTrendByCategory($category: String) {
     BillTrendByCategory(category: $category) {
       congress # 國會屆數
       billCount # 法案數量
@@ -312,7 +332,47 @@ export const QUERY_BILL_TOP_COSPONSORS = gql`
           }
         }
         currentParty # Cosponsor當前政黨
+        gender
       }
+    }
+  }
+`
+
+export const QUERY_BILL_FILTER_SPONSORS = gql`
+  query BillFilterSponsors(
+    $limit: Int
+    $sort: String
+    $page: Int
+    $where: People_where
+  ) {
+    Peoples(limit: $limit, sort: $sort, page: $page, where: $where) {
+      hasNextPage
+      hasPrevPage
+      limit
+      nextPage
+      offset
+      page
+      pagingCounter
+      prevPage
+      totalDocs
+      totalPages
+      docs {
+        gender
+        id
+        i18n {
+          ...PeopleI18n
+        }
+      }
+    }
+  }
+
+  ${PEOPLE_I18N_FRAGMENT}
+`
+
+export const QUERY_CURRENT_CONGRESS_BILL_COUNT = gql`
+  query CurrentCongressBillCount($congress: Float!) {
+    Bills(where: { congress: { equals: $congress } }) {
+      totalDocs
     }
   }
 `

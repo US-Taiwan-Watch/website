@@ -1,4 +1,4 @@
-import { type CongressExperienceRange } from '@/modules/People/classes/People'
+import { CongressExperienceRange } from '@/modules/People/business/People'
 import { Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'

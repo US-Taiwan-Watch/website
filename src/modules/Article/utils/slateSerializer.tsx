@@ -8,7 +8,7 @@ import {
 import HyperLinkTooltip from '@/modules/Article/components/ArticlePost/Content/HyperLinkTooltip'
 import Link from 'next/link'
 import { payloadSlateToHtmlConfig, slateToHtml } from '@slate-serializers/html'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { BillUtils } from '@/modules/Bill/business/Bill'
 import { Language } from '@/common/lib/i18n/types'
 import { HyperLinkTooltipCardProps } from '@/common/components/elements/HyperLinkTooltipCard'
 import { ArticleUtils } from '@/modules/Article/business/Article'
@@ -44,11 +44,11 @@ const getHyperLinkTooltipCardProps = (
   doc: LinkDoc
 ): HyperLinkTooltipCardProps => {
   if (doc.relationTo === 'bills') {
-    const bill = Bill.fromDTO(lang, doc.value)
+    const bill = BillUtils.parse(lang, doc.value)
     return {
       title: bill.title ?? '',
       description: bill.summary ?? '',
-      link: bill.link ?? '',
+      link: BillUtils.getLink(bill),
     }
   }
 

@@ -1,10 +1,37 @@
 import { gql } from '@apollo/client'
-import {
-  BILL_I18N_FRAGMENT,
-  CATEGORIES_BILL_FRAGMENT,
-} from '@/modules/Bill/graphql/gql'
 import { TAG_FRAGMENT } from '@/modules/Common/graphql/gql'
 import { TAIWAN_RECORD_FRAGMENT } from '@/modules/TaiwanRecord/graphql/gql'
+
+export const BILL_I18N_FRAGMENT = gql`
+  fragment BillI18n on Bill_I18n {
+    en {
+      title
+      summary
+      actionsOverview
+      actionsAll
+    }
+    zh {
+      title
+      summary
+      actionsOverview
+      actionsAll
+    }
+  }
+`
+
+export const CATEGORIES_BILL_FRAGMENT = gql`
+  fragment CategoriesBill on CategoriesBill {
+    id
+    i18n {
+      en {
+        name
+      }
+      zh {
+        name
+      }
+    }
+  }
+`
 
 export const PEOPLE_I18N_FRAGMENT = gql`
   fragment PeopleI18n on People_I18n {
@@ -155,6 +182,7 @@ export const PEOPLE_VOTES_FRAGMENT = gql`
       link
       question
       amendmentAuthor {
+        gender
         id
         i18n {
           ...PeopleI18n
@@ -171,6 +199,7 @@ export const PEOPLE_VOTES_FRAGMENT = gql`
         congress
         number
         type
+        congressGovUrl
         introducedAt {
           datetime
           precision
@@ -197,6 +226,7 @@ export const PEOPLE_VOTES_FRAGMENT = gql`
 
 export const FULL_PEOPLE_FRAGMENT = gql`
   fragment FullPeople on People {
+    gender
     id
     i18n {
       ...PeopleI18n
@@ -207,7 +237,6 @@ export const FULL_PEOPLE_FRAGMENT = gql`
     birthday {
       ...PeopleBirthday
     }
-    gender
     tags {
       ...Tag
     }
@@ -256,10 +285,16 @@ export const QUERY_PEOPLE = gql`
     People(id: $id) {
       ...FullPeople
       sponsorBills {
-        id
+        congress
+        number
+        type
+        congressGovUrl
       }
       cosponsorBills {
-        id
+        congress
+        number
+        type
+        congressGovUrl
       }
       votes {
         id
@@ -270,10 +305,14 @@ export const QUERY_PEOPLE = gql`
   ${FULL_PEOPLE_FRAGMENT}
 `
 
-export const QUERY_PEOPLE_BILLS = gql`
-  query peopleBills($id: String!) {
+export const QUERY_PEOPLE_SPONSOR_BILLS = gql`
+  query peopleSponsorBills($id: String!) {
     People(id: $id) {
       sponsorBills {
+        congress
+        number
+        type
+        congressGovUrl
         id
         i18n {
           ...BillI18n
@@ -315,13 +354,14 @@ export const QUERY_PEOPLE_COSPONSOR_BILLS = gql`
   query peopleCosponsorBills($id: String!) {
     People(id: $id) {
       cosponsorBills {
+        congress
+        number
+        type
+        congressGovUrl
         id
         i18n {
           ...BillI18n
         }
-        congress
-        number
-        type
         introducedAt {
           datetime
           precision
@@ -378,6 +418,7 @@ export const QUERY_PEOPLES = gql`
       totalDocs
       totalPages
       docs {
+        gender
         id
         i18n {
           ...PeopleI18n

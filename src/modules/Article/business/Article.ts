@@ -6,19 +6,19 @@ import {
   ArticleAuthorUtils,
 } from '@/modules/Article/business/ArticleAuther'
 import {
-  ArticleCategorySchema,
+  articleCategorySchema,
   ArticleCategoryUtils,
 } from '@/modules/Article/business/ArticleCategory'
 import { ROUTES } from '@/routes'
 import { Article as ApiArticle } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
 
-const ArticleSchema = z.object({
+const articleSchema = z.object({
   id: z.string().optional(),
   title: z.string().optional(),
   subtitle: z.string().optional(),
   description: z.string().optional(),
-  categories: z.array(ArticleCategorySchema).optional(),
+  categories: z.array(articleCategorySchema).optional(),
   date: z.string().datetime().optional(),
   tags: z.array(z.object({ label: z.string() })).optional(),
   repostSources: z
@@ -39,14 +39,14 @@ const ArticleSchema = z.object({
   episodeId: z.string().optional(),
 })
 
-export type Article = z.infer<typeof ArticleSchema>
+export type Article = z.infer<typeof articleSchema>
 
 export class ArticleUtils {
   /**
    * Article -> Article
    */
   static parse(lang: Language, dto: Partial<ApiArticle>) {
-    return ArticleSchema.parse({
+    return articleSchema.parse({
       id: dto.id ?? undefined,
       title: dto.title,
       subtitle: dto.subtitle ?? undefined,

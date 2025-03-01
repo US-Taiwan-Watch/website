@@ -7,14 +7,33 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import ParliamentChart, {
   ParliamentChartData,
 } from '@/modules/Bill/components/BillLanding/ParliamentChart'
-import {
-  PARLIAMENT_CHART_DATA_MOCK_HOUSE,
-  PARLIAMENT_CHART_DATA_MOCK_SENATE,
-} from '@/modules/Bill/data'
 import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import UButton from '@/common/components/atoms/UButton'
 import { ChamberEnum } from '@/common/enums/Chamber'
+import { CongressUtils } from '@/common/business/Congress'
+
+// TODO: 從 API 拿資料
+const PARLIAMENT_CHART_DATA_MOCK_HOUSE = Object.entries(
+  CongressUtils.getHouseCongressMembers()
+).map(
+  ([party, count]) =>
+    ({
+      party,
+      count,
+    }) as ParliamentChartData
+)
+
+// TODO: 從 API 拿資料
+const PARLIAMENT_CHART_DATA_MOCK_SENATE = Object.entries(
+  CongressUtils.getSenateCongressMembers()
+).map(
+  ([party, count]) =>
+    ({
+      party,
+      count,
+    }) as ParliamentChartData
+)
 
 export default function CongressCard() {
   const theme = useTheme<USTWTheme>()

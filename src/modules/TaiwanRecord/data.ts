@@ -1,4 +1,4 @@
-import TaiwanRecord from '@/modules/TaiwanRecord/classes/TaiwanRecord'
+import TaiwanRecord from '@/modules/TaiwanRecord/business/TaiwanRecord'
 
 const TAIWAN_RECORD_DATA_MOCK_ARG = {
   id: '1',

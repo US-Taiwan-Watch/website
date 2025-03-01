@@ -2,14 +2,35 @@ import { PeopleCheckIcon } from '@/common/styles/assets/Icons'
 import NumberCard from '@/modules/People/components/PeopleTracker/CardContent/NumberCard'
 import BillVoteCard from '@/modules/Bill/components/BillVoteCard'
 import { Box } from '@mui/material'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/business/People'
+import {
+  PeopleVotesQueryVariables,
+  PeopleVotesQuery,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { QUERY_PEOPLE_VOTES } from '@/modules/People/graphql/gql'
+import { useQuery } from '@apollo/client'
+import { isNull } from 'lodash-es'
+import { PeopleVoteUtils } from '@/modules/People/business/PeopleVote'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 interface VotingRecordProps {
   people: People
 }
 
 const VotingRecord = function ({ people }: VotingRecordProps) {
-  const votes = people.votes
+  const { lang } = useParams<{ lang: Language }>()
+
+  const { data } = useQuery<PeopleVotesQuery, PeopleVotesQueryVariables>(
+    QUERY_PEOPLE_VOTES,
+    {
+      variables: { id: people.id ?? '' },
+    }
+  )
+  const votes =
+    data?.People?.votes
+      ?.filter((vote) => !isNull(vote))
+      .map((vote) => PeopleVoteUtils.parse(lang, vote)) ?? []
 
   return (
     <NumberCard

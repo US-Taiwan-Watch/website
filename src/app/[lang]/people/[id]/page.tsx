@@ -1,13 +1,16 @@
-'use client' // for importing mock people data
-
 import PeopleInfoSection from '@/modules/People/components/PeopleTracker/PeopleInfoSection'
 import { Stack } from '@mui/material'
 import PeopleContentSection from '@/modules/People/components/PeopleTracker/PeopleContentSection'
 import TaiwanRecordSection from '@/modules/People/components/PeopleTracker/TaiwanRecordSection'
-import { findPeople } from '@/modules/People/data'
-import { People } from '@/modules/People/classes/People'
 import { Language } from '@/common/lib/i18n/types'
 import { notFound } from 'next/navigation'
+import {
+  PeopleQuery,
+  PeopleQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { QUERY_PEOPLE } from '@/modules/People/graphql/gql'
+import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { PeopleUtils } from '@/modules/People/business/People'
 
 interface PeopleTrackerProps {
   params: {
@@ -16,10 +19,15 @@ interface PeopleTrackerProps {
   }
 }
 
-export default function PeopleTracker({ params }: PeopleTrackerProps) {
-  const dto = findPeople(params.id)
-  if (!dto) return notFound()
-  const people = People.fromDTO(params.lang, dto)
+export default async function PeopleTracker({ params }: PeopleTrackerProps) {
+  const { data } = await query<PeopleQuery, PeopleQueryVariables>({
+    query: QUERY_PEOPLE,
+    variables: { id: params.id },
+  })
+
+  if (!data?.People) notFound()
+
+  const people = PeopleUtils.parse(params.lang, data.People)
 
   return (
     <Stack gap={6}>
@@ -30,7 +38,7 @@ export default function PeopleTracker({ params }: PeopleTrackerProps) {
       <PeopleContentSection people={people} />
 
       {/** Taiwan Record Section */}
-      <TaiwanRecordSection />
+      <TaiwanRecordSection people={people} />
     </Stack>
   )
 }

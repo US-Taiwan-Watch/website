@@ -6,8 +6,15 @@ import TaiwanRecordList from '@/modules/TaiwanRecord/components/TaiwanRecordList
 import AddIcon from '@mui/icons-material/Add'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
+import { People } from '@/modules/People/business/People'
 
-export default function TaiwanRecordSection() {
+interface TaiwanRecordSectionProps {
+  people: People
+}
+
+export default function TaiwanRecordSection({
+  people,
+}: TaiwanRecordSectionProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -27,7 +34,7 @@ export default function TaiwanRecordSection() {
             </UButton>
           )}
         />
-        <TaiwanRecordList />
+        <TaiwanRecordList records={people.taiwanRecords} />
       </Stack>
     </LandingSectionWrapper>
   )

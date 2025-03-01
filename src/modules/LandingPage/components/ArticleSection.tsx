@@ -93,7 +93,7 @@ const ArticleSection = () => {
           {loading ? (
             <ArticlePostCardsSkeleton count={3} />
           ) : (
-            <ArticlePostCards articles={articles} pagination={false} />
+            <ArticlePostCards articles={articles} />
           )}
         </Stack>
       </LandingSectionWrapper>

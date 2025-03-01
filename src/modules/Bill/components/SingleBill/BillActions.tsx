@@ -2,7 +2,7 @@
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { ActionsIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography } from '@mui/material'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import ActionsDialog from '@/modules/Bill/components/SingleBill/ActionsDialog'
@@ -31,12 +31,12 @@ export default function BillActions({ bill }: Props) {
       >
         <Stack pt={2}>
           <Typography variant="buttonXS" mb={2}>
-            {dayjs(bill.latestAction?.date).isValid()
-              ? dayjs(bill.latestAction?.date).format(DATE_FORMAT)
+            {dayjs(BillUtils.getLatestAction(bill)?.date).isValid()
+              ? dayjs(BillUtils.getLatestAction(bill)?.date).format(DATE_FORMAT)
               : ''}
           </Typography>
           <UHeightLimitedText maxLine={4} variant="body">
-            {bill.latestAction?.description}
+            {BillUtils.getLatestAction(bill)?.description}
           </UHeightLimitedText>
         </Stack>
       </UContentCard>

@@ -1,8 +1,12 @@
 'use client'
 
 import UPagination from '@/common/components/atoms/UPagination'
+import {
+  BillsQuery,
+  BillsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { BillUtils } from '@/modules/Bill/business/Bill'
 import BillCard from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
 import {
@@ -10,14 +14,15 @@ import {
   BillFilterInput,
   BillFilterOutput,
 } from '@/modules/Bill/components/BillFilter/schema'
-import { BILL_DTO_MOCK } from '@/modules/Bill/dtoData'
+import { QUERY_BILLS } from '@/modules/Bill/graphql/gql'
+import { useQuery } from '@apollo/client'
 import { Stack } from '@mui/material'
+import { isNull } from 'lodash-es'
 import { useParams, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo, useEffect } from 'react'
 
 export default function BillList() {
   const { lang } = useParams<{ lang: Language }>()
-  const bills = BILL_DTO_MOCK.map((bill) => Bill.fromDTO(lang, bill))
 
   const params = useSearchParams()
 
@@ -48,6 +53,23 @@ export default function BillList() {
       onFilterSubmit(filterInitValues)
     }
   }, [filterInitValues, onFilterSubmit])
+
+  const queryVariables = useMemo<BillsQueryVariables>(() => {
+    return {
+      where: {
+        // TODO: BillFilterOutput -> Bill_where
+      },
+    }
+  }, [])
+
+  const { data } = useQuery<BillsQuery, BillsQueryVariables>(QUERY_BILLS, {
+    variables: queryVariables,
+  })
+
+  const bills =
+    data?.Bills?.docs
+      ?.filter((bill) => !isNull(bill))
+      .map((bill) => BillUtils.parse(lang, bill)) ?? []
 
   return (
     <Stack gap={7} alignItems="center" pb={10}>

@@ -3,7 +3,7 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
-import { People } from '@/modules/People/classes/People'
+import { People } from '@/modules/People/business/People'
 
 /**
  * 出版品行

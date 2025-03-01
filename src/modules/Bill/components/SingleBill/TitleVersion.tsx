@@ -2,7 +2,7 @@
 
 import UButton from '@/common/components/atoms/UButton'
 import { styled } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import Link from 'next/link'
 import { CongressIcon } from '@/common/styles/assets/Icons'
 
