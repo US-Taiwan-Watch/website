@@ -447,3 +447,70 @@ export const QUERY_PEOPLES = gql`
   ${TAG_FRAGMENT}
   ${PEOPLE_EXPERIENCES_FRAGMENT}
 `
+
+export const QUERY_PEOPLE_FILTER = gql`
+  query PeoplesFilter(
+    $limit: Int
+    $page: Int
+    $sort: String
+    $category: String
+    $congresses: [Int!]
+    $parties: [String!]
+    $states: [String!]
+    $district: Int
+    $officialAreas: [String!]
+    $companyTypes: [String!]
+    $tags: [JSON]
+  ) {
+    PeoplesFilter(
+      limit: $limit
+      page: $page
+      sort: $sort
+      where: {
+        experiences__category: { equals: $category }
+        experiences__positions__congresses: { in: $congresses }
+        experiences__positions__party: { in: $parties }
+        experiences__positions__state: { in: $states }
+        experiences__positions__district: { equals: $district }
+        experiences__positions__officialAreas: { in: $officialAreas }
+        experiences__positions__companyType: { in: $companyTypes }
+        tags: { in: $tags }
+      }
+    ) {
+      hasNextPage
+      hasPrevPage
+      limit
+      nextPage
+      offset
+      page
+      pagingCounter
+      prevPage
+      totalDocs
+      totalPages
+      docs {
+        gender
+        id
+        i18n {
+          ...PeopleI18n
+        }
+        photo {
+          ...MediaPerson
+        }
+        tags {
+          ...Tag
+        }
+        experiences {
+          ...PeopleExperiences
+        }
+        currentParty
+        bio
+        displayName
+      }
+    }
+  }
+
+  ${PEOPLE_I18N_FRAGMENT}
+  ${MEDIA_PERSON_FRAGMENT}
+  ${TAG_FRAGMENT}
+  ${PEOPLE_EXPERIENCES_FRAGMENT}
+`

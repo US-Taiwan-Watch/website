@@ -376,3 +376,84 @@ export const QUERY_CURRENT_CONGRESS_BILL_COUNT = gql`
     }
   }
 `
+
+export const QUERY_BILL_FILTER = gql`
+  query BillsFilter(
+    $limit: Int
+    $page: Int
+    $sort: String
+    $party: [String!]
+    $type: [String!]
+    $congress: [Int!]
+    $status: [String!]
+    $sponsor: [JSON]
+    $cosponsors: [JSON]
+    $tags: [JSON]
+  ) {
+    BillsFilter(
+      limit: $limit
+      page: $page
+      sort: $sort
+      where: {
+        sponsor__party: { in: $party }
+        type: { in: $type }
+        congress: { in: $congress }
+        statusTracker__currentStep: { in: $status }
+        sponsor__people: { in: $sponsor }
+        cosponsors__people: { in: $cosponsors }
+        tags: { in: $tags }
+      }
+    ) {
+      hasNextPage
+      hasPrevPage
+      limit
+      nextPage
+      offset
+      page
+      pagingCounter
+      prevPage
+      totalDocs
+      totalPages
+      docs {
+        congress
+        number
+        type
+        congressGovUrl
+        id
+        i18n {
+          ...BillI18n
+        }
+        introducedAt {
+          datetime
+          precision
+        }
+        isFeatured
+        categories {
+          ...CategoriesBill
+        }
+        tags {
+          ...Tag
+        }
+        statusTracker {
+          currentStep
+          passedSteps
+          futureSteps
+        }
+        sponsor {
+          ...BillSponsor
+        }
+        popularityRank
+        title
+        summary
+        latestActionTime
+        updatedAt
+        createdAt
+      }
+    }
+  }
+
+  ${BILL_I18N_FRAGMENT}
+  ${CATEGORIES_BILL_FRAGMENT}
+  ${TAG_FRAGMENT}
+  ${BILL_SPONSOR_FRAGMENT}
+`
