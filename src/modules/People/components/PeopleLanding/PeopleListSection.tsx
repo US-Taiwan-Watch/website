@@ -12,15 +12,19 @@ import UPagination, {
 } from '@/common/components/atoms/UPagination'
 import PeopleFilter from '@/modules/People/components/PeopleFilter'
 import { Language } from '@/common/lib/i18n/types'
-import { useEffect, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import {
-  PeoplesQuery,
-  PeoplesQueryVariables,
+  PeoplesFilterQuery,
+  PeoplesFilterQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import { useQuery } from '@apollo/client'
-import { QUERY_PEOPLES } from '@/modules/People/graphql/gql'
+import { useLazyQuery } from '@apollo/client'
+import { QUERY_PEOPLE_FILTER } from '@/modules/People/graphql/gql'
 import { PeopleUtils } from '@/modules/People/business/People'
 import { isNull } from 'lodash-es'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { PeopleFilterOutput } from '@/modules/People/components/PeopleFilter/schema'
+import { PeoplesFilterUtils } from '@/modules/People/business/PeoplesFilter'
+import { ROUTES } from '@/routes'
 
 interface PeopleListSectionProps {
   lang: Language
@@ -28,36 +32,84 @@ interface PeopleListSectionProps {
 
 const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
   const theme = useTheme<USTWTheme>()
+  const router = useRouter()
+
+  const params = useSearchParams()
+
+  const filterInitValues = useMemo<PeopleFilterOutput>(() => {
+    return PeoplesFilterUtils.transformQueryVariablesToFilter({
+      category: params.get('category'),
+      congress: params.get('congress'),
+      party: params.get('party'),
+      state: params.get('state'),
+      tag: params.get('tag'),
+      stateRegion: params.get('stateRegion'),
+      district: params.get('district'),
+      companyType: params.get('companyType'),
+      officialArea: params.get('officialArea'),
+    })
+  }, [params])
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
-  const queryVariables: PeoplesQueryVariables = useMemo(
-    () => ({
+  const paginationVariables = useMemo<
+    Pick<PeoplesFilterQueryVariables, 'limit' | 'page'>
+  >(() => {
+    return {
       limit: 10,
       page,
-      sort: '-viewCount',
-    }),
-    [page]
-  )
-
-  const { data, refetch } = useQuery<PeoplesQuery, PeoplesQueryVariables>(
-    QUERY_PEOPLES,
-    {
-      variables: queryVariables,
     }
+  }, [page])
+  const [filterVariables, setFilterVariables] = useState<
+    Omit<PeoplesFilterQueryVariables, 'limit' | 'page'>
+  >({})
+
+  const [getPeoples, { data }] = useLazyQuery<
+    PeoplesFilterQuery,
+    PeoplesFilterQueryVariables
+  >(QUERY_PEOPLE_FILTER)
+
+  useEffect(() => {
+    if (data?.PeoplesFilter?.totalPages) {
+      setTotalPages(data.PeoplesFilter.totalPages)
+    }
+  }, [data?.PeoplesFilter?.totalPages, setTotalPages])
+
+  const peoples = useMemo(() => {
+    return (
+      data?.PeoplesFilter?.docs
+        ?.filter((people) => !isNull(people))
+        .map((people) => PeopleUtils.parse(lang, people)) ?? []
+    )
+  }, [data?.PeoplesFilter?.docs, lang])
+
+  const onFilterSubmit = useCallback(
+    (filter: PeopleFilterOutput) => {
+      setFilterVariables(
+        PeoplesFilterUtils.transformFilterToQueryVariables(filter)
+      )
+      const urlQuery = new URLSearchParams(
+        PeoplesFilterUtils.transformFilterToUrlQueryString(filter)
+      )
+
+      router.replace(`${ROUTES.PEOPLE}?${urlQuery.toString()}`)
+    },
+    [router]
   )
 
   useEffect(() => {
-    setTotalPages(data?.Peoples?.totalPages ?? 1)
-  }, [data?.Peoples?.totalPages, setTotalPages])
+    if (Object.keys(filterInitValues).length > 0) {
+      onFilterSubmit(filterInitValues)
+    }
+  }, [filterInitValues, onFilterSubmit])
 
   useEffect(() => {
-    refetch(queryVariables)
-  }, [queryVariables, refetch])
-
-  const peoples =
-    data?.Peoples?.docs
-      ?.filter((people) => !isNull(people))
-      .map((people) => PeopleUtils.parse(lang, people)) ?? []
+    getPeoples({
+      variables: {
+        ...paginationVariables,
+        ...filterVariables,
+      },
+    })
+  }, [paginationVariables, filterVariables, getPeoples])
 
   // TODO: loading skeleton
 
@@ -72,10 +124,8 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
       <Stack spacing={6} alignItems="center" justifyContent="center">
         {/** People Filter */}
         <PeopleFilter
-          onSubmit={(filter) => {
-            /** 這邊呼叫 API */
-            console.log(`call API with \n`, JSON.stringify(filter, null, 2))
-          }}
+          onSubmit={onFilterSubmit}
+          initialValues={filterInitValues}
         />
         <Box>
           <Grid container spacing={2}>

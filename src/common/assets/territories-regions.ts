@@ -1,10 +1,8 @@
-const territoriesRegions = [
-  'District of Columbia (D.C.)',
-  'Puerto Rico',
-  'Guam',
-  'U.S. Virgin Islands',
-  'American Samoa',
-  'Northern Mariana Islands',
-] as const
+const territoriesRegions = {
+  'District Of Columbia': 'districtOfColumbia',
+  Guam: 'guam',
+  'Virgin Islands': 'virginIslands',
+  'American Samoa': 'americanSamoa',
+}
 
 export default territoriesRegions

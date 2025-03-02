@@ -36,8 +36,8 @@ export const senatorSchema = z.object({
   category: z.literal(PeopleCategoryEnum.Senator),
   congress: congressSchema.optional(),
   party: partySchema.optional(),
-  state: z.string().optional(),
-  tag: z.string().optional(),
+  state: z.array(z.string()).optional(),
+  tag: z.array(z.string()).optional(),
 })
 
 export type SenatorFilterInput = z.input<typeof senatorSchema>
@@ -89,3 +89,5 @@ export const peopleFilterSchema = z.union([
 export type PeopleFilterInput = z.input<typeof peopleFilterSchema>
 export type PeopleFilterOutput = z.output<typeof peopleFilterSchema>
 export type PeopleFilterInputKey = KeysOfUnion<PeopleFilterInput>
+
+export const defaultPeopleFilterInput: PeopleFilterInput = {}

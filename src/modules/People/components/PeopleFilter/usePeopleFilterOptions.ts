@@ -58,15 +58,19 @@ export default function usePeopleFilterOptions() {
   )
 
   const stateOptions = useMemo<PeopleFilterOption<string>[]>(
-    () => states.map((state) => ({ value: state, label: state })),
+    () =>
+      Object.entries(states).map(([key, value]) => ({
+        value,
+        label: key,
+      })),
     []
   )
 
   const territoryRegionOptions = useMemo<PeopleFilterOption<string>[]>(
     () =>
-      territoriesRegions.map((territoryRegion) => ({
-        value: territoryRegion,
-        label: territoryRegion,
+      Object.entries(territoriesRegions).map(([key, value]) => ({
+        value,
+        label: key,
       })),
     []
   )
@@ -87,8 +91,8 @@ export default function usePeopleFilterOptions() {
   >(
     () => [
       {
-        value: PeopleOfficialAreaEnum.TradeEconomy,
-        label: 'Trade & Economy',
+        value: PeopleOfficialAreaEnum.ExecutiveAuthority,
+        label: 'Executive Authority',
       },
       {
         value: PeopleOfficialAreaEnum.DefenseSecurity,
@@ -97,7 +101,6 @@ export default function usePeopleFilterOptions() {
       { value: PeopleOfficialAreaEnum.Diplomacy, label: 'Diplomacy' },
       { value: PeopleOfficialAreaEnum.PublicHealth, label: 'Public Health' },
       { value: PeopleOfficialAreaEnum.Judicial, label: 'Judicial' },
-      { value: PeopleOfficialAreaEnum.Other, label: 'Other' },
     ],
     []
   )

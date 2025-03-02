@@ -10,23 +10,23 @@ export enum PeopleCategoryEnum {
  * TODO: TBD 需要與 Party 的 enum 同步？
  */
 export enum PeoplePartyEnum {
-  Democratic = 1,
-  Republican,
-  Independent,
+  Democratic = 'democratic',
+  Republican = 'republican',
+  Independent = 'independent',
 }
 
 export enum PeopleOfficialAreaEnum {
-  TradeEconomy = 1,
-  DefenseSecurity,
-  Diplomacy,
-  PublicHealth,
-  Judicial,
-  Other,
+  ExecutiveAuthority = 'executiveAuth',
+  Economy = 'economy',
+  DefenseSecurity = 'defenseSecurity',
+  Diplomacy = 'diplomacy',
+  PublicHealth = 'publicHealth',
+  Judicial = 'judicial',
 }
 
 export enum PeopleCompanyTypeEnum {
-  ThinkTank = 1,
-  Academic,
-  Media,
-  Other,
+  ThinkTank = 'thinktank',
+  Academic = 'academic',
+  Media = 'media',
+  Other = 'other',
 }

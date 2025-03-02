@@ -8,6 +8,7 @@ import Filter from '@/common/components/elements/Filter'
 import USelect from '@/common/components/atoms/USelect'
 import MenuItem from '@mui/material/MenuItem'
 import {
+  PeopleFilterInput,
   type PeopleFilterInputKey,
   type PeopleFilterOutput,
 } from '@/modules/People/components/PeopleFilter/schema'
@@ -37,11 +38,16 @@ type SecondLevelSelector = {
 
 interface PeopleFilterProps {
   onSubmit?: (filter: PeopleFilterOutput) => void
+  initialValues?: PeopleFilterInput
 }
 
-const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
-  const { form, category, handleReset, handleSecondLevelReset } =
-    usePeopleFilterForm()
+const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
+  const {
+    form,
+    category,
+    handleReset: handleFormReset,
+    handleSecondLevelReset: handleFormSecondLevelReset,
+  } = usePeopleFilterForm({ initialValues })
   const {
     categoryOptions,
     partyOptions,
@@ -171,6 +177,16 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     },
     [onSubmit]
   )
+
+  const handleReset = useCallback(() => {
+    handleFormReset()
+    form.handleSubmit(handleSubmit)()
+  }, [form, handleFormReset, handleSubmit])
+
+  const handleSecondLevelReset = useCallback(() => {
+    handleFormSecondLevelReset()
+    form.handleSubmit(handleSubmit)()
+  }, [form, handleFormSecondLevelReset, handleSubmit])
 
   return (
     <Filter
