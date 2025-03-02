@@ -22,7 +22,6 @@ export class PeoplesFilterUtils {
   static transformFilterToQueryVariables(
     filter: PeopleFilterOutput
   ): PeoplesFilterQueryVariables {
-    console.log('filter', filter)
     if (!('category' in filter)) {
       return {}
     }
@@ -140,18 +139,23 @@ export class PeoplesFilterUtils {
   static transformQueryVariablesToFilter(
     query: PeoplesFilterUrlQuery
   ): PeopleFilterOutput {
-    const result = peopleFilterSchema.safeParse({
-      category: query.category,
-      congress: this.parseNumberStringArray(query.congress),
-      party: this.parseStringArray(query.party),
-      state: this.parseStringArray(query.state),
-      tag: this.parseStringArray(query.tag),
-      stateRegion: this.parseStringArray(query.stateRegion),
-      district: this.parseNumberStringArray(query.district),
-      companyType: this.parseStringArray(query.companyType),
-      officialArea: this.parseStringArray(query.officialArea),
-    })
-    return result.data ?? {}
+    const category = Number(query.category)
+    return (
+      peopleFilterSchema.safeParse({
+        category,
+        congress: this.parseNumberStringArray(query.congress),
+        party: this.parseStringArray(query.party),
+        state: this.parseStringArray(query.state),
+        tag: this.parseStringArray(query.tag),
+        stateRegion: this.parseStringArray(query.stateRegion),
+        ...(!isNaN(Number(query.district)) &&
+          Number(query.district) > 0 && {
+            district: Number(query.district),
+          }),
+        officialArea: this.parseStringArray(query.officialArea),
+        companyType: this.parseStringArray(query.companyType),
+      }).data ?? {}
+    )
   }
 
   /**
