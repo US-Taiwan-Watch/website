@@ -9,70 +9,42 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { BillUtils } from '@/modules/Bill/business/Bill'
+import { BillFilterUtils } from '@/modules/Bill/business/BillFilter'
 import BillCard from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
-import {
-  billFilterSchema,
-  BillFilterInput,
-  BillFilterOutput,
-} from '@/modules/Bill/components/BillFilter/schema'
+import { BillFilterOutput } from '@/modules/Bill/components/BillFilter/schema'
 import { QUERY_BILLS } from '@/modules/Bill/graphql/gql'
+import { ROUTES } from '@/routes'
 import { useQuery } from '@apollo/client'
 import { Stack } from '@mui/material'
 import { isNull } from 'lodash-es'
-import { useParams, useSearchParams } from 'next/navigation'
+import { useParams, useSearchParams, useRouter } from 'next/navigation'
 import { useCallback, useMemo, useEffect } from 'react'
 
 export default function BillList() {
+  const router = useRouter()
   const { lang } = useParams<{ lang: Language }>()
 
   const params = useSearchParams()
 
-  const filterInitValues = useMemo<BillFilterInput>(() => {
-    const category = params.get('category')
-    const congress = params.get('congress')
-    const sponsor = params.get('sponsor')
-    const cosponsor = params.get('cosponsor')
-    const tag = params.get('tag')
-    const sorter = params.get('sorter')
-    const result = billFilterSchema.safeParse({
-      ...(category && { category: [category] }),
-      ...(congress && { congress: [Number(congress)] }),
-      ...(sponsor && { sponsors: [sponsor] }),
-      ...(cosponsor && { cosponsors: [cosponsor] }),
-      ...(tag && { tag: [tag] }),
-      ...(sorter && { sorter: Number(sorter) }),
+  const filterInitValues = useMemo<BillFilterOutput>(() => {
+    return BillFilterUtils.transformQueryVariablesToFilter({
+      category: params.get('category'),
+      party: params.get('party'),
+      type: params.get('type'),
+      congress: params.get('congress'),
+      status: params.get('status'),
+      sponsor: params.get('sponsor'),
+      cosponsor: params.get('cosponsor'),
+      tag: params.get('tag'),
+      sorter: params.get('sorter'),
     })
-    return result.success ? result.data : {}
   }, [params])
-
-  const onFilterSubmit = useCallback((filter: BillFilterOutput) => {
-    console.log(`call API with \n`, JSON.stringify(filter, null, 2))
-  }, [])
-
-  useEffect(() => {
-    if (Object.keys(filterInitValues).length > 0) {
-      onFilterSubmit(filterInitValues)
-    }
-  }, [filterInitValues, onFilterSubmit])
 
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
-  const queryVariables = useMemo<BillsQueryVariables>(() => {
-    return {
-      limit: 10,
-      page,
-      where: {
-        // TODO: BillFilterOutput -> Bill_where
-      },
-    }
-  }, [page])
-
   const { data, refetch } = useQuery<BillsQuery, BillsQueryVariables>(
-    QUERY_BILLS,
-    {
-      variables: queryVariables,
-    }
+    QUERY_BILLS
   )
 
   useEffect(() => {
@@ -81,29 +53,42 @@ export default function BillList() {
     }
   }, [data?.Bills?.totalPages, setTotalPages])
 
-  useEffect(() => {
-    refetch(queryVariables)
-  }, [queryVariables, refetch])
+  const bills = useMemo(() => {
+    return (
+      data?.Bills?.docs
+        ?.filter((bill) => !isNull(bill))
+        .map((bill) => BillUtils.parse(lang, bill)) ?? []
+    )
+  }, [data?.Bills?.docs, lang])
 
-  const bills =
-    data?.Bills?.docs
-      ?.filter((bill) => !isNull(bill))
-      .map((bill) => BillUtils.parse(lang, bill)) ?? []
+  const onFilterSubmit = useCallback(
+    (filter: BillFilterOutput) => {
+      refetch(BillFilterUtils.transformFilterToQueryVariables(filter))
+      // TODO: 更新 URL
+      const urlQuery = new URLSearchParams(
+        BillFilterUtils.transformFilterToUrlQueryString(filter)
+      )
+
+      router.push(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`)
+    },
+    [refetch, router]
+  )
+
+  useEffect(() => {
+    if (Object.keys(filterInitValues).length > 0) {
+      onFilterSubmit(filterInitValues)
+    }
+  }, [filterInitValues, onFilterSubmit])
 
   // TODO: loading skeleton
 
   return (
-    <Stack gap={7} alignItems="center" pb={10}>
-      <Stack gap={5} alignItems="center">
-        <BillFilter
-          onSubmit={onFilterSubmit}
-          initialValues={filterInitValues}
-        />
-        <Stack gap={2}>
-          {bills.map((bill, index) => (
-            <BillCard key={index} mode="horizontal" bill={bill} />
-          ))}
-        </Stack>
+    <Stack width="100%" gap={7} alignItems="center" pb={10}>
+      <BillFilter onSubmit={onFilterSubmit} initialValues={filterInitValues} />
+      <Stack width="100%" gap={2}>
+        {bills.map((bill, index) => (
+          <BillCard key={index} mode="horizontal" bill={bill} />
+        ))}
       </Stack>
       {totalPages > 1 && (
         <UPagination

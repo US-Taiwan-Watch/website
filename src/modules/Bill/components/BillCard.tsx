@@ -47,6 +47,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
 
   return (
     <StyledCardContainer
+      width={isHorizontal ? '100%' : 'auto'}
       height={isHorizontal || simplified ? 'auto' : 500}
       sx={{
         border: isHorizontal ? 'none' : `1px solid ${theme.color.grey[1600]}`,
