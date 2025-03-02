@@ -7,11 +7,11 @@ import ArticlePostFooter from '@/modules/Article/components/ArticlePost/ArticleP
 import ArticlePostHeader from '@/modules/Article/components/ArticlePost/ArticlePostHeader'
 import ArticlePostRelatedPosts from '@/modules/Article/components/ArticlePost/ArticlePostRelatedPosts'
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { Article } from '@/modules/Article/business/Article'
 import ArticleFixed from '@/modules/Article/components/ArticlePost/ArticleFixed'
 import ArticlePodcast from '@/modules/Article/components/ArticlePost/Content/ArticlePodcast'
+import UContainer from '@/common/components/atoms/UContainer'
 
 interface ArticlePostProps {
   article: Article
@@ -26,7 +26,7 @@ const ArticlePost = function ArticlePost({
     <Stack gap={4} marginTop={10}>
       <Box>
         <ArticleFixed />
-        <Container maxWidth="lg">
+        <UContainer>
           <Box
             sx={{
               maxWidth: '700px',
@@ -77,14 +77,14 @@ const ArticlePost = function ArticlePost({
               )}
             </Stack>
           </Box>
-        </Container>
+        </UContainer>
       </Box>
 
       {/** Related Posts Section */}
       <UFullWidthBackgroundBox>
-        <Container maxWidth="lg">
+        <UContainer>
           <ArticlePostRelatedPosts articles={relatedArticles} />
-        </Container>
+        </UContainer>
       </UFullWidthBackgroundBox>
     </Stack>
   )

@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo } from 'react'
 import {
   PeopleCompanyTypeEnum,
@@ -8,6 +10,7 @@ import {
 import states from '@/common/assets/states'
 import territoriesRegions from '@/common/assets/territories-regions'
 import { CongressUtils } from '@/common/business/Congress'
+import useTags from '@/modules/Common/hooks/useTags'
 
 export type PeopleFilterOption<T> = {
   value: T
@@ -80,11 +83,15 @@ export default function usePeopleFilterOptions() {
     [stateOptions, territoryRegionOptions]
   )
 
-  // TODO: 確認 district 怎麼來
-  const districtOptions = useMemo<PeopleFilterOption<string>[]>(() => [], [])
-
-  // TODO: 確認 tag 怎麼來
-  const tagOptions = useMemo<PeopleFilterOption<string>[]>(() => [], [])
+  const { tags } = useTags()
+  const tagOptions = useMemo<PeopleFilterOption<string>[]>(
+    () =>
+      tags.map((tag) => ({
+        value: tag?.id ?? '',
+        label: tag?.name ?? '',
+      })),
+    [tags]
+  )
 
   const officialAreaOptions = useMemo<
     PeopleFilterOption<PeopleOfficialAreaEnum>[]
@@ -124,7 +131,6 @@ export default function usePeopleFilterOptions() {
     stateOptions,
     territoryRegionOptions,
     stateOrTerritoryOptions,
-    districtOptions,
     tagOptions,
     officialAreaOptions,
     companyTypeOptions,

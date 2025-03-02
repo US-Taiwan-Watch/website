@@ -54,7 +54,6 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     congressOptions,
     stateOptions,
     stateOrTerritoryOptions,
-    districtOptions,
     tagOptions,
     officialAreaOptions,
     companyTypeOptions,
@@ -118,7 +117,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
       selectors.push({
         key: 'district',
         label: 'District',
-        options: districtOptions,
+        options: [],
         minWidth: 140,
       })
     }
@@ -165,7 +164,6 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     congressOptions,
     stateOptions,
     stateOrTerritoryOptions,
-    districtOptions,
     tagOptions,
     officialAreaOptions,
     companyTypeOptions,
@@ -236,6 +234,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
           render={({ field }) => {
             // district filter，讓使用者輸入數字就好 (int > 0)
             if (selector.key === 'district') {
+              console.log('field', field.value)
               return (
                 <UFilterTextField
                   {...field}
@@ -244,11 +243,6 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
                   slotProps={{
                     inputLabel: {
                       color: 'info',
-                    },
-                    input: {
-                      inputProps: {
-                        min: 1,
-                      },
                     },
                   }}
                   sx={{
@@ -261,7 +255,12 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
                     if (Number.isNaN(parseInt(e.target.value, 10))) {
                       field.onChange(undefined)
                     } else {
-                      field.onChange(Math.max(1, parseInt(e.target.value, 10)))
+                      const value = parseInt(e.target.value, 10)
+                      if (value > 0) {
+                        field.onChange(value)
+                      } else {
+                        field.onChange(undefined)
+                      }
                     }
                   }}
                 />

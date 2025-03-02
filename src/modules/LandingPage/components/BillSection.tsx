@@ -1,4 +1,3 @@
-import Container from '@mui/material/Container'
 import { Stack } from '@mui/material'
 import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import IndexBillCardList from '@/modules/Bill/components/IndexBillCard/IndexBillCardList'
@@ -12,6 +11,7 @@ import {
 import { QUERY_BILLS } from '@/modules/Bill/graphql/gql'
 import { isNull } from 'lodash-es'
 import { BillUtils } from '@/modules/Bill/business/Bill'
+import UContainer from '@/common/components/atoms/UContainer'
 
 interface BillSectionProps {
   lang: Language
@@ -35,11 +35,11 @@ export default async function BillSection({ lang }: BillSectionProps) {
       .map((bill) => BillUtils.parse(lang, bill)) ?? []
 
   return (
-    <Container maxWidth="lg">
+    <UContainer>
       <Stack py={10} gap={7.5}>
         <SectionTitleWithLink title="Bills" link={ROUTES.BILL} />
         <IndexBillCardList billData={featuredBills} />
       </Stack>
-    </Container>
+    </UContainer>
   )
 }
