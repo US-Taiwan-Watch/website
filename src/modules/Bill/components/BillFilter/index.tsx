@@ -16,6 +16,7 @@ import {
   type BillFilterOutput,
   type BillFilterInputKey,
   type BillFilterInput,
+  defaultBillFilterInput,
 } from '@/modules/Bill/components/BillFilter/schema'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 
@@ -38,7 +39,7 @@ export default function BillFilter({
   onSubmit,
   initialValues,
 }: BillFilterProps) {
-  const { form, handleReset } = useBillFilterForm({
+  const { form } = useBillFilterForm({
     initialValues,
   })
   const {
@@ -129,6 +130,11 @@ export default function BillFilter({
     },
     [onSubmit]
   )
+
+  const handleReset = useCallback(() => {
+    form.reset(defaultBillFilterInput)
+    form.handleSubmit(handleSubmit)()
+  }, [form, handleSubmit])
 
   return (
     <Filter

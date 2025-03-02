@@ -48,3 +48,7 @@ export const billFilterSchema = z.object({
 export type BillFilterInput = z.input<typeof billFilterSchema>
 export type BillFilterOutput = z.output<typeof billFilterSchema>
 export type BillFilterInputKey = keyof BillFilterInput
+
+export const defaultBillFilterInput: BillFilterInput = {
+  sorter: BillSorterEnum.LatestAction,
+}

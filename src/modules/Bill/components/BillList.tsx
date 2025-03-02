@@ -4,22 +4,22 @@ import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
 import {
-  BillsQuery,
-  BillsQueryVariables,
+  BillsFilterQuery,
+  BillsFilterQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { BillUtils } from '@/modules/Bill/business/Bill'
-import { BillFilterUtils } from '@/modules/Bill/business/BillFilter'
+import { BillsFilterUtils } from '@/modules/Bill/business/BillsFilter'
 import BillCard from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
 import { BillFilterOutput } from '@/modules/Bill/components/BillFilter/schema'
-import { QUERY_BILLS } from '@/modules/Bill/graphql/gql'
+import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
 import { ROUTES } from '@/routes'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { Stack } from '@mui/material'
 import { isNull } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
-import { useCallback, useMemo, useEffect } from 'react'
+import { useCallback, useMemo, useEffect, useState } from 'react'
 
 export default function BillList() {
   const router = useRouter()
@@ -28,7 +28,7 @@ export default function BillList() {
   const params = useSearchParams()
 
   const filterInitValues = useMemo<BillFilterOutput>(() => {
-    return BillFilterUtils.transformQueryVariablesToFilter({
+    return BillsFilterUtils.transformQueryVariablesToFilter({
       category: params.get('category'),
       party: params.get('party'),
       type: params.get('type'),
@@ -43,35 +43,49 @@ export default function BillList() {
 
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
-  const { data, refetch } = useQuery<BillsQuery, BillsQueryVariables>(
-    QUERY_BILLS
-  )
+  const paginationVariables = useMemo<
+    Pick<BillsFilterQueryVariables, 'limit' | 'page'>
+  >(() => {
+    return {
+      limit: 10,
+      page,
+    }
+  }, [page])
+  const [filterVariables, setFilterVariables] = useState<
+    Omit<BillsFilterQueryVariables, 'limit' | 'page'>
+  >({})
+
+  const [getBills, { data }] = useLazyQuery<
+    BillsFilterQuery,
+    BillsFilterQueryVariables
+  >(QUERY_BILL_FILTER)
 
   useEffect(() => {
-    if (data?.Bills?.totalPages) {
-      setTotalPages(data.Bills.totalPages)
+    if (data?.BillsFilter?.totalPages) {
+      setTotalPages(data.BillsFilter.totalPages)
     }
-  }, [data?.Bills?.totalPages, setTotalPages])
+  }, [data?.BillsFilter?.totalPages, setTotalPages])
 
   const bills = useMemo(() => {
     return (
-      data?.Bills?.docs
+      data?.BillsFilter?.docs
         ?.filter((bill) => !isNull(bill))
         .map((bill) => BillUtils.parse(lang, bill)) ?? []
     )
-  }, [data?.Bills?.docs, lang])
+  }, [data?.BillsFilter?.docs, lang])
 
   const onFilterSubmit = useCallback(
     (filter: BillFilterOutput) => {
-      refetch(BillFilterUtils.transformFilterToQueryVariables(filter))
-      // TODO: 更新 URL
+      setFilterVariables(
+        BillsFilterUtils.transformFilterToQueryVariables(filter)
+      )
       const urlQuery = new URLSearchParams(
-        BillFilterUtils.transformFilterToUrlQueryString(filter)
+        BillsFilterUtils.transformFilterToUrlQueryString(filter)
       )
 
-      router.push(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`)
+      router.replace(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`)
     },
-    [refetch, router]
+    [router]
   )
 
   useEffect(() => {
@@ -79,6 +93,15 @@ export default function BillList() {
       onFilterSubmit(filterInitValues)
     }
   }, [filterInitValues, onFilterSubmit])
+
+  useEffect(() => {
+    getBills({
+      variables: {
+        ...paginationVariables,
+        ...filterVariables,
+      },
+    })
+  }, [paginationVariables, filterVariables, getBills])
 
   // TODO: loading skeleton
 

@@ -1,9 +1,4 @@
-import {
-  Bill_Type_Input as BillTypeInput,
-  Bill_Sponsor__Party_Input as BillSponsorPartyInput,
-  BillsQueryVariables,
-  Bill_StatusTracker__CurrentStep_Input as BillStatusTrackerCurrentStepInput,
-} from '@/common/lib/graphql/__generated__/graphql'
+import { BillsFilterQueryVariables } from '@/common/lib/graphql/__generated__/graphql'
 import { BillSorterEnum } from '@/modules/Bill/components/BillFilter/enums'
 import {
   BillFilterInput,
@@ -29,61 +24,45 @@ export type BillFilterUrlQuery = {
   sorter?: string | null
 }
 
-export class BillFilterUtils {
+export class BillsFilterUtils {
   static transformFilterToQueryVariables(
     filter: BillFilterOutput
-  ): BillsQueryVariables {
+  ): BillsFilterQueryVariables {
     return {
-      where: {
-        ...(filter.category &&
-          filter.category.length > 0 && {
-            categories: {
-              in: filter.category,
-            },
-          }),
-        ...(filter.party &&
-          filter.party.length > 0 && {
-            sponsor__party: {
-              in: filter.party as unknown as BillSponsorPartyInput[],
-            },
-          }),
-        ...(filter.type &&
-          filter.type.length > 0 && {
-            type: {
-              in: filter.type as unknown as BillTypeInput[],
-            },
-          }),
-        // TODO: `Bill_congress_operator` 不支援複選
-        // ...(filter.congress && {
-        //   congress: {
-        //     in: filter.congress,
-        //   },
-        // }),
-        ...(filter.status &&
-          filter.status.length > 0 && {
-            statusTracker__currentStep: {
-              in: filter.status as unknown as BillStatusTrackerCurrentStepInput[],
-            },
-          }),
-        ...(filter.sponsors &&
-          filter.sponsors.length > 0 && {
-            sponsor__people: {
-              in: filter.sponsors,
-            },
-          }),
-        ...(filter.cosponsors &&
-          filter.cosponsors.length > 0 && {
-            cosponsors__people: {
-              in: filter.cosponsors,
-            },
-          }),
-        ...(filter.tag &&
-          filter.tag.length > 0 && {
-            tags: {
-              in: filter.tag,
-            },
-          }),
-      },
+      // ...(filter.category &&
+      //   filter.category.length > 0 && {
+      //     categories: {
+      //       in: filter.category,
+      //     },
+      //   }),
+      ...(filter.party &&
+        filter.party.length > 0 && {
+          party: filter.party,
+        }),
+      ...(filter.type &&
+        filter.type.length > 0 && {
+          type: filter.type,
+        }),
+      ...(filter.congress &&
+        filter.congress.length > 0 && {
+          congress: filter.congress,
+        }),
+      ...(filter.status &&
+        filter.status.length > 0 && {
+          status: filter.status,
+        }),
+      ...(filter.sponsors &&
+        filter.sponsors.length > 0 && {
+          sponsor: filter.sponsors,
+        }),
+      ...(filter.cosponsors &&
+        filter.cosponsors.length > 0 && {
+          cosponsors: filter.cosponsors,
+        }),
+      ...(filter.tag &&
+        filter.tag.length > 0 && {
+          tags: filter.tag,
+        }),
       ...(filter.sorter && {
         sort: filter.sorter,
       }),
