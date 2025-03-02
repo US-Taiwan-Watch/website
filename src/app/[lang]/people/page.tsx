@@ -11,7 +11,7 @@ interface PeoplePageProps {
 
 export default async function People({ params }: PeoplePageProps) {
   return (
-    <Stack gap={10}>
+    <Stack flex={1} gap={10}>
       {/** Popular People Section */}
       <PopularPeopleSection lang={params.lang} />
       {/** People List Section */}

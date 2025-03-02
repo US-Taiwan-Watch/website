@@ -31,7 +31,6 @@ const UFullWidthBackgroundBox = ({
         left: '50%',
         right: '50%',
         marginLeft: '-50dvw',
-        marginRight: '-50dvw',
         backgroundColor: !backgroundColor
           ? 'inherit' // 預設繼承
           : backgroundColor.startsWith('#')

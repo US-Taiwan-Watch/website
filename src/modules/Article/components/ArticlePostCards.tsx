@@ -31,7 +31,7 @@ const ArticlePostCards = ({
 export default ArticlePostCards
 
 export const ArticlePostCardsSkeleton = ({
-  count = 12,
+  count = 9,
 }: {
   /** 呈現的卡片數量 */
   count?: number

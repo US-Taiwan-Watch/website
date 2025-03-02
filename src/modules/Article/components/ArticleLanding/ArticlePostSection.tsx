@@ -74,6 +74,9 @@ const ArticlePostSection = () => {
 
   return (
     <LandingSectionWrapper
+      containerSx={{
+        flex: 1,
+      }}
       backgroundColor={theme.color.neutral[100]}
       contentWrapperSx={{
         paddingTop: theme.spacing(10),

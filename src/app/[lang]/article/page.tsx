@@ -1,3 +1,4 @@
+import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import {
   ArticlesQuery,
@@ -10,7 +11,6 @@ import ArticleLandingBannerCards from '@/modules/Article/components/ArticleLandi
 import ArticlePostSection from '@/modules/Article/components/ArticleLanding/ArticlePostSection'
 import ArticleNavbar from '@/modules/Article/components/ArticleNavbar'
 import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
-import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { isNull } from 'lodash-es'
 
@@ -41,8 +41,8 @@ export default async function Article({ params }: ArticlePageProps) {
       .map((article) => ArticleUtils.parse(params.lang, article)) ?? []
 
   return (
-    <Container maxWidth="lg">
-      <Stack>
+    <UContainer>
+      <Stack flex={1}>
         <UFullWidthBackgroundBox>
           <ArticleNavbar />
         </UFullWidthBackgroundBox>
@@ -51,6 +51,6 @@ export default async function Article({ params }: ArticlePageProps) {
         )}
         <ArticlePostSection />
       </Stack>
-    </Container>
+    </UContainer>
   )
 }

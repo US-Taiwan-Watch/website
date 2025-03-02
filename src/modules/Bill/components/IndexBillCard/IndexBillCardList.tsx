@@ -1,10 +1,10 @@
 'use client'
 
+import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import Carousel from '@/common/components/elements/Carousel'
 import { Bill } from '@/modules/Bill/business/Bill'
 import IndexBillCard from '@/modules/Bill/components/IndexBillCard'
-import { Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
@@ -27,7 +27,7 @@ export default function IndexBillCardList({
 }: IndexBillCardListProps) {
   return (
     <StyledUFullWidthBackgroundBox>
-      <Container maxWidth="lg">
+      <UContainer>
         <Carousel
           centerMode
           settings={{
@@ -40,7 +40,7 @@ export default function IndexBillCardList({
             <IndexBillCard key={bill.id} bill={bill} />
           ))}
         </Carousel>
-      </Container>
+      </UContainer>
     </StyledUFullWidthBackgroundBox>
   )
 }

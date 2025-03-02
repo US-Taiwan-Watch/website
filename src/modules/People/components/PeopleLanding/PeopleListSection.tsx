@@ -116,6 +116,9 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
   return (
     <LandingSectionWrapper
       backgroundColor={theme.color.neutral[200]}
+      containerSx={{
+        flex: 1,
+      }}
       contentWrapperSx={{
         paddingTop: theme.spacing(10),
         paddingBottom: theme.spacing(15),
