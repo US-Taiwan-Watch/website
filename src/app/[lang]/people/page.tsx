@@ -13,7 +13,7 @@ export default async function People({ params }: PeoplePageProps) {
   return (
     <Stack flex={1} gap={10}>
       {/** Popular People Section */}
-      <PopularPeopleSection lang={params.lang} />
+      <PopularPeopleSection />
       {/** People List Section */}
       <PeopleListSection lang={params.lang} />
     </Stack>

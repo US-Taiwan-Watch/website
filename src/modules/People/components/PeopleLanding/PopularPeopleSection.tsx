@@ -1,36 +1,16 @@
 import { Stack, Typography, Grid2 as Grid, Box } from '@mui/material'
 import PeopleCard from '@/modules/People/components/PeopleCard'
-import { Language } from '@/common/lib/i18n/types'
-import {
-  PeoplesQueryVariables,
-  PeoplesQuery,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
-import { QUERY_PEOPLES } from '@/modules/People/graphql/gql'
-import { PeopleUtils } from '@/modules/People/business/People'
-import { isNull } from 'lodash-es'
+import PeopleApi from '@/modules/People/api/PeopleApi'
 
-interface PopularPeopleSectionProps {
-  lang: Language
-}
+/**
+ * 熱門議員數量
+ */
+const POPULAR_PEOPLE_COUNT = 4
 
-export default async function PopularPeopleSection({
-  lang,
-}: PopularPeopleSectionProps) {
-  const { data } = await query<PeoplesQuery, PeoplesQueryVariables>({
-    query: QUERY_PEOPLES,
-    variables: {
-      limit: 4,
-      sort: '-viewCount',
-    },
+export default async function PopularPeopleSection() {
+  const peoples = await PeopleApi.getPopularPeople({
+    limit: POPULAR_PEOPLE_COUNT,
   })
-
-  const peoples =
-    data?.Peoples?.docs
-      ?.filter((people) => !isNull(people))
-      .map((people) => PeopleUtils.parse(lang, people)) ?? []
-
-  // TODO: loading skeleton
 
   return (
     <Stack spacing={6}>
