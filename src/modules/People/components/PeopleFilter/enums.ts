@@ -1,9 +1,9 @@
 export enum PeopleCategoryEnum {
-  Senator = 1,
-  HouseRepresentative,
-  Official,
-  Expert,
-  Other,
+  Senator = 'Senator',
+  HouseRepresentative = 'House Representative',
+  Official = 'Official',
+  Expert = 'Expert',
+  Other = 'Other',
 }
 
 /**

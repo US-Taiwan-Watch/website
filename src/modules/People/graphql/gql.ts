@@ -514,3 +514,22 @@ export const QUERY_PEOPLE_FILTER = gql`
   ${TAG_FRAGMENT}
   ${PEOPLE_EXPERIENCES_FRAGMENT}
 `
+
+export const QUERY_CATEGORIES_PEOPLE = gql`
+  query CategoriesPeople {
+    CategoriesPeople {
+      docs {
+        id
+        i18n {
+          en {
+            name # Category英文名稱
+          }
+          zh {
+            name # Category中文名稱
+          }
+        }
+        nameEn
+      }
+    }
+  }
+`

@@ -1,4 +1,5 @@
 import { PeoplesFilterQueryVariables } from '@/common/lib/graphql/__generated__/graphql'
+import { PeopleCategory } from '@/modules/People/business/PeopleCategory'
 import { PeopleCategoryEnum } from '@/modules/People/components/PeopleFilter/enums'
 import {
   PeopleFilterOutput,
@@ -20,18 +21,19 @@ export type PeoplesFilterUrlQuery = {
 
 export class PeoplesFilterUtils {
   static transformFilterToQueryVariables(
-    filter: PeopleFilterOutput
+    filter: PeopleFilterOutput,
+    categoriesPeopleMap: Record<PeopleCategoryEnum, PeopleCategory>
   ): PeoplesFilterQueryVariables {
     if (!('category' in filter)) {
       return {}
     }
+    const categoryId = categoriesPeopleMap[filter.category].id
     switch (filter.category) {
       case PeopleCategoryEnum.Senator:
         return {
-          // TODO: 拿取 category id 後，再來處理
-          // ...(filter.category && {
-          //   category: filter.category,
-          // }),
+          ...(filter.category && {
+            category: categoryId,
+          }),
           ...(filter.congress &&
             filter.congress.length > 0 && {
               congresses: filter.congress,
@@ -51,10 +53,9 @@ export class PeoplesFilterUtils {
         }
       case PeopleCategoryEnum.HouseRepresentative:
         return {
-          // TODO: 拿取 category id 後，再來處理
-          // ...(filter.category && {
-          //   category: filter.category,
-          // }),
+          ...(filter.category && {
+            category: categoryId,
+          }),
           ...(filter.congress &&
             filter.congress.length > 0 && {
               congresses: filter.congress,
@@ -77,10 +78,9 @@ export class PeoplesFilterUtils {
         }
       case PeopleCategoryEnum.Official:
         return {
-          // TODO: 拿取 category id 後，再來處理
-          // ...(filter.category && {
-          //   category: filter.category,
-          // }),
+          ...(filter.category && {
+            category: categoryId,
+          }),
           ...(filter.officialArea &&
             filter.officialArea.length > 0 && {
               officialAreas: filter.officialArea,
@@ -88,10 +88,9 @@ export class PeoplesFilterUtils {
         }
       case PeopleCategoryEnum.Expert:
         return {
-          // TODO: 拿取 category id 後，再來處理
-          // ...(filter.category && {
-          //   category: filter.category,
-          // }),
+          ...(filter.category && {
+            category: categoryId,
+          }),
           ...(filter.companyType &&
             filter.companyType.length > 0 && {
               companyTypes: filter.companyType,
@@ -99,10 +98,9 @@ export class PeoplesFilterUtils {
         }
       case PeopleCategoryEnum.Other:
         return {
-          // TODO: 拿取 category id 後，再來處理
-          // ...(filter.category && {
-          //   category: filter.category,
-          // }),
+          ...(filter.category && {
+            category: categoryId,
+          }),
         }
     }
   }
