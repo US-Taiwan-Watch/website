@@ -17,7 +17,7 @@ import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
 import { ROUTES } from '@/routes'
 import { useLazyQuery } from '@apollo/client'
 import { Stack } from '@mui/material'
-import { isNull } from 'lodash-es'
+import { isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
 import { useCallback, useMemo, useEffect, useState } from 'react'
 
@@ -61,7 +61,7 @@ export default function BillList() {
   >(QUERY_BILL_FILTER)
 
   useEffect(() => {
-    if (data?.BillsFilter?.totalPages) {
+    if (isNumber(data?.BillsFilter?.totalPages)) {
       setTotalPages(data.BillsFilter.totalPages)
     }
   }, [data?.BillsFilter?.totalPages, setTotalPages])

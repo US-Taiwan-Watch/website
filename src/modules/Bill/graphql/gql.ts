@@ -389,6 +389,7 @@ export const QUERY_BILL_FILTER = gql`
     $sponsor: [JSON]
     $cosponsors: [JSON]
     $tags: [JSON]
+    $categories: [JSON]
   ) {
     BillsFilter(
       limit: $limit
@@ -402,6 +403,7 @@ export const QUERY_BILL_FILTER = gql`
         sponsor__people: { in: $sponsor }
         cosponsors__people: { in: $cosponsors }
         tags: { in: $tags }
+        categories: { in: $categories }
       }
     ) {
       hasNextPage

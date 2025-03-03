@@ -29,12 +29,12 @@ export class BillsFilterUtils {
     filter: BillFilterOutput
   ): BillsFilterQueryVariables {
     return {
-      // ...(filter.category &&
-      //   filter.category.length > 0 && {
-      //     categories: {
-      //       in: filter.category,
-      //     },
-      //   }),
+      ...(filter.category &&
+        filter.category.length > 0 && {
+          categories: {
+            in: filter.category,
+          },
+        }),
       ...(filter.party &&
         filter.party.length > 0 && {
           party: filter.party,

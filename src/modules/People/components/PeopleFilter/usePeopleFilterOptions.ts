@@ -4,13 +4,15 @@ import { useMemo } from 'react'
 import {
   PeopleCompanyTypeEnum,
   PeopleOfficialAreaEnum,
-  PeopleCategoryEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
 import states from '@/common/assets/states'
 import territoriesRegions from '@/common/assets/territories-regions'
 import { CongressUtils } from '@/common/business/Congress'
 import useTags from '@/modules/Common/hooks/useTags'
+import { Language } from '@/common/lib/i18n/types'
+import { useParams } from 'next/navigation'
+import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
 
 export type PeopleFilterOption<T> = {
   value: T
@@ -18,18 +20,17 @@ export type PeopleFilterOption<T> = {
 }
 
 export default function usePeopleFilterOptions() {
-  const categoryOptions = useMemo<PeopleFilterOption<PeopleCategoryEnum>[]>(
-    () => [
-      { value: PeopleCategoryEnum.Senator, label: 'Senator' },
-      {
-        value: PeopleCategoryEnum.HouseRepresentative,
-        label: 'House Representative',
-      },
-      { value: PeopleCategoryEnum.Official, label: 'Official' },
-      { value: PeopleCategoryEnum.Expert, label: 'Expert' },
-      { value: PeopleCategoryEnum.Other, label: 'Other' },
-    ],
-    []
+  const { lang } = useParams<{ lang: Language }>()
+
+  const { categoriesPeople } = useCategoriesPeople(lang)
+
+  const categoryOptions = useMemo<PeopleFilterOption<string>[]>(
+    () =>
+      categoriesPeople.map((category) => ({
+        value: category.type,
+        label: category.name,
+      })),
+    [categoriesPeople]
   )
 
   const partyOptions = useMemo<PeopleFilterOption<PeoplePartyEnum>[]>(

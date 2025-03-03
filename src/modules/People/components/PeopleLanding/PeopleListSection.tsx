@@ -20,11 +20,14 @@ import {
 import { useLazyQuery } from '@apollo/client'
 import { QUERY_PEOPLE_FILTER } from '@/modules/People/graphql/gql'
 import { PeopleUtils } from '@/modules/People/business/People'
-import { isNull } from 'lodash-es'
+import { isNull, isNumber } from 'lodash-es'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { PeopleFilterOutput } from '@/modules/People/components/PeopleFilter/schema'
 import { PeoplesFilterUtils } from '@/modules/People/business/PeoplesFilter'
 import { ROUTES } from '@/routes'
+import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
+import { PeopleCategoryEnum } from '@/modules/People/components/PeopleFilter/enums'
+import { PeopleCategory } from '@/modules/People/business/PeopleCategory'
 
 interface PeopleListSectionProps {
   lang: Language
@@ -35,6 +38,19 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
   const router = useRouter()
 
   const params = useSearchParams()
+
+  const { categoriesPeople } = useCategoriesPeople(lang)
+  const categoriesPeopleMap = useMemo<
+    Record<PeopleCategoryEnum, PeopleCategory>
+  >(() => {
+    return categoriesPeople.reduce(
+      (acc, category) => {
+        acc[category.type] = category
+        return acc
+      },
+      {} as Record<PeopleCategoryEnum, PeopleCategory>
+    )
+  }, [categoriesPeople])
 
   const filterInitValues = useMemo<PeopleFilterOutput>(() => {
     return PeoplesFilterUtils.transformQueryVariablesToFilter({
@@ -69,7 +85,7 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
   >(QUERY_PEOPLE_FILTER)
 
   useEffect(() => {
-    if (data?.PeoplesFilter?.totalPages) {
+    if (isNumber(data?.PeoplesFilter?.totalPages)) {
       setTotalPages(data.PeoplesFilter.totalPages)
     }
   }, [data?.PeoplesFilter?.totalPages, setTotalPages])
@@ -83,9 +99,15 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
   }, [data?.PeoplesFilter?.docs, lang])
 
   const onFilterSubmit = useCallback(
-    (filter: PeopleFilterOutput) => {
+    (
+      filter: PeopleFilterOutput,
+      categoriesPeopleMap: Record<PeopleCategoryEnum, PeopleCategory>
+    ) => {
       setFilterVariables(
-        PeoplesFilterUtils.transformFilterToQueryVariables(filter)
+        PeoplesFilterUtils.transformFilterToQueryVariables(
+          filter,
+          categoriesPeopleMap
+        )
       )
       const urlQuery = new URLSearchParams(
         PeoplesFilterUtils.transformFilterToUrlQueryString(filter)
@@ -98,9 +120,9 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
 
   useEffect(() => {
     if (Object.keys(filterInitValues).length > 0) {
-      onFilterSubmit(filterInitValues)
+      onFilterSubmit(filterInitValues, categoriesPeopleMap)
     }
-  }, [filterInitValues, onFilterSubmit])
+  }, [filterInitValues, onFilterSubmit, categoriesPeopleMap])
 
   useEffect(() => {
     getPeoples({
@@ -127,7 +149,7 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
       <Stack spacing={6} alignItems="center" justifyContent="center">
         {/** People Filter */}
         <PeopleFilter
-          onSubmit={onFilterSubmit}
+          onSubmit={(filter) => onFilterSubmit(filter, categoriesPeopleMap)}
           initialValues={filterInitValues}
         />
         <Box>
