@@ -135,9 +135,11 @@ export class PeopleUtils {
   static parse(lang: Language, dto: ApiPeople) {
     return peopleSchema.parse({
       id: dto.id ?? undefined,
-      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.displayName,
+      name:
+        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.displayName ?? undefined,
       image: dto.photo?.url,
-      description: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio,
+      description:
+        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio ?? undefined,
       party: CommonUtils.parseAPIParty(dto?.currentParty),
       position: PeopleUtils.parseCurrentPosition(dto.experiences),
       positions: PeopleUtils.parsePositions(dto.experiences),
