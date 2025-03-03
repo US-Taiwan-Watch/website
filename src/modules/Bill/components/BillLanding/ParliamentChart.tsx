@@ -11,7 +11,9 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
 import { CongressUtils } from '@/common/business/Congress'
 
-itemSeries(Highcharts)
+if (typeof window !== 'undefined') {
+  itemSeries(Highcharts)
+}
 
 export type ParliamentChartData = {
   party: Party

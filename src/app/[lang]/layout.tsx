@@ -10,6 +10,7 @@ import ScreenSizeHandler from '@/common/components/elements/UnsupportedScreenSiz
 import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
 import ToastProvider from '@/common/providers/ToastProvider'
 import Stack from '@mui/material/Stack'
+import apiConfig from '@/modules/Common/api/ApiConfig'
 
 export const metadata: Metadata = {
   title: 'USTW',
@@ -25,6 +26,9 @@ export default function RootLayout({
     lang: Language
   }
 }>) {
+  // 設定 API 語言
+  apiConfig.setLang(params.lang)
+
   return (
     <html lang="en">
       <body>

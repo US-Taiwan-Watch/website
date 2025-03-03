@@ -10,26 +10,8 @@ import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import Link from 'next/link'
 import { ROUTES } from '@/routes'
-import { useParams } from 'next/navigation'
-import { Language } from '@/common/lib/i18n/types'
-import { useMemo } from 'react'
 import { CongressUtils } from '@/common/business/Congress'
-import { People, PeopleUtils } from '@/modules/People/business/People'
-import { useQuery } from '@apollo/client'
-import {
-  QUERY_BILL_TOP_COSPONSORS,
-  QUERY_BILL_TOP_SPONSORS,
-} from '@/modules/Bill/graphql/gql'
-import {
-  BillTopCosponsorsQuery,
-  BillTopCosponsorsQueryVariables,
-  BillTopSponsorsQuery,
-  BillTopSponsorsQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { isNull, isUndefined } from 'lodash-es'
-
-const TOP_SPONSORS_LIMIT = 5
-const TOP_COSPONSORS_LIMIT = 5
+import { People } from '@/modules/People/business/People'
 
 type SponsorRowData = {
   people: People
@@ -78,56 +60,18 @@ function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
 }
 
 type SponsorCardProps = {
+  sponsorsData: Array<{
+    people: People
+    billCount: number
+  }>
   isCosponsor?: boolean
 }
 
-export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
-  const currentCongressNumber = useMemo(
-    () => CongressUtils.getCurrentCongressNumber(),
-    []
-  )
-  const { lang } = useParams<{ lang: Language }>()
-
-  const { data: sponsorsData } = useQuery<
-    BillTopSponsorsQuery,
-    BillTopSponsorsQueryVariables
-  >(QUERY_BILL_TOP_SPONSORS, {
-    variables: { limit: TOP_SPONSORS_LIMIT },
-  })
-
-  const { data: cosponsorsData } = useQuery<
-    BillTopCosponsorsQuery,
-    BillTopCosponsorsQueryVariables
-  >(QUERY_BILL_TOP_COSPONSORS, {
-    variables: { limit: TOP_COSPONSORS_LIMIT },
-  })
-
-  const sponsorsList = useMemo(() => {
-    if (isCosponsor) {
-      return (
-        cosponsorsData?.BillTopCosponsors?.filter((doc) => !isNull(doc))
-          ?.filter(
-            (cosponsor) =>
-              !isNull(cosponsor?.people) && !isUndefined(cosponsor?.people)
-          )
-          ?.map(({ people, billCount }) => ({
-            people: PeopleUtils.parse(lang, people!),
-            billCount: billCount ?? 0,
-          })) ?? []
-      )
-    }
-    return (
-      sponsorsData?.BillTopSponsors?.filter((doc) => !isNull(doc))
-        ?.filter(
-          (sponsor) => !isNull(sponsor?.people) && !isUndefined(sponsor?.people)
-        )
-        .map(({ people, billCount }) => ({
-          people: PeopleUtils.parse(lang, people!),
-          billCount: billCount ?? 0,
-        })) ?? []
-    )
-  }, [lang, isCosponsor, cosponsorsData, sponsorsData])
-
+export default function SponsorCard({
+  sponsorsData,
+  isCosponsor,
+}: SponsorCardProps) {
+  const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
   return (
     <UContentCard
       headerIconAction="tooltip"
@@ -143,7 +87,7 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
       }}
     >
       <Stack spacing={1} pt={2}>
-        {sponsorsList.map(({ people, billCount }, index) => (
+        {sponsorsData.map(({ people, billCount }, index) => (
           <Link
             key={index}
             href={{
