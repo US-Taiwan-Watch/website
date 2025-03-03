@@ -1,4 +1,6 @@
 import {
+  BillQuery,
+  BillQueryVariables,
   BillsQuery,
   BillsQueryVariables,
   BillTopCosponsorsQuery,
@@ -11,6 +13,7 @@ import {
 import { isUndefined, isNull } from 'lodash-es'
 import { query } from '@/common/lib/graphql/ServerApolloClient'
 import {
+  QUERY_BILL,
   QUERY_BILL_TOP_COSPONSORS,
   QUERY_BILL_TOP_SPONSORS,
   QUERY_BILL_TOP_TAGS,
@@ -141,6 +144,40 @@ export default class BillApi {
     })
     return (
       popularBillsData?.Bills?.docs
+        ?.filter((bill) => !isNull(bill))
+        .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+    )
+  }
+
+  /**
+   * 取得提案法案
+   * @param id 提案法案ID
+   * @returns 提案法案
+   */
+  static async getBill({ id }: { id: string }) {
+    const { data } = await query<BillQuery, BillQueryVariables>({
+      query: QUERY_BILL,
+      variables: { id },
+    })
+
+    if (!data?.Bill) return null
+
+    return BillUtils.parse(apiConfig.lang, data.Bill)
+  }
+
+  /**
+   * 取得提案法案的相關法案
+   * @param id 提案法案ID
+   * @returns 提案法案的相關法案列表
+   */
+  static async getRelatedBills({ id }: { id: string }) {
+    const { data } = await query<BillQuery, BillQueryVariables>({
+      query: QUERY_BILL,
+      variables: { id },
+    })
+
+    return (
+      data.Bill?.relatedBills
         ?.filter((bill) => !isNull(bill))
         .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
     )

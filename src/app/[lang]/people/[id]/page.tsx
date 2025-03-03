@@ -4,13 +4,7 @@ import PeopleContentSection from '@/modules/People/components/PeopleTracker/Peop
 import TaiwanRecordSection from '@/modules/People/components/PeopleTracker/TaiwanRecordSection'
 import { Language } from '@/common/lib/i18n/types'
 import { notFound } from 'next/navigation'
-import {
-  PeopleQuery,
-  PeopleQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { QUERY_PEOPLE } from '@/modules/People/graphql/gql'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
-import { PeopleUtils } from '@/modules/People/business/People'
+import PeopleApi from '@/modules/People/api/PeopleApi'
 
 interface PeopleTrackerProps {
   params: {
@@ -20,14 +14,9 @@ interface PeopleTrackerProps {
 }
 
 export default async function PeopleTracker({ params }: PeopleTrackerProps) {
-  const { data } = await query<PeopleQuery, PeopleQueryVariables>({
-    query: QUERY_PEOPLE,
-    variables: { id: params.id },
-  })
+  const people = await PeopleApi.getPeople({ id: params.id })
 
-  if (!data?.People) notFound()
-
-  const people = PeopleUtils.parse(params.lang, data.People)
+  if (!people) notFound()
 
   return (
     <Stack gap={6}>
