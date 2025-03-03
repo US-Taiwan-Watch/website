@@ -12,7 +12,6 @@ import ArticlePostCards, {
   ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
 import { ROUTES } from '@/routes'
-import CommonUtils from '@/modules/Common/Common.utils'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import ArticleStoreProvider from '@/modules/Article/providers/ArticleStoreProvider'
@@ -74,9 +73,7 @@ const ArticleSection = () => {
             {landingTags.map((tag) => (
               <UCategoryChip
                 key={tag.id}
-                label={
-                  tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
-                }
+                label={tag.name}
                 active={activeTagId === tag.id}
                 onClick={() => {
                   if (activeTagId === tag.id) {

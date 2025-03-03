@@ -4,13 +4,7 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
-import { QUERY_ARTICLE_METADATA } from '@/modules/Article/graphql/gql'
-import {
-  ArticleMetadataQuery,
-  ArticleMetadataQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { ArticleUtils } from '@/modules/Article/business/Article'
+import ArticleApi from '@/modules/Article/api/ArticleApi'
 
 interface ArticlePostLayoutProps {
   params: {
@@ -22,18 +16,11 @@ interface ArticlePostLayoutProps {
 export async function generateMetadata({
   params,
 }: ArticlePostLayoutProps): Promise<Metadata> {
-  const { data } = await query<
-    ArticleMetadataQuery,
-    ArticleMetadataQueryVariables
-  >({
-    query: QUERY_ARTICLE_METADATA,
-    variables: { id: params.id },
-  })
-  if (!data?.Article) return {}
-  const Article = ArticleUtils.parse(params.lang, data.Article)
+  const article = await ArticleApi.getArticle({ id: params.id })
+  if (!article) return {}
   return {
-    title: Article.title,
-    description: Article.description,
+    title: article.title,
+    description: article.description,
   }
 }
 

@@ -9,14 +9,13 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import CommonUtils from '@/modules/Common/Common.utils'
-import { ArticleUtils } from '@/modules/Article/business/Article'
+import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import ArticlePostCards, {
   ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
 import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { isNull } from 'lodash-es'
@@ -30,7 +29,11 @@ import UPagination, {
 /** 每頁呈現的卡片數量 */
 const ARTICLE_POST_COUNT = 9
 
-const ArticlePostSection = () => {
+interface ArticlePostSectionProps {
+  defaultArticles?: Article[]
+}
+
+const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
@@ -52,7 +55,7 @@ const ArticlePostSection = () => {
     [activeTagId, page]
   )
 
-  const { loading, data, refetch } = useQuery<
+  const [getArticles, { loading, data }] = useLazyQuery<
     ArticlesQuery,
     ArticlesQueryVariables
   >(QUERY_ARTICLES, {
@@ -64,13 +67,23 @@ const ArticlePostSection = () => {
   }, [data?.Articles?.totalPages, setTotalPages])
 
   useEffect(() => {
-    refetch(queryVariables)
-  }, [queryVariables, refetch])
+    getArticles({
+      variables: queryVariables,
+    })
+  }, [queryVariables, getArticles])
 
-  const articles =
-    data?.Articles?.docs
-      ?.filter((article) => !isNull(article))
-      .map((article) => ArticleUtils.parse(lang, article)) ?? []
+  const articles = useMemo(() => {
+    const apiArticles =
+      data?.Articles?.docs
+        ?.filter((article) => !isNull(article))
+        .map((article) => ArticleUtils.parse(lang, article)) ?? []
+
+    if (apiArticles.length > 0) {
+      return apiArticles
+    }
+
+    return defaultArticles ?? []
+  }, [data?.Articles?.docs, defaultArticles, lang])
 
   return (
     <LandingSectionWrapper
@@ -92,9 +105,7 @@ const ArticlePostSection = () => {
             return (
               <UCategoryChip
                 key={tag.id}
-                label={
-                  tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? ''
-                }
+                label={tag.name}
                 active={isActive}
                 onClick={() => {
                   if (isActive) {

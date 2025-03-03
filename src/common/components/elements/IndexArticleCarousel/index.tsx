@@ -1,41 +1,18 @@
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import Carousel from '@/common/components/elements/Carousel'
 import IndexArticleCard from '@/common/components/elements/IndexArticleCard'
-import {
-  ArticlesQuery,
-  ArticlesQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
-import { Language } from '@/common/lib/i18n/types'
-import { ArticleUtils } from '@/modules/Article/business/Article'
-import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
 import { Container } from '@mui/material'
-import { isNull } from 'lodash-es'
+import ArticleApi from '@/modules/Article/api/ArticleApi'
 
-interface IndexArticleCarouselProps {
-  lang: Language
-}
+/**
+ * 首頁文章輪播車的限制數量
+ */
+const INDEX_ARTICLE_CAROUSEL_LIMIT = 3
 
-export default async function IndexArticleCarousel({
-  lang,
-}: IndexArticleCarouselProps) {
-  const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
-    query: QUERY_ARTICLES,
-    variables: {
-      limit: 3,
-      where: {
-        isFeatured: {
-          equals: true,
-        },
-      },
-    },
+export default async function IndexArticleCarousel() {
+  const articles = await ArticleApi.getHomeFeaturedArticles({
+    limit: INDEX_ARTICLE_CAROUSEL_LIMIT,
   })
-
-  const articles = data?.Articles?.docs
-    ?.filter((article) => !isNull(article))
-    .map((article) => ArticleUtils.parse(lang, article))
-
-  if (!articles) return null
 
   return (
     <UFullWidthBackgroundBox>

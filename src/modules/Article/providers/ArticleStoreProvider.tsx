@@ -15,6 +15,7 @@ import { useQuery } from '@apollo/client'
 import { isNull } from 'lodash-es'
 import { QUERY_CATEGORIES_ARTICLES } from '@/modules/Article/graphql/gql'
 import { ArticleCategoryUtils } from '@/modules/Article/business/ArticleCategory'
+import TagUtils from '@/modules/Common/Tag.utils'
 
 export default function ArticleStoreProvider() {
   const { lang } = useParams<{ lang: Language }>()
@@ -44,7 +45,9 @@ export default function ArticleStoreProvider() {
   useEffect(() => {
     if (!landingTagsData) return
     setLandingTags(
-      (landingTagsData?.Tags?.docs ?? []).filter((tag) => !isNull(tag))
+      (landingTagsData?.Tags?.docs ?? [])
+        .filter((tag) => !isNull(tag))
+        .map((tag) => TagUtils.parse(lang, tag))
     )
   }, [landingTagsData, setLandingTags, lang])
 

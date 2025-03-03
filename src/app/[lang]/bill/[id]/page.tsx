@@ -3,15 +3,8 @@ import BillInfoSection from '@/modules/Bill/components/SingleBill/BillInfoSectio
 import BillListSection from '@/modules/Bill/components/SingleBill/BillListSection'
 import BillContentSection from '@/modules/Bill/components/SingleBill/BillContentSection'
 import { Language } from '@/common/lib/i18n/types'
-import {
-  BillQuery,
-  BillQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { QUERY_BILL } from '@/modules/Bill/graphql/gql'
 import { notFound } from 'next/navigation'
-import { BillUtils } from '@/modules/Bill/business/Bill'
-import { isNull } from 'lodash-es'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
+import BillApi from '@/modules/Bill/api/BillApi'
 
 interface BillPageProps {
   params: {
@@ -21,18 +14,11 @@ interface BillPageProps {
 }
 
 export default async function Bill({ params }: BillPageProps) {
-  const { data } = await query<BillQuery, BillQueryVariables>({
-    query: QUERY_BILL,
-    variables: { id: params.id },
-  })
+  const bill = await BillApi.getBill({ id: params.id })
 
-  if (!data?.Bill) return notFound()
+  if (!bill) return notFound()
 
-  const bill = BillUtils.parse(params.lang, data.Bill)
-  const relatedBills =
-    data.Bill.relatedBills
-      ?.filter((bill) => !isNull(bill))
-      .map((bill) => BillUtils.parse(params.lang, bill)) ?? []
+  const relatedBills = await BillApi.getRelatedBills({ id: params.id })
 
   return (
     <Stack gap={6}>

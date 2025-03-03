@@ -1,44 +1,29 @@
 import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import {
-  ArticlesQuery,
-  ArticlesQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
-import { Language } from '@/common/lib/i18n/types'
-import { ArticleUtils } from '@/modules/Article/business/Article'
+import ArticleApi from '@/modules/Article/api/ArticleApi'
 import ArticleLandingBannerCards from '@/modules/Article/components/ArticleLanding/ArticleLandingBannerCards'
 import ArticlePostSection from '@/modules/Article/components/ArticleLanding/ArticlePostSection'
 import ArticleNavbar from '@/modules/Article/components/ArticleNavbar'
-import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
 import Stack from '@mui/material/Stack'
-import { isNull } from 'lodash-es'
 
+/**
+ * 首頁橫幅卡片數量
+ */
 const ARTICLE_LANDING_BANNER_CARDS_LIMIT = 4
 
-interface ArticlePageProps {
-  params: {
-    lang: Language
-  }
-}
+/**
+ * 預設拉取的文章數量
+ */
+const ARTICLE_POST_COUNT = 9
 
-export default async function Article({ params }: ArticlePageProps) {
-  const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
-    query: QUERY_ARTICLES,
-    variables: {
-      limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
-      where: {
-        isFeatured: {
-          equals: true,
-        },
-      },
-    },
+export default async function Article() {
+  const landingBannerArticles = await ArticleApi.getLandingArticles({
+    limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
   })
 
-  const landingBannerArticles =
-    data?.Articles?.docs
-      ?.filter((article) => !isNull(article))
-      .map((article) => ArticleUtils.parse(params.lang, article)) ?? []
+  const articles = await ArticleApi.getArticles({
+    limit: ARTICLE_POST_COUNT,
+  })
 
   return (
     <UContainer>
@@ -49,7 +34,7 @@ export default async function Article({ params }: ArticlePageProps) {
         {landingBannerArticles.length > 0 && (
           <ArticleLandingBannerCards articles={landingBannerArticles} />
         )}
-        <ArticlePostSection />
+        <ArticlePostSection defaultArticles={articles} />
       </Stack>
     </UContainer>
   )

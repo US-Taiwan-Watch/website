@@ -1,6 +1,6 @@
-import { Tag } from '@/common/lib/graphql/__generated__/graphql'
 import createSelectors from '@/common/lib/zustand/hooks/createSelectors'
 import { ArticleCategory } from '@/modules/Article/business/ArticleCategory'
+import { Tag } from '@/modules/Common/Tag.utils'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 

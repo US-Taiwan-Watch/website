@@ -17,7 +17,7 @@ interface HomeProps {
 export default function Home({ params }: HomeProps) {
   return (
     <Stack alignContent="center" justifyContent="center">
-      <IndexArticleCarousel lang={params.lang} />
+      <IndexArticleCarousel />
       <BillSection lang={params.lang} />
       <ArticleSection />
       <Stack
