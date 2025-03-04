@@ -1,6 +1,6 @@
 import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import ArticleApi from '@/modules/Article/api/ArticleApi'
+import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 import ArticleLandingBannerCards from '@/modules/Article/components/ArticleLanding/ArticleLandingBannerCards'
 import ArticlePostSection from '@/modules/Article/components/ArticleLanding/ArticlePostSection'
 import ArticleNavbar from '@/modules/Article/components/ArticleNavbar'
@@ -17,11 +17,11 @@ const ARTICLE_LANDING_BANNER_CARDS_LIMIT = 4
 const ARTICLE_POST_COUNT = 9
 
 export default async function Article() {
-  const landingBannerArticles = await ArticleApi.getLandingArticles({
+  const landingBannerArticles = await ServerArticleApi.getLandingArticles({
     limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
   })
 
-  const articles = await ArticleApi.getArticles({
+  const articles = await ServerArticleApi.getArticles({
     limit: ARTICLE_POST_COUNT,
   })
 

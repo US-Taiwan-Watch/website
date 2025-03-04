@@ -1,5 +1,10 @@
 import { Language } from '@/common/lib/i18n/types'
 
+/**
+ * API 設定
+ *
+ * @description RSC 端 API 設定
+ */
 export class ApiConfig {
   /**
    * Api 語言，

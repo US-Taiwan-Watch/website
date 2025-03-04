@@ -11,7 +11,12 @@ import { PeopleUtils } from '@/modules/People/business/People'
 import { QUERY_PEOPLE, QUERY_PEOPLES } from '@/modules/People/graphql/gql'
 import { isNull } from 'lodash-es'
 
-export default class PeopleApi {
+/**
+ * People API
+ *
+ * @description People 的 RSC 端 API 實作
+ */
+export default class ServerPeopleApi {
   /**
    * 取得熱門人物
    * @param limit 限制數量

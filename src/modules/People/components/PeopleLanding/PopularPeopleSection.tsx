@@ -1,6 +1,6 @@
 import { Stack, Typography, Grid2 as Grid, Box } from '@mui/material'
 import PeopleCard from '@/modules/People/components/PeopleCard'
-import PeopleApi from '@/modules/People/api/PeopleApi'
+import ServerPeopleApi from '@/modules/People/api/ServerPeopleApi'
 
 /**
  * 熱門議員數量
@@ -8,7 +8,7 @@ import PeopleApi from '@/modules/People/api/PeopleApi'
 const POPULAR_PEOPLE_COUNT = 4
 
 export default async function PopularPeopleSection() {
-  const peoples = await PeopleApi.getPopularPeople({
+  const peoples = await ServerPeopleApi.getPopularPeople({
     limit: POPULAR_PEOPLE_COUNT,
   })
 

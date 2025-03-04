@@ -4,7 +4,7 @@ import BillListSection from '@/modules/Bill/components/SingleBill/BillListSectio
 import BillContentSection from '@/modules/Bill/components/SingleBill/BillContentSection'
 import { Language } from '@/common/lib/i18n/types'
 import { notFound } from 'next/navigation'
-import BillApi from '@/modules/Bill/api/BillApi'
+import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
 
 interface BillPageProps {
   params: {
@@ -14,11 +14,11 @@ interface BillPageProps {
 }
 
 export default async function Bill({ params }: BillPageProps) {
-  const bill = await BillApi.getBill({ id: params.id })
+  const bill = await ServerBillApi.getBill({ id: params.id })
 
   if (!bill) return notFound()
 
-  const relatedBills = await BillApi.getRelatedBills({ id: params.id })
+  const relatedBills = await ServerBillApi.getRelatedBills({ id: params.id })
 
   return (
     <Stack gap={6}>

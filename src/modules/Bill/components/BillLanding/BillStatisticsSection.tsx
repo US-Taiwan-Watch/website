@@ -4,7 +4,7 @@ import PopularTags from '@/modules/Bill/components/BillLanding/PopularTags'
 import SponsorCard from '@/modules/Bill/components/BillLanding/SponsorCard'
 import TrendCard from '@/modules/Bill/components/BillLanding/TrendCard'
 import { Grid2, Stack } from '@mui/material'
-import BillApi from '@/modules/Bill/api/BillApi'
+import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
 
 /**
  * 贊成法案最多的前 5 名議員
@@ -17,11 +17,11 @@ const TOP_SPONSORS_LIMIT = 5
 const TOP_COSPONSORS_LIMIT = 5
 
 export default async function BillStatisticsSection() {
-  const sponsors = await BillApi.getTopSponsors({
+  const sponsors = await ServerBillApi.getTopSponsors({
     limit: TOP_SPONSORS_LIMIT,
   })
 
-  const cosponsors = await BillApi.getTopCosponsors({
+  const cosponsors = await ServerBillApi.getTopCosponsors({
     limit: TOP_COSPONSORS_LIMIT,
   })
 

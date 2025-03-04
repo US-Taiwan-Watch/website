@@ -4,7 +4,7 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
-import ArticleApi from '@/modules/Article/api/ArticleApi'
+import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 
 interface ArticlePostLayoutProps {
   params: {
@@ -16,7 +16,7 @@ interface ArticlePostLayoutProps {
 export async function generateMetadata({
   params,
 }: ArticlePostLayoutProps): Promise<Metadata> {
-  const article = await ArticleApi.getArticle({ id: params.id })
+  const article = await ServerArticleApi.getArticle({ id: params.id })
   if (!article) return {}
   return {
     title: article.title,

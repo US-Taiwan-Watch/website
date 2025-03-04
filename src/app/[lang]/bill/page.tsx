@@ -1,4 +1,4 @@
-import BillApi from '@/modules/Bill/api/BillApi'
+import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
 import BillListSection from '@/modules/Bill/components/BillLanding/BillListSection'
 import BillStatisticsSection from '@/modules/Bill/components/BillLanding/BillStatisticsSection'
 import Stack from '@mui/material/Stack'
@@ -14,10 +14,10 @@ const LATEST_BILLS_COUNT = 5
 const POPULAR_BILLS_COUNT = 5
 
 export default async function Bill() {
-  const latestBills = await BillApi.getLatestBills({
+  const latestBills = await ServerBillApi.getLatestBills({
     limit: LATEST_BILLS_COUNT,
   })
-  const popularBills = await BillApi.getPopularBills({
+  const popularBills = await ServerBillApi.getPopularBills({
     limit: POPULAR_BILLS_COUNT,
   })
 

@@ -10,7 +10,12 @@ import { QUERY_ARTICLE, QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
 import apiConfig from '@/modules/Common/api/ApiConfig'
 import { isNull } from 'lodash-es'
 
-export default class ArticleApi {
+/**
+ * Article API
+ *
+ * @description Article 的 RSC 端 API 實作
+ */
+export default class ServerArticleApi {
   /**
    * 取得首頁精選文章
    * @returns 首頁精選文章列表

@@ -2,7 +2,7 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import Carousel from '@/common/components/elements/Carousel'
 import IndexArticleCard from '@/common/components/elements/IndexArticleCard'
 import { Container } from '@mui/material'
-import ArticleApi from '@/modules/Article/api/ArticleApi'
+import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 
 /**
  * 首頁文章輪播車的限制數量
@@ -10,7 +10,7 @@ import ArticleApi from '@/modules/Article/api/ArticleApi'
 const INDEX_ARTICLE_CAROUSEL_LIMIT = 3
 
 export default async function IndexArticleCarousel() {
-  const articles = await ArticleApi.getHomeFeaturedArticles({
+  const articles = await ServerArticleApi.getHomeFeaturedArticles({
     limit: INDEX_ARTICLE_CAROUSEL_LIMIT,
   })
 

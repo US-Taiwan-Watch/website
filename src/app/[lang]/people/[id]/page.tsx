@@ -4,7 +4,7 @@ import PeopleContentSection from '@/modules/People/components/PeopleTracker/Peop
 import TaiwanRecordSection from '@/modules/People/components/PeopleTracker/TaiwanRecordSection'
 import { Language } from '@/common/lib/i18n/types'
 import { notFound } from 'next/navigation'
-import PeopleApi from '@/modules/People/api/PeopleApi'
+import ServerPeopleApi from '@/modules/People/api/ServerPeopleApi'
 
 interface PeopleTrackerProps {
   params: {
@@ -14,7 +14,7 @@ interface PeopleTrackerProps {
 }
 
 export default async function PeopleTracker({ params }: PeopleTrackerProps) {
-  const people = await PeopleApi.getPeople({ id: params.id })
+  const people = await ServerPeopleApi.getPeople({ id: params.id })
 
   if (!people) notFound()
 

@@ -24,7 +24,12 @@ import TagUtils from '@/modules/Common/business/Tag'
 import { PeopleUtils } from '@/modules/People/business/People'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 
-export default class BillApi {
+/**
+ * Bill API
+ *
+ * @description Bill 的 RSC 端 API 實作
+ */
+export default class ServerBillApi {
   /**
    * 取得熱門標籤
    * @param limit 限制數量
