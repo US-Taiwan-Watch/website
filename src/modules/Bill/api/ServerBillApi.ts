@@ -31,6 +31,31 @@ import { BillUtils } from '@/modules/Bill/business/Bill'
  */
 export default class ServerBillApi {
   /**
+   * 取得首頁精選法案
+   * @param limit 限制數量
+   * @returns 首頁精選法案列表
+   */
+  static async getHomeFeaturedBills({ limit = 10 }: { limit?: number }) {
+    const { data } = await query<BillsQuery, BillsQueryVariables>({
+      query: QUERY_BILLS,
+      variables: {
+        limit,
+        where: {
+          isFeatured: {
+            equals: true,
+          },
+        },
+      },
+    })
+
+    return (
+      data?.Bills?.docs
+        ?.filter((bill) => !isNull(bill))
+        .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+    )
+  }
+
+  /**
    * 取得熱門標籤
    * @param limit 限制數量
    * @returns 熱門標籤列表

@@ -2,37 +2,18 @@ import { Stack } from '@mui/material'
 import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import IndexBillCardList from '@/modules/Bill/components/IndexBillCard/IndexBillCardList'
 import { ROUTES } from '@/routes'
-import { Language } from '@/common/lib/i18n/types'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
-import {
-  BillsQuery,
-  BillsQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { QUERY_BILLS } from '@/modules/Bill/graphql/gql'
-import { isNull } from 'lodash-es'
-import { BillUtils } from '@/modules/Bill/business/Bill'
 import UContainer from '@/common/components/atoms/UContainer'
+import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
 
-interface BillSectionProps {
-  lang: Language
-}
+/**
+ * 首頁法案區塊呈現數量
+ */
+const BILL_SECTION_LIMIT = 10
 
-export default async function BillSection({ lang }: BillSectionProps) {
-  const { data } = await query<BillsQuery, BillsQueryVariables>({
-    query: QUERY_BILLS,
-    variables: {
-      where: {
-        isFeatured: {
-          equals: true,
-        },
-      },
-    },
+export default async function BillSection() {
+  const featuredBills = await ServerBillApi.getHomeFeaturedBills({
+    limit: BILL_SECTION_LIMIT,
   })
-
-  const featuredBills =
-    data?.Bills?.docs
-      ?.filter((bill) => !isNull(bill))
-      .map((bill) => BillUtils.parse(lang, bill)) ?? []
 
   return (
     <UContainer>
