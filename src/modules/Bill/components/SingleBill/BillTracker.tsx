@@ -1,4 +1,3 @@
-'use client'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { TrackerIcon } from '@/common/styles/assets/Icons'
 import { Box } from '@mui/material'

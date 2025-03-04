@@ -1,4 +1,5 @@
 'use client'
+
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { SponsorIcon } from '@/common/styles/assets/Icons'
 import { Box, Stack, Typography } from '@mui/material'

@@ -31,6 +31,9 @@ const BillCardsSkeleton = () => {
   )
 }
 
+/** 法案列表呈現數量 */
+const BILL_LIST_COUNT = 10
+
 export default function BillList() {
   const router = useRouter()
   const { lang } = useParams<{ lang: Language }>()
@@ -57,7 +60,7 @@ export default function BillList() {
     Pick<BillsFilterQueryVariables, 'limit' | 'page'>
   >(() => {
     return {
-      limit: 10,
+      limit: BILL_LIST_COUNT,
       page,
     }
   }, [page])

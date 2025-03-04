@@ -1,5 +1,3 @@
-'use client'
-
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { StarsIcon } from '@/common/styles/assets/Icons'
 import { Typography } from '@mui/material'

@@ -5,6 +5,7 @@ import { Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
 
+/** 熱門標籤呈現數量 */
 const POPULAR_TAGS_COUNT = 10
 
 export default async function PopularTags() {

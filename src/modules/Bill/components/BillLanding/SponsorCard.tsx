@@ -60,10 +60,7 @@ function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
 }
 
 type SponsorCardProps = {
-  sponsorsData: Array<{
-    people: People
-    billCount: number
-  }>
+  sponsorsData: Array<SponsorRowData>
   isCosponsor?: boolean
 }
 

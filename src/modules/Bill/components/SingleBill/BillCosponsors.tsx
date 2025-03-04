@@ -1,4 +1,5 @@
 'use client'
+
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { CosponsorsIcon } from '@/common/styles/assets/Icons'
 import CosponsorChart from '@/modules/Bill/components/SingleBill/CosponsorChart'

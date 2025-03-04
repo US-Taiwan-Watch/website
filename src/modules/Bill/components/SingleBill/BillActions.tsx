@@ -1,4 +1,5 @@
 'use client'
+
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { ActionsIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography } from '@mui/material'
