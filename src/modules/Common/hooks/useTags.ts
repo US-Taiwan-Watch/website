@@ -6,7 +6,7 @@ import {
   TagsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { QUERY_TAGS } from '@/modules/Common/graphql/gql'
-import TagUtils from '@/modules/Common/Tag.utils'
+import TagUtils from '@/modules/Common/business/Tag'
 import { isNull, isUndefined } from 'lodash-es'
 
 export default function useTags() {

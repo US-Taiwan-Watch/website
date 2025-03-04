@@ -15,7 +15,7 @@ import { useQuery } from '@apollo/client'
 import { isNull } from 'lodash-es'
 import { QUERY_CATEGORIES_ARTICLES } from '@/modules/Article/graphql/gql'
 import { ArticleCategoryUtils } from '@/modules/Article/business/ArticleCategory'
-import TagUtils from '@/modules/Common/Tag.utils'
+import TagUtils from '@/modules/Common/business/Tag'
 
 export default function ArticleStoreProvider() {
   const { lang } = useParams<{ lang: Language }>()

@@ -1,6 +1,6 @@
 import createSelectors from '@/common/lib/zustand/hooks/createSelectors'
 import { ArticleCategory } from '@/modules/Article/business/ArticleCategory'
-import { Tag } from '@/modules/Common/Tag.utils'
+import { Tag } from '@/modules/Common/business/Tag'
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 

@@ -20,7 +20,7 @@ import {
   QUERY_BILLS,
 } from '@/modules/Bill/graphql/gql'
 import apiConfig from '@/modules/Common/api/ApiConfig'
-import TagUtils from '@/modules/Common/Tag.utils'
+import TagUtils from '@/modules/Common/business/Tag'
 import { PeopleUtils } from '@/modules/People/business/People'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 

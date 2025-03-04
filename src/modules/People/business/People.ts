@@ -19,7 +19,7 @@ import {
   taiwanRecordSchema,
   TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
-import TagUtils, { tagSchema } from '@/modules/Common/Tag.utils'
+import TagUtils, { tagSchema } from '@/modules/Common/business/Tag'
 
 export interface PartyExperience {
   party: Party
