@@ -38,7 +38,7 @@ const ArticlePostRelatedPosts = ({
         />
       </UHStack>
 
-      <ArticlePostCards articles={articles} pagination={false} />
+      <ArticlePostCards articles={articles} />
     </Stack>
   )
 }

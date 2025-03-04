@@ -58,7 +58,7 @@ const BillInfoSection = memo(function BillInfoSection({
         </UHStack>
         <Typography variant="h4">{bill.title}</Typography>
         <Stack direction="row" gap={1} flexWrap="wrap">
-          {bill.tags?.map((tag) => <UHashTag key={tag} value={tag} />)}
+          {bill.tags?.map((tag) => <UHashTag key={tag.id} value={tag.name} />)}
         </Stack>
       </StyledInfoContainer>
 
