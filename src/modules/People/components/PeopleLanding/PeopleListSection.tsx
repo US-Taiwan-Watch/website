@@ -6,7 +6,9 @@ import Stack from '@mui/material/Stack'
 import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
-import PeopleCard from '@/modules/People/components/PeopleCard'
+import PeopleCard, {
+  PeopleCardSkeleton,
+} from '@/modules/People/components/PeopleCard'
 import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
@@ -28,6 +30,18 @@ import { ROUTES } from '@/routes'
 import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
 import { PeopleCategoryEnum } from '@/modules/People/components/PeopleFilter/enums'
 import { PeopleCategory } from '@/modules/People/business/PeopleCategory'
+
+const PeopleCardsSkeleton = () => {
+  return (
+    <Grid container spacing={2}>
+      {Array.from({ length: 10 }).map((_, index) => (
+        <Grid key={index} size={6}>
+          <PeopleCardSkeleton />
+        </Grid>
+      ))}
+    </Grid>
+  )
+}
 
 interface PeopleListSectionProps {
   lang: Language
@@ -79,7 +93,7 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
     Omit<PeoplesFilterQueryVariables, 'limit' | 'page'>
   >({})
 
-  const [getPeoples, { data }] = useLazyQuery<
+  const [getPeoples, { data, loading }] = useLazyQuery<
     PeoplesFilterQuery,
     PeoplesFilterQueryVariables
   >(QUERY_PEOPLE_FILTER)
@@ -152,16 +166,20 @@ const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
           onSubmit={(filter) => onFilterSubmit(filter, categoriesPeopleMap)}
           initialValues={filterInitValues}
         />
-        <Box>
-          <Grid container spacing={2}>
-            {peoples.map((people) => (
-              <Grid key={people.id} size={6}>
-                <PeopleCard people={people} simplified />
-              </Grid>
-            ))}
-          </Grid>
+        <Box width="100%">
+          {loading ? (
+            <PeopleCardsSkeleton />
+          ) : (
+            <Grid container spacing={2}>
+              {peoples.map((people) => (
+                <Grid key={people.id} size={6}>
+                  <PeopleCard people={people} simplified />
+                </Grid>
+              ))}
+            </Grid>
+          )}
         </Box>
-        {totalPages > 1 && (
+        {!loading && totalPages > 1 && (
           <UPagination
             count={totalPages}
             page={page}

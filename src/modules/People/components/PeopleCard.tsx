@@ -2,7 +2,7 @@
 
 import { memo } from 'react'
 import { styled } from '@/common/lib/mui/theme'
-import { Box, Grid2 as Grid, Stack, Typography } from '@mui/material'
+import { Box, Grid2 as Grid, Skeleton, Stack, Typography } from '@mui/material'
 import Image from 'next/image'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
 import PeopleCongressTitle from '@/modules/People/components/PeopleCongressTitle'
@@ -13,6 +13,7 @@ import Link from 'next/link'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 import { People, PeopleUtils } from '@/modules/People/business/People'
+import UHStack from '@/common/components/atoms/UHStack'
 
 const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
   height: '100%',
@@ -120,3 +121,24 @@ const PeopleCard = memo(function PeopleCard({
 })
 
 export default PeopleCard
+
+export const PeopleCardSkeleton = () => {
+  return (
+    <StyledPeopleCardContainer>
+      <UHStack gap={3} height={'100%'}>
+        <Skeleton variant="rounded" height={150} width={100} />
+        <Stack height={150} flexGrow={1} gap={1}>
+          <Skeleton variant="rounded" height={24} width={'100%'} />
+          <Skeleton
+            variant="rounded"
+            sx={{
+              flex: 1,
+            }}
+            width={'100%'}
+          />
+          <Skeleton variant="rounded" height={24} width={'100%'} />
+        </Stack>
+      </UHStack>
+    </StyledPeopleCardContainer>
+  )
+}

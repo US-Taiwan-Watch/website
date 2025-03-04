@@ -10,7 +10,7 @@ import {
 import { Language } from '@/common/lib/i18n/types'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import { BillsFilterUtils } from '@/modules/Bill/business/BillsFilter'
-import BillCard from '@/modules/Bill/components/BillCard'
+import BillCard, { BillCardSkeleton } from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
 import { BillFilterOutput } from '@/modules/Bill/components/BillFilter/schema'
 import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
@@ -20,6 +20,16 @@ import { Stack } from '@mui/material'
 import { isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
 import { useCallback, useMemo, useEffect, useState } from 'react'
+
+const BillCardsSkeleton = () => {
+  return (
+    <>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <BillCardSkeleton key={index} mode="horizontal" />
+      ))}
+    </>
+  )
+}
 
 export default function BillList() {
   const router = useRouter()
@@ -55,7 +65,7 @@ export default function BillList() {
     Omit<BillsFilterQueryVariables, 'limit' | 'page'>
   >({})
 
-  const [getBills, { data }] = useLazyQuery<
+  const [getBills, { data, loading }] = useLazyQuery<
     BillsFilterQuery,
     BillsFilterQueryVariables
   >(QUERY_BILL_FILTER)
@@ -103,17 +113,19 @@ export default function BillList() {
     })
   }, [paginationVariables, filterVariables, getBills])
 
-  // TODO: loading skeleton
-
   return (
     <Stack width="100%" gap={7} alignItems="center" pb={10}>
       <BillFilter onSubmit={onFilterSubmit} initialValues={filterInitValues} />
       <Stack width="100%" gap={2}>
-        {bills.map((bill, index) => (
-          <BillCard key={index} mode="horizontal" bill={bill} />
-        ))}
+        {loading ? (
+          <BillCardsSkeleton />
+        ) : (
+          bills.map((bill, index) => (
+            <BillCard key={index} mode="horizontal" bill={bill} />
+          ))
+        )}
       </Stack>
-      {totalPages > 1 && (
+      {!loading && totalPages > 1 && (
         <UPagination
           count={totalPages}
           page={page}
