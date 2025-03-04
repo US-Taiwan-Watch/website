@@ -6,7 +6,14 @@ import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import UTimeline from '@/common/components/atoms/UTimeline'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
-import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
+import {
+  Box,
+  Divider,
+  Skeleton,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
@@ -147,6 +154,35 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               />
             </Box>
           </StyledTimelineContainer>
+        )}
+      </UHStack>
+    </StyledCardContainer>
+  )
+}
+
+export const BillCardSkeleton = ({
+  mode,
+}: {
+  mode: 'horizontal' | 'vertical'
+}) => {
+  const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
+
+  return (
+    <StyledCardContainer>
+      <UHStack gap={4} alignItems="start">
+        <Stack flexGrow={1} gap={2} height={150}>
+          <Skeleton variant="rounded" height={24} width={'100%'} />
+          <Skeleton
+            variant="rounded"
+            sx={{
+              flex: 1,
+            }}
+            width={'100%'}
+          />
+          <Skeleton variant="rounded" height={24} width={'100%'} />
+        </Stack>
+        {isHorizontal && (
+          <Skeleton variant="rounded" height={150} width={'30%'} />
         )}
       </UHStack>
     </StyledCardContainer>

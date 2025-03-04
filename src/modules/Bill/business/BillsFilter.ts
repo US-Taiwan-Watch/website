@@ -31,9 +31,7 @@ export class BillsFilterUtils {
     return {
       ...(filter.category &&
         filter.category.length > 0 && {
-          categories: {
-            in: filter.category,
-          },
+          categories: filter.category,
         }),
       ...(filter.party &&
         filter.party.length > 0 && {
