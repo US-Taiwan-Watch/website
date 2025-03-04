@@ -2,8 +2,8 @@ import { Text } from 'slate'
 import { ReactNode } from 'react'
 import Typography from '@mui/material/Typography'
 import {
-  Article,
-  Bill as BillDTO,
+  Article as ApiArticle,
+  Bill as ApiBill,
 } from '@/common/lib/graphql/__generated__/graphql'
 import HyperLinkTooltip from '@/modules/Article/components/ArticlePost/Content/HyperLinkTooltip'
 import Link from 'next/link'
@@ -33,11 +33,11 @@ type BaseText = {
 export type LinkDoc =
   | {
       relationTo: 'bills'
-      value: BillDTO
+      value: ApiBill
     }
   | {
       relationTo: 'articles'
-      value: Article
+      value: ApiArticle
     }
 const getHyperLinkTooltipCardProps = (
   lang: Language,

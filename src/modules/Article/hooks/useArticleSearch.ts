@@ -34,6 +34,7 @@ export default function useArticleSearch(categoryId: string) {
   >(QUERY_ARTICLES, {
     variables: queryVariables,
   })
+
   const articles = useMemo(() => {
     if (!data?.Articles) return []
     return (
