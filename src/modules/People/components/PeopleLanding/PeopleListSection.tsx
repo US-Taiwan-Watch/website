@@ -23,7 +23,7 @@ import { useLazyQuery } from '@apollo/client'
 import { QUERY_PEOPLE_FILTER } from '@/modules/People/graphql/gql'
 import { PeopleUtils } from '@/modules/People/business/People'
 import { isNull, isNumber } from 'lodash-es'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { PeopleFilterOutput } from '@/modules/People/components/PeopleFilter/schema'
 import { PeoplesFilterUtils } from '@/modules/People/business/PeoplesFilter'
 import { ROUTES } from '@/routes'
@@ -43,11 +43,8 @@ const PeopleCardsSkeleton = () => {
   )
 }
 
-interface PeopleListSectionProps {
-  lang: Language
-}
-
-const PeopleListSection = ({ lang }: PeopleListSectionProps) => {
+const PeopleListSection = () => {
+  const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const router = useRouter()
 
