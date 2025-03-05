@@ -56,8 +56,8 @@ function Carousel({
     centerPadding: '16px',
     ..._settings,
     afterChange: (current) => {
-      setCurrentSlide(current)
-      _settings?.afterChange?.(current)
+      setCurrentSlide(current ?? 0)
+      _settings?.afterChange?.(current ?? 0)
     },
   }
 

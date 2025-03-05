@@ -13,3 +13,5 @@ yarn.lock
 .gitignore
 .graphql
 src/common/lib/graphql/__generated__/**
+Dockerfile
+**/*.yml
