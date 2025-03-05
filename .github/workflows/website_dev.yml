@@ -39,11 +39,11 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.ACR_LOGIN_SERVER_DEV }}/nextjs-app:${{ github.sha }}
+        tags: ${{ secrets.ACR_LOGIN_SERVER_DEV }}/ustw-website-dev:${{ github.sha }}
     
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v2
       with:
         app-name: 'ustw-website-dev'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_DEV }}
-        images: '${{ secrets.ACR_LOGIN_SERVER_DEV }}/nextjs-app:${{ github.sha }}'
+        images: '${{ secrets.ACR_LOGIN_SERVER_DEV }}/ustw-website-dev:${{ github.sha }}'
