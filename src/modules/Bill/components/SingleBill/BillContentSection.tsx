@@ -1,11 +1,10 @@
-import { USTWTheme } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import BillActions from '@/modules/Bill/components/SingleBill/BillActions'
 import BillCosponsors from '@/modules/Bill/components/SingleBill/BillCosponsors'
 import BillTracker from '@/modules/Bill/components/SingleBill/BillTracker'
 import BioByAI from '@/modules/Bill/components/SingleBill/BioByAI'
 import Sponsor from '@/modules/Bill/components/SingleBill/Sponsor'
-import { Box, Grid2 as Grid, useTheme } from '@mui/material'
+import { Box, Grid2 as Grid } from '@mui/material'
 import { memo } from 'react'
 
 interface BillContentSectionProps {
@@ -15,10 +14,8 @@ interface BillContentSectionProps {
 const BillContentSection = memo(function BillContentSection({
   bill,
 }: BillContentSectionProps) {
-  const theme = useTheme<USTWTheme>()
-
   return (
-    <Box sx={{ paddingBottom: theme.spacing(5) }}>
+    <Box sx={{ pb: 5 }}>
       <Grid container spacing={2}>
         {/** Row 1 */}
         <Grid size={8.5}>

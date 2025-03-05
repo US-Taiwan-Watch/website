@@ -1,16 +1,17 @@
-'use client'
-
 import { Stack, Typography, Grid2 as Grid, Box } from '@mui/material'
 import PeopleCard from '@/modules/People/components/PeopleCard'
-import { People } from '@/modules/People/classes/People'
+import ServerPeopleApi from '@/modules/People/api/ServerPeopleApi'
 
-interface PopularPeopleSectionProps {
-  peoples: People[]
-}
+/**
+ * 熱門議員數量
+ */
+const POPULAR_PEOPLE_COUNT = 4
 
-export default function PopularPeopleSection({
-  peoples,
-}: PopularPeopleSectionProps) {
+export default async function PopularPeopleSection() {
+  const peoples = await ServerPeopleApi.getPopularPeople({
+    limit: POPULAR_PEOPLE_COUNT,
+  })
+
   return (
     <Stack spacing={6}>
       <Typography variant="h3">Popular People</Typography>

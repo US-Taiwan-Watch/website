@@ -1,3 +1,5 @@
+'use client'
+
 import UHStack from '@/common/components/atoms/UHStack'
 import { Party as PartyEnum } from '@/common/enums/Party'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'

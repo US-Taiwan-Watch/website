@@ -4,7 +4,7 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
-import Container from '@mui/material/Container'
+import UContainer from '@/common/components/atoms/UContainer'
 
 // TODO: 確認資料來源
 export const metadata: Metadata = {
@@ -40,7 +40,7 @@ export default function PeopleLayout({
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Container maxWidth="lg">{children}</Container>
+        <UContainer>{children}</UContainer>
       </ThemeProvider>
     </AppRouterCacheProvider>
   )

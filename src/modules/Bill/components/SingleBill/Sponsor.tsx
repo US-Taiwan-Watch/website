@@ -1,13 +1,15 @@
 'use client'
+
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { SponsorIcon } from '@/common/styles/assets/Icons'
 import { Box, Stack, Typography } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import UHStack from '@/common/components/atoms/UHStack'
 import Image from 'next/image'
 import Link from 'next/link'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
+import { PeopleUtils } from '@/modules/People/business/People'
 
 const StyledImageContainer = styled(Box)(() => ({
   position: 'relative',
@@ -39,7 +41,7 @@ export default function Sponsor({ bill }: Props) {
     >
       <UHStack pt={2} spacing={3}>
         {bill.sponsor?.image && (
-          <Link href={bill.sponsor?.link ?? ''}>
+          <Link href={bill.sponsor ? PeopleUtils.getLink(bill.sponsor) : '#'}>
             <StyledImageContainer>
               <StyledImage
                 src={bill.sponsor.image}
@@ -52,7 +54,7 @@ export default function Sponsor({ bill }: Props) {
 
         <Stack justifyContent="space-between">
           <Stack spacing={1}>
-            <Link href={bill.sponsor?.link ?? ''}>
+            <Link href={bill.sponsor ? PeopleUtils.getLink(bill.sponsor) : '#'}>
               <Typography variant="articleH3">{bill.sponsor?.name}</Typography>
             </Link>
             <Typography variant="body">{bill.sponsor?.position}</Typography>

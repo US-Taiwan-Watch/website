@@ -6,11 +6,11 @@ import UHashTag from '@/common/components/atoms/UHashTag'
 import UHStack from '@/common/components/atoms/UHStack'
 import { styled } from '@/common/lib/mui/theme'
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
 import TitleVersion from '@/modules/Bill/components/SingleBill/TitleVersion'
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
 
 const StyledInfoContainer = styled(Stack)(() => ({
   flex: 1,
@@ -45,18 +45,20 @@ const BillInfoSection = memo(function BillInfoSection({
             />
           )}
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix}${bill.number} | ${bill.congressNumber}th Congress`}
+            {`${BillUtils.getChamberPrefix(bill)}${bill.number} | ${bill.congressNumber}th Congress`}
             {bill.congressNumber &&
               (() => {
                 const [startYear, endYear] =
-                  Congress.getCongressYearsByCongressNumber(bill.congressNumber)
+                  CongressUtils.getCongressYearsByCongressNumber(
+                    bill.congressNumber
+                  )
                 return ` (${startYear}-${endYear})`
               })()}
           </Typography>
         </UHStack>
         <Typography variant="h4">{bill.title}</Typography>
         <Stack direction="row" gap={1} flexWrap="wrap">
-          {bill.tags?.map((tag) => <UHashTag key={tag} value={tag} />)}
+          {bill.tags?.map((tag) => <UHashTag key={tag.id} value={tag.name} />)}
         </Stack>
       </StyledInfoContainer>
 

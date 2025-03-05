@@ -12,7 +12,7 @@ import {
   ResponsiveChartContainer,
 } from '@mui/x-charts'
 import { useMemo, useState, useEffect } from 'react'
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
 
 const xLabelFormatter = (value: number | null) => (value ? `${value}th` : '')
 
@@ -31,12 +31,12 @@ export default function TrendBarCharts({
   onBarClick,
 }: TrendBarChartsProps) {
   const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
+    () => CongressUtils.getCurrentCongressNumber(),
     []
   )
   const theme = useTheme<USTWTheme>()
   const [congressRange, setCongressRange] = useState<number[]>([
-    Congress.minCongressNumber(),
+    CongressUtils.minCongressNumber(),
     currentCongressNumber,
   ])
   const [debouncedCongressRange, setDebouncedCongressRange] =
@@ -142,13 +142,13 @@ export default function TrendBarCharts({
           value={congressRange}
           onChange={handleSliderChange}
           valueLabelDisplay="auto"
-          min={Congress.minCongressNumber()}
+          min={CongressUtils.minCongressNumber()}
           max={currentCongressNumber}
           color="secondary"
           marks={[
             {
-              value: Congress.minCongressNumber(),
-              label: `${Congress.minCongressNumber()}th`,
+              value: CongressUtils.minCongressNumber(),
+              label: `${CongressUtils.minCongressNumber()}th`,
             },
             {
               value: currentCongressNumber,

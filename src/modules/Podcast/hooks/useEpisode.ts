@@ -1,3 +1,5 @@
+'use client'
+
 import { getEpisode } from '@/modules/Podcast/api/soundon'
 import { Episode } from '@/modules/Podcast/classes/Episode'
 import { useCallback, useEffect, useState } from 'react'

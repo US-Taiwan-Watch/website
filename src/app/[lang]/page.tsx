@@ -1,4 +1,4 @@
-import IndexKvCards from '@/common/components/elements/IndexOpinionCarousel'
+import IndexArticleCarousel from '@/common/components/elements/IndexArticleCarousel'
 import Stack from '@mui/material/Stack'
 import ArticleSection from '@/modules/LandingPage/components/ArticleSection'
 import KetagalanSection from '@/modules/LandingPage/components/KetagalanSection'
@@ -10,7 +10,7 @@ import { SECTION_OVERLAP_PX } from '@/modules/LandingPage/constants'
 export default function Home() {
   return (
     <Stack alignContent="center" justifyContent="center">
-      <IndexKvCards />
+      <IndexArticleCarousel />
       <BillSection />
       <ArticleSection />
       <Stack

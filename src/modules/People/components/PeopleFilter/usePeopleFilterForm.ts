@@ -6,10 +6,14 @@ import {
   type PeopleFilterInput,
 } from '@/modules/People/components/PeopleFilter/schema'
 
-export default function usePeopleFilterForm() {
+export default function usePeopleFilterForm({
+  initialValues,
+}: {
+  initialValues?: PeopleFilterInput
+}) {
   const form = useForm<PeopleFilterInput>({
     resolver: zodResolver(peopleFilterSchema),
-    defaultValues: {},
+    defaultValues: initialValues,
     mode: 'onSubmit',
   })
 

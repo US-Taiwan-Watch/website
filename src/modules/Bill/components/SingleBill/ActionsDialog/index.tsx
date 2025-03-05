@@ -4,7 +4,7 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { ActionsIcon } from '@/common/styles/assets/Icons'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import {

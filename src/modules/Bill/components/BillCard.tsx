@@ -5,8 +5,15 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import UTimeline from '@/common/components/atoms/UTimeline'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
-import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
+import {
+  Box,
+  Divider,
+  Skeleton,
+  Stack,
+  Typography,
+  useTheme,
+} from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
@@ -43,9 +50,11 @@ export default function BillCard({ mode, simplified, bill }: Props) {
   const theme = useTheme<USTWTheme>()
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
+  const latestAction = BillUtils.getLatestAction(bill)
 
   return (
     <StyledCardContainer
+      width={isHorizontal ? '100%' : 'auto'}
       height={isHorizontal || simplified ? 'auto' : 500}
       sx={{
         border: isHorizontal ? 'none' : `1px solid ${theme.color.grey[1600]}`,
@@ -65,10 +74,10 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${bill.chamberPrefix}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
+            {`${BillUtils.getChamberPrefix(bill)}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
           </Typography>
 
-          <Link href={bill.link}>
+          <Link href={BillUtils.getLink(bill)}>
             <UHeightLimitedText
               maxLine={4}
               variant="subtitleL"
@@ -82,10 +91,10 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           {!isHorizontal && (
             <Box mx={-2} mt={4}>
               <UTimeline
-                data={Bill.getAllBillStatuses(bill).map((status) => ({
-                  title: Bill.GetBillStatusText(status),
+                data={BillUtils.getAllBillStatuses(bill).map((status) => ({
+                  title: BillUtils.getBillStatusText(status),
                 }))}
-                activeIndex={Bill.getStatusIndex(bill)}
+                activeIndex={BillUtils.getStatusIndex(bill)}
                 isHorizontal
               />
             </Box>
@@ -111,13 +120,12 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                   variant="buttonS"
                   {...(isHorizontal && { color: theme.color.grey[400] })}
                 >
-                  {bill.latestAction?.date &&
-                  dayjs(bill.latestAction.date).isValid()
-                    ? dayjs(bill.latestAction.date).format(DATE_FORMAT)
+                  {latestAction.date && dayjs(latestAction.date).isValid()
+                    ? dayjs(latestAction.date).format(DATE_FORMAT)
                     : ''}
                 </Typography>
                 <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
-                  {bill.latestAction?.description}
+                  {latestAction.description}
                 </UHeightLimitedText>
               </Stack>
             </>
@@ -128,15 +136,17 @@ export default function BillCard({ mode, simplified, bill }: Props) {
           <StyledTimelineContainer>
             <UTimeline
               itemMinHeight={50}
-              data={Bill.getAllBillStatuses(bill).map((status) => ({
-                title: Bill.GetBillStatusText(status),
+              data={BillUtils.getAllBillStatuses(bill).map((status) => ({
+                title: BillUtils.getBillStatusText(status),
               }))}
-              activeIndex={Bill.getStatusIndex(bill)}
+              activeIndex={BillUtils.getStatusIndex(bill)}
             />
             <Box>
               <UCardInfo
-                content={Bill.GetBillStatusText(
-                  Bill.getAllBillStatuses(bill)[Bill.getStatusIndex(bill)]
+                content={BillUtils.getBillStatusText(
+                  BillUtils.getAllBillStatuses(bill)[
+                    BillUtils.getStatusIndex(bill)
+                  ]
                 )}
                 iconProps={{
                   sx: { color: theme.color.neutral[300] },
@@ -144,6 +154,35 @@ export default function BillCard({ mode, simplified, bill }: Props) {
               />
             </Box>
           </StyledTimelineContainer>
+        )}
+      </UHStack>
+    </StyledCardContainer>
+  )
+}
+
+export const BillCardSkeleton = ({
+  mode,
+}: {
+  mode: 'horizontal' | 'vertical'
+}) => {
+  const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
+
+  return (
+    <StyledCardContainer>
+      <UHStack gap={4} alignItems="start">
+        <Stack flexGrow={1} gap={2} height={150}>
+          <Skeleton variant="rounded" height={24} width={'100%'} />
+          <Skeleton
+            variant="rounded"
+            sx={{
+              flex: 1,
+            }}
+            width={'100%'}
+          />
+          <Skeleton variant="rounded" height={24} width={'100%'} />
+        </Stack>
+        {isHorizontal && (
+          <Skeleton variant="rounded" height={150} width={'30%'} />
         )}
       </UHStack>
     </StyledCardContainer>

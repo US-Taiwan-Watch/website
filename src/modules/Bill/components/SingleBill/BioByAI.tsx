@@ -1,10 +1,8 @@
-'use client'
-
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { StarsIcon } from '@/common/styles/assets/Icons'
 import { Typography } from '@mui/material'
-import { Bill } from '@/modules/Bill/classes/Bill'
 import CardExpandButton from '@/modules/Bill/components/SingleBill/CardExpandButton'
+import { Bill } from '@/modules/Bill/business/Bill'
 
 type Props = {
   bill: Bill

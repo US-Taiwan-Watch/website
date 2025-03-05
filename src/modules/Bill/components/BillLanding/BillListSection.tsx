@@ -8,21 +8,24 @@ import BillCardCarousel from '@/modules/Bill/components/BillCardCarousel'
 import { Stack } from '@mui/material'
 import { ROUTES } from '@/routes'
 import { BillSorterEnum } from '@/modules/Bill/components/BillFilter/enums'
-import { useParams } from 'next/navigation'
-import { Language } from '@/common/lib/i18n/types'
-import { getLatestBills, getPopularBills } from '@/modules/Bill/data'
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
 import { useMemo } from 'react'
+import { Bill } from '@/modules/Bill/business/Bill'
 
-const BillListSection = () => {
+interface BillListSectionProps {
+  latestBills: Bill[]
+  popularBills: Bill[]
+}
+
+const BillListSection = ({
+  latestBills,
+  popularBills,
+}: BillListSectionProps) => {
   const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
+    () => CongressUtils.getCurrentCongressNumber(),
     []
   )
   const theme = useTheme<USTWTheme>()
-  const { lang } = useParams<{ lang: Language }>()
-  const latestBills = getLatestBills(lang)
-  const popularBills = getPopularBills(lang)
 
   return (
     <LandingSectionWrapper

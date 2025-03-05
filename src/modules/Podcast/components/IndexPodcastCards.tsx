@@ -1,5 +1,6 @@
 'use client'
 
+import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import Carousel from '@/common/components/elements/Carousel'
 import {
@@ -7,7 +8,6 @@ import {
   WatchHerePodcastCard,
   WatchInfoPodcastCard,
 } from '@/modules/Podcast/components/IndexPodcastCard'
-import { Container } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
@@ -24,7 +24,7 @@ const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
 const IndexPodcastCards = () => {
   return (
     <StyledUFullWidthBackgroundBox>
-      <Container maxWidth="lg">
+      <UContainer>
         <Carousel
           centerMode
           settings={{
@@ -37,7 +37,7 @@ const IndexPodcastCards = () => {
           <WatchInfoPodcastCard />
           <WatchBookClubPodcastCard />
         </Carousel>
-      </Container>
+      </UContainer>
     </StyledUFullWidthBackgroundBox>
   )
 }

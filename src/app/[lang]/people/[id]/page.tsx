@@ -1,13 +1,10 @@
-'use client' // for importing mock people data
-
 import PeopleInfoSection from '@/modules/People/components/PeopleTracker/PeopleInfoSection'
 import { Stack } from '@mui/material'
 import PeopleContentSection from '@/modules/People/components/PeopleTracker/PeopleContentSection'
 import TaiwanRecordSection from '@/modules/People/components/PeopleTracker/TaiwanRecordSection'
-import { findPeople } from '@/modules/People/data'
-import { People } from '@/modules/People/classes/People'
 import { Language } from '@/common/lib/i18n/types'
 import { notFound } from 'next/navigation'
+import ServerPeopleApi from '@/modules/People/api/ServerPeopleApi'
 
 interface PeopleTrackerProps {
   params: {
@@ -16,10 +13,10 @@ interface PeopleTrackerProps {
   }
 }
 
-export default function PeopleTracker({ params }: PeopleTrackerProps) {
-  const dto = findPeople(params.id)
-  if (!dto) return notFound()
-  const people = People.fromDTO(params.lang, dto)
+export default async function PeopleTracker({ params }: PeopleTrackerProps) {
+  const people = await ServerPeopleApi.getPeople({ id: params.id })
+
+  if (!people) notFound()
 
   return (
     <Stack gap={6}>
@@ -30,7 +27,7 @@ export default function PeopleTracker({ params }: PeopleTrackerProps) {
       <PeopleContentSection people={people} />
 
       {/** Taiwan Record Section */}
-      <TaiwanRecordSection />
+      <TaiwanRecordSection people={people} />
     </Stack>
   )
 }

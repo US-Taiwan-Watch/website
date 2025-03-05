@@ -1,6 +1,6 @@
 'use client'
 
-import { Container, Stack, StackProps } from '@mui/material'
+import { BoxProps, Container, Stack, StackProps } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
@@ -9,6 +9,7 @@ import { ReactNode } from 'react'
 type Props = {
   backgroundColor?: string
   children: ReactNode
+  containerSx?: BoxProps['sx']
   contentWrapperSx?: StackProps['sx']
   /**
    * 是否與 Header 同寬
@@ -19,6 +20,7 @@ type Props = {
 
 const LandingSectionWrapper = ({
   backgroundColor,
+  containerSx,
   contentWrapperSx,
   isHeaderWidth = false,
   children,
@@ -30,6 +32,7 @@ const LandingSectionWrapper = ({
       backgroundColor={backgroundColor ?? theme.color.neutral[100]}
       containerSx={{
         borderRadius: '30px 30px 0 0',
+        ...containerSx,
       }}
     >
       <Container maxWidth={isHeaderWidth ? 'xl' : 'lg'}>

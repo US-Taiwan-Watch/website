@@ -4,7 +4,7 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { CosponsorsIcon } from '@/common/styles/assets/Icons'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Grid2, useTheme } from '@mui/material'
@@ -13,7 +13,7 @@ import useDialogFilter from '@/modules/Bill/components/SingleBill/CosponsorDialo
 import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorDialog/CosponsorTable'
 import { useMemo } from 'react'
 import { createFilterCategories } from '@/modules/Bill/components/SingleBill/CosponsorDialog/utils'
-import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
+import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
 
 type Props = {
   bill: Bill
@@ -31,7 +31,7 @@ export default function CosponsorDialog({
   const filterCategories = useMemo(() => createFilterCategories(bill), [bill])
 
   const cosponsors = useMemo<BillCosponsor[]>(() => {
-    return (bill.cosponsors ?? []).filter(({ people, constituency }) => {
+    return bill.cosponsors.filter(({ people, constituency }) => {
       const partyMatch =
         selectedOptionList.party.length && people?.party
           ? selectedOptionList.party.includes(people.party)

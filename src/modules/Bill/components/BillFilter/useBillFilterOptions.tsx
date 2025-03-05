@@ -7,14 +7,19 @@ import {
   BillStatusEnum,
   BillSorterEnum,
 } from '@/modules/Bill/components/BillFilter/enums'
-import { getAllTags, getCategoriesBills } from '@/modules/Bill/data'
-import { Bill } from '@/modules/Bill/classes/Bill'
 import { useParams } from 'next/navigation'
 import { useMemo } from 'react'
-import { findAllPeople } from '@/modules/People/data'
-import { People } from '@/modules/People/classes/People'
-import TagUtils from '@/modules/Common/Tag.utils'
-import { Congress } from '@/common/classes/Congress'
+import useCategoriesBills from '@/modules/Bill/hooks/useCategoriesBills'
+import { CongressUtils } from '@/common/business/Congress'
+import { useQuery } from '@apollo/client'
+import { QUERY_BILL_FILTER_SPONSORS } from '@/modules/Bill/graphql/gql'
+import {
+  BillFilterSponsorsQuery,
+  BillFilterSponsorsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { isNull } from 'lodash-es'
+import { PeopleUtils } from '@/modules/People/business/People'
+import useTags from '@/modules/Common/hooks/useTags'
 
 export type BillFilterOption<T> = {
   value: T
@@ -23,14 +28,16 @@ export type BillFilterOption<T> = {
 
 export default function useBillFilterOptions() {
   const { lang } = useParams<{ lang: Language }>()
-  const categoriesBills = useMemo(() => getCategoriesBills(), [])
+
+  const { categoriesBills } = useCategoriesBills(lang)
+
   const categoryOptions = useMemo<BillFilterOption<string>[]>(
     () =>
-      Bill.parseCategoriesBills(categoriesBills, lang).map((category) => ({
+      categoriesBills.map((category) => ({
         value: category.id,
         label: category.name,
       })),
-    [categoriesBills, lang]
+    [categoriesBills]
   )
 
   const partyOptions = useMemo<BillFilterOption<BillPartyEnum>[]>(
@@ -104,16 +111,16 @@ export default function useBillFilterOptions() {
   )
 
   const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
+    () => CongressUtils.getCurrentCongressNumber(),
     []
   )
   const congressOptions = useMemo<BillFilterOption<number>[]>(
     () =>
       Array.from(
         {
-          length: currentCongressNumber - Congress.minCongressNumber() + 1,
+          length: currentCongressNumber - CongressUtils.minCongressNumber() + 1,
         },
-        (_, i) => i + Congress.minCongressNumber()
+        (_, i) => i + CongressUtils.minCongressNumber()
       ).map((congress) => ({
         value: congress,
         label: congress.toString(),
@@ -121,17 +128,24 @@ export default function useBillFilterOptions() {
     [currentCongressNumber]
   )
 
-  const sponsorsOptions = useMemo<BillFilterOption<string>[]>(
-    () =>
-      findAllPeople().map((dto) => {
-        const people = People.fromDTO(lang, dto)
-        return {
-          value: people.id ?? '',
-          label: people.name ?? '',
-        }
-      }),
-    [lang]
-  )
+  // TODO: autocomplete sponsors
+  const { data: sponsorsData } = useQuery<
+    BillFilterSponsorsQuery,
+    BillFilterSponsorsQueryVariables
+  >(QUERY_BILL_FILTER_SPONSORS)
+
+  const sponsorsOptions = useMemo<BillFilterOption<string>[]>(() => {
+    if (!sponsorsData?.Peoples) return []
+    return (
+      sponsorsData.Peoples.docs
+        ?.filter((sponsor) => !isNull(sponsor))
+        .map((sponsor) => PeopleUtils.parse(lang, sponsor))
+        .map((sponsor) => ({
+          value: sponsor.id ?? '',
+          label: sponsor.name ?? '',
+        })) ?? []
+    )
+  }, [sponsorsData, lang])
 
   const cosponsorsOptions = useMemo(() => sponsorsOptions, [sponsorsOptions])
 
@@ -143,13 +157,15 @@ export default function useBillFilterOptions() {
     []
   )
 
+  const { tags } = useTags()
+
   const tagOptions = useMemo<BillFilterOption<string>[]>(
     () =>
-      (getAllTags()?.docs ?? []).map((tag) => ({
+      tags.map((tag) => ({
         value: tag?.id ?? '',
-        label: TagUtils.parseTagName(lang, tag) ?? '',
+        label: tag?.name ?? '',
       })),
-    [lang]
+    [tags]
   )
 
   return {

@@ -1,13 +1,18 @@
+'use client'
+
 import { useMemo } from 'react'
 import {
   PeopleCompanyTypeEnum,
   PeopleOfficialAreaEnum,
-  PeopleCategoryEnum,
   PeoplePartyEnum,
 } from '@/modules/People/components/PeopleFilter/enums'
 import states from '@/common/assets/states'
 import territoriesRegions from '@/common/assets/territories-regions'
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
+import useTags from '@/modules/Common/hooks/useTags'
+import { Language } from '@/common/lib/i18n/types'
+import { useParams } from 'next/navigation'
+import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
 
 export type PeopleFilterOption<T> = {
   value: T
@@ -15,18 +20,17 @@ export type PeopleFilterOption<T> = {
 }
 
 export default function usePeopleFilterOptions() {
-  const categoryOptions = useMemo<PeopleFilterOption<PeopleCategoryEnum>[]>(
-    () => [
-      { value: PeopleCategoryEnum.Senator, label: 'Senator' },
-      {
-        value: PeopleCategoryEnum.HouseRepresentative,
-        label: 'House Representative',
-      },
-      { value: PeopleCategoryEnum.Official, label: 'Official' },
-      { value: PeopleCategoryEnum.Expert, label: 'Expert' },
-      { value: PeopleCategoryEnum.Other, label: 'Other' },
-    ],
-    []
+  const { lang } = useParams<{ lang: Language }>()
+
+  const { categoriesPeople } = useCategoriesPeople(lang)
+
+  const categoryOptions = useMemo<PeopleFilterOption<string>[]>(
+    () =>
+      categoriesPeople.map((category) => ({
+        value: category.type,
+        label: category.name,
+      })),
+    [categoriesPeople]
   )
 
   const partyOptions = useMemo<PeopleFilterOption<PeoplePartyEnum>[]>(
@@ -39,15 +43,17 @@ export default function usePeopleFilterOptions() {
   )
 
   const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
+    () => CongressUtils.getCurrentCongressNumber(),
     []
   )
 
   const congressOptions = useMemo<PeopleFilterOption<number>[]>(
     () =>
       Array.from(
-        { length: currentCongressNumber - Congress.minCongressNumber() + 1 },
-        (_, i) => i + Congress.minCongressNumber()
+        {
+          length: currentCongressNumber - CongressUtils.minCongressNumber() + 1,
+        },
+        (_, i) => i + CongressUtils.minCongressNumber()
       ).map((congress) => ({
         value: congress,
         label: congress.toString(),
@@ -56,15 +62,19 @@ export default function usePeopleFilterOptions() {
   )
 
   const stateOptions = useMemo<PeopleFilterOption<string>[]>(
-    () => states.map((state) => ({ value: state, label: state })),
+    () =>
+      Object.entries(states).map(([key, value]) => ({
+        value,
+        label: key,
+      })),
     []
   )
 
   const territoryRegionOptions = useMemo<PeopleFilterOption<string>[]>(
     () =>
-      territoriesRegions.map((territoryRegion) => ({
-        value: territoryRegion,
-        label: territoryRegion,
+      Object.entries(territoriesRegions).map(([key, value]) => ({
+        value,
+        label: key,
       })),
     []
   )
@@ -74,19 +84,23 @@ export default function usePeopleFilterOptions() {
     [stateOptions, territoryRegionOptions]
   )
 
-  // TODO: 確認 district 怎麼來
-  const districtOptions = useMemo<PeopleFilterOption<string>[]>(() => [], [])
-
-  // TODO: 確認 tag 怎麼來
-  const tagOptions = useMemo<PeopleFilterOption<string>[]>(() => [], [])
+  const { tags } = useTags()
+  const tagOptions = useMemo<PeopleFilterOption<string>[]>(
+    () =>
+      tags.map((tag) => ({
+        value: tag?.id ?? '',
+        label: tag?.name ?? '',
+      })),
+    [tags]
+  )
 
   const officialAreaOptions = useMemo<
     PeopleFilterOption<PeopleOfficialAreaEnum>[]
   >(
     () => [
       {
-        value: PeopleOfficialAreaEnum.TradeEconomy,
-        label: 'Trade & Economy',
+        value: PeopleOfficialAreaEnum.ExecutiveAuthority,
+        label: 'Executive Authority',
       },
       {
         value: PeopleOfficialAreaEnum.DefenseSecurity,
@@ -95,7 +109,6 @@ export default function usePeopleFilterOptions() {
       { value: PeopleOfficialAreaEnum.Diplomacy, label: 'Diplomacy' },
       { value: PeopleOfficialAreaEnum.PublicHealth, label: 'Public Health' },
       { value: PeopleOfficialAreaEnum.Judicial, label: 'Judicial' },
-      { value: PeopleOfficialAreaEnum.Other, label: 'Other' },
     ],
     []
   )
@@ -119,7 +132,6 @@ export default function usePeopleFilterOptions() {
     stateOptions,
     territoryRegionOptions,
     stateOrTerritoryOptions,
-    districtOptions,
     tagOptions,
     officialAreaOptions,
     companyTypeOptions,
