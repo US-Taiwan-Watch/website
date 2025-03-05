@@ -1,18 +1,17 @@
-'use client'
-
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UHStack from '@/common/components/atoms/UHStack'
-import { Language } from '@/common/lib/i18n/types'
-import { getBillTopTags } from '@/modules/Bill/data'
-import TagUtils from '@/modules/Common/Tag.utils'
 import { ROUTES } from '@/routes'
 import { Stack, Typography } from '@mui/material'
 import Link from 'next/link'
-import { useParams } from 'next/navigation'
+import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
 
-export default function PopularTags() {
-  const { lang } = useParams<{ lang: Language }>()
-  const topTags = getBillTopTags()
+/** 熱門標籤呈現數量 */
+const POPULAR_TAGS_COUNT = 10
+
+export default async function PopularTags() {
+  const topTags = await ServerBillApi.getPopularTags({
+    limit: POPULAR_TAGS_COUNT,
+  })
 
   return (
     <Stack px={2} spacing={2}>
@@ -28,10 +27,7 @@ export default function PopularTags() {
             }}
             key={index}
           >
-            <UCategoryChip
-              label={TagUtils.parseTagName(lang, tag)}
-              size="medium"
-            />
+            <UCategoryChip label={tag.name} size="medium" />
           </Link>
         ))}
       </UHStack>

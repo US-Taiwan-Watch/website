@@ -25332,6 +25332,7 @@ input Bill_filter_where {
   sponsor__people: Bill_filter_sponsor__people_operator
   cosponsors__people: Bill_filter_cosponsors__people_operator
   tags: Bill_filter_tags_operator
+  categories: Bill_filter_categories_operator
 }
 
 input Bill_filter_sponsor__party_operator {
@@ -25359,6 +25360,10 @@ input Bill_filter_cosponsors__people_operator {
 }
 
 input Bill_filter_tags_operator {
+  in: [JSON]
+}
+
+input Bill_filter_categories_operator {
   in: [JSON]
 }
 

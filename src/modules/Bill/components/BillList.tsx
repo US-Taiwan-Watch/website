@@ -1,47 +1,105 @@
 'use client'
 
-import UPagination from '@/common/components/atoms/UPagination'
-import { Language } from '@/common/lib/i18n/types'
-import { Bill } from '@/modules/Bill/classes/Bill'
-import BillCard from '@/modules/Bill/components/BillCard'
-import BillFilter from '@/modules/Bill/components/BillFilter'
+import UPagination, {
+  usePagination,
+} from '@/common/components/atoms/UPagination'
 import {
-  billFilterSchema,
-  BillFilterInput,
-  BillFilterOutput,
-} from '@/modules/Bill/components/BillFilter/schema'
-import { BILL_DTO_MOCK } from '@/modules/Bill/dtoData'
+  BillsFilterQuery,
+  BillsFilterQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
+import { BillUtils } from '@/modules/Bill/business/Bill'
+import { BillsFilterUtils } from '@/modules/Bill/business/BillsFilter'
+import BillCard, { BillCardSkeleton } from '@/modules/Bill/components/BillCard'
+import BillFilter from '@/modules/Bill/components/BillFilter'
+import { BillFilterOutput } from '@/modules/Bill/components/BillFilter/schema'
+import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
+import { ROUTES } from '@/routes'
+import { useLazyQuery } from '@apollo/client'
 import { Stack } from '@mui/material'
-import { useParams, useSearchParams } from 'next/navigation'
-import { useCallback, useMemo, useEffect } from 'react'
+import { isNull, isNumber } from 'lodash-es'
+import { useParams, useSearchParams, useRouter } from 'next/navigation'
+import { useCallback, useMemo, useEffect, useState } from 'react'
+
+const BillCardsSkeleton = () => {
+  return (
+    <>
+      {Array.from({ length: 5 }).map((_, index) => (
+        <BillCardSkeleton key={index} mode="horizontal" />
+      ))}
+    </>
+  )
+}
+
+/** 法案列表呈現數量 */
+const BILL_LIST_COUNT = 10
 
 export default function BillList() {
+  const router = useRouter()
   const { lang } = useParams<{ lang: Language }>()
-  const bills = BILL_DTO_MOCK.map((bill) => Bill.fromDTO(lang, bill))
 
   const params = useSearchParams()
 
-  const filterInitValues = useMemo<BillFilterInput>(() => {
-    const category = params.get('category')
-    const congress = params.get('congress')
-    const sponsor = params.get('sponsor')
-    const cosponsor = params.get('cosponsor')
-    const tag = params.get('tag')
-    const sorter = params.get('sorter')
-    const result = billFilterSchema.safeParse({
-      ...(category && { category: [category] }),
-      ...(congress && { congress: [Number(congress)] }),
-      ...(sponsor && { sponsors: [sponsor] }),
-      ...(cosponsor && { cosponsors: [cosponsor] }),
-      ...(tag && { tag: [tag] }),
-      ...(sorter && { sorter: Number(sorter) }),
+  const filterInitValues = useMemo<BillFilterOutput>(() => {
+    return BillsFilterUtils.transformQueryVariablesToFilter({
+      category: params.get('category'),
+      party: params.get('party'),
+      type: params.get('type'),
+      congress: params.get('congress'),
+      status: params.get('status'),
+      sponsor: params.get('sponsor'),
+      cosponsor: params.get('cosponsor'),
+      tag: params.get('tag'),
+      sorter: params.get('sorter'),
     })
-    return result.success ? result.data : {}
   }, [params])
 
-  const onFilterSubmit = useCallback((filter: BillFilterOutput) => {
-    console.log(`call API with \n`, JSON.stringify(filter, null, 2))
-  }, [])
+  const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
+
+  const paginationVariables = useMemo<
+    Pick<BillsFilterQueryVariables, 'limit' | 'page'>
+  >(() => {
+    return {
+      limit: BILL_LIST_COUNT,
+      page,
+    }
+  }, [page])
+  const [filterVariables, setFilterVariables] = useState<
+    Omit<BillsFilterQueryVariables, 'limit' | 'page'>
+  >({})
+
+  const [getBills, { data, loading }] = useLazyQuery<
+    BillsFilterQuery,
+    BillsFilterQueryVariables
+  >(QUERY_BILL_FILTER)
+
+  useEffect(() => {
+    if (isNumber(data?.BillsFilter?.totalPages)) {
+      setTotalPages(data.BillsFilter.totalPages)
+    }
+  }, [data?.BillsFilter?.totalPages, setTotalPages])
+
+  const bills = useMemo(() => {
+    return (
+      data?.BillsFilter?.docs
+        ?.filter((bill) => !isNull(bill))
+        .map((bill) => BillUtils.parse(lang, bill)) ?? []
+    )
+  }, [data?.BillsFilter?.docs, lang])
+
+  const onFilterSubmit = useCallback(
+    (filter: BillFilterOutput) => {
+      setFilterVariables(
+        BillsFilterUtils.transformFilterToQueryVariables(filter)
+      )
+      const urlQuery = new URLSearchParams(
+        BillsFilterUtils.transformFilterToUrlQueryString(filter)
+      )
+
+      router.replace(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`)
+    },
+    [router]
+  )
 
   useEffect(() => {
     if (Object.keys(filterInitValues).length > 0) {
@@ -49,20 +107,34 @@ export default function BillList() {
     }
   }, [filterInitValues, onFilterSubmit])
 
+  useEffect(() => {
+    getBills({
+      variables: {
+        ...paginationVariables,
+        ...filterVariables,
+      },
+    })
+  }, [paginationVariables, filterVariables, getBills])
+
   return (
-    <Stack gap={7} alignItems="center" pb={10}>
-      <Stack gap={5} alignItems="center">
-        <BillFilter
-          onSubmit={onFilterSubmit}
-          initialValues={filterInitValues}
-        />
-        <Stack gap={2}>
-          {bills.map((bill, index) => (
+    <Stack width="100%" gap={7} alignItems="center" pb={10}>
+      <BillFilter onSubmit={onFilterSubmit} initialValues={filterInitValues} />
+      <Stack width="100%" gap={2}>
+        {loading ? (
+          <BillCardsSkeleton />
+        ) : (
+          bills.map((bill, index) => (
             <BillCard key={index} mode="horizontal" bill={bill} />
-          ))}
-        </Stack>
+          ))
+        )}
       </Stack>
-      <UPagination count={10} page={1} onChange={() => {}} />
+      {!loading && totalPages > 1 && (
+        <UPagination
+          count={totalPages}
+          page={page}
+          onChange={(_, page) => handlePageChange(page)}
+        />
+      )}
     </Stack>
   )
 }

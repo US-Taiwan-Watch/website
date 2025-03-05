@@ -42,7 +42,7 @@ export default function useNavItems() {
         id: 'articles',
         type: 'link',
         title: 'Articles',
-        href: ROUTES.OPINION,
+        href: ROUTES.ARTICLE,
       },
       {
         id: 'ketagalan-media',

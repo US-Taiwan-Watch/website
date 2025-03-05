@@ -8,6 +8,7 @@ import Filter from '@/common/components/elements/Filter'
 import USelect from '@/common/components/atoms/USelect'
 import MenuItem from '@mui/material/MenuItem'
 import {
+  PeopleFilterInput,
   type PeopleFilterInputKey,
   type PeopleFilterOutput,
 } from '@/modules/People/components/PeopleFilter/schema'
@@ -37,18 +38,22 @@ type SecondLevelSelector = {
 
 interface PeopleFilterProps {
   onSubmit?: (filter: PeopleFilterOutput) => void
+  initialValues?: PeopleFilterInput
 }
 
-const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
-  const { form, category, handleReset, handleSecondLevelReset } =
-    usePeopleFilterForm()
+const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
+  const {
+    form,
+    category,
+    handleReset: handleFormReset,
+    handleSecondLevelReset: handleFormSecondLevelReset,
+  } = usePeopleFilterForm({ initialValues })
   const {
     categoryOptions,
     partyOptions,
     congressOptions,
     stateOptions,
     stateOrTerritoryOptions,
-    districtOptions,
     tagOptions,
     officialAreaOptions,
     companyTypeOptions,
@@ -112,7 +117,7 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
       selectors.push({
         key: 'district',
         label: 'District',
-        options: districtOptions,
+        options: [],
         minWidth: 140,
       })
     }
@@ -159,7 +164,6 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     congressOptions,
     stateOptions,
     stateOrTerritoryOptions,
-    districtOptions,
     tagOptions,
     officialAreaOptions,
     companyTypeOptions,
@@ -171,6 +175,16 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
     },
     [onSubmit]
   )
+
+  const handleReset = useCallback(() => {
+    handleFormReset()
+    form.handleSubmit(handleSubmit)()
+  }, [form, handleFormReset, handleSubmit])
+
+  const handleSecondLevelReset = useCallback(() => {
+    handleFormSecondLevelReset()
+    form.handleSubmit(handleSubmit)()
+  }, [form, handleFormSecondLevelReset, handleSubmit])
 
   return (
     <Filter
@@ -220,6 +234,7 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
           render={({ field }) => {
             // district filter，讓使用者輸入數字就好 (int > 0)
             if (selector.key === 'district') {
+              console.log('field', field.value)
               return (
                 <UFilterTextField
                   {...field}
@@ -228,11 +243,6 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
                   slotProps={{
                     inputLabel: {
                       color: 'info',
-                    },
-                    input: {
-                      inputProps: {
-                        min: 1,
-                      },
                     },
                   }}
                   sx={{
@@ -245,7 +255,12 @@ const PeopleFilter = ({ onSubmit }: PeopleFilterProps) => {
                     if (Number.isNaN(parseInt(e.target.value, 10))) {
                       field.onChange(undefined)
                     } else {
-                      field.onChange(Math.max(1, parseInt(e.target.value, 10)))
+                      const value = parseInt(e.target.value, 10)
+                      if (value > 0) {
+                        field.onChange(value)
+                      } else {
+                        field.onChange(undefined)
+                      }
                     }
                   }}
                 />

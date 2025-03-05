@@ -1,7 +1,7 @@
 'use client'
 
 import UAccordion from '@/common/components/atoms/UAccordion'
-import TaiwanRecord from '@/modules/TaiwanRecord/classes/TaiwanRecord'
+import { TaiwanRecord } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import { ExpandMoreIcon } from '@/common/styles/assets/Icons'
@@ -15,6 +15,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import Image from 'next/image'
 import TaiwanRecordSources from '@/modules/TaiwanRecord/components/TaiwanRecordSources'
+import dayjs from 'dayjs'
 
 const DATE_FORMAT = 'MMM DD, YYYY'
 const MAX_IMAGE_TO_SHOW = 4
@@ -35,9 +36,11 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
   }, [taiwanRecord])
 
   const dateAndAuthor = useMemo(() => {
-    return `${taiwanRecord.createdAt?.format(DATE_FORMAT)} | ${
-      taiwanRecord.author
-    }`
+    const createdAt = dayjs(taiwanRecord.createdAt)
+
+    if (!createdAt.isValid()) return ''
+
+    return `${createdAt.format(DATE_FORMAT)} | ${taiwanRecord.author}`
   }, [taiwanRecord])
 
   return (

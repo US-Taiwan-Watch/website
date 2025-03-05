@@ -10,15 +10,13 @@ import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import Link from 'next/link'
 import { ROUTES } from '@/routes'
-import { useParams } from 'next/navigation'
-import { Language } from '@/common/lib/i18n/types'
-import {
-  BillTopSponsorsData,
-  getBillTopCosponsors,
-  getBillTopSponsors,
-} from '@/modules/Bill/data'
-import { Congress } from '@/common/classes/Congress'
-import { useMemo } from 'react'
+import { CongressUtils } from '@/common/business/Congress'
+import { People } from '@/modules/People/business/People'
+
+type SponsorRowData = {
+  people: People
+  billCount: number
+}
 
 const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 3, 1.5, 2),
@@ -29,7 +27,7 @@ const StyledSponsorRowContainer = styled(UHStack)(({ theme }) => ({
 }))
 
 type SponsorRowProps = {
-  data: BillTopSponsorsData
+  data: SponsorRowData
 }
 
 function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
@@ -62,19 +60,15 @@ function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
 }
 
 type SponsorCardProps = {
+  sponsorsData: Array<SponsorRowData>
   isCosponsor?: boolean
 }
 
-export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
-  const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
-    []
-  )
-  const { lang } = useParams<{ lang: Language }>()
-  const sponsorsList = isCosponsor
-    ? getBillTopCosponsors(lang)
-    : getBillTopSponsors(lang)
-
+export default function SponsorCard({
+  sponsorsData,
+  isCosponsor,
+}: SponsorCardProps) {
+  const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
   return (
     <UContentCard
       headerIconAction="tooltip"
@@ -90,7 +84,7 @@ export default function SponsorCard({ isCosponsor }: SponsorCardProps) {
       }}
     >
       <Stack spacing={1} pt={2}>
-        {sponsorsList.map(({ people, billCount }, index) => (
+        {sponsorsData.map(({ people, billCount }, index) => (
           <Link
             key={index}
             href={{

@@ -2,9 +2,9 @@
  * TODO: TBD 需要與 Party 的 enum 同步？
  */
 export enum BillPartyEnum {
-  Democratic = 1,
-  Republican,
-  Independent,
+  Democratic = 'democratic',
+  Republican = 'republican',
+  Independent = 'independent',
 }
 
 export enum BillTypeEnum {
@@ -36,6 +36,6 @@ export enum BillStatusEnum {
 }
 
 export enum BillSorterEnum {
-  LatestAction = 1,
-  Popularity,
+  LatestAction = '-latestActionTime',
+  Popularity = '-popularityRank',
 }

@@ -14,9 +14,10 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import UHStack from '@/common/components/atoms/UHStack'
 import dayjs from 'dayjs'
-import { BillCosponsor } from '@/modules/People/classes/BillCosponsor'
 import CommonUtils from '@/modules/Common/Common.utils'
 import Link from 'next/link'
+import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
+import { PeopleUtils } from '@/modules/People/business/People'
 
 const EMPTY_CELL = '-'
 
@@ -72,7 +73,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  <Link href={people?.link ?? ''}>
+                  <Link href={PeopleUtils.getLink(people)}>
                     <StyledNameText>
                       {people?.name ? people.name : EMPTY_CELL}
                     </StyledNameText>

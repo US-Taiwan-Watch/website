@@ -162,7 +162,12 @@ Playground (Development): https://ustw-cms-backend-hbd9avfxadfneybh.westus2-01.a
 ```bash
 # 先把 gql query 寫好
 e.g.
-export const QUERY_PEOPLES = gql(`
+```
+
+```ts
+import { gql } from '@apollo/client'
+
+export const QUERY_PEOPLES = gql`
   query QueryPeople(
     $limit: Int
     $page: Int
@@ -177,11 +182,15 @@ export const QUERY_PEOPLES = gql(`
       }
     }
   }
-`)
+`
+```
 
 # 生成 GraphQL 型別 & gql 函數
+
 # code-gen 會掃描 src 目錄下所有 gql query，並生成對應的型別 & gql 函數
+
 yarn graphql-codegen
+
 ```
 
 ---
@@ -192,3 +201,4 @@ yarn graphql-codegen
 
 Zustand 管理 global state，可以在 store 中定義 state 和 action，並使用 useStore 取得 state。
 詳細參考：https://github.com/pmndrs/zustand
+```

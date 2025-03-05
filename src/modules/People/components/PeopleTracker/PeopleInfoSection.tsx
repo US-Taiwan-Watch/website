@@ -13,7 +13,6 @@ import {
   YoutubeIcon,
   BookmarkIcon,
 } from '@/common/styles/assets/Icons'
-import { People } from '@/modules/People/classes/People'
 import PeopleCategory from '@/modules/People/components/PeopleCategory'
 import PeopleTag from '@/modules/People/components/PeopleTag'
 import Stack from '@mui/material/Stack'
@@ -26,6 +25,7 @@ import { People_Links_Type as PeopleLinkType } from '@/common/lib/graphql/__gene
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material'
 import useClipboard from '@/common/hooks/useClipboard'
+import { People } from '@/modules/People/business/People'
 
 const ICON_SIZE = 20
 const StyledIconWrapper = styled(Box)(({ theme }) => ({
@@ -180,7 +180,9 @@ const PeopleInfoSection = memo(function PeopleInfoSection({
         <PeopleCategory people={people} />
         <Typography variant="h4">{people.name}</Typography>
         <Stack direction="row" gap={2} flexWrap="wrap">
-          {people.tags?.map((tag) => <PeopleTag value={tag} key={tag} />)}
+          {people.tags.map((tag) => (
+            <PeopleTag key={tag.id} value={tag.name} />
+          ))}
         </Stack>
       </StyledInfoContainer>
 

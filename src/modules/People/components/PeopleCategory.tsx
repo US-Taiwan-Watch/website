@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { styled } from '@/common/lib/mui/theme'
-import { People } from '@/modules/People/classes/People'
 import { Box } from '@mui/material'
 import UHStack from '@/common/components/atoms/UHStack'
+import { People } from '@/modules/People/business/People'
 
 const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
   width: 'fit-content',

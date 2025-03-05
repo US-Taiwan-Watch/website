@@ -9,9 +9,11 @@ import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
-import { Congress } from '@/common/classes/Congress'
+import { CongressUtils } from '@/common/business/Congress'
 
-itemSeries(Highcharts)
+if (typeof window !== 'undefined') {
+  itemSeries(Highcharts)
+}
 
 export type ParliamentChartData = {
   party: Party
@@ -29,7 +31,7 @@ type Props = {
 // example: https://codesandbox.io/p/sandbox/highcharts-react-demo-forked-rlflfn?file=%2Fdemo.jsx%3A23%2C1
 export default function ParliamentChart({ data }: Props) {
   const currentCongressNumber = useMemo(
-    () => Congress.getCurrentCongressNumber(),
+    () => CongressUtils.getCurrentCongressNumber(),
     []
   )
   const { partyColor } = usePartyColor()

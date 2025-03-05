@@ -1,9 +1,10 @@
 'use client'
+
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { CosponsorsIcon } from '@/common/styles/assets/Icons'
 import CosponsorChart from '@/modules/Bill/components/SingleBill/CosponsorChart'
 import CosponsorDialog from '@/modules/Bill/components/SingleBill/CosponsorDialog'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import useModal from '@/common/hooks/useModal'
 import CardExpandButton from '@/modules/Bill/components/SingleBill/CardExpandButton'
 
@@ -32,7 +33,7 @@ export default function BillCosponsors({ bill }: Props) {
           },
         }}
       >
-        <CosponsorChart data={Bill.getCosponsorsParliamentData(bill)} />
+        <CosponsorChart data={BillUtils.getCosponsorsParliamentData(bill)} />
       </UContentCard>
 
       <CosponsorDialog

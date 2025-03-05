@@ -1,7 +1,7 @@
 'use client'
 
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import {
   Box,
   Divider,
@@ -163,7 +163,7 @@ export default function RightSection({ bill }: Props) {
         >
           <CardIconTitle icon={<NoteIcon />} title="Cosponsors" />
           <Typography variant="subtitleL" fontWeight={700}>
-            {bill.cosponsorsCount}
+            {BillUtils.getCosponsorsCount(bill)}
           </Typography>
         </StyledCardContainer>
       </Grid2WithSelectable>
@@ -177,8 +177,10 @@ export default function RightSection({ bill }: Props) {
         >
           <CardIconTitle icon={<CalenderIcon />} title="Introduced" />
           <Typography variant="subtitleL" fontWeight={700}>
-            {dayjs(bill.introducedDate).isValid()
-              ? dayjs(bill.introducedDate).format(INTRODUCED_DATE_FORMAT)
+            {dayjs(BillUtils.getIntroducedDate(bill)).isValid()
+              ? dayjs(BillUtils.getIntroducedDate(bill)).format(
+                  INTRODUCED_DATE_FORMAT
+                )
               : ''}
           </Typography>
         </StyledCardContainer>
@@ -195,12 +197,14 @@ export default function RightSection({ bill }: Props) {
               fontSize={15}
               sx={{ color: theme.color.grey[1200] }}
             >
-              {dayjs(bill.latestAction?.date).isValid()
-                ? dayjs(bill.latestAction?.date).format(ACTION_DATE_FORMAT)
+              {dayjs(BillUtils.getLatestAction(bill)?.date).isValid()
+                ? dayjs(BillUtils.getLatestAction(bill)?.date).format(
+                    ACTION_DATE_FORMAT
+                  )
                 : ''}
             </Typography>
             <UHeightLimitedText maxLine={3} variant="buttonXS">
-              {bill.latestAction?.description}
+              {BillUtils.getLatestAction(bill)?.description}
             </UHeightLimitedText>
           </Stack>
         </StyledCardContainer>

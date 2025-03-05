@@ -7,11 +7,13 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
-import { People } from '@/modules/People/classes/People'
-import { Congress } from '@/common/classes/Congress'
+import { PeopleVote } from '@/modules/People/business/PeopleVote'
+import { BillUtils } from '@/modules/Bill/business/Bill'
+import { useMemo } from 'react'
+import { CongressUtils } from '@/common/business/Congress'
 
 interface VoteStatusCardProps {
-  vote: NonNullable<People['votes']>[number]
+  vote: PeopleVote
   active: boolean
 }
 
@@ -65,17 +67,22 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
 }))
 
 type BillVoteCardProps = {
-  vote: NonNullable<People['votes']>[number]
+  vote: PeopleVote
 }
 
 export default function BillVoteCard({ vote }: BillVoteCardProps) {
+  const chamberPrefix = useMemo(() => {
+    if (!vote.vote?.bill) return ''
+    return BillUtils.getChamberPrefix(vote.vote.bill)
+  }, [vote.vote?.bill])
+
   return (
     <StyledCardContainer height="auto">
       <UHStack gap={4} alignItems="stretch">
         <Stack>
           <UTagList
-            tags={(vote.vote?.bill?.tags ?? []).map((tag, index) => (
-              <UCategoryTag key={index} value={tag} />
+            tags={(vote.vote?.bill?.tags ?? []).map((tag) => (
+              <UCategoryTag key={tag.id} value={tag.name} />
             ))}
             containerProps={{
               gap: '6px',
@@ -85,10 +92,10 @@ export default function BillVoteCard({ vote }: BillVoteCardProps) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${vote.vote?.bill?.chamberPrefix} | ${Congress.getCurrentCongressNumber()}th Congress`}
+            {`${chamberPrefix} | ${CongressUtils.getCurrentCongressNumber()}th Congress`}
           </Typography>
 
-          <Link href={vote.vote?.bill?.link ?? ''}>
+          <Link href={vote.vote?.bill ? BillUtils.getLink(vote.vote.bill) : ''}>
             <UHeightLimitedText
               maxLine={4}
               variant="subtitleL"

@@ -1,4 +1,4 @@
-import { Bill } from '@/modules/Bill/classes/Bill'
+import { Bill } from '@/modules/Bill/business/Bill'
 import {
   FilterCategory,
   FilterOption,
