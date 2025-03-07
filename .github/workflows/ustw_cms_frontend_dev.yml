@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - fix-cicd
   workflow_dispatch:
 
 jobs:
