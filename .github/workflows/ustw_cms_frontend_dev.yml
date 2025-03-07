@@ -11,4 +11,4 @@ jobs:
   build-and-deploy:
     uses: ./.github/workflows/r-cicd.yml
     with:
-      environment: Development
+      environment: 'Development'
