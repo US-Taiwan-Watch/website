@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - fix-cicd
   workflow_dispatch:
 
 jobs:
@@ -35,11 +36,11 @@ jobs:
       with:
         context: .
         push: true
-        tags: ${{ secrets.ACR_LOGIN_SERVER_DEV }}/ustw-website-dev:${{ github.sha }}
+        tags: ${{ secrets.ACR_LOGIN_SERVER_DEV }}/ustw-cms-frontend-dev:${{ github.sha }}
     
     - name: Deploy to Azure App Service
       uses: azure/webapps-deploy@v2
       with:
-        app-name: 'ustw-website-dev'
+        app-name: 'ustw-cms-frontend-dev'
         publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_DEV }}
-        images: '${{ secrets.ACR_LOGIN_SERVER_DEV }}/ustw-website-dev:${{ github.sha }}'
+        images: '${{ secrets.ACR_LOGIN_SERVER_DEV }}/ustw-cms-frontend-dev:${{ github.sha }}'
