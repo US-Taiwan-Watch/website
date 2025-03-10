@@ -95,6 +95,10 @@ type Query {
   Tags(where: Tag_where, limit: Int, page: Int, sort: String): Tags
   countTags(where: Tag_where): countTags
   docAccessTag(id: String!): tagsDocAccess
+  Mission(id: String!): Mission
+  Missions(where: Mission_where, limit: Int, page: Int, sort: String): Missions
+  countMissions(where: Mission_where): countMissions
+  docAccessMission(id: String!): missionDocAccess
   PayloadPreference(id: String!): PayloadPreference
   PayloadPreferences(
     where: PayloadPreference_where
@@ -1249,10 +1253,32 @@ enum People_CongressionalData_Committees_Subcommittees_title {
 
 type People_Experiences {
   company: String
-  category: String
+  category: CategoriesPerson
   isCurrent: Boolean
   positions: [People_Experiences_Positions!]
   id: String
+}
+
+type CategoriesPerson {
+  id: String
+  i18n: CategoriesPerson_I18n
+  nameEn: String
+  nameZh: String
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type CategoriesPerson_I18n {
+  en: CategoriesPerson_I18n_En
+  zh: CategoriesPerson_I18n_Zh
+}
+
+type CategoriesPerson_I18n_En {
+  name: String
+}
+
+type CategoriesPerson_I18n_Zh {
+  name: String
 }
 
 type People_Experiences_Positions {
@@ -3380,13 +3406,11 @@ input People_experiences__company_operator {
 }
 
 input People_experiences__category_operator {
-  equals: String
-  not_equals: String
-  like: String
-  contains: String
-  in: [String]
-  not_in: [String]
-  all: [String]
+  equals: JSON
+  not_equals: JSON
+  in: [JSON]
+  not_in: [JSON]
+  all: [JSON]
 }
 
 input People_experiences__isCurrent_operator {
@@ -10873,28 +10897,6 @@ type CategoriesArticleDeleteDocAccess {
   where: JSONObject
 }
 
-type CategoriesPerson {
-  id: String
-  i18n: CategoriesPerson_I18n
-  nameEn: String
-  nameZh: String
-  updatedAt: DateTime
-  createdAt: DateTime
-}
-
-type CategoriesPerson_I18n {
-  en: CategoriesPerson_I18n_En
-  zh: CategoriesPerson_I18n_Zh
-}
-
-type CategoriesPerson_I18n_En {
-  name: String
-}
-
-type CategoriesPerson_I18n_Zh {
-  name: String
-}
-
 type CategoriesPeople {
   docs: [CategoriesPerson]
   hasNextPage: Boolean
@@ -15926,6 +15928,570 @@ type TagsDeleteDocAccess {
   where: JSONObject
 }
 
+type Mission {
+  id: String
+  i18n: Mission_I18n
+  headlineEn: String
+  headlineZh: String
+  contentEn: String
+  contentZh: String
+  updatedAt: DateTime
+  createdAt: DateTime
+}
+
+type Mission_I18n {
+  en: Mission_I18n_En
+  zh: Mission_I18n_Zh
+}
+
+type Mission_I18n_En {
+  headline: String
+  content: String
+}
+
+type Mission_I18n_Zh {
+  headline: String
+  content: String
+}
+
+type Missions {
+  docs: [Mission]
+  hasNextPage: Boolean
+  hasPrevPage: Boolean
+  limit: Int
+  nextPage: Int
+  offset: Int
+  page: Int
+  pagingCounter: Int
+  prevPage: Int
+  totalDocs: Int
+  totalPages: Int
+}
+
+input Mission_where {
+  i18n__en__headline: Mission_i18n__en__headline_operator
+  i18n__en__content: Mission_i18n__en__content_operator
+  i18n__zh__headline: Mission_i18n__zh__headline_operator
+  i18n__zh__content: Mission_i18n__zh__content_operator
+  headlineEn: Mission_headlineEn_operator
+  headlineZh: Mission_headlineZh_operator
+  contentEn: Mission_contentEn_operator
+  contentZh: Mission_contentZh_operator
+  updatedAt: Mission_updatedAt_operator
+  createdAt: Mission_createdAt_operator
+  id: Mission_id_operator
+  AND: [Mission_where_and]
+  OR: [Mission_where_or]
+}
+
+input Mission_i18n__en__headline_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Mission_i18n__en__content_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Mission_i18n__zh__headline_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Mission_i18n__zh__content_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+}
+
+input Mission_headlineEn_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Mission_headlineZh_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Mission_contentEn_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Mission_contentZh_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Mission_updatedAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Mission_createdAt_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
+  exists: Boolean
+}
+
+input Mission_id_operator {
+  equals: String
+  not_equals: String
+  like: String
+  contains: String
+  in: [String]
+  not_in: [String]
+  all: [String]
+  exists: Boolean
+}
+
+input Mission_where_and {
+  i18n__en__headline: Mission_i18n__en__headline_operator
+  i18n__en__content: Mission_i18n__en__content_operator
+  i18n__zh__headline: Mission_i18n__zh__headline_operator
+  i18n__zh__content: Mission_i18n__zh__content_operator
+  headlineEn: Mission_headlineEn_operator
+  headlineZh: Mission_headlineZh_operator
+  contentEn: Mission_contentEn_operator
+  contentZh: Mission_contentZh_operator
+  updatedAt: Mission_updatedAt_operator
+  createdAt: Mission_createdAt_operator
+  id: Mission_id_operator
+  AND: [Mission_where_and]
+  OR: [Mission_where_or]
+}
+
+input Mission_where_or {
+  i18n__en__headline: Mission_i18n__en__headline_operator
+  i18n__en__content: Mission_i18n__en__content_operator
+  i18n__zh__headline: Mission_i18n__zh__headline_operator
+  i18n__zh__content: Mission_i18n__zh__content_operator
+  headlineEn: Mission_headlineEn_operator
+  headlineZh: Mission_headlineZh_operator
+  contentEn: Mission_contentEn_operator
+  contentZh: Mission_contentZh_operator
+  updatedAt: Mission_updatedAt_operator
+  createdAt: Mission_createdAt_operator
+  id: Mission_id_operator
+  AND: [Mission_where_and]
+  OR: [Mission_where_or]
+}
+
+type countMissions {
+  totalDocs: Int
+}
+
+type missionDocAccess {
+  fields: MissionDocAccessFields
+  create: MissionCreateDocAccess
+  read: MissionReadDocAccess
+  update: MissionUpdateDocAccess
+  delete: MissionDeleteDocAccess
+}
+
+type MissionDocAccessFields {
+  i18n: MissionDocAccessFields_i18n
+  headlineEn: MissionDocAccessFields_headlineEn
+  headlineZh: MissionDocAccessFields_headlineZh
+  contentEn: MissionDocAccessFields_contentEn
+  contentZh: MissionDocAccessFields_contentZh
+  updatedAt: MissionDocAccessFields_updatedAt
+  createdAt: MissionDocAccessFields_createdAt
+}
+
+type MissionDocAccessFields_i18n {
+  create: MissionDocAccessFields_i18n_Create
+  read: MissionDocAccessFields_i18n_Read
+  update: MissionDocAccessFields_i18n_Update
+  delete: MissionDocAccessFields_i18n_Delete
+  fields: MissionDocAccessFields_i18n_Fields
+}
+
+type MissionDocAccessFields_i18n_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_Fields {
+  en: MissionDocAccessFields_i18n_en
+  zh: MissionDocAccessFields_i18n_zh
+}
+
+type MissionDocAccessFields_i18n_en {
+  create: MissionDocAccessFields_i18n_en_Create
+  read: MissionDocAccessFields_i18n_en_Read
+  update: MissionDocAccessFields_i18n_en_Update
+  delete: MissionDocAccessFields_i18n_en_Delete
+  fields: MissionDocAccessFields_i18n_en_Fields
+}
+
+type MissionDocAccessFields_i18n_en_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_Fields {
+  headline: MissionDocAccessFields_i18n_en_headline
+  content: MissionDocAccessFields_i18n_en_content
+}
+
+type MissionDocAccessFields_i18n_en_headline {
+  create: MissionDocAccessFields_i18n_en_headline_Create
+  read: MissionDocAccessFields_i18n_en_headline_Read
+  update: MissionDocAccessFields_i18n_en_headline_Update
+  delete: MissionDocAccessFields_i18n_en_headline_Delete
+}
+
+type MissionDocAccessFields_i18n_en_headline_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_headline_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_headline_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_headline_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_content {
+  create: MissionDocAccessFields_i18n_en_content_Create
+  read: MissionDocAccessFields_i18n_en_content_Read
+  update: MissionDocAccessFields_i18n_en_content_Update
+  delete: MissionDocAccessFields_i18n_en_content_Delete
+}
+
+type MissionDocAccessFields_i18n_en_content_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_content_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_content_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_en_content_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh {
+  create: MissionDocAccessFields_i18n_zh_Create
+  read: MissionDocAccessFields_i18n_zh_Read
+  update: MissionDocAccessFields_i18n_zh_Update
+  delete: MissionDocAccessFields_i18n_zh_Delete
+  fields: MissionDocAccessFields_i18n_zh_Fields
+}
+
+type MissionDocAccessFields_i18n_zh_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_Fields {
+  headline: MissionDocAccessFields_i18n_zh_headline
+  content: MissionDocAccessFields_i18n_zh_content
+}
+
+type MissionDocAccessFields_i18n_zh_headline {
+  create: MissionDocAccessFields_i18n_zh_headline_Create
+  read: MissionDocAccessFields_i18n_zh_headline_Read
+  update: MissionDocAccessFields_i18n_zh_headline_Update
+  delete: MissionDocAccessFields_i18n_zh_headline_Delete
+}
+
+type MissionDocAccessFields_i18n_zh_headline_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_headline_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_headline_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_headline_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_content {
+  create: MissionDocAccessFields_i18n_zh_content_Create
+  read: MissionDocAccessFields_i18n_zh_content_Read
+  update: MissionDocAccessFields_i18n_zh_content_Update
+  delete: MissionDocAccessFields_i18n_zh_content_Delete
+}
+
+type MissionDocAccessFields_i18n_zh_content_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_content_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_content_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_i18n_zh_content_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineEn {
+  create: MissionDocAccessFields_headlineEn_Create
+  read: MissionDocAccessFields_headlineEn_Read
+  update: MissionDocAccessFields_headlineEn_Update
+  delete: MissionDocAccessFields_headlineEn_Delete
+}
+
+type MissionDocAccessFields_headlineEn_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineEn_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineEn_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineEn_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineZh {
+  create: MissionDocAccessFields_headlineZh_Create
+  read: MissionDocAccessFields_headlineZh_Read
+  update: MissionDocAccessFields_headlineZh_Update
+  delete: MissionDocAccessFields_headlineZh_Delete
+}
+
+type MissionDocAccessFields_headlineZh_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineZh_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineZh_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_headlineZh_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentEn {
+  create: MissionDocAccessFields_contentEn_Create
+  read: MissionDocAccessFields_contentEn_Read
+  update: MissionDocAccessFields_contentEn_Update
+  delete: MissionDocAccessFields_contentEn_Delete
+}
+
+type MissionDocAccessFields_contentEn_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentEn_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentEn_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentEn_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentZh {
+  create: MissionDocAccessFields_contentZh_Create
+  read: MissionDocAccessFields_contentZh_Read
+  update: MissionDocAccessFields_contentZh_Update
+  delete: MissionDocAccessFields_contentZh_Delete
+}
+
+type MissionDocAccessFields_contentZh_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentZh_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentZh_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_contentZh_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_updatedAt {
+  create: MissionDocAccessFields_updatedAt_Create
+  read: MissionDocAccessFields_updatedAt_Read
+  update: MissionDocAccessFields_updatedAt_Update
+  delete: MissionDocAccessFields_updatedAt_Delete
+}
+
+type MissionDocAccessFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_createdAt {
+  create: MissionDocAccessFields_createdAt_Create
+  read: MissionDocAccessFields_createdAt_Read
+  update: MissionDocAccessFields_createdAt_Update
+  delete: MissionDocAccessFields_createdAt_Delete
+}
+
+type MissionDocAccessFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type MissionDocAccessFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type MissionCreateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MissionReadDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MissionUpdateDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MissionDeleteDocAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type PayloadPreference {
   id: String
   user: PayloadPreference_User_Relationship!
@@ -16228,6 +16794,7 @@ type Access {
   media_people: media_peopleAccess
   media_taiwan_record: media_taiwan_recordAccess
   tags: tagsAccess
+  mission: missionAccess
   payload_preferences: payload_preferencesAccess
 }
 
@@ -25134,6 +25701,361 @@ type TagsDeleteAccess {
   where: JSONObject
 }
 
+type missionAccess {
+  fields: MissionFields
+  create: MissionCreateAccess
+  read: MissionReadAccess
+  update: MissionUpdateAccess
+  delete: MissionDeleteAccess
+}
+
+type MissionFields {
+  i18n: MissionFields_i18n
+  headlineEn: MissionFields_headlineEn
+  headlineZh: MissionFields_headlineZh
+  contentEn: MissionFields_contentEn
+  contentZh: MissionFields_contentZh
+  updatedAt: MissionFields_updatedAt
+  createdAt: MissionFields_createdAt
+}
+
+type MissionFields_i18n {
+  create: MissionFields_i18n_Create
+  read: MissionFields_i18n_Read
+  update: MissionFields_i18n_Update
+  delete: MissionFields_i18n_Delete
+  fields: MissionFields_i18n_Fields
+}
+
+type MissionFields_i18n_Create {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_Read {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_Update {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_Fields {
+  en: MissionFields_i18n_en
+  zh: MissionFields_i18n_zh
+}
+
+type MissionFields_i18n_en {
+  create: MissionFields_i18n_en_Create
+  read: MissionFields_i18n_en_Read
+  update: MissionFields_i18n_en_Update
+  delete: MissionFields_i18n_en_Delete
+  fields: MissionFields_i18n_en_Fields
+}
+
+type MissionFields_i18n_en_Create {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_Read {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_Update {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_Fields {
+  headline: MissionFields_i18n_en_headline
+  content: MissionFields_i18n_en_content
+}
+
+type MissionFields_i18n_en_headline {
+  create: MissionFields_i18n_en_headline_Create
+  read: MissionFields_i18n_en_headline_Read
+  update: MissionFields_i18n_en_headline_Update
+  delete: MissionFields_i18n_en_headline_Delete
+}
+
+type MissionFields_i18n_en_headline_Create {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_headline_Read {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_headline_Update {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_headline_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_content {
+  create: MissionFields_i18n_en_content_Create
+  read: MissionFields_i18n_en_content_Read
+  update: MissionFields_i18n_en_content_Update
+  delete: MissionFields_i18n_en_content_Delete
+}
+
+type MissionFields_i18n_en_content_Create {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_content_Read {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_content_Update {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_en_content_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh {
+  create: MissionFields_i18n_zh_Create
+  read: MissionFields_i18n_zh_Read
+  update: MissionFields_i18n_zh_Update
+  delete: MissionFields_i18n_zh_Delete
+  fields: MissionFields_i18n_zh_Fields
+}
+
+type MissionFields_i18n_zh_Create {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_Read {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_Update {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_Fields {
+  headline: MissionFields_i18n_zh_headline
+  content: MissionFields_i18n_zh_content
+}
+
+type MissionFields_i18n_zh_headline {
+  create: MissionFields_i18n_zh_headline_Create
+  read: MissionFields_i18n_zh_headline_Read
+  update: MissionFields_i18n_zh_headline_Update
+  delete: MissionFields_i18n_zh_headline_Delete
+}
+
+type MissionFields_i18n_zh_headline_Create {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_headline_Read {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_headline_Update {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_headline_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_content {
+  create: MissionFields_i18n_zh_content_Create
+  read: MissionFields_i18n_zh_content_Read
+  update: MissionFields_i18n_zh_content_Update
+  delete: MissionFields_i18n_zh_content_Delete
+}
+
+type MissionFields_i18n_zh_content_Create {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_content_Read {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_content_Update {
+  permission: Boolean!
+}
+
+type MissionFields_i18n_zh_content_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_headlineEn {
+  create: MissionFields_headlineEn_Create
+  read: MissionFields_headlineEn_Read
+  update: MissionFields_headlineEn_Update
+  delete: MissionFields_headlineEn_Delete
+}
+
+type MissionFields_headlineEn_Create {
+  permission: Boolean!
+}
+
+type MissionFields_headlineEn_Read {
+  permission: Boolean!
+}
+
+type MissionFields_headlineEn_Update {
+  permission: Boolean!
+}
+
+type MissionFields_headlineEn_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_headlineZh {
+  create: MissionFields_headlineZh_Create
+  read: MissionFields_headlineZh_Read
+  update: MissionFields_headlineZh_Update
+  delete: MissionFields_headlineZh_Delete
+}
+
+type MissionFields_headlineZh_Create {
+  permission: Boolean!
+}
+
+type MissionFields_headlineZh_Read {
+  permission: Boolean!
+}
+
+type MissionFields_headlineZh_Update {
+  permission: Boolean!
+}
+
+type MissionFields_headlineZh_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_contentEn {
+  create: MissionFields_contentEn_Create
+  read: MissionFields_contentEn_Read
+  update: MissionFields_contentEn_Update
+  delete: MissionFields_contentEn_Delete
+}
+
+type MissionFields_contentEn_Create {
+  permission: Boolean!
+}
+
+type MissionFields_contentEn_Read {
+  permission: Boolean!
+}
+
+type MissionFields_contentEn_Update {
+  permission: Boolean!
+}
+
+type MissionFields_contentEn_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_contentZh {
+  create: MissionFields_contentZh_Create
+  read: MissionFields_contentZh_Read
+  update: MissionFields_contentZh_Update
+  delete: MissionFields_contentZh_Delete
+}
+
+type MissionFields_contentZh_Create {
+  permission: Boolean!
+}
+
+type MissionFields_contentZh_Read {
+  permission: Boolean!
+}
+
+type MissionFields_contentZh_Update {
+  permission: Boolean!
+}
+
+type MissionFields_contentZh_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_updatedAt {
+  create: MissionFields_updatedAt_Create
+  read: MissionFields_updatedAt_Read
+  update: MissionFields_updatedAt_Update
+  delete: MissionFields_updatedAt_Delete
+}
+
+type MissionFields_updatedAt_Create {
+  permission: Boolean!
+}
+
+type MissionFields_updatedAt_Read {
+  permission: Boolean!
+}
+
+type MissionFields_updatedAt_Update {
+  permission: Boolean!
+}
+
+type MissionFields_updatedAt_Delete {
+  permission: Boolean!
+}
+
+type MissionFields_createdAt {
+  create: MissionFields_createdAt_Create
+  read: MissionFields_createdAt_Read
+  update: MissionFields_createdAt_Update
+  delete: MissionFields_createdAt_Delete
+}
+
+type MissionFields_createdAt_Create {
+  permission: Boolean!
+}
+
+type MissionFields_createdAt_Read {
+  permission: Boolean!
+}
+
+type MissionFields_createdAt_Update {
+  permission: Boolean!
+}
+
+type MissionFields_createdAt_Delete {
+  permission: Boolean!
+}
+
+type MissionCreateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MissionReadAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MissionUpdateAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
+type MissionDeleteAccess {
+  permission: Boolean!
+  where: JSONObject
+}
+
 type payload_preferencesAccess {
   fields: PayloadPreferencesFields
   create: PayloadPreferencesCreateAccess
@@ -25552,6 +26474,13 @@ type Mutation {
   createTag(data: mutationTagInput!): Tag
   updateTag(id: String!, autosave: Boolean, data: mutationTagUpdateInput!): Tag
   deleteTag(id: String!): Tag
+  createMission(data: mutationMissionInput!): Mission
+  updateMission(
+    id: String!
+    autosave: Boolean
+    data: mutationMissionUpdateInput!
+  ): Mission
+  deleteMission(id: String!): Mission
   createPayloadPreference(
     data: mutationPayloadPreferenceInput!
   ): PayloadPreference
@@ -25765,7 +26694,7 @@ enum People_CongressionalData_Committees_Subcommittees_title_MutationInput {
 
 input mutationPeople_ExperiencesInput {
   company: String!
-  category: String!
+  category: String
   isCurrent: Boolean
   positions: [mutationPeople_Experiences_PositionsInput]
   id: String
@@ -26065,7 +26994,7 @@ enum PeopleUpdate_CongressionalData_Committees_Subcommittees_title_MutationInput
 
 input mutationPeopleUpdate_ExperiencesInput {
   company: String!
-  category: String!
+  category: String
   isCurrent: Boolean
   positions: [mutationPeopleUpdate_Experiences_PositionsInput]
   id: String
@@ -27358,6 +28287,56 @@ input mutationTagUpdate_I18n_EnInput {
 
 input mutationTagUpdate_I18n_ZhInput {
   name: String!
+}
+
+input mutationMissionInput {
+  i18n: mutationMission_I18nInput
+  headlineEn: String
+  headlineZh: String
+  contentEn: String
+  contentZh: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationMission_I18nInput {
+  en: mutationMission_I18n_EnInput!
+  zh: mutationMission_I18n_ZhInput!
+}
+
+input mutationMission_I18n_EnInput {
+  headline: String!
+  content: String!
+}
+
+input mutationMission_I18n_ZhInput {
+  headline: String!
+  content: String!
+}
+
+input mutationMissionUpdateInput {
+  i18n: mutationMissionUpdate_I18nInput
+  headlineEn: String
+  headlineZh: String
+  contentEn: String
+  contentZh: String
+  updatedAt: String
+  createdAt: String
+}
+
+input mutationMissionUpdate_I18nInput {
+  en: mutationMissionUpdate_I18n_EnInput!
+  zh: mutationMissionUpdate_I18n_ZhInput!
+}
+
+input mutationMissionUpdate_I18n_EnInput {
+  headline: String!
+  content: String!
+}
+
+input mutationMissionUpdate_I18n_ZhInput {
+  headline: String!
+  content: String!
 }
 
 input mutationPayloadPreferenceInput {
