@@ -1,33 +1,26 @@
-import { Box, Icon, Popper, Typography } from '@mui/material'
-import SearchResult from '../classes/SearchResult'
+import { Box, Icon, Typography } from '@mui/material'
+import SearchResult from '@/modules/Search/classes/SearchResult'
 import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
+import HeaderPopper from '@/common/components/elements/Header/HeaderPopper'
 
-interface SearchResultProps {
+interface DesktopSearchResultProps {
   className?: string
   results: Array<SearchResult>
   headerAnchorEl: HTMLElement | null
   inputAnchorEl: HTMLElement | null
+  clickAwayClassNameWhiteList?: string[]
+  onClose?: () => void
 }
 
-const StyledPopper = styled(Popper)(({ theme }) => ({
-  display: 'flex',
-  zIndex: theme.constants.zIndex.headerSearchResult,
-  transform: 'none !important', // 避免 popper 被 transform 影響
-}))
-
 const StyledContainer = styled(Box)(({ theme }) => ({
+  width: '100%',
   display: 'flex',
   backgroundColor: theme.color.searchBar.resultBackground,
   borderRadius: '30px',
   paddingBottom: theme.spacing(2),
-  [theme.breakpoints.up('xs')]: {
-    paddingTop: `${theme.constants.headerHeight.xs}px`,
-  },
-  [theme.breakpoints.up('md')]: {
-    paddingTop: `${theme.constants.headerHeight.md}px`,
-  },
+  paddingTop: `${theme.constants.headerHeight.md}px`,
 }))
 
 const StyledResultContainer = styled(Box)(({ theme }) => ({
@@ -66,18 +59,21 @@ const StyledNoResultContainer = styled(Box)(({ theme }) => ({
   },
 }))
 
-const SearchResultList = ({
+const DesktopSearchResultList = ({
   results,
   className,
   headerAnchorEl,
   inputAnchorEl,
-}: SearchResultProps) => {
+  clickAwayClassNameWhiteList,
+  onClose,
+}: DesktopSearchResultProps) => {
   return (
-    <StyledPopper anchorEl={headerAnchorEl} open container={headerAnchorEl}>
-      <StyledContainer
-        className={className}
-        width={headerAnchorEl?.getBoundingClientRect().width}
-      >
+    <HeaderPopper
+      headerAnchorEl={headerAnchorEl}
+      clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
+      onClose={onClose}
+    >
+      <StyledContainer className={className}>
         <StyledResultContainer
           width={inputAnchorEl?.getBoundingClientRect().width}
         >
@@ -109,8 +105,8 @@ const SearchResultList = ({
           )}
         </StyledResultContainer>
       </StyledContainer>
-    </StyledPopper>
+    </HeaderPopper>
   )
 }
 
-export default SearchResultList
+export default DesktopSearchResultList
