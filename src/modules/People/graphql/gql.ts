@@ -112,7 +112,17 @@ export const PEOPLE_EXPERIENCES_FRAGMENT = gql`
   fragment PeopleExperiences on People_Experiences {
     id
     isCurrent
-    category
+    category {
+      id
+      i18n {
+        en {
+          name
+        }
+        zh {
+          name
+        }
+      }
+    }
     company
     positions {
       id

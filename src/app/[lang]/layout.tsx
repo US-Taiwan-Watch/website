@@ -5,19 +5,20 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import Header from '@/common/components/elements/Header'
-import Footer from '@/common/components/elements/Footer'
-import ScreenSizeHandler from '@/common/components/elements/UnsupportedScreenSize/ScreenSizeHandler'
+// import Footer from '@/common/components/elements/Footer'
 import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
 import ToastProvider from '@/common/providers/ToastProvider'
 import Stack from '@mui/material/Stack'
 import apiConfig from '@/modules/Common/api/ApiConfig'
+import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
+import { ResponsiveProvider } from '@/common/lib/responsive/ResponsiveProvider'
 
 export const metadata: Metadata = {
   title: 'USTW',
   description: 'US Taiwan Watch',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: Readonly<{
@@ -29,6 +30,8 @@ export default function RootLayout({
   // 設定 API 語言
   apiConfig.setLang(params.lang)
 
+  const { isMobile } = await getServerDevice()
+
   return (
     <html lang="en">
       <body>
@@ -36,17 +39,17 @@ export default function RootLayout({
           <ThemeProvider lang={params.lang}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <Stack minHeight="100dvh">
-              <Header />
-              <ScreenSizeHandler>
+            <ResponsiveProvider defaultValue={{ isMobile }}>
+              <Stack minHeight="100dvh">
+                <Header />
                 <ToastProvider>
                   <ClientApolloProvider>
                     <Stack flexGrow={1}>{children}</Stack>
                   </ClientApolloProvider>
                 </ToastProvider>
-              </ScreenSizeHandler>
-              <Footer />
-            </Stack>
+                {/* <Footer /> */}
+              </Stack>
+            </ResponsiveProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

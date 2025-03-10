@@ -2,10 +2,11 @@ import Image from 'next/image'
 
 interface ULogoProps {
   className?: string
-  size: 'small' | 'medium' | 'large' | 'xlarge'
+  size: 'xs' | 'small' | 'medium' | 'large' | 'xlarge'
 }
 
 const LOGO_SRC_MAP = {
+  xs: '/assets/logo/ustw-logo-small.gif',
   small: '/assets/logo/ustw-logo-small.gif',
   medium: '/assets/logo/ustw-logo-medium.gif',
   large: '/assets/logo/ustw-logo-large.gif',
@@ -13,6 +14,7 @@ const LOGO_SRC_MAP = {
 } as const
 
 const LOGO_SIZE_MAP = {
+  xs: 24,
   small: 32,
   medium: 48,
   large: 64,

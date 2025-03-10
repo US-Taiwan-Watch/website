@@ -25,28 +25,26 @@ declare module '@mui/material/styles' {
   interface Theme {
     constants: {
       headerHeight: {
-        xs: number
         sm: number
         md: number
       }
       zIndex: {
         header: number
         headerNavItem: number
-        headerSearchResult: number
+        headerPopper: number
       }
     }
   }
   interface ThemeOptions {
     constants?: {
       headerHeight?: {
-        xs?: number
         sm?: number
         md?: number
       }
       zIndex?: {
         header?: number
         headerNavItem?: number
-        headerSearchResult?: number
+        headerPopper?: number
       }
     }
   }
@@ -201,6 +199,8 @@ const color = {
     3600: '#00000033',
     3700: '#686868',
     3800: '#A5A5A5',
+    3900: '#505050',
+    4000: '#CECECE',
   },
   orange: {
     ...colors.orange,
@@ -251,6 +251,7 @@ interface USTWThemeColor {
   color: typeof color & {
     header: {
       background: string // 背景色
+      mobileBackground: string // 手機背景色
       text: string // 文字色
       textHover: string // 文字滑鼠移入色
       textActive: string // 文字啟用色
@@ -259,6 +260,7 @@ interface USTWThemeColor {
       donationButtonHover: string // 捐款按鈕滑鼠移入色
       donationButtonTextHover: string // 捐款按鈕文字滑鼠移入色
       menuBackground: string // 選單背景色
+      mobileNavMenuBackground: string // 手機選單背景色
     }
     searchBar: {
       inputBackground: string // 搜尋欄背景色
@@ -266,6 +268,7 @@ interface USTWThemeColor {
       resultBackground: string // 搜尋結果背景色
       noResultSubtitle: string // 搜尋結果無結果文字顏色
       resultItemText: string // 搜尋結果文字顏色
+      mobileResultItemText: string // 手機搜尋結果文字顏色
     }
     pagination: {
       backgroundColor: string // 分頁背景色
@@ -289,7 +292,7 @@ export interface USTWTheme extends Theme, USTWThemeColor {
   zIndex: Theme['zIndex'] & {
     header?: number
     headerNavItem?: number
-    headerSearchResult?: number
+    headerPopper?: number
   }
 }
 
@@ -350,6 +353,11 @@ const commonThemeBreakpoints: BreakpointsOptions = {
 }
 
 const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
+  MuiUseMediaQuery: {
+    defaultProps: {
+      noSsr: true,
+    },
+  },
   MuiButtonBase: {
     defaultProps: {
       disableRipple: true,
@@ -373,6 +381,7 @@ const _lightTheme: USTWThemeOptions = {
     ...color,
     header: {
       background: 'rgba(255, 255, 255, 0.8)',
+      mobileBackground: '#F8F8F8',
       text: color.neutral[500],
       textHover: color.common.black,
       textActive: color.common.black,
@@ -381,6 +390,7 @@ const _lightTheme: USTWThemeOptions = {
       donationButtonHover: color.lime[500],
       donationButtonTextHover: color.common.black,
       menuBackground: color.common.white,
+      mobileNavMenuBackground: '#F0F0F0',
     },
     searchBar: {
       inputBackground: color.grey[200],
@@ -388,6 +398,7 @@ const _lightTheme: USTWThemeOptions = {
       resultBackground: color.neutral[100],
       noResultSubtitle: color.neutral[500],
       resultItemText: color.common.black,
+      mobileResultItemText: color.grey[3900],
     },
     pagination: {
       backgroundColor: color.common.white,
@@ -416,6 +427,7 @@ const _ketagalanTheme: USTWThemeOptions = {
     ...color,
     header: {
       background: 'rgba(255, 255, 255, 0.1)',
+      mobileBackground: '#F8F8F8',
       text: 'rgba(255, 255, 255, 0.5)',
       textHover: color.common.white,
       textActive: color.common.white,
@@ -424,6 +436,7 @@ const _ketagalanTheme: USTWThemeOptions = {
       donationButtonHover: color.grey[700],
       donationButtonTextHover: color.common.black,
       menuBackground: '#5B5952',
+      mobileNavMenuBackground: '#F0F0F0',
     },
     searchBar: {
       inputBackground: '#0000001A',
@@ -431,6 +444,7 @@ const _ketagalanTheme: USTWThemeOptions = {
       resultBackground: '#3D3B34',
       noResultSubtitle: color.neutral[200],
       resultItemText: color.common.white,
+      mobileResultItemText: color.grey[3900],
     },
     pagination: {
       backgroundColor: '#FFFFFF1A',
@@ -467,14 +481,13 @@ const getTypographyFontFamily = (lang: Language) => {
 type USTWThemeConstants = ThemeOptions['constants']
 const constants: USTWThemeConstants = {
   headerHeight: {
-    xs: 48,
     sm: 48,
     md: 70,
   },
   zIndex: {
     header: 1300,
     headerNavItem: 1000,
-    headerSearchResult: 900,
+    headerPopper: 900,
   },
 }
 
