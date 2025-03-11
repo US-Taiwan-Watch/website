@@ -1,7 +1,7 @@
 import useSocialLinks from '@/common/hooks/useSocialLinks'
 import { ROUTES } from '@/routes'
 
-type SubLinkItem =
+export type SubLinkItem =
   | {
       type: 'title'
       title: string

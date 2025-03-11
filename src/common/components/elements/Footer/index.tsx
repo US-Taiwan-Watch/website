@@ -1,133 +1,17 @@
 'use client'
 
-import { styled } from '@/common/lib/mui/theme'
-import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import { Container, Stack, Typography } from '@mui/material'
-import ULogo from '@/common/components/atoms/ULogo'
-import UIconButton from '@/common/components/atoms/UIconButton'
-import useLinks from '@/common/components/elements/Footer/useLinks'
-import Link from 'next/link'
-import UButton from '@/common/components/atoms/UButton'
-import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
-
-const StyledFooter = styled('footer')(({ theme }) => ({
-  paddingTop: theme.spacing(4),
-  paddingBottom: theme.spacing(4),
-  color: theme.color.grey[1100],
-}))
-
-const StyledSubLinkContainer = styled(Stack)(() => ({}))
-
-const StyledSubLinkBlock = styled(Stack)(() => ({
-  maxHeight: '320px',
-}))
-
-// const StyledBottomLink = styled(Link)(() => ({
-//   textDecoration: 'underline',
-// }))
+import DesktopFooter from '@/common/components/elements/Footer/Desktop/DesktopFooter'
+import MobileFooter from '@/common/components/elements/Footer/Mobile/MobileFooter'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const Footer = () => {
-  const { socialLinkItems, subLinkItems } = useLinks()
+  const { isMobile } = useResponsive()
 
-  return (
-    <UFullWidthBackgroundBox backgroundColor="common.black">
-      <Container maxWidth="xl">
-        <StyledFooter>
-          {/** Top Section */}
-          <Stack direction="column" spacing={6}>
-            <Stack direction="row" justifyContent="space-between">
-              {/* Logo */}
-              <Stack direction="row" spacing={2} alignItems="center">
-                <ULogo size="small" />
-                <Typography variant="h5" fontWeight={700}>
-                  US Taiwan Watch
-                </Typography>
-              </Stack>
-              {/* Social Links */}
-              <Stack direction="row" spacing={2} alignContent="center">
-                {socialLinkItems.map((item, index) => (
-                  <a
-                    href={item.url}
-                    key={index}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <UIconButton variant="rounded" color="primary">
-                      {item.icon}
-                    </UIconButton>
-                  </a>
-                ))}
-              </Stack>
-            </Stack>
-            {/** Middle Section */}
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-start"
-            >
-              {/* Sub Links */}
-              <StyledSubLinkContainer
-                direction="row"
-                spacing={12}
-                flexWrap="wrap"
-                useFlexGap
-              >
-                {subLinkItems.map((item, index) => (
-                  <StyledSubLinkBlock
-                    key={index}
-                    direction="column"
-                    spacing={2}
-                    useFlexGap
-                    flexWrap="wrap"
-                    rowGap={1.5}
-                    columnGap={12}
-                  >
-                    {item.type === 'title' && (
-                      <>
-                        <Typography paddingBottom={1} fontWeight={700}>
-                          {item.title}
-                        </Typography>
-                        {item.subLinks.map(
-                          (subItem, subIndex) =>
-                            subItem.type === 'subLink' && (
-                              <Link
-                                href={subItem.url}
-                                key={subIndex}
-                                // phase1 還沒有做的頁面以 # 開頭
-                                scroll={!subItem.url.startsWith('#')}
-                              >
-                                <Typography>{subItem.title}</Typography>
-                              </Link>
-                            )
-                        )}
-                      </>
-                    )}
-                  </StyledSubLinkBlock>
-                ))}
-              </StyledSubLinkContainer>
-              {/** Donation Button */}
-              <UButton variant="contained" color="secondary" rounded>
-                Donation
-              </UButton>
-            </Stack>
-            {/** Bottom Section */}
-            <Stack direction="row" justifyContent="space-between">
-              {/** Language Switcher */}
-              <LanguageSwitcher />
-              {/** Links: not for phase1 */}
-              {/* <Stack direction="row" spacing={2} flex={1}>
-                <StyledBottomLink href="/">User Agreement and Privacy Policy</StyledBottomLink>
-              </Stack> */}
-              {/** Copyright */}
-              <Typography>
-                © U.S. Taiwan Watch {new Date().getFullYear()}
-              </Typography>
-            </Stack>
-          </Stack>
-        </StyledFooter>
-      </Container>
-    </UFullWidthBackgroundBox>
-  )
+  if (isMobile) {
+    return <MobileFooter />
+  }
+
+  return <DesktopFooter />
 }
 
 export default Footer

@@ -15,7 +15,11 @@ const StyledButton = styled(UButton)(({ theme }) => {
     ':not(:last-child)': {
       borderRight: `1px solid ${theme.color.grey[1100]}`,
     },
-    color: 'inherit',
+    borderRadius: '0',
+    color: theme.color.common.white,
+    '&.Mui-disabled': {
+      color: theme.color.common.white,
+    },
   }
 })
 
@@ -37,6 +41,9 @@ export const LanguageSwitcher = memo(function LanguageSwitcher() {
               onClick={() => handleClick(l)}
               variant="text"
               disabled={l === language}
+              sx={{
+                fontWeight: l === language ? 700 : 400,
+              }}
             >
               {/** TODO: i18n 語言 */}
               {l}
