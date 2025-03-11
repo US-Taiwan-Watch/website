@@ -21,6 +21,7 @@ const StyledNavItemListTitleContainer = styled(Box)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
   borderBottom: `1px solid ${theme.color.neutral[100]}`,
+  paddingTop: theme.spacing(0.5),
   paddingBottom: theme.spacing(0.5),
   paddingLeft: theme.spacing(1),
   paddingRight: theme.spacing(1),
@@ -33,6 +34,7 @@ const StyledNavItemListItemContainer = styled(Box)(({ theme }) => ({
   justifyContent: 'space-between',
   color: theme.color.neutral[500],
   borderBottom: `1px solid ${theme.color.neutral[100]}`,
+  paddingTop: theme.spacing(0.5),
   paddingBottom: theme.spacing(0.5),
   paddingLeft: theme.spacing(1),
   paddingRight: theme.spacing(1),
@@ -49,7 +51,7 @@ const MobileNavMenuItem = ({
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
 
   return (
-    <Stack width="100%" gap={1}>
+    <Stack width="100%">
       <StyledNavItemListTitleContainer
         onClick={() => {
           setIsAccordionOpen(!isAccordionOpen)
@@ -95,7 +97,7 @@ const MobileNavMenuItemList = ({
 }) => {
   const { navItems } = useNavItems()
   return (
-    <Stack width="100%" gap={1} paddingTop={2} paddingBottom={4}>
+    <Stack width="100%" paddingTop={2} paddingBottom={4}>
       {navItems.map((item) => (
         <MobileNavMenuItem
           key={item.id}

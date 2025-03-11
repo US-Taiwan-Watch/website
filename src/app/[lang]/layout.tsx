@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import Header from '@/common/components/elements/Header'
-// import Footer from '@/common/components/elements/Footer'
+import Footer from '@/common/components/elements/Footer'
 import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
 import ToastProvider from '@/common/providers/ToastProvider'
 import Stack from '@mui/material/Stack'
@@ -47,7 +47,7 @@ export default async function RootLayout({
                     <Stack flexGrow={1}>{children}</Stack>
                   </ClientApolloProvider>
                 </ToastProvider>
-                {/* <Footer /> */}
+                <Footer />
               </Stack>
             </ResponsiveProvider>
           </ThemeProvider>
