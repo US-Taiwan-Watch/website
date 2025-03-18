@@ -1,8 +1,8 @@
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import Carousel from '@/common/components/elements/Carousel'
 import IndexArticleCard from '@/common/components/elements/IndexArticleCard'
 import { Container } from '@mui/material'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
+import ClientCarousel from '@/common/components/elements/IndexArticleCarousel/ClientCarousel'
 
 /**
  * 首頁文章輪播車的限制數量
@@ -17,7 +17,7 @@ export default async function IndexArticleCarousel() {
   return (
     <UFullWidthBackgroundBox>
       <Container maxWidth="xl">
-        <Carousel>
+        <ClientCarousel>
           {articles.map((article) => (
             <IndexArticleCard
               containerSx={{
@@ -27,7 +27,7 @@ export default async function IndexArticleCarousel() {
               key={article.id}
             />
           ))}
-        </Carousel>
+        </ClientCarousel>
       </Container>
     </UFullWidthBackgroundBox>
   )
