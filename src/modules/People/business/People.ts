@@ -291,10 +291,14 @@ export class PeopleUtils {
   static parseCurrentPosition(dto: ApiPeople['experiences']) {
     if (!isArray(dto)) return undefined
     const currentExperience = dto.find((item) => item.isCurrent)
-    if (!currentExperience || !isString(currentExperience.category))
+    if (
+      !currentExperience ||
+      !isString(currentExperience.category?.i18n?.en?.name)
+    )
       return undefined
-    return z.nativeEnum(PeoplePosition).safeParse(currentExperience.category)
-      .data
+    return z
+      .nativeEnum(PeoplePosition)
+      .safeParse(currentExperience.category?.i18n?.en?.name).data
   }
 
   /**
@@ -307,7 +311,10 @@ export class PeopleUtils {
     return uniq(
       dto
         .map(
-          (item) => z.nativeEnum(PeoplePosition).safeParse(item.category).data
+          (item) =>
+            z
+              .nativeEnum(PeoplePosition)
+              .safeParse(item.category?.i18n?.en?.name).data
         )
         .filter(Boolean)
     ) as Array<PeoplePosition>
@@ -333,10 +340,13 @@ export class PeopleUtils {
     const currentExperience = dto.find(
       (item) =>
         item.isCurrent &&
-        (item.category === PeoplePosition.SENATOR ||
-          item.category === PeoplePosition.HOUSE_REPRESENTATIVE)
+        (item.category?.i18n?.en?.name === PeoplePosition.SENATOR ||
+          item.category?.i18n?.en?.name === PeoplePosition.HOUSE_REPRESENTATIVE)
     )
-    if (!currentExperience || !isString(currentExperience.category))
+    if (
+      !currentExperience ||
+      !isString(currentExperience.category?.i18n?.en?.name)
+    )
       return false
     return !!z.nativeEnum(PeoplePosition).safeParse(currentExperience.category)
       .data
@@ -353,8 +363,8 @@ export class PeopleUtils {
     if (!isArray(dto)) return null
     const congressExperiences = dto.filter(
       (item) =>
-        item.category === PeoplePosition.SENATOR ||
-        item.category === PeoplePosition.HOUSE_REPRESENTATIVE
+        item.category?.i18n?.en?.name === PeoplePosition.SENATOR ||
+        item.category?.i18n?.en?.name === PeoplePosition.HOUSE_REPRESENTATIVE
     )
     if (congressExperiences.length === 0) return null
     const congresses = congressExperiences
