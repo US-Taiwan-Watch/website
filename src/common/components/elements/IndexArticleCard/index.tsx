@@ -12,11 +12,17 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const StyledIndexArticleCardContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
-  padding: theme.spacing(2, 2, 2, 4),
   borderRadius: '30px',
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+  },
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(2, 2, 2, 4),
+  },
 }))
 
 const StyledTag = styled(Box)(({ theme }) => ({
@@ -26,15 +32,26 @@ const StyledTag = styled(Box)(({ theme }) => ({
   cursor: 'default',
 }))
 
-const StyledImage = styled(Image)(() => ({
-  width: '600px',
-  height: '500px',
+const StyledImage = styled(Image)(({ theme }) => ({
   objectFit: 'cover',
   borderRadius: '10px',
+  [theme.breakpoints.down('sm')]: {
+    width: '100%',
+    height: '250px',
+  },
+  [theme.breakpoints.up('sm')]: {
+    width: '600px',
+    height: '500px',
+  },
 }))
 
-const StyledLeftSection = styled(Stack)(({ theme }) => ({
-  padding: theme.spacing(2, 0),
+const StyledContentSection = styled(Stack)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    paddingTop: theme.spacing(2),
+  },
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(2, 0),
+  },
 }))
 
 const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
@@ -47,7 +64,9 @@ const UButtonWithSelectable =
   withSelectable<ComponentProps<typeof UButton>>(UButton)
 
 const StyledMiddleSection = styled(Stack)(({ theme }) => ({
-  margin: theme.spacing(4, 0),
+  [theme.breakpoints.down('sm')]: {
+    marginTop: `${theme.spacing(2)} !important`,
+  },
 }))
 
 // TODO: 確認類型
@@ -60,12 +79,22 @@ const IndexArticleCard = memo(function IndexArticleCard({
   containerSx,
   article,
 }: IndexArticleCardProps) {
+  const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
   return (
     <StyledIndexArticleCardContainer sx={containerSx}>
-      <Stack direction="row" spacing={8}>
-        <StyledLeftSection direction="column" spacing={4}>
+      <Stack direction={isMobile ? 'column' : 'row'} spacing={isMobile ? 0 : 8}>
+        {/** Mobile Image */}
+        {isMobile && article.bannerImage && (
+          <StyledImage
+            src={article.bannerImage.src}
+            alt={article.title ?? ''}
+            width={600}
+            height={500}
+          />
+        )}
+        <StyledContentSection direction="column" spacing={4}>
           {/** Tags */}
           {article.categories && article.categories.length > 0 && (
             <UTagListWithSelectable
@@ -93,12 +122,15 @@ const IndexArticleCard = memo(function IndexArticleCard({
           <StyledMiddleSection direction="column" spacing={2} flex={1}>
             <UHeightLimitedTextWithSelectable
               maxLine={3}
-              variant="h3"
+              variant={isMobile ? 'subtitleL' : 'h3'}
               fontWeight={500}
             >
               {article.title}
             </UHeightLimitedTextWithSelectable>
-            <UHeightLimitedTextWithSelectable maxLine={5} variant="body1">
+            <UHeightLimitedTextWithSelectable
+              maxLine={isMobile ? 3 : 5}
+              variant={isMobile ? 'bodyS' : 'bodyM'}
+            >
               {article.description}
             </UHeightLimitedTextWithSelectable>
           </StyledMiddleSection>
@@ -118,8 +150,9 @@ const IndexArticleCard = memo(function IndexArticleCard({
               Learn More
             </UButtonWithSelectable>
           </Link>
-        </StyledLeftSection>
-        {article.bannerImage && (
+        </StyledContentSection>
+        {/** Desktop Image */}
+        {!isMobile && article.bannerImage && (
           <StyledImage
             src={article.bannerImage.src}
             alt={article.title ?? ''}
