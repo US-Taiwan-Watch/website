@@ -92,9 +92,6 @@ const IndexArticleCard = memo(function IndexArticleCard({
             alt={article.title ?? ''}
             width={600}
             height={500}
-            sx={{
-              height: '250px',
-            }}
           />
         )}
         <StyledContentSection direction="column" spacing={4}>
