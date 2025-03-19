@@ -2,12 +2,14 @@
 
 import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
+import UHStack from '@/common/components/atoms/UHStack'
 import Carousel from '@/common/components/elements/Carousel'
 import {
   WatchBookClubPodcastCard,
   WatchHerePodcastCard,
   WatchInfoPodcastCard,
 } from '@/modules/Podcast/components/IndexPodcastCard'
+import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
@@ -43,3 +45,15 @@ const IndexPodcastCards = () => {
 }
 
 export default IndexPodcastCards
+
+export const ScrollableIndexPodcastCards = () => {
+  return (
+    <Box overflow="auto">
+      <UHStack gap={2} width="max-content">
+        <WatchHerePodcastCard />
+        <WatchInfoPodcastCard />
+        <WatchBookClubPodcastCard />
+      </UHStack>
+    </Box>
+  )
+}
