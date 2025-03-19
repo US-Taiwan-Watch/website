@@ -1,8 +1,9 @@
+import UHStack from '@/common/components/atoms/UHStack'
 import { Article } from '@/modules/Article/business/Article'
 import ArticlePostCard, {
   ArticlePostCardSkeleton,
 } from '@/modules/Article/components/ArticlePostCard'
-import { Grid2 as Grid, Stack } from '@mui/material'
+import { Box, Grid2 as Grid, Stack } from '@mui/material'
 
 interface ArticlePostCardsProps {
   articles: Array<Article>
@@ -10,6 +11,9 @@ interface ArticlePostCardsProps {
   showCategory?: boolean
 }
 
+/**
+ * Grid 卡片列表
+ */
 const ArticlePostCards = ({
   articles,
   showCategory = true,
@@ -30,6 +34,26 @@ const ArticlePostCards = ({
 
 export default ArticlePostCards
 
+/**
+ * 可滾動的卡片列表
+ */
+export const ScrollableArticlePostCards = ({
+  articles,
+  showCategory = true,
+}: ArticlePostCardsProps) => {
+  return (
+    <Box overflow="auto">
+      <UHStack gap={1} width="max-content">
+        {articles.map((article) => (
+          <Box key={article.id} width="80dvw">
+            <ArticlePostCard article={article} showCategory={showCategory} />
+          </Box>
+        ))}
+      </UHStack>
+    </Box>
+  )
+}
+
 export const ArticlePostCardsSkeleton = ({
   count = 9,
 }: {
@@ -39,7 +63,13 @@ export const ArticlePostCardsSkeleton = ({
   return (
     <Grid container rowSpacing={8} columnSpacing={4}>
       {Array.from({ length: count }).map((_, index) => (
-        <Grid size={4} key={index}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 4,
+          }}
+          key={index}
+        >
           <ArticlePostCardSkeleton />
         </Grid>
       ))}
