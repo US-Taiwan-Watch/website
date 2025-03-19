@@ -19,7 +19,7 @@ import {
 } from '@/common/styles/assets/Icons'
 import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
-import { ReactNode } from 'react'
+import { memo, ReactNode } from 'react'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
@@ -27,6 +27,7 @@ import { Party } from '@/common/enums/Party'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const Grid2WithSelectable = withSelectable<ComponentProps<typeof Grid2>>(Grid2)
 
@@ -93,13 +94,11 @@ function CardIconTitle({
   )
 }
 
-type Props = {
-  bill: Bill
-}
-
-export default function RightSection({ bill }: Props) {
+const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
   const theme = useTheme<USTWTheme>()
   const { partyColor } = usePartyColor()
+  const introducedDate = BillUtils.getIntroducedDate(bill)
+  const latestAction = BillUtils.getLatestAction(bill)
 
   return (
     <Grid2 container spacing={2}>
@@ -177,10 +176,8 @@ export default function RightSection({ bill }: Props) {
         >
           <CardIconTitle icon={<CalenderIcon />} title="Introduced" />
           <Typography variant="subtitleL" fontWeight={700}>
-            {dayjs(BillUtils.getIntroducedDate(bill)).isValid()
-              ? dayjs(BillUtils.getIntroducedDate(bill)).format(
-                  INTRODUCED_DATE_FORMAT
-                )
+            {introducedDate && dayjs(introducedDate).isValid()
+              ? dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT)
               : ''}
           </Typography>
         </StyledCardContainer>
@@ -197,18 +194,60 @@ export default function RightSection({ bill }: Props) {
               fontSize={15}
               sx={{ color: theme.color.grey[1200] }}
             >
-              {dayjs(BillUtils.getLatestAction(bill)?.date).isValid()
-                ? dayjs(BillUtils.getLatestAction(bill)?.date).format(
-                    ACTION_DATE_FORMAT
-                  )
+              {latestAction.date && dayjs(latestAction.date).isValid()
+                ? dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
                 : ''}
             </Typography>
             <UHeightLimitedText maxLine={3} variant="buttonXS">
-              {BillUtils.getLatestAction(bill)?.description}
+              {latestAction.description}
             </UHeightLimitedText>
           </Stack>
         </StyledCardContainer>
       </Grid2WithSelectable>
     </Grid2>
   )
+})
+
+const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
+  const theme = useTheme<USTWTheme>()
+  const latestAction = BillUtils.getLatestAction(bill)
+
+  return (
+    <Stack>
+      <Divider sx={{ my: 2, borderWidth: 1 }} />
+      <UHStack px={1} gap={1.5} alignItems="center">
+        {bill.sponsor?.party && (
+          <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
+        )}
+        <Typography variant="subtitleS" fontWeight={700}>
+          {bill.sponsor?.name}
+        </Typography>
+      </UHStack>
+      <Divider sx={{ my: 2, borderWidth: 1 }} />
+      <Stack gap={1.5}>
+        <Typography variant="buttonS" color={theme.color.grey[400]}>
+          {latestAction.date && dayjs(latestAction.date).isValid()
+            ? dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
+            : ''}
+        </Typography>
+        <UHeightLimitedText maxLine={3} variant="body" fontWeight={300}>
+          {latestAction.description}
+        </UHeightLimitedText>
+      </Stack>
+    </Stack>
+  )
+})
+
+type Props = {
+  bill: Bill
+}
+
+export default function RightSection({ bill }: Props) {
+  const { isMobile } = useResponsive()
+
+  if (isMobile) {
+    return <MobileSection bill={bill} />
+  }
+
+  return <DesktopSection bill={bill} />
 }
