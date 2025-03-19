@@ -1,3 +1,5 @@
+'use client'
+
 import clsx from 'clsx'
 import Podcast, { PodcastType } from '@/modules/Podcast/classes/Podcast'
 import { Box, Grid2 as Grid, Stack } from '@mui/material'
@@ -16,6 +18,7 @@ import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
 import { Episode } from '@/modules/Podcast/classes/Episode'
 import usePodcastStore from '@/modules/Podcast/store/usePodcastStore'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const StyledIndexPodcastCardBox = styled(Box)(({ theme }) => ({
   '&.WATCH_HERE': {
@@ -80,13 +83,25 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
   podcast,
   episodes,
 }: IndexPodcastCardProps) {
+  const { isMobile } = useResponsive()
+
   return (
     <StyledIndexPodcastCardBox
       className={clsx(className, podcast.type)}
       padding={2}
+      width={{
+        xs: '80dvw',
+        sm: 'auto',
+      }}
     >
       <Grid container spacing={4}>
-        <Grid size={7} rowSpacing={0}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 7,
+          }}
+          rowSpacing={0}
+        >
           <Stack
             height="100%"
             direction="column"
@@ -141,13 +156,15 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
             </UButtonWithSelectable>
           </Stack>
         </Grid>
-        <Grid size={5}>
-          <Stack direction="column" spacing={2}>
-            {episodes.map((episode, index) => (
-              <IndexEpisodeCardWithSelectable key={index} episode={episode} />
-            ))}
-          </Stack>
-        </Grid>
+        {!isMobile && (
+          <Grid size={5}>
+            <Stack direction="column" spacing={2}>
+              {episodes.map((episode, index) => (
+                <IndexEpisodeCardWithSelectable key={index} episode={episode} />
+              ))}
+            </Stack>
+          </Grid>
+        )}
       </Grid>
     </StyledIndexPodcastCardBox>
   )

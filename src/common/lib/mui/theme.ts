@@ -1,4 +1,5 @@
 'use client'
+
 import {
   createTheme,
   PaletteOptions,
@@ -7,7 +8,6 @@ import {
   ThemeOptions,
   styled as muiStyled,
 } from '@mui/material/styles'
-
 import {
   Public_Sans as PublicSans,
   Noto_Sans_TC as NotoSansTC,

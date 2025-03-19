@@ -9,6 +9,7 @@ import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constan
 import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { useState, useMemo, useEffect } from 'react'
 import ArticlePostCards, {
+  ScrollableArticlePostCards,
   ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
 import { ROUTES } from '@/routes'
@@ -23,8 +24,10 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { isNull } from 'lodash-es'
 import { useQuery } from '@apollo/client'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const ArticleSection = () => {
+  const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
   const landingTags = useArticleStore.use.landingTags()
@@ -87,7 +90,13 @@ const ArticleSection = () => {
           </UHStack>
 
           {/** Posts */}
-          {loading ? (
+          {isMobile ? (
+            loading ? (
+              <ArticlePostCardsSkeleton count={1} />
+            ) : (
+              <ScrollableArticlePostCards articles={articles} />
+            )
+          ) : loading ? (
             <ArticlePostCardsSkeleton count={3} />
           ) : (
             <ArticlePostCards articles={articles} />

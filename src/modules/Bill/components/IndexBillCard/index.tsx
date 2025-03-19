@@ -36,16 +36,16 @@ export default function IndexBillCard({ bill }: Props) {
       >
         <Grid2
           size={{
-            sm: 12,
-            md: 6,
+            xs: 12,
+            sm: 6,
           }}
         >
           <LeftSection bill={bill} />
         </Grid2>
         <Grid2
           size={{
-            sm: 12,
-            md: 6,
+            xs: 12,
+            sm: 6,
           }}
         >
           <RightSection bill={bill} />

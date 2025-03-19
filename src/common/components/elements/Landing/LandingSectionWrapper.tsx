@@ -37,9 +37,16 @@ const LandingSectionWrapper = ({
     >
       <Container maxWidth={isHeaderWidth ? 'xl' : 'lg'}>
         <Stack
+          pt={{
+            xs: 8,
+            sm: 10,
+          }}
+          pb={10}
+          gap={{
+            xs: 4,
+            sm: 7.5,
+          }}
           sx={{
-            padding: '80px 0',
-            gap: '80px',
             ...contentWrapperSx,
           }}
         >

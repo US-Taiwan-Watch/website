@@ -12,6 +12,8 @@ const StyledHighlightText = styled('span')(({ theme }) => ({
   color: theme.color.orange[900],
 }))
 
+const StyledImage = styled(Image)(() => ({}))
+
 const FreeUsageSection = () => {
   const theme = useTheme<USTWTheme>()
 
@@ -39,13 +41,27 @@ const FreeUsageSection = () => {
           </UButton>
         </Box>
       </Stack>
-      <Image
-        src="/assets/free-usage-section.png"
-        alt="Free Usage Section"
-        width={1340}
-        height={464}
-        layout="responsive"
-      />
+      <Box
+        sx={{
+          height: {
+            xs: '300px',
+            sm: '483px',
+          },
+        }}
+      >
+        <StyledImage
+          src="/assets/free-usage-section.png"
+          alt="Free Usage Section"
+          width={1340}
+          height={464}
+          sx={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            borderRadius: '20px',
+          }}
+        />
+      </Box>
     </LandingSectionWrapper>
   )
 }

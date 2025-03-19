@@ -19,6 +19,7 @@ const StyledIndexArticleCardContainer = styled(Box)(({ theme }) => ({
   borderRadius: '30px',
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(2),
+    margin: theme.spacing(0, 1),
   },
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(2, 2, 2, 4),
@@ -83,7 +84,16 @@ const IndexArticleCard = memo(function IndexArticleCard({
 
   return (
     <StyledIndexArticleCardContainer>
-      <Stack direction={isMobile ? 'column' : 'row'} spacing={isMobile ? 0 : 8}>
+      <Stack
+        direction={{
+          xs: 'column',
+          sm: 'row',
+        }}
+        spacing={{
+          xs: 0,
+          sm: 8,
+        }}
+      >
         {/** Mobile Image */}
         {isMobile && article.bannerImage && (
           <StyledImage

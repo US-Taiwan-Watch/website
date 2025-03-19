@@ -17,7 +17,16 @@ export default async function BillSection() {
 
   return (
     <UContainer>
-      <Stack py={10} gap={7.5}>
+      <Stack
+        py={{
+          xs: 4,
+          sm: 10,
+        }}
+        gap={{
+          xs: 4,
+          sm: 7.5,
+        }}
+      >
         <SectionTitleWithLink title="Bills" link={ROUTES.BILL} />
         <IndexBillCardList billData={featuredBills} />
       </Stack>
