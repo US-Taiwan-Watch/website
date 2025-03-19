@@ -19,8 +19,10 @@ import {
   stepConnectorClasses,
   StepConnector,
   Tooltip,
+  StepConnectorProps,
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
+import { useMemo } from 'react'
 
 // Be hardcoded in source code
 const TIMELINE_DOT_MARGIN_PX = 15.5
@@ -28,6 +30,7 @@ const TIMELINE_DOT_WIDTH_PX = 12
 
 type UTimelineItemProps = {
   title: string
+  variant?: 'primary' | 'secondary'
 } & Partial<{
   subtitle: string
   isLast: boolean
@@ -46,42 +49,66 @@ type UTimelineProps = {
   activeIndex?: number
   isHorizontal?: boolean
   itemMinHeight?: number
+  variant?: 'primary' | 'secondary'
 }
 
-const StyledConnector = styled(StepConnector)(({ theme }) => ({
-  [`&.${stepConnectorClasses.root}`]: {
-    top: 0,
-    left: '-50%',
-    right: '50%',
-  },
-  [`&.${stepConnectorClasses.active}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.color.purple[100],
-    },
-  },
-  [`&.${stepConnectorClasses.completed}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.color.purple[100],
-    },
-  },
-  [`&.${stepConnectorClasses.disabled}`]: {
-    [`& .${stepConnectorClasses.line}`]: {
-      borderColor: theme.color.neutral[200],
-    },
-  },
-  [`& .${stepConnectorClasses.line}`]: {
-    borderTopWidth: `${TIMELINE_DOT_WIDTH_PX}px`,
-  },
-}))
+interface StyledConnectorProps extends StepConnectorProps {
+  variant?: 'primary' | 'secondary'
+}
 
-function HorizontalTimeline({ data, activeIndex }: UTimelineProps) {
+const StyledConnector = styled(StepConnector)<StyledConnectorProps>(
+  ({ theme, variant = 'primary' }) => ({
+    [`&.${stepConnectorClasses.root}`]: {
+      top: 0,
+      left: '-50%',
+      right: '50%',
+    },
+    [`&.${stepConnectorClasses.active}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor:
+          variant === 'primary'
+            ? theme.color.lime[500]
+            : theme.color.purple[100],
+      },
+    },
+    [`&.${stepConnectorClasses.completed}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor:
+          variant === 'primary'
+            ? theme.color.lime[500]
+            : theme.color.purple[100],
+      },
+    },
+    [`&.${stepConnectorClasses.disabled}`]: {
+      [`& .${stepConnectorClasses.line}`]: {
+        borderColor: theme.color.neutral[200],
+      },
+    },
+    [`& .${stepConnectorClasses.line}`]: {
+      borderTopWidth: `${TIMELINE_DOT_WIDTH_PX}px`,
+    },
+  })
+)
+
+function HorizontalTimeline({
+  data,
+  activeIndex,
+  variant = 'primary',
+}: UTimelineProps) {
   const theme = useTheme<USTWTheme>()
+  const color = useMemo(() => {
+    if (variant === 'primary') {
+      return theme.color.lime[500]
+    }
+
+    return theme.color.purple[100]
+  }, [variant, theme])
 
   return (
     <Stepper
       activeStep={activeIndex}
       alternativeLabel
-      connector={<StyledConnector />}
+      connector={<StyledConnector variant={variant} />}
     >
       {data.map((_, index) => {
         const isActiveDot = index === activeIndex
@@ -97,7 +124,7 @@ function HorizontalTimeline({ data, activeIndex }: UTimelineProps) {
                       height: TIMELINE_DOT_WIDTH_PX,
                       borderRadius: '50%',
                       backgroundColor: isActiveDot
-                        ? theme.color.purple[100]
+                        ? color
                         : theme.color.common.black,
                       outline: isActiveDot
                         ? `3px solid ${theme.color.common.black}`
@@ -122,17 +149,24 @@ function UTimelineItem({
   isActiveDot,
   isActiveConnector,
   minHeight,
+  variant = 'primary',
 }: UTimelineItemProps) {
   const theme = useTheme<USTWTheme>()
+
+  const color = useMemo(() => {
+    if (variant === 'primary') {
+      return theme.color.lime[500]
+    }
+
+    return theme.color.purple[100]
+  }, [variant, theme])
 
   return (
     <TimelineItem sx={{ minHeight: minHeight ?? 'unset' }}>
       <TimelineSeparator>
         <TimelineDot
           sx={{
-            backgroundColor: isActiveDot
-              ? theme.color.purple[100]
-              : theme.color.common.black,
+            backgroundColor: isActiveDot ? color : theme.color.common.black,
             outline: isActiveDot
               ? `3px solid ${theme.color.common.black}`
               : 'none',
@@ -142,7 +176,7 @@ function UTimelineItem({
           <TimelineConnector
             sx={{
               backgroundColor: isActiveConnector
-                ? theme.color.purple[100]
+                ? color
                 : theme.color.neutral[200],
             }}
           />
@@ -177,9 +211,16 @@ export default function UTimeline({
   activeIndex,
   isHorizontal,
   itemMinHeight,
+  variant = 'primary',
 }: UTimelineProps) {
   if (isHorizontal) {
-    return <HorizontalTimeline data={data} activeIndex={activeIndex} />
+    return (
+      <HorizontalTimeline
+        data={data}
+        activeIndex={activeIndex}
+        variant={variant}
+      />
+    )
   }
 
   return (
@@ -211,6 +252,7 @@ export default function UTimeline({
           isActiveDot={index === activeIndex}
           isActiveConnector={!!activeIndex && index < activeIndex}
           minHeight={itemMinHeight}
+          variant={variant}
         />
       ))}
     </Timeline>

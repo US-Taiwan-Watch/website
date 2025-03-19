@@ -21,7 +21,7 @@ import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 
-const DATE_FORMAT = 'MM/DD/YYYY'
+const DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
 
 const StyledCardContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -96,6 +96,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                 }))}
                 activeIndex={BillUtils.getStatusIndex(bill)}
                 isHorizontal
+                variant="secondary"
               />
             </Box>
           )}
@@ -140,6 +141,7 @@ export default function BillCard({ mode, simplified, bill }: Props) {
                 title: BillUtils.getBillStatusText(status),
               }))}
               activeIndex={BillUtils.getStatusIndex(bill)}
+              variant="secondary"
             />
             <Box>
               <UCardInfo

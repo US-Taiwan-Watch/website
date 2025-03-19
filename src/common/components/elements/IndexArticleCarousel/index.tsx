@@ -19,13 +19,7 @@ export default async function IndexArticleCarousel() {
       <Container maxWidth="xl">
         <ClientCarousel>
           {articles.map((article) => (
-            <IndexArticleCard
-              containerSx={{
-                mx: 1,
-              }}
-              article={article}
-              key={article.id}
-            />
+            <IndexArticleCard article={article} key={article.id} />
           ))}
         </ClientCarousel>
       </Container>
