@@ -2,9 +2,9 @@
 
 import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
-import Carousel from '@/common/components/elements/Carousel'
 import { Bill } from '@/modules/Bill/business/Bill'
 import IndexBillCard from '@/modules/Bill/components/IndexBillCard'
+import ClientCarousel from '@/modules/Bill/components/IndexBillCard/ClientCarousel'
 import { styled } from '@mui/material/styles'
 
 const StyledUFullWidthBackgroundBox = styled(UFullWidthBackgroundBox)(() => ({
@@ -28,19 +28,11 @@ export default function IndexBillCardList({
   return (
     <StyledUFullWidthBackgroundBox>
       <UContainer>
-        <Carousel
-          centerMode
-          settings={{
-            slidesToShow: 1,
-            infinite: false,
-            centerPadding: '0px',
-          }}
-          renderPagination={() => null}
-        >
+        <ClientCarousel>
           {billData.map((bill) => (
             <IndexBillCard key={bill.id} bill={bill} />
           ))}
-        </Carousel>
+        </ClientCarousel>
       </UContainer>
     </StyledUFullWidthBackgroundBox>
   )
