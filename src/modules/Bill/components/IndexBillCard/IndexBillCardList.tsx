@@ -35,6 +35,7 @@ export default function IndexBillCardList({
             infinite: false,
             centerPadding: '0px',
           }}
+          renderPagination={() => null}
         >
           {billData.map((bill) => (
             <IndexBillCard key={bill.id} bill={bill} />

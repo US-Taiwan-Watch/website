@@ -14,6 +14,8 @@ import UTagList from '@/common/components/atoms/UTagList'
 import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
 import { CongressUtils } from '@/common/business/Congress'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import BillTag from '@/modules/Bill/components/BillTag'
 
 const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
   UTagList,
@@ -33,6 +35,7 @@ type Props = {
 }
 
 export default function LeftSection({ bill }: Props) {
+  const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -76,6 +79,19 @@ export default function LeftSection({ bill }: Props) {
         </Link>
       </Stack>
 
+      {/** Tags (Only Mobile) */}
+      {isMobile && (
+        <UTagList
+          tags={bill.tags.map((tag) => (
+            <BillTag key={tag.id} value={tag.name} />
+          ))}
+          containerProps={{
+            gap: 2,
+          }}
+          maxTags={2}
+        />
+      )}
+
       <StackWithSelectable gap={2}>
         <UHStack spacing={0.5} alignItems="center">
           <Typography variant="body">Tracker:</Typography>
@@ -90,7 +106,7 @@ export default function LeftSection({ bill }: Props) {
             )}
           />
         </UHStack>
-        <Box mx={-6}>
+        <Box mx={isMobile ? -3 : -6}>
           <UTimeline
             data={BillUtils.getAllBillStatuses(bill).map((status) => ({
               title: BillUtils.getBillStatusText(status),

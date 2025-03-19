@@ -29,6 +29,7 @@ export default function BillTracker({ bill }: Props) {
           }))}
           activeIndex={BillUtils.getStatusIndex(bill)}
           itemMinHeight={50}
+          variant="secondary"
         />
       </Box>
     </UContentCard>

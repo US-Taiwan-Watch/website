@@ -22,6 +22,7 @@ const StyledIndexArticleCardContainer = styled(Box)(({ theme }) => ({
   },
   [theme.breakpoints.up('sm')]: {
     padding: theme.spacing(2, 2, 2, 4),
+    margin: theme.spacing(0, 1),
   },
 }))
 
@@ -71,19 +72,17 @@ const StyledMiddleSection = styled(Stack)(({ theme }) => ({
 
 // TODO: 確認類型
 interface IndexArticleCardProps {
-  containerSx?: ComponentProps<typeof StyledIndexArticleCardContainer>['sx']
   article: Article
 }
 
 const IndexArticleCard = memo(function IndexArticleCard({
-  containerSx,
   article,
 }: IndexArticleCardProps) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
   return (
-    <StyledIndexArticleCardContainer sx={containerSx}>
+    <StyledIndexArticleCardContainer>
       <Stack direction={isMobile ? 'column' : 'row'} spacing={isMobile ? 0 : 8}>
         {/** Mobile Image */}
         {isMobile && article.bannerImage && (
