@@ -48,7 +48,7 @@ export default IndexPodcastCards
 
 export const ScrollableIndexPodcastCards = () => {
   return (
-    <Box overflow="auto">
+    <Box overflow="auto" py={2} px={2}>
       <UHStack gap={2} width="max-content">
         <WatchHerePodcastCard />
         <WatchInfoPodcastCard />

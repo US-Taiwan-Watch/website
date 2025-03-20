@@ -11,6 +11,7 @@ import { KETAGALAN_MEDIA_MOCK_DATA } from '@/modules/KetagalanMedia/data'
 import { Box, Grid2 as Grid } from '@mui/material'
 import UHStack from '@/common/components/atoms/UHStack'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 
 const KetagalanPostCards = () => {
   return (
@@ -32,7 +33,7 @@ const KetagalanPostCards = () => {
 
 const ScrollableKetagalanPostCards = () => {
   return (
-    <Box overflow="auto">
+    <Box overflow="auto" py={2} px={2}>
       <UHStack gap={1} width="max-content">
         {KETAGALAN_MEDIA_MOCK_DATA.map((media) => (
           <Box key={media.id} width="80dvw">
@@ -56,7 +57,13 @@ const KetagalanSection = () => {
       }}
     >
       <SectionTitleWithLink renderTitle={() => <UKetagalanLogo />} />
-      {isMobile ? <ScrollableKetagalanPostCards /> : <KetagalanPostCards />}
+      {isMobile ? (
+        <FullWidthScrollableListWrapper>
+          <ScrollableKetagalanPostCards />
+        </FullWidthScrollableListWrapper>
+      ) : (
+        <KetagalanPostCards />
+      )}
     </LandingSectionWrapper>
   )
 }

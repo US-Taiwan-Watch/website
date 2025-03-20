@@ -493,33 +493,207 @@ const constants: USTWThemeConstants = {
 
 type themeMode = 'light' | 'ketagalan'
 
-// TODO : line height 只接受倍數，無法設定 px
+// 用於設定 typography 的 media query
+const _theme = createTheme({
+  breakpoints: commonThemeBreakpoints,
+})
+
 const typographyVariants = {
-  h1: { fontSize: 64, fontWeight: 500 }, // lineHeight: '75.2px'
-  h2: { fontSize: 56, fontWeight: 600 }, // lineHeight: '65.8px'
-  h3: { fontSize: 46, fontWeight: 600 }, // lineHeight: '54.05px'
-  h4: { fontSize: 40, fontWeight: 600 }, // lineHeight: '47px'
-  h5: { fontSize: 38, fontWeight: 600 }, // lineHeight: '44.65px'
-  h6: { fontSize: 30, fontWeight: 600 }, // lineHeight: '35.25px'
-  subtitleXL: { fontSize: 24, fontWeight: 600, display: 'block' }, // lineHeight: '28.2px'
-  subtitleL: { fontSize: 22, fontWeight: 600, display: 'block' }, // lineHeight: '25.85px'
-  subtitleM: { fontSize: 18, fontWeight: 600, display: 'block' }, // lineHeight: '21.15px'
-  subtitleS: { fontSize: 16, fontWeight: 600, display: 'block' }, // lineHeight: '18.8px'
-  bodyM: { fontSize: 16, fontWeight: 400, display: 'block' }, // lineHeight: '18.8px'
-  bodyS: { fontSize: 14, fontWeight: 400, display: 'block' }, // lineHeight: '16.45px'
-  buttonL: { fontSize: 22, fontWeight: 500, display: 'block' }, // lineHeight: '25.85px'
-  buttonM: { fontSize: 18, fontWeight: 500, display: 'block' }, // lineHeight: '21.15px'
-  buttonS: { fontSize: 16, fontWeight: 500, display: 'block' }, // lineHeight: '18.8px'
-  buttonXS: { fontSize: 14, fontWeight: 500, display: 'block' }, // lineHeight: '16.45px'
-  buttonXXS: { fontSize: 12, fontWeight: 500, display: 'block' }, // lineHeight: '14.1px'
-  menu: { fontSize: 16, fontWeight: 600, display: 'block' }, // lineHeight: '18.8px'
-  articleH1: { fontSize: 30, fontWeight: 700, display: 'block' }, // lineHeight: '35.25px'
-  articleH2: { fontSize: 28, fontWeight: 700, display: 'block' }, // lineHeight: '32.9px'
-  articleH3: { fontSize: 22, fontWeight: 700, display: 'block' }, // lineHeight: '25.85px'
-  articleH4: { fontSize: 18, fontWeight: 700, display: 'block' }, // lineHeight: '21.15px'
-  articleH5: { fontSize: 16, fontWeight: 700, display: 'block' }, // lineHeight: '18.8px'
-  articleH6: { fontSize: 14, fontWeight: 300, display: 'block' }, // lineHeight: '18px'
-  body: { fontSize: 16, fontWeight: 400, display: 'block' }, // lineHeight: '26px'
+  h1: {
+    fontSize: '4rem',
+    fontWeight: 500,
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.75rem',
+      fontWeight: 500,
+    },
+  },
+  h2: {
+    fontSize: '3.5rem',
+    fontWeight: 600,
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.5rem',
+      fontWeight: 500,
+    },
+  },
+  h3: {
+    fontSize: '2.875rem',
+    fontWeight: 600,
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.375rem',
+      fontWeight: 500,
+    },
+  },
+  h4: {
+    fontSize: '2.5rem',
+    fontWeight: 600,
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.25rem',
+      fontWeight: 500,
+    },
+  },
+  h5: {
+    fontSize: '2.375rem',
+    fontWeight: 600,
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.125rem',
+      fontWeight: 500,
+    },
+  },
+  h6: {
+    fontSize: '1.875rem',
+    fontWeight: 600,
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
+      fontWeight: 500,
+    },
+  },
+  subtitleXL: { fontSize: '1.5rem', fontWeight: 600, display: 'block' },
+  subtitleL: {
+    fontSize: '1.375rem',
+    fontWeight: 600,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.125rem',
+      fontWeight: 600,
+    },
+  },
+  subtitleM: {
+    fontSize: '1.125rem',
+    fontWeight: 600,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
+      fontWeight: 600,
+    },
+  },
+  subtitleS: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.875rem',
+      fontWeight: 600,
+    },
+  },
+  bodyM: {
+    fontSize: '1rem',
+    fontWeight: 400,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+    },
+  },
+  bodyS: {
+    fontSize: '0.875rem',
+    fontWeight: 400,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.75rem',
+      fontWeight: 400,
+    },
+  },
+  buttonL: {
+    fontSize: '1.375rem',
+    fontWeight: 500,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
+      fontWeight: 500,
+    },
+  },
+  buttonM: {
+    fontSize: '1.125rem',
+    fontWeight: 500,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.875rem',
+      fontWeight: 500,
+    },
+  },
+  buttonS: {
+    fontSize: '1rem',
+    fontWeight: 500,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.75rem',
+      fontWeight: 500,
+    },
+  },
+  buttonXS: { fontSize: '0.875rem', fontWeight: 500, display: 'block' },
+  buttonXXS: { fontSize: '0.75rem', fontWeight: 500, display: 'block' },
+  menu: {
+    fontSize: '1rem',
+    fontWeight: 600,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.9375rem',
+      fontWeight: 600,
+    },
+  },
+  articleH1: {
+    fontSize: '1.875rem',
+    fontWeight: 700,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.375rem',
+      fontWeight: 700,
+    },
+  },
+  articleH2: {
+    fontSize: '1.75rem',
+    fontWeight: 700,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.25rem',
+      fontWeight: 700,
+    },
+  },
+  articleH3: {
+    fontSize: '1.375rem',
+    fontWeight: 700,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1.125rem',
+      fontWeight: 700,
+    },
+  },
+  articleH4: {
+    fontSize: '1.125rem',
+    fontWeight: 700,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '1rem',
+      fontWeight: 700,
+    },
+  },
+  articleH5: {
+    fontSize: '1rem',
+    fontWeight: 300,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.875rem',
+      fontWeight: 300,
+    },
+  },
+  articleH6: {
+    fontSize: '0.875rem',
+    fontWeight: 300,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.75rem',
+      fontWeight: 300,
+    },
+  },
+  body: {
+    fontSize: '1rem',
+    fontWeight: 400,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.875rem',
+      fontWeight: 400,
+    },
+  },
 }
 
 // 給予獨立頁面更改全域主題的方式

@@ -8,6 +8,8 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import ArrowPagination from '@/common/components/elements/Carousel/ArrowPagination'
 import { Bill } from '@/modules/Bill/business/Bill'
 import UContainer from '@/common/components/atoms/UContainer'
+import { memo } from 'react'
+import UHStack from '@/common/components/atoms/UHStack'
 
 const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
   overflow: 'hidden',
@@ -26,7 +28,10 @@ type Props = {
   data: Bill[]
 }
 
-export default function BillCardCarousel({ simplified, data }: Props) {
+export const BillCardCarousel = memo(function BillCardCarousel({
+  simplified,
+  data,
+}: Props) {
   // 顯示三張的話，最後兩張不可能成為 currentSlide，故藉 availableSlideCount 控制 handleNext
   const slidesToShow = 3
   const availableSlideCount = data.length - (slidesToShow - 1)
@@ -65,4 +70,21 @@ export default function BillCardCarousel({ simplified, data }: Props) {
       </UContainer>
     </StyledCarouselContainer>
   )
-}
+})
+
+export const ScrollableBillCards = memo(function ScrollableBillCards({
+  simplified,
+  data,
+}: Props) {
+  return (
+    <Box overflow="auto" py={2} px={2}>
+      <UHStack gap={1} width="max-content">
+        {data.map((bill) => (
+          <Box key={bill.id} width="80dvw">
+            <BillCard mode="vertical" simplified={simplified} bill={bill} />
+          </Box>
+        ))}
+      </UHStack>
+    </Box>
+  )
+})

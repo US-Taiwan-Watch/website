@@ -1,7 +1,7 @@
 'use client'
 
 import { CongressIcon } from '@/common/styles/assets/Icons'
-import { Stack, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import ParliamentChart, {
@@ -74,14 +74,17 @@ export default function CongressCard() {
                   selectedChamber === congress
                     ? theme.color.purple[100]
                     : theme.color.neutral[100],
-                fontWeight: 600,
-                fontSize: 16,
+                textTransform: 'capitalize',
+                padding: `${theme.spacing(0.75)} ${theme.spacing(1)}`,
+                width: {
+                  xs: '80px',
+                  sm: '100px',
+                },
               }}
               rounded
-              size="small"
               onClick={() => setSelectedChamber(congress)}
             >
-              {congress}
+              <Typography variant="subtitleS">{congress}</Typography>
             </UButton>
           ))}
         </UHStack>

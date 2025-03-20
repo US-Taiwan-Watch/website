@@ -8,6 +8,7 @@ import IndexPodcastCards, {
   ScrollableIndexPodcastCards,
 } from '@/modules/Podcast/components/IndexPodcastCards'
 import PodcastFetcherProvider from '@/modules/Podcast/providers/PodcastFetcherProvider'
+import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 
 const PodcastSection = () => {
   const { isMobile } = useResponsive()
@@ -20,7 +21,13 @@ const PodcastSection = () => {
     >
       <PodcastFetcherProvider />
       <SectionTitleWithLink title="Podcast" />
-      {isMobile ? <ScrollableIndexPodcastCards /> : <IndexPodcastCards />}
+      {isMobile ? (
+        <FullWidthScrollableListWrapper>
+          <ScrollableIndexPodcastCards />
+        </FullWidthScrollableListWrapper>
+      ) : (
+        <IndexPodcastCards />
+      )}
     </LandingSectionWrapper>
   )
 }

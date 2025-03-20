@@ -14,7 +14,16 @@ export default async function PopularTags() {
   })
 
   return (
-    <Stack px={2} spacing={2}>
+    <Stack
+      px={{
+        xs: 0,
+        sm: 2,
+      }}
+      spacing={{
+        xs: 1,
+        sm: 2,
+      }}
+    >
       <Typography variant="subtitleS">Popular Tags :</Typography>
       <UHStack spacing={1}>
         {topTags.map(({ tag }, index) => (

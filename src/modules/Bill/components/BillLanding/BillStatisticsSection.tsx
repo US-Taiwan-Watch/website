@@ -26,20 +26,51 @@ export default async function BillStatisticsSection() {
   })
 
   return (
-    <Stack spacing={6}>
+    <Stack
+      spacing={{
+        xs: 3,
+        sm: 6,
+      }}
+    >
       <Introduction />
       <PopularTags />
-      <Grid2 container spacing={2}>
-        <Grid2 size={8}>
+      <Grid2
+        container
+        spacing={{
+          xs: 1,
+          sm: 2,
+        }}
+      >
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 8,
+          }}
+        >
           <TrendCard />
         </Grid2>
-        <Grid2 size={4}>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 4,
+          }}
+        >
           <SponsorCard sponsorsData={sponsors} />
         </Grid2>
-        <Grid2 size={8}>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 8,
+          }}
+        >
           <CongressCard />
         </Grid2>
-        <Grid2 size={4}>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 4,
+          }}
+        >
           <SponsorCard isCosponsor sponsorsData={cosponsors} />
         </Grid2>
       </Grid2>

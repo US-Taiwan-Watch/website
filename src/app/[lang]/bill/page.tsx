@@ -22,7 +22,12 @@ export default async function Bill() {
   })
 
   return (
-    <Stack gap={10}>
+    <Stack
+      gap={{
+        xs: 5,
+        sm: 10,
+      }}
+    >
       <BillStatisticsSection />
       <BillListSection latestBills={latestBills} popularBills={popularBills} />
     </Stack>

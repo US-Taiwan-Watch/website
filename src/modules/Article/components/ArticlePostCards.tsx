@@ -42,7 +42,7 @@ export const ScrollableArticlePostCards = ({
   showCategory = true,
 }: ArticlePostCardsProps) => {
   return (
-    <Box overflow="auto">
+    <Box overflow="auto" py={2} px={2}>
       <UHStack gap={1} width="max-content">
         {articles.map((article) => (
           <Box key={article.id} width="80dvw">
