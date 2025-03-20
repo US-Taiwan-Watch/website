@@ -2,11 +2,10 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import ULinkText from '@/common/components/atoms/ULinkText'
-import { USTWTheme } from '@/common/lib/mui/theme'
 import { Article } from '@/modules/Article/business/Article'
 import ArticlePostCards from '@/modules/Article/components/ArticlePostCards'
 import { ROUTES } from '@/routes'
-import { Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
 
 interface ArticlePostRelatedPostsProps {
@@ -16,8 +15,6 @@ interface ArticlePostRelatedPostsProps {
 const ArticlePostRelatedPosts = ({
   articles,
 }: ArticlePostRelatedPostsProps) => {
-  const theme = useTheme<USTWTheme>()
-
   if (!articles || !articles.length) return null
 
   return (
@@ -26,16 +23,7 @@ const ArticlePostRelatedPosts = ({
         <Typography variant="h2" fontWeight={600}>
           More Articles
         </Typography>
-        <ULinkText
-          link={ROUTES.ARTICLE}
-          typographyProps={{
-            fontWeight: 500,
-            fontSize: 20,
-            sx: {
-              color: theme.color.common.black,
-            },
-          }}
-        />
+        <ULinkText link={ROUTES.ARTICLE} />
       </UHStack>
 
       <ArticlePostCards articles={articles} />

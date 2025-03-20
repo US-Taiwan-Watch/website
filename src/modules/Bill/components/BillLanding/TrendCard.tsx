@@ -69,7 +69,13 @@ export default function TrendCard() {
         content: 'Trends by Category',
       }}
     >
-      <Stack mt={3} px={1.5}>
+      <Stack
+        mt={3}
+        px={{
+          xs: 0,
+          sm: 1.5,
+        }}
+      >
         <UHStack justifyContent="space-between">
           <Stack spacing={1}>
             <Typography variant="menu" color={theme.color.grey[2200]}>

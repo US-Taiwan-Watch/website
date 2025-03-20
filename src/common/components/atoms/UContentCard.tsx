@@ -83,6 +83,9 @@ const StyledContentCardWithHeader = styled(
 )<UContentCardProps>(({ theme, overflowHidden }) => ({
   position: 'relative',
   padding: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+  },
   '& .MuiCardContent-root:last-child': {
     padding: 0,
   },

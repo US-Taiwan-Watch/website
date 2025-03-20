@@ -10,6 +10,7 @@ import { useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
 import { CongressUtils } from '@/common/business/Congress'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 if (typeof window !== 'undefined') {
   itemSeries(Highcharts)
@@ -30,6 +31,7 @@ type Props = {
 
 // example: https://codesandbox.io/p/sandbox/highcharts-react-demo-forked-rlflfn?file=%2Fdemo.jsx%3A23%2C1
 export default function ParliamentChart({ data }: Props) {
+  const { isMobile } = useResponsive()
   const currentCongressNumber = useMemo(
     () => CongressUtils.getCurrentCongressNumber(),
     []
@@ -58,6 +60,8 @@ export default function ParliamentChart({ data }: Props) {
     return {
       chart: {
         type: 'item',
+        width: isMobile ? 300 : 600,
+        height: isMobile ? 200 : 400,
       },
 
       title: {
@@ -68,9 +72,9 @@ export default function ParliamentChart({ data }: Props) {
         text: subtitle,
         align: 'center',
         verticalAlign: 'middle',
-        y: 150,
+        y: isMobile ? 70 : 150,
         style: {
-          fontSize: '54px',
+          fontSize: isMobile ? '32px' : '54px',
           fontWeight: 'bold',
           color: theme.color.common.black,
         },
@@ -110,17 +114,6 @@ export default function ParliamentChart({ data }: Props) {
         },
       ],
 
-      // TODO: 根據 RWD 調整參數
-      responsive: {
-        rules: [
-          {
-            condition: {
-              maxWidth: 600,
-            },
-          },
-        ],
-      },
-
       legend: {
         enabled: false,
       },
@@ -131,6 +124,7 @@ export default function ParliamentChart({ data }: Props) {
       },
     }
   }, [
+    isMobile,
     sortedData,
     hoveredParty,
     partyColor,
