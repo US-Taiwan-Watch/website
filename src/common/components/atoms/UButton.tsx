@@ -9,13 +9,27 @@ interface UButtonProps extends ButtonProps {
 }
 
 const StyledButton = styled(Button)<UButtonProps>(
-  ({ theme, color, disabled }) => ({
+  ({ theme, color, disabled, size }) => ({
     textTransform: 'none', // 消除文字大寫
-    padding: `${theme.spacing(1)} ${theme.spacing(3)}`,
     ...(color === 'primary' &&
       disabled && {
         backgroundColor: `${theme.palette.primary.main} !important`,
       }),
+    ...(size === 'large' && {
+      padding: `${theme.spacing(1.75)} ${theme.spacing(3)}`,
+      fontSize: theme.typography.buttonM.fontSize,
+      fontWeight: theme.typography.buttonM.fontWeight,
+    }),
+    ...(size === 'medium' && {
+      padding: `${theme.spacing(1.375)} ${theme.spacing(3)}`,
+      fontSize: theme.typography.buttonS.fontSize,
+      fontWeight: theme.typography.buttonS.fontWeight,
+    }),
+    ...(size === 'small' && {
+      padding: `${theme.spacing(1.5)} ${theme.spacing(1)}`,
+      fontSize: theme.typography.buttonXXS.fontSize,
+      fontWeight: theme.typography.buttonXXS.fontWeight,
+    }),
   })
 ) as ComponentType<UButtonProps>
 

@@ -25,6 +25,7 @@ import {
 import { isNull } from 'lodash-es'
 import { useQuery } from '@apollo/client'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 
 const ArticleSection = () => {
   const { isMobile } = useResponsive()
@@ -94,7 +95,9 @@ const ArticleSection = () => {
             loading ? (
               <ArticlePostCardsSkeleton count={1} />
             ) : (
-              <ScrollableArticlePostCards articles={articles} />
+              <FullWidthScrollableListWrapper>
+                <ScrollableArticlePostCards articles={articles} />
+              </FullWidthScrollableListWrapper>
             )
           ) : loading ? (
             <ArticlePostCardsSkeleton count={3} />
