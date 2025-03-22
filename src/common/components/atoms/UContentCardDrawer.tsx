@@ -1,5 +1,12 @@
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Box, Card, Drawer, useTheme, type DrawerProps } from '@mui/material'
+import {
+  Box,
+  Card,
+  CardProps,
+  Drawer,
+  useTheme,
+  type DrawerProps,
+} from '@mui/material'
 import { memo } from 'react'
 
 const StyledDrawer = styled(Drawer)(() => ({
@@ -9,7 +16,15 @@ const StyledDrawer = styled(Drawer)(() => ({
   },
 }))
 
-const UContentCardDrawer = function UContentCardDrawer(props: DrawerProps) {
+type UContentCardDrawerProps = DrawerProps & {
+  cardProps?: {
+    sx?: CardProps['sx']
+  }
+}
+
+const UContentCardDrawer = function UContentCardDrawer(
+  props: UContentCardDrawerProps
+) {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -19,7 +34,8 @@ const UContentCardDrawer = function UContentCardDrawer(props: DrawerProps) {
       PaperProps={{
         sx: {
           width: '100%',
-          borderRadius: theme.shape.borderRadius,
+          borderTopLeftRadius: theme.spacing(theme.shape.borderRadius / 2),
+          borderTopRightRadius: theme.spacing(theme.shape.borderRadius / 2),
         },
       }}
     >
@@ -34,6 +50,7 @@ const UContentCardDrawer = function UContentCardDrawer(props: DrawerProps) {
             '& .MuiCardContent-root:last-child': {
               padding: 0,
             },
+            ...props.cardProps?.sx,
           }}
         >
           {props.children}

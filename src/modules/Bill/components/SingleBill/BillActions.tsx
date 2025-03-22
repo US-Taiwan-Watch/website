@@ -20,14 +20,16 @@ export default function BillActions({ bill }: Props) {
       <UContentCard
         withHeader
         headerProps={{
+          headerIconAction: 'modal',
           title: 'Actions',
           icon: <ActionsIcon />,
           iconColor: 'primary',
+          actionIcon: <CardExpandIcon />,
         }}
-        headerActionIcon={<CardExpandIcon />}
-        headerIconAction="modal"
-        modalContent={<ActionsContent bill={bill} />}
-        modalMaxWidth="lg"
+        popupProps={{
+          popupContent: <ActionsContent bill={bill} />,
+          popupDialogMaxWidth: 'lg',
+        }}
       >
         <Stack pt={2}>
           <Typography variant="buttonXS" mb={2}>

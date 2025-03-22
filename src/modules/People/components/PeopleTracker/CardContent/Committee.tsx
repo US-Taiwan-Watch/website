@@ -75,17 +75,19 @@ interface CommitteeProps {
 const Committee = function Committee({ committees }: CommitteeProps) {
   return (
     <UContentCard
-      headerIconAction="modal"
       withHeader
       headerProps={{
+        headerIconAction: 'modal',
         title: 'Committee',
         icon: <PeopleIcon />,
         iconColor: 'secondary',
       }}
       overflowHidden
-      modalContent={committees.map((committee, index) => (
-        <CommitteeRow key={index} committee={committee} />
-      ))}
+      popupProps={{
+        popupContent: committees.map((committee, index) => (
+          <CommitteeRow key={index} committee={committee} />
+        )),
+      }}
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>
           No Committee

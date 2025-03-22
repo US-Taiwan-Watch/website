@@ -201,6 +201,7 @@ const color = {
     3800: '#A5A5A5',
     3900: '#505050',
     4000: '#CECECE',
+    4100: '#EBEBEB',
   },
   orange: {
     ...colors.orange,

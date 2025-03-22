@@ -4,8 +4,8 @@ import { styled, type USTWTheme } from '@/common/lib/mui/theme'
 import { IconButton, IconButtonProps } from '@mui/material'
 import type { ComponentType } from 'react'
 
-interface UIconButtonProps extends Omit<IconButtonProps, 'color'> {
-  variant: 'contained' | 'outlined' | 'rounded'
+interface UIconButtonProps extends Omit<IconButtonProps, 'color' | 'variant'> {
+  variant: 'contained' | 'outlined' | 'rounded' | 'text'
   color: IconButtonProps['color'] | 'black' | 'white'
 }
 
@@ -115,14 +115,16 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
         ...getIconSize(size),
       },
     }),
-    ...(variant === 'outlined' && {
+    ...((variant === 'outlined' || variant === 'text') && {
       backgroundColor: 'transparent',
       color: theme.palette.common.black,
-      border: `1px solid ${theme.palette.common.black}`,
+      ...(variant === 'outlined' && {
+        border: `1px solid ${theme.palette.common.black}`,
+        '&:hover': {
+          backgroundColor: theme.palette.action.hover,
+        },
+      }),
       borderRadius: theme.shape.borderRadius,
-      '&:hover': {
-        backgroundColor: theme.palette.action.hover,
-      },
       svg: {
         ...getIconSize(size),
       },

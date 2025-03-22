@@ -12,17 +12,19 @@ export default function BioByAI({ bill }: Props) {
   return (
     <UContentCard
       withHeader
-      headerIconAction="modal"
-      headerActionIcon={<CardExpandIcon />}
-      modalContent={
-        <Typography variant="body" pt={2}>
-          {bill.summary}
-        </Typography>
-      }
+      popupProps={{
+        popupContent: (
+          <Typography variant="body" pt={2}>
+            {bill.summary}
+          </Typography>
+        ),
+      }}
       headerProps={{
+        headerIconAction: 'modal',
         title: 'Summary From AI',
         icon: <StarsIcon />,
         iconColor: 'primary',
+        actionIcon: <CardExpandIcon />,
       }}
     >
       <Typography variant="body" pt={2}>

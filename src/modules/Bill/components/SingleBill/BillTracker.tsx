@@ -17,9 +17,9 @@ export default function BillTracker({ bill }: Props) {
 
   return (
     <UContentCard
-      headerIconAction="tooltip"
       withHeader
       headerProps={{
+        headerIconAction: 'tooltip',
         title: 'Tracker',
         icon: <TrackerIcon />,
         iconColor: 'primary',

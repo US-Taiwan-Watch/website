@@ -10,15 +10,17 @@ interface BioByAIProps {
 const BioByAI = function ({ bioByAI }: BioByAIProps) {
   return (
     <UContentCard
-      headerIconAction="modal"
       withHeader
       headerProps={{
+        headerIconAction: 'modal',
         title: 'Bio by AI',
         icon: <StarsIcon />,
         iconColor: 'primary',
       }}
       overflowHidden
-      modalContent={<Typography component="p">{bioByAI}</Typography>}
+      popupProps={{
+        popupContent: <Typography component="p">{bioByAI}</Typography>,
+      }}
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>
           No Bio by AI

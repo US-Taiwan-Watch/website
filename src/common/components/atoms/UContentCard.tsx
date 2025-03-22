@@ -22,6 +22,7 @@ import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UContentCardDrawer from '@/common/components/atoms/UContentCardDrawer'
 import UCardInfo, { UCardInfoProps } from '@/common/components/atoms/UCardInfo'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import UHStack from '@/common/components/atoms/UHStack'
 
 const hasNoContent = (node: React.ReactNode) => {
   return !node || (Array.isArray(node) && node.length === 0)
@@ -50,26 +51,30 @@ interface UContentCardProps extends CardProps {
   /** 是否顯示 header */
   withHeader?: boolean
   /** header 的 props */
-  headerProps?: UCardHeaderProps
-  /** Header 的 action icon */
-  headerActionIcon?: React.ReactNode
+  headerProps?: UCardHeaderProps & {
+    /** header icon 的 action */
+    headerIconAction?: HeaderIconAction
+    /** Header 的 action icon */
+    actionIcon?: React.ReactNode
+    /** Header 的副動作 */
+    subAction?: React.ReactNode
+  }
   /** 是否隱藏超出的內容 */
   overflowHidden?: boolean
   contentProps?: CardContentProps
-  /** header icon 的 action */
-  headerIconAction?: HeaderIconAction
-  /** modal content */
-  modalContent?: React.ReactNode
-  /** Max width of Dialog */
-  modalMaxWidth?: DialogProps['maxWidth']
-  /**
-   * 是否是彈窗內的 `UContentCard`
-   */
-  isModal?: boolean
-  /**
-   * 點擊事件
-   */
-  onActionClick?: () => void
+  /** Popup 的 props */
+  popupProps?: {
+    /**
+     * 是否是彈窗內的 `UContentCard`
+     */
+    isPopup?: boolean
+    /** Popup content */
+    popupContent?: React.ReactNode
+    /** Max width of Dialog */
+    popupDialogMaxWidth?: DialogProps['maxWidth']
+    /** Popup Header 的副動作 */
+    popupSubAction?: React.ReactNode
+  }
   /** Tooltip 相關參數 */
   tooltipProps?: UCardInfoProps
   /** 沒有內容時的顯示文字 */
@@ -123,13 +128,8 @@ const UContentCard = function UContentCard({
   children,
   withHeader = false,
   headerProps,
-  headerActionIcon,
   contentProps,
-  headerIconAction,
-  modalContent,
-  isModal,
-  modalMaxWidth,
-  onActionClick,
+  popupProps,
   tooltipProps,
   noContentPlaceholder,
   ...rest
@@ -139,46 +139,47 @@ const UContentCard = function UContentCard({
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
 
   const handleActionClick = useCallback(() => {
-    if (!isModal) {
+    if (!popupProps?.isPopup) {
       handleOpenModal()
-    } else {
-      onActionClick?.()
     }
-  }, [isModal, handleOpenModal, onActionClick])
+  }, [popupProps?.isPopup, handleOpenModal])
 
   const action = useMemo(() => {
-    if (headerIconAction === 'modal') {
+    if (headerProps?.headerIconAction === 'modal') {
       if (headerProps?.action) {
         return cloneElement(headerProps.action as React.ReactElement, {
           onClick: handleActionClick,
         })
       } else {
         return (
-          <UIconButton
-            variant="rounded"
-            color="inherit"
-            size="small"
-            onClick={handleActionClick}
-          >
-            {isModal ? (
-              <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-            ) : (
-              headerActionIcon || (
-                <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
-              )
-            )}
-          </UIconButton>
+          <UHStack gap={1.75}>
+            {headerProps?.subAction}
+            <UIconButton
+              variant="rounded"
+              color="inherit"
+              size="small"
+              onClick={handleActionClick}
+            >
+              {popupProps?.isPopup ? (
+                <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+              ) : (
+                headerProps?.actionIcon || (
+                  <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
+                )
+              )}
+            </UIconButton>
+          </UHStack>
         )
       }
-    } else if (headerIconAction === 'tooltip' && tooltipProps) {
+    } else if (headerProps?.headerIconAction === 'tooltip' && tooltipProps) {
       return <UCardInfo {...tooltipProps} />
     } else {
       return headerProps?.action
     }
   }, [
     theme,
-    headerIconAction,
-    isModal,
+    headerProps?.headerIconAction,
+    popupProps?.isPopup,
     headerProps?.action,
     tooltipProps,
     handleActionClick,
@@ -187,18 +188,22 @@ const UContentCard = function UContentCard({
   const modalComponent = useMemo(() => {
     return (
       <UContentCard
-        withHeader={true}
+        withHeader
         headerProps={{
           ...headerProps,
+          headerIconAction: undefined,
           action: (
-            <UIconButton
-              variant="rounded"
-              color="inherit"
-              size="small"
-              onClick={handleCloseModal}
-            >
-              <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-            </UIconButton>
+            <UHStack gap={1.75}>
+              {popupProps?.popupSubAction}
+              <UIconButton
+                variant="rounded"
+                color="inherit"
+                size="small"
+                onClick={handleCloseModal}
+              >
+                <CloseIcon sx={{ color: theme.color.common.black }} />
+              </UIconButton>
+            </UHStack>
           ),
         }}
         sx={{
@@ -207,10 +212,10 @@ const UContentCard = function UContentCard({
           borderRadius: 0,
         }}
       >
-        {hasNoContent(modalContent) && hasNoContent(children) ? (
+        {hasNoContent(popupProps?.popupContent) && hasNoContent(children) ? (
           <NoContentPlaceholder>{noContentPlaceholder}</NoContentPlaceholder>
         ) : (
-          modalContent || children
+          popupProps?.popupContent || children
         )}
       </UContentCard>
     )
@@ -218,7 +223,8 @@ const UContentCard = function UContentCard({
     headerProps,
     handleCloseModal,
     theme.color.neutral,
-    modalContent,
+    popupProps?.popupContent,
+    popupProps?.popupSubAction,
     children,
     noContentPlaceholder,
   ])
@@ -244,7 +250,7 @@ const UContentCard = function UContentCard({
           children
         )}
       </CardContent>
-      {headerIconAction === 'modal' &&
+      {headerProps?.headerIconAction === 'modal' &&
         isModalOpen &&
         (isMobile ? (
           <UContentCardDrawer open={isModalOpen} onClose={handleCloseModal}>
@@ -254,7 +260,7 @@ const UContentCard = function UContentCard({
           <UContentCardDialog
             open={isModalOpen}
             onClose={handleCloseModal}
-            maxWidth={modalMaxWidth}
+            maxWidth={popupProps?.popupDialogMaxWidth}
           >
             {modalComponent}
           </UContentCardDialog>
