@@ -49,7 +49,7 @@ export default function BillTracker({ bill }: Props) {
 
         <Box
           mx={{
-            xs: -4,
+            xs: -2,
             md: 0,
           }}
           px={{

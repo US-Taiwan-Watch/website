@@ -261,8 +261,12 @@ export class PeopleUtils {
           title: item.company ?? '',
           experience: [...positions]
             .sort((a, b) => {
-              const aEnd = a.end?.datetime ?? dayjs()
-              const bEnd = b.end?.datetime ?? dayjs()
+              const aEnd = dayjs(a.end?.datetime).isValid()
+                ? dayjs(a.end?.datetime)
+                : dayjs()
+              const bEnd = dayjs(b.end?.datetime).isValid()
+                ? dayjs(b.end?.datetime)
+                : dayjs()
               if (aEnd.isBefore(bEnd)) {
                 return 1
               } else if (aEnd.isAfter(bEnd)) {
