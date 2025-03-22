@@ -2,7 +2,7 @@ import { Bill } from '@/modules/Bill/business/Bill'
 import {
   FilterCategory,
   FilterOption,
-} from '@/modules/Bill/components/SingleBill/CosponsorDialog/DialogFilter'
+} from '@/modules/Bill/components/SingleBill/CosponsorFilterContent/DialogFilter'
 import { Party } from '@/common/enums/Party'
 import CommonUtils from '@/modules/Common/Common.utils'
 

@@ -1,5 +1,6 @@
 'use client'
 
+import UHStack from '@/common/components/atoms/UHStack'
 import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
@@ -8,6 +9,7 @@ import {
   BillsFilterQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import { BillsFilterUtils } from '@/modules/Bill/business/BillsFilter'
 import BillCard, { BillCardSkeleton } from '@/modules/Bill/components/BillCard'
@@ -16,16 +18,20 @@ import { BillFilterOutput } from '@/modules/Bill/components/BillFilter/schema'
 import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
 import { ROUTES } from '@/routes'
 import { useLazyQuery } from '@apollo/client'
-import { Stack } from '@mui/material'
+import { Stack, Typography } from '@mui/material'
 import { isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
 import { useCallback, useMemo, useEffect, useState } from 'react'
 
 const BillCardsSkeleton = () => {
+  const { isMobile } = useResponsive()
   return (
     <>
       {Array.from({ length: 5 }).map((_, index) => (
-        <BillCardSkeleton key={index} mode="horizontal" />
+        <BillCardSkeleton
+          key={index}
+          mode={isMobile ? 'vertical' : 'horizontal'}
+        />
       ))}
     </>
   )
@@ -35,6 +41,7 @@ const BillCardsSkeleton = () => {
 const BILL_LIST_COUNT = 10
 
 export default function BillList() {
+  const { isMobile } = useResponsive()
   const router = useRouter()
   const { lang } = useParams<{ lang: Language }>()
 
@@ -117,24 +124,45 @@ export default function BillList() {
   }, [paginationVariables, filterVariables, getBills])
 
   return (
-    <Stack width="100%" gap={7} alignItems="center" pb={10}>
-      <BillFilter onSubmit={onFilterSubmit} initialValues={filterInitValues} />
-      <Stack width="100%" gap={2}>
-        {loading ? (
-          <BillCardsSkeleton />
-        ) : (
-          bills.map((bill, index) => (
-            <BillCard key={index} mode="horizontal" bill={bill} />
-          ))
+    <Stack gap={5}>
+      <UHStack gap={2} alignItems="flex-start">
+        <Typography variant="h3">Bills and Resolutions in Congress</Typography>
+        {isMobile && (
+          <BillFilter
+            onSubmit={onFilterSubmit}
+            initialValues={filterInitValues}
+          />
+        )}
+      </UHStack>
+      <Stack width="100%" gap={7} alignItems="center" pb={10}>
+        {!isMobile && (
+          <BillFilter
+            onSubmit={onFilterSubmit}
+            initialValues={filterInitValues}
+          />
+        )}
+
+        <Stack width="100%" gap={2}>
+          {loading ? (
+            <BillCardsSkeleton />
+          ) : (
+            bills.map((bill, index) => (
+              <BillCard
+                key={index}
+                mode={isMobile ? 'vertical' : 'horizontal'}
+                bill={bill}
+              />
+            ))
+          )}
+        </Stack>
+        {!loading && totalPages > 1 && (
+          <UPagination
+            count={totalPages}
+            page={page}
+            onChange={(_, page) => handlePageChange(page)}
+          />
         )}
       </Stack>
-      {!loading && totalPages > 1 && (
-        <UPagination
-          count={totalPages}
-          page={page}
-          onChange={(_, page) => handlePageChange(page)}
-        />
-      )}
     </Stack>
   )
 }

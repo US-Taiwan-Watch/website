@@ -17,7 +17,7 @@ import { Fragment, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UButton from '@/common/components/atoms/UButton'
-import { SelectedOption } from '@/modules/Bill/components/SingleBill/CosponsorDialog/useDialogFilter'
+import { SelectedOption } from '@/modules/Bill/components/SingleBill/CosponsorFilterContent/useDialogFilter'
 import CloseIcon from '@mui/icons-material/Close'
 
 const StyledOptionContainer = styled(FormGroup)(({ theme }) => ({

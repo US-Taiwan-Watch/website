@@ -38,7 +38,8 @@ const CosponsorChart = ({ data }: Props) => {
     () => ({
       chart: {
         type: 'pie',
-        height: 120,
+        height: 160,
+        width: 300,
       },
       title: {
         text: amount,

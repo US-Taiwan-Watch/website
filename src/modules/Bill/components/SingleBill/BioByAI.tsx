@@ -1,7 +1,7 @@
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { StarsIcon } from '@/common/styles/assets/Icons'
 import { Typography } from '@mui/material'
-import CardExpandButton from '@/modules/Bill/components/SingleBill/CardExpandButton'
+import CardExpandIcon from '@/modules/Bill/components/SingleBill/CardExpandIcon'
 import { Bill } from '@/modules/Bill/business/Bill'
 
 type Props = {
@@ -13,6 +13,7 @@ export default function BioByAI({ bill }: Props) {
     <UContentCard
       withHeader
       headerIconAction="modal"
+      headerActionIcon={<CardExpandIcon />}
       modalContent={
         <Typography variant="body" pt={2}>
           {bill.summary}
@@ -22,7 +23,6 @@ export default function BioByAI({ bill }: Props) {
         title: 'Summary From AI',
         icon: <StarsIcon />,
         iconColor: 'primary',
-        action: <CardExpandButton />,
       }}
     >
       <Typography variant="body" pt={2}>

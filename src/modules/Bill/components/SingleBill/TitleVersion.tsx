@@ -5,6 +5,8 @@ import { styled } from '@/common/lib/mui/theme'
 import { Bill } from '@/modules/Bill/business/Bill'
 import Link from 'next/link'
 import { CongressIcon } from '@/common/styles/assets/Icons'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import UIconButton from '@/common/components/atoms/UIconButton'
 
 const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
@@ -15,29 +17,36 @@ const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   },
 }))
 
-const StyledLink = styled(Link)({
-  height: 'max-content',
-})
-
 type Props = {
   bill: Bill
 }
 
-// 設計稿上是 Title Version，但 phase1 改為導向到國會網站
+/**
+ * 標題版本
+ * TODO: 設計稿上是標題版本，但 phase1 改為導向到國會網站
+ */
 export default function TitleVersion({ bill }: Props) {
+  const { isMobile } = useResponsive()
+
   return (
-    <StyledLink
+    <Link
       href={bill.congressGovUrl ?? ''}
       target="_blank"
       rel="noopener noreferrer"
     >
-      <StyledTitleVersionButton
-        variant="contained"
-        startIcon={<CongressIcon width={24} height={24} />}
-        rounded
-      >
-        Congress.gov
-      </StyledTitleVersionButton>
-    </StyledLink>
+      {isMobile ? (
+        <UIconButton variant="rounded" color="white" size="medium">
+          <CongressIcon />
+        </UIconButton>
+      ) : (
+        <StyledTitleVersionButton
+          variant="contained"
+          startIcon={<CongressIcon sx={{ width: 24, height: 24 }} />}
+          rounded
+        >
+          Congress.gov
+        </StyledTitleVersionButton>
+      )}
+    </Link>
   )
 }

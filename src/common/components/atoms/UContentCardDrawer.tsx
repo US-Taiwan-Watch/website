@@ -1,20 +1,21 @@
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Box, Card, Dialog, useTheme, type DialogProps } from '@mui/material'
+import { Box, Card, Drawer, useTheme, type DrawerProps } from '@mui/material'
 import { memo } from 'react'
 
-const StyledDialog = styled(Dialog)(() => ({
+const StyledDrawer = styled(Drawer)(() => ({
   '& .MuiCardContent-root': {
     maxHeight: '80dvh',
     overflow: 'auto',
   },
 }))
 
-const UContentCardDialog = function UContentCardDialog(props: DialogProps) {
+const UContentCardDrawer = function UContentCardDrawer(props: DrawerProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <StyledDialog
+    <StyledDrawer
       {...props}
+      anchor="bottom"
       PaperProps={{
         sx: {
           width: '100%',
@@ -38,8 +39,8 @@ const UContentCardDialog = function UContentCardDialog(props: DialogProps) {
           {props.children}
         </Card>
       </Box>
-    </StyledDialog>
+    </StyledDrawer>
   )
 }
 
-export default memo(UContentCardDialog)
+export default memo(UContentCardDrawer)

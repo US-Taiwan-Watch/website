@@ -65,10 +65,22 @@ const BillListSection = ({
         />
         {isMobile ? (
           <FullWidthScrollableListWrapper>
-            <ScrollableBillCards simplified data={latestBills} />
+            <ScrollableBillCards
+              visibilities={{
+                trackerStatus: false,
+                latestActionDescription: false,
+              }}
+              data={latestBills}
+            />
           </FullWidthScrollableListWrapper>
         ) : (
-          <BillCardCarousel simplified data={latestBills} />
+          <BillCardCarousel
+            visibilities={{
+              trackerStatus: false,
+              latestActionDescription: false,
+            }}
+            data={latestBills}
+          />
         )}
       </Stack>
 
@@ -89,10 +101,22 @@ const BillListSection = ({
         />
         {isMobile ? (
           <FullWidthScrollableListWrapper>
-            <ScrollableBillCards simplified data={popularBills} />
+            <ScrollableBillCards
+              visibilities={{
+                trackerStatus: false,
+                latestActionDescription: false,
+              }}
+              data={popularBills}
+            />
           </FullWidthScrollableListWrapper>
         ) : (
-          <BillCardCarousel simplified data={popularBills} />
+          <BillCardCarousel
+            visibilities={{
+              trackerStatus: false,
+              latestActionDescription: false,
+            }}
+            data={popularBills}
+          />
         )}
       </Stack>
     </LandingSectionWrapper>

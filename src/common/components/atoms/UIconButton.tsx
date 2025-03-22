@@ -6,7 +6,7 @@ import type { ComponentType } from 'react'
 
 interface UIconButtonProps extends Omit<IconButtonProps, 'color'> {
   variant: 'contained' | 'outlined' | 'rounded'
-  color: IconButtonProps['color'] | 'black'
+  color: IconButtonProps['color'] | 'black' | 'white'
 }
 
 const getBackgroundColor = (
@@ -16,6 +16,8 @@ const getBackgroundColor = (
   switch (color) {
     case 'black':
       return theme.color.grey[1000]
+    case 'white':
+      return theme.color.common.white
     case 'primary':
       return theme.color.lime[500]
     case 'inherit':
@@ -34,6 +36,8 @@ const getContrastTextColor = (
   switch (color) {
     case 'black':
       return theme.color.common.white
+    case 'white':
+      return theme.color.common.black
     case 'primary':
       return theme.color.common.black
     case 'inherit':
@@ -52,6 +56,8 @@ const getHoveredBackgroundColor = (
   switch (color) {
     case 'black':
       return theme.color.neutral[500]
+    case 'white':
+      return theme.color.common.white
     case 'inherit':
       return 'inherit'
     case 'default':

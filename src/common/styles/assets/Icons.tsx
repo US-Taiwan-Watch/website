@@ -47,6 +47,7 @@ import SvgOpenSecretsIcon from './OpenSecretsIcon.svg'
 import SvgExpandIcon from './ExpandIcon.svg'
 import SvgMenuIcon from './MenuIcon.svg'
 import SvgCloseIcon from './CloseIcon.svg'
+import SvgFilterIcon from './FilterIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -240,4 +241,8 @@ export const MenuIcon = (props: SvgIconProps) => (
 
 export const CloseIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgCloseIcon} {...props} />
+)
+
+export const FilterIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgFilterIcon} {...props} />
 )

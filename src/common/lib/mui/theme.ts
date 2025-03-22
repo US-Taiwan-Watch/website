@@ -485,7 +485,7 @@ const constants: USTWThemeConstants = {
     md: 70,
   },
   zIndex: {
-    header: 1300,
+    header: 1100,
     headerNavItem: 1000,
     headerPopper: 900,
   },

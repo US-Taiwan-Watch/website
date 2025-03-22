@@ -12,13 +12,16 @@ import {
   CardContent,
   CardContentProps,
   CardProps,
+  DialogProps,
   useTheme,
 } from '@mui/material'
 import React, { cloneElement, useCallback, useMemo } from 'react'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import CloseIcon from '@mui/icons-material/Close'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
+import UContentCardDrawer from '@/common/components/atoms/UContentCardDrawer'
 import UCardInfo, { UCardInfoProps } from '@/common/components/atoms/UCardInfo'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const hasNoContent = (node: React.ReactNode) => {
   return !node || (Array.isArray(node) && node.length === 0)
@@ -48,6 +51,8 @@ interface UContentCardProps extends CardProps {
   withHeader?: boolean
   /** header 的 props */
   headerProps?: UCardHeaderProps
+  /** Header 的 action icon */
+  headerActionIcon?: React.ReactNode
   /** 是否隱藏超出的內容 */
   overflowHidden?: boolean
   contentProps?: CardContentProps
@@ -55,8 +60,10 @@ interface UContentCardProps extends CardProps {
   headerIconAction?: HeaderIconAction
   /** modal content */
   modalContent?: React.ReactNode
+  /** Max width of Dialog */
+  modalMaxWidth?: DialogProps['maxWidth']
   /**
-   * 是否是彈窗
+   * 是否是彈窗內的 `UContentCard`
    */
   isModal?: boolean
   /**
@@ -116,15 +123,18 @@ const UContentCard = function UContentCard({
   children,
   withHeader = false,
   headerProps,
+  headerActionIcon,
   contentProps,
   headerIconAction,
   modalContent,
   isModal,
+  modalMaxWidth,
   onActionClick,
   tooltipProps,
   noContentPlaceholder,
   ...rest
 }: UContentCardProps) {
+  const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
 
@@ -153,7 +163,9 @@ const UContentCard = function UContentCard({
             {isModal ? (
               <CloseIcon sx={{ color: theme.color.neutral[500] }} />
             ) : (
-              <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
+              headerActionIcon || (
+                <ArrowForwardIcon sx={{ color: theme.color.neutral[500] }} />
+              )
             )}
           </UIconButton>
         )
@@ -172,6 +184,45 @@ const UContentCard = function UContentCard({
     handleActionClick,
   ])
 
+  const modalComponent = useMemo(() => {
+    return (
+      <UContentCard
+        withHeader={true}
+        headerProps={{
+          ...headerProps,
+          action: (
+            <UIconButton
+              variant="rounded"
+              color="inherit"
+              size="small"
+              onClick={handleCloseModal}
+            >
+              <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+            </UIconButton>
+          ),
+        }}
+        sx={{
+          padding: `0 !important`,
+          border: 'none',
+          borderRadius: 0,
+        }}
+      >
+        {hasNoContent(modalContent) && hasNoContent(children) ? (
+          <NoContentPlaceholder>{noContentPlaceholder}</NoContentPlaceholder>
+        ) : (
+          modalContent || children
+        )}
+      </UContentCard>
+    )
+  }, [
+    headerProps,
+    handleCloseModal,
+    theme.color.neutral,
+    modalContent,
+    children,
+    noContentPlaceholder,
+  ])
+
   if (!withHeader) {
     return <StyledContentCard {...rest}>{children}</StyledContentCard>
   }
@@ -180,11 +231,12 @@ const UContentCard = function UContentCard({
     <StyledContentCardWithHeader {...rest}>
       <UCardHeader {...headerProps} action={action} />
       <CardContent
+        {...contentProps}
         sx={{
           padding: 0,
           overflow: 'auto',
+          ...contentProps?.sx,
         }}
-        {...contentProps}
       >
         {hasNoContent(children) ? (
           <NoContentPlaceholder>{noContentPlaceholder}</NoContentPlaceholder>
@@ -192,39 +244,21 @@ const UContentCard = function UContentCard({
           children
         )}
       </CardContent>
-      {headerIconAction === 'modal' && isModalOpen && (
-        <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
-          <UContentCard
-            withHeader={true}
-            headerProps={{
-              ...headerProps,
-              action: (
-                <UIconButton
-                  variant="rounded"
-                  color="inherit"
-                  size="small"
-                  onClick={handleCloseModal}
-                >
-                  <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-                </UIconButton>
-              ),
-            }}
-            sx={{
-              padding: 0,
-              border: 'none',
-              borderRadius: 0,
-            }}
+      {headerIconAction === 'modal' &&
+        isModalOpen &&
+        (isMobile ? (
+          <UContentCardDrawer open={isModalOpen} onClose={handleCloseModal}>
+            {modalComponent}
+          </UContentCardDrawer>
+        ) : (
+          <UContentCardDialog
+            open={isModalOpen}
+            onClose={handleCloseModal}
+            maxWidth={modalMaxWidth}
           >
-            {hasNoContent(modalContent) && hasNoContent(children) ? (
-              <NoContentPlaceholder>
-                {noContentPlaceholder}
-              </NoContentPlaceholder>
-            ) : (
-              modalContent || children
-            )}
-          </UContentCard>
-        </UContentCardDialog>
-      )}
+            {modalComponent}
+          </UContentCardDialog>
+        ))}
     </StyledContentCardWithHeader>
   )
 }

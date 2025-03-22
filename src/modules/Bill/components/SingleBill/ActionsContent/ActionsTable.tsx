@@ -19,7 +19,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import { sortBy } from 'lodash-es'
-import { ActionsTableType } from '@/modules/Bill/components/SingleBill/ActionsDialog'
+import { ActionsTableType } from '@/modules/Bill/components/SingleBill/ActionsContent'
 
 const EMPTY_CELL = '-'
 const DATE_FORMAT = 'MM/DD/YYYY'

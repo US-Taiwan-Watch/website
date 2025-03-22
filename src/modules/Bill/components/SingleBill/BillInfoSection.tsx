@@ -1,23 +1,18 @@
 'use client'
 
-import UButton from '@/common/components/atoms/UButton'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UHashTag from '@/common/components/atoms/UHashTag'
 import UHStack from '@/common/components/atoms/UHStack'
 import { styled } from '@/common/lib/mui/theme'
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
 import TitleVersion from '@/modules/Bill/components/SingleBill/TitleVersion'
 import { CongressUtils } from '@/common/business/Congress'
+import SubscribeButton from '@/modules/Bill/components/SingleBill/SubscribeButton'
 
 const StyledInfoContainer = styled(Stack)(() => ({
   flex: 1,
-}))
-
-const StyledSubscribeButton = styled(UButton)(() => ({
-  height: 'max-content',
 }))
 
 interface BillInfoSectionProps {
@@ -28,10 +23,28 @@ const BillInfoSection = memo(function BillInfoSection({
   bill,
 }: BillInfoSectionProps) {
   return (
-    <UHStack spacing={2}>
+    <UHStack spacing={2} alignItems="flex-start">
       {/** Info */}
-      <StyledInfoContainer spacing={2}>
-        <UHStack spacing={2} alignItems="center">
+      <StyledInfoContainer
+        spacing={{
+          xs: 1,
+          sm: 2,
+        }}
+      >
+        <Stack
+          direction={{
+            xs: 'column',
+            sm: 'row',
+          }}
+          spacing={{
+            xs: 1,
+            sm: 2,
+          }}
+          alignItems={{
+            xs: 'flex-start',
+            sm: 'center',
+          }}
+        >
           {bill.categories?.[0] && (
             <UCategoryTag
               value={bill.categories[0]}
@@ -55,24 +68,21 @@ const BillInfoSection = memo(function BillInfoSection({
                 return ` (${startYear}-${endYear})`
               })()}
           </Typography>
-        </UHStack>
-        <Typography variant="h4">{bill.title}</Typography>
-        <Stack direction="row" gap={1} flexWrap="wrap">
-          {bill.tags?.map((tag) => <UHashTag key={tag.id} value={tag.name} />)}
         </Stack>
+        <Typography variant="articleH1">{bill.title}</Typography>
+        {bill.tags?.length > 0 && (
+          <Stack direction="row" gap={1} flexWrap="wrap">
+            {bill.tags?.map((tag) => (
+              <UHashTag key={tag.id} value={tag.name} />
+            ))}
+          </Stack>
+        )}
       </StyledInfoContainer>
 
       {/** Actions */}
       <UHStack spacing={2}>
         <TitleVersion bill={bill} />
-        <StyledSubscribeButton
-          variant="contained"
-          color="primary"
-          rounded
-          startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
-        >
-          Subscribe
-        </StyledSubscribeButton>
+        <SubscribeButton bill={bill} />
       </UHStack>
     </UHStack>
   )

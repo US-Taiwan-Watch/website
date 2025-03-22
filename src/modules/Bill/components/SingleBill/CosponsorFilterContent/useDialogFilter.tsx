@@ -3,7 +3,7 @@
 import {
   FilterCategory,
   FilterOption,
-} from '@/modules/Bill/components/SingleBill/CosponsorDialog/DialogFilter'
+} from '@/modules/Bill/components/SingleBill/CosponsorFilterContent/DialogFilter'
 import { useCallback, useState } from 'react'
 
 export type SelectedOption = Record<FilterCategory['id'], FilterOption['id'][]>
