@@ -140,14 +140,12 @@ export default function BillFilter({
     <Filter
       containerProps={{
         component: 'form',
-        sx: {
-          width: '100%',
-        },
         onSubmit: form.handleSubmit(handleSubmit, (error) => {
           console.log(error)
         }),
       }}
       handleReset={handleReset}
+      formId="bill-filter-form"
     >
       {secondLevelSelectors.map((selector) => (
         <Controller

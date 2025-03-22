@@ -1,3 +1,6 @@
+'use client'
+
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { Bill } from '@/modules/Bill/business/Bill'
 import BillActions from '@/modules/Bill/components/SingleBill/BillActions'
 import BillCosponsors from '@/modules/Bill/components/SingleBill/BillCosponsors'
@@ -14,29 +17,60 @@ interface BillContentSectionProps {
 const BillContentSection = memo(function BillContentSection({
   bill,
 }: BillContentSectionProps) {
+  const { isMobile } = useResponsive()
+
   return (
     <Box sx={{ pb: 5 }}>
       <Grid container spacing={2}>
         {/** Row 1 */}
-        <Grid size={8.5}>
-          <BioByAI bill={bill} />
+        <Grid
+          size={{
+            xs: 12,
+            sm: 8.5,
+          }}
+        >
+          {isMobile ? <BillTracker bill={bill} /> : <BioByAI bill={bill} />}
         </Grid>
 
-        <Grid size={3.5}>
-          <BillTracker bill={bill} />
+        <Grid
+          size={{
+            xs: 12,
+            sm: 3.5,
+          }}
+        >
+          {isMobile ? <BioByAI bill={bill} /> : <BillTracker bill={bill} />}
         </Grid>
 
         {/** Row 2 */}
-        <Grid size={4}>
-          <BillActions bill={bill} />
+        <Grid
+          size={{
+            xs: 12,
+            sm: 4,
+          }}
+        >
+          {isMobile ? <Sponsor bill={bill} /> : <BillActions bill={bill} />}
         </Grid>
 
-        <Grid size={4.5}>
-          <Sponsor bill={bill} />
+        <Grid
+          size={{
+            xs: 12,
+            sm: 4.5,
+          }}
+        >
+          {isMobile ? <BillCosponsors bill={bill} /> : <Sponsor bill={bill} />}
         </Grid>
 
-        <Grid size={3.5}>
-          <BillCosponsors bill={bill} />
+        <Grid
+          size={{
+            xs: 12,
+            sm: 3.5,
+          }}
+        >
+          {isMobile ? (
+            <BillActions bill={bill} />
+          ) : (
+            <BillCosponsors bill={bill} />
+          )}
         </Grid>
       </Grid>
     </Box>

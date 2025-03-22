@@ -71,9 +71,9 @@ export default function SponsorCard({
   const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
   return (
     <UContentCard
-      headerIconAction="tooltip"
       withHeader
       headerProps={{
+        headerIconAction: 'tooltip',
         title: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
         icon: <SponsorIcon />,
         iconColor: 'primary',

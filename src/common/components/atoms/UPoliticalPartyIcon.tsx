@@ -10,9 +10,11 @@ import {
 } from '@mui/material'
 import type { ComponentType } from 'react'
 
-interface UPoliticalPartyIconProps extends Omit<IconButtonProps, 'color'> {
+interface UPoliticalPartyIconProps
+  extends Omit<IconButtonProps, 'color' | 'size'> {
   party: Party
   customFontStyle?: TypographyProps['sx']
+  size?: 'xs' | IconButtonProps['size']
 }
 
 export const getMainColor = (
@@ -31,6 +33,11 @@ export const getMainColor = (
 
 const getIconSize = (size: UPoliticalPartyIconProps['size']) => {
   switch (size) {
+    case 'xs':
+      return {
+        width: 10,
+        height: 10,
+      }
     case 'small':
       return {
         width: 20,
@@ -58,6 +65,12 @@ const getTypographyProps = (
   size: UPoliticalPartyIconProps['size']
 ): TypographyProps => {
   switch (size) {
+    case 'xs':
+      return {
+        fontSize: 10,
+        lineHeight: 0,
+        fontWeight: 600,
+      }
     case 'small':
       return {
         fontSize: 20,
@@ -93,6 +106,10 @@ const StyledPoliticalPartyIcon = styled(IconButton)<UPoliticalPartyIconProps>(
     '.party-icon': {
       ...getIconSize(size),
     },
+    ...((size as UPoliticalPartyIconProps['size']) === 'xs' && {
+      width: 15,
+      height: 15,
+    }),
   })
 ) as ComponentType<UPoliticalPartyIconProps>
 

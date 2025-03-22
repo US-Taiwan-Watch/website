@@ -56,26 +56,27 @@ interface PublicationProps {
 /**
  * 出版品元件
  * @param publications 出版品
- * @param onActionClick 點擊事件
  * @returns 出版品元件
  */
 const Publication = function Publication({ publications }: PublicationProps) {
   return (
     <UContentCard
-      headerIconAction="modal"
       withHeader
       headerProps={{
+        headerIconAction: 'modal',
         title: 'Publication',
         icon: <DocumentIcon />,
         iconColor: 'primary',
       }}
-      modalContent={publications?.map((publication, index) => (
-        <PublicationRow
-          key={index}
-          publication={publication}
-          simplified={false}
-        />
-      ))}
+      popupProps={{
+        popupContent: publications?.map((publication, index) => (
+          <PublicationRow
+            key={index}
+            publication={publication}
+            simplified={false}
+          />
+        )),
+      }}
       overflowHidden
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>

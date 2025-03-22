@@ -4,9 +4,9 @@ import { styled, type USTWTheme } from '@/common/lib/mui/theme'
 import { IconButton, IconButtonProps } from '@mui/material'
 import type { ComponentType } from 'react'
 
-interface UIconButtonProps extends Omit<IconButtonProps, 'color'> {
-  variant: 'contained' | 'outlined' | 'rounded'
-  color: IconButtonProps['color'] | 'black'
+interface UIconButtonProps extends Omit<IconButtonProps, 'color' | 'variant'> {
+  variant: 'contained' | 'outlined' | 'rounded' | 'text'
+  color: IconButtonProps['color'] | 'black' | 'white'
 }
 
 const getBackgroundColor = (
@@ -16,6 +16,8 @@ const getBackgroundColor = (
   switch (color) {
     case 'black':
       return theme.color.grey[1000]
+    case 'white':
+      return theme.color.common.white
     case 'primary':
       return theme.color.lime[500]
     case 'inherit':
@@ -34,6 +36,8 @@ const getContrastTextColor = (
   switch (color) {
     case 'black':
       return theme.color.common.white
+    case 'white':
+      return theme.color.common.black
     case 'primary':
       return theme.color.common.black
     case 'inherit':
@@ -52,6 +56,8 @@ const getHoveredBackgroundColor = (
   switch (color) {
     case 'black':
       return theme.color.neutral[500]
+    case 'white':
+      return theme.color.common.white
     case 'inherit':
       return 'inherit'
     case 'default':
@@ -109,14 +115,16 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
         ...getIconSize(size),
       },
     }),
-    ...(variant === 'outlined' && {
+    ...((variant === 'outlined' || variant === 'text') && {
       backgroundColor: 'transparent',
       color: theme.palette.common.black,
-      border: `1px solid ${theme.palette.common.black}`,
+      ...(variant === 'outlined' && {
+        border: `1px solid ${theme.palette.common.black}`,
+        '&:hover': {
+          backgroundColor: theme.palette.action.hover,
+        },
+      }),
       borderRadius: theme.shape.borderRadius,
-      '&:hover': {
-        backgroundColor: theme.palette.action.hover,
-      },
       svg: {
         ...getIconSize(size),
       },

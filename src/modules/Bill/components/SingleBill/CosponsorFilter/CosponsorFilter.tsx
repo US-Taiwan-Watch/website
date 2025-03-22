@@ -17,7 +17,7 @@ import { Fragment, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UButton from '@/common/components/atoms/UButton'
-import { SelectedOption } from '@/modules/Bill/components/SingleBill/CosponsorDialog/useDialogFilter'
+import { SelectedOption } from '@/modules/Bill/components/SingleBill/CosponsorFilter/useCosponsorFilter'
 import CloseIcon from '@mui/icons-material/Close'
 
 const StyledOptionContainer = styled(FormGroup)(({ theme }) => ({
@@ -27,16 +27,26 @@ const StyledOptionContainer = styled(FormGroup)(({ theme }) => ({
   alignItems: 'center',
   paddingTop: theme.spacing(0.5),
   paddingBottom: theme.spacing(0.5),
-  borderTop: `1px solid ${theme.color.grey[1400]}`,
+  [theme.breakpoints.down('sm')]: {
+    borderTop: `1px solid ${theme.color.neutral[300]}`,
+  },
+  [theme.breakpoints.up('sm')]: {
+    borderTop: `1px solid ${theme.color.grey[1400]}`,
+  },
 }))
 
 const StyledCategoryContainer = styled(UHStack)(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'space-between',
-  borderTop: `1px solid ${theme.color.grey[1400]}`,
   marginTop: theme.spacing(1),
   paddingTop: theme.spacing(2),
   paddingBottom: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    borderTop: `1px solid ${theme.color.neutral[300]}`,
+  },
+  [theme.breakpoints.up('sm')]: {
+    borderTop: `1px solid ${theme.color.grey[500]}`,
+  },
 }))
 
 const StyledExpandButton = styled(UIconButton)(({ theme }) => ({
@@ -48,15 +58,25 @@ const StyledExpandButton = styled(UIconButton)(({ theme }) => ({
 
 const StyledOptionText = styled(Typography)(({ theme }) => ({
   ...theme.typography.buttonXXS,
-  color: theme.color.neutral[500],
+  [theme.breakpoints.down('sm')]: {
+    color: theme.color.common.black,
+  },
+  [theme.breakpoints.up('sm')]: {
+    color: theme.color.neutral[500],
+  },
 }))
 
 const StyledBadge = styled(Stack)(({ theme }) => ({
   color: theme.color.common.white,
-  backgroundColor: theme.color.grey[400],
   borderRadius: '32px',
   padding: '2px 6px',
   marginLeft: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    backgroundColor: theme.color.neutral[400],
+  },
+  [theme.breakpoints.up('sm')]: {
+    backgroundColor: theme.color.grey[400],
+  },
 }))
 
 export type FilterOption = {
@@ -71,7 +91,7 @@ export type FilterCategory = {
   options: FilterOption[]
 }
 
-type DialogFilterProps = {
+type CosponsorFilterProps = {
   categories: FilterCategory[]
   selectedOptionList?: SelectedOption
   onSelectOption?: (
@@ -81,12 +101,12 @@ type DialogFilterProps = {
   clearAll?: () => void
 }
 
-export default function DialogFilter({
+export default function CosponsorFilter({
   categories,
   selectedOptionList,
   onSelectOption,
   clearAll,
-}: DialogFilterProps) {
+}: CosponsorFilterProps) {
   const theme = useTheme<USTWTheme>()
   const [expandedCategories, setExpandedCategories] = useState<{
     [key in FilterCategory['id']]: boolean
@@ -111,7 +131,10 @@ export default function DialogFilter({
           sx={{
             height: 42, // 對齊表格
             padding: 0,
-            color: theme.color.neutral[500],
+            color: {
+              xs: theme.color.common.black,
+              sm: theme.color.neutral[500],
+            },
           }}
           startIcon={<CloseIcon fontSize="small" />}
         >

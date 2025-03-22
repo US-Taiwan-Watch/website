@@ -3,7 +3,7 @@
 import Carousel from '@/common/components/elements/Carousel'
 import { styled } from '@/common/lib/mui/theme'
 import { Box } from '@mui/material'
-import BillCard from '@/modules/Bill/components/BillCard'
+import BillCard, { BillCardProps } from '@/modules/Bill/components/BillCard'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import ArrowPagination from '@/common/components/elements/Carousel/ArrowPagination'
 import { Bill } from '@/modules/Bill/business/Bill'
@@ -23,15 +23,15 @@ const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
   },
 }))
 
-type Props = {
-  simplified?: boolean
+type BillCardsProps = {
+  visibilities?: BillCardProps['visibilities']
   data: Bill[]
 }
 
 export const BillCardCarousel = memo(function BillCardCarousel({
-  simplified,
+  visibilities,
   data,
-}: Props) {
+}: BillCardsProps) {
   // 顯示三張的話，最後兩張不可能成為 currentSlide，故藉 availableSlideCount 控制 handleNext
   const slidesToShow = 3
   const availableSlideCount = data.length - (slidesToShow - 1)
@@ -63,7 +63,11 @@ export const BillCardCarousel = memo(function BillCardCarousel({
         >
           {data.map((bill, index) => (
             <Box key={index} px={1}>
-              <BillCard mode="vertical" simplified={simplified} bill={bill} />
+              <BillCard
+                mode="vertical"
+                bill={bill}
+                visibilities={visibilities}
+              />
             </Box>
           ))}
         </Carousel>
@@ -73,15 +77,15 @@ export const BillCardCarousel = memo(function BillCardCarousel({
 })
 
 export const ScrollableBillCards = memo(function ScrollableBillCards({
-  simplified,
+  visibilities,
   data,
-}: Props) {
+}: BillCardsProps) {
   return (
     <Box overflow="auto" py={2} px={2}>
       <UHStack gap={1} width="max-content">
         {data.map((bill) => (
           <Box key={bill.id} width="80dvw">
-            <BillCard mode="vertical" simplified={simplified} bill={bill} />
+            <BillCard mode="vertical" bill={bill} visibilities={visibilities} />
           </Box>
         ))}
       </UHStack>

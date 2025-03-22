@@ -58,9 +58,9 @@ export default function TrendCard() {
 
   return (
     <UContentCard
-      headerIconAction="tooltip"
       withHeader
       headerProps={{
+        headerIconAction: 'tooltip',
         title: 'Trends by Category',
         icon: <TrendIcon />,
         iconColor: 'primary',

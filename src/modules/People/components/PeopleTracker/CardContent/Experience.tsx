@@ -9,10 +9,7 @@ import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import UContentCard from '@/common/components/atoms/UContentCard'
-import {
-  Experience as PeopleExperience,
-  PeopleUtils,
-} from '@/modules/People/business/People'
+import { People, PeopleUtils } from '@/modules/People/business/People'
 import dayjs from 'dayjs'
 
 /**
@@ -20,7 +17,7 @@ import dayjs from 'dayjs'
  * @param experience 經歷
  * @returns 時間文字
  */
-const useExperienceTime = function (experience: PeopleExperience) {
+const useExperienceTime = function (experience: People['experience'][number]) {
   // TODO: i18n
   const durationText = useMemo(() => {
     const duration = PeopleUtils.calculateExperienceDuration(experience)
@@ -65,7 +62,7 @@ const ExperienceTimelineItem = function ExperienceTimelineItem({
   experience,
   isLast,
 }: {
-  experience: PeopleExperience
+  experience: People['experience'][number]
   isLast?: boolean
 }) {
   const theme = useTheme<USTWTheme>()
@@ -109,7 +106,7 @@ const TIMELINE_DOT_WIDTH_PX = 12
 const ExperienceTimeline = function ExperienceTimeline({
   experience,
 }: {
-  experience: Array<PeopleExperience>
+  experience: People['experience']
 }) {
   const theme = useTheme<USTWTheme>()
 
@@ -152,7 +149,7 @@ const ExperienceTimeline = function ExperienceTimeline({
 const ExperienceRow = function ExperienceRow({
   experience,
 }: {
-  experience: PeopleExperience
+  experience: People['experience'][number]
 }) {
   const theme = useTheme<USTWTheme>()
   const { timeText } = useExperienceTime(experience)
@@ -204,22 +201,20 @@ interface ExperienceProps {
   /**
    * 人物經歷
    */
-  experience: PeopleExperience[]
+  experience: People['experience']
 }
 
 /**
  * 人物經歷元件
  * @param experience 經歷
- * @param isModal 是否是彈窗
- * @param onActionClick 點擊事件
  * @returns 人物經歷元件
  */
 const Experience = function Experience({ experience }: ExperienceProps) {
   return (
     <UContentCard
-      headerIconAction="modal"
       withHeader
       headerProps={{
+        headerIconAction: 'modal',
         title: 'Experience',
         icon: <BriefcaseIcon />,
         iconColor: 'primary',

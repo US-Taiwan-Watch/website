@@ -21,21 +21,6 @@ import {
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TagUtils, { tagSchema } from '@/modules/Common/business/Tag'
 
-export interface PartyExperience {
-  party: Party
-  start?: string
-  end?: string
-}
-
-export interface Experience {
-  title: string
-  subtitle?: string
-  start?: string
-  end?: string
-  descriptions?: Array<string>
-  experience?: Array<Experience>
-}
-
 const congressExperienceRangeSchema = z.object({
   earliestCongress: z.number().optional(),
   latestCongress: z.number().optional(),
@@ -51,6 +36,7 @@ const partyExperienceSchema = z.object({
   start: z.string().optional(),
   end: z.string().optional(),
 })
+type PartyExperience = z.infer<typeof partyExperienceSchema>
 
 const experienceSchema = z.object({
   title: z.string(),
@@ -58,7 +44,9 @@ const experienceSchema = z.object({
   start: z.string().optional(),
   end: z.string().optional(),
   descriptions: z.array(z.string()).optional(),
+  isCurrent: z.boolean().optional(),
 })
+type Experience = z.infer<typeof experienceSchema>
 
 export const peopleSchema = z.object({
   id: z.string().optional(),
@@ -266,16 +254,34 @@ export class PeopleUtils {
           descriptions: positions[0].description
             ? [positions[0].description]
             : [],
+          isCurrent: !!item.isCurrent,
         })
       } else {
         experiences.push({
           title: item.company ?? '',
-          experience: positions.map((position) => ({
-            title: position.title ?? '',
-            start: position.start?.datetime ?? undefined,
-            end: position.end?.datetime ?? undefined,
-            descriptions: position.description ? [position.description] : [],
-          })),
+          experience: [...positions]
+            .sort((a, b) => {
+              const aEnd = dayjs(a.end?.datetime).isValid()
+                ? dayjs(a.end?.datetime)
+                : dayjs()
+              const bEnd = dayjs(b.end?.datetime).isValid()
+                ? dayjs(b.end?.datetime)
+                : dayjs()
+              if (aEnd.isBefore(bEnd)) {
+                return 1
+              } else if (aEnd.isAfter(bEnd)) {
+                return -1
+              } else {
+                return 0
+              }
+            })
+            .map((position) => ({
+              title: position.title ?? '',
+              start: position.start?.datetime ?? undefined,
+              end: position.end?.datetime ?? undefined,
+              descriptions: position.description ? [position.description] : [],
+            })),
+          isCurrent: !!item.isCurrent,
         })
       }
     }
@@ -401,5 +407,10 @@ export class PeopleUtils {
       earliestCongressYear: min(startYears),
       latestCongressYear: max(endYears),
     }
+  }
+
+  static getCurrentExperience(people: People) {
+    if (!people.experience) return null
+    return people.experience.findLast((item) => item)
   }
 }
