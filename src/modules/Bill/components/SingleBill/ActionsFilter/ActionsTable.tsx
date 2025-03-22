@@ -74,7 +74,7 @@ export default function ActionsTable({
     return sortDirection === SortDirectionEnum.DESC
       ? sortResult.reverse()
       : sortResult
-  }, [actions, isAllActions, sortDirection])
+  }, [actions, sortDirection])
 
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>

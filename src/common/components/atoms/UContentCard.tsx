@@ -180,6 +180,8 @@ const UContentCard = function UContentCard({
     theme,
     headerProps?.headerIconAction,
     popupProps?.isPopup,
+    headerProps?.actionIcon,
+    headerProps?.subAction,
     headerProps?.action,
     tooltipProps,
     handleActionClick,
@@ -222,7 +224,7 @@ const UContentCard = function UContentCard({
   }, [
     headerProps,
     handleCloseModal,
-    theme.color.neutral,
+    theme.color.common.black,
     popupProps?.popupContent,
     popupProps?.popupSubAction,
     children,
