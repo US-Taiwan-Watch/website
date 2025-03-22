@@ -50,9 +50,9 @@ export default function CongressCard() {
 
   return (
     <UContentCard
-      headerIconAction="tooltip"
       withHeader
       headerProps={{
+        headerIconAction: 'tooltip',
         title: 'Congressional Distribution',
         icon: <CongressIcon />,
         iconColor: 'primary',

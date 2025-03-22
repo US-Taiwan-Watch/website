@@ -11,7 +11,7 @@ import {
   useTheme,
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Bill, BillAction } from '@/modules/Bill/business/Bill'
+import { BillAction } from '@/modules/Bill/business/Bill'
 import dayjs from 'dayjs'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
@@ -19,7 +19,7 @@ import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDown
 import { useMemo, useState } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import { sortBy } from 'lodash-es'
-import { ActionsTableType } from '@/modules/Bill/components/SingleBill/ActionsDialog'
+import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
 
 const EMPTY_CELL = '-'
 const DATE_FORMAT = 'MM/DD/YYYY'
@@ -45,20 +45,23 @@ enum SortDirectionEnum {
   DESC = 'DESC',
 }
 
-type Props = {
-  bill: Bill
-  tableType: ActionsTableType
+type ActionsTableProps = {
+  actions: BillAction[]
+  actionsType: ActionsType
 }
 
-export default function ActionsTable({ bill, tableType }: Props) {
+export default function ActionsTable({
+  actions,
+  actionsType,
+}: ActionsTableProps) {
   const theme = useTheme<USTWTheme>()
   const [sortDirection, setSortDirection] = useState<SortDirectionEnum>(
     SortDirectionEnum.DESC
   )
 
   const isAllActions = useMemo(
-    () => tableType === ActionsTableType.ALL_ACTIONS,
-    [tableType]
+    () => actionsType === ActionsType.ALL_ACTIONS,
+    [actionsType]
   )
 
   const headers: string[] = [
@@ -67,12 +70,11 @@ export default function ActionsTable({ bill, tableType }: Props) {
   ]
 
   const sortedActions = useMemo<BillAction[]>(() => {
-    const actions = isAllActions ? bill.actionsAll : bill.actionsOverview
     const sortResult = sortBy(actions, 'date')
     return sortDirection === SortDirectionEnum.DESC
       ? sortResult.reverse()
       : sortResult
-  }, [bill.actionsAll, bill.actionsOverview, isAllActions, sortDirection])
+  }, [actions, sortDirection])
 
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>

@@ -21,7 +21,12 @@ export default async function Bill({ params }: BillPageProps) {
   const relatedBills = await ServerBillApi.getRelatedBills({ id: params.id })
 
   return (
-    <Stack gap={6}>
+    <Stack
+      gap={{
+        xs: 4,
+        sm: 6,
+      }}
+    >
       <BillInfoSection bill={bill} />
       <BillContentSection bill={bill} />
       <BillListSection relatedBills={relatedBills} />

@@ -28,18 +28,12 @@ interface BillActionAllDto extends BillActionOverviewDto {
   chamber: 'house' | 'senate'
 }
 
-export interface BillAction {
-  date?: string
-  description?: string
-  // 參眾議院
-  chamber?: ChamberEnum
-}
-
 const billActionSchema = z.object({
   date: z.string().optional(),
   description: z.string().optional(),
   chamber: z.nativeEnum(ChamberEnum).optional(),
 })
+export type BillAction = z.infer<typeof billActionSchema>
 
 export const billSchema = z.object({
   id: z.string().optional(),

@@ -201,6 +201,7 @@ const color = {
     3800: '#A5A5A5',
     3900: '#505050',
     4000: '#CECECE',
+    4100: '#EBEBEB',
   },
   orange: {
     ...colors.orange,
@@ -485,7 +486,7 @@ const constants: USTWThemeConstants = {
     md: 70,
   },
   zIndex: {
-    header: 1300,
+    header: 1100,
     headerNavItem: 1000,
     headerPopper: 900,
   },

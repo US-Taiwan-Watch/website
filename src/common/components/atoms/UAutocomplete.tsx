@@ -7,6 +7,7 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { forwardRef } from 'react'
 import UFilterTextField from '@/common/components/atoms/UFilterTextField'
 import { useTheme } from '@mui/material/styles'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 type AutocompleteValue = {
   label: string
@@ -21,6 +22,16 @@ const StyledAutocomplete = styled(
   },
   '& .MuiAutocomplete-option[aria-selected="true"]': {
     backgroundColor: theme.color.grey[2600],
+  },
+  [theme.breakpoints.down('sm')]: {
+    '& .MuiInputLabel-root': {
+      fontWeight: 700,
+    },
+  },
+  [theme.breakpoints.up('sm')]: {
+    '& .MuiInputLabel-root': {
+      fontWeight: 500,
+    },
   },
 }))
 
@@ -101,6 +112,7 @@ export default forwardRef<HTMLDivElement, UAutocompleteProps>(
             }
           />
         )}
+        popupIcon={<KeyboardArrowDownIcon />}
       />
     )
   }

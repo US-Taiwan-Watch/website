@@ -20,6 +20,7 @@ import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
+import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 
 const DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
 
@@ -40,13 +41,32 @@ const StyledTimelineContainer = styled(UHStack)(({ theme }) => ({
   gap: theme.spacing(1),
 }))
 
-type Props = {
+export type BillCardProps = {
   bill: Bill
   mode: 'horizontal' | 'vertical'
-  simplified?: boolean
+  /**
+   * 顯示的項目
+   */
+  visibilities?: {
+    /**
+     * 法案狀態文字
+     * @default true
+     */
+    trackerStatus?: boolean
+    /**
+     * 最新動作日期與描述
+     * @default true
+     */
+    latestActionDescription?: boolean
+  }
 }
 
-export default function BillCard({ mode, simplified, bill }: Props) {
+export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
+  const {
+    trackerStatus: showTrackerStatus = true,
+    latestActionDescription: showLatestActionDescription = true,
+  } = visibilities ?? {}
+
   const theme = useTheme<USTWTheme>()
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
@@ -55,12 +75,17 @@ export default function BillCard({ mode, simplified, bill }: Props) {
   return (
     <StyledCardContainer
       width={isHorizontal ? '100%' : 'auto'}
-      height={isHorizontal || simplified ? 'auto' : 500}
+      minHeight={isHorizontal ? 'auto' : 400}
       sx={{
         border: isHorizontal ? 'none' : `1px solid ${theme.color.grey[1600]}`,
       }}
     >
-      <UHStack gap={4} alignItems="start" justifyContent="space-between">
+      <UHStack
+        flex={1}
+        gap={4}
+        alignItems="stretch"
+        justifyContent="space-between"
+      >
         <Stack flexGrow={1}>
           <UTagList
             tags={(bill.categories ?? []).map((category, index) => (
@@ -77,45 +102,76 @@ export default function BillCard({ mode, simplified, bill }: Props) {
             {`${BillUtils.getChamberPrefix(bill)}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
           </Typography>
 
-          <Link href={BillUtils.getLink(bill)}>
-            <UHeightLimitedText
-              maxLine={4}
-              variant="subtitleL"
-              fontWeight={700}
-              minHeight={132} // NOTE: 讓不同卡片的元件對齊
-            >
-              {bill.title}
-            </UHeightLimitedText>
-          </Link>
+          <Box flex={1}>
+            <Link href={BillUtils.getLink(bill)}>
+              <UHeightLimitedText maxLine={4} variant="articleH3">
+                {bill.title}
+              </UHeightLimitedText>
+            </Link>
+          </Box>
 
+          {/** Timeline */}
           {!isHorizontal && (
-            <Box mx={-2} mt={4}>
-              <UTimeline
-                data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-                  title: BillUtils.getBillStatusText(status),
-                }))}
-                activeIndex={BillUtils.getStatusIndex(bill)}
-                isHorizontal
-                variant="secondary"
-              />
-            </Box>
+            <>
+              {showTrackerStatus && (
+                <UHStack spacing={0.5} alignItems="center">
+                  <Typography variant="body">Tracker:</Typography>
+                  <Typography variant="articleH4">
+                    {BillUtils.getBillStatusText(
+                      bill.statusTracker?.currentStatus ??
+                        BillStatusEnum.INTRODUCED
+                    )}
+                  </Typography>
+                  <UCardInfo
+                    content={BillUtils.getBillStatusText(
+                      BillUtils.getAllBillStatuses(bill)[
+                        BillUtils.getStatusIndex(bill)
+                      ]
+                    )}
+                  />
+                </UHStack>
+              )}
+              <Box
+                mx={-2}
+                mt={{
+                  xs: 2,
+                  md: 4,
+                }}
+              >
+                <UTimeline
+                  data={BillUtils.getAllBillStatuses(bill).map((status) => ({
+                    title: BillUtils.getBillStatusText(status),
+                  }))}
+                  activeIndex={BillUtils.getStatusIndex(bill)}
+                  isHorizontal
+                  variant="secondary"
+                />
+              </Box>
+            </>
           )}
 
-          {!isHorizontal && <Divider sx={{ mt: 3 }} />}
+          {/** Sponsor */}
+          <>
+            <Divider
+              sx={{
+                mt: 3,
+                mb: 2,
+              }}
+            />
+            <UHStack px={1} gap={1.5} alignItems="center">
+              {bill.sponsor?.party && (
+                <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
+              )}
+              <Typography variant="subtitleS" fontWeight={700}>
+                {bill.sponsor?.name}
+              </Typography>
+            </UHStack>
+          </>
 
-          <UHStack px={1} gap={1.5} alignItems="center" mt={2}>
-            {bill.sponsor?.party && (
-              <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
-            )}
-            <Typography variant="subtitleS" fontWeight={700}>
-              {bill.sponsor?.name}
-            </Typography>
-          </UHStack>
-
-          {!simplified && (
+          {/** Latest Action & Description */}
+          {showLatestActionDescription && (
             <>
               <Divider sx={{ my: 2 }} />
-
               <Stack gap={1.5}>
                 <Typography
                   variant="buttonS"

@@ -3,7 +3,7 @@
 import {
   FilterCategory,
   FilterOption,
-} from '@/modules/Bill/components/SingleBill/CosponsorDialog/DialogFilter'
+} from '@/modules/Bill/components/SingleBill/CosponsorFilter/CosponsorFilter'
 import { useCallback, useState } from 'react'
 
 export type SelectedOption = Record<FilterCategory['id'], FilterOption['id'][]>
@@ -13,7 +13,7 @@ const DEFAULT_SELECTED_OPTION: SelectedOption = {
   constituency: [],
 }
 
-export default function useDialogFilter() {
+export default function useCosponsorFilter() {
   const [selectedOptionList, setSelectedOptionList] = useState<SelectedOption>(
     DEFAULT_SELECTED_OPTION
   )
