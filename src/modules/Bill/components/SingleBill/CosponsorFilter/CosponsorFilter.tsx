@@ -91,7 +91,7 @@ export type FilterCategory = {
   options: FilterOption[]
 }
 
-type DialogFilterProps = {
+type CosponsorFilterProps = {
   categories: FilterCategory[]
   selectedOptionList?: SelectedOption
   onSelectOption?: (
@@ -106,7 +106,7 @@ export default function CosponsorFilter({
   selectedOptionList,
   onSelectOption,
   clearAll,
-}: DialogFilterProps) {
+}: CosponsorFilterProps) {
   const theme = useTheme<USTWTheme>()
   const [expandedCategories, setExpandedCategories] = useState<{
     [key in FilterCategory['id']]: boolean

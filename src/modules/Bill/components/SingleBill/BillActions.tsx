@@ -7,7 +7,12 @@ import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import CardExpandIcon from '@/modules/Bill/components/SingleBill/CardExpandIcon'
-import ActionsContent from '@/modules/Bill/components/SingleBill/ActionsContent'
+import ActionsFilterContent from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilterContent'
+import { useState, useMemo } from 'react'
+import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import DrawerFilter from '@/modules/Bill/components/SingleBill/ActionsFilter/DrawerFilter'
+
 const DATE_FORMAT = 'MM/DD/YYYY'
 
 type Props = {
@@ -15,6 +20,19 @@ type Props = {
 }
 
 export default function BillActions({ bill }: Props) {
+  const { isMobile } = useResponsive()
+  const [selectedActionsType, setSelectedActionsType] = useState<ActionsType>(
+    ActionsType.ACTIONS_OVERVIEW
+  )
+
+  const actions = useMemo(
+    () =>
+      selectedActionsType === ActionsType.ALL_ACTIONS
+        ? bill.actionsAll
+        : bill.actionsOverview,
+    [bill, selectedActionsType]
+  )
+
   return (
     <>
       <UContentCard
@@ -27,8 +45,22 @@ export default function BillActions({ bill }: Props) {
           actionIcon: <CardExpandIcon />,
         }}
         popupProps={{
-          popupContent: <ActionsContent bill={bill} />,
+          popupContent: (
+            <ActionsFilterContent
+              actions={actions}
+              selectedActionsType={selectedActionsType}
+              onSelectActionsType={setSelectedActionsType}
+            />
+          ),
           popupDialogMaxWidth: 'lg',
+          ...(isMobile && {
+            popupSubAction: (
+              <DrawerFilter
+                selectedActionsType={selectedActionsType}
+                onSelectActionsType={setSelectedActionsType}
+              />
+            ),
+          }),
         }}
       >
         <Stack pt={2}>

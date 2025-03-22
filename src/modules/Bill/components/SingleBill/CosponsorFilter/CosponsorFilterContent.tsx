@@ -11,7 +11,7 @@ import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import CosponsorList from '@/modules/Bill/components/SingleBill/CosponsorFilter/CosponsorList'
 
-type Props = {
+type CosponsorFilterContentProps = {
   cosponsors: BillCosponsor[]
   selectedOptionList: SelectedOption
   handleSelectOption: (
@@ -28,7 +28,7 @@ export default function CosponsorFilterContent({
   handleSelectOption,
   clearAll,
   filterCategories,
-}: Props) {
+}: CosponsorFilterContentProps) {
   const { isMobile } = useResponsive()
 
   if (isMobile) {
