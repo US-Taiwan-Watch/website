@@ -15,6 +15,17 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
   '& .MuiOutlinedInput-notchedOutline': {
     border: 'none',
   },
+  [theme.breakpoints.down('sm')]: {
+    '& .MuiInputLabel-root': {
+      color: theme.color.common.black,
+      fontWeight: 700,
+    },
+  },
+  [theme.breakpoints.up('sm')]: {
+    '& .MuiInputLabel-root': {
+      fontWeight: 500,
+    },
+  },
 }))
 
 const UFilterTextField = forwardRef<HTMLDivElement, TextFieldProps>(

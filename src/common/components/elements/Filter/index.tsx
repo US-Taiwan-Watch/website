@@ -72,7 +72,12 @@ export default function Filter({
           <Stack gap={2}>
             <UHStack alignItems="center" gap={0.5}>
               <FilterIcon sx={{ width: 20, height: 20 }} />
-              <Typography variant="h6" fontWeight={600}>
+              <Typography
+                variant="h6"
+                sx={{
+                  fontWeight: `600 !important`,
+                }}
+              >
                 Filter
               </Typography>
               <UIconButton

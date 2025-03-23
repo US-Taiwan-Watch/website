@@ -21,6 +21,14 @@ import {
 } from '@/modules/People/components/PeopleFilter/enums'
 import UFilterTextField from '@/common/components/atoms/UFilterTextField'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
+import { styled } from '@/common/lib/mui/theme'
+
+const StyledUSelect = styled(USelect)(({ theme }) => ({
+  [theme.breakpoints.down('sm')]: {
+    backgroundColor: theme.color.common.black,
+    color: theme.color.common.white,
+  },
+}))
 
 type SecondLevelSelector = {
   key: PeopleFilterInputKey
@@ -188,11 +196,9 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
 
   return (
     <Filter
+      formId="people-filter-form"
       containerProps={{
         component: 'form',
-        sx: {
-          width: '100%',
-        },
         onSubmit: form.handleSubmit(handleSubmit, (error) => {
           console.log(error)
         }),
@@ -202,7 +208,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
           name="category"
           control={form.control}
           render={({ field }) => (
-            <USelect
+            <StyledUSelect
               {...field}
               value={field.value ?? ''}
               defaultValue={''}
@@ -220,7 +226,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
                   {option.label}
                 </MenuItem>
               ))}
-            </USelect>
+            </StyledUSelect>
           )}
         />
       }
@@ -248,6 +254,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
                   sx={{
                     '& .MuiInputBase-root': {
                       height: '100%',
+                      minHeight: '40px',
                     },
                   }}
                   type="number"

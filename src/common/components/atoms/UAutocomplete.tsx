@@ -25,6 +25,7 @@ const StyledAutocomplete = styled(
   },
   [theme.breakpoints.down('sm')]: {
     '& .MuiInputLabel-root': {
+      color: theme.color.common.black,
       fontWeight: 700,
     },
   },
