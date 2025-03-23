@@ -9,10 +9,11 @@ import Sponsored from '@/modules/People/components/PeopleTracker/CardContent/Spo
 import VotingRecord from '@/modules/People/components/PeopleTracker/CardContent/VotingRecord'
 import Party from '@/modules/People/components/PeopleTracker/CardContent/Party'
 import Publication from '@/modules/People/components/PeopleTracker/CardContent/Publication'
-import { Grid2 as Grid, GridSize, Stack, useTheme } from '@mui/material'
+import { Grid2 as Grid, Stack, useTheme } from '@mui/material'
 import { memo, useMemo } from 'react'
 import type React from 'react'
 import { People } from '@/modules/People/business/People'
+import { Grid2Props as GridProps } from '@mui/material/Grid2'
 
 const useSectionLayout = (people: People) => {
   /**
@@ -123,7 +124,7 @@ const PeopleContentSection = memo(function PeopleContentSection({
     components: Array<{
       visible: boolean
       // 預設 size，當同 Row 只有一個 component 時，會設為 grow
-      size: GridSize
+      size: GridProps['size']
       component: React.ReactNode
     }>
   }> = [
@@ -132,22 +133,34 @@ const PeopleContentSection = memo(function PeopleContentSection({
       components: [
         {
           visible: hasParty,
-          size: 'grow',
+          size: {
+            xs: 12,
+            sm: 'grow',
+          },
           component: <Party party={people.party!} />,
         },
         {
           visible: hasSponsored,
-          size: 2,
+          size: {
+            xs: 4,
+            sm: 2,
+          },
           component: <Sponsored people={people} />,
         },
         {
           visible: hasCoSponsored,
-          size: 2,
+          size: {
+            xs: 4,
+            sm: 2,
+          },
           component: <CoSponsored people={people} />,
         },
         {
           visible: hasVotingRecord,
-          size: 2,
+          size: {
+            xs: 4,
+            sm: 2,
+          },
           component: <VotingRecord people={people} />,
         },
       ],
@@ -157,12 +170,18 @@ const PeopleContentSection = memo(function PeopleContentSection({
       components: [
         {
           visible: hasBioByAI,
-          size: 7,
+          size: {
+            xs: 12,
+            sm: 7,
+          },
           component: <BioByAI bioByAI={people.bioByAI} />,
         },
         {
           visible: hasExperience,
-          size: 5,
+          size: {
+            xs: 12,
+            sm: 5,
+          },
           component: <Experience experience={people.experience ?? []} />,
         },
       ],
@@ -172,12 +191,18 @@ const PeopleContentSection = memo(function PeopleContentSection({
       components: [
         {
           visible: hasCommittee,
-          size: 'grow',
+          size: {
+            xs: 12,
+            sm: 'grow',
+          },
           component: <Committee committees={people.committees} />,
         },
         {
           visible: hasPublication,
-          size: 'grow',
+          size: {
+            xs: 12,
+            sm: 'grow',
+          },
           component: <Publication publications={people.publications} />,
         },
       ],

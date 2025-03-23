@@ -3,7 +3,6 @@ import Accordion from '@mui/material/Accordion'
 
 const UAccordion = styled(Accordion)(({ theme }) => ({
   borderRadius: '10px !important',
-  padding: theme.spacing(3, 4),
   '& .MuiAccordionSummary-root': {
     padding: 0,
     minHeight: 'unset',
@@ -18,6 +17,12 @@ const UAccordion = styled(Accordion)(({ theme }) => ({
     padding: 0,
     paddingTop: theme.spacing(1),
     borderTop: `2px solid ${theme.color.grey[1900]}`,
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+  },
+  [theme.breakpoints.up('sm')]: {
+    padding: theme.spacing(3, 4),
   },
 }))
 

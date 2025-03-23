@@ -342,6 +342,7 @@ export class PeopleUtils {
    * @returns
    */
   static parseIsCurrentCongressMember(dto: ApiPeople['experiences']) {
+    console.log('dto', JSON.stringify(dto, null, 2))
     if (!isArray(dto)) return false
     const currentExperience = dto.find(
       (item) =>
@@ -354,8 +355,9 @@ export class PeopleUtils {
       !isString(currentExperience.category?.i18n?.en?.name)
     )
       return false
-    return !!z.nativeEnum(PeoplePosition).safeParse(currentExperience.category)
-      .data
+    return !!z
+      .nativeEnum(PeoplePosition)
+      .safeParse(currentExperience.category.i18n.en.name).data
   }
 
   /**

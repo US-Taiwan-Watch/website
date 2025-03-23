@@ -155,7 +155,12 @@ const PeopleCard = memo(function PeopleCard({
               />
             </Stack>
           </Grid>
-          <Grid size={2} display="flex" justifyContent="end">
+          <Grid
+            size={2}
+            display="flex"
+            justifyContent="end"
+            alignItems="flex-start"
+          >
             <Link href={PeopleUtils.getLink(people)}>
               <StyledPeopleCardIconButton variant="rounded" color="inherit">
                 {isMobile ? <ArrowTopRightIcon /> : <ArrowForwardIcon />}
