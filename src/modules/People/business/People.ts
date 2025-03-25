@@ -342,7 +342,6 @@ export class PeopleUtils {
    * @returns
    */
   static parseIsCurrentCongressMember(dto: ApiPeople['experiences']) {
-    console.log('dto', JSON.stringify(dto, null, 2))
     if (!isArray(dto)) return false
     const currentExperience = dto.find(
       (item) =>

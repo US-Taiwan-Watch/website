@@ -177,7 +177,7 @@ export default function Filter({
             variant="contained"
             color="info"
             rounded
-            size="large"
+            size="medium"
             onClick={handleReset}
           >
             Reset
@@ -188,7 +188,7 @@ export default function Filter({
             variant="contained"
             rounded
             color="primary"
-            size="large"
+            size="medium"
             form={formId}
           >
             Submit

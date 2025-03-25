@@ -137,10 +137,9 @@ export class PeoplesFilterUtils {
   static transformQueryVariablesToFilter(
     query: PeoplesFilterUrlQuery
   ): PeopleFilterOutput {
-    const category = Number(query.category)
     return (
       peopleFilterSchema.safeParse({
-        category,
+        category: query.category,
         congress: this.parseNumberStringArray(query.congress),
         party: this.parseStringArray(query.party),
         state: this.parseStringArray(query.state),

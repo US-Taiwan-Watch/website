@@ -14,7 +14,7 @@ import UPagination, {
 } from '@/common/components/atoms/UPagination'
 import PeopleFilter from '@/modules/People/components/PeopleFilter'
 import { Language } from '@/common/lib/i18n/types'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   PeoplesFilterQuery,
   PeoplesFilterQueryVariables,
@@ -22,7 +22,7 @@ import {
 import { useLazyQuery } from '@apollo/client'
 import { QUERY_PEOPLE_FILTER } from '@/modules/People/graphql/gql'
 import { People, PeopleUtils } from '@/modules/People/business/People'
-import { isNull, isNumber } from 'lodash-es'
+import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
 import { PeopleFilterOutput } from '@/modules/People/components/PeopleFilter/schema'
 import { PeoplesFilterUtils } from '@/modules/People/business/PeoplesFilter'
@@ -62,9 +62,11 @@ const PeopleListSection = () => {
   const params = useSearchParams()
 
   const { categoriesPeople } = useCategoriesPeople(lang)
-  const categoriesPeopleMap = useMemo<
-    Record<PeopleCategoryEnum, PeopleCategory>
-  >(() => {
+  const categoriesPeopleMap = useMemo<Record<
+    PeopleCategoryEnum,
+    PeopleCategory
+  > | null>(() => {
+    if (!categoriesPeople.length) return null
     return categoriesPeople.reduce(
       (acc, category) => {
         acc[category.type] = category
@@ -74,6 +76,13 @@ const PeopleListSection = () => {
     )
   }, [categoriesPeople])
 
+  /**
+   * 避免 `router.replace` 後，
+   * `searchParams` 的值會變動，
+   * 導致 `filterInitValues` 的值會變動，
+   * 進而導致 `Maxinum update depth exceeded` 的錯誤
+   */
+  const existedFilterInitValues = useRef<PeopleFilterOutput | null>(null)
   const filterInitValues = useMemo<PeopleFilterOutput>(() => {
     return PeoplesFilterUtils.transformQueryVariablesToFilter({
       category: params.get('category'),
@@ -107,9 +116,8 @@ const PeopleListSection = () => {
   >(QUERY_PEOPLE_FILTER)
 
   useEffect(() => {
-    if (isNumber(data?.PeoplesFilter?.totalPages)) {
-      setTotalPages(data.PeoplesFilter.totalPages)
-    }
+    if (!isNumber(data?.PeoplesFilter?.totalPages)) return
+    setTotalPages(data.PeoplesFilter.totalPages)
   }, [data?.PeoplesFilter?.totalPages, setTotalPages])
 
   // 處理資料
@@ -151,9 +159,12 @@ const PeopleListSection = () => {
   )
 
   useEffect(() => {
-    if (Object.keys(filterInitValues).length > 0) {
-      onFilterSubmit(filterInitValues, categoriesPeopleMap)
-    }
+    if (isEqual(existedFilterInitValues.current, filterInitValues)) return
+    if (!categoriesPeopleMap) return
+    if (Object.keys(filterInitValues).length === 0) return
+
+    onFilterSubmit(filterInitValues, categoriesPeopleMap)
+    existedFilterInitValues.current = filterInitValues
   }, [filterInitValues, onFilterSubmit, categoriesPeopleMap])
 
   useEffect(() => {
@@ -197,13 +208,23 @@ const PeopleListSection = () => {
               All People
             </Typography>
             <PeopleFilter
-              onSubmit={(filter) => onFilterSubmit(filter, categoriesPeopleMap)}
+              onSubmit={(filter) => {
+                if (!categoriesPeopleMap) return
+
+                setPeoples([])
+                onFilterSubmit(filter, categoriesPeopleMap)
+              }}
               initialValues={filterInitValues}
             />
           </UHStack>
         ) : (
           <PeopleFilter
-            onSubmit={(filter) => onFilterSubmit(filter, categoriesPeopleMap)}
+            onSubmit={(filter) => {
+              if (!categoriesPeopleMap) return
+
+              setPeoples([])
+              onFilterSubmit(filter, categoriesPeopleMap)
+            }}
             initialValues={filterInitValues}
           />
         )}

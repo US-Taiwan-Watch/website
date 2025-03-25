@@ -20,9 +20,9 @@ import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
 import { ROUTES } from '@/routes'
 import { useLazyQuery } from '@apollo/client'
 import { Stack, Typography } from '@mui/material'
-import { isNull, isNumber } from 'lodash-es'
+import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
-import { useCallback, useMemo, useEffect, useState } from 'react'
+import { useCallback, useMemo, useEffect, useState, useRef } from 'react'
 
 const BillCardsSkeleton = () => {
   const { isMobile } = useResponsive()
@@ -48,6 +48,13 @@ export default function BillList() {
 
   const params = useSearchParams()
 
+  /**
+   * 避免 `router.replace` 後，
+   * `searchParams` 的值會變動，
+   * 導致 `filterInitValues` 的值會變動，
+   * 進而導致 `Maxinum update depth exceeded` 的錯誤
+   */
+  const existedFilterInitValues = useRef<BillFilterOutput | null>(null)
   const filterInitValues = useMemo<BillFilterOutput>(() => {
     return BillsFilterUtils.transformQueryVariablesToFilter({
       category: params.get('category'),
@@ -82,9 +89,8 @@ export default function BillList() {
   >(QUERY_BILL_FILTER)
 
   useEffect(() => {
-    if (isNumber(data?.BillsFilter?.totalPages)) {
-      setTotalPages(data.BillsFilter.totalPages)
-    }
+    if (!isNumber(data?.BillsFilter?.totalPages)) return
+    setTotalPages(data.BillsFilter.totalPages)
   }, [data?.BillsFilter?.totalPages, setTotalPages])
 
   // 處理資料
@@ -120,9 +126,11 @@ export default function BillList() {
   )
 
   useEffect(() => {
-    if (Object.keys(filterInitValues).length > 0) {
-      onFilterSubmit(filterInitValues)
-    }
+    if (isEqual(existedFilterInitValues.current, filterInitValues)) return
+    if (Object.keys(filterInitValues).length === 0) return
+
+    onFilterSubmit(filterInitValues)
+    existedFilterInitValues.current = filterInitValues
   }, [filterInitValues, onFilterSubmit])
 
   useEffect(() => {
@@ -140,7 +148,10 @@ export default function BillList() {
         <Typography variant="h3">Bills and Resolutions in Congress</Typography>
         {isMobile && (
           <BillFilter
-            onSubmit={onFilterSubmit}
+            onSubmit={(filter) => {
+              setBills([])
+              onFilterSubmit(filter)
+            }}
             initialValues={filterInitValues}
           />
         )}
@@ -148,7 +159,10 @@ export default function BillList() {
       <Stack width="100%" gap={7} alignItems="center" pb={10}>
         {!isMobile && (
           <BillFilter
-            onSubmit={onFilterSubmit}
+            onSubmit={(filter) => {
+              setBills([])
+              onFilterSubmit(filter)
+            }}
             initialValues={filterInitValues}
           />
         )}
