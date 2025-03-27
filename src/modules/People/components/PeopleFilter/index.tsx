@@ -7,7 +7,9 @@ import usePeopleFilterOptions, {
 import Filter from '@/common/components/elements/Filter'
 import USelect from '@/common/components/atoms/USelect'
 import MenuItem from '@mui/material/MenuItem'
+import Box from '@mui/material/Box'
 import {
+  defaultCategory,
   PeopleFilterInput,
   type PeopleFilterInputKey,
   type PeopleFilterOutput,
@@ -21,6 +23,23 @@ import {
 } from '@/modules/People/components/PeopleFilter/enums'
 import UFilterTextField from '@/common/components/atoms/UFilterTextField'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
+import { styled } from '@/common/lib/mui/theme'
+
+const StyledUSelect = styled(USelect)(({ theme }) => ({
+  '& .MuiSelect-select': {
+    fontSize: '16px',
+  },
+  [theme.breakpoints.down('sm')]: {
+    backgroundColor: theme.color.common.black,
+    color: theme.color.common.white,
+    '& .MuiSelect-select': {
+      fontWeight: 700,
+    },
+    '& .MuiSelect-icon': {
+      right: '22px',
+    },
+  },
+}))
 
 type SecondLevelSelector = {
   key: PeopleFilterInputKey
@@ -61,6 +80,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(() => {
     const selectors: SecondLevelSelector[] = []
+    if (category === defaultCategory) return selectors
 
     // Congress
     if (
@@ -188,11 +208,9 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
 
   return (
     <Filter
+      formId="people-filter-form"
       containerProps={{
         component: 'form',
-        sx: {
-          width: '100%',
-        },
         onSubmit: form.handleSubmit(handleSubmit, (error) => {
           console.log(error)
         }),
@@ -202,17 +220,20 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
           name="category"
           control={form.control}
           render={({ field }) => (
-            <USelect
+            <StyledUSelect
               {...field}
               value={field.value ?? ''}
-              defaultValue={''}
+              defaultValue={defaultCategory}
               onChange={(e) => {
                 field.onChange(e)
                 handleSecondLevelReset()
               }}
               isFirstLevel
+              sx={{
+                height: '50px',
+              }}
             >
-              <MenuItem value="" disabled>
+              <MenuItem value={defaultCategory} disabled>
                 Category
               </MenuItem>
               {categoryOptions.map((option) => (
@@ -220,7 +241,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
                   {option.label}
                 </MenuItem>
               ))}
-            </USelect>
+            </StyledUSelect>
           )}
         />
       }
@@ -234,36 +255,40 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
           render={({ field }) => {
             // district filter，讓使用者輸入數字就好 (int > 0)
             if (selector.key === 'district') {
-              console.log('field', field.value)
               return (
-                <UFilterTextField
-                  {...field}
-                  size="small"
-                  label={selector.label}
-                  slotProps={{
-                    inputLabel: {
-                      color: 'info',
-                    },
-                  }}
+                <Box
                   sx={{
-                    '& .MuiInputBase-root': {
-                      height: '100%',
+                    width: {
+                      xs: 'auto',
+                      sm: '200px',
                     },
                   }}
-                  type="number"
-                  onChange={(e: ChangeEvent<HTMLInputElement>) => {
-                    if (Number.isNaN(parseInt(e.target.value, 10))) {
-                      field.onChange(undefined)
-                    } else {
-                      const value = parseInt(e.target.value, 10)
-                      if (value > 0) {
-                        field.onChange(value)
-                      } else {
+                >
+                  <UFilterTextField
+                    {...field}
+                    fullWidth
+                    size="small"
+                    label={selector.label}
+                    slotProps={{
+                      inputLabel: {
+                        color: 'info',
+                      },
+                    }}
+                    type="number"
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
+                      if (Number.isNaN(parseInt(e.target.value, 10))) {
                         field.onChange(undefined)
+                      } else {
+                        const value = parseInt(e.target.value, 10)
+                        if (value > 0) {
+                          field.onChange(value)
+                        } else {
+                          field.onChange(undefined)
+                        }
                       }
-                    }
-                  }}
-                />
+                    }}
+                  />
+                </Box>
               )
             }
 
@@ -290,9 +315,6 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
                     } else {
                       field.onChange([value?.value])
                     }
-                  }}
-                  sx={{
-                    height: '100%',
                   }}
                   label={selector.label}
                 />

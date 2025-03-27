@@ -19,7 +19,12 @@ export default async function PeopleTracker({ params }: PeopleTrackerProps) {
   if (!people) notFound()
 
   return (
-    <Stack gap={6}>
+    <Stack
+      gap={{
+        xs: 2.5,
+        sm: 5,
+      }}
+    >
       {/** People Info Section */}
       <PeopleInfoSection people={people} />
 

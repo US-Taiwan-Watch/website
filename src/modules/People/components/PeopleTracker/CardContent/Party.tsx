@@ -26,18 +26,53 @@ const Party = function ({ party }: PartyProps) {
   const partyLogo = getPartyLogo(party)
 
   return (
-    <UContentCard>
+    <UContentCard
+      sx={{
+        padding: 0,
+      }}
+    >
       <UHStack
         alignItems="center"
         justifyContent="center"
         width="100%"
         spacing={2}
         padding={theme.spacing(2)}
+        sx={{
+          height: {
+            xs: 64,
+            sm: 110,
+          },
+        }}
       >
         {partyLogo && (
-          <StyledPartyLogo src={partyLogo} alt={party} width={50} height={50} />
+          <StyledPartyLogo
+            src={partyLogo}
+            alt={party}
+            width={50}
+            height={50}
+            sx={{
+              width: {
+                xs: 32,
+                sm: 50,
+              },
+              height: {
+                xs: 32,
+                sm: 50,
+              },
+            }}
+          />
         )}
-        <Typography variant="subtitleL" textTransform="capitalize" flex={1}>
+        <Typography
+          textTransform="capitalize"
+          flex={1}
+          sx={{
+            fontSize: {
+              xs: '0.875rem',
+              sm: '1.375rem',
+            },
+            fontWeight: 700,
+          }}
+        >
           {party.toLowerCase()}
         </Typography>
       </UHStack>

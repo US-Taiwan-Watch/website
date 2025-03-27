@@ -40,5 +40,9 @@ export const usePagination = ({
     [totalPages]
   )
 
-  return { totalPages, setTotalPages, page, handlePageChange }
+  const resetPage = useCallback(() => {
+    setPage(1)
+  }, [])
+
+  return { totalPages, setTotalPages, page, handlePageChange, resetPage }
 }

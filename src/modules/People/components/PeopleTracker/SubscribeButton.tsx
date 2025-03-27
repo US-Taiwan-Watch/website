@@ -1,17 +1,17 @@
-import { memo } from 'react'
 import UButton from '@/common/components/atoms/UButton'
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
-import { Bill } from '@/modules/Bill/business/Bill'
-import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UIconButton from '@/common/components/atoms/UIconButton'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import { People } from '@/modules/People/business/People'
+import { memo } from 'react'
+import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
 
 type SubscribeButtonProps = {
-  bill: Bill
+  people: People
 }
 
 const SubscribeButton = memo(function SubscribeButton({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  bill,
+  people,
 }: SubscribeButtonProps) {
   const { isMobile } = useResponsive()
 

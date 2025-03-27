@@ -1,7 +1,6 @@
-import { Stack, Typography, Grid2 as Grid, Box } from '@mui/material'
-import PeopleCard from '@/modules/People/components/PeopleCard'
+import { Stack, Typography, Box } from '@mui/material'
 import ServerPeopleApi from '@/modules/People/api/ServerPeopleApi'
-
+import PopularPeopleCards from '@/modules/People/components/PeopleLanding/PopularPeopleCards'
 /**
  * 熱門議員數量
  */
@@ -13,16 +12,17 @@ export default async function PopularPeopleSection() {
   })
 
   return (
-    <Stack spacing={6}>
-      <Typography variant="h3">Popular People</Typography>
+    <Stack
+      spacing={{
+        xs: 2.5,
+        sm: 5,
+      }}
+    >
+      <Typography variant="h3" fontWeight={600}>
+        Popular People
+      </Typography>
       <Box>
-        <Grid container spacing={2}>
-          {peoples.map((people) => (
-            <Grid key={people.id} size={6}>
-              <PeopleCard people={people} />
-            </Grid>
-          ))}
-        </Grid>
+        <PopularPeopleCards peoples={peoples} isPopular />
       </Box>
     </Stack>
   )

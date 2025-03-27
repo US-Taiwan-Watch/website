@@ -95,15 +95,11 @@ const StyledContentCardWithHeader = styled(
 )<UContentCardProps>(({ theme, overflowHidden }) => ({
   position: 'relative',
   padding: theme.spacing(3),
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(2),
-  },
   '& .MuiCardContent-root:last-child': {
     padding: 0,
   },
   ...(overflowHidden && {
     overflow: 'hidden',
-    minHeight: '400px',
     /**
      * 如果有 overflow，在 after 加上一層 gradient 遮罩
      * 目前看起來只有 experience 會有 overflow hidden 的問題
@@ -122,6 +118,16 @@ const StyledContentCardWithHeader = styled(
       width: overflowHidden ? `calc(100% - ${theme.spacing(6)})` : '100%',
     },
   }),
+  [theme.breakpoints.down('sm')]: {
+    ...(overflowHidden && {
+      height: '345px',
+    }),
+  },
+  [theme.breakpoints.up('sm')]: {
+    ...(overflowHidden && {
+      minHeight: '400px',
+    }),
+  },
 }))
 
 const UContentCard = function UContentCard({
@@ -237,7 +243,16 @@ const UContentCard = function UContentCard({
 
   return (
     <StyledContentCardWithHeader {...rest}>
-      <UCardHeader {...headerProps} action={action} />
+      <UCardHeader
+        {...headerProps}
+        action={action}
+        sx={{
+          paddingBottom: {
+            xs: 1,
+            sm: 2,
+          },
+        }}
+      />
       <CardContent
         {...contentProps}
         sx={{

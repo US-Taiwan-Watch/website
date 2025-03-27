@@ -4,7 +4,13 @@ import { Stack } from '@mui/material'
 
 export default async function People() {
   return (
-    <Stack flex={1} gap={10}>
+    <Stack
+      flex={1}
+      gap={{
+        xs: 5,
+        sm: 10,
+      }}
+    >
       {/** Popular People Section */}
       <PopularPeopleSection />
       {/** People List Section */}

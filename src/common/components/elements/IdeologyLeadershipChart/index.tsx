@@ -1,6 +1,7 @@
 'use client'
 
 import { USTWTheme } from '@/common/lib/mui/theme'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { useTheme } from '@mui/material'
 import Highcharts from 'highcharts'
 import HighchartsReact from 'highcharts-react-official'
@@ -40,6 +41,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
   activeId,
   data,
 }: IdeologyLeadershipChartProps) {
+  const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
   const getMarker = useCallback(
@@ -93,7 +95,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
               marker: {
                 symbol: 'triangle',
                 fillColor: theme.color.pink[1000],
-                radius: 8,
+                radius: isMobile ? 4 : 8,
               },
               zIndex: 10,
             }
@@ -105,6 +107,9 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
               name: item.name,
               item,
               zIndex: 1,
+              marker: {
+                radius: isMobile ? 2 : 4,
+              },
             }
           }
         }),
@@ -114,7 +119,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
 
     // 讓 active person 的 legend 顯示在前面
     return [...(activePiece ? [activePiece] : []), ...restSeries]
-  }, [data, getMarker, activeId, theme])
+  }, [data, getMarker, activeId, theme, isMobile])
 
   const options = useMemo<Highcharts.Options>(() => {
     return {

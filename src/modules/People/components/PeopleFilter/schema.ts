@@ -11,23 +11,7 @@ import { CongressUtils } from '@/common/business/Congress'
 const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
 
 const congressSchema = z.array(
-  z.union([
-    // Maybe string
-    z
-      .string()
-      .transform((val) => parseInt(val, 10))
-      .pipe(
-        z
-          .number()
-          .min(CongressUtils.minCongressNumber())
-          .max(currentCongressNumber)
-      ),
-    // Maybe number
-    z
-      .number()
-      .min(CongressUtils.minCongressNumber())
-      .max(currentCongressNumber),
-  ])
+  z.number().min(CongressUtils.minCongressNumber()).max(currentCongressNumber)
 )
 
 const partySchema = z.array(z.nativeEnum(PeoplePartyEnum))
@@ -75,19 +59,24 @@ export const otherSchema = z.object({
 
 export type OtherFilterInput = z.input<typeof otherSchema>
 
-export const peopleFilterSchema = z.union([
-  z.discriminatedUnion('category', [
-    senatorSchema,
-    houseRepresentativeSchema,
-    officialSchema,
-    expertSchema,
-    otherSchema,
-  ]),
-  z.object({}),
+export const defaultCategory = '-1'
+export const emptySchema = z.object({
+  category: z.literal(defaultCategory),
+})
+
+export const peopleFilterSchema = z.discriminatedUnion('category', [
+  senatorSchema,
+  houseRepresentativeSchema,
+  officialSchema,
+  expertSchema,
+  otherSchema,
+  emptySchema,
 ])
 
 export type PeopleFilterInput = z.input<typeof peopleFilterSchema>
 export type PeopleFilterOutput = z.output<typeof peopleFilterSchema>
 export type PeopleFilterInputKey = KeysOfUnion<PeopleFilterInput>
 
-export const defaultPeopleFilterInput: PeopleFilterInput = {}
+export const defaultPeopleFilterInput: PeopleFilterInput = {
+  category: defaultCategory,
+}

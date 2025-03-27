@@ -50,5 +50,13 @@ export type BillFilterOutput = z.output<typeof billFilterSchema>
 export type BillFilterInputKey = keyof BillFilterInput
 
 export const defaultBillFilterInput: BillFilterInput = {
+  category: [],
+  party: [],
+  type: [],
+  congress: [],
+  status: [],
+  sponsors: [],
+  cosponsors: [],
+  tag: [],
   sorter: BillSorterEnum.LatestAction,
 }

@@ -354,8 +354,9 @@ export class PeopleUtils {
       !isString(currentExperience.category?.i18n?.en?.name)
     )
       return false
-    return !!z.nativeEnum(PeoplePosition).safeParse(currentExperience.category)
-      .data
+    return !!z
+      .nativeEnum(PeoplePosition)
+      .safeParse(currentExperience.category.i18n.en.name).data
   }
 
   /**

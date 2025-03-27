@@ -14,11 +14,12 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import UHStack from '@/common/components/atoms/UHStack'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import { ArrowTopRightIcon } from '@/common/styles/assets/Icons'
 
 const StyledPeopleCardContainer = styled(Box)(({ theme }) => ({
   height: '100%',
   width: '100%',
-  padding: theme.spacing(2.5),
   borderRadius: '15px',
   backgroundColor: theme.color.common.white,
   border: `1px solid ${theme.color.grey[1600]}`,
@@ -49,27 +50,55 @@ const StyledPeopleCardIconButton = styled(UIconButton)(({ theme }) => ({
 
 interface PeopleCardProps {
   people: People
+  /**
+   * 是否為簡化版
+   */
   simplified?: boolean
+  /**
+   * 是否為熱門議員
+   */
+  isPopular?: boolean
 }
 
 const PeopleCard = memo(function PeopleCard({
   people,
   simplified = false,
+  isPopular = false,
 }: PeopleCardProps) {
+  const { isMobile } = useResponsive()
+
   return (
     <StyledPeopleCardContainer
       sx={{
-        // TODO: RWD
-        minHeight: simplified ? 180 : 250,
+        padding: {
+          xs: 1,
+          sm: 2.5,
+        },
       }}
     >
-      <Stack direction="row" spacing={3} height="100%">
+      <Stack
+        direction="row"
+        spacing={{
+          xs: 1.5,
+          sm: 3,
+        }}
+        height="100%"
+      >
         {people.image && (
           <StyledPeopleCardImageContainer
             display="flex"
             alignItems="center"
             justifyContent="center"
-            sx={{ width: simplified ? 100 : 160 }}
+            sx={{
+              width: {
+                xs: isPopular ? 80 : 60,
+                sm: isPopular ? 160 : 100,
+              },
+              minHeight: {
+                xs: isPopular ? 100 : 80,
+                sm: isPopular ? 200 : 130,
+              },
+            }}
           >
             <StyledPeopleCardImage
               src={people.image}
@@ -80,16 +109,35 @@ const PeopleCard = memo(function PeopleCard({
         )}
         <Grid container direction="row" flex={1}>
           <Grid size={10}>
-            <Stack direction="column" spacing={1}>
+            <Stack
+              direction="column"
+              spacing={{
+                xs: 0.75,
+                sm: 2,
+              }}
+            >
               <PeopleCategory people={people} />
-              <Typography fontSize={'1.5rem'} fontWeight={600}>
-                {people.name}
-              </Typography>
-              {people.congressExperienceRange && (
-                <PeopleCongressTitle
-                  congressExperienceRange={people.congressExperienceRange}
-                />
-              )}
+              <Stack
+                gap={{
+                  xs: 0.5,
+                  sm: 1,
+                }}
+              >
+                <Typography
+                  fontSize={{
+                    xs: '1.25rem',
+                    sm: '1.625rem',
+                  }}
+                  fontWeight={600}
+                >
+                  {people.name}
+                </Typography>
+                {people.congressExperienceRange && (
+                  <PeopleCongressTitle
+                    congressExperienceRange={people.congressExperienceRange}
+                  />
+                )}
+              </Stack>
               {!simplified && (
                 <StyledPeopleCardDescription maxLine={2} fontWeight={400}>
                   {people.description}
@@ -107,10 +155,15 @@ const PeopleCard = memo(function PeopleCard({
               />
             </Stack>
           </Grid>
-          <Grid size={2} display="flex" justifyContent="end">
+          <Grid
+            size={2}
+            display="flex"
+            justifyContent="end"
+            alignItems="flex-start"
+          >
             <Link href={PeopleUtils.getLink(people)}>
               <StyledPeopleCardIconButton variant="rounded" color="inherit">
-                <ArrowForwardIcon />
+                {isMobile ? <ArrowTopRightIcon /> : <ArrowForwardIcon />}
               </StyledPeopleCardIconButton>
             </Link>
           </Grid>
@@ -124,10 +177,45 @@ export default PeopleCard
 
 export const PeopleCardSkeleton = () => {
   return (
-    <StyledPeopleCardContainer>
-      <UHStack gap={3} height={'100%'}>
-        <Skeleton variant="rounded" height={150} width={100} />
-        <Stack height={150} flexGrow={1} gap={1}>
+    <StyledPeopleCardContainer
+      sx={{
+        padding: {
+          xs: 1,
+          sm: 2.5,
+        },
+      }}
+    >
+      <UHStack
+        gap={{
+          xs: 1,
+          sm: 3,
+        }}
+        height={'100%'}
+      >
+        <Skeleton
+          variant="rounded"
+          sx={{
+            height: {
+              xs: 100,
+              sm: 150,
+            },
+            width: {
+              xs: 60,
+              sm: 100,
+            },
+          }}
+        />
+        <Stack
+          height={{
+            xs: 100,
+            sm: 150,
+          }}
+          flexGrow={1}
+          gap={{
+            xs: 0.5,
+            sm: 1,
+          }}
+        >
           <Skeleton variant="rounded" height={24} width={'100%'} />
           <Skeleton
             variant="rounded"

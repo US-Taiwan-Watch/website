@@ -138,6 +138,7 @@ export default function BillFilter({
 
   return (
     <Filter
+      formId="bill-filter-form"
       containerProps={{
         component: 'form',
         onSubmit: form.handleSubmit(handleSubmit, (error) => {
@@ -145,7 +146,6 @@ export default function BillFilter({
         }),
       }}
       handleReset={handleReset}
-      formId="bill-filter-form"
     >
       {secondLevelSelectors.map((selector) => (
         <Controller

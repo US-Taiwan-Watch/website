@@ -5,17 +5,19 @@ import { TaiwanRecord } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import { ExpandMoreIcon } from '@/common/styles/assets/Icons'
-import { memo, useMemo } from 'react'
+import { memo, useCallback, useMemo, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import Image from 'next/image'
 import TaiwanRecordSources from '@/modules/TaiwanRecord/components/TaiwanRecordSources'
 import dayjs from 'dayjs'
+
+const StyledImage = styled(Image)(() => ({}))
 
 const DATE_FORMAT = 'MMM DD, YYYY'
 const MAX_IMAGE_TO_SHOW = 4
@@ -26,6 +28,10 @@ interface TaiwanRecordCardProps {
 
 const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
   const theme = useTheme<USTWTheme>()
+  const [isContentExpanded, setIsContentExpanded] = useState(false)
+  const handleExpandContentChange = useCallback(() => {
+    setIsContentExpanded((prev) => !prev)
+  }, [])
 
   /**
    * 計算剩餘圖片數量
@@ -45,32 +51,41 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
 
   return (
     <UAccordion defaultExpanded>
-      <AccordionSummary
-        expandIcon={<ExpandMoreIcon width={24} height={24} />}
-        aria-controls="panel1-content"
-        id="panel1-header"
-      >
+      <AccordionSummary expandIcon={<ExpandMoreIcon width={24} height={24} />}>
         <Typography variant="articleH3">{taiwanRecord.title}</Typography>
       </AccordionSummary>
       <AccordionDetails>
         <Stack gap={theme.spacing(1.5)}>
-          <UHeightLimitedText maxLine={3} variant="bodyM">
-            {taiwanRecord.content}
-          </UHeightLimitedText>
+          {isContentExpanded ? (
+            <Typography variant="bodyM" onClick={handleExpandContentChange}>
+              {taiwanRecord.content}
+            </Typography>
+          ) : (
+            <UHeightLimitedText
+              maxLine={3}
+              variant="bodyM"
+              onClick={handleExpandContentChange}
+            >
+              {taiwanRecord.content}
+            </UHeightLimitedText>
+          )}
           <UHStack gap={theme.spacing(1)} sx={{ width: '100%' }}>
             {taiwanRecord.images
               ?.slice(0, MAX_IMAGE_TO_SHOW)
               .map((image, index) => (
                 <Box key={index} position="relative" flex={1} height={285}>
-                  <Image
+                  <StyledImage
                     src={image}
                     alt={`Taiwan Record Image ${index}`}
                     width={285}
                     height={285}
-                    style={{
+                    sx={{
                       objectFit: 'cover',
-                      // 如果只有一張圖片，則寬度設為 50%
-                      width: taiwanRecord.images?.length === 1 ? '50%' : '100%',
+                      width: {
+                        xs: '100%',
+                        // 如果只有一張圖片，則寬度設為 50%
+                        sm: taiwanRecord.images?.length === 1 ? '50%' : '100%',
+                      },
                     }}
                   />
                   {/** Overlay，在最後一張圖顯示剩餘圖片數量 */}
