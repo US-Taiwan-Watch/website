@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { styled } from '@/common/lib/mui/theme'
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import UHStack from '@/common/components/atoms/UHStack'
 import { People } from '@/modules/People/business/People'
 
@@ -43,7 +43,9 @@ const PeopleCategory = function PeopleCategory({
             [position.replace(' ', '_')]: true,
           })}
         >
-          {position.toLowerCase()}
+          <Typography variant="bodyS" fontWeight={500}>
+            {position.toLowerCase()}
+          </Typography>
         </StyledPeopleTagContainer>
       ))}
     </UHStack>

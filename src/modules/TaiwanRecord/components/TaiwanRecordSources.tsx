@@ -180,8 +180,14 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
         onClick={handleOpenModal}
         sx={{
           minWidth: 'fit-content',
-          py: 1,
-          px: 1.5,
+          py: {
+            xs: 0.5,
+            sm: 1,
+          },
+          px: {
+            xs: 1,
+            sm: 1.5,
+          },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -189,7 +195,7 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
           borderRadius: theme.shape.borderRadius * 5,
         }}
       >
-        <Typography variant="body2">Sources</Typography>
+        <Typography variant="buttonXXS">Sources</Typography>
         <AvatarGroup
           total={sourceMetadatas.length}
           max={MAX_FAVICON_AVATAR_COUNT}

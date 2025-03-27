@@ -32,22 +32,58 @@ const NumberCard = function ({
 
   return (
     <>
-      <UContentCard>
+      <UContentCard
+        sx={{
+          padding: 0,
+        }}
+      >
         <Stack
           alignItems="center"
-          justifyContent="center"
-          height="100%"
+          justifyContent="space-between"
           position="relative"
+          sx={{
+            height: {
+              xs: 100,
+              sm: 110,
+            },
+            px: {
+              xs: 2,
+              sm: 4.75,
+            },
+            py: {
+              xs: 1.5,
+              sm: 1.75,
+            },
+          }}
         >
           <Typography
-            variant="bodyS"
-            sx={{ color: theme.color.neutral[500] }}
-            fontWeight={700}
             textTransform="capitalize"
+            sx={{
+              color: theme.color.neutral[500],
+              fontSize: {
+                xs: '0.625rem',
+                sm: '0.875rem',
+              },
+              fontWeight: {
+                xs: 600,
+                sm: 700,
+              },
+            }}
           >
             {title.toLowerCase()}
           </Typography>
-          <Typography variant="h3" fontWeight={600}>
+          <Typography
+            sx={{
+              fontSize: {
+                xs: '2.375rem',
+                sm: '3rem',
+              },
+              fontWeight: {
+                xs: 600,
+                sm: 700,
+              },
+            }}
+          >
             {number}
           </Typography>
           <UIconButton

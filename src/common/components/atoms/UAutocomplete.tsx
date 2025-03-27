@@ -17,21 +17,8 @@ type AutocompleteValue = {
 const StyledAutocomplete = styled(
   Autocomplete<AutocompleteValue, boolean, boolean, undefined>
 )(({ theme }) => ({
-  '& .MuiTextField-root': {
-    height: '100%',
-  },
   '& .MuiAutocomplete-option[aria-selected="true"]': {
     backgroundColor: theme.color.grey[2600],
-  },
-  [theme.breakpoints.down('sm')]: {
-    '& .MuiInputLabel-root': {
-      fontWeight: 700,
-    },
-  },
-  [theme.breakpoints.up('sm')]: {
-    '& .MuiInputLabel-root': {
-      fontWeight: 500,
-    },
   },
 }))
 
@@ -88,9 +75,6 @@ export default forwardRef<HTMLDivElement, UAutocompleteProps>(
             {...params}
             label={label}
             size="small"
-            sx={{
-              padding: 0,
-            }}
             slotProps={{
               inputLabel: {
                 color: 'info',

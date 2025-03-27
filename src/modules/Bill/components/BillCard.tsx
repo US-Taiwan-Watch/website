@@ -228,7 +228,14 @@ export const BillCardSkeleton = ({
   return (
     <StyledCardContainer>
       <UHStack gap={4} alignItems="start">
-        <Stack flexGrow={1} gap={2} height={150}>
+        <Stack
+          flexGrow={1}
+          gap={2}
+          height={{
+            xs: 300,
+            sm: 150,
+          }}
+        >
           <Skeleton variant="rounded" height={24} width={'100%'} />
           <Skeleton
             variant="rounded"

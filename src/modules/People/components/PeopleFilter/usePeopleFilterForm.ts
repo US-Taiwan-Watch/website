@@ -2,6 +2,7 @@ import { useCallback } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
+  defaultPeopleFilterInput,
   peopleFilterSchema,
   type PeopleFilterInput,
 } from '@/modules/People/components/PeopleFilter/schema'
@@ -13,16 +14,14 @@ export default function usePeopleFilterForm({
 }) {
   const form = useForm<PeopleFilterInput>({
     resolver: zodResolver(peopleFilterSchema),
-    defaultValues: initialValues,
+    defaultValues: initialValues ?? defaultPeopleFilterInput,
     mode: 'onSubmit',
   })
 
   const category = form.watch('category')
 
   const handleReset = useCallback(() => {
-    form.reset({
-      category: undefined,
-    })
+    form.reset(defaultPeopleFilterInput)
   }, [form])
 
   const handleSecondLevelReset = useCallback(() => {

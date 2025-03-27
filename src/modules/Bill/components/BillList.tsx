@@ -1,6 +1,7 @@
 'use client'
 
 import UHStack from '@/common/components/atoms/UHStack'
+import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
 import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
@@ -10,7 +11,7 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
-import { BillUtils } from '@/modules/Bill/business/Bill'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import { BillsFilterUtils } from '@/modules/Bill/business/BillsFilter'
 import BillCard, { BillCardSkeleton } from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
@@ -19,9 +20,9 @@ import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
 import { ROUTES } from '@/routes'
 import { useLazyQuery } from '@apollo/client'
 import { Stack, Typography } from '@mui/material'
-import { isNull, isNumber } from 'lodash-es'
+import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
-import { useCallback, useMemo, useEffect, useState } from 'react'
+import { useCallback, useMemo, useEffect, useState, useRef } from 'react'
 
 const BillCardsSkeleton = () => {
   const { isMobile } = useResponsive()
@@ -47,6 +48,13 @@ export default function BillList() {
 
   const params = useSearchParams()
 
+  /**
+   * 避免 `router.replace` 後，
+   * `searchParams` 的值會變動，
+   * 導致 `filterInitValues` 的值會變動，
+   * 進而導致 `Maxinum update depth exceeded` 的錯誤
+   */
+  const existedFilterInitValues = useRef<BillFilterOutput | null>(null)
   const filterInitValues = useMemo<BillFilterOutput>(() => {
     return BillsFilterUtils.transformQueryVariablesToFilter({
       category: params.get('category'),
@@ -81,18 +89,30 @@ export default function BillList() {
   >(QUERY_BILL_FILTER)
 
   useEffect(() => {
-    if (isNumber(data?.BillsFilter?.totalPages)) {
-      setTotalPages(data.BillsFilter.totalPages)
-    }
+    if (!isNumber(data?.BillsFilter?.totalPages)) return
+    setTotalPages(data.BillsFilter.totalPages)
   }, [data?.BillsFilter?.totalPages, setTotalPages])
 
-  const bills = useMemo(() => {
-    return (
-      data?.BillsFilter?.docs
-        ?.filter((bill) => !isNull(bill))
-        .map((bill) => BillUtils.parse(lang, bill)) ?? []
-    )
-  }, [data?.BillsFilter?.docs, lang])
+  // 處理資料
+  const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
+  const [bills, setBills] = useState<Bill[]>([])
+
+  useEffect(() => {
+    if (!data?.BillsFilter?.docs) return
+
+    const newBills = data.BillsFilter.docs
+      .filter((bill) => !isNull(bill))
+      .map((bill) => BillUtils.parse(lang, bill))
+
+    if (isInfiniteScroll) {
+      setBills((prev) => [
+        ...(data?.BillsFilter?.page === 1 ? [] : prev),
+        ...newBills,
+      ])
+    } else {
+      setBills(newBills)
+    }
+  }, [data?.BillsFilter?.docs, data?.BillsFilter?.page, isInfiniteScroll, lang])
 
   const onFilterSubmit = useCallback(
     (filter: BillFilterOutput) => {
@@ -103,15 +123,19 @@ export default function BillList() {
         BillsFilterUtils.transformFilterToUrlQueryString(filter)
       )
 
-      router.replace(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`)
+      router.replace(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`, {
+        scroll: false,
+      })
     },
     [router]
   )
 
   useEffect(() => {
-    if (Object.keys(filterInitValues).length > 0) {
-      onFilterSubmit(filterInitValues)
-    }
+    if (isEqual(existedFilterInitValues.current, filterInitValues)) return
+    if (Object.keys(filterInitValues).length === 0) return
+
+    onFilterSubmit(filterInitValues)
+    existedFilterInitValues.current = filterInitValues
   }, [filterInitValues, onFilterSubmit])
 
   useEffect(() => {
@@ -129,7 +153,9 @@ export default function BillList() {
         <Typography variant="h3">Bills and Resolutions in Congress</Typography>
         {isMobile && (
           <BillFilter
-            onSubmit={onFilterSubmit}
+            onSubmit={(filter) => {
+              onFilterSubmit(filter)
+            }}
             initialValues={filterInitValues}
           />
         )}
@@ -137,13 +163,15 @@ export default function BillList() {
       <Stack width="100%" gap={7} alignItems="center" pb={10}>
         {!isMobile && (
           <BillFilter
-            onSubmit={onFilterSubmit}
+            onSubmit={(filter) => {
+              onFilterSubmit(filter)
+            }}
             initialValues={filterInitValues}
           />
         )}
 
         <Stack width="100%" gap={2}>
-          {loading ? (
+          {loading && !bills.length ? (
             <BillCardsSkeleton />
           ) : (
             bills.map((bill, index) => (
@@ -155,13 +183,30 @@ export default function BillList() {
             ))
           )}
         </Stack>
-        {!loading && totalPages > 1 && (
-          <UPagination
-            count={totalPages}
-            page={page}
-            onChange={(_, page) => handlePageChange(page)}
+
+        {/** Infinite Scroll (Mobile) */}
+        {isInfiniteScroll && bills.length > 0 && (
+          <UInfiniteScrollButton
+            loading={loading}
+            onLoadMore={() => handlePageChange(page + 1)}
+            hasMore={page < totalPages}
           />
         )}
+
+        {/** Pagination (Desktop) */}
+        {!isInfiniteScroll &&
+          !loading &&
+          totalPages > 1 &&
+          bills.length > 0 && (
+            <UPagination
+              count={totalPages}
+              page={page}
+              onChange={(_, page) => {
+                setBills([])
+                handlePageChange(page)
+              }}
+            />
+          )}
       </Stack>
     </Stack>
   )

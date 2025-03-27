@@ -4,9 +4,11 @@ import { styled, type USTWTheme } from '@/common/lib/mui/theme'
 import { IconButton, IconButtonProps } from '@mui/material'
 import type { ComponentType } from 'react'
 
-interface UIconButtonProps extends Omit<IconButtonProps, 'color' | 'variant'> {
+interface UIconButtonProps
+  extends Omit<IconButtonProps, 'color' | 'variant' | 'size'> {
   variant: 'contained' | 'outlined' | 'rounded' | 'text'
   color: IconButtonProps['color'] | 'black' | 'white'
+  size?: 'xs' | 'small' | 'medium' | 'large'
 }
 
 const getBackgroundColor = (
@@ -69,6 +71,11 @@ const getHoveredBackgroundColor = (
 
 const getIconSize = (size: UIconButtonProps['size']) => {
   switch (size) {
+    case 'xs':
+      return {
+        width: 16,
+        height: 16,
+      }
     case 'small':
       return {
         width: 20,
@@ -92,6 +99,36 @@ const getIconSize = (size: UIconButtonProps['size']) => {
   }
 }
 
+const getButtonSize = (size: UIconButtonProps['size']) => {
+  switch (size) {
+    case 'xs':
+      return {
+        width: 32,
+        height: 32,
+      }
+    case 'small':
+      return {
+        width: 40,
+        height: 40,
+      }
+    case 'medium':
+      return {
+        width: 48,
+        height: 48,
+      }
+    case 'large':
+      return {
+        width: 56,
+        height: 56,
+      }
+    default:
+      return {
+        width: 48,
+        height: 48,
+      }
+  }
+}
+
 const UIconButton = styled(IconButton)<UIconButtonProps>(
   ({ theme, variant, color, size }) => ({
     ...(variant === 'rounded' && {
@@ -103,6 +140,7 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
       svg: {
         ...getIconSize(size),
       },
+      ...getButtonSize(size),
     }),
     ...(variant === 'contained' && {
       backgroundColor: getBackgroundColor(theme, color),
@@ -114,6 +152,7 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
       svg: {
         ...getIconSize(size),
       },
+      ...getButtonSize(size),
     }),
     ...((variant === 'outlined' || variant === 'text') && {
       backgroundColor: 'transparent',
@@ -128,6 +167,7 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
       svg: {
         ...getIconSize(size),
       },
+      ...getButtonSize(size),
     }),
   })
 ) as ComponentType<UIconButtonProps>

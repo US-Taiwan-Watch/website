@@ -14,28 +14,41 @@ import UPagination, {
 } from '@/common/components/atoms/UPagination'
 import PeopleFilter from '@/modules/People/components/PeopleFilter'
 import { Language } from '@/common/lib/i18n/types'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   PeoplesFilterQuery,
   PeoplesFilterQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { useLazyQuery } from '@apollo/client'
 import { QUERY_PEOPLE_FILTER } from '@/modules/People/graphql/gql'
-import { PeopleUtils } from '@/modules/People/business/People'
-import { isNull, isNumber } from 'lodash-es'
+import { People, PeopleUtils } from '@/modules/People/business/People'
+import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { PeopleFilterOutput } from '@/modules/People/components/PeopleFilter/schema'
+import {
+  defaultCategory,
+  PeopleFilterOutput,
+} from '@/modules/People/components/PeopleFilter/schema'
 import { PeoplesFilterUtils } from '@/modules/People/business/PeoplesFilter'
 import { ROUTES } from '@/routes'
 import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
 import { PeopleCategoryEnum } from '@/modules/People/components/PeopleFilter/enums'
 import { PeopleCategory } from '@/modules/People/business/PeopleCategory'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import UHStack from '@/common/components/atoms/UHStack'
+import { Typography } from '@mui/material'
+import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
 
 const PeopleCardsSkeleton = () => {
   return (
     <Grid container spacing={2}>
       {Array.from({ length: 10 }).map((_, index) => (
-        <Grid key={index} size={6}>
+        <Grid
+          key={index}
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
           <PeopleCardSkeleton />
         </Grid>
       ))}
@@ -44,6 +57,7 @@ const PeopleCardsSkeleton = () => {
 }
 
 const PeopleListSection = () => {
+  const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const router = useRouter()
@@ -51,9 +65,11 @@ const PeopleListSection = () => {
   const params = useSearchParams()
 
   const { categoriesPeople } = useCategoriesPeople(lang)
-  const categoriesPeopleMap = useMemo<
-    Record<PeopleCategoryEnum, PeopleCategory>
-  >(() => {
+  const categoriesPeopleMap = useMemo<Record<
+    PeopleCategoryEnum,
+    PeopleCategory
+  > | null>(() => {
+    if (!categoriesPeople.length) return null
     return categoriesPeople.reduce(
       (acc, category) => {
         acc[category.type] = category
@@ -63,9 +79,16 @@ const PeopleListSection = () => {
     )
   }, [categoriesPeople])
 
+  /**
+   * 避免 `router.replace` 後，
+   * `searchParams` 的值會變動，
+   * 導致 `filterInitValues` 的值會變動，
+   * 進而導致 `Maxinum update depth exceeded` 的錯誤
+   */
+  const existedFilterInitValues = useRef<PeopleFilterOutput | null>(null)
   const filterInitValues = useMemo<PeopleFilterOutput>(() => {
     return PeoplesFilterUtils.transformQueryVariablesToFilter({
-      category: params.get('category'),
+      category: params.get('category') ?? defaultCategory,
       congress: params.get('congress'),
       party: params.get('party'),
       state: params.get('state'),
@@ -76,7 +99,8 @@ const PeopleListSection = () => {
       officialArea: params.get('officialArea'),
     })
   }, [params])
-  const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
+  const { totalPages, setTotalPages, page, handlePageChange, resetPage } =
+    usePagination()
 
   const paginationVariables = useMemo<
     Pick<PeoplesFilterQueryVariables, 'limit' | 'page'>
@@ -96,24 +120,43 @@ const PeopleListSection = () => {
   >(QUERY_PEOPLE_FILTER)
 
   useEffect(() => {
-    if (isNumber(data?.PeoplesFilter?.totalPages)) {
-      setTotalPages(data.PeoplesFilter.totalPages)
-    }
+    if (!isNumber(data?.PeoplesFilter?.totalPages)) return
+    setTotalPages(data.PeoplesFilter.totalPages)
   }, [data?.PeoplesFilter?.totalPages, setTotalPages])
 
-  const peoples = useMemo(() => {
-    return (
-      data?.PeoplesFilter?.docs
-        ?.filter((people) => !isNull(people))
-        .map((people) => PeopleUtils.parse(lang, people)) ?? []
-    )
-  }, [data?.PeoplesFilter?.docs, lang])
+  // 處理資料
+  const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
+  const [peoples, setPeoples] = useState<People[]>([])
+
+  useEffect(() => {
+    if (!data?.PeoplesFilter?.docs) return
+
+    const newPeoples = data.PeoplesFilter.docs
+      .filter((people) => !isNull(people))
+      .map((people) => PeopleUtils.parse(lang, people))
+
+    if (isInfiniteScroll) {
+      setPeoples((prev) => [
+        ...(data?.PeoplesFilter?.page === 1 ? [] : prev),
+        ...newPeoples,
+      ])
+    } else {
+      setPeoples(newPeoples)
+    }
+  }, [
+    data?.PeoplesFilter?.docs,
+    data?.PeoplesFilter?.page,
+    isInfiniteScroll,
+    lang,
+  ])
 
   const onFilterSubmit = useCallback(
     (
       filter: PeopleFilterOutput,
       categoriesPeopleMap: Record<PeopleCategoryEnum, PeopleCategory>
     ) => {
+      resetPage()
+
       setFilterVariables(
         PeoplesFilterUtils.transformFilterToQueryVariables(
           filter,
@@ -124,15 +167,20 @@ const PeopleListSection = () => {
         PeoplesFilterUtils.transformFilterToUrlQueryString(filter)
       )
 
-      router.replace(`${ROUTES.PEOPLE}?${urlQuery.toString()}`)
+      router.replace(`${ROUTES.PEOPLE}?${urlQuery.toString()}`, {
+        scroll: false,
+      })
     },
-    [router]
+    [router, resetPage]
   )
 
   useEffect(() => {
-    if (Object.keys(filterInitValues).length > 0) {
-      onFilterSubmit(filterInitValues, categoriesPeopleMap)
-    }
+    if (isEqual(existedFilterInitValues.current, filterInitValues)) return
+    if (!categoriesPeopleMap) return
+    if (Object.keys(filterInitValues).length === 0) return
+
+    onFilterSubmit(filterInitValues, categoriesPeopleMap)
+    existedFilterInitValues.current = filterInitValues
   }, [filterInitValues, onFilterSubmit, categoriesPeopleMap])
 
   useEffect(() => {
@@ -157,30 +205,80 @@ const PeopleListSection = () => {
         paddingBottom: theme.spacing(15),
       }}
     >
-      <Stack spacing={6} alignItems="center" justifyContent="center">
+      <Stack
+        spacing={{
+          xs: 3,
+          sm: 6,
+        }}
+        alignItems="center"
+        justifyContent="center"
+      >
         {/** People Filter */}
-        <PeopleFilter
-          onSubmit={(filter) => onFilterSubmit(filter, categoriesPeopleMap)}
-          initialValues={filterInitValues}
-        />
+        {isMobile ? (
+          <UHStack
+            width="100%"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography variant="h3" fontWeight={600}>
+              All People
+            </Typography>
+            <PeopleFilter
+              onSubmit={(filter) => {
+                if (!categoriesPeopleMap) return
+
+                onFilterSubmit(filter, categoriesPeopleMap)
+              }}
+              initialValues={filterInitValues}
+            />
+          </UHStack>
+        ) : (
+          <PeopleFilter
+            onSubmit={(filter) => {
+              if (!categoriesPeopleMap) return
+
+              onFilterSubmit(filter, categoriesPeopleMap)
+            }}
+            initialValues={filterInitValues}
+          />
+        )}
+
         <Box width="100%">
-          {loading ? (
+          {loading && !peoples.length ? (
             <PeopleCardsSkeleton />
           ) : (
             <Grid container spacing={2}>
               {peoples.map((people) => (
-                <Grid key={people.id} size={6}>
+                <Grid
+                  key={people.id}
+                  size={{
+                    xs: 12,
+                    sm: 6,
+                  }}
+                >
                   <PeopleCard people={people} simplified />
                 </Grid>
               ))}
             </Grid>
           )}
         </Box>
-        {!loading && totalPages > 1 && (
+
+        {/** Infinite Scroll (Mobile) */}
+        {isInfiniteScroll && (
+          <UInfiniteScrollButton
+            loading={loading}
+            onLoadMore={() => handlePageChange(page + 1)}
+            hasMore={page < totalPages}
+          />
+        )}
+
+        {/** Pagination (Desktop) */}
+        {!isInfiniteScroll && !loading && totalPages > 1 && (
           <UPagination
             count={totalPages}
             page={page}
             onChange={(_, page) => {
+              setPeoples([])
               handlePageChange(page)
             }}
           />
