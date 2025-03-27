@@ -29,11 +29,45 @@
         "trailingComma": "es5",
         "semi": false
       }
+    ],
+    /**
+     * Fix compiler slowdown
+     * @see {@link https://github.com/microsoft/TypeScript/issues/34801}
+     * @see {@link https://github.com/tjx666/ts-perf-issue}
+     **/
+    "no-restricted-syntax": [
+      "error",
+      {
+        "selector": "TSTypeReference[typeName.name=\"SxProps\"]:not([typeParameters])",
+        "message": "SxProps must have Theme parameter to avoid significant compiler slowdown."
+      }
     ]
   },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx"]
+    },
+    /**
+     * Fix compiler slowdown
+     * @see {@link https://github.com/microsoft/TypeScript/issues/34801}
+     * @see {@link https://github.com/tjx666/ts-perf-issue}
+     **/
+    {
+      "files": ["*.ts", "*.tsx", "*.cts", "*.mts"],
+      "rules": {
+        "lines-between-class-members": "off",
+        "no-restricted-syntax": [
+          "error",
+          {
+            "selector": "TSTypeReference[typeName.name=\"SxProps\"]:not([typeParameters])",
+            "message": "SxProps must have Theme parameter to avoid significant compiler slowdown."
+          },
+          {
+            "selector": "TSTypeReference[typeName.name=\"Components\"]:not([typeParameters])",
+            "message": "Components must have Theme parameter to avoid significant compiler slowdown."
+          }
+        ]
+      }
     }
   ]
 }

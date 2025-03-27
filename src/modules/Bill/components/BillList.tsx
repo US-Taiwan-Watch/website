@@ -105,11 +105,14 @@ export default function BillList() {
       .map((bill) => BillUtils.parse(lang, bill))
 
     if (isInfiniteScroll) {
-      setBills((prev) => [...prev, ...newBills])
+      setBills((prev) => [
+        ...(data?.BillsFilter?.page === 1 ? [] : prev),
+        ...newBills,
+      ])
     } else {
       setBills(newBills)
     }
-  }, [data?.BillsFilter?.docs, isInfiniteScroll, lang])
+  }, [data?.BillsFilter?.docs, data?.BillsFilter?.page, isInfiniteScroll, lang])
 
   const onFilterSubmit = useCallback(
     (filter: BillFilterOutput) => {
@@ -120,7 +123,9 @@ export default function BillList() {
         BillsFilterUtils.transformFilterToUrlQueryString(filter)
       )
 
-      router.replace(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`)
+      router.replace(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`, {
+        scroll: false,
+      })
     },
     [router]
   )
@@ -149,7 +154,6 @@ export default function BillList() {
         {isMobile && (
           <BillFilter
             onSubmit={(filter) => {
-              setBills([])
               onFilterSubmit(filter)
             }}
             initialValues={filterInitValues}
@@ -160,7 +164,6 @@ export default function BillList() {
         {!isMobile && (
           <BillFilter
             onSubmit={(filter) => {
-              setBills([])
               onFilterSubmit(filter)
             }}
             initialValues={filterInitValues}
@@ -182,7 +185,7 @@ export default function BillList() {
         </Stack>
 
         {/** Infinite Scroll (Mobile) */}
-        {isInfiniteScroll && (
+        {isInfiniteScroll && bills.length > 0 && (
           <UInfiniteScrollButton
             loading={loading}
             onLoadMore={() => handlePageChange(page + 1)}
@@ -191,16 +194,19 @@ export default function BillList() {
         )}
 
         {/** Pagination (Desktop) */}
-        {!isInfiniteScroll && !loading && totalPages > 1 && (
-          <UPagination
-            count={totalPages}
-            page={page}
-            onChange={(_, page) => {
-              setBills([])
-              handlePageChange(page)
-            }}
-          />
-        )}
+        {!isInfiniteScroll &&
+          !loading &&
+          totalPages > 1 &&
+          bills.length > 0 && (
+            <UPagination
+              count={totalPages}
+              page={page}
+              onChange={(_, page) => {
+                setBills([])
+                handlePageChange(page)
+              }}
+            />
+          )}
       </Stack>
     </Stack>
   )

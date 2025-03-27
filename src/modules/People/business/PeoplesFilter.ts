@@ -2,6 +2,7 @@ import { PeoplesFilterQueryVariables } from '@/common/lib/graphql/__generated__/
 import { PeopleCategory } from '@/modules/People/business/PeopleCategory'
 import { PeopleCategoryEnum } from '@/modules/People/components/PeopleFilter/enums'
 import {
+  defaultCategory,
   PeopleFilterOutput,
   peopleFilterSchema,
 } from '@/modules/People/components/PeopleFilter/schema'
@@ -24,7 +25,11 @@ export class PeoplesFilterUtils {
     filter: PeopleFilterOutput,
     categoriesPeopleMap: Record<PeopleCategoryEnum, PeopleCategory>
   ): PeoplesFilterQueryVariables {
-    if (!('category' in filter)) {
+    if (
+      !('category' in filter) ||
+      isUndefined(filter.category) ||
+      filter.category === defaultCategory
+    ) {
       return {}
     }
     const categoryId = categoriesPeopleMap[filter.category].id
@@ -139,7 +144,7 @@ export class PeoplesFilterUtils {
   ): PeopleFilterOutput {
     return (
       peopleFilterSchema.safeParse({
-        category: query.category,
+        category: query.category ?? defaultCategory,
         congress: this.parseNumberStringArray(query.congress),
         party: this.parseStringArray(query.party),
         state: this.parseStringArray(query.state),
@@ -151,7 +156,9 @@ export class PeoplesFilterUtils {
           }),
         officialArea: this.parseStringArray(query.officialArea),
         companyType: this.parseStringArray(query.companyType),
-      }).data ?? {}
+      }).data ?? {
+        category: defaultCategory,
+      }
     )
   }
 
@@ -163,7 +170,11 @@ export class PeoplesFilterUtils {
   static transformFilterToUrlQuery(
     filter: PeopleFilterOutput
   ): PeoplesFilterUrlQuery {
-    if (!('category' in filter)) {
+    if (
+      !('category' in filter) ||
+      isUndefined(filter.category) ||
+      filter.category === defaultCategory
+    ) {
       return {}
     }
     switch (filter.category) {

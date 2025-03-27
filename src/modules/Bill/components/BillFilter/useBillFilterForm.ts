@@ -18,9 +18,7 @@ export default function useBillFilterForm({ initialValues }: Props) {
   })
 
   const handleReset = useCallback(() => {
-    form.reset({
-      category: undefined,
-    })
+    form.reset({})
   }, [form])
 
   useEffect(() => {

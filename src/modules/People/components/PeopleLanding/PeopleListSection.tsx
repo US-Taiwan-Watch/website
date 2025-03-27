@@ -24,7 +24,10 @@ import { QUERY_PEOPLE_FILTER } from '@/modules/People/graphql/gql'
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useRouter, useSearchParams } from 'next/navigation'
-import { PeopleFilterOutput } from '@/modules/People/components/PeopleFilter/schema'
+import {
+  defaultCategory,
+  PeopleFilterOutput,
+} from '@/modules/People/components/PeopleFilter/schema'
 import { PeoplesFilterUtils } from '@/modules/People/business/PeoplesFilter'
 import { ROUTES } from '@/routes'
 import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
@@ -85,7 +88,7 @@ const PeopleListSection = () => {
   const existedFilterInitValues = useRef<PeopleFilterOutput | null>(null)
   const filterInitValues = useMemo<PeopleFilterOutput>(() => {
     return PeoplesFilterUtils.transformQueryVariablesToFilter({
-      category: params.get('category'),
+      category: params.get('category') ?? defaultCategory,
       congress: params.get('congress'),
       party: params.get('party'),
       state: params.get('state'),
@@ -96,7 +99,8 @@ const PeopleListSection = () => {
       officialArea: params.get('officialArea'),
     })
   }, [params])
-  const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
+  const { totalPages, setTotalPages, page, handlePageChange, resetPage } =
+    usePagination()
 
   const paginationVariables = useMemo<
     Pick<PeoplesFilterQueryVariables, 'limit' | 'page'>
@@ -132,17 +136,27 @@ const PeopleListSection = () => {
       .map((people) => PeopleUtils.parse(lang, people))
 
     if (isInfiniteScroll) {
-      setPeoples((prev) => [...prev, ...newPeoples])
+      setPeoples((prev) => [
+        ...(data?.PeoplesFilter?.page === 1 ? [] : prev),
+        ...newPeoples,
+      ])
     } else {
       setPeoples(newPeoples)
     }
-  }, [data?.PeoplesFilter?.docs, isInfiniteScroll, lang])
+  }, [
+    data?.PeoplesFilter?.docs,
+    data?.PeoplesFilter?.page,
+    isInfiniteScroll,
+    lang,
+  ])
 
   const onFilterSubmit = useCallback(
     (
       filter: PeopleFilterOutput,
       categoriesPeopleMap: Record<PeopleCategoryEnum, PeopleCategory>
     ) => {
+      resetPage()
+
       setFilterVariables(
         PeoplesFilterUtils.transformFilterToQueryVariables(
           filter,
@@ -153,9 +167,11 @@ const PeopleListSection = () => {
         PeoplesFilterUtils.transformFilterToUrlQueryString(filter)
       )
 
-      router.replace(`${ROUTES.PEOPLE}?${urlQuery.toString()}`)
+      router.replace(`${ROUTES.PEOPLE}?${urlQuery.toString()}`, {
+        scroll: false,
+      })
     },
-    [router]
+    [router, resetPage]
   )
 
   useEffect(() => {
@@ -211,7 +227,6 @@ const PeopleListSection = () => {
               onSubmit={(filter) => {
                 if (!categoriesPeopleMap) return
 
-                setPeoples([])
                 onFilterSubmit(filter, categoriesPeopleMap)
               }}
               initialValues={filterInitValues}
@@ -222,7 +237,6 @@ const PeopleListSection = () => {
             onSubmit={(filter) => {
               if (!categoriesPeopleMap) return
 
-              setPeoples([])
               onFilterSubmit(filter, categoriesPeopleMap)
             }}
             initialValues={filterInitValues}

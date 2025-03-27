@@ -9,6 +9,7 @@ import USelect from '@/common/components/atoms/USelect'
 import MenuItem from '@mui/material/MenuItem'
 import Box from '@mui/material/Box'
 import {
+  defaultCategory,
   PeopleFilterInput,
   type PeopleFilterInputKey,
   type PeopleFilterOutput,
@@ -79,6 +80,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
 
   const secondLevelSelectors = useMemo<SecondLevelSelector[]>(() => {
     const selectors: SecondLevelSelector[] = []
+    if (category === defaultCategory) return selectors
 
     // Congress
     if (
@@ -221,7 +223,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
             <StyledUSelect
               {...field}
               value={field.value ?? ''}
-              defaultValue={''}
+              defaultValue={defaultCategory}
               onChange={(e) => {
                 field.onChange(e)
                 handleSecondLevelReset()
@@ -231,7 +233,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
                 height: '50px',
               }}
             >
-              <MenuItem value="" disabled>
+              <MenuItem value={defaultCategory} disabled>
                 Category
               </MenuItem>
               {categoryOptions.map((option) => (

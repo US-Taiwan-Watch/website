@@ -18,5 +18,24 @@
   "eslint.lintTask.enable": true,
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["src/common/lib/i18n/locales"],
-  "typescript.preferences.importModuleSpecifier": "non-relative"
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  /**
+   * Fix compiler slowdown
+   * @see {@link https://github.com/microsoft/TypeScript/issues/34801}
+   * @see {@link https://github.com/tjx666/ts-perf-issue}
+   **/
+  // find references maybe slow
+  "typescript.implementationsCodeLens.enabled": false,
+  "typescript.referencesCodeLens.enabled": false,
+
+  // some modules contain many useless types will make auto complete list very long and slow
+  "typescript.preferences.autoImportFileExcludePatterns": [
+    "node_modules/@iconify-json",
+    "node_modules/@mui/icons-material",
+    "node_modules/@mui/lab",
+    "node_modules/@mui/system",
+    "node_modules/@mui/x-*/**",
+    "node_modules/typescript"
+  ]
 }
