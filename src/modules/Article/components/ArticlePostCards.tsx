@@ -22,7 +22,7 @@ const ArticlePostCards = ({
   forceCard = false,
 }: ArticlePostCardsProps) => {
   return (
-    <Stack spacing={8}>
+    <Stack spacing={8} width="100%">
       {/** Posts */}
       <Grid
         container
