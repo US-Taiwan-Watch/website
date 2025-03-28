@@ -8,6 +8,9 @@ import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePost
 import { Stack, Typography, useTheme } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
+import UIconButton from '@/common/components/atoms/UIconButton'
 
 const dateFormat = 'YYYY-MM-DD'
 
@@ -20,6 +23,7 @@ interface ArticlePostHeaderProps {
 const ArticlePostHeader = function ArticlePostHeader({
   article,
 }: ArticlePostHeaderProps) {
+  const { isMobile } = useResponsive()
   const { categories, title, subtitle, date, tags, repostSources, authors } =
     article
   const theme = useTheme<USTWTheme>()
@@ -31,27 +35,53 @@ const ArticlePostHeader = function ArticlePostHeader({
   }, [date])
 
   return (
-    <Stack spacing={3}>
-      {/** Categories */}
-      {categories && (
-        <UHStack gap={2} flexWrap="wrap">
-          {categories.map((category, index) => (
-            <UButton
-              key={index}
-              variant="outlined"
-              size="small"
-              sx={{
-                padding: theme.spacing(0.5, 1),
-                minWidth: 'fit-content',
-                borderColor: theme.color.orange[900],
-                color: theme.color.orange[900],
-              }}
-            >
-              {category.label}
-            </UButton>
-          ))}
-        </UHStack>
-      )}
+    <Stack
+      gap={{
+        xs: 1,
+        sm: 3,
+      }}
+    >
+      <UHStack
+        width="100%"
+        justifyContent="space-between"
+        mb={{
+          xs: 1,
+          sm: 0,
+        }}
+      >
+        {/** Categories */}
+        {categories && (
+          <UHStack gap={2} flexWrap="wrap">
+            {categories.map((category, index) => (
+              <UButton
+                key={index}
+                variant="outlined"
+                size="small"
+                sx={{
+                  padding: theme.spacing(0.5, 1),
+                  minWidth: 'fit-content',
+                  borderColor: theme.color.orange[900],
+                  color: theme.color.orange[900],
+                }}
+              >
+                {category.label}
+              </UButton>
+            ))}
+          </UHStack>
+        )}
+
+        {/** 分享功能 (Mobile) */}
+        {isMobile && (
+          <UHStack gap={1}>
+            <UIconButton variant="rounded" color="black" size="xs">
+              <OutlinedShareIcon />
+            </UIconButton>
+            <UIconButton variant="rounded" color="black" size="xs">
+              <BookmarkIcon />
+            </UIconButton>
+          </UHStack>
+        )}
+      </UHStack>
 
       {/** Title */}
       {title && (

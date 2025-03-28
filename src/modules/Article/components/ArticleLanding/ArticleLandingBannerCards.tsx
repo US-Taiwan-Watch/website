@@ -17,7 +17,15 @@ const ArticleLandingBannerCards = ({
   const theme = useTheme<USTWTheme>()
 
   return (
-    <Box padding={theme.spacing(6, 0)}>
+    <Box
+      padding={{
+        xs: theme.spacing(2, 0),
+        sm: theme.spacing(6, 0),
+      }}
+      sx={{
+        mx: -1,
+      }}
+    >
       <Carousel renderPagination={(props) => <DotPagination {...props} />}>
         {articles.map((article) => (
           <ArticleLandingBannerCard key={article.id} article={article} />

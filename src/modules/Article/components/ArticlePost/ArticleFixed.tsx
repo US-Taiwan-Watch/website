@@ -2,13 +2,17 @@
 
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
 import { useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
 const ArticleFixed = () => {
+  const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
+
+  if (isMobile) return null
 
   return (
     <Container

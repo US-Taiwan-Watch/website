@@ -14,19 +14,6 @@ import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
-const StyledIndexArticleCardContainer = styled(Box)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  borderRadius: '30px',
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(2),
-    margin: theme.spacing(0, 1),
-  },
-  [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(2, 2, 2, 4),
-    margin: theme.spacing(0, 1),
-  },
-}))
-
 const StyledTag = styled(Box)(({ theme }) => ({
   borderRadius: '5px',
   border: `1px solid ${theme.color.common.black}`,
@@ -83,7 +70,20 @@ const IndexArticleCard = memo(function IndexArticleCard({
   const theme = useTheme<USTWTheme>()
 
   return (
-    <StyledIndexArticleCardContainer>
+    <Box
+      sx={{
+        backgroundColor: theme.palette.primary.main,
+        mx: 1,
+        p: {
+          xs: 1.5,
+          sm: 2,
+        },
+        pl: {
+          sm: 4,
+        },
+        borderRadius: '30px',
+      }}
+    >
       <Stack
         direction={{
           xs: 'column',
@@ -153,7 +153,7 @@ const IndexArticleCard = memo(function IndexArticleCard({
               variant="contained"
               color="info"
               rounded
-              size="large"
+              size={isMobile ? 'medium' : 'large'}
               endIcon={<ArrowForwardIcon />}
             >
               Learn More
@@ -170,7 +170,7 @@ const IndexArticleCard = memo(function IndexArticleCard({
           />
         )}
       </Stack>
-    </StyledIndexArticleCardContainer>
+    </Box>
   )
 })
 

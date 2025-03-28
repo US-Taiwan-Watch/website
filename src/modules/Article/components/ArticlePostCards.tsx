@@ -9,6 +9,8 @@ interface ArticlePostCardsProps {
   articles: Array<Article>
   /** 是否呈現 Category */
   showCategory?: boolean
+  /** 是否強制為 Card 模式 */
+  forceCard?: boolean
 }
 
 /**
@@ -17,14 +19,35 @@ interface ArticlePostCardsProps {
 const ArticlePostCards = ({
   articles,
   showCategory = true,
+  forceCard = false,
 }: ArticlePostCardsProps) => {
   return (
     <Stack spacing={8}>
       {/** Posts */}
-      <Grid container rowSpacing={8} columnSpacing={4}>
+      <Grid
+        container
+        rowSpacing={{
+          xs: 0.75,
+          sm: 8,
+        }}
+        columnSpacing={{
+          xs: 0.75,
+          sm: 4,
+        }}
+      >
         {articles.map((article) => (
-          <Grid size={4} key={article.id}>
-            <ArticlePostCard article={article} showCategory={showCategory} />
+          <Grid
+            key={article.id}
+            size={{
+              xs: 12,
+              sm: 4,
+            }}
+          >
+            <ArticlePostCard
+              article={article}
+              showCategory={showCategory}
+              forceCard={forceCard}
+            />
           </Grid>
         ))}
       </Grid>
@@ -40,13 +63,18 @@ export default ArticlePostCards
 export const ScrollableArticlePostCards = ({
   articles,
   showCategory = true,
+  forceCard = false,
 }: ArticlePostCardsProps) => {
   return (
     <Box overflow="auto" py={2} px={2}>
       <UHStack gap={1} width="max-content">
         {articles.map((article) => (
           <Box key={article.id} width="80dvw">
-            <ArticlePostCard article={article} showCategory={showCategory} />
+            <ArticlePostCard
+              article={article}
+              showCategory={showCategory}
+              forceCard={forceCard}
+            />
           </Box>
         ))}
       </UHStack>
@@ -61,7 +89,17 @@ export const ArticlePostCardsSkeleton = ({
   count?: number
 }) => {
   return (
-    <Grid container rowSpacing={8} columnSpacing={4}>
+    <Grid
+      container
+      rowSpacing={{
+        xs: 0.75,
+        sm: 8,
+      }}
+      columnSpacing={{
+        xs: 0.75,
+        sm: 4,
+      }}
+    >
       {Array.from({ length: count }).map((_, index) => (
         <Grid
           size={{

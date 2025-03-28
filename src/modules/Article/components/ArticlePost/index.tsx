@@ -23,19 +23,40 @@ const ArticlePost = function ArticlePost({
   relatedArticles,
 }: ArticlePostProps) {
   return (
-    <Stack gap={4} marginTop={10}>
+    <Stack
+      gap={{
+        xs: 2,
+        sm: 4,
+      }}
+      marginTop={{
+        sm: 10,
+      }}
+    >
       <Box>
         <ArticleFixed />
         <UContainer>
           <Box
             sx={{
-              maxWidth: '700px',
+              maxWidth: {
+                xs: '100%',
+                sm: '700px',
+              },
               margin: '0 auto',
+              px: {
+                xs: 2,
+                sm: 0,
+              },
             }}
           >
-            <Stack gap={4}>
+            <Stack
+              gap={{
+                xs: 2,
+                sm: 4,
+              }}
+            >
               {/** Header Section */}
               <ArticlePostHeader article={article} />
+
               {/** Banner Section */}
               {article.bannerImage && (
                 <ArticlePostBanner bannerImage={article.bannerImage} />

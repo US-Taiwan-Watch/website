@@ -1,6 +1,6 @@
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import IndexArticleCard from '@/common/components/elements/IndexArticleCard'
-import { Container } from '@mui/material'
+import { Box, Container } from '@mui/material'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 import ClientCarousel from '@/common/components/elements/IndexArticleCarousel/ClientCarousel'
 
@@ -17,11 +17,13 @@ export default async function IndexArticleCarousel() {
   return (
     <UFullWidthBackgroundBox>
       <Container maxWidth="xl">
-        <ClientCarousel>
-          {articles.map((article) => (
-            <IndexArticleCard article={article} key={article.id} />
-          ))}
-        </ClientCarousel>
+        <Box sx={{ mx: -1 }}>
+          <ClientCarousel>
+            {articles.map((article) => (
+              <IndexArticleCard article={article} key={article.id} />
+            ))}
+          </ClientCarousel>
+        </Box>
       </Container>
     </UFullWidthBackgroundBox>
   )

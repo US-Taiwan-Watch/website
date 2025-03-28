@@ -37,11 +37,14 @@ const HyperLinkTooltipCard = function HyperLinkTooltipCard({
         '& .MuiCardContent-root:last-child': {
           padding: theme.spacing(3),
         },
-        borderRadius: theme.shape.borderRadius * 2,
+        borderRadius: {
+          xs: 0,
+          sm: theme.shape.borderRadius * 2,
+        },
       }}
     >
       <CardContent>
-        <Stack spacing={3}>
+        <Stack spacing={3} alignItems="flex-start">
           {HeaderComponent}
           <Typography variant="subtitleL" fontWeight={600}>
             {title}
@@ -49,7 +52,7 @@ const HyperLinkTooltipCard = function HyperLinkTooltipCard({
           <UHeightLimitedText maxLine={4} variant="bodyS" fontWeight={300}>
             {description}
           </UHeightLimitedText>
-          <Link href={link}>
+          <Link href={link} target="_blank" rel="noopener noreferrer">
             <Button
               variant="text"
               sx={{
