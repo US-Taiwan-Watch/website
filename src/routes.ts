@@ -1,4 +1,5 @@
 export const ROUTES = {
+  NOT_FOUND: '/404',
   HOME: '/',
   BILL: '/bill',
   BILL_LIST: '/bill-list',

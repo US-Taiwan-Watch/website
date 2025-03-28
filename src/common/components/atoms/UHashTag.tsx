@@ -47,8 +47,14 @@ export default function UHashTag({
         alignItems: 'center',
         justifyContent: 'center',
         sx: {
-          px: '9px',
-          py: '6px',
+          px: {
+            xs: '6px',
+            sm: '9px',
+          },
+          py: {
+            xs: '4px',
+            sm: '6px',
+          },
           backgroundColor: theme.color.grey[100],
           cursor: onClick ? 'pointer' : 'default',
           ...containerSx,

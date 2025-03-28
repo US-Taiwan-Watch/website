@@ -3,7 +3,7 @@ import UHashTag from '@/common/components/atoms/UHashTag'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UTagList from '@/common/components/atoms/UTagList'
-import { USTWTheme } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import { Skeleton, Stack, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
@@ -11,49 +11,86 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { memo } from 'react'
 
+const StyledImage = styled(Image)(() => ({}))
+
 interface ArticlePostCardProps {
   article: Article
   /** 是否呈現 Category */
   showCategory?: boolean
+  /** 是否強制為 Card 模式 */
+  forceCard?: boolean
 }
 
 const ArticlePostCard = ({
   article,
   showCategory = true,
+  forceCard = false,
 }: ArticlePostCardProps) => {
   const theme = useTheme<USTWTheme>()
 
   return (
-    <>
-      <Stack spacing={2}>
-        <Link href={ArticleUtils.getLink(article)}>
-          <Box
-            sx={{
-              aspectRatio: 3 / 2,
-            }}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            overflow="hidden"
-            borderRadius={theme.shape.borderRadius}
-          >
-            {/** Image */}
-            {article.thumbnailImage && (
-              <Image
-                src={article.thumbnailImage.src}
-                alt={article.thumbnailImage.caption || article.title || ''}
-                width={300}
-                height={200}
-                layout="responsive"
-                style={{
-                  objectFit: 'cover',
-                  minWidth: '100%',
-                  minHeight: '100%',
-                }}
-              />
-            )}
-          </Box>
-        </Link>
+    <Stack
+      spacing={2}
+      direction={{
+        xs: forceCard ? 'column' : 'row',
+        sm: 'column',
+      }}
+      sx={{
+        py: {
+          xs: forceCard ? 0 : 1.5,
+          sm: 0,
+        },
+        borderBottom: {
+          xs: forceCard ? 'none' : `1px solid ${theme.color.neutral[200]}`,
+          sm: 'none',
+        },
+      }}
+    >
+      <Link href={ArticleUtils.getLink(article)}>
+        <Box
+          sx={{
+            aspectRatio: {
+              xs: forceCard ? 3 / 2 : 9 / 8,
+              sm: 3 / 2,
+            },
+            width: {
+              xs: 'auto',
+              sm: 'auto',
+            },
+            height: {
+              xs: forceCard ? 'auto' : '100px',
+              sm: 'auto',
+            },
+          }}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          overflow="hidden"
+          borderRadius={theme.shape.borderRadius}
+        >
+          {/** Image */}
+          {article.thumbnailImage && (
+            <StyledImage
+              src={article.thumbnailImage.src}
+              alt={article.thumbnailImage.caption || article.title || ''}
+              width={300}
+              height={200}
+              layout="responsive"
+              sx={{
+                objectFit: 'cover',
+                minWidth: '100%',
+                minHeight: '100%',
+              }}
+            />
+          )}
+        </Box>
+      </Link>
+      <Stack
+        gap={{
+          xs: forceCard ? 1.25 : 0.75,
+          sm: 1.25,
+        }}
+      >
         {/** Categories */}
         {showCategory &&
           article.categories &&
@@ -96,6 +133,10 @@ const ArticlePostCard = ({
             variant="bodyS"
             maxLine={4}
             sx={{
+              display: {
+                xs: forceCard ? 'block' : 'none',
+                sm: 'block',
+              },
               color: theme.color.grey[1500],
             }}
           >
@@ -124,50 +165,79 @@ const ArticlePostCard = ({
           />
         )}
       </Stack>
-    </>
+    </Stack>
   )
 }
 
 export default memo(ArticlePostCard)
 
-export const ArticlePostCardSkeleton = () => {
+export const ArticlePostCardSkeleton = ({
+  forceCard = false,
+}: {
+  forceCard?: boolean
+}) => {
   return (
-    <Stack spacing={2}>
+    <Stack
+      spacing={2}
+      direction={{
+        xs: forceCard ? 'column' : 'row',
+        sm: 'column',
+      }}
+      width="100%"
+    >
       {/** Image Skeleton */}
       <Skeleton
         variant="rounded"
         sx={{
-          width: '100%',
-          height: 200,
+          width: {
+            xs: forceCard ? 100 : 90,
+            sm: '100%',
+          },
+          height: {
+            xs: forceCard ? 200 : 100,
+            sm: 200,
+          },
         }}
       />
-      {/** Categories Skeleton */}
-      <UHStack gap={1}>
-        {Array.from({ length: 3 }).map((_, index) => (
-          <Skeleton
-            key={index}
-            variant="rounded"
-            sx={{
-              width: 36,
-              height: 24,
-            }}
-          />
-        ))}
-      </UHStack>
-      {/** Title Skeleton */}
-      <Skeleton
-        variant="rounded"
-        sx={{
-          height: 20,
+      <Stack
+        gap={{
+          xs: forceCard ? 1.25 : 0.75,
+          sm: 1.25,
         }}
-      />
-      {/** Description Skeleton */}
-      <Skeleton
-        variant="rounded"
-        sx={{
-          height: 60,
-        }}
-      />
+        flex={1}
+      >
+        {/** Categories Skeleton */}
+        <UHStack gap={1}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              variant="rounded"
+              sx={{
+                width: forceCard ? 24 : 36,
+                height: 24,
+              }}
+            />
+          ))}
+        </UHStack>
+        {/** Title Skeleton */}
+        <Skeleton
+          variant="rounded"
+          sx={{
+            height: 20,
+          }}
+        />
+        {/** Description Skeleton */}
+        <Skeleton
+          variant="rounded"
+          sx={{
+            display: {
+              xs: forceCard ? 'block' : 'none',
+              sm: 'block',
+            },
+            height: 60,
+          }}
+        />
+      </Stack>
     </Stack>
   )
 }
