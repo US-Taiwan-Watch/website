@@ -20,10 +20,14 @@ const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
     <Box
       display="flex"
       alignItems="center"
-      justifyContent="center"
       padding={2}
       sx={{
         borderBottom: `1.5px solid ${theme.color.neutral[400]}`,
+        overflowX: 'auto',
+        justifyContent: {
+          xs: 'flex-start',
+          md: 'center',
+        },
       }}
     >
       <UHStack
@@ -33,7 +37,13 @@ const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
         }}
       >
         {highlightedCategories.map((item) => (
-          <Link href={ArticleUtils.getCategoryLink(item)} key={item.id}>
+          <Link
+            href={ArticleUtils.getCategoryLink(item)}
+            key={item.id}
+            style={{
+              whiteSpace: 'nowrap',
+            }}
+          >
             <Typography
               variant="menu"
               sx={{

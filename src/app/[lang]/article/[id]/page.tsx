@@ -3,6 +3,8 @@ import { Language } from '@/common/lib/i18n/types'
 import { notFound } from 'next/navigation'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 
+const RELATED_ARTICLES_COUNT = 3
+
 type ArticlePageProps = {
   params: { lang: Language; id: string }
 }
@@ -16,5 +18,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     id: params.id,
   })
 
-  return <ArticlePost article={article} relatedArticles={relatedArticles} />
+  return (
+    <ArticlePost
+      article={article}
+      relatedArticles={relatedArticles.slice(0, RELATED_ARTICLES_COUNT)}
+    />
+  )
 }

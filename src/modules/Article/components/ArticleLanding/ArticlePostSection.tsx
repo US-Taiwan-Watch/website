@@ -18,13 +18,14 @@ import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { useLazyQuery } from '@apollo/client'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
-import { isNull } from 'lodash-es'
+import { isNull, isNumber } from 'lodash-es'
 import { useParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
-import Box from '@mui/material/Box'
 import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
 
 /** 每頁呈現的卡片數量 */
 const ARTICLE_POST_COUNT = 9
@@ -34,6 +35,7 @@ interface ArticlePostSectionProps {
 }
 
 const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
+  const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
@@ -63,27 +65,36 @@ const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
   })
 
   useEffect(() => {
+    if (!isNumber(data?.Articles?.totalPages)) return
     setTotalPages(data?.Articles?.totalPages ?? 1)
   }, [data?.Articles?.totalPages, setTotalPages])
+
+  // 處理資料
+  const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
+  const [articles, setArticles] = useState<Article[]>(defaultArticles ?? [])
+
+  useEffect(() => {
+    if (!data?.Articles?.docs) return
+
+    const newArticles = data.Articles.docs
+      .filter((article) => !isNull(article))
+      .map((article) => ArticleUtils.parse(lang, article))
+
+    if (isInfiniteScroll) {
+      setArticles((prev) => [
+        ...(data?.Articles?.page === 1 ? [] : prev),
+        ...newArticles,
+      ])
+    } else {
+      setArticles(newArticles)
+    }
+  }, [data?.Articles?.docs, data?.Articles?.page, isInfiniteScroll, lang])
 
   useEffect(() => {
     getArticles({
       variables: queryVariables,
     })
   }, [queryVariables, getArticles])
-
-  const articles = useMemo(() => {
-    const apiArticles =
-      data?.Articles?.docs
-        ?.filter((article) => !isNull(article))
-        .map((article) => ArticleUtils.parse(lang, article)) ?? []
-
-    if (apiArticles.length > 0) {
-      return apiArticles
-    }
-
-    return defaultArticles ?? []
-  }, [data?.Articles?.docs, defaultArticles, lang])
 
   return (
     <LandingSectionWrapper
@@ -96,9 +107,16 @@ const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
         paddingBottom: theme.spacing(15),
       }}
     >
-      <Stack spacing={8}>
+      <Stack
+        spacing={{
+          xs: 4,
+          sm: 8,
+        }}
+        alignItems="center"
+        justifyContent="center"
+      >
         {/** Tags */}
-        <UHStack gap={2} flexWrap="wrap">
+        <UHStack gap={2} flexWrap="wrap" width="100%">
           {landingTags.map((tag) => {
             const isActive = activeTagId === tag.id
 
@@ -120,22 +138,31 @@ const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
         </UHStack>
 
         {/** Posts */}
-        {loading ? (
+        {loading && !articles.length ? (
           <ArticlePostCardsSkeleton count={10} />
         ) : (
           <>
             <ArticlePostCards articles={articles} />
-            {/** Pagination */}
-            {totalPages > 1 && (
-              <Box display="flex" alignItems="center" justifyContent="center">
-                <UPagination
-                  count={totalPages}
-                  page={page}
-                  onChange={(_, page) => {
-                    handlePageChange(page)
-                  }}
-                />
-              </Box>
+
+            {/** Infinite Scroll (Mobile) */}
+            {isInfiniteScroll && (
+              <UInfiniteScrollButton
+                loading={loading}
+                onLoadMore={() => handlePageChange(page + 1)}
+                hasMore={page < totalPages}
+              />
+            )}
+
+            {/** Pagination (Desktop) */}
+            {!isInfiniteScroll && !loading && totalPages > 1 && (
+              <UPagination
+                count={totalPages}
+                page={page}
+                onChange={(_, page) => {
+                  setArticles([])
+                  handlePageChange(page)
+                }}
+              />
             )}
           </>
         )}

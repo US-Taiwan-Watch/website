@@ -3,10 +3,13 @@
 import UHStack from '@/common/components/atoms/UHStack'
 import ULinkText from '@/common/components/atoms/ULinkText'
 import { Article } from '@/modules/Article/business/Article'
-import ArticlePostCards from '@/modules/Article/components/ArticlePostCards'
+import { ScrollableArticlePostCards } from '@/modules/Article/components/ArticlePostCards'
+import ArticlePostCard from '@/modules/Article/components/ArticlePostCard'
 import { ROUTES } from '@/routes'
-import { Stack, Typography } from '@mui/material'
+import { Stack, Typography, Grid2 as Grid } from '@mui/material'
 import { memo } from 'react'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 
 interface ArticlePostRelatedPostsProps {
   articles?: Array<Article>
@@ -15,10 +18,24 @@ interface ArticlePostRelatedPostsProps {
 const ArticlePostRelatedPosts = ({
   articles,
 }: ArticlePostRelatedPostsProps) => {
+  const { isMobile } = useResponsive()
   if (!articles || !articles.length) return null
 
   return (
-    <Stack spacing={6} marginTop={10} marginBottom={16}>
+    <Stack
+      gap={{
+        xs: 3,
+        sm: 6,
+      }}
+      marginTop={{
+        xs: 4,
+        sm: 10,
+      }}
+      marginBottom={{
+        xs: 12,
+        sm: 16,
+      }}
+    >
       <UHStack gap={2} alignItems="center" justifyContent="space-between">
         <Typography variant="h2" fontWeight={600}>
           More Articles
@@ -26,7 +43,35 @@ const ArticlePostRelatedPosts = ({
         <ULinkText link={ROUTES.ARTICLE} />
       </UHStack>
 
-      <ArticlePostCards articles={articles} />
+      {isMobile ? (
+        <FullWidthScrollableListWrapper>
+          <ScrollableArticlePostCards articles={articles} forceCard />
+        </FullWidthScrollableListWrapper>
+      ) : (
+        <Grid
+          container
+          rowSpacing={{
+            xs: 0.75,
+            sm: 8,
+          }}
+          columnSpacing={{
+            xs: 0.75,
+            sm: 4,
+          }}
+        >
+          {articles.map((article) => (
+            <Grid
+              key={article.id}
+              size={{
+                xs: 12,
+                sm: 4,
+              }}
+            >
+              <ArticlePostCard article={article} showCategory forceCard />
+            </Grid>
+          ))}
+        </Grid>
+      )}
     </Stack>
   )
 }
