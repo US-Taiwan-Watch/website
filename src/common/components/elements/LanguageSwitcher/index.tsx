@@ -1,12 +1,12 @@
 'use client'
 
 import UButton from '@/common/components/atoms/UButton'
-import useI18n from '@/common/lib/i18n/clientHooks'
-import { languages } from '@/common/lib/i18n/settings'
+import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
 import { Language } from '@/common/lib/i18n/types'
 import { styled } from '@/common/lib/mui/theme'
 import { Stack } from '@mui/material'
 import { memo } from 'react'
+import useLanguageSwitcher from '@/common/components/elements/LanguageSwitcher/useLanguageSwitcher'
 
 const StyledButton = styled(UButton)(({ theme }) => {
   return {
@@ -24,25 +24,25 @@ const StyledButton = styled(UButton)(({ theme }) => {
 })
 
 export const LanguageSwitcher = memo(function LanguageSwitcher() {
-  const { changeLanguage, language } = useI18n()
+  const { lang, handleChangeLanguage } = useLanguageSwitcher()
 
   const handleClick = (lang: Language) => {
-    changeLanguage(lang)
+    handleChangeLanguage(lang)
   }
 
   return (
     <div>
       {/** 切換語言 */}
       <Stack direction="row" spacing={1}>
-        {languages.map((l) => {
+        {I18N_SUPPORTED_LANGUAGE.map((l) => {
           return (
             <StyledButton
               key={l}
               onClick={() => handleClick(l)}
               variant="text"
-              disabled={l === language}
+              disabled={l === lang}
               sx={{
-                fontWeight: l === language ? 700 : 400,
+                fontWeight: l === lang ? 700 : 400,
               }}
             >
               {/** TODO: i18n 語言 */}

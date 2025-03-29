@@ -1,0 +1,74 @@
+'use client'
+
+import CookiesKey from '@/common/enums/CookiesKey'
+import { getOptions, I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
+import { Language } from '@/common/lib/i18n/types'
+import { getZodTranslations } from '@/common/lib/zod'
+import i18next from 'i18next'
+import LanguageDetector from 'i18next-browser-languagedetector'
+import resourcesToBackend from 'i18next-resources-to-backend'
+import { useParams } from 'next/navigation'
+import { useEffect } from 'react'
+import { useCookies } from 'react-cookie'
+import {
+  initReactI18next,
+  useTranslation,
+  UseTranslationOptions,
+} from 'react-i18next'
+
+const runsOnServerSide = typeof window === 'undefined'
+
+i18next
+  .use(initReactI18next)
+  .use(LanguageDetector)
+  .use(
+    resourcesToBackend((language: Language, namespace: string) => {
+      if (namespace !== 'zod')
+        return import(`../locales/${language}/${namespace}.json`)
+      return getZodTranslations(language)
+    })
+  )
+  .init({
+    ...getOptions(),
+    lng: undefined, // 讓語言在 I18nProvider 中決定
+    detection: {
+      order: ['path', 'htmlTag', 'cookie', 'navigator'],
+    },
+    preload: runsOnServerSide ? I18N_SUPPORTED_LANGUAGE : [],
+  })
+
+export default function useTranslationClient(
+  namespace?: string | string[],
+  options?: UseTranslationOptions<string> & {
+    lng?: Language
+  }
+) {
+  const [cookies, setCookie] = useCookies([CookiesKey.I18n])
+  const ret = useTranslation(namespace, options)
+
+  const { lang: paramLang } = useParams<{ lang: Language }>()
+
+  const lang = options?.lng ?? paramLang
+
+  // Server side
+  if (runsOnServerSide && lang && ret.i18n.resolvedLanguage !== lang) {
+    ret.i18n.changeLanguage(lang)
+    return ret
+  }
+
+  // Client side
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (!lang || ret.i18n.resolvedLanguage === lang) return
+    ret.i18n.changeLanguage(lang)
+  }, [lang, ret.i18n])
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  useEffect(() => {
+    if (cookies[CookiesKey.I18n] === lang) return
+    setCookie(CookiesKey.I18n, lang, { path: '/' })
+  }, [cookies, lang, setCookie])
+
+  return ret
+}
