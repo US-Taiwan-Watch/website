@@ -136,10 +136,7 @@ const EpisodeCard = memo(
             width="100%"
             direction="row"
             spacing={1}
-            alignItems={{
-              xs: 'center',
-              sm: 'flex-end',
-            }}
+            alignItems="center"
             justifyContent="center"
           >
             <Stack

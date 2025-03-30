@@ -4,6 +4,7 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import { People } from '@/modules/People/business/People'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 /**
  * 出版品行
@@ -59,12 +60,14 @@ interface PublicationProps {
  * @returns 出版品元件
  */
 const Publication = function Publication({ publications }: PublicationProps) {
+  const { t } = useTranslationClient(['people'])
+
   return (
     <UContentCard
       withHeader
       headerProps={{
         headerIconAction: 'modal',
-        title: 'Publication',
+        title: t('page.card.publication.title', { ns: 'people' }),
         icon: <DocumentIcon />,
         iconColor: 'primary',
       }}
@@ -80,7 +83,7 @@ const Publication = function Publication({ publications }: PublicationProps) {
       overflowHidden
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>
-          No Publication
+          {t('page.card.publication.placeholder', { ns: 'people' })}
         </Typography>
       }
     >

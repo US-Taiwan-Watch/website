@@ -7,6 +7,7 @@ import { Box, Icon, Input } from '@mui/material'
 import useSearch from '@/modules/Search/hooks/useSearch'
 import DesktopSearchResultList from '@/modules/Search/components/Desktop/DesktopSearchResultList'
 import { useRef } from 'react'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface DesktopSearchBarProps {
   className?: string
@@ -48,6 +49,7 @@ const DesktopSearchBar = ({
   clickAwayClassNameWhiteList,
   onClose,
 }: DesktopSearchBarProps) => {
+  const { t } = useTranslationClient('search')
   const inputRef = useRef<HTMLInputElement>(null)
   const {
     searchQuery,
@@ -83,7 +85,7 @@ const DesktopSearchBar = ({
           onClick={handleSearch}
           disabled={!searchQuery}
         >
-          Search
+          {t('submit.btn.title', { ns: 'search' })}
         </StyledButton>
       </StyledContainer>
       {searched && (

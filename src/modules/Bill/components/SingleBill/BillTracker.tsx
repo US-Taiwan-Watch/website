@@ -7,6 +7,7 @@ import UTimeline from '@/common/components/atoms/UTimeline'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type Props = {
   bill: Bill
@@ -14,18 +15,23 @@ type Props = {
 
 export default function BillTracker({ bill }: Props) {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient('bill')
 
   return (
     <UContentCard
       withHeader
       headerProps={{
         headerIconAction: 'tooltip',
-        title: 'Tracker',
+        title: t('page.card.tracker.title', {
+          ns: 'bill',
+        }),
         icon: <TrackerIcon />,
         iconColor: 'primary',
       }}
       tooltipProps={{
-        content: 'Tracker',
+        content: t('page.card.tracker.tooltip', {
+          ns: 'bill',
+        }),
       }}
       contentProps={{
         sx: {
@@ -41,8 +47,11 @@ export default function BillTracker({ bill }: Props) {
       >
         {isMobile && (
           <Typography variant="articleH4">
-            {BillUtils.getBillStatusText(
-              bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED
+            {t(
+              `status.${bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED}.label`,
+              {
+                ns: 'bill',
+              }
             )}
           </Typography>
         )}
@@ -60,7 +69,9 @@ export default function BillTracker({ bill }: Props) {
         >
           <UTimeline
             data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-              title: BillUtils.getBillStatusText(status),
+              title: t(`status.${status}.label`, {
+                ns: 'bill',
+              }),
             }))}
             activeIndex={BillUtils.getStatusIndex(bill)}
             itemMinHeight={50}

@@ -27,7 +27,11 @@ import { useQuery } from '@apollo/client'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 
-const ArticleSection = () => {
+type ArticleSectionProps = {
+  title: string
+}
+
+const ArticleSection = ({ title }: ArticleSectionProps) => {
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
@@ -71,7 +75,7 @@ const ArticleSection = () => {
           paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
         }}
       >
-        <SectionTitleWithLink title="Articles" link={ROUTES.ARTICLE} />
+        <SectionTitleWithLink title={title} link={ROUTES.ARTICLE} />
         <Stack gap={5}>
           <UHStack gap={2}>
             {landingTags.map((tag) => (
@@ -93,16 +97,16 @@ const ArticleSection = () => {
           {/** Posts */}
           {isMobile ? (
             loading ? (
-              <ArticlePostCardsSkeleton count={1} />
+              <ArticlePostCardsSkeleton count={1} forceCard />
             ) : (
               <FullWidthScrollableListWrapper>
-                <ScrollableArticlePostCards articles={articles} />
+                <ScrollableArticlePostCards articles={articles} forceCard />
               </FullWidthScrollableListWrapper>
             )
           ) : loading ? (
-            <ArticlePostCardsSkeleton count={3} />
+            <ArticlePostCardsSkeleton count={3} forceCard />
           ) : (
-            <ArticlePostCards articles={articles} />
+            <ArticlePostCards articles={articles} forceCard />
           )}
         </Stack>
       </LandingSectionWrapper>

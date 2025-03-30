@@ -28,6 +28,7 @@ import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const Grid2WithSelectable = withSelectable<ComponentProps<typeof Grid2>>(Grid2)
 
@@ -95,6 +96,7 @@ function CardIconTitle({
 }
 
 const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
+  const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
   const { partyColor } = usePartyColor()
   const introducedDate = BillUtils.getIntroducedDate(bill)
@@ -108,7 +110,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
           <CardIconTitle
             containerProps={{ mr: 3 }}
             icon={<SponsorIcon />}
-            title="Sponsor"
+            title={t('card.item.sponsor.title', { ns: 'bill' })}
           />
           {bill.sponsor?.image && (
             <StyledImageContainer
@@ -160,7 +162,10 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
           alignItems="center"
           justifyContent="space-between"
         >
-          <CardIconTitle icon={<NoteIcon />} title="Cosponsors" />
+          <CardIconTitle
+            icon={<NoteIcon />}
+            title={t('card.item.cosponsors.title', { ns: 'bill' })}
+          />
           <Typography variant="subtitleL" fontWeight={700}>
             {BillUtils.getCosponsorsCount(bill)}
           </Typography>
@@ -174,7 +179,10 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
           alignItems="center"
           justifyContent="space-between"
         >
-          <CardIconTitle icon={<CalenderIcon />} title="Introduced" />
+          <CardIconTitle
+            icon={<CalenderIcon />}
+            title={t('card.item.introduced.title', { ns: 'bill' })}
+          />
           <Typography variant="subtitleL" fontWeight={700}>
             {introducedDate && dayjs(introducedDate).isValid()
               ? dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT)
@@ -186,7 +194,10 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
       {/* Latest Action */}
       <Grid2WithSelectable size={12}>
         <StyledCardContainer>
-          <CardIconTitle icon={<ActionsIcon />} title="Latest Action" />
+          <CardIconTitle
+            icon={<ActionsIcon />}
+            title={t('card.item.latestAction.title', { ns: 'bill' })}
+          />
           <Divider sx={{ my: 2, borderWidth: 1 }} />
           <Stack gap={1.5}>
             <Typography

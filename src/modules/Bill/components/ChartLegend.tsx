@@ -6,6 +6,7 @@ import CircleIcon from '@mui/icons-material/Circle'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { Party } from '@/common/enums/Party'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type LegendProps = {
   data: ParliamentChartData[]
@@ -13,6 +14,7 @@ type LegendProps = {
 }
 
 export default function ChartLegend({ data, hoveredParty }: LegendProps) {
+  const { t } = useTranslationClient('common')
   const { partyColor } = usePartyColor()
   const sortedData = useMemo(
     () => data.sort((a, b) => b.count - a.count),
@@ -37,7 +39,7 @@ export default function ChartLegend({ data, hoveredParty }: LegendProps) {
             }}
           />
           <Typography variant="buttonXXS" textTransform="capitalize">
-            {item.party.toLowerCase()}
+            {t(`party.${item.party.toLowerCase()}`, { ns: 'common' })}
           </Typography>
         </UHStack>
       ))}

@@ -9,6 +9,7 @@ import useLinks from '@/common/components/elements/Footer/useLinks'
 import Link from 'next/link'
 import UButton from '@/common/components/atoms/UButton'
 import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledFooter = styled('footer')(({ theme }) => ({
   paddingTop: theme.spacing(4),
@@ -27,6 +28,7 @@ const StyledSubLinkBlock = styled(Stack)(() => ({
 // }))
 
 const DesktopFooter = () => {
+  const { t } = useTranslationClient('footer')
   const { socialLinkItems, subLinkItems } = useLinks()
 
   return (
@@ -40,7 +42,7 @@ const DesktopFooter = () => {
               <Stack direction="row" spacing={2} alignItems="center">
                 <ULogo size="small" />
                 <Typography variant="h5" fontWeight={700}>
-                  US Taiwan Watch
+                  {t('section.title', { ns: 'footer' })}
                 </Typography>
               </Stack>
               {/* Social Links */}
@@ -114,7 +116,7 @@ const DesktopFooter = () => {
                   fontWeight: 500,
                 }}
               >
-                Donation
+                {t('donation.btn.title', { ns: 'footer' })}
               </UButton>
             </Stack>
             {/** Bottom Section */}
@@ -127,7 +129,8 @@ const DesktopFooter = () => {
               </Stack> */}
               {/** Copyright */}
               <Typography>
-                © U.S. Taiwan Watch {new Date().getFullYear()}
+                © {t('section.copyright', { ns: 'footer' })}{' '}
+                {new Date().getFullYear()}
               </Typography>
             </Stack>
           </Stack>

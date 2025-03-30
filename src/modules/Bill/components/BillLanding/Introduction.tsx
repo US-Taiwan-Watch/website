@@ -11,10 +11,7 @@ import { CurrentCongressBillCountQuery } from '@/common/lib/graphql/__generated_
 import { QUERY_CURRENT_CONGRESS_BILL_COUNT } from '@/modules/Bill/graphql/gql'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { memo } from 'react'
-
-const PAGE_TITLE = 'Update from this Congress'
-const PAGE_DESCRIPTION =
-  'The 118th U.S. Congress has actively advanced legislation to strengthen U.S.-Taiwan relations through key bills addressing security, economic ties, and international participation. The United States-Taiwan Initiative on 21st-Century Trade First Agreement Implementation Act (H.R. 4004) enhances economic cooperation through trade agreements, while the Taiwan Conflict Deterrence Act of 2023 (H.R. 554) seeks to deter aggression by targeting financial institutions linked to Chinese officials. The Taiwan International Solidarity Act (H.R. 1176) reinforces support for Taiwan’s participation in international organizations, countering Beijing’s diplomatic pressure. Additionally, the PROTECT Taiwan Act (H.R. 803) aims to deepen U.S.-Taiwan defense cooperation. Together, these legislative efforts reflect a bipartisan commitment to bolstering Taiwan’s security, international standing, and economic partnership with the United States amidst rising geopolitical tensions in the Indo-Pacific region.'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
@@ -38,6 +35,7 @@ const BillTotalCountLink = memo(function BillTotalCountLink({
   billCount: number
   currentCongressNumber: number
 }) {
+  const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -54,7 +52,10 @@ const BillTotalCountLink = memo(function BillTotalCountLink({
           color={theme.color.grey[2100]}
           mb={1}
         >
-          {`Congress ${currentCongressNumber}`}
+          {t('landing.introduction.congress.title', {
+            ns: 'bill',
+            count: currentCongressNumber,
+          })}
         </Typography>
         <Typography fontSize={26} fontWeight={600}>
           {billCount}
@@ -65,6 +66,7 @@ const BillTotalCountLink = memo(function BillTotalCountLink({
 })
 
 export default function Introduction() {
+  const { t } = useTranslationClient('bill')
   const { isMobile } = useResponsive()
 
   const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
@@ -90,7 +92,7 @@ export default function Introduction() {
           gap={2}
         >
           <Typography variant="h3" fontWeight={600}>
-            {PAGE_TITLE}
+            {t('landing.title', { ns: 'bill' })}
           </Typography>
           <BillTotalCountLink
             billCount={billCount}
@@ -98,16 +100,26 @@ export default function Introduction() {
           />
         </UHStack>
 
-        <Typography variant="bodyM">{PAGE_DESCRIPTION}</Typography>
+        <Typography variant="bodyM">
+          {t('landing.description', { ns: 'bill' })}
+        </Typography>
       </Stack>
     )
   }
 
   return (
-    <UHStack alignItems="center" justifyContent="space-between" width="100%">
+    <UHStack
+      alignItems="flex-start"
+      justifyContent="space-between"
+      width="100%"
+    >
       <Stack spacing={4} maxWidth="80%">
-        <Typography variant="h3">{PAGE_TITLE}</Typography>
-        <Typography variant="bodyM">{PAGE_DESCRIPTION}</Typography>
+        <Typography variant="h3">
+          {t('landing.title', { ns: 'bill' })}
+        </Typography>
+        <Typography variant="bodyM">
+          {t('landing.description', { ns: 'bill' })}
+        </Typography>
       </Stack>
 
       <BillTotalCountLink

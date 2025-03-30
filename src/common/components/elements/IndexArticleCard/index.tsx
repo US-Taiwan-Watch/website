@@ -13,6 +13,7 @@ import UTagList from '@/common/components/atoms/UTagList'
 import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledTag = styled(Box)(({ theme }) => ({
   borderRadius: '5px',
@@ -66,6 +67,7 @@ interface IndexArticleCardProps {
 const IndexArticleCard = memo(function IndexArticleCard({
   article,
 }: IndexArticleCardProps) {
+  const { t } = useTranslationClient('common')
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
@@ -156,7 +158,7 @@ const IndexArticleCard = memo(function IndexArticleCard({
               size={isMobile ? 'medium' : 'large'}
               endIcon={<ArrowForwardIcon />}
             >
-              Learn More
+              {t('cta.learnMore', { ns: 'common' })}
             </UButtonWithSelectable>
           </Link>
         </StyledContentSection>

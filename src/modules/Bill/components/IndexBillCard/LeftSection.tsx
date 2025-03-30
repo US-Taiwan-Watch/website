@@ -16,6 +16,7 @@ import { type ComponentProps } from 'react'
 import { CongressUtils } from '@/common/business/Congress'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import BillTag from '@/modules/Bill/components/BillTag'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const UTagListWithSelectable = withSelectable<ComponentProps<typeof UTagList>>(
   UTagList,
@@ -37,6 +38,7 @@ type Props = {
 export default function LeftSection({ bill }: Props) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('bill')
 
   return (
     <Stack justifyContent="space-between" height="100%">
@@ -94,22 +96,32 @@ export default function LeftSection({ bill }: Props) {
 
       <StackWithSelectable gap={2}>
         <UHStack spacing={0.5} alignItems="center">
-          <Typography variant="body">Tracker:</Typography>
+          <Typography variant="body">
+            {t('card.tracker.title', { ns: 'bill' })}:
+          </Typography>
           <Typography variant="articleH4">
-            {BillUtils.getBillStatusText(
-              bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED
+            {t(
+              `status.${bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED}.label`,
+              {
+                ns: 'bill',
+              }
             )}
           </Typography>
           <UCardInfo
-            content={BillUtils.getBillStatusText(
-              BillUtils.getAllBillStatuses(bill)[BillUtils.getStatusIndex(bill)]
+            content={t(
+              `status.${BillUtils.getAllBillStatuses(bill)[BillUtils.getStatusIndex(bill)]}.label`,
+              {
+                ns: 'bill',
+              }
             )}
           />
         </UHStack>
         <Box mx={isMobile ? -3 : -6}>
           <UTimeline
             data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-              title: BillUtils.getBillStatusText(status),
+              title: t(`status.${status}.label`, {
+                ns: 'bill',
+              }),
             }))}
             activeIndex={BillUtils.getStatusIndex(bill)}
             isHorizontal

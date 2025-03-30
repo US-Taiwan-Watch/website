@@ -10,7 +10,11 @@ import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
  */
 const BILL_SECTION_LIMIT = 10
 
-export default async function BillSection() {
+type BillSectionProps = {
+  title: string
+}
+
+export default async function BillSection({ title }: BillSectionProps) {
   const featuredBills = await ServerBillApi.getHomeFeaturedBills({
     limit: BILL_SECTION_LIMIT,
   })
@@ -27,7 +31,7 @@ export default async function BillSection() {
           sm: 7.5,
         }}
       >
-        <SectionTitleWithLink title="Bills" link={ROUTES.BILL} />
+        <SectionTitleWithLink title={title} link={ROUTES.BILL} />
         <IndexBillCardList billData={featuredBills} />
       </Stack>
     </UContainer>

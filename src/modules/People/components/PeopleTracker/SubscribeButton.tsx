@@ -4,6 +4,7 @@ import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { People } from '@/modules/People/business/People'
 import { memo } from 'react'
 import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type SubscribeButtonProps = {
   people: People
@@ -14,6 +15,7 @@ const SubscribeButton = memo(function SubscribeButton({
   people,
 }: SubscribeButtonProps) {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient(['people'])
 
   if (isMobile) {
     return (
@@ -30,7 +32,7 @@ const SubscribeButton = memo(function SubscribeButton({
       rounded
       startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
     >
-      Subscribe
+      {t('page.subscribe.btn', { ns: 'people' })}
     </UButton>
   )
 })

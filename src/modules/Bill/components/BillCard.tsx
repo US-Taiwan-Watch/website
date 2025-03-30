@@ -21,6 +21,7 @@ import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
 
@@ -62,6 +63,7 @@ export type BillCardProps = {
 }
 
 export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
+  const { t } = useTranslationClient('bill')
   const {
     trackerStatus: showTrackerStatus = true,
     latestActionDescription: showLatestActionDescription = true,
@@ -99,7 +101,12 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
           />
 
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${BillUtils.getChamberPrefix(bill)}${bill.number ?? ''} | ${bill.congressNumber}th Congress`}
+            {t('card.subtitle', {
+              ns: 'bill',
+              prefix: BillUtils.getChamberPrefix(bill),
+              billNo: bill.number ?? '',
+              congressNo: bill.congressNumber,
+            })}
           </Typography>
 
           <Box flex={1}>
@@ -115,18 +122,29 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
             <>
               {showTrackerStatus && (
                 <UHStack spacing={0.5} alignItems="center">
-                  <Typography variant="body">Tracker:</Typography>
+                  <Typography variant="body">
+                    {t('card.tracker.title', {
+                      ns: 'bill',
+                    })}
+                  </Typography>
                   <Typography variant="articleH4">
-                    {BillUtils.getBillStatusText(
-                      bill.statusTracker?.currentStatus ??
-                        BillStatusEnum.INTRODUCED
+                    {t(
+                      `status.${bill.statusTracker?.currentStatus ?? BillStatusEnum.INTRODUCED}.label`,
+                      {
+                        ns: 'bill',
+                      }
                     )}
                   </Typography>
                   <UCardInfo
-                    content={BillUtils.getBillStatusText(
-                      BillUtils.getAllBillStatuses(bill)[
-                        BillUtils.getStatusIndex(bill)
-                      ]
+                    content={t(
+                      `status.${
+                        BillUtils.getAllBillStatuses(bill)[
+                          BillUtils.getStatusIndex(bill)
+                        ]
+                      }.label`,
+                      {
+                        ns: 'bill',
+                      }
                     )}
                   />
                 </UHStack>
@@ -140,7 +158,9 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
               >
                 <UTimeline
                   data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-                    title: BillUtils.getBillStatusText(status),
+                    title: t(`status.${status}.label`, {
+                      ns: 'bill',
+                    }),
                   }))}
                   activeIndex={BillUtils.getStatusIndex(bill)}
                   isHorizontal
@@ -194,17 +214,24 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
             <UTimeline
               itemMinHeight={50}
               data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-                title: BillUtils.getBillStatusText(status),
+                title: t(`status.${status}.label`, {
+                  ns: 'bill',
+                }),
               }))}
               activeIndex={BillUtils.getStatusIndex(bill)}
               variant="secondary"
             />
             <Box>
               <UCardInfo
-                content={BillUtils.getBillStatusText(
-                  BillUtils.getAllBillStatuses(bill)[
-                    BillUtils.getStatusIndex(bill)
-                  ]
+                content={t(
+                  `status.${
+                    BillUtils.getAllBillStatuses(bill)[
+                      BillUtils.getStatusIndex(bill)
+                    ]
+                  }.label`,
+                  {
+                    ns: 'bill',
+                  }
                 )}
                 iconProps={{
                   sx: { color: theme.color.neutral[300] },

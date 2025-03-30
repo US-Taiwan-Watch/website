@@ -19,6 +19,7 @@ import {
   defaultBillFilterInput,
 } from '@/modules/Bill/components/BillFilter/schema'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type SecondLevelSelector = {
   key: BillFilterInputKey
@@ -39,6 +40,7 @@ export default function BillFilter({
   onSubmit,
   initialValues,
 }: BillFilterProps) {
+  const { t } = useTranslationClient('bill')
   const { form } = useBillFilterForm({
     initialValues,
   })
@@ -58,60 +60,79 @@ export default function BillFilter({
     () => [
       {
         key: 'category',
-        label: 'Category',
+        label: t('filter.category.label', {
+          ns: 'bill',
+        }),
         options: categoryOptions,
         minWidth: 140,
       },
       {
         key: 'party',
-        label: 'Party',
+        label: t('filter.party.label', {
+          ns: 'bill',
+        }),
         options: partyOptions,
         minWidth: 100,
       },
       {
         key: 'type',
-        label: 'Type',
+        label: t('filter.type.label', {
+          ns: 'bill',
+        }),
         options: typeOptions,
         minWidth: 100,
       },
       {
         key: 'congress',
-        label: 'Congress',
+        label: t('filter.congress.label', {
+          ns: 'bill',
+        }),
         options: congressOptions,
         minWidth: 140,
       },
       {
         key: 'status',
-        label: 'Status',
+        label: t('filter.status.label', {
+          ns: 'bill',
+        }),
         options: statusOptions,
         minWidth: 100,
       },
       {
         key: 'sponsors',
-        label: 'Sponsors',
+        label: t('filter.sponsors.label', {
+          ns: 'bill',
+        }),
         options: sponsorsOptions,
         minWidth: 140,
       },
       {
         key: 'cosponsors',
-        label: 'Cosponsors',
+        label: t('filter.cosponsors.label', {
+          ns: 'bill',
+        }),
         options: cosponsorsOptions,
         minWidth: 160,
       },
       {
         key: 'tag',
-        label: 'Tag',
+        label: t('filter.tag.label', {
+          ns: 'bill',
+        }),
         options: tagOptions,
         minWidth: 140,
       },
       {
         key: 'sorter',
-        label: 'Sorter',
+        label: t('filter.sorter.label', {
+          ns: 'bill',
+        }),
         options: sorterOptions,
         minWidth: 160,
       },
     ],
     [
+      t,
       categoryOptions,
       partyOptions,
       typeOptions,

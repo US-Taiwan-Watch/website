@@ -1,5 +1,6 @@
 'use client'
 
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { useTheme } from '@mui/material'
@@ -43,6 +44,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
 }: IdeologyLeadershipChartProps) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient(['common'])
 
   const getMarker = useCallback(
     (party: string): Highcharts.PointMarkerOptionsObject => {
@@ -73,7 +75,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
     const restSeries: Highcharts.SeriesOptionsType[] = Object.entries(data).map(
       ([party, data]) => ({
         id: party,
-        name: party,
+        name: t(`party.${party.toLowerCase()}`, { ns: 'common' }),
         type: 'scatter',
         data: data.map((item) => {
           if (activeId && item.ID === activeId) {
@@ -119,7 +121,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
 
     // 讓 active person 的 legend 顯示在前面
     return [...(activePiece ? [activePiece] : []), ...restSeries]
-  }, [data, getMarker, activeId, theme, isMobile])
+  }, [t, data, getMarker, activeId, theme, isMobile])
 
   const options = useMemo<Highcharts.Options>(() => {
     return {
@@ -141,7 +143,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
 
       xAxis: {
         title: {
-          text: 'Ideology Score',
+          text: t('ideologyLeadershipChart.xAxis.label', { ns: 'common' }),
           style: {
             fontSize: '10px',
           },
@@ -155,7 +157,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
 
       yAxis: {
         title: {
-          text: 'Leadership Score',
+          text: t('ideologyLeadershipChart.yAxis.label', { ns: 'common' }),
           style: {
             fontSize: '10px',
           },
@@ -175,10 +177,10 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
           const point = this.point as CustomPoint
           return `
           <div>
-              <strong>Name:</strong> ${point.item?.name}<br>
-              <strong>Description:</strong> ${point.item?.description}<br>
-              <strong>Ideology:</strong> ${point.x ? Number(point.x).toFixed(2) : 0}<br>
-              <strong>Leadership:</strong> ${point.y ? Number(point.y).toFixed(2) : 0}<br>
+              <strong>${t('ideologyLeadershipChart.tooltip.name.title', { ns: 'common' })}:</strong> ${point.item?.name}<br>
+              <strong>${t('ideologyLeadershipChart.tooltip.description.title', { ns: 'common' })}:</strong> ${point.item?.description}<br>
+              <strong>${t('ideologyLeadershipChart.tooltip.ideology.title', { ns: 'common' })}:</strong> ${point.x ? Number(point.x).toFixed(2) : 0}<br>
+              <strong>${t('ideologyLeadershipChart.tooltip.leadership.title', { ns: 'common' })}:</strong> ${point.y ? Number(point.y).toFixed(2) : 0}<br>
           </div>
         `
         },
@@ -189,7 +191,7 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
         enabled: false,
       },
     }
-  }, [series])
+  }, [t, series])
 
   return <HighchartsReact highcharts={Highcharts} options={options} />
 }

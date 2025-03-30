@@ -9,6 +9,7 @@ import {
   BillsFilterQuery,
   BillsFilterQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { Language } from '@/common/lib/i18n/types'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
@@ -43,6 +44,7 @@ const BILL_LIST_COUNT = 10
 
 export default function BillList() {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient('bill')
   const router = useRouter()
   const { lang } = useParams<{ lang: Language }>()
 
@@ -150,7 +152,11 @@ export default function BillList() {
   return (
     <Stack gap={5}>
       <UHStack gap={2} alignItems="flex-start">
-        <Typography variant="h3">Bills and Resolutions in Congress</Typography>
+        <Typography variant="h3">
+          {t('filterPage.title', {
+            ns: 'bill',
+          })}
+        </Typography>
         {isMobile && (
           <BillFilter
             onSubmit={(filter) => {
