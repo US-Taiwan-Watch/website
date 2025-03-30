@@ -10,7 +10,11 @@ import IndexPodcastCards, {
 import PodcastFetcherProvider from '@/modules/Podcast/providers/PodcastFetcherProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 
-const PodcastSection = () => {
+type PodcastSectionProps = {
+  title: string
+}
+
+const PodcastSection = ({ title }: PodcastSectionProps) => {
   const { isMobile } = useResponsive()
 
   return (
@@ -20,7 +24,7 @@ const PodcastSection = () => {
       }}
     >
       <PodcastFetcherProvider />
-      <SectionTitleWithLink title="Podcast" />
+      <SectionTitleWithLink title={title} />
       {isMobile ? (
         <FullWidthScrollableListWrapper>
           <ScrollableIndexPodcastCards />

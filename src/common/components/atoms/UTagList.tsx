@@ -12,6 +12,7 @@ import { StackProps, useTheme } from '@mui/material'
 import { Fragment, ReactNode } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 // NOTE: 預設顯示 5 個（mobile 3 個）
 const DEFAULT_MAX_COUNT = 5
@@ -22,10 +23,11 @@ type MoreButtonProps = {
 
 const MoreButton = ({ count, ...props }: MoreButtonProps) => {
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient(['common'])
 
   return (
     <UCategoryTag
-      value={`+${count} More`}
+      value={t('tagList.more.btn', { ns: 'common', count })}
       containerProps={{
         sx: {
           backgroundColor: 'transparent',

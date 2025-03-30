@@ -84,9 +84,12 @@ export const ScrollableArticlePostCards = ({
 
 export const ArticlePostCardsSkeleton = ({
   count = 9,
+  forceCard = false,
 }: {
   /** 呈現的卡片數量 */
   count?: number
+  /** 是否強制為 Card 模式 */
+  forceCard?: boolean
 }) => {
   return (
     <Grid
@@ -108,7 +111,7 @@ export const ArticlePostCardsSkeleton = ({
           }}
           key={index}
         >
-          <ArticlePostCardSkeleton />
+          <ArticlePostCardSkeleton forceCard={forceCard} />
         </Grid>
       ))}
     </Grid>

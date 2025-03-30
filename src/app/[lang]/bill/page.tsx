@@ -1,3 +1,4 @@
+import { Language } from '@/common/lib/i18n/types'
 import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
 import BillListSection from '@/modules/Bill/components/BillLanding/BillListSection'
 import BillStatisticsSection from '@/modules/Bill/components/BillLanding/BillStatisticsSection'
@@ -13,7 +14,14 @@ const LATEST_BILLS_COUNT = 5
  */
 const POPULAR_BILLS_COUNT = 5
 
-export default async function Bill() {
+type BillPageProps = {
+  params: {
+    lang: Language
+  }
+}
+
+export default async function Bill({ params }: BillPageProps) {
+  const { lang } = params
   const latestBills = await ServerBillApi.getLatestBills({
     limit: LATEST_BILLS_COUNT,
   })
@@ -28,7 +36,7 @@ export default async function Bill() {
         sm: 10,
       }}
     >
-      <BillStatisticsSection />
+      <BillStatisticsSection lang={lang} />
       <BillListSection latestBills={latestBills} popularBills={popularBills} />
     </Stack>
   )

@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { CongressIcon } from '@/common/styles/assets/Icons'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UIconButton from '@/common/components/atoms/UIconButton'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledTitleVersionButton = styled(UButton)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
@@ -27,6 +28,7 @@ type Props = {
  */
 export default function TitleVersion({ bill }: Props) {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient('bill')
 
   return (
     <Link
@@ -44,7 +46,9 @@ export default function TitleVersion({ bill }: Props) {
           startIcon={<CongressIcon sx={{ width: 24, height: 24 }} />}
           rounded
         >
-          Congress.gov
+          {t('page.titleVersion.btn', {
+            ns: 'bill',
+          })}
         </StyledTitleVersionButton>
       )}
     </Link>

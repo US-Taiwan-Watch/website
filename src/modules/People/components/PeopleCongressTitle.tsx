@@ -2,6 +2,7 @@ import { CongressExperienceRange } from '@/modules/People/business/People'
 import { Typography } from '@mui/material'
 import dayjs from 'dayjs'
 import { useMemo } from 'react'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface PeopleCongressTitleProps {
   congressExperienceRange: CongressExperienceRange
@@ -10,6 +11,8 @@ interface PeopleCongressTitleProps {
 const PeopleCongressTitle = function PeopleCongressTitle({
   congressExperienceRange,
 }: PeopleCongressTitleProps) {
+  const { t } = useTranslationClient(['people'])
+
   const isPresent = useMemo(() => {
     // 如果沒有 end，代表還在任職中，所以取目前年份
     if (!congressExperienceRange.latestCongressYear) return true
@@ -37,11 +40,11 @@ const PeopleCongressTitle = function PeopleCongressTitle({
 
     const start = congressExperienceRange.earliestCongressYear
     const end = isPresent
-      ? 'Present'
+      ? t('card.congress.present', { ns: 'people' })
       : (congressExperienceRange.latestCongressYear ?? '')
 
     return [start, end].join(' - ')
-  }, [congressExperienceRange, isPresent])
+  }, [congressExperienceRange, isPresent, t])
 
   if (!congressRangeText && !yearRangeText) return null
 

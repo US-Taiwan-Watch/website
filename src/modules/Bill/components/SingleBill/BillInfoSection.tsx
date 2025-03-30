@@ -10,6 +10,7 @@ import { memo } from 'react'
 import TitleVersion from '@/modules/Bill/components/SingleBill/TitleVersion'
 import { CongressUtils } from '@/common/business/Congress'
 import SubscribeButton from '@/modules/Bill/components/SingleBill/SubscribeButton'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledInfoContainer = styled(Stack)(() => ({
   flex: 1,
@@ -22,6 +23,8 @@ interface BillInfoSectionProps {
 const BillInfoSection = memo(function BillInfoSection({
   bill,
 }: BillInfoSectionProps) {
+  const { t } = useTranslationClient('bill')
+
   return (
     <UHStack spacing={2} alignItems="flex-start">
       {/** Info */}
@@ -58,7 +61,12 @@ const BillInfoSection = memo(function BillInfoSection({
             />
           )}
           <Typography variant="body" fontWeight={300} mb={1}>
-            {`${BillUtils.getChamberPrefix(bill)}${bill.number} | ${bill.congressNumber}th Congress`}
+            {t('page.subtitle', {
+              ns: 'bill',
+              prefix: BillUtils.getChamberPrefix(bill),
+              billNo: bill.number ?? '',
+              congressNo: bill.congressNumber,
+            })}
             {bill.congressNumber &&
               (() => {
                 const [startYear, endYear] =

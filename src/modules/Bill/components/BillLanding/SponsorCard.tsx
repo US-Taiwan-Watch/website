@@ -12,6 +12,7 @@ import Link from 'next/link'
 import { ROUTES } from '@/routes'
 import { CongressUtils } from '@/common/business/Congress'
 import { People } from '@/modules/People/business/People'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type SponsorRowData = {
   people: People
@@ -31,6 +32,7 @@ type SponsorRowProps = {
 }
 
 function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
+  const { t } = useTranslationClient('common')
   const theme = useTheme<USTWTheme>()
   const { partyColor } = usePartyColor()
 
@@ -50,7 +52,7 @@ function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
             color={theme.color.neutral[500]}
             textTransform="capitalize"
           >
-            {people.party?.toLowerCase()}
+            {t(`party.${people.party?.toLowerCase()}`, { ns: 'common' })}
           </Typography>
         </UHStack>
       </Stack>
@@ -68,19 +70,25 @@ export default function SponsorCard({
   sponsorsData,
   isCosponsor,
 }: SponsorCardProps) {
+  const { t } = useTranslationClient('bill')
+
   const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
   return (
     <UContentCard
       withHeader
       headerProps={{
         headerIconAction: 'tooltip',
-        title: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
+        title: isCosponsor
+          ? t('landing.card.topCosponsors.title', { ns: 'bill' })
+          : t('landing.card.topSponsors.title', { ns: 'bill' }),
         icon: <SponsorIcon />,
         iconColor: 'primary',
         sx: { borderBottom: 0 },
       }}
       tooltipProps={{
-        content: isCosponsor ? 'Top 5 Cosponsor' : 'Top 5 Sponsor',
+        content: isCosponsor
+          ? t('landing.card.topCosponsors.tooltip', { ns: 'bill' })
+          : t('landing.card.topSponsors.tooltip', { ns: 'bill' }),
       }}
     >
       <Stack spacing={1} pt={2}>

@@ -10,6 +10,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import { PeopleUtils } from '@/modules/People/business/People'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledImageContainer = styled(Box)(() => ({
   position: 'relative',
@@ -30,11 +31,15 @@ type Props = {
 }
 
 export default function Sponsor({ bill }: Props) {
+  const { t } = useTranslationClient('bill')
+
   return (
     <UContentCard
       withHeader
       headerProps={{
-        title: 'Sponsor',
+        title: t('page.card.sponsors.title', {
+          ns: 'bill',
+        }),
         icon: <SponsorIcon />,
         iconColor: 'primary',
       }}
@@ -69,7 +74,9 @@ export default function Sponsor({ bill }: Props) {
               fontWeight={700}
               textTransform="capitalize"
             >
-              {bill.sponsor?.party?.toLowerCase()}
+              {t(`party.${bill.sponsor?.party?.toLowerCase()}`, {
+                ns: 'common',
+              })}
             </Typography>
           </UHStack>
         </Stack>

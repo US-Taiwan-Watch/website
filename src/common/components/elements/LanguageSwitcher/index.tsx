@@ -7,6 +7,7 @@ import { styled } from '@/common/lib/mui/theme'
 import { Stack } from '@mui/material'
 import { memo } from 'react'
 import useLanguageSwitcher from '@/common/components/elements/LanguageSwitcher/useLanguageSwitcher'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledButton = styled(UButton)(({ theme }) => {
   return {
@@ -24,6 +25,7 @@ const StyledButton = styled(UButton)(({ theme }) => {
 })
 
 export const LanguageSwitcher = memo(function LanguageSwitcher() {
+  const { t } = useTranslationClient('common')
   const { lang, handleChangeLanguage } = useLanguageSwitcher()
 
   const handleClick = (lang: Language) => {
@@ -46,7 +48,7 @@ export const LanguageSwitcher = memo(function LanguageSwitcher() {
               }}
             >
               {/** TODO: i18n 語言 */}
-              {l}
+              {t(`language.${l.replace('-', '')}`, { ns: 'common' })}
             </StyledButton>
           )
         })}

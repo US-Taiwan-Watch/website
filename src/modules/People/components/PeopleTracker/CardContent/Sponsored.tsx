@@ -15,12 +15,14 @@ import { useQuery } from '@apollo/client'
 import { QUERY_PEOPLE_SPONSOR_BILLS } from '@/modules/People/graphql/gql'
 import { isNull } from 'lodash-es'
 import { BillUtils } from '@/modules/Bill/business/Bill'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface SponsoredProps {
   people: People
 }
 
 const Sponsored = function ({ people }: SponsoredProps) {
+  const { t } = useTranslationClient(['people'])
   const { lang } = useParams<{ lang: Language }>()
 
   const { data } = useQuery<
@@ -39,10 +41,10 @@ const Sponsored = function ({ people }: SponsoredProps) {
 
   return (
     <NumberCard
-      title="Sponsored"
+      title={t('page.card.sponsored.title', { ns: 'people' })}
       number={sponsorBills.length}
       headerProps={{
-        title: 'Sponsored',
+        title: t('page.card.sponsored.title', { ns: 'people' }),
         icon: <Person2Icon />,
         iconColor: 'primary',
       }}

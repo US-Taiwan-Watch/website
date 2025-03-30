@@ -19,6 +19,7 @@ import { type ComponentProps } from 'react'
 import { Episode } from '@/modules/Podcast/classes/Episode'
 import usePodcastStore from '@/modules/Podcast/store/usePodcastStore'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledIndexPodcastCardBox = styled(Box)(({ theme }) => ({
   '&.WATCH_HERE': {
@@ -84,6 +85,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
   episodes,
 }: IndexPodcastCardProps) {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient('podcast')
 
   return (
     <StyledIndexPodcastCardBox
@@ -152,7 +154,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
               endIcon={<ArrowForwardIcon />}
               sx={{ width: 'max-content' }}
             >
-              More Episode
+              {t('card.cta.more', { ns: 'podcast' })}
             </UButtonWithSelectable>
           </Stack>
         </Grid>
@@ -173,16 +175,16 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
 export default IndexPodcastCard
 
 export const WatchHerePodcastCard = () => {
+  const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
       new Podcast({
         type: PodcastType.WATCH_HERE,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_HERE.png',
-        title: 'USTW - 觀測站底加辣',
-        description:
-          '《觀測站底加辣》從2020年四月上線以來，已經邁入第三季，且目前連續進行超過160集，全年無休為大家深入分析台美關係最新動態。我們的聽眾遍布全球，下載量突破200萬，歡迎大家一起和我們用耳朵追時事，解析台美中地緣政治。另外我們也不定時加入「觀測站予你知」，訪談各界重量級來賓，為大家增加重要的新知、認識新出版的好書，以及開拓更廣的視野。主持群：李可心、陳方隅、Ledo、Jerry、Ting、Cathy。',
+        title: t('asset.watchHere.title', { ns: 'podcast' }),
+        description: t('asset.watchHere.description', { ns: 'podcast' }),
       }),
-    []
+    [t]
   )
   const episodes = usePodcastStore.use.episodes()
   return (
@@ -193,16 +195,16 @@ export const WatchHerePodcastCard = () => {
   )
 }
 export const WatchInfoPodcastCard = () => {
+  const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
       new Podcast({
         type: PodcastType.WATCH_INFO,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_INFO.png',
-        title: 'USTW - 觀測站予你知',
-        description:
-          '《觀測站予你知》是本站《觀測站底加辣》podcast的子品牌，旨在提供各種重要的資訊，包括新書出版、好書推薦、作者或學者或政治工作者的訪談，我們把所有關於美中台關係當中的重要議題都放在這個予你知的節目專題當中，設定20分鐘的時間跟您聊聊重要的資訊，增廣見聞。其實一開始設定是要聊「輕鬆」一點的生活話題，但我們很顯然都是一群（太過）認真嚴肅的人，然後工作又太忙了些，所以，這個系列大家就佛系收聽囉！',
+        title: t('asset.watchInfo.title', { ns: 'podcast' }),
+        description: t('asset.watchInfo.description', { ns: 'podcast' }),
       }),
-    []
+    [t]
   )
   const episodes = usePodcastStore.use.episodes()
   return (
@@ -213,16 +215,16 @@ export const WatchInfoPodcastCard = () => {
   )
 }
 export const WatchBookClubPodcastCard = () => {
+  const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
       new Podcast({
         type: PodcastType.WATCH_BOOK_CLUB,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_BOOK_CLUB.png',
-        title: 'USTW - 觀測站讀書會',
-        description:
-          '《觀測站讀書會》是本站《觀測站底加辣》podcast的子品牌，有別於每週的時事更新，以橫切面方式關注美中台議題，《觀測站讀書會》則是希望透過一本書，以縱面聚焦的方式專注討論特定議題，並邀請作者或學者或政治工作者等專業來賓共同討論選書。每集讀書會約20至30分鐘，除了有簡單的選書導讀，還會透過精彩的分析與提問增添討論豐富度，不管有沒有讀過選書，都歡迎收聽！',
+        title: t('asset.watchBookClub.title', { ns: 'podcast' }),
+        description: t('asset.watchBookClub.description', { ns: 'podcast' }),
       }),
-    []
+    [t]
   )
   const episodes = usePodcastStore.use.episodes()
   return (

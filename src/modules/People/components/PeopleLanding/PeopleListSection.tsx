@@ -37,6 +37,7 @@ import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UHStack from '@/common/components/atoms/UHStack'
 import { Typography } from '@mui/material'
 import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const PeopleCardsSkeleton = () => {
   return (
@@ -57,6 +58,7 @@ const PeopleCardsSkeleton = () => {
 }
 
 const PeopleListSection = () => {
+  const { t } = useTranslationClient(['people'])
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
@@ -221,7 +223,7 @@ const PeopleListSection = () => {
             alignItems="center"
           >
             <Typography variant="h3" fontWeight={600}>
-              All People
+              {t('landing.section.allPeople.title', { ns: 'people' })}
             </Typography>
             <PeopleFilter
               onSubmit={(filter) => {

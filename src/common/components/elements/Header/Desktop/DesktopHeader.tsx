@@ -19,6 +19,7 @@ import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
 import { ROUTES } from '@/routes'
 import { useRouter } from 'next/navigation'
 import { HeaderProps } from '@/common/components/elements/Header'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledHeaderContainer = styled(Container)(({ theme }) => ({
   position: 'sticky',
@@ -117,6 +118,7 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
 }))
 
 const DesktopHeader = ({ className }: HeaderProps) => {
+  const { t } = useTranslationClient('header')
   const router = useRouter()
   const { navItems } = useNavItems()
   const [menuOpenNavItem, setMenuOpenNavItem] = useState<HeaderNavItem | null>(
@@ -297,7 +299,7 @@ const DesktopHeader = ({ className }: HeaderProps) => {
                     variant="contained"
                     rounded
                   >
-                    Donation
+                    {t('donation.btn.title', { ns: 'header' })}
                   </UButton>
                 </Link>
               </Box>

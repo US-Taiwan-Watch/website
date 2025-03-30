@@ -183,7 +183,7 @@ export class BillUtils {
   }
 
   static getIntroducedDate(bill: Bill) {
-    return bill.actionsOverview?.[0]?.date
+    return bill.actionsOverview[0]?.date
   }
 
   /**
@@ -191,7 +191,13 @@ export class BillUtils {
    * @returns The latest action
    */
   static getLatestAction(bill: Bill) {
-    return bill.actionsOverview?.[bill.actionsOverview.length - 1]
+    return (
+      bill.actionsOverview[bill.actionsOverview.length - 1] ?? {
+        description: undefined,
+        date: undefined,
+        chamber: undefined,
+      }
+    )
   }
 
   /**
@@ -222,40 +228,5 @@ export class BillUtils {
 
   static getCosponsorsCount(bill: Bill) {
     return (bill.cosponsors ?? []).length
-  }
-
-  static getBillStatusText(status: BillStatusEnum): string {
-    switch (status) {
-      case BillStatusEnum.BECOME_LAW:
-        return 'Become Law'
-      case BillStatusEnum.TO_PRESIDENT:
-        return 'To President'
-      case BillStatusEnum.PASSED_SENATE:
-        return 'Passed Senate'
-      case BillStatusEnum.PASSED_HOUSE:
-        return 'Passed House'
-      case BillStatusEnum.INTRODUCED:
-        return 'Introduced'
-      case BillStatusEnum.AGREED_TO_IN_HOUSE:
-        return 'Agreed to in House'
-      case BillStatusEnum.AGREED_TO_IN_SENATE:
-        return 'Agreed to in Senate'
-      case BillStatusEnum.FAILED_HOUSE:
-        return 'Failed in House'
-      case BillStatusEnum.FAILED_SENATE:
-        return 'Failed in Senate'
-      case BillStatusEnum.FAILED_TO_PASS_OVER_VETO:
-        return 'Failed to Pass Over Veto'
-      case BillStatusEnum.PASSED_OVER_VETO:
-        return 'Passed Over Veto'
-      case BillStatusEnum.POCKET_VETOED_BY_PRESIDENT:
-        return 'Pocket Vetoed by President'
-      case BillStatusEnum.RESOLVING_DIFFERENCES:
-        return 'Resolving Differences'
-      case BillStatusEnum.VETOED_BY_PRESIDENT:
-        return 'Vetoed by President'
-      default:
-        return 'Unknown'
-    }
   }
 }

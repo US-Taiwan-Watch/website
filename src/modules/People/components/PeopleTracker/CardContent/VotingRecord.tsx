@@ -15,6 +15,7 @@ import { isNull } from 'lodash-es'
 import { PeopleVoteUtils } from '@/modules/People/business/PeopleVote'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface VotingRecordProps {
   people: People
@@ -22,6 +23,7 @@ interface VotingRecordProps {
 
 const VotingRecord = function ({ people }: VotingRecordProps) {
   const { lang } = useParams<{ lang: Language }>()
+  const { t } = useTranslationClient(['people'])
 
   const { data } = useQuery<PeopleVotesQuery, PeopleVotesQueryVariables>(
     QUERY_PEOPLE_VOTES,
@@ -36,10 +38,10 @@ const VotingRecord = function ({ people }: VotingRecordProps) {
 
   return (
     <NumberCard
-      title="Voting Record"
+      title={t('page.card.votingRecord.title', { ns: 'people' })}
       number={votes.length}
       headerProps={{
-        title: 'Voting Record',
+        title: t('page.card.votingRecord.title', { ns: 'people' }),
         icon: <PeopleCheckIcon />,
         iconColor: 'primary',
       }}

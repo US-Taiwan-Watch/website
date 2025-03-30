@@ -11,6 +11,7 @@ import TimelineDot from '@mui/lab/TimelineDot'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import dayjs from 'dayjs'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 /**
  * 計算經歷的時間
@@ -210,19 +211,21 @@ interface ExperienceProps {
  * @returns 人物經歷元件
  */
 const Experience = function Experience({ experience }: ExperienceProps) {
+  const { t } = useTranslationClient(['people'])
+
   return (
     <UContentCard
       withHeader
       headerProps={{
         headerIconAction: 'modal',
-        title: 'Experience',
+        title: t('page.card.experience.title', { ns: 'people' }),
         icon: <BriefcaseIcon />,
         iconColor: 'primary',
       }}
       overflowHidden
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>
-          No experience
+          {t('page.card.experience.placeholder', { ns: 'people' })}
         </Typography>
       }
     >

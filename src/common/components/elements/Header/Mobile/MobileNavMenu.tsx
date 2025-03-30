@@ -14,6 +14,7 @@ import UButton from '@/common/components/atoms/UButton'
 import { ROUTES } from '@/routes'
 import useSocialLinks from '@/common/hooks/useSocialLinks'
 import HeaderPopper from '@/common/components/elements/Header/HeaderPopper'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledNavItemListTitleContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -25,6 +26,7 @@ const StyledNavItemListTitleContainer = styled(Box)(({ theme }) => ({
   paddingBottom: theme.spacing(0.5),
   paddingLeft: theme.spacing(1),
   paddingRight: theme.spacing(1),
+  minHeight: theme.spacing(5),
 }))
 
 const StyledNavItemListItemContainer = styled(Box)(({ theme }) => ({
@@ -60,7 +62,12 @@ const MobileNavMenuItem = ({
       >
         <Typography fontWeight={600}>{item.title}</Typography>
         {hasAccordion && (
-          <UIconButton variant="contained" color="default" size="small">
+          <UIconButton
+            variant="contained"
+            color="default"
+            size="small"
+            sx={{ p: 0, width: '24px', height: '24px' }}
+          >
             {isAccordionOpen ? (
               <KeyboardArrowUpIcon />
             ) : (
@@ -148,6 +155,7 @@ const MobileNavMenu = ({
   onClose,
   onLinkMenuItemClick,
 }: MobileNavMenuProps) => {
+  const { t } = useTranslationClient('header')
   const { socialLinkItems } = useSocialLinks()
 
   const handleMenuItemClick = useCallback(
@@ -180,7 +188,7 @@ const MobileNavMenu = ({
                   width: '100%',
                 }}
               >
-                Donate to US
+                {t('mobile.donation.btn.title', { ns: 'header' })}
               </UButton>
             </Link>
           </Box>
@@ -193,7 +201,7 @@ const MobileNavMenu = ({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <UIconButton variant="rounded" color="secondary">
+                <UIconButton variant="rounded" color="secondary" size="small">
                   {item.icon}
                 </UIconButton>
               </a>

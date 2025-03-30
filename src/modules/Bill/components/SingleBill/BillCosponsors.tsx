@@ -12,6 +12,7 @@ import { createFilterCategories } from '@/modules/Bill/components/SingleBill/Cos
 import { useMemo } from 'react'
 import DrawerFilter from '@/modules/Bill/components/SingleBill/CosponsorFilter/DrawerFilter'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type Props = {
   bill: Bill
@@ -19,6 +20,7 @@ type Props = {
 
 export default function BillCosponsors({ bill }: Props) {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient('bill')
   const { selectedOptionList, handleSelectOption, clearAll } =
     useCosponsorFilter()
   const filterCategories = useMemo(() => createFilterCategories(bill), [bill])
@@ -44,7 +46,9 @@ export default function BillCosponsors({ bill }: Props) {
         withHeader
         headerProps={{
           headerIconAction: 'modal',
-          title: 'Cosponsors',
+          title: t('page.card.cosponsors.title', {
+            ns: 'bill',
+          }),
           icon: <CosponsorsIcon />,
           iconColor: 'primary',
           actionIcon: <CardExpandIcon />,

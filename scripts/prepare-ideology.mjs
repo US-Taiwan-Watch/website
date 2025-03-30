@@ -64,8 +64,8 @@ const groupedData = jsonData.reduce(
         party: 'Democratic',
       })
     } else {
-      acc.Independents = acc.Independents || []
-      acc.Independents.push(item)
+      acc.Independent = acc.Independent || []
+      acc.Independent.push(item)
     }
     return acc
   },
@@ -73,6 +73,7 @@ const groupedData = jsonData.reduce(
   {
     Democratic: [],
     Republican: [],
+    Independent: [],
   }
 )
 

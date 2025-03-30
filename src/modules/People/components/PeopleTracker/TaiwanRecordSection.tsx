@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { People } from '@/modules/People/business/People'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface TaiwanRecordSectionProps {
   people: People
@@ -18,12 +19,13 @@ export default function TaiwanRecordSection({
   people,
 }: TaiwanRecordSectionProps) {
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient(['people'])
 
   return (
     <LandingSectionWrapper>
       <Stack gap={theme.spacing(7.5)}>
         <SectionTitle
-          title="Taiwan Record"
+          title={t('page.section.taiwanRecord.title', { ns: 'people' })}
           renderEndComponent={() => (
             <UButton
               variant="contained"
@@ -32,7 +34,7 @@ export default function TaiwanRecordSection({
               size="medium"
               startIcon={<AddIcon />}
             >
-              Submit
+              {t('page.section.taiwanRecord.submit.btn', { ns: 'people' })}
             </UButton>
           )}
         />

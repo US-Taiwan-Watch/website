@@ -13,6 +13,7 @@ import {
 } from '@mui/x-charts'
 import { useMemo, useState, useEffect } from 'react'
 import { CongressUtils } from '@/common/business/Congress'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const xLabelFormatter = (value: number | null) => (value ? `${value}th` : '')
 
@@ -30,6 +31,7 @@ export default function TrendBarCharts({
   data,
   onBarClick,
 }: TrendBarChartsProps) {
+  const { t } = useTranslationClient('bill')
   const currentCongressNumber = useMemo(
     () => CongressUtils.getCurrentCongressNumber(),
     []
@@ -89,7 +91,7 @@ export default function TrendBarCharts({
         dataset={filteredData}
         xAxis={[
           {
-            label: 'Congress',
+            label: t('landing.card.trend.chart.xAxis.label', { ns: 'bill' }),
             scaleType: 'band',
             dataKey: 'congress',
             valueFormatter: xLabelFormatter,
@@ -97,7 +99,7 @@ export default function TrendBarCharts({
         ]}
         yAxis={[
           {
-            label: 'Bill Count',
+            label: t('landing.card.trend.chart.yAxis.label', { ns: 'bill' }),
             tickMinStep: 1,
           },
         ]}

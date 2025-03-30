@@ -17,8 +17,10 @@ import { BillTrendByCategoryQuery } from '@/common/lib/graphql/__generated__/gra
 import { useQuery } from '@apollo/client'
 import { QUERY_BILL_TREND_BY_CATEGORY } from '@/modules/Bill/graphql/gql'
 import { isNull, isUndefined } from 'lodash-es'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 export default function TrendCard() {
+  const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
   const router = useRouter()
   const { categoryOptions } = useBillFilterOptions()
@@ -61,12 +63,12 @@ export default function TrendCard() {
       withHeader
       headerProps={{
         headerIconAction: 'tooltip',
-        title: 'Trends by Category',
+        title: t('landing.card.trend.title', { ns: 'bill' }),
         icon: <TrendIcon />,
         iconColor: 'primary',
       }}
       tooltipProps={{
-        content: 'Trends by Category',
+        content: t('landing.card.trend.tooltip', { ns: 'bill' }),
       }}
     >
       <Stack
@@ -79,7 +81,7 @@ export default function TrendCard() {
         <UHStack justifyContent="space-between">
           <Stack spacing={1}>
             <Typography variant="menu" color={theme.color.grey[2200]}>
-              Total
+              {t('landing.card.trend.total', { ns: 'bill' })}
             </Typography>
             <Typography variant="h4">{totalCount}</Typography>
           </Stack>
@@ -89,7 +91,9 @@ export default function TrendCard() {
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(String(e.target.value))}
             >
-              <MenuItem value="">All</MenuItem>
+              <MenuItem value="">
+                {t('landing.card.trend.option.all', { ns: 'bill' })}
+              </MenuItem>
               {categoryOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>
                   {option.label}
