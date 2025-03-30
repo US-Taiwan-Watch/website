@@ -13,6 +13,7 @@ import useTags from '@/modules/Common/hooks/useTags'
 import { Language } from '@/common/lib/i18n/types'
 import { useParams } from 'next/navigation'
 import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 export type PeopleFilterOption<T> = {
   value: T
@@ -20,6 +21,7 @@ export type PeopleFilterOption<T> = {
 }
 
 export default function usePeopleFilterOptions() {
+  const { t } = useTranslationClient(['people', 'common'])
   const { lang } = useParams<{ lang: Language }>()
 
   const { categoriesPeople } = useCategoriesPeople(lang)
@@ -35,11 +37,20 @@ export default function usePeopleFilterOptions() {
 
   const partyOptions = useMemo<PeopleFilterOption<PeoplePartyEnum>[]>(
     () => [
-      { value: PeoplePartyEnum.Democratic, label: 'Democratic' },
-      { value: PeoplePartyEnum.Republican, label: 'Republican' },
-      { value: PeoplePartyEnum.Independent, label: 'Independent' },
+      {
+        value: PeoplePartyEnum.Democratic,
+        label: t('party.democratic', { ns: 'common' }),
+      },
+      {
+        value: PeoplePartyEnum.Republican,
+        label: t('party.republican', { ns: 'common' }),
+      },
+      {
+        value: PeoplePartyEnum.Independent,
+        label: t('party.independent', { ns: 'common' }),
+      },
     ],
-    []
+    [t]
   )
 
   const currentCongressNumber = useMemo(
@@ -100,15 +111,26 @@ export default function usePeopleFilterOptions() {
     () => [
       {
         value: PeopleOfficialAreaEnum.ExecutiveAuthority,
-        label: 'Executive Authority',
+        label: t('filter.officialArea.executiveAuthority.value', {
+          ns: 'people',
+        }),
       },
       {
         value: PeopleOfficialAreaEnum.DefenseSecurity,
-        label: 'Defense & Security',
+        label: t('filter.officialArea.defenseSecurity.value', { ns: 'people' }),
       },
-      { value: PeopleOfficialAreaEnum.Diplomacy, label: 'Diplomacy' },
-      { value: PeopleOfficialAreaEnum.PublicHealth, label: 'Public Health' },
-      { value: PeopleOfficialAreaEnum.Judicial, label: 'Judicial' },
+      {
+        value: PeopleOfficialAreaEnum.Diplomacy,
+        label: t('filter.officialArea.diplomacy.value', { ns: 'people' }),
+      },
+      {
+        value: PeopleOfficialAreaEnum.PublicHealth,
+        label: t('filter.officialArea.publicHealth.value', { ns: 'people' }),
+      },
+      {
+        value: PeopleOfficialAreaEnum.Judicial,
+        label: t('filter.officialArea.judicial.value', { ns: 'people' }),
+      },
     ],
     []
   )
@@ -117,10 +139,22 @@ export default function usePeopleFilterOptions() {
     PeopleFilterOption<PeopleCompanyTypeEnum>[]
   >(
     () => [
-      { value: PeopleCompanyTypeEnum.ThinkTank, label: 'Think Tank' },
-      { value: PeopleCompanyTypeEnum.Academic, label: 'Academic' },
-      { value: PeopleCompanyTypeEnum.Media, label: 'Media' },
-      { value: PeopleCompanyTypeEnum.Other, label: 'Other' },
+      {
+        value: PeopleCompanyTypeEnum.ThinkTank,
+        label: t('filter.companyType.thinkTank.value', { ns: 'people' }),
+      },
+      {
+        value: PeopleCompanyTypeEnum.Academic,
+        label: t('filter.companyType.academic.value', { ns: 'people' }),
+      },
+      {
+        value: PeopleCompanyTypeEnum.Media,
+        label: t('filter.companyType.media.value', { ns: 'people' }),
+      },
+      {
+        value: PeopleCompanyTypeEnum.Other,
+        label: t('filter.companyType.other.value', { ns: 'people' }),
+      },
     ],
     []
   )

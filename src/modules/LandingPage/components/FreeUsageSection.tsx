@@ -7,6 +7,8 @@ import { USTWTheme, styled } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import Image from 'next/image'
+import { Trans } from 'react-i18next'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledHighlightText = styled('span')(({ theme }) => ({
   color: theme.color.orange[900],
@@ -16,6 +18,7 @@ const StyledImage = styled(Image)(() => ({}))
 
 const FreeUsageSection = () => {
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('home')
 
   return (
     <LandingSectionWrapper
@@ -23,10 +26,22 @@ const FreeUsageSection = () => {
       isHeaderWidth
     >
       <Stack gap={4}>
-        <Typography variant="h2" whiteSpace="pre-line">
-          {'Stay Updated On The\nLatest '}
-          <StyledHighlightText>Taiwan-US</StyledHighlightText>
-          {' News.'}
+        <Typography
+          variant="h2"
+          whiteSpace="pre-line"
+          maxWidth={{
+            xs: '100%',
+            sm: '60%',
+          }}
+        >
+          <Trans
+            i18nKey="section.freeUsage.slogan"
+            t={t}
+            ns="home"
+            components={{
+              highlight: <StyledHighlightText />,
+            }}
+          />
         </Typography>
         <Box>
           {/* TODO: 等之後有 Create Account 頁面，要連過去 */}
@@ -37,7 +52,7 @@ const FreeUsageSection = () => {
             size="large"
             endIcon={<ArrowForwardIcon />}
           >
-            Join Today
+            {t('section.freeUsage.cta.joinToday', { ns: 'home' })}
           </UButton>
         </Box>
       </Stack>

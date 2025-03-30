@@ -8,6 +8,7 @@ import { ReactNode } from 'react'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useTheme } from '@mui/material/styles'
 import type { UrlObject } from 'url'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type Props = {
   link: UrlObject | string
@@ -18,6 +19,7 @@ type Props = {
 
 const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('common')
 
   return (
     <Link href={link}>
@@ -45,7 +47,7 @@ const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
               textTransform: 'capitalize',
             }}
           >
-            {text ?? 'Learn More'}
+            {text ?? t('cta.learnMore', { ns: 'common' })}
           </Typography>
         </UHStack>
       </Button>

@@ -190,7 +190,7 @@ export const ArticlePostCardSkeleton = ({
         variant="rounded"
         sx={{
           width: {
-            xs: forceCard ? 100 : 90,
+            xs: forceCard ? '100%' : 90,
             sm: '100%',
           },
           height: {

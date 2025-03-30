@@ -141,8 +141,8 @@ feature branch 會以 `Squash` 的方式合併到 `develop` 分支。
 
 #### 使用方法
 
-- 服務器端：使用 `src/common/lib/i18n/serverHooks.ts` 中的 `useTranslation` 函數。
-- 客戶端：使用 `src/common/lib/i18n/clientHooks.ts` 中的 `useTranslation` 函數。
+- 服務器端：使用 `src/common/lib/i18n/getTranslationServer.ts` 中的 `useTranslation` 函數。
+- 客戶端：使用 `src/common/lib/i18n/useTranslationClient.ts` 中的 `useTranslation` 函數。
 
 透過 `yarn i18n` 指令會從 Content Management System 抓取語言檔案，並放置於 `src/common/lib/i18n/locales` 目錄下。
 

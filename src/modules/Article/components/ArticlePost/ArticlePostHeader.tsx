@@ -11,7 +11,7 @@ import { useMemo } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
-
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 const dateFormat = 'YYYY-MM-DD'
 
 // TODO: 定義介面
@@ -24,6 +24,7 @@ const ArticlePostHeader = function ArticlePostHeader({
   article,
 }: ArticlePostHeaderProps) {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient(['article'])
   const { categories, title, subtitle, date, tags, repostSources, authors } =
     article
   const theme = useTheme<USTWTheme>()
@@ -113,7 +114,11 @@ const ArticlePostHeader = function ArticlePostHeader({
           sx={{ color: theme.color.grey[3300] }}
           fontWeight={500}
         >
-          {`Release time: ${formattedDate}   |   By ${ArticleUtils.formatAuthorsName(authors ?? [])}`}
+          {t('page.releaseTimeAuthor', {
+            ns: 'article',
+            date: formattedDate,
+            author: ArticleUtils.formatAuthorsName(authors ?? []),
+          })}
         </Typography>
         {/** Tags */}
         {tags && (

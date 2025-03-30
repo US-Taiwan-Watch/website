@@ -23,6 +23,7 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { useTheme } from '@mui/material'
 import type React from 'react'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const ICON_SIZE = 20
 const StyledIconWrapper = styled(Box)(({ theme }) => ({
@@ -51,6 +52,7 @@ const StyledLinkButton = styled(UButton)(({ theme }) => ({
 }))
 
 const LinkButton = memo(function LinkButton({ people }: { people: People }) {
+  const { t } = useTranslationClient(['people'])
   const { isMobile } = useResponsive()
   const { copyUrl } = useClipboard()
   const theme = useTheme<USTWTheme>()
@@ -87,7 +89,7 @@ const LinkButton = memo(function LinkButton({ people }: { people: People }) {
           rounded
           onClick={handleLinkBtnClick}
         >
-          Link
+          {t('page.link.btn', { ns: 'people' })}
         </StyledLinkButton>
       )}
       <Menu

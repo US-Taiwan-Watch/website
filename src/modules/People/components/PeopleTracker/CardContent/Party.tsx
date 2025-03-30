@@ -6,6 +6,7 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledPartyLogo = styled(Image)(() => ({
   width: '50px',
@@ -22,6 +23,7 @@ interface PartyProps {
 }
 
 const Party = function ({ party }: PartyProps) {
+  const { t } = useTranslationClient('common')
   const theme = useTheme<USTWTheme>()
   const partyLogo = getPartyLogo(party)
 
@@ -73,7 +75,7 @@ const Party = function ({ party }: PartyProps) {
             fontWeight: 700,
           }}
         >
-          {party.toLowerCase()}
+          {t(`party.${party.toLowerCase()}`, { ns: 'common' })}
         </Typography>
       </UHStack>
     </UContentCard>

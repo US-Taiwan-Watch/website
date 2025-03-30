@@ -24,6 +24,7 @@ import {
 import UFilterTextField from '@/common/components/atoms/UFilterTextField'
 import UAutocomplete from '@/common/components/atoms/UAutocomplete'
 import { styled } from '@/common/lib/mui/theme'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledUSelect = styled(USelect)(({ theme }) => ({
   '& .MuiSelect-select': {
@@ -61,6 +62,7 @@ interface PeopleFilterProps {
 }
 
 const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
+  const { t } = useTranslationClient(['people'])
   const {
     form,
     category,
@@ -91,7 +93,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     ) {
       selectors.push({
         key: 'congress',
-        label: 'Congress',
+        label: t('filter.congress.label', { ns: 'people' }),
         options: congressOptions,
         minWidth: 140,
       })
@@ -106,7 +108,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     ) {
       selectors.push({
         key: 'party',
-        label: 'Party',
+        label: t('filter.party.label', { ns: 'people' }),
         options: partyOptions,
         minWidth: 140,
       })
@@ -116,7 +118,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.Senator].includes(category)) {
       selectors.push({
         key: 'state',
-        label: 'State',
+        label: t('filter.state.label', { ns: 'people' }),
         options: stateOptions,
         minWidth: 140,
       })
@@ -126,7 +128,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.HouseRepresentative].includes(category)) {
       selectors.push({
         key: 'stateRegion',
-        label: 'State/Region',
+        label: t('filter.stateRegion.label', { ns: 'people' }),
         options: stateOrTerritoryOptions,
         minWidth: 200,
       })
@@ -136,7 +138,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.HouseRepresentative].includes(category)) {
       selectors.push({
         key: 'district',
-        label: 'District',
+        label: t('filter.district.label', { ns: 'people' }),
         options: [],
         minWidth: 140,
       })
@@ -151,7 +153,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     ) {
       selectors.push({
         key: 'tag',
-        label: 'Tag',
+        label: t('filter.tag.label', { ns: 'people' }),
         options: tagOptions,
         minWidth: 140,
       })
@@ -161,7 +163,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.Official].includes(category)) {
       selectors.push({
         key: 'officialArea',
-        label: 'Official Area',
+        label: t('filter.officialArea.label', { ns: 'people' }),
         options: officialAreaOptions,
         minWidth: 160,
       })
@@ -171,7 +173,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
     if ([PeopleCategoryEnum.Expert].includes(category)) {
       selectors.push({
         key: 'companyType',
-        label: 'Company Type',
+        label: t('filter.companyType.label', { ns: 'people' }),
         options: companyTypeOptions,
         minWidth: 200,
       })
@@ -179,6 +181,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
 
     return selectors
   }, [
+    t,
     category,
     partyOptions,
     congressOptions,
@@ -234,7 +237,7 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
               }}
             >
               <MenuItem value={defaultCategory} disabled>
-                Category
+                {t('filter.category.label', { ns: 'people' })}
               </MenuItem>
               {categoryOptions.map((option) => (
                 <MenuItem key={option.value} value={option.value}>

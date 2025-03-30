@@ -16,6 +16,7 @@ import { useMemo } from 'react'
 import { Bill } from '@/modules/Bill/business/Bill'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface BillListSectionProps {
   latestBills: Bill[]
@@ -26,6 +27,7 @@ const BillListSection = ({
   latestBills,
   popularBills,
 }: BillListSectionProps) => {
+  const { t } = useTranslationClient('bill')
   const { isMobile } = useResponsive()
   const currentCongressNumber = useMemo(
     () => CongressUtils.getCurrentCongressNumber(),
@@ -54,7 +56,7 @@ const BillListSection = ({
         }}
       >
         <SectionTitleWithLink
-          title="Latest Bills"
+          title={t('landing.section.latestBills.title', { ns: 'bill' })}
           link={{
             pathname: ROUTES.BILL_LIST,
             query: {
@@ -91,7 +93,7 @@ const BillListSection = ({
         }}
       >
         <SectionTitleWithLink
-          title="Popular Bills"
+          title={t('landing.section.popularBills.title', { ns: 'bill' })}
           link={{
             pathname: ROUTES.BILL_LIST,
             query: {

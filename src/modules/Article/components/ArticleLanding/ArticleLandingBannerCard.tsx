@@ -13,6 +13,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UTagList from '@/common/components/atoms/UTagList'
 import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledCategory = styled(UButton)(({ theme }) => ({
   borderRadius: '5px',
@@ -54,6 +55,7 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
 }: ArticleLandingBannerCardProps) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('common')
 
   return (
     <Box
@@ -138,7 +140,7 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
                 size={isMobile ? 'medium' : 'large'}
                 endIcon={<ArrowForwardIcon />}
               >
-                Learn More
+                {t('cta.learnMore', { ns: 'common' })}
               </UButton>
             </Link>
           </Box>

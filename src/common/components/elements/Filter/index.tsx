@@ -15,6 +15,7 @@ import { useState, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { CloseIcon, FilterIcon } from '@/common/styles/assets/Icons'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledFilterContainer = styled(UHStack)(({ theme }) => ({
   padding: theme.spacing(1.5, 2),
@@ -41,6 +42,7 @@ export default function Filter({
   children,
   handleReset,
 }: FilterProps) {
+  const { t } = useTranslationClient('common')
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
   const [drawerOpen, setDrawerOpen] = useState(false)
@@ -78,7 +80,9 @@ export default function Filter({
                   fontWeight: `600 !important`,
                 }}
               >
-                Filter
+                {t('filter.title', {
+                  ns: 'common',
+                })}
               </Typography>
               <UIconButton
                 variant="outlined"
@@ -121,7 +125,9 @@ export default function Filter({
                     width: '100%',
                   }}
                 >
-                  Reset
+                  {t('filter.reset.btn', {
+                    ns: 'common',
+                  })}
                 </UButton>
 
                 <UButton
@@ -138,7 +144,9 @@ export default function Filter({
                   }}
                   form={formId}
                 >
-                  Submit
+                  {t('filter.submit.btn', {
+                    ns: 'common',
+                  })}
                 </UButton>
               </UHStack>
             </Stack>
@@ -180,7 +188,9 @@ export default function Filter({
             size="medium"
             onClick={handleReset}
           >
-            Reset
+            {t('filter.reset.btn', {
+              ns: 'common',
+            })}
           </UButton>
 
           <UButton
@@ -191,7 +201,9 @@ export default function Filter({
             size="medium"
             form={formId}
           >
-            Submit
+            {t('filter.submit.btn', {
+              ns: 'common',
+            })}
           </UButton>
         </UHStack>
       </UHStack>

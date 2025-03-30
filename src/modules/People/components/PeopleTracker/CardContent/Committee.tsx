@@ -5,6 +5,7 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { People } from '@/modules/People/business/People'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledDescriptionListItem = styled('li')(({ theme }) => ({
   position: 'relative',
@@ -73,12 +74,14 @@ interface CommitteeProps {
 }
 
 const Committee = function Committee({ committees }: CommitteeProps) {
+  const { t } = useTranslationClient(['people'])
+
   return (
     <UContentCard
       withHeader
       headerProps={{
         headerIconAction: 'modal',
-        title: 'Committee',
+        title: t('page.card.committee.title', { ns: 'people' }),
         icon: <PeopleIcon />,
         iconColor: 'secondary',
       }}
@@ -90,7 +93,7 @@ const Committee = function Committee({ committees }: CommitteeProps) {
       }}
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>
-          No Committee
+          {t('page.card.committee.placeholder', { ns: 'people' })}
         </Typography>
       }
     >

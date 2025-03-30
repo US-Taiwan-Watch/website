@@ -1,3 +1,4 @@
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { ROUTES } from '@/routes'
 import { useMemo } from 'react'
 
@@ -16,24 +17,25 @@ export type HeaderNavItem =
     }
 
 export default function useNavItems() {
-  // TODO: Change title depending on language
+  const { t } = useTranslationClient('header')
+
   const navItems = useMemo<Array<HeaderNavItem>>(() => {
     return [
       {
         id: 'discover',
         type: 'list',
-        title: 'Discover',
+        title: t('navItem.discover.title', { ns: 'header' }),
         list: [
           {
             id: 'discover-bill',
             type: 'link',
-            title: 'Bills',
+            title: t('navItem.discover.bills.title', { ns: 'header' }),
             href: ROUTES.BILL,
           },
           {
             id: 'discover-people',
             type: 'link',
-            title: 'People',
+            title: t('navItem.discover.people.title', { ns: 'header' }),
             href: ROUTES.PEOPLE,
           },
         ],
@@ -41,36 +43,36 @@ export default function useNavItems() {
       {
         id: 'articles',
         type: 'link',
-        title: 'Articles',
+        title: t('navItem.articles.title', { ns: 'header' }),
         href: ROUTES.ARTICLE,
       },
       {
         id: 'ketagalan-media',
         type: 'link',
-        title: 'Ketagalan Media',
+        title: t('navItem.ketagalanMedia.title', { ns: 'header' }),
         href: ROUTES.HOME,
       },
       {
         id: 'podcasts',
         type: 'list',
-        title: 'Podcasts',
+        title: t('navItem.podcasts.title', { ns: 'header' }),
         list: [
           {
             id: 'podcasts-1',
             type: 'link',
-            title: '觀測站底加辣',
+            title: t('navItem.podcasts.watchHere.title', { ns: 'header' }),
             href: ROUTES.HOME,
           },
           {
             id: 'podcasts-2',
             type: 'link',
-            title: '觀測站予你知',
+            title: t('navItem.podcasts.watchInfo.title', { ns: 'header' }),
             href: ROUTES.HOME,
           },
           {
             id: 'podcasts-3',
             type: 'link',
-            title: '觀測站讀書會',
+            title: t('navItem.podcasts.watchBookClub.title', { ns: 'header' }),
             href: ROUTES.HOME,
           },
         ],
@@ -78,42 +80,42 @@ export default function useNavItems() {
       {
         id: 'events',
         type: 'link',
-        title: 'Events',
+        title: t('navItem.events.title', { ns: 'header' }),
         href: ROUTES.HOME,
       },
       {
         id: 'about',
         type: 'list',
-        title: 'About',
+        title: t('navItem.about.title', { ns: 'header' }),
         list: [
           {
             id: 'about-mission',
             type: 'link',
-            title: 'Mission',
+            title: t('navItem.about.mission.title', { ns: 'header' }),
             href: ROUTES.HOME,
           },
           {
             id: 'about-footprints',
             type: 'link',
-            title: 'Footprints',
+            title: t('navItem.about.footprints.title', { ns: 'header' }),
             href: ROUTES.HOME,
           },
           {
             id: 'about-data',
             type: 'link',
-            title: 'Data',
+            title: t('navItem.about.data.title', { ns: 'header' }),
             href: ROUTES.HOME,
           },
           {
             id: 'about-newsroom',
             type: 'link',
-            title: 'Newsroom',
+            title: t('navItem.about.newsroom.title', { ns: 'header' }),
             href: ROUTES.HOME,
           },
         ],
       },
     ]
-  }, [])
+  }, [t])
 
   return { navItems }
 }

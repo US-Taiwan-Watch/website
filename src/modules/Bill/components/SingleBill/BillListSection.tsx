@@ -13,12 +13,14 @@ import { ROUTES } from '@/routes'
 import { Bill } from '@/modules/Bill/business/Bill'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface BillListSectionProps {
   relatedBills: Bill[]
 }
 
 const BillListSection = ({ relatedBills }: BillListSectionProps) => {
+  const { t } = useTranslationClient('bill')
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
@@ -31,7 +33,12 @@ const BillListSection = ({ relatedBills }: BillListSectionProps) => {
       }}
     >
       <Stack gap={theme.spacing(7.5)}>
-        <SectionTitleWithLink title="Related Bills" link={ROUTES.BILL_LIST} />
+        <SectionTitleWithLink
+          title={t('page.section.relatedBills.title', {
+            ns: 'bill',
+          })}
+          link={ROUTES.BILL_LIST}
+        />
         {isMobile ? (
           <FullWidthScrollableListWrapper>
             <ScrollableBillCards

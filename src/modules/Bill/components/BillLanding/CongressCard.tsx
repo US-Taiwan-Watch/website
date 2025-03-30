@@ -12,6 +12,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UButton from '@/common/components/atoms/UButton'
 import { ChamberEnum } from '@/common/enums/Chamber'
 import { CongressUtils } from '@/common/business/Congress'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 // TODO: 從 API 拿資料
 const PARLIAMENT_CHART_DATA_MOCK_HOUSE = Object.entries(
@@ -36,6 +37,7 @@ const PARLIAMENT_CHART_DATA_MOCK_SENATE = Object.entries(
 )
 
 export default function CongressCard() {
+  const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
   const [selectedChamber, setSelectedChamber] = useState<ChamberEnum>(
     ChamberEnum.HOUSE
@@ -53,25 +55,29 @@ export default function CongressCard() {
       withHeader
       headerProps={{
         headerIconAction: 'tooltip',
-        title: 'Congressional Distribution',
+        title: t('landing.card.congressionalDistribution.title', {
+          ns: 'bill',
+        }),
         icon: <CongressIcon />,
         iconColor: 'primary',
       }}
       tooltipProps={{
-        content: 'Congressional Distribution',
+        content: t('landing.card.congressionalDistribution.tooltip', {
+          ns: 'bill',
+        }),
       }}
     >
       <Stack pt={2} alignItems="center">
         <ParliamentChart data={data} />
         <UHStack alignItems="center" justifyContent="center" spacing={2}>
-          {[ChamberEnum.HOUSE, ChamberEnum.SENATE].map((congress) => (
+          {[ChamberEnum.HOUSE, ChamberEnum.SENATE].map((chamber) => (
             <UButton
-              key={congress}
+              key={chamber}
               variant="contained"
               color="primary"
               sx={{
                 backgroundColor:
-                  selectedChamber === congress
+                  selectedChamber === chamber
                     ? theme.color.purple[100]
                     : theme.color.neutral[100],
                 textTransform: 'capitalize',
@@ -82,9 +88,13 @@ export default function CongressCard() {
                 },
               }}
               rounded
-              onClick={() => setSelectedChamber(congress)}
+              onClick={() => setSelectedChamber(chamber)}
             >
-              <Typography variant="subtitleS">{congress}</Typography>
+              <Typography variant="subtitleS">
+                {t(`landing.card.congressionalDistribution.chart.${chamber}`, {
+                  ns: 'bill',
+                })}
+              </Typography>
             </UButton>
           ))}
         </UHStack>

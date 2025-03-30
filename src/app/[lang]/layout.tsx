@@ -12,6 +12,7 @@ import Stack from '@mui/material/Stack'
 import apiConfig from '@/modules/Common/api/ApiConfig'
 import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
 import { ResponsiveProvider } from '@/common/lib/responsive/ResponsiveProvider'
+import I18nProvider from '@/common/lib/i18n/provider/I18nProvider'
 
 export const metadata: Metadata = {
   title: 'USTW',
@@ -39,17 +40,19 @@ export default async function RootLayout({
           <ThemeProvider lang={params.lang}>
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
-            <ResponsiveProvider defaultValue={{ isMobile }}>
-              <Stack minHeight="100dvh">
-                <Header />
-                <ToastProvider>
-                  <ClientApolloProvider>
-                    <Stack flexGrow={1}>{children}</Stack>
-                  </ClientApolloProvider>
-                </ToastProvider>
-                <Footer />
-              </Stack>
-            </ResponsiveProvider>
+            <I18nProvider>
+              <ResponsiveProvider defaultValue={{ isMobile }}>
+                <Stack minHeight="100dvh">
+                  <Header />
+                  <ToastProvider>
+                    <ClientApolloProvider>
+                      <Stack flexGrow={1}>{children}</Stack>
+                    </ClientApolloProvider>
+                  </ToastProvider>
+                  <Footer />
+                </Stack>
+              </ResponsiveProvider>
+            </I18nProvider>
           </ThemeProvider>
         </AppRouterCacheProvider>
       </body>

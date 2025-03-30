@@ -15,6 +15,7 @@ import {
 import { QUERY_PEOPLE_COSPONSOR_BILLS } from '@/modules/People/graphql/gql'
 import { isNull } from 'lodash-es'
 import { BillUtils } from '@/modules/Bill/business/Bill'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface CoSponsoredProps {
   people: People
@@ -22,6 +23,7 @@ interface CoSponsoredProps {
 
 const CoSponsored = function ({ people }: CoSponsoredProps) {
   const { lang } = useParams<{ lang: Language }>()
+  const { t } = useTranslationClient(['people'])
 
   const { data } = useQuery<
     PeopleCosponsorBillsQuery,
@@ -39,10 +41,10 @@ const CoSponsored = function ({ people }: CoSponsoredProps) {
 
   return (
     <NumberCard
-      title="Co-Sponsored"
+      title={t('page.card.coSponsored.title', { ns: 'people' })}
       number={cosponsorBills.length}
       headerProps={{
-        title: 'Co-Sponsored',
+        title: t('page.card.coSponsored.title', { ns: 'people' }),
         icon: <PeopleJoinIcon />,
         iconColor: 'primary',
       }}

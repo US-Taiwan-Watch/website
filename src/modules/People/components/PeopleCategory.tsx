@@ -3,6 +3,7 @@ import { styled } from '@/common/lib/mui/theme'
 import { Box, Typography } from '@mui/material'
 import UHStack from '@/common/components/atoms/UHStack'
 import { People } from '@/modules/People/business/People'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledPeopleTagContainer = styled(Box)(({ theme }) => ({
   width: 'fit-content',
@@ -34,8 +35,10 @@ interface PeopleCategoryProps {
 const PeopleCategory = function PeopleCategory({
   people,
 }: PeopleCategoryProps) {
+  const { t } = useTranslationClient(['people'])
+
   return (
-    <UHStack spacing={1} flexWrap="wrap">
+    <UHStack gap={1} flexWrap="wrap">
       {people.positions?.map((position) => (
         <StyledPeopleTagContainer
           key={position}
@@ -44,7 +47,7 @@ const PeopleCategory = function PeopleCategory({
           })}
         >
           <Typography variant="bodyS" fontWeight={500}>
-            {position.toLowerCase()}
+            {t(`card.position.${position.replace(' ', '')}`, { ns: 'people' })}
           </Typography>
         </StyledPeopleTagContainer>
       ))}

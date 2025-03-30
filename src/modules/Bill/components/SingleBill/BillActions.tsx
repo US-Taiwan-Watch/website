@@ -12,6 +12,7 @@ import { useState, useMemo } from 'react'
 import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import DrawerFilter from '@/modules/Bill/components/SingleBill/ActionsFilter/DrawerFilter'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const DATE_FORMAT = 'MM/DD/YYYY'
 
@@ -21,6 +22,7 @@ type Props = {
 
 export default function BillActions({ bill }: Props) {
   const { isMobile } = useResponsive()
+  const { t } = useTranslationClient('bill')
   const [selectedActionsType, setSelectedActionsType] = useState<ActionsType>(
     ActionsType.ACTIONS_OVERVIEW
   )
@@ -39,7 +41,9 @@ export default function BillActions({ bill }: Props) {
         withHeader
         headerProps={{
           headerIconAction: 'modal',
-          title: 'Actions',
+          title: t('page.card.actions.title', {
+            ns: 'bill',
+          }),
           icon: <ActionsIcon />,
           iconColor: 'primary',
           actionIcon: <CardExpandIcon />,

@@ -19,6 +19,7 @@ import Link from 'next/link'
 import Divider from '@mui/material/Divider'
 import { getLinkPreview } from 'link-preview-js'
 import { LinkIcon } from '@/common/styles/assets/Icons'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type SourceMetadata = {
   /** 連結 */
@@ -70,19 +71,20 @@ interface SourcesDialogProps {
 const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
   const theme = useTheme<USTWTheme>()
   const { sourceMetadatas, isModalOpen, handleCloseModal } = props
+  const { t } = useTranslationClient(['taiwan_record'])
 
   return (
     <UContentCardDialog
       open={isModalOpen}
       onClose={handleCloseModal}
       maxWidth="md"
-      title="Sources"
+      title={t('card.sources.title', { ns: 'taiwan_record' })}
     >
       <UContentCard
         withHeader
         headerProps={{
           // TODO: i18n
-          title: 'Sources',
+          title: t('card.sources.title', { ns: 'taiwan_record' }),
           action: (
             <UIconButton
               variant="rounded"
@@ -159,6 +161,7 @@ interface TaiwanRecordSourcesProps {
 
 const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient(['taiwan_record'])
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
   const [sourceMetadatas, setSourceMetadatas] = useState<SourceMetadata[]>([])
 
@@ -195,7 +198,9 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
           borderRadius: theme.shape.borderRadius * 5,
         }}
       >
-        <Typography variant="buttonXXS">Sources</Typography>
+        <Typography variant="buttonXXS">
+          {t('card.sources.btn', { ns: 'taiwan_record' })}
+        </Typography>
         <AvatarGroup
           total={sourceMetadatas.length}
           max={MAX_FAVICON_AVATAR_COUNT}

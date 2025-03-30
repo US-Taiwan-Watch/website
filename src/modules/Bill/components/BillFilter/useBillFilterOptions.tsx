@@ -20,6 +20,7 @@ import {
 import { isNull } from 'lodash-es'
 import { PeopleUtils } from '@/modules/People/business/People'
 import useTags from '@/modules/Common/hooks/useTags'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 export type BillFilterOption<T> = {
   value: T
@@ -27,6 +28,7 @@ export type BillFilterOption<T> = {
 }
 
 export default function useBillFilterOptions() {
+  const { t } = useTranslationClient(['bill', 'common'])
   const { lang } = useParams<{ lang: Language }>()
 
   const { categoriesBills } = useCategoriesBills(lang)
@@ -42,72 +44,120 @@ export default function useBillFilterOptions() {
 
   const partyOptions = useMemo<BillFilterOption<BillPartyEnum>[]>(
     () => [
-      { value: BillPartyEnum.Democratic, label: 'Democratic' },
-      { value: BillPartyEnum.Republican, label: 'Republican' },
-      { value: BillPartyEnum.Independent, label: 'Independent' },
+      {
+        value: BillPartyEnum.Democratic,
+        label: t('party.democratic', { ns: 'common' }),
+      },
+      {
+        value: BillPartyEnum.Republican,
+        label: t('party.republican', { ns: 'common' }),
+      },
+      {
+        value: BillPartyEnum.Independent,
+        label: t('party.independent', { ns: 'common' }),
+      },
     ],
-    []
+    [t]
   )
 
   const typeOptions = useMemo<BillFilterOption<BillTypeEnum>[]>(
     () => [
-      { value: BillTypeEnum.HouseBill, label: 'H.R. - House Bill' },
-      { value: BillTypeEnum.SenateBill, label: 'S. - Senate Bill' },
+      {
+        value: BillTypeEnum.HouseBill,
+        label: t('filter.type.hr.value', { ns: 'bill' }),
+      },
+      {
+        value: BillTypeEnum.SenateBill,
+        label: t('filter.type.s.value', { ns: 'bill' }),
+      },
       {
         value: BillTypeEnum.HouseJointResolution,
-        label: 'H.J. Res. - House Joint Resolution',
+        label: t('filter.type.hjres.value', { ns: 'bill' }),
       },
       {
         value: BillTypeEnum.SenateJointResolution,
-        label: 'S.J. Res. - Senate Joint Resolution',
+        label: t('filter.type.sjres.value', { ns: 'bill' }),
       },
       {
         value: BillTypeEnum.HouseConcurrentResolution,
-        label: 'H. Con. Res. - House Concurrent Resolution',
+        label: t('filter.type.hconres.value', { ns: 'bill' }),
       },
       {
         value: BillTypeEnum.SenateConcurrentResolution,
-        label: 'S. Con. Res. - Senate Concurrent Resolution',
+        label: t('filter.type.sconres.value', { ns: 'bill' }),
       },
       {
         value: BillTypeEnum.HouseSimpleResolution,
-        label: 'H. Res. - House Simple Resolution',
+        label: t('filter.type.hres.value', { ns: 'bill' }),
       },
       {
         value: BillTypeEnum.SenateSimpleResolution,
-        label: 'S. Res. - Senate Simple Resolution',
+        label: t('filter.type.sres.value', { ns: 'bill' }),
       },
     ],
-    []
+    [t]
   )
 
   const statusOptions = useMemo<BillFilterOption<BillStatusEnum>[]>(
     () => [
-      { value: BillStatusEnum.Introduced, label: 'Introduced' },
-      { value: BillStatusEnum.PassedHouse, label: 'Passed House' },
-      { value: BillStatusEnum.PassedSenate, label: 'Passed Senate' },
-      { value: BillStatusEnum.ToPresident, label: 'To President' },
-      { value: BillStatusEnum.BecomeLaw, label: 'Become Law' },
-      { value: BillStatusEnum.FailedHouse, label: 'Failed House' },
-      { value: BillStatusEnum.FailedSenate, label: 'Failed Senate' },
-      { value: BillStatusEnum.AgreedToInHouse, label: 'Agreed to in House' },
-      { value: BillStatusEnum.AgreedToInSenate, label: 'Agreed to in Senate' },
+      {
+        value: BillStatusEnum.Introduced,
+        label: t('filter.status.introduced.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.PassedHouse,
+        label: t('filter.status.passedHouse.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.PassedSenate,
+        label: t('filter.status.passedSenate.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.ToPresident,
+        label: t('filter.status.toPresident.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.BecomeLaw,
+        label: t('filter.status.becomeLaw.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.FailedHouse,
+        label: t('filter.status.failedHouse.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.FailedSenate,
+        label: t('filter.status.failedSenate.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.AgreedToInHouse,
+        label: t('filter.status.agreedToInHouse.value', { ns: 'bill' }),
+      },
+      {
+        value: BillStatusEnum.AgreedToInSenate,
+        label: t('filter.status.agreedToInSenate.value', { ns: 'bill' }),
+      },
       {
         value: BillStatusEnum.ResolvingDifferences,
-        label: 'Resolving Differences',
+        label: t('filter.status.resolvingDifferences.value', { ns: 'bill' }),
       },
-      { value: BillStatusEnum.VetoedByPresident, label: 'Vetoed by President' },
+      {
+        value: BillStatusEnum.VetoedByPresident,
+        label: t('filter.status.vetoedByPresident.value', { ns: 'bill' }),
+      },
       {
         value: BillStatusEnum.FailedToPassOverVeto,
-        label: 'Failed to pass over veto',
+        label: t('filter.status.failedToPassOverVeto.value', { ns: 'bill' }),
       },
-      { value: BillStatusEnum.PassedOverVeto, label: 'Passed over veto' },
+      {
+        value: BillStatusEnum.PassedOverVeto,
+        label: t('filter.status.passedOverVeto.value', { ns: 'bill' }),
+      },
       {
         value: BillStatusEnum.PocketVetoedByPresident,
-        label: 'Pocket vetoed by President',
+        label: t('filter.status.pocketVetoedByPresident.value', { ns: 'bill' }),
       },
     ],
-    []
+    [t]
   )
 
   const currentCongressNumber = useMemo(
@@ -151,10 +201,16 @@ export default function useBillFilterOptions() {
 
   const sorterOptions = useMemo<BillFilterOption<BillSorterEnum>[]>(
     () => [
-      { value: BillSorterEnum.LatestAction, label: 'Latest Action' },
-      { value: BillSorterEnum.Popularity, label: 'Popularity' },
+      {
+        value: BillSorterEnum.LatestAction,
+        label: t('filter.sorter.latestAction.value', { ns: 'bill' }),
+      },
+      {
+        value: BillSorterEnum.Popularity,
+        label: t('filter.sorter.popularity.value', { ns: 'bill' }),
+      },
     ],
-    []
+    [t]
   )
 
   const { tags } = useTags()

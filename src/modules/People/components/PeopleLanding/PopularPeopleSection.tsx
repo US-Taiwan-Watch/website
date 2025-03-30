@@ -6,7 +6,13 @@ import PopularPeopleCards from '@/modules/People/components/PeopleLanding/Popula
  */
 const POPULAR_PEOPLE_COUNT = 4
 
-export default async function PopularPeopleSection() {
+type PopularPeopleSectionProps = {
+  title: string
+}
+
+export default async function PopularPeopleSection({
+  title,
+}: PopularPeopleSectionProps) {
   const peoples = await ServerPeopleApi.getPopularPeople({
     limit: POPULAR_PEOPLE_COUNT,
   })
@@ -19,7 +25,7 @@ export default async function PopularPeopleSection() {
       }}
     >
       <Typography variant="h3" fontWeight={600}>
-        Popular People
+        {title}
       </Typography>
       <Box>
         <PopularPeopleCards peoples={peoples} isPopular />
