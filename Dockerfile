@@ -11,6 +11,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# 建立語言包
+RUN yarn i18n
+
 RUN yarn build
 
 FROM base AS runner
