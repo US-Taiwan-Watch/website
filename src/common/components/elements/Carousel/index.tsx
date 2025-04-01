@@ -12,6 +12,19 @@ import ArrowPagination from '@/common/components/elements/Carousel/ArrowPaginati
 
 const StyledCarouselContainer = styled(Stack)(() => ({
   width: '100%',
+  /**
+   * Force every slide to be the same height
+   * @see {@link https://stackoverflow.com/a/53131996}
+   */
+  '& .slick-track': {
+    display: 'flex !important',
+  },
+  '& .slick-slide': {
+    height: 'inherit !important',
+    '& > div': {
+      height: '100%',
+    },
+  },
   '& .slick-slider': {
     width: '100%',
     userSelect: 'text',

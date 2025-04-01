@@ -12,6 +12,7 @@ import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import Link from 'next/link'
 const dateFormat = 'YYYY-MM-DD'
 
 // TODO: 定義介面
@@ -39,7 +40,8 @@ const ArticlePostHeader = function ArticlePostHeader({
     <Stack
       gap={{
         xs: 1,
-        sm: 3,
+        sm: 1.5,
+        md: 3,
       }}
     >
       <UHStack
@@ -138,12 +140,17 @@ const ArticlePostHeader = function ArticlePostHeader({
             fontWeight={500}
             sx={{ color: theme.color.grey[3400] }}
           >
-            {'Repost source from'}
+            {t('page.repostFrom', { ns: 'article' })}
           </Typography>
 
           {/** Links */}
           {repostSources?.map((repostSource, index) => (
-            <a href={repostSource.link} key={index} target="_blank">
+            <Link
+              href={repostSource.link}
+              key={index}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Typography
                 variant="bodyS"
                 fontWeight={400}
@@ -154,7 +161,7 @@ const ArticlePostHeader = function ArticlePostHeader({
               >
                 {repostSource.title}
               </Typography>
-            </a>
+            </Link>
           ))}
         </Stack>
       )}

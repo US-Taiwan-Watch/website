@@ -29,7 +29,8 @@ const ArticlePost = function ArticlePost({
         sm: 4,
       }}
       marginTop={{
-        sm: 10,
+        sm: 3,
+        md: 5,
       }}
     >
       <Box>
@@ -51,7 +52,7 @@ const ArticlePost = function ArticlePost({
             <Stack
               gap={{
                 xs: 2,
-                sm: 4,
+                md: 4,
               }}
             >
               {/** Header Section */}

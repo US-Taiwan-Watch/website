@@ -134,8 +134,8 @@ const ArticlePostCard = ({
             maxLine={4}
             sx={{
               display: {
-                xs: forceCard ? 'block' : 'none',
-                sm: 'block',
+                xs: forceCard ? '-webkit-box' : 'none',
+                sm: '-webkit-box',
               },
               color: theme.color.grey[1500],
             }}

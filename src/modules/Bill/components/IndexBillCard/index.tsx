@@ -12,9 +12,12 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
   borderRadius: '21px',
   backgroundColor: theme.color.common.white,
   [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2.75, 2.5),
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
     padding: theme.spacing(4),
   },
-  [theme.breakpoints.up('sm')]: {
+  [theme.breakpoints.up('md')]: {
     padding: theme.spacing(6, 7),
   },
 }))

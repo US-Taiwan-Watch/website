@@ -23,9 +23,9 @@ const StyledSubLinkBlock = styled(Stack)(() => ({
   maxHeight: '320px',
 }))
 
-// const StyledBottomLink = styled(Link)(() => ({
-//   textDecoration: 'underline',
-// }))
+const StyledBottomLink = styled(Link)(() => ({
+  textDecoration: 'underline',
+}))
 
 const DesktopFooter = () => {
   const { t } = useTranslationClient('footer')
@@ -37,7 +37,7 @@ const DesktopFooter = () => {
         <StyledFooter>
           {/** Top Section */}
           <Stack direction="column" spacing={6}>
-            <Stack direction="row" justifyContent="space-between">
+            <Stack direction="row" justifyContent="space-between" gap={1}>
               {/* Logo */}
               <Stack direction="row" spacing={2} alignItems="center">
                 <ULogo size="small" />
@@ -46,18 +46,25 @@ const DesktopFooter = () => {
                 </Typography>
               </Stack>
               {/* Social Links */}
-              <Stack direction="row" spacing={2} alignContent="center">
+              <Stack
+                direction="row"
+                gap={{
+                  xs: 1,
+                  lg: 2,
+                }}
+                alignContent="center"
+              >
                 {socialLinkItems.map((item, index) => (
-                  <a
+                  <Link
                     href={item.url}
                     key={index}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <UIconButton variant="rounded" color="primary">
+                    <UIconButton variant="rounded" color="primary" size="small">
                       {item.icon}
                     </UIconButton>
-                  </a>
+                  </Link>
                 ))}
               </Stack>
             </Stack>
@@ -70,9 +77,12 @@ const DesktopFooter = () => {
               {/* Sub Links */}
               <StyledSubLinkContainer
                 direction="row"
-                spacing={12}
                 flexWrap="wrap"
                 useFlexGap
+                gap={{
+                  xs: 6,
+                  lg: 12,
+                }}
               >
                 {subLinkItems.map((item, index) => (
                   <StyledSubLinkBlock
@@ -81,12 +91,20 @@ const DesktopFooter = () => {
                     spacing={2}
                     useFlexGap
                     flexWrap="wrap"
-                    rowGap={1.5}
-                    columnGap={12}
+                    rowGap={{
+                      xs: 1,
+                      lg: 1.5,
+                    }}
                   >
                     {item.type === 'title' && (
                       <>
-                        <Typography paddingBottom={1} fontWeight={700}>
+                        <Typography
+                          paddingBottom={{
+                            xs: 0.5,
+                            lg: 1,
+                          }}
+                          fontWeight={700}
+                        >
                           {item.title}
                         </Typography>
                         {item.subLinks.map(
@@ -120,13 +138,23 @@ const DesktopFooter = () => {
               </UButton>
             </Stack>
             {/** Bottom Section */}
-            <Stack direction="row" justifyContent="space-between">
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="space-between"
+              gap={{
+                xs: 5,
+                lg: 15,
+              }}
+            >
               {/** Language Switcher */}
               <LanguageSwitcher />
               {/** Links: not for phase1 */}
-              {/* <Stack direction="row" spacing={2} flex={1}>
-                <StyledBottomLink href="/">User Agreement and Privacy Policy</StyledBottomLink>
-              </Stack> */}
+              <Stack direction="row" gap={2} flex={1} alignItems="center">
+                <StyledBottomLink href="/">
+                  {t('navItem.privacy.title', { ns: 'footer' })}
+                </StyledBottomLink>
+              </Stack>
               {/** Copyright */}
               <Typography>
                 © {t('section.copyright', { ns: 'footer' })}{' '}

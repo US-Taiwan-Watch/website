@@ -31,7 +31,7 @@ type Props = {
 
 // example: https://codesandbox.io/p/sandbox/highcharts-react-demo-forked-rlflfn?file=%2Fdemo.jsx%3A23%2C1
 export default function ParliamentChart({ data }: Props) {
-  const { isMobile } = useResponsive()
+  const { isMobile, isTablet } = useResponsive()
   const currentCongressNumber = useMemo(
     () => CongressUtils.getCurrentCongressNumber(),
     []
@@ -60,8 +60,8 @@ export default function ParliamentChart({ data }: Props) {
     return {
       chart: {
         type: 'item',
-        width: isMobile ? 300 : 600,
-        height: isMobile ? 200 : 400,
+        width: isMobile ? 300 : isTablet ? 350 : 600,
+        height: isMobile ? 200 : isTablet ? 250 : 400,
       },
 
       title: {
@@ -72,9 +72,9 @@ export default function ParliamentChart({ data }: Props) {
         text: subtitle,
         align: 'center',
         verticalAlign: 'middle',
-        y: isMobile ? 70 : 150,
+        y: isMobile ? 70 : isTablet ? 95 : 150,
         style: {
-          fontSize: isMobile ? '32px' : '54px',
+          fontSize: isMobile ? '32px' : isTablet ? '40px' : '54px',
           fontWeight: 'bold',
           color: theme.color.common.black,
         },
@@ -125,6 +125,7 @@ export default function ParliamentChart({ data }: Props) {
     }
   }, [
     isMobile,
+    isTablet,
     sortedData,
     hoveredParty,
     partyColor,

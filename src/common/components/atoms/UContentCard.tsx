@@ -163,8 +163,11 @@ const UContentCard = function UContentCard({
             <UIconButton
               variant="rounded"
               color="inherit"
-              size="small"
+              size="xs"
               onClick={handleActionClick}
+              sx={{
+                p: 0,
+              }}
             >
               {popupProps?.isPopup ? (
                 <CloseIcon sx={{ color: theme.color.neutral[500] }} />
@@ -251,6 +254,7 @@ const UContentCard = function UContentCard({
             xs: 1,
             sm: 2,
           },
+          minHeight: '50px',
         }}
       />
       <CardContent

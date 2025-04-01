@@ -51,7 +51,8 @@ export default async function BillStatisticsSection({
         <Grid2
           size={{
             xs: 12,
-            sm: 8,
+            sm: 7,
+            lg: 8,
           }}
         >
           <TrendCard />
@@ -59,7 +60,8 @@ export default async function BillStatisticsSection({
         <Grid2
           size={{
             xs: 12,
-            sm: 4,
+            sm: 5,
+            lg: 4,
           }}
         >
           <SponsorCard sponsorsData={sponsors} />
@@ -67,7 +69,8 @@ export default async function BillStatisticsSection({
         <Grid2
           size={{
             xs: 12,
-            sm: 8,
+            sm: 7,
+            lg: 4,
           }}
         >
           <CongressCard />
@@ -75,7 +78,8 @@ export default async function BillStatisticsSection({
         <Grid2
           size={{
             xs: 12,
-            sm: 4,
+            sm: 5,
+            lg: 4,
           }}
         >
           <SponsorCard isCosponsor sponsorsData={cosponsors} />

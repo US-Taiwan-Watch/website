@@ -11,9 +11,9 @@ import {
 } from '@mui/material'
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import { ReactNode } from 'react'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 export interface HyperLinkTooltipCardProps {
   HeaderComponent?: ReactNode
@@ -27,6 +27,7 @@ const HyperLinkTooltipCard = function HyperLinkTooltipCard({
   description,
   link,
 }: HyperLinkTooltipCardProps) {
+  const { isHoverable } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -37,16 +38,19 @@ const HyperLinkTooltipCard = function HyperLinkTooltipCard({
         '& .MuiCardContent-root:last-child': {
           padding: theme.spacing(3),
         },
-        borderRadius: {
-          xs: 0,
-          sm: theme.shape.borderRadius * 2,
-        },
+        borderRadius: isHoverable ? theme.shape.borderRadius * 2 : 0,
       }}
     >
       <CardContent>
-        <Stack spacing={3} alignItems="flex-start">
+        <Stack
+          gap={{
+            xs: 1,
+            md: 3,
+          }}
+          alignItems="flex-start"
+        >
           {HeaderComponent}
-          <Typography variant="subtitleL" fontWeight={600}>
+          <Typography variant="subtitleL" fontWeight={600} lineHeight={1.2}>
             {title}
           </Typography>
           <UHeightLimitedText maxLine={4} variant="bodyS" fontWeight={300}>

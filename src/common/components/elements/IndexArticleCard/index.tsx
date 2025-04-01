@@ -30,8 +30,10 @@ const StyledImage = styled(Image)(({ theme }) => ({
     height: '250px',
   },
   [theme.breakpoints.up('sm')]: {
+    width: '50%',
+  },
+  [theme.breakpoints.up('lg')]: {
     width: '600px',
-    height: '500px',
   },
 }))
 
@@ -53,12 +55,6 @@ const UHeightLimitedTextWithSelectable =
 const UButtonWithSelectable =
   withSelectable<ComponentProps<typeof UButton>>(UButton)
 
-const StyledMiddleSection = styled(Stack)(({ theme }) => ({
-  [theme.breakpoints.down('sm')]: {
-    marginTop: `${theme.spacing(2)} !important`,
-  },
-}))
-
 // TODO: 確認類型
 interface IndexArticleCardProps {
   article: Article
@@ -72,8 +68,9 @@ const IndexArticleCard = memo(function IndexArticleCard({
   const theme = useTheme<USTWTheme>()
 
   return (
-    <Box
+    <Stack
       sx={{
+        height: '100%',
         backgroundColor: theme.palette.primary.main,
         mx: 1,
         p: {
@@ -83,96 +80,129 @@ const IndexArticleCard = memo(function IndexArticleCard({
         pl: {
           sm: 4,
         },
-        borderRadius: '30px',
+        borderRadius: {
+          xs: '15px',
+          sm: '30px',
+        },
+      }}
+      direction={{
+        xs: 'column',
+        sm: 'row',
+      }}
+      spacing={{
+        xs: 0,
+        sm: 8,
       }}
     >
-      <Stack
-        direction={{
-          xs: 'column',
-          sm: 'row',
+      {/** Mobile Image */}
+      {isMobile && article.bannerImage && (
+        <StyledImage
+          src={article.bannerImage.src}
+          alt={article.title ?? ''}
+          width={600}
+          height={500}
+        />
+      )}
+      <StyledContentSection
+        flex={1}
+        direction="column"
+        gap={{
+          xs: 1.5,
+          sm: 4,
         }}
-        spacing={{
-          xs: 0,
-          sm: 8,
+        px={{
+          xs: 1.5,
+          sm: 0,
+        }}
+        pb={{
+          xs: 1,
+          sm: 0,
         }}
       >
-        {/** Mobile Image */}
-        {isMobile && article.bannerImage && (
-          <StyledImage
-            src={article.bannerImage.src}
-            alt={article.title ?? ''}
-            width={600}
-            height={500}
-          />
-        )}
-        <StyledContentSection direction="column" spacing={4}>
-          {/** Tags */}
-          {article.categories && article.categories.length > 0 && (
-            <UTagListWithSelectable
-              tags={article.categories.map((category, index) => (
-                <StyledTag key={index} className="category-tag">
-                  <UWidthLimitedText variant="buttonXS">
-                    {category.label}
-                  </UWidthLimitedText>
-                </StyledTag>
-              ))}
-              containerProps={{
-                gap: 1,
-              }}
-              moreButtonProps={{
-                textProps: {
-                  sx: {
-                    color: theme.color.neutral[500],
-                  },
+        {/** Tags */}
+        {article.categories && article.categories.length > 0 && (
+          <UTagListWithSelectable
+            tags={article.categories.map((category, index) => (
+              <StyledTag key={index} className="category-tag">
+                <UWidthLimitedText variant="buttonXS">
+                  {category.label}
+                </UWidthLimitedText>
+              </StyledTag>
+            ))}
+            containerProps={{
+              gap: 1,
+            }}
+            moreButtonProps={{
+              textProps: {
+                sx: {
+                  color: theme.color.neutral[500],
                 },
-              }}
-            />
-          )}
-
-          {/** Middle Section */}
-          <StyledMiddleSection direction="column" spacing={2} flex={1}>
-            <UHeightLimitedTextWithSelectable
-              maxLine={3}
-              variant={isMobile ? 'subtitleL' : 'h3'}
-              fontWeight={500}
-            >
-              {article.title}
-            </UHeightLimitedTextWithSelectable>
-            <UHeightLimitedTextWithSelectable
-              maxLine={isMobile ? 3 : 5}
-              variant={isMobile ? 'bodyS' : 'bodyM'}
-            >
-              {article.description}
-            </UHeightLimitedTextWithSelectable>
-          </StyledMiddleSection>
-
-          {/** Learn More Button */}
-          <Link
-            href={ArticleUtils.getLink(article)}
-            style={{ width: 'fit-content' }}
-          >
-            <UButtonWithSelectable
-              variant="contained"
-              color="info"
-              rounded
-              size={isMobile ? 'medium' : 'large'}
-              endIcon={<ArrowForwardIcon />}
-            >
-              {t('cta.learnMore', { ns: 'common' })}
-            </UButtonWithSelectable>
-          </Link>
-        </StyledContentSection>
-        {/** Desktop Image */}
-        {!isMobile && article.bannerImage && (
-          <StyledImage
-            src={article.bannerImage.src}
-            alt={article.title ?? ''}
-            width={600}
-            height={500}
+              },
+            }}
           />
         )}
-      </Stack>
-    </Box>
+
+        {/** Middle Section */}
+        <Stack
+          direction="column"
+          gap={{
+            xs: 1.5,
+            sm: 2,
+          }}
+          flex={1}
+          mb={{
+            xs: 2,
+            sm: 0,
+          }}
+        >
+          <UHeightLimitedTextWithSelectable
+            maxLine={3}
+            variant={isMobile ? 'subtitleL' : 'h3'}
+            fontWeight={500}
+          >
+            {article.title}
+          </UHeightLimitedTextWithSelectable>
+          <UHeightLimitedTextWithSelectable
+            maxLine={isMobile ? 3 : 5}
+            variant={isMobile ? 'bodyS' : 'bodyM'}
+          >
+            {article.description}
+          </UHeightLimitedTextWithSelectable>
+        </Stack>
+
+        {/** Learn More Button */}
+        <Link
+          href={ArticleUtils.getLink(article)}
+          style={{ width: 'fit-content' }}
+        >
+          <UButtonWithSelectable
+            variant="contained"
+            color="info"
+            rounded
+            size={'large'}
+            endIcon={
+              <ArrowForwardIcon
+                sx={{
+                  width: { xs: 16, sm: 24 },
+                  height: { xs: 16, sm: 24 },
+                }}
+              />
+            }
+          >
+            {t('cta.learnMore', { ns: 'common' })}
+          </UButtonWithSelectable>
+        </Link>
+      </StyledContentSection>
+      {/** Desktop Image */}
+      {!isMobile && article.bannerImage && (
+        <StyledImage
+          src={article.bannerImage.src}
+          alt={article.title ?? ''}
+          width={600}
+          height={500}
+        />
+      )}
+    </Stack>
   )
 })
 

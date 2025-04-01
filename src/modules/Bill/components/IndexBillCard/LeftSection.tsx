@@ -5,7 +5,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import UTimeline from '@/common/components/atoms/UTimeline'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
-import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme } from '@mui/material'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
@@ -116,17 +116,15 @@ export default function LeftSection({ bill }: Props) {
             )}
           />
         </UHStack>
-        <Box mx={isMobile ? -3 : -6}>
-          <UTimeline
-            data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-              title: t(`status.${status}.label`, {
-                ns: 'bill',
-              }),
-            }))}
-            activeIndex={BillUtils.getStatusIndex(bill)}
-            isHorizontal
-          />
-        </Box>
+        <UTimeline
+          data={BillUtils.getAllBillStatuses(bill).map((status) => ({
+            title: t(`status.${status}.label`, {
+              ns: 'bill',
+            }),
+          }))}
+          activeIndex={BillUtils.getStatusIndex(bill)}
+          isHorizontal
+        />
       </StackWithSelectable>
     </Stack>
   )

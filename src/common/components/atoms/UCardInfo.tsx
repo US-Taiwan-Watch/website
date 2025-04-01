@@ -26,7 +26,7 @@ export default function UCardInfo({
   const theme = useTheme<USTWTheme>()
 
   return (
-    <Tooltip title={content} arrow {...tooltipProps}>
+    <Tooltip title={content} arrow enterTouchDelay={0} {...tooltipProps}>
       <IconButton size="small" onClick={onClick}>
         <ErrorOutlineOutlinedIcon
           {...iconProps}
