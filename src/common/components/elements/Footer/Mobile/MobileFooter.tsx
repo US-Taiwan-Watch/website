@@ -27,8 +27,6 @@ const StyledNavItemListTitleContainer = styled(Box)(({ theme }) => ({
   borderBottom: `1px solid ${theme.color.neutral[400]}`,
   paddingTop: theme.spacing(1.5),
   paddingBottom: theme.spacing(1.5),
-  paddingLeft: theme.spacing(1),
-  paddingRight: theme.spacing(1),
   color: theme.color.grey[1100],
 }))
 
@@ -160,7 +158,7 @@ const MobileFooter = () => {
             {/* Social Links */}
             <Stack direction="row" spacing={2} alignContent="center">
               {socialLinkItems.map((item, index) => (
-                <a
+                <Link
                   href={item.url}
                   key={index}
                   target="_blank"
@@ -169,7 +167,7 @@ const MobileFooter = () => {
                   <UIconButton variant="rounded" color="primary" size="small">
                     {item.icon}
                   </UIconButton>
-                </a>
+                </Link>
               ))}
             </Stack>
 

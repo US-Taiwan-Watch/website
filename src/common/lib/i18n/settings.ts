@@ -3,8 +3,8 @@ import { Language } from '@/common/lib/i18n/types'
 
 export const I18N_FALLBACK_LANGUAGE: Language = 'en-US'
 export const I18N_SUPPORTED_LANGUAGE: Array<Language> = [
-  I18N_FALLBACK_LANGUAGE,
   'zh-TW',
+  I18N_FALLBACK_LANGUAGE,
 ]
 export const I18N_DEFAULT_NAMESPACE = 'common'
 

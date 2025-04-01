@@ -106,57 +106,74 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
     <Grid2 container spacing={2}>
       <Grid2WithSelectable size={12}>
         {/* Sponsors */}
-        <StyledCardContainer direction="row" alignItems="center">
+        <StyledCardContainer
+          gap={2}
+          direction={{
+            xs: 'column',
+            md: 'row',
+          }}
+          alignItems={{
+            xs: 'flex-start',
+            md: 'center',
+          }}
+        >
           <CardIconTitle
             containerProps={{ mr: 3 }}
             icon={<SponsorIcon />}
             title={t('card.item.sponsor.title', { ns: 'bill' })}
           />
-          {bill.sponsor?.image && (
-            <StyledImageContainer
-              sx={{
-                border: `2px solid`,
-                borderColor:
-                  partyColor[bill.sponsor.party ?? Party.INDEPENDENT],
-              }}
-            >
-              <StyledImage
-                src={bill.sponsor.image}
-                alt={bill.sponsor.name ?? ''}
-                fill
-              />
-              {bill.sponsor.party && (
-                <StyledPartyIconContainer>
-                  <UPoliticalPartyIcon
-                    size="small"
-                    party={bill.sponsor.party}
-                    sx={{
-                      width: '18px',
-                      height: '18px',
-                    }}
-                    customFontStyle={{
-                      fontSize: '12px',
-                    }}
-                  />
-                </StyledPartyIconContainer>
-              )}
-            </StyledImageContainer>
-          )}
-          <Stack>
-            <Typography variant="articleH4">{bill.sponsor?.name}</Typography>
-            <Typography
-              variant="buttonXS"
-              fontWeight={600}
-              textTransform="capitalize"
-            >
-              {bill.sponsor?.party?.toLowerCase()}
-            </Typography>
-          </Stack>
+          <UHStack gap={2}>
+            {bill.sponsor?.image && (
+              <StyledImageContainer
+                sx={{
+                  border: `2px solid`,
+                  borderColor:
+                    partyColor[bill.sponsor.party ?? Party.INDEPENDENT],
+                }}
+              >
+                <StyledImage
+                  src={bill.sponsor.image}
+                  alt={bill.sponsor.name ?? ''}
+                  fill
+                />
+                {bill.sponsor.party && (
+                  <StyledPartyIconContainer>
+                    <UPoliticalPartyIcon
+                      size="small"
+                      party={bill.sponsor.party}
+                      sx={{
+                        width: '18px',
+                        height: '18px',
+                      }}
+                      customFontStyle={{
+                        fontSize: '12px',
+                      }}
+                    />
+                  </StyledPartyIconContainer>
+                )}
+              </StyledImageContainer>
+            )}
+            <Stack>
+              <Typography variant="articleH4">{bill.sponsor?.name}</Typography>
+              <Typography
+                variant="buttonXS"
+                fontWeight={600}
+                textTransform="capitalize"
+              >
+                {bill.sponsor?.party?.toLowerCase()}
+              </Typography>
+            </Stack>
+          </UHStack>
         </StyledCardContainer>
       </Grid2WithSelectable>
 
       {/* Cosponsors */}
-      <Grid2WithSelectable size={5}>
+      <Grid2WithSelectable
+        size={{
+          xs: 12,
+          md: 5,
+        }}
+      >
         <StyledCardContainer
           direction="row"
           alignItems="center"
@@ -166,14 +183,19 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
             icon={<NoteIcon />}
             title={t('card.item.cosponsors.title', { ns: 'bill' })}
           />
-          <Typography variant="subtitleL" fontWeight={700}>
+          <Typography variant="subtitleS" fontWeight={700}>
             {BillUtils.getCosponsorsCount(bill)}
           </Typography>
         </StyledCardContainer>
       </Grid2WithSelectable>
 
       {/* Introduced */}
-      <Grid2WithSelectable size={7}>
+      <Grid2WithSelectable
+        size={{
+          xs: 12,
+          md: 7,
+        }}
+      >
         <StyledCardContainer
           direction="row"
           alignItems="center"
@@ -183,7 +205,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
             icon={<CalenderIcon />}
             title={t('card.item.introduced.title', { ns: 'bill' })}
           />
-          <Typography variant="subtitleL" fontWeight={700}>
+          <Typography variant="subtitleS" fontWeight={700}>
             {introducedDate && dayjs(introducedDate).isValid()
               ? dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT)
               : ''}

@@ -16,5 +16,6 @@ export async function getServerDevice() {
     isMobile: device.type === 'mobile',
     isIOS: os?.name === 'iOS',
     isAndroid: os?.name === 'Android',
+    isTablet: device.type === 'tablet',
   }
 }

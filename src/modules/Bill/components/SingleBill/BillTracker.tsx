@@ -57,15 +57,11 @@ export default function BillTracker({ bill }: Props) {
         )}
 
         <Box
-          mx={{
-            xs: -2,
-            md: 0,
-          }}
+          py={2}
           px={{
             xs: 0,
-            md: 2,
+            sm: 1,
           }}
-          py={2}
         >
           <UTimeline
             data={BillUtils.getAllBillStatuses(bill).map((status) => ({

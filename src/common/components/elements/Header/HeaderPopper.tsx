@@ -3,6 +3,7 @@ import Popper from '@mui/material/Popper'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 import type React from 'react'
 import { useCallback, useMemo } from 'react'
+import HeaderPopperOverlay from '@/common/components/elements/Header/HeaderPopperOverlay'
 
 const StyledPopper = styled(Popper)(({ theme }) => ({
   display: 'flex',
@@ -11,7 +12,10 @@ const StyledPopper = styled(Popper)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     marginTop: `-${theme.constants.headerHeight.sm}px !important`,
   },
-  [theme.breakpoints.up('sm')]: {
+  [theme.breakpoints.between('sm', 'md')]: {
+    marginTop: `-${theme.constants.headerHeight.sm}px !important`,
+  },
+  [theme.breakpoints.up('md')]: {
     marginTop: `-${theme.constants.headerHeight.md}px !important`,
   },
 }))
@@ -63,11 +67,14 @@ const HeaderPopper = ({
   )
 
   return (
-    <ClickAwayListener onClickAway={handleClickAway}>
-      <StyledPopper anchorEl={headerAnchorEl} open container={headerAnchorEl}>
-        {children}
-      </StyledPopper>
-    </ClickAwayListener>
+    <>
+      <ClickAwayListener onClickAway={handleClickAway}>
+        <StyledPopper anchorEl={headerAnchorEl} open container={headerAnchorEl}>
+          {children}
+        </StyledPopper>
+      </ClickAwayListener>
+      <HeaderPopperOverlay open />
+    </>
   )
 }
 

@@ -19,7 +19,11 @@ const ArticleFixed = () => {
       maxWidth="lg"
       sx={{
         position: 'sticky',
-        top: 300,
+        top: {
+          xs: 250,
+          lg: 450,
+        },
+        bottom: 0,
         width: '100%',
         zIndex: 1000,
       }}
@@ -29,7 +33,7 @@ const ArticleFixed = () => {
         padding={1.5}
         sx={{
           position: 'absolute',
-          top: 0,
+          bottom: 0,
           right: theme.spacing(3),
           backgroundColor: 'white',
           borderRadius: '30px',

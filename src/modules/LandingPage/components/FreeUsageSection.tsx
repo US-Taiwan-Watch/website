@@ -50,7 +50,14 @@ const FreeUsageSection = () => {
             color="info"
             rounded
             size="large"
-            endIcon={<ArrowForwardIcon />}
+            endIcon={
+              <ArrowForwardIcon
+                sx={{
+                  width: { xs: 16, sm: 24 },
+                  height: { xs: 16, sm: 24 },
+                }}
+              />
+            }
           >
             {t('section.freeUsage.cta.joinToday', { ns: 'home' })}
           </UButton>

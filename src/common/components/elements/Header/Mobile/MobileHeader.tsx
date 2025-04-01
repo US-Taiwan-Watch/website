@@ -89,7 +89,7 @@ const MobileHeader = ({ containerClassName, className }: HeaderProps) => {
 
   return (
     <>
-      <StyledHeaderContainer maxWidth="sm" className={containerClassName}>
+      <StyledHeaderContainer maxWidth="md" className={containerClassName}>
         <StyledHeader ref={headerRef}>
           <StyledHeaderWrapper
             className={className}

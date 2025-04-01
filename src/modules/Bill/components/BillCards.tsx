@@ -10,6 +10,7 @@ import { Bill } from '@/modules/Bill/business/Bill'
 import UContainer from '@/common/components/atoms/UContainer'
 import { memo } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const StyledCarouselContainer = styled(UFullWidthBackgroundBox)(() => ({
   overflow: 'hidden',
@@ -32,8 +33,9 @@ export const BillCardCarousel = memo(function BillCardCarousel({
   visibilities,
   data,
 }: BillCardsProps) {
+  const { isTablet } = useResponsive()
   // 顯示三張的話，最後兩張不可能成為 currentSlide，故藉 availableSlideCount 控制 handleNext
-  const slidesToShow = 3
+  const slidesToShow = isTablet ? 2 : 3
   const availableSlideCount = data.length - (slidesToShow - 1)
 
   return (
@@ -62,7 +64,7 @@ export const BillCardCarousel = memo(function BillCardCarousel({
           )}
         >
           {data.map((bill, index) => (
-            <Box key={index} px={1}>
+            <Box key={index} px={1} height="100%">
               <BillCard
                 mode="vertical"
                 bill={bill}

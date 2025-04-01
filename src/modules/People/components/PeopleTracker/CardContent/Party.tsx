@@ -2,8 +2,8 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { Party as PartyEnum } from '@/common/enums/Party'
-import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Typography, useTheme } from '@mui/material'
+import { styled } from '@/common/lib/mui/theme'
+import { Typography } from '@mui/material'
 import Image from 'next/image'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -24,7 +24,6 @@ interface PartyProps {
 
 const Party = function ({ party }: PartyProps) {
   const { t } = useTranslationClient('common')
-  const theme = useTheme<USTWTheme>()
   const partyLogo = getPartyLogo(party)
 
   return (
@@ -37,12 +36,16 @@ const Party = function ({ party }: PartyProps) {
         alignItems="center"
         justifyContent="center"
         width="100%"
+        height="100%"
         spacing={2}
-        padding={theme.spacing(2)}
+        padding={{
+          xs: 2,
+          lg: 3,
+        }}
         sx={{
-          height: {
+          minHeight: {
             xs: 64,
-            sm: 110,
+            lg: 110,
           },
         }}
       >

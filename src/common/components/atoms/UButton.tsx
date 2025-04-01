@@ -1,51 +1,108 @@
 'use client'
 
-import { Button, ButtonProps } from '@mui/material'
-import { styled } from '@mui/material/styles'
-import type { ComponentType } from 'react'
+import { USTWTheme } from '@/common/lib/mui/theme'
+import { Button, type ButtonProps, type SxProps, useTheme } from '@mui/material'
+import { useMemo } from 'react'
 
 interface UButtonProps extends ButtonProps {
   rounded?: boolean
 }
 
-const StyledButton = styled(Button)<UButtonProps>(
-  ({ theme, color, disabled, size }) => ({
-    textTransform: 'none', // 消除文字大寫
-    ...(color === 'primary' &&
-      disabled && {
-        backgroundColor: `${theme.palette.primary.main} !important`,
-      }),
-    ...(size === 'large' && {
-      padding: `${theme.spacing(1.75)} ${theme.spacing(3)}`,
-      fontSize: theme.typography.buttonM.fontSize,
-      fontWeight: theme.typography.buttonM.fontWeight,
-    }),
-    ...(size === 'medium' && {
-      padding: `${theme.spacing(1.375)} ${theme.spacing(3)}`,
-      fontSize: theme.typography.buttonS.fontSize,
-      fontWeight: theme.typography.buttonS.fontWeight,
-    }),
-    ...(size === 'small' && {
-      padding: `${theme.spacing(1.5)} ${theme.spacing(1)}`,
-      fontSize: theme.typography.buttonXXS.fontSize,
-      fontWeight: theme.typography.buttonXXS.fontWeight,
-    }),
-  })
-) as ComponentType<UButtonProps>
-
 const UButton = ({ children, rounded, ...props }: UButtonProps) => {
+  const theme = useTheme<USTWTheme>()
+  const defaultSx = useMemo<SxProps<USTWTheme>>(() => {
+    const sx: SxProps<USTWTheme> = {
+      textTransform: 'none',
+    }
+
+    if (props.color === 'primary' && props.disabled) {
+      sx.backgroundColor = `${theme.palette.primary.main} !important`
+    }
+
+    switch (props.size) {
+      case 'large':
+        sx.padding = {
+          xs: `${theme.spacing(1)} ${theme.spacing(1.25)}`,
+          sm: `${theme.spacing(1.25)} ${theme.spacing(1.5)}`,
+          md: `${theme.spacing(1.5)} ${theme.spacing(2)}`,
+          lg: `${theme.spacing(1.75)} ${theme.spacing(3)}`,
+        }
+        sx.fontSize = {
+          xs: theme.typography.buttonXXS.fontSize,
+          sm: theme.typography.buttonXS.fontSize,
+          md: theme.typography.buttonS.fontSize,
+          lg: theme.typography.buttonM.fontSize,
+        }
+        sx.fontWeight = {
+          xs: theme.typography.buttonXXS.fontWeight,
+          sm: theme.typography.buttonXS.fontWeight,
+          md: theme.typography.buttonS.fontWeight,
+          lg: theme.typography.buttonM.fontWeight,
+        }
+        break
+      case 'medium':
+        sx.padding = {
+          xs: `${theme.spacing(1)} ${theme.spacing(1.25)}`,
+          sm: `${theme.spacing(1.125)} ${theme.spacing(1.5)}`,
+          md: `${theme.spacing(1.25)} ${theme.spacing(2)}`,
+          lg: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
+        }
+        sx.fontSize = {
+          xs: theme.typography.buttonXXS.fontSize,
+          sm: theme.typography.buttonXXS.fontSize,
+          md: theme.typography.buttonXS.fontSize,
+          lg: theme.typography.buttonS.fontSize,
+        }
+        sx.fontWeight = {
+          xs: theme.typography.buttonXXS.fontWeight,
+          sm: theme.typography.buttonXXS.fontWeight,
+          md: theme.typography.buttonXS.fontWeight,
+          lg: theme.typography.buttonS.fontWeight,
+        }
+        break
+      case 'small':
+        sx.padding = {
+          xs: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
+          sm: `${theme.spacing(0.75)} ${theme.spacing(1.5)}`,
+          md: `${theme.spacing(1)} ${theme.spacing(2)}`,
+          lg: `${theme.spacing(1.5)} ${theme.spacing(3)}`,
+        }
+        sx.fontSize = {
+          xs: theme.typography.buttonXXS.fontSize,
+          sm: theme.typography.buttonXXS.fontSize,
+          md: theme.typography.buttonXXS.fontSize,
+          lg: theme.typography.buttonXXS.fontSize,
+        }
+        sx.fontWeight = {
+          xs: theme.typography.buttonXXS.fontWeight,
+          sm: theme.typography.buttonXXS.fontWeight,
+          md: theme.typography.buttonXXS.fontWeight,
+          lg: theme.typography.buttonXXS.fontWeight,
+        }
+        break
+      default:
+        break
+    }
+
+    if (rounded) {
+      sx.borderRadius = '50px'
+    }
+
+    return sx
+  }, [props.size, theme, props.color, props.disabled, rounded])
+
   return (
-    <StyledButton
+    <Button
       {...props}
-      sx={{
-        ...props.sx,
-        ...(rounded && {
-          borderRadius: '50px',
-        }),
-      }}
+      sx={
+        {
+          ...defaultSx,
+          ...props.sx,
+        } as ButtonProps['sx']
+      }
     >
       {children}
-    </StyledButton>
+    </Button>
   )
 }
 

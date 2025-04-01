@@ -1,5 +1,5 @@
 import { styled } from '@/common/lib/mui/theme'
-import { memo, useMemo, useCallback, useState } from 'react'
+import { memo, useMemo, useCallback, useState, ReactNode } from 'react'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -15,6 +15,7 @@ import { ROUTES } from '@/routes'
 import useSocialLinks from '@/common/hooks/useSocialLinks'
 import HeaderPopper from '@/common/components/elements/Header/HeaderPopper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import UHStack from '@/common/components/atoms/UHStack'
 
 const StyledNavItemListTitleContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -52,8 +53,20 @@ const MobileNavMenuItem = ({
   const hasAccordion = useMemo(() => item.type === 'list', [item.type])
   const [isAccordionOpen, setIsAccordionOpen] = useState(false)
 
+  const Wrapper = useMemo(() => {
+    if (hasAccordion || item.type === 'list') {
+      return function Wrapper({ children }: { children: ReactNode }) {
+        return <Stack width="100%">{children}</Stack>
+      }
+    }
+
+    return function Wrapper({ children }: { children: ReactNode }) {
+      return <Link href={item.href}>{children}</Link>
+    }
+  }, [hasAccordion, item])
+
   return (
-    <Stack width="100%">
+    <Wrapper>
       <StyledNavItemListTitleContainer
         onClick={() => {
           setIsAccordionOpen(!isAccordionOpen)
@@ -93,7 +106,7 @@ const MobileNavMenuItem = ({
           )}
         </Stack>
       )}
-    </Stack>
+    </Wrapper>
   )
 }
 
@@ -162,9 +175,10 @@ const MobileNavMenu = ({
     (item: HeaderNavItem) => {
       if (item.type === 'link') {
         onLinkMenuItemClick?.(item)
+        onClose?.()
       }
     },
-    [onLinkMenuItemClick]
+    [onLinkMenuItemClick, onClose]
   )
 
   return (
@@ -193,9 +207,15 @@ const MobileNavMenu = ({
             </Link>
           </Box>
           {/** 社群 */}
-          <Box display="flex" justifyContent="space-between">
+          <UHStack
+            gap={1}
+            justifyContent={{
+              xs: 'space-between',
+              sm: 'flex-end',
+            }}
+          >
             {socialLinkItems.map((item, index) => (
-              <a
+              <Link
                 href={item.url}
                 key={index}
                 target="_blank"
@@ -204,9 +224,9 @@ const MobileNavMenu = ({
                 <UIconButton variant="rounded" color="secondary" size="small">
                   {item.icon}
                 </UIconButton>
-              </a>
+              </Link>
             ))}
-          </Box>
+          </UHStack>
         </StyledNavMenuWrapper>
       </StyledContainer>
     </HeaderPopper>
