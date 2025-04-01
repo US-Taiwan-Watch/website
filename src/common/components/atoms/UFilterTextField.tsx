@@ -1,6 +1,6 @@
 import TextField, { type TextFieldProps } from '@mui/material/TextField'
 import { styled } from '@/common/lib/mui/theme'
-import { forwardRef, memo } from 'react'
+import { forwardRef, memo, useEffect, useState } from 'react'
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   borderRadius: '9px',
@@ -33,7 +33,18 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
       color: theme.color.common.black,
     },
   },
-  [theme.breakpoints.up('sm')]: {
+  [theme.breakpoints.between('sm', 'md')]: {
+    minHeight: '40px',
+    '& .MuiInputLabel-root': {
+      transform: 'translate(14px, 9px) scale(1)',
+      fontWeight: 500,
+      color: theme.color.common.black,
+    },
+    '& .MuiInputLabel-shrink': {
+      transform: 'translate(14px, -10px) scale(0.75)',
+    },
+  },
+  [theme.breakpoints.up('md')]: {
     '& .MuiInputBase-input': {
       minWidth: '100px !important',
     },
@@ -52,7 +63,49 @@ const StyledTextField = styled(TextField)(({ theme }) => ({
 
 const UFilterTextField = forwardRef<HTMLDivElement, TextFieldProps>(
   function UFilterTextField(props: TextFieldProps, ref) {
-    return <StyledTextField ref={ref} {...props} />
+    const [inputWidth, setInputWidth] = useState(20)
+
+    useEffect(() => {
+      const updateWidth = () => {
+        if (!props.inputProps?.ref.current) return
+
+        // 創建一個臨時 span 來測量文字寬度
+        const span = document.createElement('span')
+        span.style.visibility = 'hidden'
+        span.style.position = 'absolute'
+        span.style.whiteSpace = 'pre'
+        span.style.font = window.getComputedStyle(
+          props.inputProps.ref.current
+        ).font
+        span.textContent =
+          props.inputProps?.value ||
+          props.label ||
+          props.inputProps?.placeholder ||
+          ''
+
+        document.body.appendChild(span)
+        const width = span.getBoundingClientRect().width
+        document.body.removeChild(span)
+
+        // 設置輸入框寬度（加上一些 padding）
+        setInputWidth(width)
+      }
+
+      updateWidth()
+    }, [props.inputProps, props.label])
+
+    return (
+      <StyledTextField
+        ref={ref}
+        {...props}
+        sx={{
+          ...props.sx,
+          '& .MuiInputBase-input': {
+            minWidth: `${inputWidth}px !important`,
+          },
+        }}
+      />
+    )
   }
 )
 

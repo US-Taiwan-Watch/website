@@ -18,10 +18,10 @@ const UAccordion = styled(Accordion)(({ theme }) => ({
     paddingTop: theme.spacing(1),
     borderTop: `2px solid ${theme.color.grey[1900]}`,
   },
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.up('xs')]: {
     padding: theme.spacing(2),
   },
-  [theme.breakpoints.up('sm')]: {
+  [theme.breakpoints.up('md')]: {
     padding: theme.spacing(3, 4),
   },
 }))

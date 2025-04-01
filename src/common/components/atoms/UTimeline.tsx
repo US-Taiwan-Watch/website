@@ -109,6 +109,12 @@ function HorizontalTimeline({
       activeStep={activeIndex}
       alternativeLabel
       connector={<StyledConnector variant={variant} />}
+      sx={{
+        width: `${(data.length / Math.max(data.length - 1, 1)) * 100}%`,
+        ml: `-${100 / Math.max(data.length - 1, 1) / 2}%`,
+        pl: data.length > 1 ? '12px' : '18px',
+        pr: data.length > 1 ? '12px' : '0px',
+      }}
     >
       {data.map((_, index) => {
         const isActiveDot = index === activeIndex

@@ -24,7 +24,8 @@ const PopularPeopleCards = memo(function PopularPeopleCards({
           key={people.id}
           size={{
             xs: 12,
-            sm: 6,
+            sm: 12,
+            md: 6,
           }}
         >
           <PeopleCard

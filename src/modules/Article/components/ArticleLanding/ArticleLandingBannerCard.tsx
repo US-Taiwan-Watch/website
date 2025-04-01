@@ -30,8 +30,11 @@ const StyledImage = styled(Image)(({ theme }) => ({
     height: '250px',
   },
   [theme.breakpoints.up('sm')]: {
+    width: '50%',
+    height: '350px',
+  },
+  [theme.breakpoints.up('lg')]: {
     width: '600px',
-    height: '500px',
   },
 }))
 
@@ -40,10 +43,6 @@ const StyledLeftSection = styled(Stack)(({ theme }) => ({
   height: '100%',
 }))
 const StyledLeftSectionWithSelectable = withSelectable(StyledLeftSection)
-
-const StyledMiddleSection = styled(Stack)(({ theme }) => ({
-  margin: theme.spacing(4, 0),
-}))
 
 // TODO: 確認類型
 interface ArticleLandingBannerCardProps {
@@ -59,6 +58,7 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
 
   return (
     <Box
+      height="100%"
       sx={{
         mx: 1,
         pb: {
@@ -68,11 +68,12 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
       }}
     >
       <Stack
+        height="100%"
         direction={{
           xs: 'column',
           sm: 'row',
         }}
-        spacing={{
+        gap={{
           xs: 0,
           sm: 8,
         }}
@@ -86,7 +87,14 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
             height={500}
           />
         )}
-        <StyledLeftSectionWithSelectable direction="column" spacing={4}>
+        <StyledLeftSectionWithSelectable
+          direction="column"
+          gap={{
+            xs: 0.75,
+            sm: 2,
+            lg: 5,
+          }}
+        >
           {/** Tags */}
           <UTagList
             tags={(article.categories ?? []).map((category) => (
@@ -114,14 +122,21 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
           />
 
           {/** Middle Section */}
-          <StyledMiddleSection direction="column" spacing={2} flex={1}>
+          <Stack
+            direction="column"
+            gap={{
+              xs: 1,
+              sm: 2,
+            }}
+            flex={1}
+          >
             <UHeightLimitedText maxLine={2} variant="h3" fontWeight={500}>
               {article.title}
             </UHeightLimitedText>
             <UHeightLimitedText maxLine={4} variant="body1">
               {article.description}
             </UHeightLimitedText>
-          </StyledMiddleSection>
+          </Stack>
 
           {/** Learn More Button */}
           <Box

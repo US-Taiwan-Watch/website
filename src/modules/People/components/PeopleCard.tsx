@@ -72,15 +72,16 @@ const PeopleCard = memo(function PeopleCard({
       sx={{
         padding: {
           xs: 1,
-          sm: 2.5,
+          sm: 1.5,
+          md: 2.5,
         },
       }}
     >
       <Stack
         direction="row"
-        spacing={{
+        gap={{
           xs: 1.5,
-          sm: 3,
+          md: 3,
         }}
         height="100%"
       >
@@ -92,11 +93,15 @@ const PeopleCard = memo(function PeopleCard({
             sx={{
               width: {
                 xs: isPopular ? 80 : 60,
-                sm: isPopular ? 160 : 100,
+                sm: isPopular ? 100 : 80,
+                md: isPopular ? 130 : 100,
+                lg: isPopular ? 160 : 100,
               },
               minHeight: {
                 xs: isPopular ? 100 : 80,
-                sm: isPopular ? 200 : 130,
+                sm: isPopular ? 130 : 100,
+                md: isPopular ? 150 : 130,
+                lg: isPopular ? 200 : 130,
               },
             }}
           >
@@ -113,21 +118,22 @@ const PeopleCard = memo(function PeopleCard({
               direction="column"
               spacing={{
                 xs: 0.75,
-                sm: 2,
+                md: 2,
               }}
             >
               <PeopleCategory people={people} />
               <Stack
                 gap={{
                   xs: 0.5,
-                  sm: 1,
+                  md: 1,
                 }}
               >
                 <Typography
                   fontSize={{
                     xs: '1.25rem',
-                    sm: '1.625rem',
+                    md: '1.625rem',
                   }}
+                  lineHeight={1}
                   fontWeight={600}
                 >
                   {people.name}

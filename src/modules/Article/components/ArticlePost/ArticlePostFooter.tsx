@@ -6,6 +6,8 @@ import { Article } from '@/modules/Article/business/Article'
 import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { memo } from 'react'
+import Link from 'next/link'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface ArticlePostFooterProps {
   tags?: Article['tags']
@@ -17,6 +19,7 @@ const ArticlePostFooter = function ArticlePostFooter({
   resources,
 }: ArticlePostFooterProps) {
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('article')
 
   return (
     <Stack spacing={2}>
@@ -33,10 +36,15 @@ const ArticlePostFooter = function ArticlePostFooter({
       {resources && resources.length > 0 && (
         <Stack spacing={1} sx={{ color: theme.color.grey[3400] }}>
           <Typography variant="bodyS" fontWeight={500}>
-            Repost source from:{' '}
+            {t('page.repostFrom', { ns: 'article' })}
           </Typography>
           {resources.map((resource, index) => (
-            <a href={resource.link} key={index} target="_blank">
+            <Link
+              href={resource.link}
+              key={index}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               <Typography
                 variant="bodyS"
                 fontWeight={400}
@@ -46,7 +54,7 @@ const ArticlePostFooter = function ArticlePostFooter({
               >
                 {resource.title}
               </Typography>
-            </a>
+            </Link>
           ))}
         </Stack>
       )}

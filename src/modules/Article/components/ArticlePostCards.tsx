@@ -3,7 +3,7 @@ import { Article } from '@/modules/Article/business/Article'
 import ArticlePostCard, {
   ArticlePostCardSkeleton,
 } from '@/modules/Article/components/ArticlePostCard'
-import { Box, Grid2 as Grid, Stack } from '@mui/material'
+import { Box, Grid2 as Grid } from '@mui/material'
 
 interface ArticlePostCardsProps {
   articles: Array<Article>
@@ -22,36 +22,35 @@ const ArticlePostCards = ({
   forceCard = false,
 }: ArticlePostCardsProps) => {
   return (
-    <Stack spacing={8} width="100%">
-      {/** Posts */}
-      <Grid
-        container
-        rowSpacing={{
-          xs: 0.75,
-          sm: 8,
-        }}
-        columnSpacing={{
-          xs: 0.75,
-          sm: 4,
-        }}
-      >
-        {articles.map((article) => (
-          <Grid
-            key={article.id}
-            size={{
-              xs: 12,
-              sm: 4,
-            }}
-          >
-            <ArticlePostCard
-              article={article}
-              showCategory={showCategory}
-              forceCard={forceCard}
-            />
-          </Grid>
-        ))}
-      </Grid>
-    </Stack>
+    <Grid
+      container
+      rowSpacing={{
+        xs: 0.75,
+        sm: 4,
+        lg: 8,
+      }}
+      columnSpacing={{
+        xs: 0.75,
+        sm: 2,
+        lg: 4,
+      }}
+    >
+      {articles.map((article) => (
+        <Grid
+          key={article.id}
+          size={{
+            xs: 12,
+            sm: 4,
+          }}
+        >
+          <ArticlePostCard
+            article={article}
+            showCategory={showCategory}
+            forceCard={forceCard}
+          />
+        </Grid>
+      ))}
+    </Grid>
   )
 }
 

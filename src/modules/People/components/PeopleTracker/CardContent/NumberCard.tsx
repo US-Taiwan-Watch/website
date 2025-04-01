@@ -44,15 +44,15 @@ const NumberCard = function ({
           sx={{
             height: {
               xs: 100,
-              sm: 110,
+              md: 110,
             },
             px: {
               xs: 2,
-              sm: 4.75,
+              lg: 4.75,
             },
             py: {
               xs: 1.5,
-              sm: 1.75,
+              lg: 1.75,
             },
           }}
         >
@@ -76,7 +76,7 @@ const NumberCard = function ({
             sx={{
               fontSize: {
                 xs: '2.375rem',
-                sm: '3rem',
+                lg: '3rem',
               },
               fontWeight: {
                 xs: 600,

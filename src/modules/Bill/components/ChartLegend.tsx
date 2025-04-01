@@ -22,7 +22,7 @@ export default function ChartLegend({ data, hoveredParty }: LegendProps) {
   )
 
   return (
-    <UHStack spacing={2} flexWrap="wrap">
+    <UHStack gap={2} flexWrap="wrap">
       {sortedData.map((item) => (
         <UHStack
           key={item.party}

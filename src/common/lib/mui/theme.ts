@@ -621,8 +621,24 @@ const typographyVariants = {
       fontWeight: 500,
     },
   },
-  buttonXS: { fontSize: '0.875rem', fontWeight: 500, display: 'block' },
-  buttonXXS: { fontSize: '0.75rem', fontWeight: 500, display: 'block' },
+  buttonXS: {
+    fontSize: '0.875rem',
+    fontWeight: 500,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.75rem',
+      fontWeight: 500,
+    },
+  },
+  buttonXXS: {
+    fontSize: '0.75rem',
+    fontWeight: 500,
+    display: 'block',
+    [_theme.breakpoints.down('sm')]: {
+      fontSize: '0.625rem',
+      fontWeight: 500,
+    },
+  },
   menu: {
     fontSize: '1rem',
     fontWeight: 600,

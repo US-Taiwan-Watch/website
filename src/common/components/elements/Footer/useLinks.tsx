@@ -90,7 +90,7 @@ export default function useLinks() {
         subLinks: [
           {
             type: 'subLink',
-            title: t('navItem.discover.biils.title', { ns: 'footer' }),
+            title: t('navItem.discover.bills.title', { ns: 'footer' }),
             url: ROUTES.BILL,
           },
           {

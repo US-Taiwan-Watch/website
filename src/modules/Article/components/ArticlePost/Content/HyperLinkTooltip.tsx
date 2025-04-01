@@ -10,6 +10,7 @@ import {
   TooltipProps,
   useTheme,
   Drawer,
+  Typography,
 } from '@mui/material'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { useState } from 'react'
@@ -32,11 +33,11 @@ const HyperLinkTooltip = function HyperLinkTooltip({
   text,
   hyperLinkTooltipCardProps,
 }: HyperLinkTooltipProps) {
-  const { isMobile } = useResponsive()
+  const { isHoverable } = useResponsive()
   const theme = useTheme<USTWTheme>()
   const [drawerOpen, setDrawerOpen] = useState(false)
 
-  if (isMobile) {
+  if (!isHoverable) {
     return (
       <>
         <span
@@ -71,19 +72,19 @@ const HyperLinkTooltip = function HyperLinkTooltip({
     <StyledTooltip
       title={<HyperLinkTooltipCard {...hyperLinkTooltipCardProps} />}
     >
-      <a
-        style={{
+      <Typography
+        component="span"
+        sx={{
           color: theme.color.orange[900],
           fontSize: theme.typography.body.fontSize,
           fontWeight: 400,
           display: 'inline-block',
           width: 'fit-content',
+          cursor: 'pointer',
         }}
-        href="#"
-        target="_blank"
       >
         {text}
-      </a>
+      </Typography>
     </StyledTooltip>
   )
 }

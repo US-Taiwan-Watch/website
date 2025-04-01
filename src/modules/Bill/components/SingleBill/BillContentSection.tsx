@@ -26,7 +26,7 @@ const BillContentSection = memo(function BillContentSection({
         <Grid
           size={{
             xs: 12,
-            sm: 8.5,
+            lg: 8.5,
           }}
         >
           {isMobile ? <BillTracker bill={bill} /> : <BioByAI bill={bill} />}
@@ -35,7 +35,8 @@ const BillContentSection = memo(function BillContentSection({
         <Grid
           size={{
             xs: 12,
-            sm: 3.5,
+            sm: 6,
+            lg: 3.5,
           }}
         >
           {isMobile ? <BioByAI bill={bill} /> : <BillTracker bill={bill} />}
@@ -45,7 +46,8 @@ const BillContentSection = memo(function BillContentSection({
         <Grid
           size={{
             xs: 12,
-            sm: 4,
+            sm: 6,
+            lg: 4,
           }}
         >
           {isMobile ? <Sponsor bill={bill} /> : <BillActions bill={bill} />}
@@ -54,7 +56,8 @@ const BillContentSection = memo(function BillContentSection({
         <Grid
           size={{
             xs: 12,
-            sm: 4.5,
+            sm: 6,
+            lg: 4.5,
           }}
         >
           {isMobile ? <BillCosponsors bill={bill} /> : <Sponsor bill={bill} />}
@@ -63,7 +66,8 @@ const BillContentSection = memo(function BillContentSection({
         <Grid
           size={{
             xs: 12,
-            sm: 3.5,
+            sm: 6,
+            lg: 3.5,
           }}
         >
           {isMobile ? (

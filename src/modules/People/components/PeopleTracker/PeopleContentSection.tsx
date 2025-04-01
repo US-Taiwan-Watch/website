@@ -143,7 +143,8 @@ const PeopleContentSection = memo(function PeopleContentSection({
           visible: hasSponsored,
           size: {
             xs: 4,
-            sm: 2,
+            sm: 2.5,
+            md: 2,
           },
           component: <Sponsored people={people} />,
         },
@@ -151,7 +152,8 @@ const PeopleContentSection = memo(function PeopleContentSection({
           visible: hasCoSponsored,
           size: {
             xs: 4,
-            sm: 2,
+            sm: 2.5,
+            md: 2,
           },
           component: <CoSponsored people={people} />,
         },
@@ -159,7 +161,8 @@ const PeopleContentSection = memo(function PeopleContentSection({
           visible: hasVotingRecord,
           size: {
             xs: 4,
-            sm: 2,
+            sm: 2.5,
+            md: 2,
           },
           component: <VotingRecord people={people} />,
         },

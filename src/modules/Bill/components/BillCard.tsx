@@ -76,6 +76,7 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
 
   return (
     <StyledCardContainer
+      height="100%"
       width={isHorizontal ? '100%' : 'auto'}
       minHeight={isHorizontal ? 'auto' : 400}
       sx={{
@@ -150,7 +151,6 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
                 </UHStack>
               )}
               <Box
-                mx={-2}
                 mt={{
                   xs: 2,
                   md: 4,

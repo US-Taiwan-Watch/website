@@ -12,9 +12,9 @@ export type HeaderProps = {
 }
 
 const Header = (props: HeaderProps) => {
-  const { isMobile } = useResponsive()
+  const { isMobile, isTablet } = useResponsive()
 
-  if (isMobile) {
+  if (isMobile || isTablet) {
     return <MobileHeader {...props} />
   }
 

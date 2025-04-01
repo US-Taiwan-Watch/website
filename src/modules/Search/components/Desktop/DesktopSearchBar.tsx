@@ -89,13 +89,15 @@ const DesktopSearchBar = ({
         </StyledButton>
       </StyledContainer>
       {searched && (
-        <DesktopSearchResultList
-          results={searchResults}
-          headerAnchorEl={resultParentEl}
-          inputAnchorEl={inputRef.current}
-          clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
-          onClose={onClose}
-        />
+        <>
+          <DesktopSearchResultList
+            results={searchResults}
+            headerAnchorEl={resultParentEl}
+            inputAnchorEl={inputRef.current}
+            clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
+            onClose={onClose}
+          />
+        </>
       )}
     </Box>
   )

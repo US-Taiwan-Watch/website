@@ -185,6 +185,7 @@ export default function DesignSystemIconsPage() {
       </Box>
       <h2>Button</h2>
       <Box display="flex" p={2} gap={2}>
+        <span>Small</span>
         <UButton variant="contained" color="info" rounded size="small">
           Load More
         </UButton>
@@ -193,6 +194,7 @@ export default function DesignSystemIconsPage() {
         </UButton>
       </Box>
       <Box display="flex" p={2} gap={2}>
+        <span>Medium</span>
         <UButton variant="contained" color="info" rounded size="medium">
           Load More
         </UButton>
@@ -207,6 +209,7 @@ export default function DesignSystemIconsPage() {
         </UButton>
       </Box>
       <Box display="flex" p={2} gap={2}>
+        <span>Large</span>
         <UButton variant="contained" color="info" rounded size="large">
           Load More
         </UButton>

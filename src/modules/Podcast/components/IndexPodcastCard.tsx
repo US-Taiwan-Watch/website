@@ -151,7 +151,14 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
               color="info"
               rounded
               size="medium"
-              endIcon={<ArrowForwardIcon />}
+              endIcon={
+                <ArrowForwardIcon
+                  sx={{
+                    width: { xs: 16, sm: 24 },
+                    height: { xs: 16, sm: 24 },
+                  }}
+                />
+              }
               sx={{ width: 'max-content' }}
             >
               {t('card.cta.more', { ns: 'podcast' })}

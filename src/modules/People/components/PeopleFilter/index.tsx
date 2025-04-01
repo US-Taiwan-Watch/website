@@ -233,7 +233,11 @@ const PeopleFilter = ({ onSubmit, initialValues }: PeopleFilterProps) => {
               }}
               isFirstLevel
               sx={{
-                height: '50px',
+                height: {
+                  xs: '50px',
+                  sm: '40px',
+                  md: '50px',
+                },
               }}
             >
               <MenuItem value={defaultCategory} disabled>
