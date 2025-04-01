@@ -31,7 +31,7 @@ export default async function RootLayout({
   // 設定 API 語言
   apiConfig.setLang(params.lang)
 
-  const { isMobile } = await getServerDevice()
+  const { isMobile, isTablet } = await getServerDevice()
 
   return (
     <html lang="en">
@@ -41,7 +41,7 @@ export default async function RootLayout({
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
             <I18nProvider>
-              <ResponsiveProvider defaultValue={{ isMobile }}>
+              <ResponsiveProvider defaultValue={{ isMobile, isTablet }}>
                 <Stack minHeight="100dvh">
                   <Header />
                   <ToastProvider>

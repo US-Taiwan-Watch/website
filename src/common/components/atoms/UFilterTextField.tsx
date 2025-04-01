@@ -92,7 +92,7 @@ const UFilterTextField = forwardRef<HTMLDivElement, TextFieldProps>(
       }
 
       updateWidth()
-    }, [props.inputProps?.value, props.inputProps?.placeholder, props.label])
+    }, [props.inputProps, props.label])
 
     return (
       <StyledTextField

@@ -132,7 +132,7 @@ export default function usePeopleFilterOptions() {
         label: t('filter.officialArea.judicial.value', { ns: 'people' }),
       },
     ],
-    []
+    [t]
   )
 
   const companyTypeOptions = useMemo<
@@ -156,7 +156,7 @@ export default function usePeopleFilterOptions() {
         label: t('filter.companyType.other.value', { ns: 'people' }),
       },
     ],
-    []
+    [t]
   )
 
   return {

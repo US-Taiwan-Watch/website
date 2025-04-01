@@ -16,7 +16,7 @@ interface ResponsiveProviderContext {
   /** 是否為平板裝置 */
   isTablet: boolean
   /** 是否為可以 hover 的裝置 */
-  isHoverable: boolean
+  isHoverable?: boolean
 }
 
 const ResponsiveContext = createContext<ResponsiveProviderContext | undefined>(

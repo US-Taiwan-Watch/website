@@ -63,7 +63,7 @@ const MobileNavMenuItem = ({
     return function Wrapper({ children }: { children: ReactNode }) {
       return <Link href={item.href}>{children}</Link>
     }
-  }, [hasAccordion])
+  }, [hasAccordion, item])
 
   return (
     <Wrapper>
