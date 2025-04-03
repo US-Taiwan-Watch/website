@@ -29,27 +29,27 @@ export default function useLinks() {
           {
             type: 'subLink',
             title: t('navItem.ustw.mission.title', { ns: 'footer' }),
-            url: '#our-mission',
+            url: ROUTES.ABOUT_MISSION,
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.footprints.title', { ns: 'footer' }),
-            url: '#our-footprints',
+            url: ROUTES.ABOUT_FOOTPRINTS,
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.member.title', { ns: 'footer' }),
-            url: '#our-member',
+            url: ROUTES.ABOUT_MEMBERS,
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.newsroom.title', { ns: 'footer' }),
-            url: '#our-newsroom',
+            url: ROUTES.ABOUT_NEWSROOM,
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.data.title', { ns: 'footer' }),
-            url: '#our-data',
+            url: ROUTES.ABOUT_DATA,
           },
           {
             type: 'subLink',

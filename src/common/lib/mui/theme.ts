@@ -321,6 +321,7 @@ const lightPalette: PaletteOptions = {
     disabledBackground: color.grey[400],
     disabled: color.neutral[200],
   },
+  ...color,
 }
 
 const ketagalanPalette: PaletteOptions = {
@@ -341,6 +342,7 @@ const ketagalanPalette: PaletteOptions = {
     disabledBackground: color.grey[400],
     disabled: color.neutral[200],
   },
+  ...color,
 }
 
 const commonThemeBreakpoints: BreakpointsOptions = {

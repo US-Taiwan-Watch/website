@@ -193,7 +193,7 @@ const MobileNavMenu = ({
           <MobileNavMenuItemList onMenuItemClick={handleMenuItemClick} />
           {/** 捐款 */}
           <Box width="100%" display="flex" justifyContent="center">
-            <Link href={ROUTES.HOME} style={{ width: '100%' }}>
+            <Link href={ROUTES.ABOUT_DONATION} style={{ width: '100%' }}>
               <UButton
                 className="donation-button"
                 variant="contained"
