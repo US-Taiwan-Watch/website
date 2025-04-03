@@ -293,7 +293,7 @@ const DesktopHeader = ({ className }: HeaderProps) => {
                 >
                   <SearchIcon />
                 </UIconButton>
-                <Link href={ROUTES.HOME}>
+                <Link href={ROUTES.ABOUT_DONATION}>
                   <UButton
                     className="donation-button"
                     variant="contained"

@@ -1,0 +1,108 @@
+'use client'
+
+import { Box, Grid2, Stack, Typography } from '@mui/material'
+import { Footprint } from '@/modules/About/Footprint/business/Project'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import dayjs from 'dayjs'
+
+const DATE_FORMAT = 'MMM d, yyyy' // Mar 13, 2024
+
+type FootprintCardProps = {
+  footprint: Footprint
+}
+
+export default function FootprintCard({ footprint }: FootprintCardProps) {
+  const { t } = useTranslationClient('about_footprint')
+
+  return (
+    <Stack
+      gap={{
+        xs: 1,
+        sm: 1.5,
+      }}
+      p={{
+        xs: 2,
+        lg: 3.75,
+      }}
+      sx={{
+        borderRadius: '15px',
+        backgroundColor: 'background.paper',
+      }}
+    >
+      <Grid2
+        container
+        spacing={{
+          xs: 1,
+          sm: 3,
+          lg: 5,
+        }}
+        alignItems="flex-start"
+      >
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 2,
+          }}
+          display="flex"
+        >
+          <Box
+            px={0.75}
+            py={0.25}
+            borderRadius="30px"
+            sx={{
+              backgroundColor: 'secondary.main',
+            }}
+          >
+            <Typography fontSize="0.875rem" fontWeight={600}>
+              {t(`type.${footprint.type}.label`, { ns: 'about_footprint' })}
+            </Typography>
+          </Box>
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 10,
+          }}
+        >
+          <Typography fontSize="1.25rem" fontWeight={600}>
+            {footprint.title}
+          </Typography>
+        </Grid2>
+      </Grid2>
+      <Grid2
+        container
+        spacing={{
+          xs: 1,
+          sm: 3,
+          lg: 5,
+        }}
+        alignItems="flex-start"
+      >
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 2,
+          }}
+        >
+          <Typography
+            fontSize="0.75rem"
+            fontWeight={600}
+            sx={{
+              color: 'neutral.500',
+            }}
+          >
+            {dayjs(footprint.releaseDate).format(DATE_FORMAT)}
+          </Typography>
+        </Grid2>
+        <Grid2
+          size={{
+            xs: 12,
+            sm: 10,
+          }}
+        >
+          <Typography>{footprint.source}</Typography>
+        </Grid2>
+      </Grid2>
+    </Stack>
+  )
+}

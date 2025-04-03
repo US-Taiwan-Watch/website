@@ -8,6 +8,11 @@ const nextConfig = {
       test: /\.svg$/,
       use: ['@svgr/webpack'],
     })
+    // 解析 markdown 檔案
+    config.module.rules.push({
+      test: /\.md$/,
+      use: 'raw-loader',
+    })
     return config
   },
   images: {

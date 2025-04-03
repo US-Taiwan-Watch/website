@@ -18,6 +18,8 @@ import Link from 'next/link'
 import { useTheme } from '@mui/material'
 import UButton from '@/common/components/atoms/UButton'
 import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { ROUTES } from '@/routes'
 
 const StyledNavItemListTitleContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -120,6 +122,7 @@ const StyledLogoText = styled(Typography)(({ theme }) => ({
 const MobileFooter = () => {
   const theme = useTheme<USTWTheme>()
   const { socialLinkItems } = useLinks()
+  const { t } = useTranslationClient('footer')
 
   return (
     <UFullWidthBackgroundBox backgroundColor="common.black">
@@ -148,7 +151,7 @@ const MobileFooter = () => {
                 fontWeight={700}
                 lineHeight={1}
               >
-                US Taiwan Watch
+                {t('section.title', { ns: 'footer' })}
               </StyledLogoText>
             </Stack>
 
@@ -156,7 +159,12 @@ const MobileFooter = () => {
             <MobileFooterNavMenuItemList />
 
             {/* Social Links */}
-            <Stack direction="row" spacing={2} alignContent="center">
+            <Stack
+              direction="row"
+              gap={2}
+              alignContent="center"
+              flexWrap="wrap"
+            >
               {socialLinkItems.map((item, index) => (
                 <Link
                   href={item.url}
@@ -173,16 +181,18 @@ const MobileFooter = () => {
 
             {/** Donation Button */}
             <Box>
-              <UButton
-                variant="contained"
-                color="secondary"
-                rounded
-                sx={{
-                  fontWeight: 600,
-                }}
-              >
-                Donation
-              </UButton>
+              <Link href={ROUTES.ABOUT_DONATION}>
+                <UButton
+                  variant="contained"
+                  color="secondary"
+                  rounded
+                  sx={{
+                    fontWeight: 600,
+                  }}
+                >
+                  Donation
+                </UButton>
+              </Link>
             </Box>
 
             {/** Language Switcher */}

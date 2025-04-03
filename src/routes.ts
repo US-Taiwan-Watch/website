@@ -6,4 +6,13 @@ export const ROUTES = {
   PEOPLE: '/people',
   ARTICLE: '/article',
   SEARCH: '/search',
+  // About
+  ABOUT_MISSION: '/about/mission',
+  ABOUT_PROJECTS: '/about/projects',
+  ABOUT_MEMBERS: '/about/members',
+  ABOUT_FOOTPRINTS: '/about/footprints',
+  ABOUT_NEWSROOM: '/about/newsroom',
+  ABOUT_DATA: '/about/data',
+  ABOUT_USER_AGREEMENT_PRIVACY_POLICY: '/about/user-agreement-privacy-policy',
+  ABOUT_DONATION: '/about/donation',
 }

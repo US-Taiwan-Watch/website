@@ -1,0 +1,4 @@
+# Donation US
+
+My husband’s parents had invited a revered pastor—or moksanim, in Korean—to participate in our wedding. “He’s known for his benedictions,” my husband said. I didn’t know someone could specialize in benedictions, the brief blessings given at the end of a service. I wondered what made his special. Was it the tone of his voice? The way he lifted his hands? His steady cadence?
+The pastor turned out to be a bespectacled Korean American man, in his late sixties, who had a fatherly warmth and a comforting authority. At the wedding, his blessing felt long, but mostly because I was impatient to walk back down the aisle to our recessional, the piano line in Coldplay’s “Clocks.” The blessing’s final words were “ . . . and may the grace of God and the love of God be with you both now and forevermore.” Forevermore isn’t a word you hear very often in everyday life. It’s High Church language. Forevermore turned
