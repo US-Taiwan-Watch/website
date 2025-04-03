@@ -5,7 +5,7 @@ import { Footprint } from '@/modules/About/Footprint/business/Project'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import dayjs from 'dayjs'
 
-const DATE_FORMAT = 'MMM d, yyyy' // Mar 13, 2024
+const DATE_FORMAT = 'MMM DD, YYYY' // Mar 13, 2024
 
 type FootprintCardProps = {
   footprint: Footprint
