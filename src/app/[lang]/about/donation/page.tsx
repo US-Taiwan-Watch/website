@@ -7,10 +7,24 @@ import {
   DonationButtonTaiwan,
   DonationButtonInternational,
 } from '@/modules/About/Donation/components/DonationButton'
+import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
+import { Metadata } from 'next/types'
 
 type AboutDonationPageProps = {
   params: {
     lang: Language
+  }
+}
+
+export async function generateMetadata({
+  params,
+}: AboutDonationPageProps): Promise<Metadata> {
+  const { lang } = params
+  const { t } = await getTranslationServer(lang, 'seo_about_donation')
+
+  return {
+    title: t('meta.title', { ns: 'seo_about_donation' }),
+    description: t('meta.description', { ns: 'seo_about_donation' }),
   }
 }
 

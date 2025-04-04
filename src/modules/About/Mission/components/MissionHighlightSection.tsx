@@ -85,6 +85,7 @@ const MissionHighlightSection = () => {
                 xs: '-20px',
                 sm: '-30px',
                 md: '-40px',
+                lg: '-60px',
               },
               left: '50%',
               transform: 'translateX(-50%)',
