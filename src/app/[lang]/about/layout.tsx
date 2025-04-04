@@ -1,29 +1,8 @@
-import type { Metadata } from 'next'
 import React from 'react'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 import CssBaseline from '@mui/material/CssBaseline'
-import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
-import UContainer from '@/common/components/atoms/UContainer'
-
-interface AboutLayoutProps {
-  params: {
-    lang: Language
-  }
-}
-
-export async function generateMetadata({
-  params,
-}: AboutLayoutProps): Promise<Metadata> {
-  const { lang } = params
-  const { t } = await getTranslationServer(lang, 'seo_about_mission')
-
-  return {
-    title: t('meta.title', { ns: 'seo_about_mission' }),
-    description: t('meta.description', { ns: 'seo_about_mission' }),
-  }
-}
 
 export default function AboutLayout({
   children,
@@ -53,13 +32,7 @@ export default function AboutLayout({
       >
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <UContainer
-          sx={{
-            overflowX: 'hidden',
-          }}
-        >
-          {children}
-        </UContainer>
+        {children}
       </ThemeProvider>
     </AppRouterCacheProvider>
   )

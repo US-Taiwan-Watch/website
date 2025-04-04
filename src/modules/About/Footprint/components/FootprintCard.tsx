@@ -41,7 +41,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
         <Grid2
           size={{
             xs: 12,
-            sm: 2,
+            sm: 2.5,
           }}
           display="flex"
         >
@@ -61,7 +61,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
         <Grid2
           size={{
             xs: 12,
-            sm: 10,
+            sm: 9.5,
           }}
         >
           <Typography fontSize="1.25rem" fontWeight={600}>
@@ -81,7 +81,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
         <Grid2
           size={{
             xs: 12,
-            sm: 2,
+            sm: 2.5,
           }}
         >
           <Typography
@@ -97,7 +97,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
         <Grid2
           size={{
             xs: 12,
-            sm: 10,
+            sm: 9.5,
           }}
         >
           <Typography>{footprint.source}</Typography>
