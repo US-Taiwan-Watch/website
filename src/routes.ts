@@ -15,4 +15,8 @@ export const ROUTES = {
   ABOUT_DATA: '/about/data',
   ABOUT_USER_AGREEMENT_PRIVACY_POLICY: '/about/user-agreement-privacy-policy',
   ABOUT_DONATION: '/about/donation',
+  // Podcast
+  PODCAST_WATCH_HERE: '/podcast/watch-here',
+  PODCAST_WATCH_INFO: '/podcast/watch-info',
+  PODCAST_WATCH_BOOK_CLUB: '/podcast/watch-book-club',
 }

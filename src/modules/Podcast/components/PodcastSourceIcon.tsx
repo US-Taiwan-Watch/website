@@ -1,4 +1,4 @@
-import { PodcastSourceType } from '@/modules/Podcast/classes/Podcast'
+import { PodcastSourceType } from '@/modules/Podcast/business/Podcast'
 import {
   ApplePodcastIcon,
   GooglePodcastIcon,

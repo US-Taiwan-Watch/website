@@ -33,7 +33,7 @@ import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UHashTag from '@/common/components/atoms/UHashTag'
 import USelect from '@/common/components/atoms/USelect'
 import { Party } from '@/common/enums/Party'
-import { Episode } from '@/modules/Podcast/classes/Episode'
+import EpisodeUtils from '@/modules/Podcast/business/Episode'
 
 const StyledIndexEpisodeCardList = styled(Stack)(({ theme }) => ({
   borderRadius: '30px',
@@ -257,159 +257,151 @@ export default function DesignSystemIconsPage() {
       <h3>Index Episode Card</h3>
       <StyledIndexEpisodeCardList direction="column" spacing={2}>
         <IndexEpisodeCard
-          episode={
-            new Episode({
-              id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              hash: 'fa6b699707e8b17b6e67325fb7137dd9',
-              title: '馬斯克卡預算政府險關門？中國海外警察站！',
-              audioUrl:
-                'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
-              explicit: false,
-              description:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
-              complete: false,
-              publishDate: '2024-12-25T04:21:48.000Z',
-              itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
-              audioType: 'audio/mpeg',
-              duration: 3566,
-              artistName: 'US Taiwan Watch',
-              url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              cover:
-                'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
-              season: 3,
-              episode: 158,
-              contentEncoded:
-                '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
-              podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
-              summary:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
-              episodeType: 'full',
-              exclusiveType: 'public',
-              createdAt: '2024-12-25T04:25:35.068Z',
-              updatedAt: '2024-12-25T06:14:22.623Z',
-              weight: 1,
-              keywords: [],
-              activated: true,
-            })
-          }
+          episode={EpisodeUtils.parse({
+            id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            hash: 'fa6b699707e8b17b6e67325fb7137dd9',
+            title: '馬斯克卡預算政府險關門？中國海外警察站！',
+            audioUrl:
+              'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
+            explicit: false,
+            description:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
+            complete: false,
+            publishDate: '2024-12-25T04:21:48.000Z',
+            itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
+            audioType: 'audio/mpeg',
+            duration: 3566,
+            artistName: 'US Taiwan Watch',
+            url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            cover:
+              'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
+            season: 3,
+            episode: 158,
+            contentEncoded:
+              '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
+            podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
+            summary:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
+            episodeType: 'full',
+            exclusiveType: 'public',
+            createdAt: '2024-12-25T04:25:35.068Z',
+            updatedAt: '2024-12-25T06:14:22.623Z',
+            weight: 1,
+            keywords: [],
+            activated: true,
+          })}
         />
         <IndexEpisodeCard
-          episode={
-            new Episode({
-              id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              hash: 'fa6b699707e8b17b6e67325fb7137dd9',
-              title: '馬斯克卡預算政府險關門？中國海外警察站！',
-              audioUrl:
-                'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
-              explicit: false,
-              description:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
-              complete: false,
-              publishDate: '2024-12-25T04:21:48.000Z',
-              itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
-              audioType: 'audio/mpeg',
-              duration: 3566,
-              artistName: 'US Taiwan Watch',
-              url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              cover:
-                'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
-              season: 3,
-              episode: 158,
-              contentEncoded:
-                '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
-              podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
-              summary:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
-              episodeType: 'full',
-              exclusiveType: 'public',
-              createdAt: '2024-12-25T04:25:35.068Z',
-              updatedAt: '2024-12-25T06:14:22.623Z',
-              weight: 1,
-              keywords: [],
-              activated: true,
-            })
-          }
+          episode={EpisodeUtils.parse({
+            id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            hash: 'fa6b699707e8b17b6e67325fb7137dd9',
+            title: '馬斯克卡預算政府險關門？中國海外警察站！',
+            audioUrl:
+              'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
+            explicit: false,
+            description:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
+            complete: false,
+            publishDate: '2024-12-25T04:21:48.000Z',
+            itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
+            audioType: 'audio/mpeg',
+            duration: 3566,
+            artistName: 'US Taiwan Watch',
+            url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            cover:
+              'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
+            season: 3,
+            episode: 158,
+            contentEncoded:
+              '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
+            podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
+            summary:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
+            episodeType: 'full',
+            exclusiveType: 'public',
+            createdAt: '2024-12-25T04:25:35.068Z',
+            updatedAt: '2024-12-25T06:14:22.623Z',
+            weight: 1,
+            keywords: [],
+            activated: true,
+          })}
         />
       </StyledIndexEpisodeCardList>
       <h3>Episode Card</h3>
       <Stack direction="column" spacing={2}>
         <EpisodeCard
-          episode={
-            new Episode({
-              id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              hash: 'fa6b699707e8b17b6e67325fb7137dd9',
-              title: '馬斯克卡預算政府險關門？中國海外警察站！',
-              audioUrl:
-                'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
-              explicit: false,
-              description:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
-              complete: false,
-              publishDate: '2024-12-25T04:21:48.000Z',
-              itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
-              audioType: 'audio/mpeg',
-              duration: 3566,
-              artistName: 'US Taiwan Watch',
-              url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              cover:
-                'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
-              season: 3,
-              episode: 158,
-              contentEncoded:
-                '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
-              podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
-              summary:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
-              episodeType: 'full',
-              exclusiveType: 'public',
-              createdAt: '2024-12-25T04:25:35.068Z',
-              updatedAt: '2024-12-25T06:14:22.623Z',
-              weight: 1,
-              keywords: [],
-              activated: true,
-            })
-          }
+          episode={EpisodeUtils.parse({
+            id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            hash: 'fa6b699707e8b17b6e67325fb7137dd9',
+            title: '馬斯克卡預算政府險關門？中國海外警察站！',
+            audioUrl:
+              'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
+            explicit: false,
+            description:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
+            complete: false,
+            publishDate: '2024-12-25T04:21:48.000Z',
+            itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
+            audioType: 'audio/mpeg',
+            duration: 3566,
+            artistName: 'US Taiwan Watch',
+            url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            cover:
+              'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
+            season: 3,
+            episode: 158,
+            contentEncoded:
+              '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
+            podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
+            summary:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
+            episodeType: 'full',
+            exclusiveType: 'public',
+            createdAt: '2024-12-25T04:25:35.068Z',
+            updatedAt: '2024-12-25T06:14:22.623Z',
+            weight: 1,
+            keywords: [],
+            activated: true,
+          })}
         />
         <EpisodeCard
-          episode={
-            new Episode({
-              id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              hash: 'fa6b699707e8b17b6e67325fb7137dd9',
-              title: '馬斯克卡預算政府險關門？中國海外警察站！',
-              audioUrl:
-                'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
-              explicit: false,
-              description:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
-              complete: false,
-              publishDate: '2024-12-25T04:21:48.000Z',
-              itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
-              audioType: 'audio/mpeg',
-              duration: 3566,
-              artistName: 'US Taiwan Watch',
-              url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
-              cover:
-                'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
-              season: 3,
-              episode: 158,
-              contentEncoded:
-                '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
-              podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
-              summary:
-                '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
-              episodeType: 'full',
-              exclusiveType: 'public',
-              createdAt: '2024-12-25T04:25:35.068Z',
-              updatedAt: '2024-12-25T06:14:22.623Z',
-              weight: 1,
-              keywords: [],
-              activated: true,
-            })
-          }
+          episode={EpisodeUtils.parse({
+            id: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            guid: '49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            hash: 'fa6b699707e8b17b6e67325fb7137dd9',
+            title: '馬斯克卡預算政府險關門？中國海外警察站！',
+            audioUrl:
+              'https://rss.soundon.fm/rssf/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/feedurl/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8/rssFileVip.mp3?timestamp=1735102359920',
+            explicit: false,
+            description:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> ',
+            complete: false,
+            publishDate: '2024-12-25T04:21:48.000Z',
+            itunesKeywords: ['美國台灣觀測站', '台美關係', '立法院'],
+            audioType: 'audio/mpeg',
+            duration: 3566,
+            artistName: 'US Taiwan Watch',
+            url: 'https://player.soundon.fm/p/6cdfccc6-7c47-4c35-8352-7f634b1b6f71/episodes/49b9dbdc-34e8-4c5b-b435-5e51f45fe9e8',
+            cover:
+              'https://files.soundon.fm/1735100633682-990587b2-4b72-4e55-9654-a11d6f5985d1.jpeg',
+            season: 3,
+            episode: 158,
+            contentEncoded:
+              '<p><br />本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n<br />  \n<br />而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n<br />  \n<br />除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n<br />  \n<br />最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n<br />  \n<br />電子書：<a href="https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n<br />各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n<br />--<br />\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a> </p>',
+            podcastId: '6cdfccc6-7c47-4c35-8352-7f634b1b6f71',
+            summary:
+              '本週podcast首先小編會來聊聊最近立法院的爭議，不過最近憲法法庭、最高法院不寧靜的不只台灣，我們也會在本集內容中補充美國、歐洲以及韓國憲法法庭的重大案件，其中美國部分我們會聊聊TikTok案的進展，周受資和川普見面會不會影響事件發展。 \n  \n而就在拜登政府任期來到尾聲之際，美國國務院週三發表了國務卿布林肯接受《外交事務》（Foreign Affairs）採訪的內容，其中布林肯表示：「中國喜歡說台灣不關別人的事，是中國內政，然而國際社會的回應是，不，這其實是我們所有人的事！」（No, it is our business!）。不只再一次將台海議題國際化，兩天後，拜登政府又接連公布一筆軍援和兩筆軍售！ \n  \n除了國務院，美國國防部18日也公布了「2024年中國軍力報告」 ，小編會為大家整理報告中的重點，包括中國持續增強核武、延續「2049民族復興」計畫，以及指稱中國戰力與管理層面缺陷等。不過中國的威脅不只在軍事，還有各層面的銳實力滲透，最近紐約一位華裔美籍男子就向布魯克林聯邦法院承認，他在曼哈頓唐人街營運的「海外警察站」實際上是代表外國政府工作，卻沒有登記為外國代理人，引發對中國滲透的關注。 \n  \n最後，上週國會山莊也上演了一齣有關預算的混亂戲碼，我們會來快速講解發生什麼事，以及為什麼經濟學人認為事件僅僅是預示了川普下月執政後，將會面臨的困境？當前的預算之爭雖然平安落幕，但可能反應什麼樣的國會山莊氣氛。 \n  \n電子書：<a href="https://www.youtube.com/redirect?event=video_description&amp;redir_token=QUFFLUhqbVRKam1pMkhLRURJVkFZa1loMWxjSEprX0dIQXxBQ3Jtc0tsT0t1RV9wcUt6bkNQRDdJOGZpUC1EcFktcWthUDlfWHYtUFhhbm5uTXFmM2tWb1NpeXluTWN3UTdLVTdZNndMY0V3QWhVdk5ncHpaaDZBemFrREQwdWVPVFdoYUVNS0hPUnJ6LXpjbzJlcjRzVjBjVQ&amp;q=https%3A%2F%2Fwww.linkingbooks.com.tw%2Febook%2Fbuy.aspx">https://www.linkingbooks.com.tw/ebook/buy.aspx</a> \n各平台收聽的傳送門​ ：<a href="http://linktr.ee/us.taiwan.watch">http://linktr.ee/us.taiwan.watch</a> \n--\nHosting provided by <a href="https://www.soundon.fm/">SoundOn</a>',
+            episodeType: 'full',
+            exclusiveType: 'public',
+            createdAt: '2024-12-25T04:25:35.068Z',
+            updatedAt: '2024-12-25T06:14:22.623Z',
+            weight: 1,
+            keywords: [],
+            activated: true,
+          })}
         />
       </Stack>
       <h2>Pagination</h2>

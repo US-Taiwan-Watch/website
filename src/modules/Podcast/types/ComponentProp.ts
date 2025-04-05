@@ -1,4 +1,4 @@
-import { Episode } from '@/modules/Podcast/classes/Episode'
+import { Episode } from '@/modules/Podcast/business/Episode'
 
 export interface EpisodeCardCallbackParams {
   episode: Episode

@@ -1,5 +1,5 @@
 import { config } from '@/config'
-import { Episode } from '@/modules/Podcast/classes/Episode'
+import EpisodeUtils from '@/modules/Podcast/business/Episode'
 import {
   GetEpisodeParams,
   GetEpisodeResponse,
@@ -18,7 +18,7 @@ export const getEpisodes = async (params: GetEpisodesParams) => {
       }
     )
     const data = (await res.json()) as GetEpisodesResponse
-    return data.data.map((episode) => new Episode(episode.data))
+    return data.data.map((episode) => EpisodeUtils.parse(episode.data))
   } catch {
     return []
   }
@@ -35,7 +35,7 @@ export const getEpisode = async (params: GetEpisodeParams) => {
       }
     )
     const data = (await res.json()) as GetEpisodeResponse
-    return new Episode(data.data.data)
+    return EpisodeUtils.parse(data.data.data)
   } catch {
     return null
   }
