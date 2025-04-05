@@ -107,17 +107,17 @@ export default function useLinks() {
           {
             type: 'subLink',
             title: t('navItem.podcasts.watchHere.title', { ns: 'footer' }),
-            url: '#觀測站底加辣',
+            url: ROUTES.PODCAST_WATCH_HERE,
           },
           {
             type: 'subLink',
             title: t('navItem.podcasts.watchInfo.title', { ns: 'footer' }),
-            url: '#觀測站予你知',
+            url: ROUTES.PODCAST_WATCH_INFO,
           },
           {
             type: 'subLink',
             title: t('navItem.podcasts.watchBookClub.title', { ns: 'footer' }),
-            url: '#觀測站讀書會',
+            url: ROUTES.PODCAST_WATCH_BOOK_CLUB,
           },
         ],
       },

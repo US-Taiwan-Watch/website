@@ -1,5 +1,6 @@
 import { memo } from 'react'
 import UButton from '@/common/components/atoms/UButton'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const UInfiniteScrollButton = memo(function UInfiniteScrollButton({
   loading,
@@ -10,6 +11,7 @@ const UInfiniteScrollButton = memo(function UInfiniteScrollButton({
   onLoadMore: () => void
   hasMore: boolean
 }) {
+  const { t } = useTranslationClient('common')
   if (!hasMore && !loading) return null
 
   return (
@@ -21,7 +23,7 @@ const UInfiniteScrollButton = memo(function UInfiniteScrollButton({
       onClick={onLoadMore}
       disabled={loading}
     >
-      Load More
+      {t('loadMore.btn', { ns: 'common' })}
     </UButton>
   )
 })

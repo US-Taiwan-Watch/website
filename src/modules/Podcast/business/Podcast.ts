@@ -1,5 +1,6 @@
-import { Episode } from '@/modules/Podcast/classes/Episode'
-import { isString } from 'lodash-es'
+import { Episode } from '@/modules/Podcast/business/Episode'
+import dayjs from 'dayjs'
+import { z } from 'zod'
 
 // TODO: 類性待確定
 export enum PodcastSourceType {
@@ -25,36 +26,24 @@ export enum PodcastType {
  */
 type FilterEpisodesSort = 'CREATED_AT_ASC' | 'CREATED_AT_DESC'
 
-interface PodcastArgs {
-  type: PodcastType
-  bannerImg: string
-  title: string
-  description: string
-}
+const podcastSchema = z.object({
+  type: z.nativeEnum(PodcastType),
+  bannerImg: z.string(),
+  title: z.string(),
+  description: z.string(),
+})
 
-export default class Podcast {
-  /** Podcast Type */
-  type?: PodcastType
-  /** Podcast Title */
-  title?: string
-  /** Banner Image URL */
-  bannerImg?: string
-  /** Podcast Description */
-  description?: string
+export type PodcastInput = z.input<typeof podcastSchema>
+export type Podcast = z.infer<typeof podcastSchema>
 
-  constructor(private args: PodcastArgs) {
-    if (isString(args.type)) {
-      this.type = args.type
-    }
-    if (isString(args.bannerImg)) {
-      this.bannerImg = args.bannerImg
-    }
-    if (isString(args.title)) {
-      this.title = args.title
-    }
-    if (isString(args.description)) {
-      this.description = args.description
-    }
+export default class PodcastUtils {
+  static parse(dto: PodcastInput): Podcast {
+    return podcastSchema.parse({
+      type: dto.type,
+      bannerImg: dto.bannerImg,
+      title: dto.title,
+      description: dto.description,
+    })
   }
 
   static sources: Array<PodcastSource> = [
@@ -87,14 +76,14 @@ export default class Podcast {
     limit?: number
   ): Array<Episode> {
     if (!podcast.type) return []
-    const regex = Podcast.watchEpisodeTitleRegexMap[podcast.type]
+    const regex = PodcastUtils.watchEpisodeTitleRegexMap[podcast.type]
     return episodes
       .filter((episode) => episode.title && regex.test(episode.title))
       .sort((a, b) => {
         if (sort === 'CREATED_AT_ASC')
-          return a.createdAt?.diff(b.createdAt) ?? 0
+          return dayjs(a.createdAt).diff(dayjs(b.createdAt))
         if (sort === 'CREATED_AT_DESC')
-          return b.createdAt?.diff(a.createdAt) ?? 0
+          return dayjs(b.createdAt).diff(dayjs(a.createdAt))
         return 0
       })
       .slice(0, limit)
@@ -114,8 +103,8 @@ export default class Podcast {
   static watchBookClubEpisodeTitleRegex = /觀測站讀書會/
 
   static watchEpisodeTitleRegexMap: Record<PodcastType, RegExp> = {
-    [PodcastType.WATCH_HERE]: Podcast.watchHereEpisodeTitleRegex,
-    [PodcastType.WATCH_INFO]: Podcast.watchInfoEpisodeTitleRegex,
-    [PodcastType.WATCH_BOOK_CLUB]: Podcast.watchBookClubEpisodeTitleRegex,
+    [PodcastType.WATCH_HERE]: PodcastUtils.watchHereEpisodeTitleRegex,
+    [PodcastType.WATCH_INFO]: PodcastUtils.watchInfoEpisodeTitleRegex,
+    [PodcastType.WATCH_BOOK_CLUB]: PodcastUtils.watchBookClubEpisodeTitleRegex,
   }
 }

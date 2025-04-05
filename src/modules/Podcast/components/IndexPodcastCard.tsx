@@ -1,7 +1,10 @@
 'use client'
 
 import clsx from 'clsx'
-import Podcast, { PodcastType } from '@/modules/Podcast/classes/Podcast'
+import PodcastUtils, {
+  Podcast,
+  PodcastType,
+} from '@/modules/Podcast/business/Podcast'
 import { Box, Grid2 as Grid, Stack } from '@mui/material'
 import type React from 'react'
 import { memo, useMemo } from 'react'
@@ -16,7 +19,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
-import { Episode } from '@/modules/Podcast/classes/Episode'
+import { Episode } from '@/modules/Podcast/business/Episode'
 import usePodcastStore from '@/modules/Podcast/store/usePodcastStore'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -129,7 +132,7 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
               {podcast.description}
             </StyledDescriptionWithSelectable>
             <Stack direction="row" spacing={2}>
-              {Podcast.sources.map((source, index) => (
+              {PodcastUtils.sources.map((source, index) => (
                 <Link
                   key={index}
                   href={source.url}
@@ -185,7 +188,7 @@ export const WatchHerePodcastCard = () => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
-      new Podcast({
+      PodcastUtils.parse({
         type: PodcastType.WATCH_HERE,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_HERE.png',
         title: t('asset.watchHere.title', { ns: 'podcast' }),
@@ -197,7 +200,12 @@ export const WatchHerePodcastCard = () => {
   return (
     <IndexPodcastCard
       podcast={podcast}
-      episodes={Podcast.filterEpisodes(podcast, episodes, 'CREATED_AT_DESC', 3)}
+      episodes={PodcastUtils.filterEpisodes(
+        podcast,
+        episodes,
+        'CREATED_AT_DESC',
+        3
+      )}
     />
   )
 }
@@ -205,7 +213,7 @@ export const WatchInfoPodcastCard = () => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
-      new Podcast({
+      PodcastUtils.parse({
         type: PodcastType.WATCH_INFO,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_INFO.png',
         title: t('asset.watchInfo.title', { ns: 'podcast' }),
@@ -217,7 +225,12 @@ export const WatchInfoPodcastCard = () => {
   return (
     <IndexPodcastCard
       podcast={podcast}
-      episodes={Podcast.filterEpisodes(podcast, episodes, 'CREATED_AT_DESC', 3)}
+      episodes={PodcastUtils.filterEpisodes(
+        podcast,
+        episodes,
+        'CREATED_AT_DESC',
+        3
+      )}
     />
   )
 }
@@ -225,7 +238,7 @@ export const WatchBookClubPodcastCard = () => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
-      new Podcast({
+      PodcastUtils.parse({
         type: PodcastType.WATCH_BOOK_CLUB,
         bannerImg: '/assets/podcast/podcast_banner_WATCH_BOOK_CLUB.png',
         title: t('asset.watchBookClub.title', { ns: 'podcast' }),
@@ -237,7 +250,12 @@ export const WatchBookClubPodcastCard = () => {
   return (
     <IndexPodcastCard
       podcast={podcast}
-      episodes={Podcast.filterEpisodes(podcast, episodes, 'CREATED_AT_DESC', 3)}
+      episodes={PodcastUtils.filterEpisodes(
+        podcast,
+        episodes,
+        'CREATED_AT_DESC',
+        3
+      )}
     />
   )
 }

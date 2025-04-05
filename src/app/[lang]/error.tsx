@@ -47,7 +47,10 @@ export default function Error() {
             md: 3,
             lg: 5,
           }}
-          textAlign="center"
+          textAlign={{
+            xs: 'left',
+            sm: 'center',
+          }}
         >
           <Stack gap={1.75}>
             <Stack gap={1}>

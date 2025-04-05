@@ -1,4 +1,4 @@
-import { Episode } from '@/modules/Podcast/classes/Episode'
+import { Episode } from '@/modules/Podcast/business/Episode'
 import { create } from 'zustand'
 import createSelectors from '@/common/lib/zustand/hooks/createSelectors'
 import { devtools } from 'zustand/middleware'
