@@ -13,7 +13,8 @@ import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Link from 'next/link'
-const dateFormat = 'YYYY-MM-DD'
+
+const DATE_FORMAT = 'YYYY-MM-DD'
 
 // TODO: 定義介面
 
@@ -33,7 +34,7 @@ const ArticlePostHeader = function ArticlePostHeader({
   const formattedDate = useMemo(() => {
     if (!date) return ''
     const dayjsDate = dayjs(date)
-    return dayjsDate.isValid() ? dayjsDate.format(dateFormat) : ''
+    return dayjsDate.isValid() ? dayjsDate.format(DATE_FORMAT) : ''
   }, [date])
 
   return (

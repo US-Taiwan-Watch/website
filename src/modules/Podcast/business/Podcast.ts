@@ -2,10 +2,8 @@ import { Episode } from '@/modules/Podcast/business/Episode'
 import dayjs from 'dayjs'
 import { z } from 'zod'
 
-// TODO: 類性待確定
 export enum PodcastSourceType {
   APPLE = 'APPLE',
-  GOOGLE = 'GOOGLE',
   SPOTIFY = 'SPOTIFY',
   SOUND_ON = 'SOUND_ON',
 }

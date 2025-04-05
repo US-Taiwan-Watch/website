@@ -183,10 +183,7 @@ const EpisodeCard = memo(
                   <ForwardIcon />
                 </UIconButton>
                 <Link
-                  href={EpisodeUtils.getSoundonLink(
-                    episode.podcastId!,
-                    episode.id!
-                  )}
+                  href={EpisodeUtils.getLink(episode.id)}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -309,7 +306,6 @@ const EpisodeCard = memo(
       progress,
       handleSliderChange,
       runningTime,
-      episode.podcastId,
       episode.id,
       togglePlayPause,
       playing,
@@ -414,10 +410,7 @@ const EpisodeCard = memo(
                   justifyContent="end"
                 >
                   <Link
-                    href={EpisodeUtils.getSoundonLink(
-                      episode.podcastId!,
-                      episode.id!
-                    )}
+                    href={EpisodeUtils.getLink(episode.id)}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
