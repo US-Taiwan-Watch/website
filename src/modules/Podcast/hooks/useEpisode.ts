@@ -1,7 +1,7 @@
 'use client'
 
 import { getEpisode } from '@/modules/Podcast/api/soundon'
-import { Episode } from '@/modules/Podcast/classes/Episode'
+import { Episode } from '@/modules/Podcast/business/Episode'
 import { useCallback, useEffect, useState } from 'react'
 import { config } from '@/config'
 
