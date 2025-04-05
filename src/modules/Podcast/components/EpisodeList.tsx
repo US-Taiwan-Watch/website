@@ -10,20 +10,23 @@ import PodcastUtils, {
   PodcastType,
 } from '@/modules/Podcast/business/Podcast'
 import EpisodeCard from '@/modules/Podcast/components/EpisodeCard'
-import usePodcastStore from '@/modules/Podcast/store/usePodcastStore'
 import { Box, Stack } from '@mui/material'
 import { useMemo } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { Episode } from '@/modules/Podcast/business/Episode'
 
 const EPISODE_COUNT_PER_PAGE = 5
 
 type EpisodeListProps = {
   podcast: Podcast
+  episodes: Array<Episode>
 }
 
-export default function EpisodeList({ podcast }: EpisodeListProps) {
+export default function EpisodeList({
+  podcast,
+  episodes: allEpisodes,
+}: EpisodeListProps) {
   const { isMobile, isTablet } = useResponsive()
-  const allEpisodes = usePodcastStore.use.episodes()
   const podcastEpisodes = useMemo(() => {
     return PodcastUtils.filterEpisodes(podcast, allEpisodes, 'CREATED_AT_DESC')
   }, [podcast, allEpisodes])
@@ -89,7 +92,11 @@ export default function EpisodeList({ podcast }: EpisodeListProps) {
   )
 }
 
-export const WatchHereEpisodeList = () => {
+export const WatchHereEpisodeList = ({
+  episodes,
+}: {
+  episodes: Array<Episode>
+}) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
@@ -101,10 +108,14 @@ export const WatchHereEpisodeList = () => {
       }),
     [t]
   )
-  return <EpisodeList podcast={podcast} />
+  return <EpisodeList podcast={podcast} episodes={episodes} />
 }
 
-export const WatchInfoEpisodeList = () => {
+export const WatchInfoEpisodeList = ({
+  episodes,
+}: {
+  episodes: Array<Episode>
+}) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
@@ -116,10 +127,14 @@ export const WatchInfoEpisodeList = () => {
       }),
     [t]
   )
-  return <EpisodeList podcast={podcast} />
+  return <EpisodeList podcast={podcast} episodes={episodes} />
 }
 
-export const WatchBookClubEpisodeList = () => {
+export const WatchBookClubEpisodeList = ({
+  episodes,
+}: {
+  episodes: Array<Episode>
+}) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
@@ -131,5 +146,5 @@ export const WatchBookClubEpisodeList = () => {
       }),
     [t]
   )
-  return <EpisodeList podcast={podcast} />
+  return <EpisodeList podcast={podcast} episodes={episodes} />
 }
