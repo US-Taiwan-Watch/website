@@ -54,6 +54,7 @@ import SvgSettingIcon from './SettingIcon.svg'
 import SvgPasswordIcon from './PasswordIcon.svg'
 import SvgLogoutIcon from './LogoutIcon.svg'
 import SvgBackIcon from './BackIcon.svg'
+import SvgExternalLinkIcon from './ExternalLinkIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -275,4 +276,8 @@ export const LogoutIcon = (props: SvgIconProps) => (
 
 export const BackIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgBackIcon} {...props} />
+)
+
+export const ExternalLinkIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgExternalLinkIcon} {...props} />
 )
