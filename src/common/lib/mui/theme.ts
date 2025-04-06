@@ -203,6 +203,10 @@ const color = {
     4000: '#CECECE',
     4100: '#EBEBEB',
     4200: '#666666',
+    4300: '#EDEDED',
+    4400: '#2C2C2C',
+    4500: '#C2C2C2',
+    4600: '#E6E6E6',
   },
   orange: {
     ...colors.orange,
@@ -217,6 +221,7 @@ const color = {
     700: '#3986FF',
     800: '#2A2E36',
     900: '#E7F4FE',
+    1000: '#0083CC',
   },
   red: {
     ...colors.red,

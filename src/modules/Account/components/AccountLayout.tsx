@@ -9,14 +9,7 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
   const { withSidebar, withContent } = useAccountLayout()
 
   return (
-    <Stack
-      direction="row"
-      gap={2}
-      p={{
-        xs: 2,
-        sm: 0,
-      }}
-    >
+    <Stack direction="row" gap={2}>
       {withSidebar && <AccountSidebar />}
       {withContent && <>{children}</>}
     </Stack>

@@ -16,9 +16,8 @@ const AccountContentWrapper = styled(Box)(({ theme }) => ({
   minHeight: '600px',
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
-  padding: theme.spacing(2.5, 4),
+  padding: theme.spacing(0),
   [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(2),
     backgroundColor: 'transparent',
   },
 }))
@@ -41,6 +40,14 @@ export default function AccountContent({
       <Stack
         direction={isNarrow ? 'column' : 'row'}
         justifyContent="space-between"
+        sx={{
+          backgroundColor: isNarrow ? 'neutral.100' : 'grey.4300',
+          px: isNarrow ? 2 : 8,
+          py: 2.5,
+          pt: isNarrow ? 0 : 2.5,
+          borderTopLeftRadius: '15px',
+          borderTopRightRadius: '15px',
+        }}
       >
         <UHStack justifyContent="space-between" alignItems="center">
           <UHStack alignItems="center" gap={1}>

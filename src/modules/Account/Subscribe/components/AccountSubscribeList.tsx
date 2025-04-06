@@ -1,0 +1,147 @@
+'use client'
+
+import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
+import UHStack from '@/common/components/atoms/UHStack'
+import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { AccountSubscribe } from '@/modules/Account/Subscribe/business/AccountSubscribe'
+import { Box, Stack } from '@mui/material'
+import { memo } from 'react'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
+import Link from 'next/link'
+import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
+
+type AccountSubscribeListItemProps = {
+  accountSubscribe: AccountSubscribe
+}
+
+const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
+  accountSubscribe,
+}: AccountSubscribeListItemProps) {
+  const { t } = useTranslationClient('account')
+  const { isNarrow } = useAccountLayout()
+
+  return (
+    <UHStack
+      alignItems="center"
+      justifyContent="space-between"
+      sx={{
+        borderBottomColor: 'grey.4600',
+        borderBottomWidth: 1,
+        borderBottomStyle: 'solid',
+        px: 4,
+        py: 2,
+      }}
+    >
+      <UHStack
+        alignItems="flex-start"
+        gap={{
+          xs: 1.5,
+          lg: 3.75,
+        }}
+      >
+        <Box
+          sx={{
+            minWidth: {
+              xs: '46px',
+              lg: '80px',
+            },
+            textAlign: 'center',
+            px: isNarrow ? 0.75 : 3.125,
+            py: isNarrow ? 0.75 : 0.75,
+            color: 'indigo.1000',
+            fontSize: isNarrow ? '0.625rem' : '0.875rem',
+            fontWeight: 600,
+            borderRadius: '9.35px',
+            borderColor: 'grey.1400',
+            borderWidth: 1,
+            borderStyle: 'solid',
+            backgroundColor: 'grey.2600',
+          }}
+        >
+          {t(`subscribe.type.${accountSubscribe.type}`, { ns: 'account' })}
+        </Box>
+        <UHeightLimitedText
+          maxLine={2}
+          variant="bodyS"
+          color="gray.4400"
+          fontWeight={'600 !important'}
+        >
+          {accountSubscribe.title}
+        </UHeightLimitedText>
+      </UHStack>
+      <UHStack gap={isNarrow ? 0 : 1.5}>
+        <Link
+          href={accountSubscribe.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <UIconButton variant="text" color="info" size="xs">
+            <ExternalLinkIcon
+              sx={{
+                width: 14,
+                height: 14,
+                color: 'grey.4500',
+              }}
+            />
+          </UIconButton>
+        </Link>
+        <UIconButton variant="text" color="info" size="xs">
+          <CloseIcon
+            sx={{
+              width: 14,
+              height: 14,
+              color: 'grey.4500',
+            }}
+          />
+        </UIconButton>
+      </UHStack>
+    </UHStack>
+  )
+})
+
+const AccountSubscribeList = memo(function AccountSubscribeList() {
+  const filteredAccountSubscribeList =
+    useAccountSubscribeStore.use.filteredAccountSubscribeList()
+  const { isNarrow } = useAccountLayout()
+
+  if (isNarrow) {
+    return (
+      <UFullWidthBackgroundBox>
+        <Stack
+          width="100%"
+          sx={{
+            backgroundColor: 'grey.100',
+          }}
+        >
+          {filteredAccountSubscribeList.map((accountSubscribe) => (
+            <AccountSubscribeListItem
+              key={accountSubscribe.id}
+              accountSubscribe={accountSubscribe}
+            />
+          ))}
+        </Stack>
+      </UFullWidthBackgroundBox>
+    )
+  }
+
+  return (
+    <Stack
+      width="100%"
+      sx={{
+        backgroundColor: 'common.white',
+      }}
+    >
+      {filteredAccountSubscribeList.map((accountSubscribe) => (
+        <AccountSubscribeListItem
+          key={accountSubscribe.id}
+          accountSubscribe={accountSubscribe}
+        />
+      ))}
+    </Stack>
+  )
+})
+
+export default AccountSubscribeList
