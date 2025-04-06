@@ -2,20 +2,17 @@
 
 import { Box, Stack, Typography, Avatar } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
-import { usePathname } from 'next/navigation'
 import Link from 'next/link'
-import {
-  SubscribeIcon,
-  SettingsIcon,
-  PasswordIcon,
-  NotificationIcon,
-  LogoutIcon,
-} from './icons'
+import useAccountNavItems from '@/modules/Account/hooks/useAccountNavItems'
+import { LogoutIcon } from '@/common/styles/assets/Icons'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import dayjs from 'dayjs'
+
+const JOIN_DATE_FORMAT = 'YYYY/MM/DD'
 
 const SidebarContainer = styled(Stack)(({ theme }) => ({
-  width: '298px',
   gap: theme.spacing(2),
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('sm')]: {
     width: '100%',
   },
 }))
@@ -24,6 +21,11 @@ const ProfileCard = styled(Box)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(2, 2.5, 1.5),
+  [theme.breakpoints.down('sm')]: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    padding: 0,
+  },
 }))
 
 const ProfileInfo = styled(Stack)(({ theme }) => ({
@@ -42,9 +44,16 @@ const JoinDate = styled(Box)(({ theme }) => ({
 }))
 
 const NavContainer = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(2.5),
+  [theme.breakpoints.down('sm')]: {
+    backgroundColor: 'transparent',
+    border: 'none',
+    padding: 0,
+  },
 }))
 
 const NavList = styled(Stack)(({ theme }) => ({
@@ -73,6 +82,16 @@ const NavItem = styled(Link)<{ active?: boolean }>(({ theme, active }) => ({
       color: theme.color.common.black,
     },
   },
+  [theme.breakpoints.down('sm')]: {
+    color: theme.color.common.black,
+    backgroundColor: 'transparent',
+    '& .MuiSvgIcon-root': {
+      color: theme.color.common.black,
+    },
+    '& .MuiTypography-root': {
+      fontWeight: 500,
+    },
+  },
 }))
 
 const DeleteAccount = styled(Box)(({ theme }) => ({
@@ -91,27 +110,36 @@ const DeleteAccount = styled(Box)(({ theme }) => ({
   },
 }))
 
-const NAV_ITEMS = [
-  { label: 'Subscribe', href: '/account/subscribe', icon: <SubscribeIcon /> },
-  { label: 'Settings', href: '/account/setting', icon: <SettingsIcon /> },
-  { label: 'Password', href: '/account/password', icon: <PasswordIcon /> },
-  {
-    label: 'Notification',
-    href: '/account/notification',
-    icon: <NotificationIcon />,
-  },
-]
-
 export default function AccountSidebar() {
-  const pathname = usePathname()
+  const { t } = useTranslationClient('account')
+  const { navItems, currentNavItem } = useAccountNavItems()
 
   return (
     <SidebarContainer>
       <ProfileCard>
         <ProfileInfo>
-          <Stack direction="row" spacing={1.75} alignItems="center">
+          <Stack
+            direction={{
+              xs: 'row',
+              sm: 'column',
+            }}
+            spacing={1.75}
+            alignItems={{
+              xs: 'center',
+              sm: 'flex-start',
+            }}
+          >
             <Avatar
-              sx={{ width: 48, height: 48 }}
+              sx={{
+                width: {
+                  xs: 54,
+                  sm: 64,
+                },
+                height: {
+                  xs: 54,
+                  sm: 64,
+                },
+              }}
               alt="User Avatar"
               src="/path/to/avatar.jpg"
             />
@@ -122,30 +150,42 @@ export default function AccountSidebar() {
           </Stack>
         </ProfileInfo>
         <JoinDate>
-          <Typography>Since : 2024/05/28</Typography>
+          <Typography
+            sx={{
+              color: 'grey.4200',
+            }}
+          >
+            {t('account.joinDate', {
+              ns: 'account',
+              date: dayjs().format(JOIN_DATE_FORMAT),
+              interpolation: { escapeValue: false },
+            })}
+          </Typography>
         </JoinDate>
       </ProfileCard>
 
-      <NavContainer>
-        <NavList>
-          {NAV_ITEMS.map((item) => (
+      <NavContainer flex={1}>
+        <NavList flex={1}>
+          {navItems.map((item) => (
             <NavItem
               key={item.href}
               href={item.href}
-              active={pathname === item.href}
+              active={currentNavItem?.href === item.href}
             >
               {item.icon}
-              <Typography variant="buttonM">{item.label}</Typography>
+              <Typography>{item.label}</Typography>
             </NavItem>
           ))}
           <NavItem href="/logout">
-            <LogoutIcon />
-            <Typography variant="buttonM">Log out</Typography>
+            <LogoutIcon sx={{ width: 24, height: 24 }} />
+            <Typography variant="buttonM">
+              {t('logout.btn', { ns: 'account' })}
+            </Typography>
           </NavItem>
         </NavList>
 
         <DeleteAccount>
-          <Typography>Delete account</Typography>
+          <Typography>{t('deleteAccount.btn', { ns: 'account' })}</Typography>
         </DeleteAccount>
       </NavContainer>
     </SidebarContainer>

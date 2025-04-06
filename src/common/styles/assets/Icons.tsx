@@ -49,6 +49,11 @@ import SvgMenuIcon from './MenuIcon.svg'
 import SvgCloseIcon from './CloseIcon.svg'
 import SvgFilterIcon from './FilterIcon.svg'
 import SvgArrowTopRightIcon from './ArrowTopRightIcon.svg'
+import SvgNotificationIcon from './NotificationIcon.svg'
+import SvgSettingIcon from './SettingIcon.svg'
+import SvgPasswordIcon from './PasswordIcon.svg'
+import SvgLogoutIcon from './LogoutIcon.svg'
+import SvgBackIcon from './BackIcon.svg'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
@@ -250,4 +255,24 @@ export const FilterIcon = (props: SvgIconProps) => (
 
 export const ArrowTopRightIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgArrowTopRightIcon} {...props} />
+)
+
+export const NotificationIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgNotificationIcon} {...props} />
+)
+
+export const SettingIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgSettingIcon} {...props} />
+)
+
+export const PasswordIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgPasswordIcon} {...props} />
+)
+
+export const LogoutIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgLogoutIcon} {...props} />
+)
+
+export const BackIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgBackIcon} {...props} />
 )

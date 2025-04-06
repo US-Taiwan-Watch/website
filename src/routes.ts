@@ -19,4 +19,10 @@ export const ROUTES = {
   PODCAST_WATCH_HERE: '/podcast/category/watch-here',
   PODCAST_WATCH_INFO: '/podcast/category/watch-info',
   PODCAST_WATCH_BOOK_CLUB: '/podcast/category/watch-book-club',
+  // Account
+  ACCOUNT: '/account',
+  ACCOUNT_SUBSCRIBE: '/account/subscribe',
+  ACCOUNT_SETTING: '/account/setting',
+  ACCOUNT_PASSWORD: '/account/password',
+  ACCOUNT_NOTIFICATION: '/account/notification',
 }
