@@ -1,7 +1,6 @@
 import { PodcastSourceType } from '@/modules/Podcast/business/Podcast'
 import {
   ApplePodcastIcon,
-  GooglePodcastIcon,
   SoundOnPodcastIcon,
   SpotifyIcon,
 } from '@/common/styles/assets/Icons'
@@ -16,8 +15,6 @@ const PodcastSourceIcon = (props: PodcastSourceIconProps) => {
   switch (sourceType) {
     case PodcastSourceType.APPLE:
       return <ApplePodcastIcon {...rest} />
-    case PodcastSourceType.GOOGLE:
-      return <GooglePodcastIcon {...rest} />
     case PodcastSourceType.SPOTIFY:
       return <SpotifyIcon {...rest} />
     case PodcastSourceType.SOUND_ON:
