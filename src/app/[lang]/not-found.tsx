@@ -7,7 +7,6 @@ import { ROUTES } from '@/routes'
 import { Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
-import CssBaseline from '@mui/material/CssBaseline'
 import { Language } from '@/common/lib/i18n/types'
 import { useParams } from 'next/navigation'
 
@@ -26,8 +25,6 @@ export default function NotFound() {
         },
       }}
     >
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
       <UContainer
         sx={{
           height: '100%',

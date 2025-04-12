@@ -31,7 +31,11 @@ export default async function Home({ params }: HomeProps) {
           },
         }}
       >
-        <ThemeProvider mode="ketagalan" lang={params.lang}>
+        <ThemeProvider
+          mode="ketagalan"
+          lang={params.lang}
+          withCssBaseline={false}
+        >
           <ArticleSection articleType={ArticleType.Ketagalan} />
         </ThemeProvider>
         <PodcastSection title={t('section.podcasts.title')} />
