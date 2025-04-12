@@ -1,6 +1,5 @@
 'use client'
 
-import { CssBaseline } from '@mui/material'
 import { ReactNode } from 'react'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { Language } from '@/common/lib/i18n/types'
@@ -23,8 +22,6 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
         },
       }}
     >
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
       <UContainer>{children}</UContainer>
     </ThemeProvider>
   )
