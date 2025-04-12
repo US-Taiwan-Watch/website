@@ -46,7 +46,7 @@ const ArticlePostCard = ({
         },
       }}
     >
-      <Link href={ArticleUtils.getLink(article)}>
+      <Link href={ArticleUtils.getLink(article.type, article.id)}>
         <Box
           sx={{
             aspectRatio: {
@@ -98,7 +98,7 @@ const ArticlePostCard = ({
             <UTagList
               tags={article.categories.map((category) => (
                 <Link
-                  href={ArticleUtils.getCategoryLink(category)}
+                  href={ArticleUtils.getCategoryLink(article.type, category)}
                   key={category.id}
                 >
                   <UButton
@@ -108,8 +108,8 @@ const ArticlePostCard = ({
                       padding: theme.spacing(0.5, 1),
                       minWidth: 'fit-content',
                       lineHeight: 1,
-                      borderColor: theme.color.orange[900],
-                      color: theme.color.orange[900],
+                      borderColor: theme.color.article.cardCategoryText,
+                      color: theme.color.article.cardCategoryText,
                     }}
                     className="category-tag"
                   >
@@ -123,9 +123,14 @@ const ArticlePostCard = ({
               maxTags={2}
             />
           )}
-        <Link href={ArticleUtils.getLink(article)}>
+        <Link href={ArticleUtils.getLink(article.type, article.id)}>
           {/** Title */}
-          <UHeightLimitedText variant="subtitleM" fontWeight={700} maxLine={1}>
+          <UHeightLimitedText
+            variant="subtitleM"
+            fontWeight={700}
+            maxLine={1}
+            color={theme.color.article.cardTitle}
+          >
             {article.title}
           </UHeightLimitedText>
           {/** Description */}
@@ -137,7 +142,7 @@ const ArticlePostCard = ({
                 xs: forceCard ? '-webkit-box' : 'none',
                 sm: '-webkit-box',
               },
-              color: theme.color.grey[1500],
+              color: theme.color.article.cardSimplifiedDescription,
             }}
           >
             {article.description}
@@ -153,7 +158,6 @@ const ArticlePostCard = ({
                 containerProps={{
                   sx: {
                     backgroundColor: 'transparent',
-                    borderColor: theme.color.neutral[500],
                   },
                 }}
               />

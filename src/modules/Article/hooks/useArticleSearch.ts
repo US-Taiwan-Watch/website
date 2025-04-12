@@ -1,6 +1,10 @@
 import { Language } from '@/common/lib/i18n/types'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
-import { Article, ArticleUtils } from '@/modules/Article/business/Article'
+import {
+  Article,
+  ArticleType,
+  ArticleUtils,
+} from '@/modules/Article/business/Article'
 import { useParams } from 'next/navigation'
 import { useMemo, useState, useEffect, useCallback } from 'react'
 import {
@@ -16,7 +20,10 @@ import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 /** 每頁呈現的卡片數量 */
 const ARTICLE_POST_COUNT = 9
 
-export default function useArticleSearch(categoryId: string) {
+export default function useArticleSearch(
+  articleType: ArticleType,
+  categoryId: string
+) {
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const highlightedCategories = useArticleStore.use.highlightedCategories()
@@ -58,7 +65,7 @@ export default function useArticleSearch(categoryId: string) {
 
     const newArticles = data.Articles.docs
       .filter((article) => !isNull(article))
-      .map((article) => ArticleUtils.parse(lang, article))
+      .map((article) => ArticleUtils.parse(lang, article, articleType))
 
     if (isInfiniteScroll) {
       setArticles((prev) => [

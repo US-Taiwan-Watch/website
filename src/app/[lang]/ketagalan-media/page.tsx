@@ -1,10 +1,10 @@
 import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
+import { ArticleType } from '@/modules/Article/business/Article'
 import ArticleLandingBannerCards from '@/modules/Article/components/ArticleLanding/ArticleLandingBannerCards'
 import ArticlePostSection from '@/modules/Article/components/ArticleLanding/ArticlePostSection'
 import ArticleNavbar from '@/modules/Article/components/ArticleNavbar'
-import { ArticleType } from '@/modules/Article/business/Article'
 import Stack from '@mui/material/Stack'
 
 /**
@@ -20,25 +20,25 @@ const ARTICLE_POST_COUNT = 9
 export default async function Article() {
   const landingBannerArticles = await ServerArticleApi.getLandingArticles({
     limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
-    articleType: ArticleType.Article,
+    articleType: ArticleType.Ketagalan,
   })
 
   const articles = await ServerArticleApi.getArticles({
     limit: ARTICLE_POST_COUNT,
-    articleType: ArticleType.Article,
+    articleType: ArticleType.Ketagalan,
   })
 
   return (
     <UContainer>
       <Stack flex={1}>
         <UFullWidthBackgroundBox>
-          <ArticleNavbar articleType={ArticleType.Article} />
+          <ArticleNavbar articleType={ArticleType.Ketagalan} />
         </UFullWidthBackgroundBox>
         {landingBannerArticles.length > 0 && (
           <ArticleLandingBannerCards articles={landingBannerArticles} />
         )}
         <ArticlePostSection
-          articleType={ArticleType.Article}
+          articleType={ArticleType.Ketagalan}
           defaultArticles={articles}
         />
       </Stack>

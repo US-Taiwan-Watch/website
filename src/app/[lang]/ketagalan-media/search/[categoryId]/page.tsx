@@ -17,13 +17,13 @@ export default function ArticleSearchCategory({
     <Stack>
       <UFullWidthBackgroundBox>
         <ArticleNavbar
-          articleType={ArticleType.Article}
+          articleType={ArticleType.Ketagalan}
           activeId={categoryId}
         />
       </UFullWidthBackgroundBox>
       <ArticleSearchCategorySection
         categoryId={categoryId}
-        articleType={ArticleType.Article}
+        articleType={ArticleType.Ketagalan}
       />
     </Stack>
   )

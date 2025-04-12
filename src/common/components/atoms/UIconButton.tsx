@@ -156,9 +156,9 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
     }),
     ...((variant === 'outlined' || variant === 'text') && {
       backgroundColor: 'transparent',
-      color: theme.palette.common.black,
+      color: theme.palette.text.primary,
       ...(variant === 'outlined' && {
-        border: `1px solid ${theme.palette.common.black}`,
+        border: `1px solid ${theme.palette.text.primary}`,
         '&:hover': {
           backgroundColor: theme.palette.action.hover,
         },

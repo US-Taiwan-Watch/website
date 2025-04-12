@@ -6,5 +6,7 @@ import { Divider, useTheme } from '@mui/material'
 export default function ArticlePostDivider() {
   const theme = useTheme<USTWTheme>()
 
-  return <Divider sx={{ borderColor: theme.color.grey[3600] }} />
+  return (
+    <Divider sx={{ borderColor: theme.color.article.postSectionDivider }} />
+  )
 }

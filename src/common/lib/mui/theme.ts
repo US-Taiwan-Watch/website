@@ -207,6 +207,7 @@ const color = {
     4400: '#2C2C2C',
     4500: '#C2C2C2',
     4600: '#E6E6E6',
+    4700: '#696969',
   },
   orange: {
     ...colors.orange,
@@ -268,6 +269,12 @@ interface USTWThemeColor {
       donationButtonTextHover: string // 捐款按鈕文字滑鼠移入色
       menuBackground: string // 選單背景色
       mobileNavMenuBackground: string // 手機選單背景色
+      mobileNavMenuDivider: string // 手機選單分隔線色
+      mobileNavMenuListItemText: string // 手機選單細項列表文字色
+    }
+    learMore: {
+      text: string // 更多文字顏色
+      mobileText: string // 手機更多文字顏色
     }
     searchBar: {
       inputBackground: string // 搜尋欄背景色
@@ -278,6 +285,7 @@ interface USTWThemeColor {
       mobileResultItemText: string // 手機搜尋結果文字顏色
     }
     pagination: {
+      dotPagination: string // 分頁點擊顏色
       backgroundColor: string // 分頁背景色
       previousNextColor: string // 分頁按鈕文字顏色
       previousNextBackgroundColor: string // 分頁按頁背景顏色
@@ -291,6 +299,51 @@ interface USTWThemeColor {
         textColor: string // 文字色
         bodyColor: string // 內文顏色
       }
+    }
+    categoryChip: {
+      backgroundColor: string // 背景色
+      textColor: string // 文字顏色
+      activeBackgroundColor: string // 啟用背景色
+      activeTextColor: string // 啟用文字顏色
+    }
+    tag: {
+      border: string // 標籤邊框顏色
+      text: string // 標籤文字顏色
+      hash: string // 標籤 Hash 顏色
+    }
+    article: {
+      contentPageBackground: string // 文章頁面背景顏色
+      navText: string // 文章導航文字顏色
+      navActiveText: string // 文章導航啟用文字顏色
+      navDivider: string // 文章導航分隔線顏色
+      tagText: string // 文章標籤文字顏色
+      // ----- Card -----
+      cardTitle: string // 文章卡片標題文字顏色
+      cardDescription: string // 文章卡片描述文字顏色
+      cardSimplifiedDescription: string // 文章卡片簡化描述文字顏色
+      cardLearnMoreButton: string // 文章卡片學習更多按鈕顏色
+      cardLearnMoreButtonText: string // 文章卡片學習更多按鈕文字顏色
+      cardCategoryText: string // 文章卡片分類文字顏色
+      // ----- Search -----
+      searchResultCountBackground: string // 搜尋結果數量背景顏色
+      // ----- Post -----
+      postFixedToolBackground: string // 文章頁面固定工具列背景顏色
+      postFixedToolBorder: string // 文章頁面固定工具列邊框顏色
+      postFixedToolButton: string // 文章頁面固定工具列按鈕顏色
+      postFixedToolButtonText: string // 文章頁面固定工具列按鈕文字顏色
+      postCategoryText: string // 文章分類文字顏色
+      postTitle: string // 文章標題文字顏色
+      postSubtitle: string // 文章副標題文字顏色
+      postSectionTitle: string // 文章頁面 Header 標題文字顏色
+      postSectionDivider: string // 文章章節分隔線顏色
+      postSource: string // 文章來源文字顏色
+      postContentHyperlink: string // 文章內文連結文字顏色
+      postContentQuoteBorder: string // 文章內文引言框線顏色
+      postContentFooterSource: string // 文章內文來源文字顏色
+      postContentImageCaption: string // 文章內文圖片描述文字顏色
+      postAuthorTitle: string // 文章作者標題文字顏色
+      postAuthorName: string // 文章作者姓名文字顏色
+      postAuthorDescription: string // 文章作者描述文字顏色
     }
   }
 }
@@ -336,10 +389,10 @@ const ketagalanPalette: PaletteOptions = {
     main: color.wheat[200],
   },
   secondary: {
-    main: color.purple[100],
+    main: color.wheat[200],
   },
   background: {
-    default: color.grey[900],
+    default: color.grey[700],
   },
   text: {
     primary: color.common.white,
@@ -400,6 +453,12 @@ const _lightTheme: USTWThemeOptions = {
       donationButtonTextHover: color.common.black,
       menuBackground: color.common.white,
       mobileNavMenuBackground: '#F0F0F0',
+      mobileNavMenuDivider: color.neutral[100],
+      mobileNavMenuListItemText: color.neutral[100],
+    },
+    learMore: {
+      text: color.common.black,
+      mobileText: color.neutral[500],
     },
     searchBar: {
       inputBackground: color.grey[200],
@@ -410,6 +469,7 @@ const _lightTheme: USTWThemeOptions = {
       mobileResultItemText: color.grey[3900],
     },
     pagination: {
+      dotPagination: color.grey[1200],
       backgroundColor: color.common.white,
       previousNextColor: color.common.white,
       previousNextBackgroundColor: color.common.black,
@@ -423,6 +483,51 @@ const _lightTheme: USTWThemeOptions = {
         textColor: color.common.white,
         bodyColor: '#FFFFFFDE',
       },
+    },
+    categoryChip: {
+      backgroundColor: color.common.white,
+      textColor: color.common.black,
+      activeBackgroundColor: color.wheat[200],
+      activeTextColor: color.common.black,
+    },
+    tag: {
+      border: color.neutral[500],
+      text: color.common.black,
+      hash: color.neutral[500],
+    },
+    article: {
+      contentPageBackground: color.neutral[100],
+      navText: color.grey[2000],
+      navActiveText: color.orange[900],
+      navDivider: color.neutral[400],
+      tagText: color.common.black,
+      // ----- Card -----
+      cardTitle: color.common.black,
+      cardDescription: color.common.black,
+      cardSimplifiedDescription: color.grey[1500],
+      cardLearnMoreButton: color.common.black,
+      cardLearnMoreButtonText: color.common.white,
+      cardCategoryText: color.orange[900],
+      // ----- Search -----
+      searchResultCountBackground: color.common.black,
+      // ----- Post -----
+      postFixedToolBackground: '#F8F8F8',
+      postFixedToolBorder: '#0000001A',
+      postFixedToolButton: color.grey[1000],
+      postFixedToolButtonText: color.common.white,
+      postCategoryText: color.orange[900],
+      postTitle: color.grey[3100],
+      postSubtitle: color.grey[3200],
+      postSectionTitle: color.grey[3300],
+      postSectionDivider: color.grey[400],
+      postSource: color.orange[900],
+      postContentHyperlink: color.orange[900],
+      postContentQuoteBorder: color.purple[300],
+      postContentFooterSource: color.grey[3400],
+      postContentImageCaption: color.grey[3500],
+      postAuthorTitle: color.purple[100],
+      postAuthorName: color.common.black,
+      postAuthorDescription: color.neutral[500],
     },
   },
   components: {
@@ -445,7 +550,13 @@ const _ketagalanTheme: USTWThemeOptions = {
       donationButtonHover: color.grey[700],
       donationButtonTextHover: color.common.black,
       menuBackground: '#5B5952',
-      mobileNavMenuBackground: '#F0F0F0',
+      mobileNavMenuBackground: '#312F27',
+      mobileNavMenuDivider: color.neutral[500],
+      mobileNavMenuListItemText: color.grey[400],
+    },
+    learMore: {
+      text: color.common.white,
+      mobileText: color.wheat[200],
     },
     searchBar: {
       inputBackground: '#0000001A',
@@ -456,6 +567,7 @@ const _ketagalanTheme: USTWThemeOptions = {
       mobileResultItemText: color.grey[3900],
     },
     pagination: {
+      dotPagination: color.grey[900],
       backgroundColor: '#FFFFFF1A',
       previousNextColor: color.common.white,
       previousNextBackgroundColor: color.grey[1300],
@@ -469,6 +581,51 @@ const _ketagalanTheme: USTWThemeOptions = {
         textColor: color.common.black,
         bodyColor: '#000000DE',
       },
+    },
+    categoryChip: {
+      backgroundColor: '#FFFFFF1A',
+      textColor: color.common.white,
+      activeBackgroundColor: color.wheat[200],
+      activeTextColor: color.common.black,
+    },
+    tag: {
+      border: color.wheat[200],
+      text: color.wheat[200],
+      hash: color.wheat[200],
+    },
+    article: {
+      contentPageBackground: color.grey[900],
+      navText: color.common.white,
+      navActiveText: color.wheat[200],
+      navDivider: '#FFFFFF80',
+      tagText: color.wheat[200],
+      // ----- Card -----
+      cardTitle: color.common.white,
+      cardDescription: color.common.white,
+      cardSimplifiedDescription: color.common.white,
+      cardLearnMoreButton: color.wheat[200],
+      cardLearnMoreButtonText: color.common.black,
+      cardCategoryText: color.wheat[200],
+      // ----- Search -----
+      searchResultCountBackground: '#FFFFFF1A',
+      // ----- Post -----
+      postFixedToolBackground: '#433B3B',
+      postFixedToolBorder: '#0000001A',
+      postFixedToolButton: color.wheat[200],
+      postFixedToolButtonText: color.common.black,
+      postCategoryText: color.wheat[200],
+      postTitle: color.common.white,
+      postSubtitle: color.neutral[300],
+      postSectionTitle: color.wheat[200],
+      postSectionDivider: color.neutral[500],
+      postSource: color.grey[400],
+      postContentHyperlink: color.wheat[200],
+      postContentQuoteBorder: color.wheat[200],
+      postContentFooterSource: color.grey[400],
+      postContentImageCaption: color.neutral[300],
+      postAuthorTitle: color.wheat[200],
+      postAuthorName: color.common.white,
+      postAuthorDescription: color.neutral[200],
     },
   },
   components: {
@@ -500,7 +657,7 @@ const constants: USTWThemeConstants = {
   },
 }
 
-type themeMode = 'light' | 'ketagalan'
+export type ThemeMode = 'light' | 'ketagalan'
 
 // 用於設定 typography 的 media query
 const _theme = createTheme({
@@ -727,7 +884,7 @@ export interface CreateUSTWThemeOverride {
 }
 
 export const createUSTWTheme = (
-  mode: themeMode,
+  mode: ThemeMode,
   lang: Language,
   override?: CreateUSTWThemeOverride
 ) => {

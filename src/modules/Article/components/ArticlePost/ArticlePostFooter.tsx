@@ -34,8 +34,12 @@ const ArticlePostFooter = function ArticlePostFooter({
 
       {/** Resources */}
       {resources && resources.length > 0 && (
-        <Stack spacing={1} sx={{ color: theme.color.grey[3400] }}>
-          <Typography variant="bodyS" fontWeight={500}>
+        <Stack spacing={1}>
+          <Typography
+            variant="bodyS"
+            fontWeight={500}
+            sx={{ color: theme.color.article.postSectionTitle }}
+          >
             {t('page.repostFrom', { ns: 'article' })}
           </Typography>
           {resources.map((resource, index) => (
@@ -50,6 +54,7 @@ const ArticlePostFooter = function ArticlePostFooter({
                 fontWeight={400}
                 sx={{
                   textDecoration: 'underline',
+                  color: theme.color.article.postContentFooterSource,
                 }}
               >
                 {resource.title}

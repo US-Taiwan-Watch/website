@@ -18,11 +18,19 @@ const ArticlePostAuthor = function ArticlePostAuthor({
 
   return (
     <Stack spacing={1}>
-      <Typography variant="bodyS" color="secondary" fontWeight={700}>
+      <Typography
+        variant="bodyS"
+        sx={{ color: theme.color.article.postAuthorTitle }}
+        fontWeight={700}
+      >
         {t('page.author.title', { ns: 'article' })}
       </Typography>
       {author.name && (
-        <Typography variant="subtitleM" fontWeight={700}>
+        <Typography
+          variant="subtitleM"
+          sx={{ color: theme.color.article.postAuthorName }}
+          fontWeight={700}
+        >
           {author.name}
         </Typography>
       )}
@@ -31,7 +39,7 @@ const ArticlePostAuthor = function ArticlePostAuthor({
           variant="bodyS"
           component={'p'}
           sx={{
-            color: theme.color.neutral[500],
+            color: theme.color.article.postAuthorDescription,
           }}
         >
           {author.description}

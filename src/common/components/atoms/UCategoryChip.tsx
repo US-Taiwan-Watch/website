@@ -2,9 +2,9 @@
 
 import clsx from 'clsx'
 import { Avatar, Chip, ChipProps } from '@mui/material'
-import { styled } from '@mui/material/styles'
 import Image from 'next/image'
 import { ComponentType } from 'react'
+import { styled } from '@/common/lib/mui/theme'
 
 interface UCategoryChipProps extends ChipProps {
   img?: string
@@ -38,7 +38,8 @@ const getAvatarSize = (size: UCategoryChipProps['size'] = 'small') => {
 
 const StyledChip = styled(Chip)<UCategoryChipProps>(({ theme, size }) => ({
   position: 'relative',
-  backgroundColor: theme.palette.common.white,
+  backgroundColor: theme.color.categoryChip.backgroundColor,
+  color: theme.color.categoryChip.textColor,
   height: getChipHeight(size),
   borderRadius: '100px',
   '& .MuiChip-avatar': {
@@ -50,11 +51,13 @@ const StyledChip = styled(Chip)<UCategoryChipProps>(({ theme, size }) => ({
     fontWeight: 500,
   },
   '&:hover': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.color.categoryChip.activeBackgroundColor,
     cursor: 'pointer',
+    color: theme.color.categoryChip.activeTextColor,
   },
   '&.active': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: theme.color.categoryChip.activeBackgroundColor,
+    color: theme.color.categoryChip.activeTextColor,
   },
 })) as ComponentType<UCategoryChipProps>
 

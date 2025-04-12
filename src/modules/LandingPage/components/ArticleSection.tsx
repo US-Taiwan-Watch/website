@@ -1,6 +1,6 @@
 'use client'
 
-import { Stack } from '@mui/material'
+import { Stack, useTheme } from '@mui/material'
 import UHStack from '@/common/components/atoms/UHStack'
 import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
@@ -16,7 +16,7 @@ import { ROUTES } from '@/routes'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import ArticleStoreProvider from '@/modules/Article/providers/ArticleStoreProvider'
-import { ArticleUtils } from '@/modules/Article/business/Article'
+import { ArticleUtils, ArticleType } from '@/modules/Article/business/Article'
 import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
 import {
   ArticlesQueryVariables,
@@ -26,12 +26,17 @@ import { isNull } from 'lodash-es'
 import { useQuery } from '@apollo/client'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import UKetagalanLogo from '@/common/components/atoms/UKetagalanLogo'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
 type ArticleSectionProps = {
-  title: string
+  articleType: ArticleType
 }
 
-const ArticleSection = ({ title }: ArticleSectionProps) => {
+const ArticleSection = ({ articleType }: ArticleSectionProps) => {
+  const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('home')
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
@@ -51,6 +56,8 @@ const ArticleSection = ({ title }: ArticleSectionProps) => {
     }),
     [activeTagId]
   )
+
+  // TODO: 不同文章類型，使用不同的 query
   const { loading, data, refetch } = useQuery<
     ArticlesQuery,
     ArticlesQueryVariables
@@ -65,7 +72,7 @@ const ArticleSection = ({ title }: ArticleSectionProps) => {
   const articles =
     data?.Articles?.docs
       ?.filter((article) => !isNull(article))
-      .map((article) => ArticleUtils.parse(lang, article)) ?? []
+      .map((article) => ArticleUtils.parse(lang, article, articleType)) ?? []
 
   return (
     <>
@@ -74,8 +81,26 @@ const ArticleSection = ({ title }: ArticleSectionProps) => {
         contentWrapperSx={{
           paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
         }}
+        backgroundColor={
+          articleType === ArticleType.Ketagalan
+            ? theme.color.grey[1300]
+            : undefined
+        }
       >
-        <SectionTitleWithLink title={title} link={ROUTES.ARTICLE} />
+        <SectionTitleWithLink
+          renderTitle={() =>
+            articleType === ArticleType.Ketagalan ? (
+              <UKetagalanLogo />
+            ) : (
+              t('section.articles.title')
+            )
+          }
+          link={
+            articleType === ArticleType.Ketagalan
+              ? ROUTES.KETAGALAN_MEDIA
+              : ROUTES.ARTICLE
+          }
+        />
         <Stack gap={5}>
           <UHStack gap={2}>
             {landingTags.map((tag) => (

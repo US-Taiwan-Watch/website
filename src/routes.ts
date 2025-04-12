@@ -25,4 +25,6 @@ export const ROUTES = {
   ACCOUNT_SETTING: '/account/setting',
   ACCOUNT_PASSWORD: '/account/password',
   ACCOUNT_NOTIFICATION: '/account/notification',
+  // Ketagalan Media
+  KETAGALAN_MEDIA: '/ketagalan-media',
 }

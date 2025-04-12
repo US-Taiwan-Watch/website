@@ -50,7 +50,7 @@ export default function useNavItems() {
         id: 'ketagalan-media',
         type: 'link',
         title: t('navItem.ketagalanMedia.title', { ns: 'header' }),
-        href: ROUTES.HOME,
+        href: ROUTES.KETAGALAN_MEDIA,
       },
       {
         id: 'podcasts',

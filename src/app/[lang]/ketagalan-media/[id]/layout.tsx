@@ -18,7 +18,7 @@ export async function generateMetadata({
 }: ArticlePostLayoutProps): Promise<Metadata> {
   const article = await ServerArticleApi.getArticle({
     id: params.id,
-    articleType: ArticleType.Article,
+    articleType: ArticleType.Ketagalan,
   })
   if (!article) return {}
   return {
@@ -38,6 +38,7 @@ export default function ArticlePostLayout({
 }>) {
   return (
     <ThemeProvider
+      mode="ketagalan"
       lang={params.lang}
       override={{
         palette: {
@@ -47,7 +48,7 @@ export default function ArticlePostLayout({
              * 也不需要為的這個顏色去把 colors 把 client side 獨立出來，
              * 所以直接在這邊設定
              */
-            default: '#F3F3F3',
+            default: '#312F27 !important',
           },
         },
       }}

@@ -23,6 +23,7 @@ const ArticlePostCards = ({
 }: ArticlePostCardsProps) => {
   return (
     <Grid
+      width="100%"
       container
       rowSpacing={{
         xs: 0.75,

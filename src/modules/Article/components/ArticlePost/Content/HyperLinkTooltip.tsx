@@ -42,7 +42,7 @@ const HyperLinkTooltip = function HyperLinkTooltip({
       <>
         <span
           style={{
-            color: theme.color.orange[900],
+            color: theme.color.article.postContentHyperlink,
             fontSize: theme.typography.body.fontSize,
             fontWeight: 400,
             display: 'inline-block',
@@ -75,7 +75,7 @@ const HyperLinkTooltip = function HyperLinkTooltip({
       <Typography
         component="span"
         sx={{
-          color: theme.color.orange[900],
+          color: theme.color.article.postContentHyperlink,
           fontSize: theme.typography.body.fontSize,
           fontWeight: 400,
           display: 'inline-block',
