@@ -19,7 +19,7 @@ import {
 } from '@/common/styles/assets/Icons'
 import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
-import { memo, ReactNode } from 'react'
+import { memo, ReactNode, useMemo } from 'react'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
@@ -99,8 +99,23 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
   const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
   const { partyColor } = usePartyColor()
-  const introducedDate = BillUtils.getIntroducedDate(bill)
-  const latestAction = BillUtils.getLatestAction(bill)
+  const introducedDate = useMemo(() => {
+    const introducedDate = BillUtils.getIntroducedDate(bill)
+    if (introducedDate && dayjs(introducedDate).isValid()) {
+      return dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT)
+    }
+    return ''
+  }, [bill])
+  const latestAction = useMemo(() => {
+    const latestAction = BillUtils.getLatestAction(bill)
+    return latestAction
+  }, [bill])
+  const latestActionDate = useMemo(() => {
+    if (latestAction.date && dayjs(latestAction.date).isValid()) {
+      return dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
+    }
+    return ''
+  }, [latestAction])
 
   return (
     <Grid2 container spacing={2}>
@@ -206,9 +221,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
             title={t('card.item.introduced.title', { ns: 'bill' })}
           />
           <Typography variant="subtitleS" fontWeight={700}>
-            {introducedDate && dayjs(introducedDate).isValid()
-              ? dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT)
-              : ''}
+            {introducedDate}
           </Typography>
         </StyledCardContainer>
       </Grid2WithSelectable>
@@ -227,9 +240,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
               fontSize={15}
               sx={{ color: theme.color.grey[1200] }}
             >
-              {latestAction.date && dayjs(latestAction.date).isValid()
-                ? dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
-                : ''}
+              {latestActionDate}
             </Typography>
             <UHeightLimitedText maxLine={3} variant="buttonXS">
               {latestAction.description}
