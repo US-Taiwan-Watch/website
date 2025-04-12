@@ -19,7 +19,7 @@ import {
 } from '@/common/styles/assets/Icons'
 import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
-import { memo, ReactNode, useMemo } from 'react'
+import { memo, ReactNode, useMemo, useState, useEffect } from 'react'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
@@ -99,22 +99,24 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
   const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
   const { partyColor } = usePartyColor()
-  const introducedDate = useMemo(() => {
-    const introducedDate = BillUtils.getIntroducedDate(bill)
-    if (introducedDate && dayjs(introducedDate).isValid()) {
-      return dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT)
-    }
-    return ''
-  }, [bill])
+  const [introducedDate, setIntroducedDate] = useState('')
+  const [latestActionDate, setLatestActionDate] = useState('')
   const latestAction = useMemo(() => {
     const latestAction = BillUtils.getLatestAction(bill)
     return latestAction
   }, [bill])
-  const latestActionDate = useMemo(() => {
-    if (latestAction.date && dayjs(latestAction.date).isValid()) {
-      return dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
+
+  useEffect(() => {
+    const introducedDate = BillUtils.getIntroducedDate(bill)
+    if (introducedDate && dayjs(introducedDate).isValid()) {
+      setIntroducedDate(dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT))
     }
-    return ''
+  }, [bill])
+
+  useEffect(() => {
+    if (latestAction.date && dayjs(latestAction.date).isValid()) {
+      setLatestActionDate(dayjs(latestAction.date).format(ACTION_DATE_FORMAT))
+    }
   }, [latestAction])
 
   return (
