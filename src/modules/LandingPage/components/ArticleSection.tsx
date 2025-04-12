@@ -88,12 +88,11 @@ const ArticleSection = ({ articleType }: ArticleSectionProps) => {
         }
       >
         <SectionTitleWithLink
-          renderTitle={() =>
-            articleType === ArticleType.Ketagalan ? (
-              <UKetagalanLogo />
-            ) : (
-              t('section.articles.title')
-            )
+          title={t('section.articles.title')}
+          renderTitle={
+            articleType === ArticleType.Ketagalan
+              ? () => <UKetagalanLogo />
+              : undefined
           }
           link={
             articleType === ArticleType.Ketagalan

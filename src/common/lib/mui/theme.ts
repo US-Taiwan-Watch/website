@@ -564,7 +564,7 @@ const _ketagalanTheme: USTWThemeOptions = {
       resultBackground: '#3D3B34',
       noResultSubtitle: color.neutral[200],
       resultItemText: color.common.white,
-      mobileResultItemText: color.grey[3900],
+      mobileResultItemText: color.common.white,
     },
     pagination: {
       dotPagination: color.grey[900],
