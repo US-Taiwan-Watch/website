@@ -25,7 +25,8 @@ jobs:
         echo "NEXT_PUBLIC_SOUNDON_API_TOKEN=${{ secrets.NEXT_PUBLIC_SOUNDON_API_TOKEN }}" >> .env
         echo "NEXT_PUBLIC_SOUNDON_PODCAST_ID=${{ secrets.NEXT_PUBLIC_SOUNDON_PODCAST_ID }}" >> .env
         echo "NEXT_PUBLIC_GRAPHQL_API_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_API_URL }}" >> .env
-    
+        echo "NEXT_PUBLIC_WEB_BASE_URL=${{ secrets.NEXT_PUBLIC_WEB_BASE_URL }}" >> .env
+        
     - name: Log in to ACR
       uses: azure/docker-login@v1
       with:
