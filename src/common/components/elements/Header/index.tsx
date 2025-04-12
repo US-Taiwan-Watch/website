@@ -4,7 +4,6 @@ import DesktopHeader from '@/common/components/elements/Header/Desktop/DesktopHe
 import MobileHeader from '@/common/components/elements/Header/Mobile/MobileHeader'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { useMemo } from 'react'
-import { CssBaseline } from '@mui/material'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
@@ -32,8 +31,6 @@ const Header = (props: HeaderProps) => {
 
   return (
     <ThemeProvider mode={isKetagalanMedia ? 'ketagalan' : 'light'} lang={lang}>
-      {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-      <CssBaseline />
       {header}
     </ThemeProvider>
   )

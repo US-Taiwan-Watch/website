@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import React from 'react'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import CssBaseline from '@mui/material/CssBaseline'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import Header from '@/common/components/elements/Header'
@@ -38,8 +37,6 @@ export default async function RootLayout({
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider lang={params.lang}>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
             <I18nProvider>
               <ResponsiveProvider defaultValue={{ isMobile, isTablet }}>
                 <Stack minHeight="100dvh">
