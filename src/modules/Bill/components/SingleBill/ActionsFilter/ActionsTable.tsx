@@ -16,7 +16,7 @@ import dayjs from 'dayjs'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import { sortBy } from 'lodash-es'
 import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
@@ -76,6 +76,13 @@ export default function ActionsTable({
       : sortResult
   }, [actions, sortDirection])
 
+  const getActionDate = useCallback((action: BillAction) => {
+    if (action.date && dayjs(action.date).isValid()) {
+      return dayjs(action.date).format(DATE_FORMAT)
+    }
+    return ''
+  }, [])
+
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>
       <Table stickyHeader>
@@ -132,11 +139,7 @@ export default function ActionsTable({
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                <StyledNameText>
-                  {dayjs(action.date).isValid()
-                    ? dayjs(action.date).format(DATE_FORMAT)
-                    : EMPTY_CELL}
-                </StyledNameText>
+                <StyledNameText>{getActionDate(action)}</StyledNameText>
               </TableCell>
               {isAllActions && (
                 <TableCell align="left">

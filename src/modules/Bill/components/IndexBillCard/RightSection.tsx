@@ -255,6 +255,12 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
 const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
   const theme = useTheme<USTWTheme>()
   const latestAction = BillUtils.getLatestAction(bill)
+  const latestActionDate = useMemo(() => {
+    if (latestAction.date && dayjs(latestAction.date).isValid()) {
+      return dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
+    }
+    return ''
+  }, [latestAction])
 
   return (
     <Stack>
@@ -270,9 +276,7 @@ const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
       <Divider sx={{ my: 2, borderWidth: 1 }} />
       <Stack gap={1.5}>
         <Typography variant="buttonS" color={theme.color.grey[400]}>
-          {latestAction.date && dayjs(latestAction.date).isValid()
-            ? dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
-            : ''}
+          {latestActionDate}
         </Typography>
         <UHeightLimitedText maxLine={3} variant="body" fontWeight={300}>
           {latestAction.description}

@@ -7,6 +7,7 @@ import useAccountNavItems from '@/modules/Account/hooks/useAccountNavItems'
 import { LogoutIcon } from '@/common/styles/assets/Icons'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import dayjs from 'dayjs'
+import { useMemo } from 'react'
 
 const JOIN_DATE_FORMAT = 'YYYY/MM/DD'
 
@@ -113,6 +114,9 @@ const DeleteAccount = styled(Box)(({ theme }) => ({
 export default function AccountSidebar() {
   const { t } = useTranslationClient('account')
   const { navItems, currentNavItem } = useAccountNavItems()
+  const joinDate = useMemo(() => {
+    return dayjs().format(JOIN_DATE_FORMAT)
+  }, [])
 
   return (
     <SidebarContainer>
@@ -157,7 +161,7 @@ export default function AccountSidebar() {
           >
             {t('account.joinDate', {
               ns: 'account',
-              date: dayjs().format(JOIN_DATE_FORMAT),
+              date: joinDate,
               interpolation: { escapeValue: false },
             })}
           </Typography>

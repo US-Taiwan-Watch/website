@@ -73,6 +73,12 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
   const latestAction = BillUtils.getLatestAction(bill)
+  const latestActionDate = useMemo(() => {
+    if (latestAction.date && dayjs(latestAction.date).isValid()) {
+      return dayjs(latestAction.date).format(DATE_FORMAT)
+    }
+    return ''
+  }, [latestAction])
 
   return (
     <StyledCardContainer
@@ -197,9 +203,7 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
                   variant="buttonS"
                   {...(isHorizontal && { color: theme.color.grey[400] })}
                 >
-                  {latestAction.date && dayjs(latestAction.date).isValid()
-                    ? dayjs(latestAction.date).format(DATE_FORMAT)
-                    : ''}
+                  {latestActionDate}
                 </Typography>
                 <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
                   {latestAction.description}

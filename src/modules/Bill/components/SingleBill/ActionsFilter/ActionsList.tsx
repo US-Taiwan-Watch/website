@@ -1,7 +1,7 @@
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { BillAction } from '@/modules/Bill/business/Bill'
 import { Divider, Stack, Typography, useTheme } from '@mui/material'
-import { Fragment, memo } from 'react'
+import { Fragment, memo, useCallback } from 'react'
 import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
@@ -13,6 +13,12 @@ type ActionsListProps = {
 
 const ActionsList = memo(function ActionsList({ actions }: ActionsListProps) {
   const theme = useTheme<USTWTheme>()
+  const getActionDate = useCallback((action: BillAction) => {
+    if (action.date && dayjs(action.date).isValid()) {
+      return dayjs(action.date).format(DATE_FORMAT)
+    }
+    return ''
+  }, [])
 
   return (
     <Stack gap={1.75} mt={1.75}>
@@ -20,9 +26,7 @@ const ActionsList = memo(function ActionsList({ actions }: ActionsListProps) {
         <Fragment key={index}>
           <Stack alignItems="flex-start" gap={1.5}>
             <Typography variant="buttonS" color={theme.color.grey[1200]}>
-              {action.date && dayjs(action.date).isValid()
-                ? dayjs(action.date).format(DATE_FORMAT)
-                : ''}
+              {getActionDate(action)}
             </Typography>
             <UHeightLimitedText maxLine={2} variant="buttonXS">
               {action.description}

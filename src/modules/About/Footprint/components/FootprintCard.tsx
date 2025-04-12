@@ -4,6 +4,7 @@ import { Box, Grid2, Stack, Typography } from '@mui/material'
 import { Footprint } from '@/modules/About/Footprint/business/Project'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import dayjs from 'dayjs'
+import { useMemo } from 'react'
 
 const DATE_FORMAT = 'MMM DD, YYYY' // Mar 13, 2024
 
@@ -13,6 +14,12 @@ type FootprintCardProps = {
 
 export default function FootprintCard({ footprint }: FootprintCardProps) {
   const { t } = useTranslationClient('about_footprint')
+  const releaseDate = useMemo(() => {
+    if (footprint.releaseDate && dayjs(footprint.releaseDate).isValid()) {
+      return dayjs(footprint.releaseDate).format(DATE_FORMAT)
+    }
+    return ''
+  }, [footprint])
 
   return (
     <Stack
@@ -91,7 +98,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
               color: 'neutral.500',
             }}
           >
-            {dayjs(footprint.releaseDate).format(DATE_FORMAT)}
+            {releaseDate}
           </Typography>
         </Grid2>
         <Grid2

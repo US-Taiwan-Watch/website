@@ -34,6 +34,13 @@ export default function BillActions({ bill }: Props) {
         : bill.actionsOverview,
     [bill, selectedActionsType]
   )
+  const latestActionDate = useMemo(() => {
+    const latestAction = BillUtils.getLatestAction(bill)
+    if (latestAction.date && dayjs(latestAction.date).isValid()) {
+      return dayjs(latestAction.date).format(DATE_FORMAT)
+    }
+    return ''
+  }, [bill])
 
   return (
     <>
@@ -69,9 +76,7 @@ export default function BillActions({ bill }: Props) {
       >
         <Stack pt={2}>
           <Typography variant="buttonXS" mb={2}>
-            {dayjs(BillUtils.getLatestAction(bill)?.date).isValid()
-              ? dayjs(BillUtils.getLatestAction(bill)?.date).format(DATE_FORMAT)
-              : ''}
+            {latestActionDate}
           </Typography>
           <UHeightLimitedText maxLine={4} variant="body">
             {BillUtils.getLatestAction(bill)?.description}
