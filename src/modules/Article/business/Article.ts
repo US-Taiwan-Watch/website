@@ -13,7 +13,13 @@ import { ROUTES } from '@/routes'
 import { Article as ApiArticle } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
 
+export enum ArticleType {
+  Article = 'article',
+  Ketagalan = 'ketagalan',
+}
+
 const articleSchema = z.object({
+  type: z.nativeEnum(ArticleType),
   id: z.string().optional(),
   title: z.string().optional(),
   subtitle: z.string().optional(),
@@ -42,8 +48,19 @@ const articleSchema = z.object({
 export type Article = z.infer<typeof articleSchema>
 
 export class ArticleUtils {
-  static parse(lang: Language, dto: Partial<ApiArticle>) {
+  /**
+   * 解析文章
+   * @param lang 語言
+   * @param dto 文章資料
+   * @returns 文章
+   */
+  static parse(
+    lang: Language,
+    dto: Partial<ApiArticle>,
+    articleType: ArticleType
+  ) {
     return articleSchema.parse({
+      type: articleType,
       id: dto.id ?? undefined,
       title: dto.title,
       subtitle: dto.subtitle ?? undefined,
@@ -73,12 +90,22 @@ export class ArticleUtils {
     })
   }
 
-  static getLink(article: Article) {
-    return `${ROUTES.ARTICLE}/${article.id}`
+  static getLinkRoute(articleType: ArticleType) {
+    return articleType === ArticleType.Ketagalan
+      ? ROUTES.KETAGALAN_MEDIA
+      : ROUTES.ARTICLE
   }
 
-  static getCategoryLink(category: NonNullable<Article['categories']>[number]) {
-    return `${ROUTES.ARTICLE}/search/${category.id}`
+  static getLink(articleType: ArticleType, articleId: Article['id']) {
+    if (!articleId) return '#'
+    return `${ArticleUtils.getLinkRoute(articleType)}/${articleId}`
+  }
+
+  static getCategoryLink(
+    articleType: ArticleType,
+    category: NonNullable<Article['categories']>[number]
+  ) {
+    return `${ArticleUtils.getLinkRoute(articleType)}/search/${category.id}`
   }
 
   static formatAuthorsName(authors: Array<ArticleAuthor>) {

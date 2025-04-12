@@ -10,11 +10,11 @@ import {
 } from '@mui/material'
 
 const StyledHashTag = styled(Typography)(({ theme }) => ({
-  color: theme.color.neutral[500],
+  color: theme.color.tag.hash,
 }))
 
 const StyledTagText = styled(Typography)(({ theme }) => ({
-  color: theme.color.common.black,
+  color: theme.color.tag.text,
 }))
 
 type UHashTagProps = {
@@ -41,7 +41,7 @@ export default function UHashTag({
       onClick={onClick}
       containerProps={{
         borderRadius: '5px',
-        border: `1px solid ${theme.color.grey[1400]}`,
+        border: `1px solid ${theme.color.tag.border}`,
         direction: 'row',
         spacing: 0.5,
         alignItems: 'center',

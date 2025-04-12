@@ -13,14 +13,14 @@ type ArticlePageProps = {
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const article = await ServerArticleApi.getArticle({
     id: params.id,
-    articleType: ArticleType.Article,
+    articleType: ArticleType.Ketagalan,
   })
 
   if (!article) notFound()
 
   const relatedArticles = await ServerArticleApi.getRelatedArticles({
     id: params.id,
-    articleType: ArticleType.Article,
+    articleType: ArticleType.Ketagalan,
   })
 
   return (

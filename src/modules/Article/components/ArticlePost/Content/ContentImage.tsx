@@ -27,7 +27,10 @@ const ContentImage = function ContentImage({
         />
       </Box>
       {caption && (
-        <Typography variant="bodyS" sx={{ color: theme.color.grey[3500] }}>
+        <Typography
+          variant="bodyS"
+          sx={{ color: theme.color.article.postContentImageCaption }}
+        >
           {caption}
         </Typography>
       )}

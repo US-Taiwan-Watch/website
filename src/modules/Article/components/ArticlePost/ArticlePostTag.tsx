@@ -6,7 +6,12 @@ interface ArticlePostTagProps {
 }
 
 const ArticlePostTag = function ArticlePostTag({ tag }: ArticlePostTagProps) {
-  return <UHashTag value={tag.label} />
+  return (
+    <UHashTag
+      value={tag.label}
+      containerProps={{ sx: { backgroundColor: 'transparent' } }}
+    />
+  )
 }
 
 export default ArticlePostTag
