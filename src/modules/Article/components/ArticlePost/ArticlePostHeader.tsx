@@ -64,8 +64,8 @@ const ArticlePostHeader = function ArticlePostHeader({
                 sx={{
                   padding: theme.spacing(0.5, 1),
                   minWidth: 'fit-content',
-                  borderColor: theme.color.orange[900],
-                  color: theme.color.orange[900],
+                  borderColor: theme.color.article.postCategoryText,
+                  color: theme.color.article.postCategoryText,
                 }}
               >
                 {category.label}
@@ -93,7 +93,7 @@ const ArticlePostHeader = function ArticlePostHeader({
           component="h1"
           variant="h3"
           fontWeight={500}
-          sx={{ color: theme.color.grey[3100] }}
+          sx={{ color: theme.color.article.postTitle }}
         >
           {title}
         </Typography>
@@ -103,7 +103,7 @@ const ArticlePostHeader = function ArticlePostHeader({
       {subtitle && (
         <Typography
           variant="subtitleL"
-          sx={{ color: theme.color.grey[3200] }}
+          sx={{ color: theme.color.article.postSubtitle }}
           fontWeight={400}
         >
           {subtitle}
@@ -114,7 +114,7 @@ const ArticlePostHeader = function ArticlePostHeader({
         {/** Date */}
         <Typography
           variant="bodyS"
-          sx={{ color: theme.color.grey[3300] }}
+          sx={{ color: theme.color.article.postSectionTitle }}
           fontWeight={500}
         >
           {t('page.releaseTimeAuthor', {
@@ -139,7 +139,7 @@ const ArticlePostHeader = function ArticlePostHeader({
           <Typography
             variant="bodyS"
             fontWeight={500}
-            sx={{ color: theme.color.grey[3400] }}
+            sx={{ color: theme.color.article.postSectionTitle }}
           >
             {t('page.repostFrom', { ns: 'article' })}
           </Typography>
@@ -156,7 +156,7 @@ const ArticlePostHeader = function ArticlePostHeader({
                 variant="bodyS"
                 fontWeight={400}
                 sx={{
-                  color: theme.color.orange[900],
+                  color: theme.color.article.postSource,
                   textDecoration: 'underline',
                 }}
               >

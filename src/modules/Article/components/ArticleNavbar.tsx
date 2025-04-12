@@ -2,16 +2,17 @@
 
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { ArticleUtils } from '@/modules/Article/business/Article'
+import { ArticleUtils, ArticleType } from '@/modules/Article/business/Article'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 
 interface ArticleNavbarProps {
+  articleType: ArticleType
   activeId?: string
 }
 
-const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
+const ArticleNavbar = ({ articleType, activeId }: ArticleNavbarProps) => {
   const theme = useTheme<USTWTheme>()
 
   const highlightedCategories = useArticleStore.use.highlightedCategories()
@@ -22,7 +23,7 @@ const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
       alignItems="center"
       padding={2}
       sx={{
-        borderBottom: `1.5px solid ${theme.color.neutral[400]}`,
+        borderBottom: `1.5px solid ${theme.color.article.navDivider}`,
         overflowX: 'auto',
         justifyContent: {
           xs: 'flex-start',
@@ -33,12 +34,12 @@ const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
       <UHStack
         spacing={6}
         sx={{
-          color: theme.color.grey[2000],
+          color: theme.color.article.navText,
         }}
       >
         {highlightedCategories.map((item) => (
           <Link
-            href={ArticleUtils.getCategoryLink(item)}
+            href={ArticleUtils.getCategoryLink(articleType, item)}
             key={item.id}
             style={{
               whiteSpace: 'nowrap',
@@ -48,7 +49,9 @@ const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
               variant="menu"
               sx={{
                 color:
-                  activeId === item.id ? theme.color.orange[900] : 'inherit',
+                  activeId === item.id
+                    ? theme.color.article.navActiveText
+                    : 'inherit',
               }}
               fontWeight={500}
             >

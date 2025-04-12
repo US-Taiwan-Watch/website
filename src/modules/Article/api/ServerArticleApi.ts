@@ -5,7 +5,7 @@ import {
   ArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { query } from '@/common/lib/graphql/ServerApolloClient'
-import { ArticleUtils } from '@/modules/Article/business/Article'
+import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
 import { QUERY_ARTICLE, QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
 import apiConfig from '@/modules/Common/api/ApiConfig'
 import { isNull } from 'lodash-es'
@@ -20,7 +20,13 @@ export default class ServerArticleApi {
    * 取得首頁精選文章
    * @returns 首頁精選文章列表
    */
-  static async getHomeFeaturedArticles({ limit = 3 }: { limit?: number }) {
+  static async getHomeFeaturedArticles({
+    limit = 3,
+    articleType,
+  }: {
+    limit?: number
+    articleType: ArticleType
+  }) {
     const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
       query: QUERY_ARTICLES,
       variables: {
@@ -31,7 +37,9 @@ export default class ServerArticleApi {
     return (
       data?.Articles?.docs
         ?.filter((article) => !isNull(article))
-        .map((article) => ArticleUtils.parse(apiConfig.lang, article)) ?? []
+        .map((article) =>
+          ArticleUtils.parse(apiConfig.lang, article, articleType)
+        ) ?? []
     )
   }
 
@@ -40,7 +48,13 @@ export default class ServerArticleApi {
    * @param limit 限制數量
    * @returns 首頁文章列表
    */
-  static async getLandingArticles({ limit = 4 }: { limit?: number }) {
+  static async getLandingArticles({
+    limit = 4,
+    articleType,
+  }: {
+    limit?: number
+    articleType: ArticleType
+  }) {
     const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
       query: QUERY_ARTICLES,
       variables: {
@@ -56,7 +70,9 @@ export default class ServerArticleApi {
     return (
       data?.Articles?.docs
         ?.filter((article) => !isNull(article))
-        .map((article) => ArticleUtils.parse(apiConfig.lang, article)) ?? []
+        .map((article) =>
+          ArticleUtils.parse(apiConfig.lang, article, articleType)
+        ) ?? []
     )
   }
 
@@ -71,10 +87,12 @@ export default class ServerArticleApi {
     limit = 9,
     page = 1,
     where,
+    articleType,
   }: {
     limit?: ArticlesQueryVariables['limit']
     page?: ArticlesQueryVariables['page']
     where?: ArticlesQueryVariables['where']
+    articleType: ArticleType
   }) {
     const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
       query: QUERY_ARTICLES,
@@ -88,7 +106,9 @@ export default class ServerArticleApi {
     return (
       data?.Articles?.docs
         ?.filter((article) => !isNull(article))
-        .map((article) => ArticleUtils.parse(apiConfig.lang, article)) ?? []
+        .map((article) =>
+          ArticleUtils.parse(apiConfig.lang, article, articleType)
+        ) ?? []
     )
   }
 
@@ -97,7 +117,13 @@ export default class ServerArticleApi {
    * @param id 文章ID
    * @returns 文章
    */
-  static async getArticle({ id }: { id: string }) {
+  static async getArticle({
+    id,
+    articleType,
+  }: {
+    id: string
+    articleType: ArticleType
+  }) {
     const { data } = await query<ArticleQuery, ArticleQueryVariables>({
       query: QUERY_ARTICLE,
       variables: { id },
@@ -105,7 +131,7 @@ export default class ServerArticleApi {
 
     if (!data?.Article) return null
 
-    return ArticleUtils.parse(apiConfig.lang, data.Article)
+    return ArticleUtils.parse(apiConfig.lang, data.Article, articleType)
   }
 
   /**
@@ -113,7 +139,13 @@ export default class ServerArticleApi {
    * @param id 文章ID
    * @returns 相關文章列表
    */
-  static async getRelatedArticles({ id }: { id: string }) {
+  static async getRelatedArticles({
+    id,
+    articleType,
+  }: {
+    id: string
+    articleType: ArticleType
+  }) {
     const { data: relatedData } = await query<
       ArticlesQuery,
       ArticlesQueryVariables
@@ -133,7 +165,9 @@ export default class ServerArticleApi {
     return (
       relatedData?.Articles?.docs
         ?.filter((article) => !isNull(article))
-        .map((article) => ArticleUtils.parse(apiConfig.lang, article)) ?? []
+        .map((article) =>
+          ArticleUtils.parse(apiConfig.lang, article, articleType)
+        ) ?? []
     )
   }
 }

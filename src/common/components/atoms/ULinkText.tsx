@@ -25,10 +25,13 @@ const ULinkText = ({ link, text, startIcon, endIcon }: Props) => {
     <Link href={link}>
       <Button
         sx={{
-          '&:hover': { color: theme.color.neutral[400] },
+          '&:hover': {
+            color: theme.palette.text.secondary,
+            backgroundColor: 'transparent',
+          },
           color: {
-            xs: theme.color.neutral[500],
-            sm: theme.color.common.black,
+            xs: theme.color.learMore.mobileText,
+            sm: theme.color.learMore.text,
           },
           fontSize: {
             xs: '14px',

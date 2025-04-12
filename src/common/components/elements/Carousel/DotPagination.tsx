@@ -23,7 +23,7 @@ const StyledPaginationDot = styled('div')(({ theme }) => ({
   width: '8px',
   height: '8px',
   borderRadius: '50%',
-  backgroundColor: theme.color.grey[1200],
+  backgroundColor: theme.color.pagination.dotPagination,
   '&:hover': {
     cursor: 'pointer',
   },

@@ -3,31 +3,14 @@ import React from 'react'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import CssBaseline from '@mui/material/CssBaseline'
-import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
-import { ArticleType } from '@/modules/Article/business/Article'
+import UContainer from '@/common/components/atoms/UContainer'
 
-interface ArticlePostLayoutProps {
-  params: {
-    lang: Language
-    id: string
-  }
+export const metadata: Metadata = {
+  title: 'Article Search Category',
+  description: 'Article Search Category',
 }
 
-export async function generateMetadata({
-  params,
-}: ArticlePostLayoutProps): Promise<Metadata> {
-  const article = await ServerArticleApi.getArticle({
-    id: params.id,
-    articleType: ArticleType.Article,
-  })
-  if (!article) return {}
-  return {
-    title: article.title,
-    description: article.description,
-  }
-}
-
-export default function ArticlePostLayout({
+export default function ArticleSearchCategoryLayout({
   children,
   params,
 }: Readonly<{
@@ -38,6 +21,7 @@ export default function ArticlePostLayout({
 }>) {
   return (
     <ThemeProvider
+      mode="ketagalan"
       lang={params.lang}
       override={{
         palette: {
@@ -47,14 +31,14 @@ export default function ArticlePostLayout({
              * 也不需要為的這個顏色去把 colors 把 client side 獨立出來，
              * 所以直接在這邊設定
              */
-            default: '#F3F3F3',
+            default: '#312F27 !important',
           },
         },
       }}
     >
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      {children}
+      <UContainer>{children}</UContainer>
     </ThemeProvider>
   )
 }

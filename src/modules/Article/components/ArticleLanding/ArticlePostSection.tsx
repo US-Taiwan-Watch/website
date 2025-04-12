@@ -9,7 +9,11 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Article, ArticleUtils } from '@/modules/Article/business/Article'
+import {
+  Article,
+  ArticleUtils,
+  ArticleType,
+} from '@/modules/Article/business/Article'
 import ArticlePostCards, {
   ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
@@ -31,10 +35,14 @@ import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButt
 const ARTICLE_POST_COUNT = 9
 
 interface ArticlePostSectionProps {
+  articleType: ArticleType
   defaultArticles?: Article[]
 }
 
-const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
+const ArticlePostSection = ({
+  articleType,
+  defaultArticles,
+}: ArticlePostSectionProps) => {
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
@@ -57,6 +65,7 @@ const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
     [activeTagId, page]
   )
 
+  // TODO: 不同的文章類型，需要不同的 query
   const [getArticles, { loading, data }] = useLazyQuery<
     ArticlesQuery,
     ArticlesQueryVariables
@@ -78,7 +87,7 @@ const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
 
     const newArticles = data.Articles.docs
       .filter((article) => !isNull(article))
-      .map((article) => ArticleUtils.parse(lang, article))
+      .map((article) => ArticleUtils.parse(lang, article, articleType))
 
     if (isInfiniteScroll) {
       setArticles((prev) => [
@@ -101,7 +110,7 @@ const ArticlePostSection = ({ defaultArticles }: ArticlePostSectionProps) => {
       containerSx={{
         flex: 1,
       }}
-      backgroundColor={theme.color.neutral[100]}
+      backgroundColor={theme.color.article.contentPageBackground}
       contentWrapperSx={{
         paddingTop: theme.spacing(10),
         paddingBottom: theme.spacing(15),

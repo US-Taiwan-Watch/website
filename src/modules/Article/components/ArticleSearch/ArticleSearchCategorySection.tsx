@@ -9,12 +9,15 @@ import ArticlePostCards, {
 } from '@/modules/Article/components/ArticlePostCards'
 import useArticleSearch from '@/modules/Article/hooks/useArticleSearch'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
+import { ArticleType } from '@/modules/Article/business/Article'
 
 interface ArticleSearchCategorySectionProps {
+  articleType: ArticleType
   categoryId: string
 }
 
 const ArticleSearchCategorySection = ({
+  articleType,
   categoryId,
 }: ArticleSearchCategorySectionProps) => {
   const theme = useTheme<USTWTheme>()
@@ -29,7 +32,7 @@ const ArticleSearchCategorySection = ({
     handlePageChange,
     resetArticles,
     totalDocs,
-  } = useArticleSearch(categoryId)
+  } = useArticleSearch(articleType, categoryId)
 
   return (
     <Stack
@@ -76,7 +79,7 @@ const ArticleSearchCategorySection = ({
           </Typography>
           <Box
             sx={{
-              backgroundColor: theme.color.common.black,
+              backgroundColor: theme.color.article.searchResultCountBackground,
               padding: {
                 xs: theme.spacing(0.25, 0.75),
                 sm: theme.spacing(1, 2),

@@ -15,10 +15,10 @@ import UWidthLimitedText from '@/common/components/atoms/UWidthLimitedText'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
-const StyledCategory = styled(UButton)(({ theme }) => ({
+const StyledTag = styled(UButton)(({ theme }) => ({
   borderRadius: '5px',
-  border: `1px solid ${theme.color.common.black}`,
-  color: theme.color.common.black,
+  border: `1px solid ${theme.color.article.tagText}`,
+  color: theme.color.article.tagText,
   padding: theme.spacing(1),
 }))
 
@@ -99,14 +99,14 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
           <UTagList
             tags={(article.categories ?? []).map((category) => (
               <Link
-                href={ArticleUtils.getCategoryLink(category)}
+                href={ArticleUtils.getCategoryLink(article.type, category)}
                 key={category.id}
               >
-                <StyledCategory className="category-tag">
+                <StyledTag className="category-tag">
                   <UWidthLimitedText variant="caption" lineHeight={1}>
                     {category.label}
                   </UWidthLimitedText>
-                </StyledCategory>
+                </StyledTag>
               </Link>
             ))}
             containerProps={{
@@ -147,13 +147,17 @@ const ArticleLandingBannerCard = function ArticleLandingBannerCard({
               maxWidth: 'max-content',
             }}
           >
-            <Link href={ArticleUtils.getLink(article)}>
+            <Link href={ArticleUtils.getLink(article.type, article.id)}>
               <UButton
                 variant="contained"
                 color="info"
                 rounded
                 size={isMobile ? 'medium' : 'large'}
                 endIcon={<ArrowForwardIcon />}
+                sx={{
+                  color: theme.color.article.cardLearnMoreButtonText,
+                  backgroundColor: theme.color.article.cardLearnMoreButton,
+                }}
               >
                 {t('cta.learnMore', { ns: 'common' })}
               </UButton>

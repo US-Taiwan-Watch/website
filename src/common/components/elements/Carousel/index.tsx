@@ -32,6 +32,7 @@ const StyledCarouselContainer = styled(Stack)(() => ({
 }))
 
 export interface PaginationProps {
+  className?: string
   slideCount: number
   currentSlide: number
   handlePrev?: () => void

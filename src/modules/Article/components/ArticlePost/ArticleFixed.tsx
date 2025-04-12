@@ -35,14 +35,29 @@ const ArticleFixed = () => {
           position: 'absolute',
           bottom: 0,
           right: theme.spacing(3),
-          backgroundColor: 'white',
+          backgroundColor: theme.color.article.postFixedToolBackground,
           borderRadius: '30px',
+          border: `1px solid ${theme.color.article.postFixedToolBorder}`,
         }}
       >
-        <UIconButton variant="rounded" color="black">
+        <UIconButton
+          variant="rounded"
+          color="inherit"
+          sx={{
+            backgroundColor: theme.color.article.postFixedToolButton,
+            color: theme.color.article.postFixedToolButtonText,
+          }}
+        >
           <BookmarkIcon />
         </UIconButton>
-        <UIconButton variant="rounded" color="black">
+        <UIconButton
+          variant="rounded"
+          color="inherit"
+          sx={{
+            backgroundColor: theme.color.article.postFixedToolButton,
+            color: theme.color.article.postFixedToolButtonText,
+          }}
+        >
           <OutlinedShareIcon />
         </UIconButton>
       </Stack>

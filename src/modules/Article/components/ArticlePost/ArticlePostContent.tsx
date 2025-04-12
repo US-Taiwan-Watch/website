@@ -36,11 +36,11 @@ const StyledContent = styled(Stack)(({ theme }) => ({
     padding: theme.spacing(2),
     margin: `${theme.spacing(2)} !important`,
     marginTop: `${theme.spacing(6)} !important`,
-    border: `2px solid ${theme.color.purple[300]}`,
+    border: `2px solid ${theme.color.article.postContentQuoteBorder}`,
     borderRadius: theme.shape.borderRadius * 2,
     '&::before': {
       content: '""',
-      color: theme.color.purple[300],
+      color: theme.color.article.postContentQuoteBorder,
       backgroundImage: `url(${'/assets/icon/quote.svg'})`,
       backgroundSize: 'contain',
       backgroundRepeat: 'no-repeat',

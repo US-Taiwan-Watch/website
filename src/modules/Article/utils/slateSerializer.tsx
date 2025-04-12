@@ -11,7 +11,7 @@ import { payloadSlateToHtmlConfig, slateToHtml } from '@slate-serializers/html'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import { Language } from '@/common/lib/i18n/types'
 import { HyperLinkTooltipCardProps } from '@/common/components/elements/HyperLinkTooltipCard'
-import { ArticleUtils } from '@/modules/Article/business/Article'
+import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
 
 // 定義客製化 Slate element type
 type CustomElementType =
@@ -53,11 +53,11 @@ const getHyperLinkTooltipCardProps = (
   }
 
   if (doc.relationTo === 'articles') {
-    const article = ArticleUtils.parse(lang, doc.value)
+    const article = ArticleUtils.parse(lang, doc.value, ArticleType.Article)
     return {
       title: article.title ?? '',
       description: article.description ?? '',
-      link: ArticleUtils.getLink(article) ?? '',
+      link: ArticleUtils.getLink(ArticleType.Article, article.id) ?? '',
     }
   }
 

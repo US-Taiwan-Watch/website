@@ -172,7 +172,7 @@ const IndexArticleCard = memo(function IndexArticleCard({
 
         {/** Learn More Button */}
         <Link
-          href={ArticleUtils.getLink(article)}
+          href={ArticleUtils.getLink(article.type, article.id)}
           style={{ width: 'fit-content' }}
         >
           <UButtonWithSelectable
