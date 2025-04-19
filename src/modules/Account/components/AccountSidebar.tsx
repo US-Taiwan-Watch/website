@@ -6,8 +6,9 @@ import Link from 'next/link'
 import useAccountNavItems from '@/modules/Account/hooks/useAccountNavItems'
 import { LogoutIcon } from '@/common/styles/assets/Icons'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const JOIN_DATE_FORMAT = 'YYYY/MM/DD'
 
@@ -119,6 +120,13 @@ export default function AccountSidebar() {
     setJoinDate(DateUtils.formatLocal(undefined, JOIN_DATE_FORMAT))
   }, [])
 
+  const { logout, user } = useAuth0()
+  const handleLogout = useCallback(() => {
+    logout()
+  }, [logout])
+
+  if (!user) return null
+
   return (
     <SidebarContainer>
       <ProfileCard>
@@ -145,12 +153,12 @@ export default function AccountSidebar() {
                   sm: 64,
                 },
               }}
-              alt="User Avatar"
-              src="/path/to/avatar.jpg"
+              alt={user.name ?? 'User Avatar'}
+              src={user.picture ?? ''}
             />
             <Stack>
-              <Typography variant="subtitleM">Name</Typography>
-              <Typography variant="bodyS">name@gmail.com</Typography>
+              <Typography variant="subtitleM">{user.name}</Typography>
+              <Typography variant="bodyS">{user.email}</Typography>
             </Stack>
           </Stack>
         </ProfileInfo>
@@ -181,7 +189,7 @@ export default function AccountSidebar() {
               <Typography>{item.label}</Typography>
             </NavItem>
           ))}
-          <NavItem href="/logout">
+          <NavItem href="#" onClick={handleLogout}>
             <LogoutIcon sx={{ width: 24, height: 24 }} />
             <Typography variant="buttonM">
               {t('logout.btn', { ns: 'account' })}
