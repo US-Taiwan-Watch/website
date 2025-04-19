@@ -13,11 +13,12 @@ import {
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import UHStack from '@/common/components/atoms/UHStack'
-import dayjs from 'dayjs'
 import CommonUtils from '@/modules/Common/Common.utils'
 import Link from 'next/link'
 import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
 import { PeopleUtils } from '@/modules/People/business/People'
+import { useCallback } from 'react'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const EMPTY_CELL = '-'
 
@@ -44,6 +45,9 @@ type Props = {
 
 export default function CosponsorTable({ cosponsors }: Props) {
   const theme = useTheme<USTWTheme>()
+  const getCosponsoredAt = useCallback((cosponsor: BillCosponsor) => {
+    return DateUtils.formatDc(cosponsor.cosponsoredAt, 'MM/DD/YYYY')
+  }, [])
 
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>
@@ -64,7 +68,6 @@ export default function CosponsorTable({ cosponsors }: Props) {
         </TableHead>
         <TableBody>
           {cosponsors.map((cosponsor, index) => {
-            const cosponsoredAt = cosponsor.cosponsoredAt
             const people = cosponsor.people
 
             return (
@@ -97,11 +100,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
                   </StyledBodyText>
                 </TableCell>
                 <TableCell align="left">
-                  <StyledBodyText>
-                    {cosponsoredAt && dayjs(cosponsoredAt).isValid()
-                      ? dayjs(cosponsoredAt).format('MM/DD/YYYY')
-                      : EMPTY_CELL}
-                  </StyledBodyText>
+                  <StyledBodyText>{getCosponsoredAt(cosponsor)}</StyledBodyText>
                 </TableCell>
               </TableRow>
             )

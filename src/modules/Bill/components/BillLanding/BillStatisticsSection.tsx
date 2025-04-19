@@ -70,7 +70,7 @@ export default async function BillStatisticsSection({
           size={{
             xs: 12,
             sm: 7,
-            lg: 4,
+            lg: 8,
           }}
         >
           <CongressCard />

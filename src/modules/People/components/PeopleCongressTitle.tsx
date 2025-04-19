@@ -1,8 +1,8 @@
 import { CongressExperienceRange } from '@/modules/People/business/People'
 import { Typography } from '@mui/material'
-import dayjs from 'dayjs'
 import { useMemo } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 interface PeopleCongressTitleProps {
   congressExperienceRange: CongressExperienceRange
@@ -17,7 +17,10 @@ const PeopleCongressTitle = function PeopleCongressTitle({
     // 如果沒有 end，代表還在任職中，所以取目前年份
     if (!congressExperienceRange.latestCongressYear) return true
     // 如果最新的國會年份為今年，代表還在任職中
-    if (congressExperienceRange.latestCongressYear === dayjs().year())
+    if (
+      congressExperienceRange.latestCongressYear ===
+      DateUtils.safeParseDc().year()
+    )
       return true
     return false
   }, [congressExperienceRange])

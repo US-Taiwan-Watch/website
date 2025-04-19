@@ -5,7 +5,7 @@ import { TaiwanRecord } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import { ExpandMoreIcon } from '@/common/styles/assets/Icons'
-import { memo, useCallback, useMemo, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
@@ -15,7 +15,7 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import Image from 'next/image'
 import TaiwanRecordSources from '@/modules/TaiwanRecord/components/TaiwanRecordSources'
-import dayjs from 'dayjs'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const StyledImage = styled(Image)(() => ({}))
 
@@ -41,12 +41,11 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
     return Math.max(0, taiwanRecord.images.length - MAX_IMAGE_TO_SHOW)
   }, [taiwanRecord])
 
-  const dateAndAuthor = useMemo(() => {
-    const createdAt = dayjs(taiwanRecord.createdAt)
+  const [dateAndAuthor, setDateAndAuthor] = useState('')
+  useEffect(() => {
+    const createdAt = DateUtils.formatLocal(taiwanRecord.createdAt, DATE_FORMAT)
 
-    if (!createdAt.isValid()) return ''
-
-    return `${createdAt.format(DATE_FORMAT)} | ${taiwanRecord.author}`
+    setDateAndAuthor(`${createdAt} | ${taiwanRecord.author}`)
   }, [taiwanRecord])
 
   return (

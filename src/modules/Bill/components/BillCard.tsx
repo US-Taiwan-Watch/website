@@ -14,14 +14,14 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import dayjs from 'dayjs'
-import { useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
 
@@ -73,6 +73,10 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
   const latestAction = BillUtils.getLatestAction(bill)
+  const [latestActionDate, setLatestActionDate] = useState('')
+  useEffect(() => {
+    setLatestActionDate(DateUtils.formatDc(latestAction.date, DATE_FORMAT))
+  }, [latestAction])
 
   return (
     <StyledCardContainer
@@ -197,9 +201,7 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
                   variant="buttonS"
                   {...(isHorizontal && { color: theme.color.grey[400] })}
                 >
-                  {latestAction.date && dayjs(latestAction.date).isValid()
-                    ? dayjs(latestAction.date).format(DATE_FORMAT)
-                    : ''}
+                  {latestActionDate}
                 </Typography>
                 <UHeightLimitedText maxLine={2} variant="body" fontWeight={300}>
                   {latestAction.description}
