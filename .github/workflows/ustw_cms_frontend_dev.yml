@@ -25,6 +25,9 @@ jobs:
         echo "NEXT_PUBLIC_SOUNDON_PODCAST_ID=${{ secrets.NEXT_PUBLIC_SOUNDON_PODCAST_ID }}" >> .env
         echo "NEXT_PUBLIC_GRAPHQL_API_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_API_URL }}" >> .env
         echo "NEXT_PUBLIC_WEB_BASE_URL=${{ secrets.NEXT_PUBLIC_WEB_BASE_URL }}" >> .env
+        echo "NEXT_PUBLIC_AUTH0_DOMAIN=${{ secrets.NEXT_PUBLIC_AUTH0_DOMAIN }}" >> .env
+        echo "NEXT_PUBLIC_AUTH0_CLIENT_ID=${{ secrets.NEXT_PUBLIC_AUTH0_CLIENT_ID }}" >> .env
+        echo "NEXT_PUBLIC_AUTH0_REDIRECT_URI=${{ secrets.NEXT_PUBLIC_AUTH0_REDIRECT_URI }}" >> .env
         
     - name: Log in to ACR
       uses: azure/docker-login@v1
