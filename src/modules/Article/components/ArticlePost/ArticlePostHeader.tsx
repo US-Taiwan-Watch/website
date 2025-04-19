@@ -6,18 +6,15 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
-import dayjs from 'dayjs'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Link from 'next/link'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
-
-// TODO: 定義介面
-
 interface ArticlePostHeaderProps {
   article: Article
 }
@@ -31,10 +28,9 @@ const ArticlePostHeader = function ArticlePostHeader({
     article
   const theme = useTheme<USTWTheme>()
 
-  const formattedDate = useMemo(() => {
-    if (!date) return ''
-    const dayjsDate = dayjs(date)
-    return dayjsDate.isValid() ? dayjsDate.format(DATE_FORMAT) : ''
+  const [formattedDate, setFormattedDate] = useState('')
+  useEffect(() => {
+    setFormattedDate(DateUtils.formatLocal(date, DATE_FORMAT))
   }, [date])
 
   return (

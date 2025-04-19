@@ -12,14 +12,14 @@ import {
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { BillAction } from '@/modules/Bill/business/Bill'
-import dayjs from 'dayjs'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
-import { useMemo, useState } from 'react'
+import { useMemo, useState, useCallback } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import { sortBy } from 'lodash-es'
 import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const EMPTY_CELL = '-'
 const DATE_FORMAT = 'MM/DD/YYYY'
@@ -75,6 +75,10 @@ export default function ActionsTable({
       ? sortResult.reverse()
       : sortResult
   }, [actions, sortDirection])
+
+  const getActionDate = useCallback((action: BillAction) => {
+    return DateUtils.formatDc(action.date, DATE_FORMAT)
+  }, [])
 
   return (
     <TableContainer sx={{ maxHeight: '90%' }}>
@@ -132,11 +136,7 @@ export default function ActionsTable({
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                <StyledNameText>
-                  {dayjs(action.date).isValid()
-                    ? dayjs(action.date).format(DATE_FORMAT)
-                    : EMPTY_CELL}
-                </StyledNameText>
+                <StyledNameText>{getActionDate(action)}</StyledNameText>
               </TableCell>
               {isAllActions && (
                 <TableCell align="left">

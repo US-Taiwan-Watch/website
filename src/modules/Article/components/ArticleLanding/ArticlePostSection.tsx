@@ -97,7 +97,7 @@ const ArticlePostSection = ({
     } else {
       setArticles(newArticles)
     }
-  }, [data?.Articles?.docs, data?.Articles?.page, isInfiniteScroll, lang])
+  }, [articleType, data?.Articles, isInfiniteScroll, lang])
 
   useEffect(() => {
     getArticles({

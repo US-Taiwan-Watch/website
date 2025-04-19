@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - develop
-      - i18n
   workflow_dispatch:
 
 jobs:
