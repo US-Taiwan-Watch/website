@@ -6,6 +6,7 @@ import { Language } from '@/common/lib/i18n/types'
 import { useParams } from 'next/navigation'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import UContainer from '@/common/components/atoms/UContainer'
+import AuthedProvider from '@/modules/Auth/providers/AuthedProvider'
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
   const { lang } = useParams<{ lang: Language }>()
@@ -22,7 +23,9 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
         },
       }}
     >
-      <UContainer>{children}</UContainer>
+      <UContainer>
+        <AuthedProvider unAuthedAction="login">{children}</AuthedProvider>
+      </UContainer>
     </ThemeProvider>
   )
 }

@@ -12,6 +12,7 @@ import apiConfig from '@/modules/Common/api/ApiConfig'
 import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
 import { ResponsiveProvider } from '@/common/lib/responsive/ResponsiveProvider'
 import I18nProvider from '@/common/lib/i18n/provider/I18nProvider'
+import UAuthProvider from '@/modules/Auth/providers/UAuthProvider'
 
 export const metadata: Metadata = {
   title: 'USTW',
@@ -39,15 +40,17 @@ export default async function RootLayout({
           <ThemeProvider lang={params.lang}>
             <I18nProvider>
               <ResponsiveProvider defaultValue={{ isMobile, isTablet }}>
-                <Stack minHeight="100dvh">
-                  <Header />
-                  <ToastProvider>
-                    <ClientApolloProvider>
-                      <Stack flexGrow={1}>{children}</Stack>
-                    </ClientApolloProvider>
-                  </ToastProvider>
-                  <Footer />
-                </Stack>
+                <UAuthProvider>
+                  <Stack minHeight="100dvh">
+                    <Header />
+                    <ToastProvider>
+                      <ClientApolloProvider>
+                        <Stack flexGrow={1}>{children}</Stack>
+                      </ClientApolloProvider>
+                    </ToastProvider>
+                    <Footer />
+                  </Stack>
+                </UAuthProvider>
               </ResponsiveProvider>
             </I18nProvider>
           </ThemeProvider>
