@@ -1,5 +1,5 @@
 import { Party } from '@/common/enums/Party'
-import dayjs from 'dayjs'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 export class CongressUtils {
   static getHouseCongressMembers(): Record<Party, number> {
@@ -26,7 +26,7 @@ export class CongressUtils {
     const baseYear = 1789 // 第一屆國會開始年份
     const baseNumber = 1 // 第一屆國會屆數
 
-    const today = dayjs()
+    const today = DateUtils.safeParseDc()
     const currentYear = today.year()
     const currentMonth = today.month() // 0-11
     const currentDay = today.date() // 1-31

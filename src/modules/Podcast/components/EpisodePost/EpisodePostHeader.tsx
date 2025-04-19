@@ -1,14 +1,14 @@
 'use client'
 
 import { Divider, Stack, Typography } from '@mui/material'
-import { memo, useMemo } from 'react'
+import { memo, useEffect, useState } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import dayjs from 'dayjs'
 import EpisodeUtils, { Episode } from '@/modules/Podcast/business/Episode'
 import UHStack from '@/common/components/atoms/UHStack'
 import PodcastSourceIcon from '@/modules/Podcast/components/PodcastSourceIcon'
 import Link from 'next/link'
 import UIconButton from '@/common/components/atoms/UIconButton'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 
@@ -21,10 +21,9 @@ const EpisodePostHeader = memo(function EpisodePostHeader({
 }: EpisodePostHeaderProps) {
   const { t } = useTranslationClient('podcast')
 
-  const formattedDate = useMemo(() => {
-    if (!episode.publishDate) return ''
-    const dayjsDate = dayjs(episode.publishDate)
-    return dayjsDate.isValid() ? dayjsDate.format(DATE_FORMAT) : ''
+  const [formattedDate, setFormattedDate] = useState('')
+  useEffect(() => {
+    setFormattedDate(DateUtils.formatLocal(episode.publishDate, DATE_FORMAT))
   }, [episode.publishDate])
 
   return (

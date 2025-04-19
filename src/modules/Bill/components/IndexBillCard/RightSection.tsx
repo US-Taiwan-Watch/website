@@ -20,7 +20,6 @@ import {
 import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
 import { memo, ReactNode, useMemo, useState, useEffect } from 'react'
-import dayjs from 'dayjs'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { Party } from '@/common/enums/Party'
@@ -29,6 +28,7 @@ import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const Grid2WithSelectable = withSelectable<ComponentProps<typeof Grid2>>(Grid2)
 
@@ -108,15 +108,15 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
 
   useEffect(() => {
     const introducedDate = BillUtils.getIntroducedDate(bill)
-    if (introducedDate && dayjs(introducedDate).isValid()) {
-      setIntroducedDate(dayjs(introducedDate).format(INTRODUCED_DATE_FORMAT))
-    }
+    setIntroducedDate(
+      DateUtils.formatDc(introducedDate, INTRODUCED_DATE_FORMAT)
+    )
   }, [bill])
 
   useEffect(() => {
-    if (latestAction.date && dayjs(latestAction.date).isValid()) {
-      setLatestActionDate(dayjs(latestAction.date).format(ACTION_DATE_FORMAT))
-    }
+    setLatestActionDate(
+      DateUtils.formatDc(latestAction.date, ACTION_DATE_FORMAT)
+    )
   }, [latestAction])
 
   return (
@@ -257,11 +257,11 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
 const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
   const theme = useTheme<USTWTheme>()
   const latestAction = BillUtils.getLatestAction(bill)
-  const latestActionDate = useMemo(() => {
-    if (latestAction.date && dayjs(latestAction.date).isValid()) {
-      return dayjs(latestAction.date).format(ACTION_DATE_FORMAT)
-    }
-    return ''
+  const [latestActionDate, setLatestActionDate] = useState('')
+  useEffect(() => {
+    setLatestActionDate(
+      DateUtils.formatDc(latestAction.date, ACTION_DATE_FORMAT)
+    )
   }, [latestAction])
 
   return (

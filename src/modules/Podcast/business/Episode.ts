@@ -1,5 +1,5 @@
+import { DateUtils } from '@/modules/Common/business/Date'
 import { PodcastSourceType } from '@/modules/Podcast/business/Podcast'
-import dayjs from 'dayjs'
 import { z } from 'zod'
 
 type EpisodeSource = {
@@ -46,7 +46,7 @@ export default class EpisodeUtils {
   }
 
   static getFormattedPublishDate(publishDate: string) {
-    return dayjs(publishDate).format('MMM DD, YYYY').toUpperCase()
+    return DateUtils.formatLocal(publishDate, 'MMM DD, YYYY').toUpperCase()
   }
 
   static getLink(episodeId: Episode['id']) {

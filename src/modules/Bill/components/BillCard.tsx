@@ -14,14 +14,14 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import dayjs from 'dayjs'
-import { useMemo } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
 import UTagList from '@/common/components/atoms/UTagList'
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const DATE_FORMAT = 'MM/DD/YYYY-H:mmA'
 
@@ -73,11 +73,11 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
   const latestAction = BillUtils.getLatestAction(bill)
-  const latestActionDate = useMemo(() => {
-    if (latestAction.date && dayjs(latestAction.date).isValid()) {
-      return dayjs(latestAction.date).format(DATE_FORMAT)
+  const [latestActionDate, setLatestActionDate] = useState('')
+  useEffect(() => {
+    if (latestAction.date) {
+      setLatestActionDate(DateUtils.formatDc(latestAction.date, DATE_FORMAT))
     }
-    return ''
   }, [latestAction])
 
   return (

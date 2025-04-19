@@ -4,7 +4,6 @@ import { ROUTES } from '@/routes'
 import { Bill as ApiBill } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
-import dayjs from 'dayjs'
 import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
 import { Party } from '@/common/enums/Party'
 import TagUtils, { tagSchema } from '@/modules/Common/business/Tag'
@@ -16,6 +15,7 @@ import {
   billCosponsorSchema,
   BillCosponsorUtils,
 } from '@/modules/People/business/BillCosponsor'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 interface BillActionOverviewDto {
   actionAt: {
@@ -111,7 +111,9 @@ export class BillUtils {
             date: action.actionAt.datetime,
             description: action.description,
           }))
-          ?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date))) ?? [],
+          ?.sort((a, b) =>
+            DateUtils.safeParseDc(a.date).diff(DateUtils.safeParseDc(b.date))
+          ) ?? [],
       actionsAll:
         (
           dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.actionsAll as
@@ -123,7 +125,9 @@ export class BillUtils {
             description: action.description,
             chamber: z.nativeEnum(ChamberEnum).safeParse(action.chamber).data,
           }))
-          ?.sort((a, b) => dayjs(a.date).diff(dayjs(b.date))) ?? [],
+          ?.sort((a, b) =>
+            DateUtils.safeParseDc(a.date).diff(DateUtils.safeParseDc(b.date))
+          ) ?? [],
       introducedAt: dto.introducedAt?.datetime,
       latestActionAt: dto.latestActionTime,
       number: dto.number,

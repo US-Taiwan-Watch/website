@@ -10,8 +10,8 @@ import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import UContentCard from '@/common/components/atoms/UContentCard'
 import { People, PeopleUtils } from '@/modules/People/business/People'
-import dayjs from 'dayjs'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 /**
  * 計算經歷的時間
@@ -34,11 +34,9 @@ const useExperienceTime = function (experience: People['experience'][number]) {
 
   // TODO: i18n
   const timeText = useMemo(() => {
-    if (!dayjs(experience.start).isValid() || !dayjs(experience.end).isValid())
-      return ''
-
-    const start = dayjs(experience.start)
-    const end = dayjs(experience.end)
+    const start = DateUtils.parseLocal(experience.start)
+    const end = DateUtils.parseLocal(experience.end)
+    if (!start || !end) return ''
 
     // 現在進行中
     if (!experience.end) {

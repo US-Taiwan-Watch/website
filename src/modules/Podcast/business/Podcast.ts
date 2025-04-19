@@ -1,5 +1,5 @@
+import { DateUtils } from '@/modules/Common/business/Date'
 import { Episode } from '@/modules/Podcast/business/Episode'
-import dayjs from 'dayjs'
 import { z } from 'zod'
 
 export enum PodcastSourceType {
@@ -79,9 +79,13 @@ export default class PodcastUtils {
       .filter((episode) => episode.title && regex.test(episode.title))
       .sort((a, b) => {
         if (sort === 'CREATED_AT_ASC')
-          return dayjs(a.createdAt).diff(dayjs(b.createdAt))
+          return DateUtils.safeParseLocal(a.createdAt).diff(
+            DateUtils.safeParseLocal(b.createdAt)
+          )
         if (sort === 'CREATED_AT_DESC')
-          return dayjs(b.createdAt).diff(dayjs(a.createdAt))
+          return DateUtils.safeParseLocal(b.createdAt).diff(
+            DateUtils.safeParseLocal(a.createdAt)
+          )
         return 0
       })
       .slice(0, limit)

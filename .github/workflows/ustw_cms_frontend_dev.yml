@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - develop
-      - i18n
+      - fix-hydration
   workflow_dispatch:
 
 jobs:

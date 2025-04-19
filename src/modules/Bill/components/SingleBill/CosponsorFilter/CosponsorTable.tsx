@@ -13,12 +13,12 @@ import {
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import UHStack from '@/common/components/atoms/UHStack'
-import dayjs from 'dayjs'
 import CommonUtils from '@/modules/Common/Common.utils'
 import Link from 'next/link'
 import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
 import { PeopleUtils } from '@/modules/People/business/People'
 import { useCallback } from 'react'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const EMPTY_CELL = '-'
 
@@ -46,10 +46,7 @@ type Props = {
 export default function CosponsorTable({ cosponsors }: Props) {
   const theme = useTheme<USTWTheme>()
   const getCosponsoredAt = useCallback((cosponsor: BillCosponsor) => {
-    if (cosponsor.cosponsoredAt && dayjs(cosponsor.cosponsoredAt).isValid()) {
-      return dayjs(cosponsor.cosponsoredAt).format('MM/DD/YYYY')
-    }
-    return ''
+    return DateUtils.formatDc(cosponsor.cosponsoredAt, 'MM/DD/YYYY')
   }, [])
 
   return (

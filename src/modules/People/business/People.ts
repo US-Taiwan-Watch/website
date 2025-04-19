@@ -1,7 +1,6 @@
 import { Party } from '@/common/enums/Party'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
 import { ROUTES } from '@/routes'
-import dayjs from 'dayjs'
 import {
   isArray,
   isNumber,
@@ -20,6 +19,7 @@ import {
   TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TagUtils, { tagSchema } from '@/modules/Common/business/Tag'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const congressExperienceRangeSchema = z.object({
   earliestCongress: z.number().optional(),
@@ -189,17 +189,17 @@ export class PeopleUtils {
    * @returns
    */
   static calculateExperienceDuration(experience: Experience | PartyExperience) {
-    if (!dayjs(experience.start).isValid() || !dayjs(experience.end).isValid())
+    const start = DateUtils.parseLocal(experience.start)
+    const end = DateUtils.parseLocal(experience.end)
+    if (!start || !end)
       return {
         year: 0,
         month: 0,
       }
 
     return {
-      year: dayjs(experience.end).diff(dayjs(experience.start), 'year') ?? 0,
-      month:
-        (dayjs(experience.end).diff(dayjs(experience.start), 'month') ?? 0) %
-        12,
+      year: end.diff(start, 'year') ?? 0,
+      month: (end.diff(start, 'month') ?? 0) % 12,
     }
   }
 
@@ -261,12 +261,8 @@ export class PeopleUtils {
           title: item.company ?? '',
           experience: [...positions]
             .sort((a, b) => {
-              const aEnd = dayjs(a.end?.datetime).isValid()
-                ? dayjs(a.end?.datetime)
-                : dayjs()
-              const bEnd = dayjs(b.end?.datetime).isValid()
-                ? dayjs(b.end?.datetime)
-                : dayjs()
+              const aEnd = DateUtils.safeParseLocal(a.end?.datetime)
+              const bEnd = DateUtils.safeParseLocal(b.end?.datetime)
               if (aEnd.isBefore(bEnd)) {
                 return 1
               } else if (aEnd.isAfter(bEnd)) {
@@ -383,22 +379,20 @@ export class PeopleUtils {
     const startYears = congressExperiences
       .flatMap(
         (item) =>
-          item.positions?.flatMap((position) =>
-            position.start?.datetime
-              ? dayjs(position.start.datetime).year()
-              : []
-          ) ?? []
+          item.positions?.flatMap((position) => {
+            const start = DateUtils.parseDc(position.start?.datetime)
+            return start ? start.year() : []
+          }) ?? []
       )
       .filter(isNumber)
     const endYears = congressExperiences
       .flatMap(
         (item) =>
-          item.positions?.flatMap((position) =>
+          item.positions?.flatMap((position) => {
             // 如果沒有 end，代表還在任職中，所以取目前年份
-            position.end?.datetime
-              ? dayjs(position.end.datetime).year()
-              : dayjs().year()
-          ) ?? []
+            const end = DateUtils.safeParseDc(position.end?.datetime)
+            return end.year()
+          }) ?? []
       )
       .filter(isNumber)
     if (congresses.length === 0) return null

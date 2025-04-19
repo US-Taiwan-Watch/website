@@ -12,7 +12,6 @@ import {
 } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { BillAction } from '@/modules/Bill/business/Bill'
-import dayjs from 'dayjs'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined'
@@ -20,6 +19,7 @@ import { useMemo, useState, useCallback } from 'react'
 import UHStack from '@/common/components/atoms/UHStack'
 import { sortBy } from 'lodash-es'
 import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const EMPTY_CELL = '-'
 const DATE_FORMAT = 'MM/DD/YYYY'
@@ -77,10 +77,7 @@ export default function ActionsTable({
   }, [actions, sortDirection])
 
   const getActionDate = useCallback((action: BillAction) => {
-    if (action.date && dayjs(action.date).isValid()) {
-      return dayjs(action.date).format(DATE_FORMAT)
-    }
-    return ''
+    return DateUtils.formatDc(action.date, DATE_FORMAT)
   }, [])
 
   return (

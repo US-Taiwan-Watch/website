@@ -3,8 +3,8 @@
 import { Box, Grid2, Stack, Typography } from '@mui/material'
 import { Footprint } from '@/modules/About/Footprint/business/Project'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import dayjs from 'dayjs'
-import { useMemo } from 'react'
+import { useEffect, useState } from 'react'
+import { DateUtils } from '@/modules/Common/business/Date'
 
 const DATE_FORMAT = 'MMM DD, YYYY' // Mar 13, 2024
 
@@ -14,11 +14,9 @@ type FootprintCardProps = {
 
 export default function FootprintCard({ footprint }: FootprintCardProps) {
   const { t } = useTranslationClient('about_footprint')
-  const releaseDate = useMemo(() => {
-    if (footprint.releaseDate && dayjs(footprint.releaseDate).isValid()) {
-      return dayjs(footprint.releaseDate).format(DATE_FORMAT)
-    }
-    return ''
+  const [releaseDate, setReleaseDate] = useState('')
+  useEffect(() => {
+    setReleaseDate(DateUtils.formatLocal(footprint.releaseDate, DATE_FORMAT))
   }, [footprint])
 
   return (
