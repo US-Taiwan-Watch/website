@@ -107,17 +107,16 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
   }, [bill])
 
   useEffect(() => {
-    const introducedDate = BillUtils.getIntroducedDate(bill)
     setIntroducedDate(
-      DateUtils.formatDc(introducedDate, INTRODUCED_DATE_FORMAT)
+      DateUtils.formatDc(bill.introducedAt, INTRODUCED_DATE_FORMAT)
     )
   }, [bill])
 
   useEffect(() => {
     setLatestActionDate(
-      DateUtils.formatDc(latestAction.date, ACTION_DATE_FORMAT)
+      DateUtils.formatDc(bill.latestActionAt, ACTION_DATE_FORMAT)
     )
-  }, [latestAction])
+  }, [bill])
 
   return (
     <Grid2 container spacing={2}>
