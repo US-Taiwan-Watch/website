@@ -18,6 +18,7 @@ import {
 } from '@/common/styles/assets/Icons'
 import MobileNavMenu from '@/common/components/elements/Header/Mobile/MobileNavMenu'
 import MobileSearchMenu from '@/modules/Search/components/Mobile/MobileSearchMenu'
+import useHeaderAccount from '@/common/components/elements/Header/useHeaderAccount'
 
 const StyledHeaderContainer = styled(Container)(({ theme }) => ({
   position: 'sticky',
@@ -52,7 +53,7 @@ const StyledHeaderWrapper = styled(Box)(({ theme }) => ({
 
 const MobileHeader = ({ containerClassName, className }: HeaderProps) => {
   const router = useRouter()
-
+  const { handleAccountClick } = useHeaderAccount()
   const headerRef = useRef<HTMLHeadElement>(null)
 
   // ----- 點擊 Menu 按鈕 -----
@@ -75,7 +76,7 @@ const MobileHeader = ({ containerClassName, className }: HeaderProps) => {
 
   // ----- 點擊 Profile 按鈕 -----
   const handleProfileClick = () => {
-    console.log('profile')
+    handleAccountClick()
   }
 
   // ----- 關閉按鈕 -----

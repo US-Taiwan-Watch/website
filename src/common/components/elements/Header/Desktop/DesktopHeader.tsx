@@ -20,6 +20,7 @@ import { ROUTES } from '@/routes'
 import { useRouter } from 'next/navigation'
 import { HeaderProps } from '@/common/components/elements/Header'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useHeaderAccount from '@/common/components/elements/Header/useHeaderAccount'
 
 const StyledHeaderContainer = styled(Container)(({ theme }) => ({
   position: 'sticky',
@@ -121,6 +122,7 @@ const DesktopHeader = ({ className }: HeaderProps) => {
   const { t } = useTranslationClient('header')
   const router = useRouter()
   const { navItems } = useNavItems()
+  const { handleAccountClick } = useHeaderAccount()
   const [menuOpenNavItem, setMenuOpenNavItem] = useState<HeaderNavItem | null>(
     null
   )
@@ -277,9 +279,7 @@ const DesktopHeader = ({ className }: HeaderProps) => {
                   className="nav-item icon-button"
                   variant="outlined"
                   color="default"
-                  onClick={() => {
-                    console.log('profile')
-                  }}
+                  onClick={handleAccountClick}
                   size="small"
                 >
                   <ProfileIcon width={14} />
