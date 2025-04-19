@@ -75,9 +75,7 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
   const latestAction = BillUtils.getLatestAction(bill)
   const [latestActionDate, setLatestActionDate] = useState('')
   useEffect(() => {
-    if (latestAction.date) {
-      setLatestActionDate(DateUtils.formatDc(latestAction.date, DATE_FORMAT))
-    }
+    setLatestActionDate(DateUtils.formatDc(latestAction.date, DATE_FORMAT))
   }, [latestAction])
 
   return (

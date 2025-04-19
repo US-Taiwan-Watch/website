@@ -78,14 +78,10 @@ export default class PodcastUtils {
     return episodes
       .filter((episode) => episode.title && regex.test(episode.title))
       .sort((a, b) => {
-        if (sort === 'CREATED_AT_ASC')
-          return DateUtils.safeParseLocal(a.createdAt).diff(
-            DateUtils.safeParseLocal(b.createdAt)
-          )
-        if (sort === 'CREATED_AT_DESC')
-          return DateUtils.safeParseLocal(b.createdAt).diff(
-            DateUtils.safeParseLocal(a.createdAt)
-          )
+        const aDate = DateUtils.safeParseLocal(a.createdAt)
+        const bDate = DateUtils.safeParseLocal(b.createdAt)
+        if (sort === 'CREATED_AT_ASC') return aDate.diff(bDate)
+        if (sort === 'CREATED_AT_DESC') return bDate.diff(aDate)
         return 0
       })
       .slice(0, limit)
