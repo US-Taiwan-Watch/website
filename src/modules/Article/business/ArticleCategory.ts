@@ -1,4 +1,7 @@
-import { CategoriesArticle } from '@/common/lib/graphql/__generated__/graphql'
+import {
+  CategoriesArticle,
+  CategoriesKetagalan,
+} from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { ROUTES } from '@/routes'
@@ -19,7 +22,7 @@ export class ArticleCategoryUtils {
   /**
    * CategoriesArticle -> ArticleCategory
    */
-  static parse(lang: Language, dto: CategoriesArticle) {
+  static parse(lang: Language, dto: CategoriesArticle | CategoriesKetagalan) {
     return articleCategorySchema.parse({
       id: dto.id ?? undefined,
       label: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? undefined,

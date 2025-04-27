@@ -6,6 +6,8 @@ import LandingSectionWrapper from '@/common/components/elements/Landing/LandingS
 import {
   ArticlesQuery,
   ArticlesQueryVariables,
+  KetagalanArticlesQuery,
+  KetagalanArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -17,7 +19,10 @@ import {
 import ArticlePostCards, {
   ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
-import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
+import {
+  QUERY_ARTICLES,
+  QUERY_KETAGALAN_ARTICLES,
+} from '@/modules/Article/graphql/gql'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { useLazyQuery } from '@apollo/client'
 import { useTheme } from '@mui/material'
@@ -47,7 +52,15 @@ const ArticlePostSection = ({
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
-  const landingTags = useArticleStore.use.landingTags()
+  const articleLandingTags = useArticleStore.use.articleLandingTags()
+  const ketagalanLandingTags = useArticleStore.use.ketagalanLandingTags()
+  const landingTags = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanLandingTags
+    }
+
+    return articleLandingTags
+  }, [articleType, articleLandingTags, ketagalanLandingTags])
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
   const queryVariables = useMemo<ArticlesQueryVariables>(
@@ -65,45 +78,75 @@ const ArticlePostSection = ({
     [activeTagId, page]
   )
 
-  // TODO: 不同的文章類型，需要不同的 query
-  const [getArticles, { loading, data }] = useLazyQuery<
-    ArticlesQuery,
-    ArticlesQueryVariables
-  >(QUERY_ARTICLES, {
-    variables: queryVariables,
-  })
+  const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
+    useLazyQuery<ArticlesQuery, ArticlesQueryVariables>(QUERY_ARTICLES, {
+      variables: queryVariables,
+    })
+
+  const [
+    getKetagalanArticles,
+    { loading: isKetagalanArticlesLoading, data: ketagalanQueryData },
+  ] = useLazyQuery<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>(
+    QUERY_KETAGALAN_ARTICLES,
+    {
+      variables: queryVariables,
+    }
+  )
+
+  const articlesData = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanQueryData?.KetagalanArticles
+    }
+
+    return articlesQueryData?.Articles
+  }, [articleType, ketagalanQueryData, articlesQueryData])
+
+  const loading = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return isKetagalanArticlesLoading
+    }
+
+    return isArticlesLoading
+  }, [articleType, isKetagalanArticlesLoading, isArticlesLoading])
 
   useEffect(() => {
-    if (!isNumber(data?.Articles?.totalPages)) return
-    setTotalPages(data?.Articles?.totalPages ?? 1)
-  }, [data?.Articles?.totalPages, setTotalPages])
+    if (!isNumber(articlesData?.totalPages)) return
+    setTotalPages(articlesData?.totalPages ?? 1)
+  }, [articlesData, setTotalPages])
 
   // 處理資料
   const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
   const [articles, setArticles] = useState<Article[]>(defaultArticles ?? [])
 
   useEffect(() => {
-    if (!data?.Articles?.docs) return
+    if (!articlesData?.docs) return
 
-    const newArticles = data.Articles.docs
+    const newArticles = articlesData.docs
       .filter((article) => !isNull(article))
       .map((article) => ArticleUtils.parse(lang, article, articleType))
 
     if (isInfiniteScroll) {
       setArticles((prev) => [
-        ...(data?.Articles?.page === 1 ? [] : prev),
+        ...(articlesData?.page === 1 ? [] : prev),
         ...newArticles,
       ])
     } else {
       setArticles(newArticles)
     }
-  }, [articleType, data?.Articles, isInfiniteScroll, lang])
+  }, [articleType, articlesData, isInfiniteScroll, lang])
 
   useEffect(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      getKetagalanArticles({
+        variables: queryVariables,
+      })
+      return
+    }
+
     getArticles({
       variables: queryVariables,
     })
-  }, [queryVariables, getArticles])
+  }, [queryVariables, getArticles, getKetagalanArticles, articleType])
 
   return (
     <LandingSectionWrapper

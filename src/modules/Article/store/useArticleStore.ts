@@ -5,20 +5,30 @@ import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
 type State = {
-  /** 首頁 Tags */
-  landingTags: Array<Tag>
+  /** 首頁 Article 的 Tags */
+  articleLandingTags: Array<Tag>
   /** 熱門分類，存在在 NavBar 中 */
-  highlightedCategories: Array<ArticleCategory>
+  articleHighlightedCategories: Array<ArticleCategory>
+  /** 首頁 Ketagalan 的 Tags */
+  ketagalanLandingTags: Array<Tag>
+  /** 熱門分類，存在在 NavBar 中 */
+  ketagalanHighlightedCategories: Array<ArticleCategory>
 }
 
 type Action = {
-  setLandingTags: (tags: Array<Tag>) => void
-  setHomeHighlightedCategories: (categories: Array<ArticleCategory>) => void
+  setArticleLandingTags: (tags: Array<Tag>) => void
+  setArticleHighlightedCategories: (categories: Array<ArticleCategory>) => void
+  setKetagalanLandingTags: (tags: Array<Tag>) => void
+  setKetagalanHighlightedCategories: (
+    categories: Array<ArticleCategory>
+  ) => void
 }
 
 const initialState: State = {
-  landingTags: [],
-  highlightedCategories: [],
+  articleLandingTags: [],
+  articleHighlightedCategories: [],
+  ketagalanLandingTags: [],
+  ketagalanHighlightedCategories: [],
 }
 
 const useArticleStore = createSelectors(
@@ -26,9 +36,14 @@ const useArticleStore = createSelectors(
     devtools(
       (set) => ({
         ...initialState,
-        setLandingTags: (tags) => set(() => ({ landingTags: tags })),
-        setHomeHighlightedCategories: (categories) =>
-          set(() => ({ highlightedCategories: categories })),
+        setArticleLandingTags: (tags) =>
+          set(() => ({ articleLandingTags: tags })),
+        setArticleHighlightedCategories: (categories) =>
+          set(() => ({ articleHighlightedCategories: categories })),
+        setKetagalanLandingTags: (tags) =>
+          set(() => ({ ketagalanLandingTags: tags })),
+        setKetagalanHighlightedCategories: (categories) =>
+          set(() => ({ ketagalanHighlightedCategories: categories })),
       }),
       {
         name: 'ArticleStore',

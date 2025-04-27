@@ -10,8 +10,13 @@ import { useMemo, useState, useEffect, useCallback } from 'react'
 import {
   ArticlesQuery,
   ArticlesQueryVariables,
+  KetagalanArticlesQuery,
+  KetagalanArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
+import {
+  QUERY_ARTICLES,
+  QUERY_KETAGALAN_ARTICLES,
+} from '@/modules/Article/graphql/gql'
 import { isEmpty, isNull, isNumber } from 'lodash-es'
 import { useLazyQuery } from '@apollo/client'
 import { usePagination } from '@/common/components/atoms/UPagination'
@@ -26,10 +31,26 @@ export default function useArticleSearch(
 ) {
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
-  const highlightedCategories = useArticleStore.use.highlightedCategories()
+  const articleHighlightedCategories =
+    useArticleStore.use.articleHighlightedCategories()
+  const ketagalanHighlightedCategories =
+    useArticleStore.use.ketagalanHighlightedCategories()
+  const highlightedCategories = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanHighlightedCategories
+    }
+
+    return articleHighlightedCategories
+  }, [
+    articleType,
+    articleHighlightedCategories,
+    ketagalanHighlightedCategories,
+  ])
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
-  const queryVariables = useMemo<ArticlesQueryVariables>(
+  const queryVariables = useMemo<
+    ArticlesQueryVariables | KetagalanArticlesQueryVariables
+  >(
     () => ({
       limit: ARTICLE_POST_COUNT,
       page,
@@ -44,44 +65,75 @@ export default function useArticleSearch(
     [categoryId, page]
   )
 
-  const [getArticles, { loading: isArticlesLoading, data }] = useLazyQuery<
-    ArticlesQuery,
-    ArticlesQueryVariables
-  >(QUERY_ARTICLES, {
-    variables: queryVariables,
-  })
+  const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
+    useLazyQuery<ArticlesQuery, ArticlesQueryVariables>(QUERY_ARTICLES, {
+      variables: queryVariables,
+    })
+
+  const [
+    getKetagalanArticles,
+    { loading: isKetagalanArticlesLoading, data: ketagalanQueryData },
+  ] = useLazyQuery<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>(
+    QUERY_KETAGALAN_ARTICLES,
+    {
+      variables: queryVariables,
+    }
+  )
+
+  const articlesData = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanQueryData?.KetagalanArticles
+    }
+
+    return articlesQueryData?.Articles
+  }, [articleType, ketagalanQueryData, articlesQueryData])
+
+  const loading = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return isKetagalanArticlesLoading
+    }
+
+    return isArticlesLoading
+  }, [articleType, isKetagalanArticlesLoading, isArticlesLoading])
 
   useEffect(() => {
-    if (!isNumber(data?.Articles?.totalPages)) return
-    setTotalPages(data?.Articles?.totalPages ?? 1)
-  }, [data?.Articles?.totalPages, setTotalPages])
+    if (!isNumber(articlesData?.totalPages)) return
+    setTotalPages(articlesData?.totalPages ?? 1)
+  }, [articlesData, setTotalPages])
 
   // 處理資料
   const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
   const [articles, setArticles] = useState<Article[]>([])
 
   useEffect(() => {
-    if (!data?.Articles?.docs) return
+    if (!articlesData?.docs) return
 
-    const newArticles = data.Articles.docs
+    const newArticles = articlesData.docs
       .filter((article) => !isNull(article))
       .map((article) => ArticleUtils.parse(lang, article, articleType))
 
     if (isInfiniteScroll) {
       setArticles((prev) => [
-        ...(data?.Articles?.page === 1 ? [] : prev),
+        ...(articlesData?.page === 1 ? [] : prev),
         ...newArticles,
       ])
     } else {
       setArticles(newArticles)
     }
-  }, [data?.Articles?.docs, data?.Articles?.page, isInfiniteScroll, lang])
+  }, [articleType, articlesData, isInfiniteScroll, lang])
 
   useEffect(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      getKetagalanArticles({
+        variables: queryVariables,
+      })
+      return
+    }
+
     getArticles({
       variables: queryVariables,
     })
-  }, [queryVariables, getArticles])
+  }, [queryVariables, getArticles, getKetagalanArticles, articleType])
 
   const category = useMemo(
     () => highlightedCategories.find((category) => category.id === categoryId),
@@ -96,10 +148,10 @@ export default function useArticleSearch(
     highlightedCategories,
     category,
     articles,
-    isArticlesLoading,
+    isArticlesLoading: loading,
     totalPages,
     page,
-    totalDocs: data?.Articles?.totalDocs ?? 0,
+    totalDocs: articlesData?.totalDocs ?? 0,
     handlePageChange,
     isInfiniteScroll,
     resetArticles,
