@@ -293,7 +293,7 @@ export default class ServerArticleApi {
         KetagalanArticlesQuery,
         KetagalanArticlesQueryVariables
       >({
-        query: QUERY_ARTICLES,
+        query: QUERY_KETAGALAN_ARTICLES,
         variables: {
           limit: 3,
           where: {
