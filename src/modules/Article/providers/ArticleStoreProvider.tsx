@@ -7,22 +7,43 @@ import { useEffect, useMemo } from 'react'
 import {
   CategoriesArticlesQuery,
   CategoriesArticlesQueryVariables,
+  CategoriesKetagalansQuery,
+  CategoriesKetagalansQueryVariables,
   TagsQuery,
   TagsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { QUERY_TAGS } from '@/modules/Common/graphql/gql'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { isNull } from 'lodash-es'
-import { QUERY_CATEGORIES_ARTICLES } from '@/modules/Article/graphql/gql'
+import {
+  QUERY_CATEGORIES_ARTICLES,
+  QUERY_CATEGORIES_KETAGALANS,
+} from '@/modules/Article/graphql/gql'
 import { ArticleCategoryUtils } from '@/modules/Article/business/ArticleCategory'
 import TagUtils from '@/modules/Common/business/Tag'
+import { ArticleType } from '@/modules/Article/business/Article'
 
-export default function ArticleStoreProvider() {
+type ArticleStoreProviderProps = {
+  articleType: ArticleType
+}
+
+export default function ArticleStoreProvider({
+  articleType,
+}: ArticleStoreProviderProps) {
   const { lang } = useParams<{ lang: Language }>()
 
-  const setLandingTags = useArticleStore((state) => state.setLandingTags)
-  const setHomeHighlightedCategories =
-    useArticleStore.use.setHomeHighlightedCategories()
+  const setArticleLandingTags = useArticleStore(
+    (state) => state.setArticleLandingTags
+  )
+  const setArticleHighlightedCategories = useArticleStore(
+    (state) => state.setArticleHighlightedCategories
+  )
+  const setKetagalanLandingTags = useArticleStore(
+    (state) => state.setKetagalanLandingTags
+  )
+  const setKetagalanHighlightedCategories = useArticleStore(
+    (state) => state.setKetagalanHighlightedCategories
+  )
 
   const landingTagsVariables = useMemo<TagsQueryVariables>(
     () => ({
@@ -35,40 +56,142 @@ export default function ArticleStoreProvider() {
     []
   )
 
-  const { data: landingTagsData } = useQuery<TagsQuery, TagsQueryVariables>(
-    QUERY_TAGS,
-    {
+  const [getArticleLandingTags, { data: articleLandingTagsData }] =
+    useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
       variables: landingTagsVariables,
+    })
+
+  const [getKetagalanLandingTags, { data: ketagalanLandingTagsData }] =
+    useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
+      variables: landingTagsVariables,
+    })
+
+  const landingTagsData = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanLandingTagsData
     }
-  )
+
+    return articleLandingTagsData
+  }, [articleType, articleLandingTagsData, ketagalanLandingTagsData])
+
+  useEffect(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      getKetagalanLandingTags({
+        variables: landingTagsVariables,
+      })
+      return
+    }
+
+    getArticleLandingTags({
+      variables: landingTagsVariables,
+    })
+  }, [
+    getKetagalanLandingTags,
+    landingTagsVariables,
+    articleType,
+    getArticleLandingTags,
+  ])
 
   useEffect(() => {
     if (!landingTagsData) return
-    setLandingTags(
+
+    if (articleType === ArticleType.Ketagalan) {
+      setKetagalanLandingTags(
+        (landingTagsData?.Tags?.docs ?? [])
+          .filter((tag) => !isNull(tag))
+          .map((tag) => TagUtils.parse(lang, tag))
+      )
+      return
+    }
+
+    setArticleLandingTags(
       (landingTagsData?.Tags?.docs ?? [])
         .filter((tag) => !isNull(tag))
         .map((tag) => TagUtils.parse(lang, tag))
     )
-  }, [landingTagsData, setLandingTags, lang])
+  }, [
+    landingTagsData,
+    setArticleLandingTags,
+    lang,
+    articleType,
+    setKetagalanLandingTags,
+  ])
 
-  const highlightedCategoriesVariables =
+  const highlightedArticlesCategoriesVariables =
     useMemo<CategoriesArticlesQueryVariables>(() => ({}), [])
 
-  const { data: highlightedCategoriesData } = useQuery<
-    CategoriesArticlesQuery,
-    CategoriesArticlesQueryVariables
-  >(QUERY_CATEGORIES_ARTICLES, {
-    variables: highlightedCategoriesVariables,
+  const [getHighlightedCategories, { data: categoriesArticlesQueryData }] =
+    useLazyQuery<CategoriesArticlesQuery, CategoriesArticlesQueryVariables>(
+      QUERY_CATEGORIES_ARTICLES,
+      {
+        variables: highlightedArticlesCategoriesVariables,
+      }
+    )
+
+  const highlightedKetagalanCategoriesVariables =
+    useMemo<CategoriesKetagalansQueryVariables>(() => ({}), [])
+
+  const [
+    getKetagalanHighlightedCategories,
+    { data: categoriesKetagalansQueryData },
+  ] = useLazyQuery<
+    CategoriesKetagalansQuery,
+    CategoriesKetagalansQueryVariables
+  >(QUERY_CATEGORIES_KETAGALANS, {
+    variables: highlightedKetagalanCategoriesVariables,
   })
+
+  const highlightedCategoriesData = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return categoriesKetagalansQueryData?.CategoriesKetagalans
+    }
+
+    return categoriesArticlesQueryData?.CategoriesArticles
+  }, [articleType, categoriesArticlesQueryData, categoriesKetagalansQueryData])
+
+  useEffect(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      getKetagalanHighlightedCategories({
+        variables: highlightedKetagalanCategoriesVariables,
+      })
+      return
+    }
+
+    getHighlightedCategories({
+      variables: highlightedArticlesCategoriesVariables,
+    })
+  }, [
+    articleType,
+    getHighlightedCategories,
+    getKetagalanHighlightedCategories,
+    highlightedArticlesCategoriesVariables,
+    highlightedKetagalanCategoriesVariables,
+  ])
 
   useEffect(() => {
     if (!highlightedCategoriesData) return
-    setHomeHighlightedCategories(
-      (highlightedCategoriesData?.CategoriesArticles?.docs ?? [])
+
+    if (articleType === ArticleType.Ketagalan) {
+      setKetagalanHighlightedCategories(
+        (highlightedCategoriesData.docs ?? [])
+          .filter((category) => !isNull(category))
+          .map((category) => ArticleCategoryUtils.parse(lang, category))
+      )
+      return
+    }
+
+    setArticleHighlightedCategories(
+      (highlightedCategoriesData.docs ?? [])
         .filter((category) => !isNull(category))
         .map((category) => ArticleCategoryUtils.parse(lang, category))
     )
-  }, [highlightedCategoriesData, setHomeHighlightedCategories, lang])
+  }, [
+    highlightedCategoriesData,
+    setArticleHighlightedCategories,
+    lang,
+    articleType,
+    setKetagalanHighlightedCategories,
+  ])
 
   return null
 }
