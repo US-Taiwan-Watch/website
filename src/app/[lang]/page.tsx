@@ -9,6 +9,7 @@ import { Language } from '@/common/lib/i18n/types'
 import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
 import { ArticleType } from '@/modules/Article/business/Article'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
+import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 
 type HomeProps = {
   params: {
@@ -19,11 +20,24 @@ type HomeProps = {
 export default async function Home({ params }: HomeProps) {
   const { t } = await getTranslationServer(params.lang, 'home')
 
+  const articles = await ServerArticleApi.getHomeArticles({
+    limit: 3,
+    articleType: ArticleType.Article,
+  })
+
+  const ketagalanArticles = await ServerArticleApi.getHomeArticles({
+    limit: 3,
+    articleType: ArticleType.Ketagalan,
+  })
+
   return (
     <Stack alignContent="center" justifyContent="center">
       <IndexArticleCarousel />
       <BillSection title={t('section.bills.title')} />
-      <ArticleSection articleType={ArticleType.Article} />
+      <ArticleSection
+        articleType={ArticleType.Article}
+        defaultArticles={articles}
+      />
       <Stack
         sx={{
           '& > *': {
@@ -36,7 +50,10 @@ export default async function Home({ params }: HomeProps) {
           lang={params.lang}
           withCssBaseline={false}
         >
-          <ArticleSection articleType={ArticleType.Ketagalan} />
+          <ArticleSection
+            articleType={ArticleType.Ketagalan}
+            defaultArticles={ketagalanArticles}
+          />
         </ThemeProvider>
         <PodcastSection title={t('section.podcasts.title')} />
         <FreeUsageSection />

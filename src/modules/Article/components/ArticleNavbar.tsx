@@ -6,6 +6,7 @@ import { ArticleUtils, ArticleType } from '@/modules/Article/business/Article'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
+import { useMemo } from 'react'
 
 interface ArticleNavbarProps {
   articleType: ArticleType
@@ -15,7 +16,22 @@ interface ArticleNavbarProps {
 const ArticleNavbar = ({ articleType, activeId }: ArticleNavbarProps) => {
   const theme = useTheme<USTWTheme>()
 
-  const highlightedCategories = useArticleStore.use.highlightedCategories()
+  const articleHighlightedCategories =
+    useArticleStore.use.articleHighlightedCategories()
+  const ketagalanHighlightedCategories =
+    useArticleStore.use.ketagalanHighlightedCategories()
+
+  const highlightedCategories = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanHighlightedCategories
+    }
+
+    return articleHighlightedCategories
+  }, [
+    articleType,
+    articleHighlightedCategories,
+    ketagalanHighlightedCategories,
+  ])
 
   return (
     <Box

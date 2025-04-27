@@ -16,14 +16,23 @@ import { ROUTES } from '@/routes'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import ArticleStoreProvider from '@/modules/Article/providers/ArticleStoreProvider'
-import { ArticleUtils, ArticleType } from '@/modules/Article/business/Article'
-import { QUERY_ARTICLES } from '@/modules/Article/graphql/gql'
+import {
+  ArticleUtils,
+  ArticleType,
+  Article,
+} from '@/modules/Article/business/Article'
+import {
+  QUERY_ARTICLES,
+  QUERY_KETAGALAN_ARTICLES,
+} from '@/modules/Article/graphql/gql'
 import {
   ArticlesQueryVariables,
   ArticlesQuery,
+  KetagalanArticlesQuery,
+  KetagalanArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { isNull } from 'lodash-es'
-import { useQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -32,15 +41,27 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 
 type ArticleSectionProps = {
   articleType: ArticleType
+  defaultArticles?: Article[]
 }
 
-const ArticleSection = ({ articleType }: ArticleSectionProps) => {
+const ArticleSection = ({
+  articleType,
+  defaultArticles,
+}: ArticleSectionProps) => {
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('home')
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
-  const landingTags = useArticleStore.use.landingTags()
+  const articleLandingTags = useArticleStore.use.articleLandingTags()
+  const ketagalanLandingTags = useArticleStore.use.ketagalanLandingTags()
+  const landingTags = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanLandingTags
+    }
+
+    return articleLandingTags
+  }, [articleType, articleLandingTags, ketagalanLandingTags])
 
   const queryVariables = useMemo<ArticlesQueryVariables>(
     () => ({
@@ -57,26 +78,63 @@ const ArticleSection = ({ articleType }: ArticleSectionProps) => {
     [activeTagId]
   )
 
-  // TODO: 不同文章類型，使用不同的 query
-  const { loading, data, refetch } = useQuery<
-    ArticlesQuery,
-    ArticlesQueryVariables
-  >(QUERY_ARTICLES, {
-    variables: queryVariables,
-  })
+  const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
+    useLazyQuery<ArticlesQuery, ArticlesQueryVariables>(QUERY_ARTICLES, {
+      variables: queryVariables,
+    })
+
+  const [
+    getKetagalanArticles,
+    { loading: isKetagalanArticlesLoading, data: ketagalanQueryData },
+  ] = useLazyQuery<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>(
+    QUERY_KETAGALAN_ARTICLES,
+    {
+      variables: queryVariables,
+    }
+  )
 
   useEffect(() => {
-    refetch(queryVariables)
-  }, [queryVariables, refetch])
+    if (articleType === ArticleType.Ketagalan) {
+      getKetagalanArticles({
+        variables: queryVariables,
+      })
+      return
+    }
 
-  const articles =
-    data?.Articles?.docs
-      ?.filter((article) => !isNull(article))
-      .map((article) => ArticleUtils.parse(lang, article, articleType)) ?? []
+    getArticles({
+      variables: queryVariables,
+    })
+  }, [getKetagalanArticles, queryVariables, articleType, getArticles])
+
+  const articlesData = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return ketagalanQueryData?.KetagalanArticles
+    }
+
+    return articlesQueryData?.Articles
+  }, [articleType, ketagalanQueryData, articlesQueryData])
+
+  const loading = useMemo(() => {
+    if (articleType === ArticleType.Ketagalan) {
+      return isKetagalanArticlesLoading
+    }
+
+    return isArticlesLoading
+  }, [articleType, isKetagalanArticlesLoading, isArticlesLoading])
+
+  const articles = useMemo(() => {
+    return (
+      articlesData?.docs
+        ?.filter((article) => !isNull(article))
+        .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+      defaultArticles ??
+      []
+    )
+  }, [articlesData, lang, articleType, defaultArticles])
 
   return (
     <>
-      <ArticleStoreProvider />
+      <ArticleStoreProvider articleType={articleType} />
       <LandingSectionWrapper
         contentWrapperSx={{
           paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,

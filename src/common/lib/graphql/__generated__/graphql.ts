@@ -28,8 +28,12 @@ export type Access = {
   canAccessAdmin: Scalars['Boolean']['output'];
   categories_article?: Maybe<Categories_ArticleAccess>;
   categories_bill?: Maybe<Categories_BillAccess>;
+  categories_ketagalan?: Maybe<Categories_KetagalanAccess>;
   categories_people?: Maybe<Categories_PeopleAccess>;
-  media?: Maybe<MediaAccess>;
+  ketagalan_articles?: Maybe<Ketagalan_ArticlesAccess>;
+  ketagalan_authors?: Maybe<Ketagalan_AuthorsAccess>;
+  media_article?: Maybe<Media_ArticleAccess>;
+  media_ketagalan?: Maybe<Media_KetagalanAccess>;
   media_people?: Maybe<Media_PeopleAccess>;
   media_taiwan_record?: Maybe<Media_Taiwan_RecordAccess>;
   members?: Maybe<MembersAccess>;
@@ -75,7 +79,7 @@ export type ArticleContentArgs = {
 export type Article_Media = {
   __typename?: 'Article_Media';
   caption?: Maybe<Scalars['String']['output']>;
-  photo?: Maybe<Media>;
+  photo?: Maybe<MediaArticle>;
 };
 
 
@@ -7755,6 +7759,766 @@ export type CategoriesBills = {
   totalPages?: Maybe<Scalars['Int']['output']>;
 };
 
+export type CategoriesKetagalan = {
+  __typename?: 'CategoriesKetagalan';
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  i18n?: Maybe<CategoriesKetagalan_I18n>;
+  id?: Maybe<Scalars['String']['output']>;
+  nameEn?: Maybe<Scalars['String']['output']>;
+  nameZh?: Maybe<Scalars['String']['output']>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type CategoriesKetagalanCreateAccess = {
+  __typename?: 'CategoriesKetagalanCreateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalanCreateDocAccess = {
+  __typename?: 'CategoriesKetagalanCreateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalanDeleteAccess = {
+  __typename?: 'CategoriesKetagalanDeleteAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalanDeleteDocAccess = {
+  __typename?: 'CategoriesKetagalanDeleteDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalanDocAccessFields = {
+  __typename?: 'CategoriesKetagalanDocAccessFields';
+  createdAt?: Maybe<CategoriesKetagalanDocAccessFields_CreatedAt>;
+  i18n?: Maybe<CategoriesKetagalanDocAccessFields_I18n>;
+  nameEn?: Maybe<CategoriesKetagalanDocAccessFields_NameEn>;
+  nameZh?: Maybe<CategoriesKetagalanDocAccessFields_NameZh>;
+  updatedAt?: Maybe<CategoriesKetagalanDocAccessFields_UpdatedAt>;
+};
+
+export type CategoriesKetagalanDocAccessFields_CreatedAt = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_createdAt';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_CreatedAt_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_CreatedAt_Delete>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_CreatedAt_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_CreatedAt_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_CreatedAt_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_CreatedAt_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_CreatedAt_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_CreatedAt_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Delete>;
+  fields?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Fields>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Fields = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_Fields';
+  en?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En>;
+  zh?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Delete>;
+  fields?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Fields>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Fields = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_Fields';
+  name?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Name>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Name = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_name';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Name_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Name_Delete>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Name_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_I18n_En_Name_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Name_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_name_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Name_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_name_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Name_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_name_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_En_Name_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_en_name_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Delete>;
+  fields?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Fields>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Fields = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_Fields';
+  name?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Name>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Name = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_name';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Delete>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_name_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_name_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_name_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_I18n_Zh_Name_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_i18n_zh_name_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameEn = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameEn';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_NameEn_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_NameEn_Delete>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_NameEn_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_NameEn_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_NameEn_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameEn_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameEn_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameEn_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameEn_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameEn_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameEn_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameZh = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameZh';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_NameZh_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_NameZh_Delete>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_NameZh_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_NameZh_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_NameZh_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameZh_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameZh_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_NameZh_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_nameZh_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_UpdatedAt = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_updatedAt';
+  create?: Maybe<CategoriesKetagalanDocAccessFields_UpdatedAt_Create>;
+  delete?: Maybe<CategoriesKetagalanDocAccessFields_UpdatedAt_Delete>;
+  read?: Maybe<CategoriesKetagalanDocAccessFields_UpdatedAt_Read>;
+  update?: Maybe<CategoriesKetagalanDocAccessFields_UpdatedAt_Update>;
+};
+
+export type CategoriesKetagalanDocAccessFields_UpdatedAt_Create = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_UpdatedAt_Delete = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_UpdatedAt_Read = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanDocAccessFields_UpdatedAt_Update = {
+  __typename?: 'CategoriesKetagalanDocAccessFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields = {
+  __typename?: 'CategoriesKetagalanFields';
+  createdAt?: Maybe<CategoriesKetagalanFields_CreatedAt>;
+  i18n?: Maybe<CategoriesKetagalanFields_I18n>;
+  nameEn?: Maybe<CategoriesKetagalanFields_NameEn>;
+  nameZh?: Maybe<CategoriesKetagalanFields_NameZh>;
+  updatedAt?: Maybe<CategoriesKetagalanFields_UpdatedAt>;
+};
+
+export type CategoriesKetagalanFields_CreatedAt = {
+  __typename?: 'CategoriesKetagalanFields_createdAt';
+  create?: Maybe<CategoriesKetagalanFields_CreatedAt_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_CreatedAt_Delete>;
+  read?: Maybe<CategoriesKetagalanFields_CreatedAt_Read>;
+  update?: Maybe<CategoriesKetagalanFields_CreatedAt_Update>;
+};
+
+export type CategoriesKetagalanFields_CreatedAt_Create = {
+  __typename?: 'CategoriesKetagalanFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_CreatedAt_Delete = {
+  __typename?: 'CategoriesKetagalanFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_CreatedAt_Read = {
+  __typename?: 'CategoriesKetagalanFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_CreatedAt_Update = {
+  __typename?: 'CategoriesKetagalanFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n = {
+  __typename?: 'CategoriesKetagalanFields_i18n';
+  create?: Maybe<CategoriesKetagalanFields_I18n_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_I18n_Delete>;
+  fields?: Maybe<CategoriesKetagalanFields_I18n_Fields>;
+  read?: Maybe<CategoriesKetagalanFields_I18n_Read>;
+  update?: Maybe<CategoriesKetagalanFields_I18n_Update>;
+};
+
+export type CategoriesKetagalanFields_I18n_Create = {
+  __typename?: 'CategoriesKetagalanFields_i18n_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Delete = {
+  __typename?: 'CategoriesKetagalanFields_i18n_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Fields = {
+  __typename?: 'CategoriesKetagalanFields_i18n_Fields';
+  en?: Maybe<CategoriesKetagalanFields_I18n_En>;
+  zh?: Maybe<CategoriesKetagalanFields_I18n_Zh>;
+};
+
+export type CategoriesKetagalanFields_I18n_Read = {
+  __typename?: 'CategoriesKetagalanFields_i18n_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Update = {
+  __typename?: 'CategoriesKetagalanFields_i18n_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en';
+  create?: Maybe<CategoriesKetagalanFields_I18n_En_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_I18n_En_Delete>;
+  fields?: Maybe<CategoriesKetagalanFields_I18n_En_Fields>;
+  read?: Maybe<CategoriesKetagalanFields_I18n_En_Read>;
+  update?: Maybe<CategoriesKetagalanFields_I18n_En_Update>;
+};
+
+export type CategoriesKetagalanFields_I18n_En_Create = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En_Delete = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En_Fields = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_Fields';
+  name?: Maybe<CategoriesKetagalanFields_I18n_En_Name>;
+};
+
+export type CategoriesKetagalanFields_I18n_En_Read = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En_Update = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En_Name = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_name';
+  create?: Maybe<CategoriesKetagalanFields_I18n_En_Name_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_I18n_En_Name_Delete>;
+  read?: Maybe<CategoriesKetagalanFields_I18n_En_Name_Read>;
+  update?: Maybe<CategoriesKetagalanFields_I18n_En_Name_Update>;
+};
+
+export type CategoriesKetagalanFields_I18n_En_Name_Create = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_name_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En_Name_Delete = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_name_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En_Name_Read = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_name_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_En_Name_Update = {
+  __typename?: 'CategoriesKetagalanFields_i18n_en_name_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh';
+  create?: Maybe<CategoriesKetagalanFields_I18n_Zh_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_I18n_Zh_Delete>;
+  fields?: Maybe<CategoriesKetagalanFields_I18n_Zh_Fields>;
+  read?: Maybe<CategoriesKetagalanFields_I18n_Zh_Read>;
+  update?: Maybe<CategoriesKetagalanFields_I18n_Zh_Update>;
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Create = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Delete = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Fields = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_Fields';
+  name?: Maybe<CategoriesKetagalanFields_I18n_Zh_Name>;
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Read = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Update = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Name = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_name';
+  create?: Maybe<CategoriesKetagalanFields_I18n_Zh_Name_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_I18n_Zh_Name_Delete>;
+  read?: Maybe<CategoriesKetagalanFields_I18n_Zh_Name_Read>;
+  update?: Maybe<CategoriesKetagalanFields_I18n_Zh_Name_Update>;
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Name_Create = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_name_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Name_Delete = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_name_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Name_Read = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_name_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_I18n_Zh_Name_Update = {
+  __typename?: 'CategoriesKetagalanFields_i18n_zh_name_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameEn = {
+  __typename?: 'CategoriesKetagalanFields_nameEn';
+  create?: Maybe<CategoriesKetagalanFields_NameEn_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_NameEn_Delete>;
+  read?: Maybe<CategoriesKetagalanFields_NameEn_Read>;
+  update?: Maybe<CategoriesKetagalanFields_NameEn_Update>;
+};
+
+export type CategoriesKetagalanFields_NameEn_Create = {
+  __typename?: 'CategoriesKetagalanFields_nameEn_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameEn_Delete = {
+  __typename?: 'CategoriesKetagalanFields_nameEn_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameEn_Read = {
+  __typename?: 'CategoriesKetagalanFields_nameEn_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameEn_Update = {
+  __typename?: 'CategoriesKetagalanFields_nameEn_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameZh = {
+  __typename?: 'CategoriesKetagalanFields_nameZh';
+  create?: Maybe<CategoriesKetagalanFields_NameZh_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_NameZh_Delete>;
+  read?: Maybe<CategoriesKetagalanFields_NameZh_Read>;
+  update?: Maybe<CategoriesKetagalanFields_NameZh_Update>;
+};
+
+export type CategoriesKetagalanFields_NameZh_Create = {
+  __typename?: 'CategoriesKetagalanFields_nameZh_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameZh_Delete = {
+  __typename?: 'CategoriesKetagalanFields_nameZh_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameZh_Read = {
+  __typename?: 'CategoriesKetagalanFields_nameZh_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_NameZh_Update = {
+  __typename?: 'CategoriesKetagalanFields_nameZh_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_UpdatedAt = {
+  __typename?: 'CategoriesKetagalanFields_updatedAt';
+  create?: Maybe<CategoriesKetagalanFields_UpdatedAt_Create>;
+  delete?: Maybe<CategoriesKetagalanFields_UpdatedAt_Delete>;
+  read?: Maybe<CategoriesKetagalanFields_UpdatedAt_Read>;
+  update?: Maybe<CategoriesKetagalanFields_UpdatedAt_Update>;
+};
+
+export type CategoriesKetagalanFields_UpdatedAt_Create = {
+  __typename?: 'CategoriesKetagalanFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_UpdatedAt_Delete = {
+  __typename?: 'CategoriesKetagalanFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_UpdatedAt_Read = {
+  __typename?: 'CategoriesKetagalanFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanFields_UpdatedAt_Update = {
+  __typename?: 'CategoriesKetagalanFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type CategoriesKetagalanReadAccess = {
+  __typename?: 'CategoriesKetagalanReadAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalanReadDocAccess = {
+  __typename?: 'CategoriesKetagalanReadDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalanUpdateAccess = {
+  __typename?: 'CategoriesKetagalanUpdateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalanUpdateDocAccess = {
+  __typename?: 'CategoriesKetagalanUpdateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type CategoriesKetagalan_I18n = {
+  __typename?: 'CategoriesKetagalan_I18n';
+  en?: Maybe<CategoriesKetagalan_I18n_En>;
+  zh?: Maybe<CategoriesKetagalan_I18n_Zh>;
+};
+
+export type CategoriesKetagalan_I18n_En = {
+  __typename?: 'CategoriesKetagalan_I18n_En';
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type CategoriesKetagalan_I18n_Zh = {
+  __typename?: 'CategoriesKetagalan_I18n_Zh';
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type CategoriesKetagalan_CreatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type CategoriesKetagalan_I18n__En__Name_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesKetagalan_I18n__Zh__Name_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesKetagalan_Id_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesKetagalan_NameEn_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesKetagalan_NameZh_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type CategoriesKetagalan_UpdatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type CategoriesKetagalan_Where = {
+  AND?: InputMaybe<Array<InputMaybe<CategoriesKetagalan_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<CategoriesKetagalan_Where_Or>>>;
+  createdAt?: InputMaybe<CategoriesKetagalan_CreatedAt_Operator>;
+  i18n__en__name?: InputMaybe<CategoriesKetagalan_I18n__En__Name_Operator>;
+  i18n__zh__name?: InputMaybe<CategoriesKetagalan_I18n__Zh__Name_Operator>;
+  id?: InputMaybe<CategoriesKetagalan_Id_Operator>;
+  nameEn?: InputMaybe<CategoriesKetagalan_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesKetagalan_NameZh_Operator>;
+  updatedAt?: InputMaybe<CategoriesKetagalan_UpdatedAt_Operator>;
+};
+
+export type CategoriesKetagalan_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<CategoriesKetagalan_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<CategoriesKetagalan_Where_Or>>>;
+  createdAt?: InputMaybe<CategoriesKetagalan_CreatedAt_Operator>;
+  i18n__en__name?: InputMaybe<CategoriesKetagalan_I18n__En__Name_Operator>;
+  i18n__zh__name?: InputMaybe<CategoriesKetagalan_I18n__Zh__Name_Operator>;
+  id?: InputMaybe<CategoriesKetagalan_Id_Operator>;
+  nameEn?: InputMaybe<CategoriesKetagalan_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesKetagalan_NameZh_Operator>;
+  updatedAt?: InputMaybe<CategoriesKetagalan_UpdatedAt_Operator>;
+};
+
+export type CategoriesKetagalan_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<CategoriesKetagalan_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<CategoriesKetagalan_Where_Or>>>;
+  createdAt?: InputMaybe<CategoriesKetagalan_CreatedAt_Operator>;
+  i18n__en__name?: InputMaybe<CategoriesKetagalan_I18n__En__Name_Operator>;
+  i18n__zh__name?: InputMaybe<CategoriesKetagalan_I18n__Zh__Name_Operator>;
+  id?: InputMaybe<CategoriesKetagalan_Id_Operator>;
+  nameEn?: InputMaybe<CategoriesKetagalan_NameEn_Operator>;
+  nameZh?: InputMaybe<CategoriesKetagalan_NameZh_Operator>;
+  updatedAt?: InputMaybe<CategoriesKetagalan_UpdatedAt_Operator>;
+};
+
+export type CategoriesKetagalans = {
+  __typename?: 'CategoriesKetagalans';
+  docs?: Maybe<Array<Maybe<CategoriesKetagalan>>>;
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  hasPrevPage?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
+  pagingCounter?: Maybe<Scalars['Int']['output']>;
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+  totalPages?: Maybe<Scalars['Int']['output']>;
+};
+
 export type CategoriesPeople = {
   __typename?: 'CategoriesPeople';
   docs?: Maybe<Array<Maybe<CategoriesPerson>>>;
@@ -8515,6 +9279,2373 @@ export type CategoriesPerson_Where_Or = {
   updatedAt?: InputMaybe<CategoriesPerson_UpdatedAt_Operator>;
 };
 
+export type KetagalanArticle = {
+  __typename?: 'KetagalanArticle';
+  authors?: Maybe<Array<KetagalanAuthor>>;
+  categories: Array<CategoriesKetagalan>;
+  content?: Maybe<Scalars['JSON']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  excerpt: Scalars['String']['output'];
+  id?: Maybe<Scalars['String']['output']>;
+  isFeatured?: Maybe<Scalars['Boolean']['output']>;
+  media?: Maybe<KetagalanArticle_Media>;
+  podcast?: Maybe<Scalars['String']['output']>;
+  releaseTime: Scalars['DateTime']['output'];
+  sources?: Maybe<Array<KetagalanArticle_Sources>>;
+  subtitle?: Maybe<Scalars['String']['output']>;
+  tags?: Maybe<Array<Tag>>;
+  title: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+
+export type KetagalanArticleContentArgs = {
+  depth?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type KetagalanArticle_Media = {
+  __typename?: 'KetagalanArticle_Media';
+  caption?: Maybe<Scalars['String']['output']>;
+  photo?: Maybe<MediaKetagalan>;
+};
+
+
+export type KetagalanArticle_MediaPhotoArgs = {
+  where?: InputMaybe<KetagalanArticle_Media_Photo_Where>;
+};
+
+export type KetagalanArticle_Media_Photo_Alt_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_CreatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_FocalX_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_FocalY_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Id_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Desktop__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Desktop__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Desktop__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Desktop__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Desktop__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Desktop__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Mobile__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Mobile__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Mobile__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Mobile__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Mobile__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Mobile__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Tablet__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Tablet__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Tablet__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Tablet__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Tablet__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Tablet__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Thumbnail__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Thumbnail__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Thumbnail__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Sizes__Thumbnail__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_UpdatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type KetagalanArticle_Media_Photo_Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media_Photo_Where = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanArticle_Media_Photo_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanArticle_Media_Photo_Where_Or>>>;
+  alt?: InputMaybe<KetagalanArticle_Media_Photo_Alt_Operator>;
+  createdAt?: InputMaybe<KetagalanArticle_Media_Photo_CreatedAt_Operator>;
+  filename?: InputMaybe<KetagalanArticle_Media_Photo_Filename_Operator>;
+  filesize?: InputMaybe<KetagalanArticle_Media_Photo_Filesize_Operator>;
+  focalX?: InputMaybe<KetagalanArticle_Media_Photo_FocalX_Operator>;
+  focalY?: InputMaybe<KetagalanArticle_Media_Photo_FocalY_Operator>;
+  height?: InputMaybe<KetagalanArticle_Media_Photo_Height_Operator>;
+  id?: InputMaybe<KetagalanArticle_Media_Photo_Id_Operator>;
+  mimeType?: InputMaybe<KetagalanArticle_Media_Photo_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<KetagalanArticle_Media_Photo_UpdatedAt_Operator>;
+  url?: InputMaybe<KetagalanArticle_Media_Photo_Url_Operator>;
+  width?: InputMaybe<KetagalanArticle_Media_Photo_Width_Operator>;
+};
+
+export type KetagalanArticle_Media_Photo_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanArticle_Media_Photo_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanArticle_Media_Photo_Where_Or>>>;
+  alt?: InputMaybe<KetagalanArticle_Media_Photo_Alt_Operator>;
+  createdAt?: InputMaybe<KetagalanArticle_Media_Photo_CreatedAt_Operator>;
+  filename?: InputMaybe<KetagalanArticle_Media_Photo_Filename_Operator>;
+  filesize?: InputMaybe<KetagalanArticle_Media_Photo_Filesize_Operator>;
+  focalX?: InputMaybe<KetagalanArticle_Media_Photo_FocalX_Operator>;
+  focalY?: InputMaybe<KetagalanArticle_Media_Photo_FocalY_Operator>;
+  height?: InputMaybe<KetagalanArticle_Media_Photo_Height_Operator>;
+  id?: InputMaybe<KetagalanArticle_Media_Photo_Id_Operator>;
+  mimeType?: InputMaybe<KetagalanArticle_Media_Photo_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<KetagalanArticle_Media_Photo_UpdatedAt_Operator>;
+  url?: InputMaybe<KetagalanArticle_Media_Photo_Url_Operator>;
+  width?: InputMaybe<KetagalanArticle_Media_Photo_Width_Operator>;
+};
+
+export type KetagalanArticle_Media_Photo_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanArticle_Media_Photo_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanArticle_Media_Photo_Where_Or>>>;
+  alt?: InputMaybe<KetagalanArticle_Media_Photo_Alt_Operator>;
+  createdAt?: InputMaybe<KetagalanArticle_Media_Photo_CreatedAt_Operator>;
+  filename?: InputMaybe<KetagalanArticle_Media_Photo_Filename_Operator>;
+  filesize?: InputMaybe<KetagalanArticle_Media_Photo_Filesize_Operator>;
+  focalX?: InputMaybe<KetagalanArticle_Media_Photo_FocalX_Operator>;
+  focalY?: InputMaybe<KetagalanArticle_Media_Photo_FocalY_Operator>;
+  height?: InputMaybe<KetagalanArticle_Media_Photo_Height_Operator>;
+  id?: InputMaybe<KetagalanArticle_Media_Photo_Id_Operator>;
+  mimeType?: InputMaybe<KetagalanArticle_Media_Photo_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<KetagalanArticle_Media_Photo_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<KetagalanArticle_Media_Photo_UpdatedAt_Operator>;
+  url?: InputMaybe<KetagalanArticle_Media_Photo_Url_Operator>;
+  width?: InputMaybe<KetagalanArticle_Media_Photo_Width_Operator>;
+};
+
+export type KetagalanArticle_Media_Photo_Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type KetagalanArticle_Sources = {
+  __typename?: 'KetagalanArticle_Sources';
+  id?: Maybe<Scalars['String']['output']>;
+  link?: Maybe<Scalars['String']['output']>;
+  text?: Maybe<Scalars['String']['output']>;
+};
+
+export type KetagalanArticle_Authors_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type KetagalanArticle_Categories_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type KetagalanArticle_Content_Operator = {
+  contains?: InputMaybe<Scalars['JSON']['input']>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  like?: InputMaybe<Scalars['JSON']['input']>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+};
+
+export type KetagalanArticle_CreatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type KetagalanArticle_Excerpt_Operator = {
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type KetagalanArticle_Id_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_IsFeatured_Operator = {
+  equals?: InputMaybe<Scalars['Boolean']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  not_equals?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type KetagalanArticle_Media__Caption_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Media__Photo_Operator = {
+  equals?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type KetagalanArticle_Podcast_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_ReleaseTime_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type KetagalanArticle_Sources__Id_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Sources__Link_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Sources__Text_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Subtitle_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_Tags_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  equals?: InputMaybe<Scalars['JSON']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+  not_equals?: InputMaybe<Scalars['JSON']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['JSON']['input']>>>;
+};
+
+export type KetagalanArticle_Title_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanArticle_UpdatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type KetagalanArticle_Where = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanArticle_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanArticle_Where_Or>>>;
+  authors?: InputMaybe<KetagalanArticle_Authors_Operator>;
+  categories?: InputMaybe<KetagalanArticle_Categories_Operator>;
+  content?: InputMaybe<KetagalanArticle_Content_Operator>;
+  createdAt?: InputMaybe<KetagalanArticle_CreatedAt_Operator>;
+  excerpt?: InputMaybe<KetagalanArticle_Excerpt_Operator>;
+  id?: InputMaybe<KetagalanArticle_Id_Operator>;
+  isFeatured?: InputMaybe<KetagalanArticle_IsFeatured_Operator>;
+  media__caption?: InputMaybe<KetagalanArticle_Media__Caption_Operator>;
+  media__photo?: InputMaybe<KetagalanArticle_Media__Photo_Operator>;
+  podcast?: InputMaybe<KetagalanArticle_Podcast_Operator>;
+  releaseTime?: InputMaybe<KetagalanArticle_ReleaseTime_Operator>;
+  sources__id?: InputMaybe<KetagalanArticle_Sources__Id_Operator>;
+  sources__link?: InputMaybe<KetagalanArticle_Sources__Link_Operator>;
+  sources__text?: InputMaybe<KetagalanArticle_Sources__Text_Operator>;
+  subtitle?: InputMaybe<KetagalanArticle_Subtitle_Operator>;
+  tags?: InputMaybe<KetagalanArticle_Tags_Operator>;
+  title?: InputMaybe<KetagalanArticle_Title_Operator>;
+  updatedAt?: InputMaybe<KetagalanArticle_UpdatedAt_Operator>;
+};
+
+export type KetagalanArticle_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanArticle_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanArticle_Where_Or>>>;
+  authors?: InputMaybe<KetagalanArticle_Authors_Operator>;
+  categories?: InputMaybe<KetagalanArticle_Categories_Operator>;
+  content?: InputMaybe<KetagalanArticle_Content_Operator>;
+  createdAt?: InputMaybe<KetagalanArticle_CreatedAt_Operator>;
+  excerpt?: InputMaybe<KetagalanArticle_Excerpt_Operator>;
+  id?: InputMaybe<KetagalanArticle_Id_Operator>;
+  isFeatured?: InputMaybe<KetagalanArticle_IsFeatured_Operator>;
+  media__caption?: InputMaybe<KetagalanArticle_Media__Caption_Operator>;
+  media__photo?: InputMaybe<KetagalanArticle_Media__Photo_Operator>;
+  podcast?: InputMaybe<KetagalanArticle_Podcast_Operator>;
+  releaseTime?: InputMaybe<KetagalanArticle_ReleaseTime_Operator>;
+  sources__id?: InputMaybe<KetagalanArticle_Sources__Id_Operator>;
+  sources__link?: InputMaybe<KetagalanArticle_Sources__Link_Operator>;
+  sources__text?: InputMaybe<KetagalanArticle_Sources__Text_Operator>;
+  subtitle?: InputMaybe<KetagalanArticle_Subtitle_Operator>;
+  tags?: InputMaybe<KetagalanArticle_Tags_Operator>;
+  title?: InputMaybe<KetagalanArticle_Title_Operator>;
+  updatedAt?: InputMaybe<KetagalanArticle_UpdatedAt_Operator>;
+};
+
+export type KetagalanArticle_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanArticle_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanArticle_Where_Or>>>;
+  authors?: InputMaybe<KetagalanArticle_Authors_Operator>;
+  categories?: InputMaybe<KetagalanArticle_Categories_Operator>;
+  content?: InputMaybe<KetagalanArticle_Content_Operator>;
+  createdAt?: InputMaybe<KetagalanArticle_CreatedAt_Operator>;
+  excerpt?: InputMaybe<KetagalanArticle_Excerpt_Operator>;
+  id?: InputMaybe<KetagalanArticle_Id_Operator>;
+  isFeatured?: InputMaybe<KetagalanArticle_IsFeatured_Operator>;
+  media__caption?: InputMaybe<KetagalanArticle_Media__Caption_Operator>;
+  media__photo?: InputMaybe<KetagalanArticle_Media__Photo_Operator>;
+  podcast?: InputMaybe<KetagalanArticle_Podcast_Operator>;
+  releaseTime?: InputMaybe<KetagalanArticle_ReleaseTime_Operator>;
+  sources__id?: InputMaybe<KetagalanArticle_Sources__Id_Operator>;
+  sources__link?: InputMaybe<KetagalanArticle_Sources__Link_Operator>;
+  sources__text?: InputMaybe<KetagalanArticle_Sources__Text_Operator>;
+  subtitle?: InputMaybe<KetagalanArticle_Subtitle_Operator>;
+  tags?: InputMaybe<KetagalanArticle_Tags_Operator>;
+  title?: InputMaybe<KetagalanArticle_Title_Operator>;
+  updatedAt?: InputMaybe<KetagalanArticle_UpdatedAt_Operator>;
+};
+
+export type KetagalanArticles = {
+  __typename?: 'KetagalanArticles';
+  docs?: Maybe<Array<Maybe<KetagalanArticle>>>;
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  hasPrevPage?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
+  pagingCounter?: Maybe<Scalars['Int']['output']>;
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+  totalPages?: Maybe<Scalars['Int']['output']>;
+};
+
+export type KetagalanArticlesCreateAccess = {
+  __typename?: 'KetagalanArticlesCreateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanArticlesCreateDocAccess = {
+  __typename?: 'KetagalanArticlesCreateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanArticlesDeleteAccess = {
+  __typename?: 'KetagalanArticlesDeleteAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanArticlesDeleteDocAccess = {
+  __typename?: 'KetagalanArticlesDeleteDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanArticlesDocAccessFields = {
+  __typename?: 'KetagalanArticlesDocAccessFields';
+  authors?: Maybe<KetagalanArticlesDocAccessFields_Authors>;
+  categories?: Maybe<KetagalanArticlesDocAccessFields_Categories>;
+  content?: Maybe<KetagalanArticlesDocAccessFields_Content>;
+  createdAt?: Maybe<KetagalanArticlesDocAccessFields_CreatedAt>;
+  excerpt?: Maybe<KetagalanArticlesDocAccessFields_Excerpt>;
+  isFeatured?: Maybe<KetagalanArticlesDocAccessFields_IsFeatured>;
+  media?: Maybe<KetagalanArticlesDocAccessFields_Media>;
+  podcast?: Maybe<KetagalanArticlesDocAccessFields_Podcast>;
+  releaseTime?: Maybe<KetagalanArticlesDocAccessFields_ReleaseTime>;
+  sources?: Maybe<KetagalanArticlesDocAccessFields_Sources>;
+  subtitle?: Maybe<KetagalanArticlesDocAccessFields_Subtitle>;
+  tags?: Maybe<KetagalanArticlesDocAccessFields_Tags>;
+  title?: Maybe<KetagalanArticlesDocAccessFields_Title>;
+  updatedAt?: Maybe<KetagalanArticlesDocAccessFields_UpdatedAt>;
+};
+
+export type KetagalanArticlesDocAccessFields_Authors = {
+  __typename?: 'KetagalanArticlesDocAccessFields_authors';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Authors_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Authors_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Authors_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Authors_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Authors_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_authors_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Authors_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_authors_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Authors_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_authors_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Authors_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_authors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Categories = {
+  __typename?: 'KetagalanArticlesDocAccessFields_categories';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Categories_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Categories_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Categories_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Categories_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Categories_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_categories_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Categories_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_categories_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Categories_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_categories_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Categories_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_categories_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Content = {
+  __typename?: 'KetagalanArticlesDocAccessFields_content';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Content_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Content_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Content_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Content_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Content_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_content_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Content_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_content_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Content_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_content_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Content_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_content_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_CreatedAt = {
+  __typename?: 'KetagalanArticlesDocAccessFields_createdAt';
+  create?: Maybe<KetagalanArticlesDocAccessFields_CreatedAt_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_CreatedAt_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_CreatedAt_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_CreatedAt_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_CreatedAt_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_CreatedAt_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_CreatedAt_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_CreatedAt_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Excerpt = {
+  __typename?: 'KetagalanArticlesDocAccessFields_excerpt';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Excerpt_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Excerpt_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Excerpt_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Excerpt_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Excerpt_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_excerpt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Excerpt_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_excerpt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Excerpt_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_excerpt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Excerpt_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_excerpt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_IsFeatured = {
+  __typename?: 'KetagalanArticlesDocAccessFields_isFeatured';
+  create?: Maybe<KetagalanArticlesDocAccessFields_IsFeatured_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_IsFeatured_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_IsFeatured_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_IsFeatured_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_IsFeatured_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_IsFeatured_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_IsFeatured_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_IsFeatured_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_isFeatured_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Media_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Media_Delete>;
+  fields?: Maybe<KetagalanArticlesDocAccessFields_Media_Fields>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Media_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Media_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Fields = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_Fields';
+  caption?: Maybe<KetagalanArticlesDocAccessFields_Media_Caption>;
+  photo?: Maybe<KetagalanArticlesDocAccessFields_Media_Photo>;
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Caption = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_caption';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Media_Caption_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Media_Caption_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Media_Caption_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Media_Caption_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Caption_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_caption_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Caption_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_caption_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Caption_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_caption_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Caption_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_caption_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Photo = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_photo';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Media_Photo_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Media_Photo_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Media_Photo_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Media_Photo_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Photo_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_photo_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Photo_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_photo_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Photo_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_photo_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Media_Photo_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_media_photo_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Podcast = {
+  __typename?: 'KetagalanArticlesDocAccessFields_podcast';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Podcast_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Podcast_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Podcast_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Podcast_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Podcast_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_podcast_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Podcast_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_podcast_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Podcast_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_podcast_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Podcast_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_podcast_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_ReleaseTime = {
+  __typename?: 'KetagalanArticlesDocAccessFields_releaseTime';
+  create?: Maybe<KetagalanArticlesDocAccessFields_ReleaseTime_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_ReleaseTime_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_ReleaseTime_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_ReleaseTime_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_ReleaseTime_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_releaseTime_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_ReleaseTime_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_releaseTime_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_ReleaseTime_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_releaseTime_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_ReleaseTime_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_releaseTime_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Sources_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Sources_Delete>;
+  fields?: Maybe<KetagalanArticlesDocAccessFields_Sources_Fields>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Sources_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Sources_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Fields = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_Fields';
+  id?: Maybe<KetagalanArticlesDocAccessFields_Sources_Id>;
+  link?: Maybe<KetagalanArticlesDocAccessFields_Sources_Link>;
+  text?: Maybe<KetagalanArticlesDocAccessFields_Sources_Text>;
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Id = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_id';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Sources_Id_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Sources_Id_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Sources_Id_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Sources_Id_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Id_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_id_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Id_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_id_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Id_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_id_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Id_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_id_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Link = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_link';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Sources_Link_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Sources_Link_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Sources_Link_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Sources_Link_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Link_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_link_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Link_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_link_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Link_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_link_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Link_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_link_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Text = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_text';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Sources_Text_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Sources_Text_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Sources_Text_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Sources_Text_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Text_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_text_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Text_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_text_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Text_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_text_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Sources_Text_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_sources_text_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Subtitle = {
+  __typename?: 'KetagalanArticlesDocAccessFields_subtitle';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Subtitle_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Subtitle_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Subtitle_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Subtitle_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Subtitle_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_subtitle_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Subtitle_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_subtitle_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Subtitle_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_subtitle_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Subtitle_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_subtitle_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Tags = {
+  __typename?: 'KetagalanArticlesDocAccessFields_tags';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Tags_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Tags_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Tags_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Tags_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Tags_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_tags_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Tags_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_tags_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Tags_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_tags_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Tags_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_tags_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Title = {
+  __typename?: 'KetagalanArticlesDocAccessFields_title';
+  create?: Maybe<KetagalanArticlesDocAccessFields_Title_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_Title_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_Title_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_Title_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_Title_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_title_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Title_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_title_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Title_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_title_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_Title_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_title_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_UpdatedAt = {
+  __typename?: 'KetagalanArticlesDocAccessFields_updatedAt';
+  create?: Maybe<KetagalanArticlesDocAccessFields_UpdatedAt_Create>;
+  delete?: Maybe<KetagalanArticlesDocAccessFields_UpdatedAt_Delete>;
+  read?: Maybe<KetagalanArticlesDocAccessFields_UpdatedAt_Read>;
+  update?: Maybe<KetagalanArticlesDocAccessFields_UpdatedAt_Update>;
+};
+
+export type KetagalanArticlesDocAccessFields_UpdatedAt_Create = {
+  __typename?: 'KetagalanArticlesDocAccessFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_UpdatedAt_Delete = {
+  __typename?: 'KetagalanArticlesDocAccessFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_UpdatedAt_Read = {
+  __typename?: 'KetagalanArticlesDocAccessFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesDocAccessFields_UpdatedAt_Update = {
+  __typename?: 'KetagalanArticlesDocAccessFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields = {
+  __typename?: 'KetagalanArticlesFields';
+  authors?: Maybe<KetagalanArticlesFields_Authors>;
+  categories?: Maybe<KetagalanArticlesFields_Categories>;
+  content?: Maybe<KetagalanArticlesFields_Content>;
+  createdAt?: Maybe<KetagalanArticlesFields_CreatedAt>;
+  excerpt?: Maybe<KetagalanArticlesFields_Excerpt>;
+  isFeatured?: Maybe<KetagalanArticlesFields_IsFeatured>;
+  media?: Maybe<KetagalanArticlesFields_Media>;
+  podcast?: Maybe<KetagalanArticlesFields_Podcast>;
+  releaseTime?: Maybe<KetagalanArticlesFields_ReleaseTime>;
+  sources?: Maybe<KetagalanArticlesFields_Sources>;
+  subtitle?: Maybe<KetagalanArticlesFields_Subtitle>;
+  tags?: Maybe<KetagalanArticlesFields_Tags>;
+  title?: Maybe<KetagalanArticlesFields_Title>;
+  updatedAt?: Maybe<KetagalanArticlesFields_UpdatedAt>;
+};
+
+export type KetagalanArticlesFields_Authors = {
+  __typename?: 'KetagalanArticlesFields_authors';
+  create?: Maybe<KetagalanArticlesFields_Authors_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Authors_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Authors_Read>;
+  update?: Maybe<KetagalanArticlesFields_Authors_Update>;
+};
+
+export type KetagalanArticlesFields_Authors_Create = {
+  __typename?: 'KetagalanArticlesFields_authors_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Authors_Delete = {
+  __typename?: 'KetagalanArticlesFields_authors_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Authors_Read = {
+  __typename?: 'KetagalanArticlesFields_authors_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Authors_Update = {
+  __typename?: 'KetagalanArticlesFields_authors_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Categories = {
+  __typename?: 'KetagalanArticlesFields_categories';
+  create?: Maybe<KetagalanArticlesFields_Categories_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Categories_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Categories_Read>;
+  update?: Maybe<KetagalanArticlesFields_Categories_Update>;
+};
+
+export type KetagalanArticlesFields_Categories_Create = {
+  __typename?: 'KetagalanArticlesFields_categories_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Categories_Delete = {
+  __typename?: 'KetagalanArticlesFields_categories_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Categories_Read = {
+  __typename?: 'KetagalanArticlesFields_categories_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Categories_Update = {
+  __typename?: 'KetagalanArticlesFields_categories_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Content = {
+  __typename?: 'KetagalanArticlesFields_content';
+  create?: Maybe<KetagalanArticlesFields_Content_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Content_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Content_Read>;
+  update?: Maybe<KetagalanArticlesFields_Content_Update>;
+};
+
+export type KetagalanArticlesFields_Content_Create = {
+  __typename?: 'KetagalanArticlesFields_content_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Content_Delete = {
+  __typename?: 'KetagalanArticlesFields_content_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Content_Read = {
+  __typename?: 'KetagalanArticlesFields_content_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Content_Update = {
+  __typename?: 'KetagalanArticlesFields_content_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_CreatedAt = {
+  __typename?: 'KetagalanArticlesFields_createdAt';
+  create?: Maybe<KetagalanArticlesFields_CreatedAt_Create>;
+  delete?: Maybe<KetagalanArticlesFields_CreatedAt_Delete>;
+  read?: Maybe<KetagalanArticlesFields_CreatedAt_Read>;
+  update?: Maybe<KetagalanArticlesFields_CreatedAt_Update>;
+};
+
+export type KetagalanArticlesFields_CreatedAt_Create = {
+  __typename?: 'KetagalanArticlesFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_CreatedAt_Delete = {
+  __typename?: 'KetagalanArticlesFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_CreatedAt_Read = {
+  __typename?: 'KetagalanArticlesFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_CreatedAt_Update = {
+  __typename?: 'KetagalanArticlesFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Excerpt = {
+  __typename?: 'KetagalanArticlesFields_excerpt';
+  create?: Maybe<KetagalanArticlesFields_Excerpt_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Excerpt_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Excerpt_Read>;
+  update?: Maybe<KetagalanArticlesFields_Excerpt_Update>;
+};
+
+export type KetagalanArticlesFields_Excerpt_Create = {
+  __typename?: 'KetagalanArticlesFields_excerpt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Excerpt_Delete = {
+  __typename?: 'KetagalanArticlesFields_excerpt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Excerpt_Read = {
+  __typename?: 'KetagalanArticlesFields_excerpt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Excerpt_Update = {
+  __typename?: 'KetagalanArticlesFields_excerpt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_IsFeatured = {
+  __typename?: 'KetagalanArticlesFields_isFeatured';
+  create?: Maybe<KetagalanArticlesFields_IsFeatured_Create>;
+  delete?: Maybe<KetagalanArticlesFields_IsFeatured_Delete>;
+  read?: Maybe<KetagalanArticlesFields_IsFeatured_Read>;
+  update?: Maybe<KetagalanArticlesFields_IsFeatured_Update>;
+};
+
+export type KetagalanArticlesFields_IsFeatured_Create = {
+  __typename?: 'KetagalanArticlesFields_isFeatured_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_IsFeatured_Delete = {
+  __typename?: 'KetagalanArticlesFields_isFeatured_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_IsFeatured_Read = {
+  __typename?: 'KetagalanArticlesFields_isFeatured_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_IsFeatured_Update = {
+  __typename?: 'KetagalanArticlesFields_isFeatured_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media = {
+  __typename?: 'KetagalanArticlesFields_media';
+  create?: Maybe<KetagalanArticlesFields_Media_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Media_Delete>;
+  fields?: Maybe<KetagalanArticlesFields_Media_Fields>;
+  read?: Maybe<KetagalanArticlesFields_Media_Read>;
+  update?: Maybe<KetagalanArticlesFields_Media_Update>;
+};
+
+export type KetagalanArticlesFields_Media_Create = {
+  __typename?: 'KetagalanArticlesFields_media_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Delete = {
+  __typename?: 'KetagalanArticlesFields_media_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Fields = {
+  __typename?: 'KetagalanArticlesFields_media_Fields';
+  caption?: Maybe<KetagalanArticlesFields_Media_Caption>;
+  photo?: Maybe<KetagalanArticlesFields_Media_Photo>;
+};
+
+export type KetagalanArticlesFields_Media_Read = {
+  __typename?: 'KetagalanArticlesFields_media_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Update = {
+  __typename?: 'KetagalanArticlesFields_media_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Caption = {
+  __typename?: 'KetagalanArticlesFields_media_caption';
+  create?: Maybe<KetagalanArticlesFields_Media_Caption_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Media_Caption_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Media_Caption_Read>;
+  update?: Maybe<KetagalanArticlesFields_Media_Caption_Update>;
+};
+
+export type KetagalanArticlesFields_Media_Caption_Create = {
+  __typename?: 'KetagalanArticlesFields_media_caption_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Caption_Delete = {
+  __typename?: 'KetagalanArticlesFields_media_caption_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Caption_Read = {
+  __typename?: 'KetagalanArticlesFields_media_caption_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Caption_Update = {
+  __typename?: 'KetagalanArticlesFields_media_caption_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Photo = {
+  __typename?: 'KetagalanArticlesFields_media_photo';
+  create?: Maybe<KetagalanArticlesFields_Media_Photo_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Media_Photo_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Media_Photo_Read>;
+  update?: Maybe<KetagalanArticlesFields_Media_Photo_Update>;
+};
+
+export type KetagalanArticlesFields_Media_Photo_Create = {
+  __typename?: 'KetagalanArticlesFields_media_photo_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Photo_Delete = {
+  __typename?: 'KetagalanArticlesFields_media_photo_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Photo_Read = {
+  __typename?: 'KetagalanArticlesFields_media_photo_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Media_Photo_Update = {
+  __typename?: 'KetagalanArticlesFields_media_photo_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Podcast = {
+  __typename?: 'KetagalanArticlesFields_podcast';
+  create?: Maybe<KetagalanArticlesFields_Podcast_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Podcast_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Podcast_Read>;
+  update?: Maybe<KetagalanArticlesFields_Podcast_Update>;
+};
+
+export type KetagalanArticlesFields_Podcast_Create = {
+  __typename?: 'KetagalanArticlesFields_podcast_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Podcast_Delete = {
+  __typename?: 'KetagalanArticlesFields_podcast_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Podcast_Read = {
+  __typename?: 'KetagalanArticlesFields_podcast_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Podcast_Update = {
+  __typename?: 'KetagalanArticlesFields_podcast_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_ReleaseTime = {
+  __typename?: 'KetagalanArticlesFields_releaseTime';
+  create?: Maybe<KetagalanArticlesFields_ReleaseTime_Create>;
+  delete?: Maybe<KetagalanArticlesFields_ReleaseTime_Delete>;
+  read?: Maybe<KetagalanArticlesFields_ReleaseTime_Read>;
+  update?: Maybe<KetagalanArticlesFields_ReleaseTime_Update>;
+};
+
+export type KetagalanArticlesFields_ReleaseTime_Create = {
+  __typename?: 'KetagalanArticlesFields_releaseTime_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_ReleaseTime_Delete = {
+  __typename?: 'KetagalanArticlesFields_releaseTime_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_ReleaseTime_Read = {
+  __typename?: 'KetagalanArticlesFields_releaseTime_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_ReleaseTime_Update = {
+  __typename?: 'KetagalanArticlesFields_releaseTime_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources = {
+  __typename?: 'KetagalanArticlesFields_sources';
+  create?: Maybe<KetagalanArticlesFields_Sources_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Sources_Delete>;
+  fields?: Maybe<KetagalanArticlesFields_Sources_Fields>;
+  read?: Maybe<KetagalanArticlesFields_Sources_Read>;
+  update?: Maybe<KetagalanArticlesFields_Sources_Update>;
+};
+
+export type KetagalanArticlesFields_Sources_Create = {
+  __typename?: 'KetagalanArticlesFields_sources_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Delete = {
+  __typename?: 'KetagalanArticlesFields_sources_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Fields = {
+  __typename?: 'KetagalanArticlesFields_sources_Fields';
+  id?: Maybe<KetagalanArticlesFields_Sources_Id>;
+  link?: Maybe<KetagalanArticlesFields_Sources_Link>;
+  text?: Maybe<KetagalanArticlesFields_Sources_Text>;
+};
+
+export type KetagalanArticlesFields_Sources_Read = {
+  __typename?: 'KetagalanArticlesFields_sources_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Update = {
+  __typename?: 'KetagalanArticlesFields_sources_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Id = {
+  __typename?: 'KetagalanArticlesFields_sources_id';
+  create?: Maybe<KetagalanArticlesFields_Sources_Id_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Sources_Id_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Sources_Id_Read>;
+  update?: Maybe<KetagalanArticlesFields_Sources_Id_Update>;
+};
+
+export type KetagalanArticlesFields_Sources_Id_Create = {
+  __typename?: 'KetagalanArticlesFields_sources_id_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Id_Delete = {
+  __typename?: 'KetagalanArticlesFields_sources_id_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Id_Read = {
+  __typename?: 'KetagalanArticlesFields_sources_id_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Id_Update = {
+  __typename?: 'KetagalanArticlesFields_sources_id_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Link = {
+  __typename?: 'KetagalanArticlesFields_sources_link';
+  create?: Maybe<KetagalanArticlesFields_Sources_Link_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Sources_Link_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Sources_Link_Read>;
+  update?: Maybe<KetagalanArticlesFields_Sources_Link_Update>;
+};
+
+export type KetagalanArticlesFields_Sources_Link_Create = {
+  __typename?: 'KetagalanArticlesFields_sources_link_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Link_Delete = {
+  __typename?: 'KetagalanArticlesFields_sources_link_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Link_Read = {
+  __typename?: 'KetagalanArticlesFields_sources_link_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Link_Update = {
+  __typename?: 'KetagalanArticlesFields_sources_link_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Text = {
+  __typename?: 'KetagalanArticlesFields_sources_text';
+  create?: Maybe<KetagalanArticlesFields_Sources_Text_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Sources_Text_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Sources_Text_Read>;
+  update?: Maybe<KetagalanArticlesFields_Sources_Text_Update>;
+};
+
+export type KetagalanArticlesFields_Sources_Text_Create = {
+  __typename?: 'KetagalanArticlesFields_sources_text_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Text_Delete = {
+  __typename?: 'KetagalanArticlesFields_sources_text_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Text_Read = {
+  __typename?: 'KetagalanArticlesFields_sources_text_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Sources_Text_Update = {
+  __typename?: 'KetagalanArticlesFields_sources_text_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Subtitle = {
+  __typename?: 'KetagalanArticlesFields_subtitle';
+  create?: Maybe<KetagalanArticlesFields_Subtitle_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Subtitle_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Subtitle_Read>;
+  update?: Maybe<KetagalanArticlesFields_Subtitle_Update>;
+};
+
+export type KetagalanArticlesFields_Subtitle_Create = {
+  __typename?: 'KetagalanArticlesFields_subtitle_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Subtitle_Delete = {
+  __typename?: 'KetagalanArticlesFields_subtitle_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Subtitle_Read = {
+  __typename?: 'KetagalanArticlesFields_subtitle_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Subtitle_Update = {
+  __typename?: 'KetagalanArticlesFields_subtitle_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Tags = {
+  __typename?: 'KetagalanArticlesFields_tags';
+  create?: Maybe<KetagalanArticlesFields_Tags_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Tags_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Tags_Read>;
+  update?: Maybe<KetagalanArticlesFields_Tags_Update>;
+};
+
+export type KetagalanArticlesFields_Tags_Create = {
+  __typename?: 'KetagalanArticlesFields_tags_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Tags_Delete = {
+  __typename?: 'KetagalanArticlesFields_tags_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Tags_Read = {
+  __typename?: 'KetagalanArticlesFields_tags_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Tags_Update = {
+  __typename?: 'KetagalanArticlesFields_tags_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Title = {
+  __typename?: 'KetagalanArticlesFields_title';
+  create?: Maybe<KetagalanArticlesFields_Title_Create>;
+  delete?: Maybe<KetagalanArticlesFields_Title_Delete>;
+  read?: Maybe<KetagalanArticlesFields_Title_Read>;
+  update?: Maybe<KetagalanArticlesFields_Title_Update>;
+};
+
+export type KetagalanArticlesFields_Title_Create = {
+  __typename?: 'KetagalanArticlesFields_title_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Title_Delete = {
+  __typename?: 'KetagalanArticlesFields_title_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Title_Read = {
+  __typename?: 'KetagalanArticlesFields_title_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_Title_Update = {
+  __typename?: 'KetagalanArticlesFields_title_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_UpdatedAt = {
+  __typename?: 'KetagalanArticlesFields_updatedAt';
+  create?: Maybe<KetagalanArticlesFields_UpdatedAt_Create>;
+  delete?: Maybe<KetagalanArticlesFields_UpdatedAt_Delete>;
+  read?: Maybe<KetagalanArticlesFields_UpdatedAt_Read>;
+  update?: Maybe<KetagalanArticlesFields_UpdatedAt_Update>;
+};
+
+export type KetagalanArticlesFields_UpdatedAt_Create = {
+  __typename?: 'KetagalanArticlesFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_UpdatedAt_Delete = {
+  __typename?: 'KetagalanArticlesFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_UpdatedAt_Read = {
+  __typename?: 'KetagalanArticlesFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesFields_UpdatedAt_Update = {
+  __typename?: 'KetagalanArticlesFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanArticlesReadAccess = {
+  __typename?: 'KetagalanArticlesReadAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanArticlesReadDocAccess = {
+  __typename?: 'KetagalanArticlesReadDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanArticlesUpdateAccess = {
+  __typename?: 'KetagalanArticlesUpdateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanArticlesUpdateDocAccess = {
+  __typename?: 'KetagalanArticlesUpdateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthor = {
+  __typename?: 'KetagalanAuthor';
+  bio: Scalars['String']['output'];
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+};
+
+export type KetagalanAuthor_Bio_Operator = {
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type KetagalanAuthor_CreatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type KetagalanAuthor_Id_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanAuthor_Name_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type KetagalanAuthor_UpdatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type KetagalanAuthor_Where = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanAuthor_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanAuthor_Where_Or>>>;
+  bio?: InputMaybe<KetagalanAuthor_Bio_Operator>;
+  createdAt?: InputMaybe<KetagalanAuthor_CreatedAt_Operator>;
+  id?: InputMaybe<KetagalanAuthor_Id_Operator>;
+  name?: InputMaybe<KetagalanAuthor_Name_Operator>;
+  updatedAt?: InputMaybe<KetagalanAuthor_UpdatedAt_Operator>;
+};
+
+export type KetagalanAuthor_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanAuthor_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanAuthor_Where_Or>>>;
+  bio?: InputMaybe<KetagalanAuthor_Bio_Operator>;
+  createdAt?: InputMaybe<KetagalanAuthor_CreatedAt_Operator>;
+  id?: InputMaybe<KetagalanAuthor_Id_Operator>;
+  name?: InputMaybe<KetagalanAuthor_Name_Operator>;
+  updatedAt?: InputMaybe<KetagalanAuthor_UpdatedAt_Operator>;
+};
+
+export type KetagalanAuthor_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<KetagalanAuthor_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<KetagalanAuthor_Where_Or>>>;
+  bio?: InputMaybe<KetagalanAuthor_Bio_Operator>;
+  createdAt?: InputMaybe<KetagalanAuthor_CreatedAt_Operator>;
+  id?: InputMaybe<KetagalanAuthor_Id_Operator>;
+  name?: InputMaybe<KetagalanAuthor_Name_Operator>;
+  updatedAt?: InputMaybe<KetagalanAuthor_UpdatedAt_Operator>;
+};
+
+export type KetagalanAuthors = {
+  __typename?: 'KetagalanAuthors';
+  docs?: Maybe<Array<Maybe<KetagalanAuthor>>>;
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  hasPrevPage?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
+  pagingCounter?: Maybe<Scalars['Int']['output']>;
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+  totalPages?: Maybe<Scalars['Int']['output']>;
+};
+
+export type KetagalanAuthorsCreateAccess = {
+  __typename?: 'KetagalanAuthorsCreateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthorsCreateDocAccess = {
+  __typename?: 'KetagalanAuthorsCreateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthorsDeleteAccess = {
+  __typename?: 'KetagalanAuthorsDeleteAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthorsDeleteDocAccess = {
+  __typename?: 'KetagalanAuthorsDeleteDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthorsDocAccessFields = {
+  __typename?: 'KetagalanAuthorsDocAccessFields';
+  bio?: Maybe<KetagalanAuthorsDocAccessFields_Bio>;
+  createdAt?: Maybe<KetagalanAuthorsDocAccessFields_CreatedAt>;
+  name?: Maybe<KetagalanAuthorsDocAccessFields_Name>;
+  updatedAt?: Maybe<KetagalanAuthorsDocAccessFields_UpdatedAt>;
+};
+
+export type KetagalanAuthorsDocAccessFields_Bio = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_bio';
+  create?: Maybe<KetagalanAuthorsDocAccessFields_Bio_Create>;
+  delete?: Maybe<KetagalanAuthorsDocAccessFields_Bio_Delete>;
+  read?: Maybe<KetagalanAuthorsDocAccessFields_Bio_Read>;
+  update?: Maybe<KetagalanAuthorsDocAccessFields_Bio_Update>;
+};
+
+export type KetagalanAuthorsDocAccessFields_Bio_Create = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_bio_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_Bio_Delete = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_bio_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_Bio_Read = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_bio_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_Bio_Update = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_bio_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_CreatedAt = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_createdAt';
+  create?: Maybe<KetagalanAuthorsDocAccessFields_CreatedAt_Create>;
+  delete?: Maybe<KetagalanAuthorsDocAccessFields_CreatedAt_Delete>;
+  read?: Maybe<KetagalanAuthorsDocAccessFields_CreatedAt_Read>;
+  update?: Maybe<KetagalanAuthorsDocAccessFields_CreatedAt_Update>;
+};
+
+export type KetagalanAuthorsDocAccessFields_CreatedAt_Create = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_CreatedAt_Delete = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_CreatedAt_Read = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_CreatedAt_Update = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_Name = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_name';
+  create?: Maybe<KetagalanAuthorsDocAccessFields_Name_Create>;
+  delete?: Maybe<KetagalanAuthorsDocAccessFields_Name_Delete>;
+  read?: Maybe<KetagalanAuthorsDocAccessFields_Name_Read>;
+  update?: Maybe<KetagalanAuthorsDocAccessFields_Name_Update>;
+};
+
+export type KetagalanAuthorsDocAccessFields_Name_Create = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_name_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_Name_Delete = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_name_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_Name_Read = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_name_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_Name_Update = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_name_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_UpdatedAt = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_updatedAt';
+  create?: Maybe<KetagalanAuthorsDocAccessFields_UpdatedAt_Create>;
+  delete?: Maybe<KetagalanAuthorsDocAccessFields_UpdatedAt_Delete>;
+  read?: Maybe<KetagalanAuthorsDocAccessFields_UpdatedAt_Read>;
+  update?: Maybe<KetagalanAuthorsDocAccessFields_UpdatedAt_Update>;
+};
+
+export type KetagalanAuthorsDocAccessFields_UpdatedAt_Create = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_UpdatedAt_Delete = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_UpdatedAt_Read = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsDocAccessFields_UpdatedAt_Update = {
+  __typename?: 'KetagalanAuthorsDocAccessFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields = {
+  __typename?: 'KetagalanAuthorsFields';
+  bio?: Maybe<KetagalanAuthorsFields_Bio>;
+  createdAt?: Maybe<KetagalanAuthorsFields_CreatedAt>;
+  name?: Maybe<KetagalanAuthorsFields_Name>;
+  updatedAt?: Maybe<KetagalanAuthorsFields_UpdatedAt>;
+};
+
+export type KetagalanAuthorsFields_Bio = {
+  __typename?: 'KetagalanAuthorsFields_bio';
+  create?: Maybe<KetagalanAuthorsFields_Bio_Create>;
+  delete?: Maybe<KetagalanAuthorsFields_Bio_Delete>;
+  read?: Maybe<KetagalanAuthorsFields_Bio_Read>;
+  update?: Maybe<KetagalanAuthorsFields_Bio_Update>;
+};
+
+export type KetagalanAuthorsFields_Bio_Create = {
+  __typename?: 'KetagalanAuthorsFields_bio_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_Bio_Delete = {
+  __typename?: 'KetagalanAuthorsFields_bio_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_Bio_Read = {
+  __typename?: 'KetagalanAuthorsFields_bio_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_Bio_Update = {
+  __typename?: 'KetagalanAuthorsFields_bio_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_CreatedAt = {
+  __typename?: 'KetagalanAuthorsFields_createdAt';
+  create?: Maybe<KetagalanAuthorsFields_CreatedAt_Create>;
+  delete?: Maybe<KetagalanAuthorsFields_CreatedAt_Delete>;
+  read?: Maybe<KetagalanAuthorsFields_CreatedAt_Read>;
+  update?: Maybe<KetagalanAuthorsFields_CreatedAt_Update>;
+};
+
+export type KetagalanAuthorsFields_CreatedAt_Create = {
+  __typename?: 'KetagalanAuthorsFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_CreatedAt_Delete = {
+  __typename?: 'KetagalanAuthorsFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_CreatedAt_Read = {
+  __typename?: 'KetagalanAuthorsFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_CreatedAt_Update = {
+  __typename?: 'KetagalanAuthorsFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_Name = {
+  __typename?: 'KetagalanAuthorsFields_name';
+  create?: Maybe<KetagalanAuthorsFields_Name_Create>;
+  delete?: Maybe<KetagalanAuthorsFields_Name_Delete>;
+  read?: Maybe<KetagalanAuthorsFields_Name_Read>;
+  update?: Maybe<KetagalanAuthorsFields_Name_Update>;
+};
+
+export type KetagalanAuthorsFields_Name_Create = {
+  __typename?: 'KetagalanAuthorsFields_name_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_Name_Delete = {
+  __typename?: 'KetagalanAuthorsFields_name_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_Name_Read = {
+  __typename?: 'KetagalanAuthorsFields_name_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_Name_Update = {
+  __typename?: 'KetagalanAuthorsFields_name_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_UpdatedAt = {
+  __typename?: 'KetagalanAuthorsFields_updatedAt';
+  create?: Maybe<KetagalanAuthorsFields_UpdatedAt_Create>;
+  delete?: Maybe<KetagalanAuthorsFields_UpdatedAt_Delete>;
+  read?: Maybe<KetagalanAuthorsFields_UpdatedAt_Read>;
+  update?: Maybe<KetagalanAuthorsFields_UpdatedAt_Update>;
+};
+
+export type KetagalanAuthorsFields_UpdatedAt_Create = {
+  __typename?: 'KetagalanAuthorsFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_UpdatedAt_Delete = {
+  __typename?: 'KetagalanAuthorsFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_UpdatedAt_Read = {
+  __typename?: 'KetagalanAuthorsFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsFields_UpdatedAt_Update = {
+  __typename?: 'KetagalanAuthorsFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type KetagalanAuthorsReadAccess = {
+  __typename?: 'KetagalanAuthorsReadAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthorsReadDocAccess = {
+  __typename?: 'KetagalanAuthorsReadDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthorsUpdateAccess = {
+  __typename?: 'KetagalanAuthorsUpdateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type KetagalanAuthorsUpdateDocAccess = {
+  __typename?: 'KetagalanAuthorsUpdateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
 export type Me = {
   __typename?: 'Me';
   bookmarkArticles?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
@@ -8527,8 +11658,8 @@ export type Me = {
   subscribePeoples?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
 };
 
-export type Media = {
-  __typename?: 'Media';
+export type MediaArticle = {
+  __typename?: 'MediaArticle';
   alt?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   filename?: Maybe<Scalars['String']['output']>;
@@ -8538,2412 +11669,6009 @@ export type Media = {
   height?: Maybe<Scalars['Float']['output']>;
   id?: Maybe<Scalars['String']['output']>;
   mimeType?: Maybe<Scalars['String']['output']>;
-  sizes?: Maybe<Media_Sizes>;
+  sizes?: Maybe<MediaArticle_Sizes>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
   url?: Maybe<Scalars['String']['output']>;
   width?: Maybe<Scalars['Float']['output']>;
 };
 
-export type MediaCreateAccess = {
-  __typename?: 'MediaCreateAccess';
+export type MediaArticleCreateAccess = {
+  __typename?: 'MediaArticleCreateAccess';
   permission: Scalars['Boolean']['output'];
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
-export type MediaCreateDocAccess = {
-  __typename?: 'MediaCreateDocAccess';
+export type MediaArticleCreateDocAccess = {
+  __typename?: 'MediaArticleCreateDocAccess';
   permission: Scalars['Boolean']['output'];
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
-export type MediaDeleteAccess = {
-  __typename?: 'MediaDeleteAccess';
+export type MediaArticleDeleteAccess = {
+  __typename?: 'MediaArticleDeleteAccess';
   permission: Scalars['Boolean']['output'];
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
-export type MediaDeleteDocAccess = {
-  __typename?: 'MediaDeleteDocAccess';
+export type MediaArticleDeleteDocAccess = {
+  __typename?: 'MediaArticleDeleteDocAccess';
   permission: Scalars['Boolean']['output'];
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
-export type MediaDocAccessFields = {
-  __typename?: 'MediaDocAccessFields';
-  alt?: Maybe<MediaDocAccessFields_Alt>;
-  createdAt?: Maybe<MediaDocAccessFields_CreatedAt>;
-  filename?: Maybe<MediaDocAccessFields_Filename>;
-  filesize?: Maybe<MediaDocAccessFields_Filesize>;
-  focalX?: Maybe<MediaDocAccessFields_FocalX>;
-  focalY?: Maybe<MediaDocAccessFields_FocalY>;
-  height?: Maybe<MediaDocAccessFields_Height>;
-  mimeType?: Maybe<MediaDocAccessFields_MimeType>;
-  sizes?: Maybe<MediaDocAccessFields_Sizes>;
-  updatedAt?: Maybe<MediaDocAccessFields_UpdatedAt>;
-  url?: Maybe<MediaDocAccessFields_Url>;
-  width?: Maybe<MediaDocAccessFields_Width>;
+export type MediaArticleDocAccessFields = {
+  __typename?: 'MediaArticleDocAccessFields';
+  alt?: Maybe<MediaArticleDocAccessFields_Alt>;
+  createdAt?: Maybe<MediaArticleDocAccessFields_CreatedAt>;
+  filename?: Maybe<MediaArticleDocAccessFields_Filename>;
+  filesize?: Maybe<MediaArticleDocAccessFields_Filesize>;
+  focalX?: Maybe<MediaArticleDocAccessFields_FocalX>;
+  focalY?: Maybe<MediaArticleDocAccessFields_FocalY>;
+  height?: Maybe<MediaArticleDocAccessFields_Height>;
+  mimeType?: Maybe<MediaArticleDocAccessFields_MimeType>;
+  sizes?: Maybe<MediaArticleDocAccessFields_Sizes>;
+  updatedAt?: Maybe<MediaArticleDocAccessFields_UpdatedAt>;
+  url?: Maybe<MediaArticleDocAccessFields_Url>;
+  width?: Maybe<MediaArticleDocAccessFields_Width>;
 };
 
-export type MediaDocAccessFields_Alt = {
-  __typename?: 'MediaDocAccessFields_alt';
-  create?: Maybe<MediaDocAccessFields_Alt_Create>;
-  delete?: Maybe<MediaDocAccessFields_Alt_Delete>;
-  read?: Maybe<MediaDocAccessFields_Alt_Read>;
-  update?: Maybe<MediaDocAccessFields_Alt_Update>;
+export type MediaArticleDocAccessFields_Alt = {
+  __typename?: 'MediaArticleDocAccessFields_alt';
+  create?: Maybe<MediaArticleDocAccessFields_Alt_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Alt_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Alt_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Alt_Update>;
 };
 
-export type MediaDocAccessFields_Alt_Create = {
-  __typename?: 'MediaDocAccessFields_alt_Create';
+export type MediaArticleDocAccessFields_Alt_Create = {
+  __typename?: 'MediaArticleDocAccessFields_alt_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Alt_Delete = {
-  __typename?: 'MediaDocAccessFields_alt_Delete';
+export type MediaArticleDocAccessFields_Alt_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_alt_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Alt_Read = {
-  __typename?: 'MediaDocAccessFields_alt_Read';
+export type MediaArticleDocAccessFields_Alt_Read = {
+  __typename?: 'MediaArticleDocAccessFields_alt_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Alt_Update = {
-  __typename?: 'MediaDocAccessFields_alt_Update';
+export type MediaArticleDocAccessFields_Alt_Update = {
+  __typename?: 'MediaArticleDocAccessFields_alt_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_CreatedAt = {
-  __typename?: 'MediaDocAccessFields_createdAt';
-  create?: Maybe<MediaDocAccessFields_CreatedAt_Create>;
-  delete?: Maybe<MediaDocAccessFields_CreatedAt_Delete>;
-  read?: Maybe<MediaDocAccessFields_CreatedAt_Read>;
-  update?: Maybe<MediaDocAccessFields_CreatedAt_Update>;
+export type MediaArticleDocAccessFields_CreatedAt = {
+  __typename?: 'MediaArticleDocAccessFields_createdAt';
+  create?: Maybe<MediaArticleDocAccessFields_CreatedAt_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_CreatedAt_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_CreatedAt_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_CreatedAt_Update>;
 };
 
-export type MediaDocAccessFields_CreatedAt_Create = {
-  __typename?: 'MediaDocAccessFields_createdAt_Create';
+export type MediaArticleDocAccessFields_CreatedAt_Create = {
+  __typename?: 'MediaArticleDocAccessFields_createdAt_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_CreatedAt_Delete = {
-  __typename?: 'MediaDocAccessFields_createdAt_Delete';
+export type MediaArticleDocAccessFields_CreatedAt_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_createdAt_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_CreatedAt_Read = {
-  __typename?: 'MediaDocAccessFields_createdAt_Read';
+export type MediaArticleDocAccessFields_CreatedAt_Read = {
+  __typename?: 'MediaArticleDocAccessFields_createdAt_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_CreatedAt_Update = {
-  __typename?: 'MediaDocAccessFields_createdAt_Update';
+export type MediaArticleDocAccessFields_CreatedAt_Update = {
+  __typename?: 'MediaArticleDocAccessFields_createdAt_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filename = {
-  __typename?: 'MediaDocAccessFields_filename';
-  create?: Maybe<MediaDocAccessFields_Filename_Create>;
-  delete?: Maybe<MediaDocAccessFields_Filename_Delete>;
-  read?: Maybe<MediaDocAccessFields_Filename_Read>;
-  update?: Maybe<MediaDocAccessFields_Filename_Update>;
+export type MediaArticleDocAccessFields_Filename = {
+  __typename?: 'MediaArticleDocAccessFields_filename';
+  create?: Maybe<MediaArticleDocAccessFields_Filename_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Filename_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Filename_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Filename_Update>;
 };
 
-export type MediaDocAccessFields_Filename_Create = {
-  __typename?: 'MediaDocAccessFields_filename_Create';
+export type MediaArticleDocAccessFields_Filename_Create = {
+  __typename?: 'MediaArticleDocAccessFields_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filename_Delete = {
-  __typename?: 'MediaDocAccessFields_filename_Delete';
+export type MediaArticleDocAccessFields_Filename_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filename_Read = {
-  __typename?: 'MediaDocAccessFields_filename_Read';
+export type MediaArticleDocAccessFields_Filename_Read = {
+  __typename?: 'MediaArticleDocAccessFields_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filename_Update = {
-  __typename?: 'MediaDocAccessFields_filename_Update';
+export type MediaArticleDocAccessFields_Filename_Update = {
+  __typename?: 'MediaArticleDocAccessFields_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filesize = {
-  __typename?: 'MediaDocAccessFields_filesize';
-  create?: Maybe<MediaDocAccessFields_Filesize_Create>;
-  delete?: Maybe<MediaDocAccessFields_Filesize_Delete>;
-  read?: Maybe<MediaDocAccessFields_Filesize_Read>;
-  update?: Maybe<MediaDocAccessFields_Filesize_Update>;
+export type MediaArticleDocAccessFields_Filesize = {
+  __typename?: 'MediaArticleDocAccessFields_filesize';
+  create?: Maybe<MediaArticleDocAccessFields_Filesize_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Filesize_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Filesize_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Filesize_Update>;
 };
 
-export type MediaDocAccessFields_Filesize_Create = {
-  __typename?: 'MediaDocAccessFields_filesize_Create';
+export type MediaArticleDocAccessFields_Filesize_Create = {
+  __typename?: 'MediaArticleDocAccessFields_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filesize_Delete = {
-  __typename?: 'MediaDocAccessFields_filesize_Delete';
+export type MediaArticleDocAccessFields_Filesize_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filesize_Read = {
-  __typename?: 'MediaDocAccessFields_filesize_Read';
+export type MediaArticleDocAccessFields_Filesize_Read = {
+  __typename?: 'MediaArticleDocAccessFields_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Filesize_Update = {
-  __typename?: 'MediaDocAccessFields_filesize_Update';
+export type MediaArticleDocAccessFields_Filesize_Update = {
+  __typename?: 'MediaArticleDocAccessFields_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalX = {
-  __typename?: 'MediaDocAccessFields_focalX';
-  create?: Maybe<MediaDocAccessFields_FocalX_Create>;
-  delete?: Maybe<MediaDocAccessFields_FocalX_Delete>;
-  read?: Maybe<MediaDocAccessFields_FocalX_Read>;
-  update?: Maybe<MediaDocAccessFields_FocalX_Update>;
+export type MediaArticleDocAccessFields_FocalX = {
+  __typename?: 'MediaArticleDocAccessFields_focalX';
+  create?: Maybe<MediaArticleDocAccessFields_FocalX_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_FocalX_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_FocalX_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_FocalX_Update>;
 };
 
-export type MediaDocAccessFields_FocalX_Create = {
-  __typename?: 'MediaDocAccessFields_focalX_Create';
+export type MediaArticleDocAccessFields_FocalX_Create = {
+  __typename?: 'MediaArticleDocAccessFields_focalX_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalX_Delete = {
-  __typename?: 'MediaDocAccessFields_focalX_Delete';
+export type MediaArticleDocAccessFields_FocalX_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_focalX_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalX_Read = {
-  __typename?: 'MediaDocAccessFields_focalX_Read';
+export type MediaArticleDocAccessFields_FocalX_Read = {
+  __typename?: 'MediaArticleDocAccessFields_focalX_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalX_Update = {
-  __typename?: 'MediaDocAccessFields_focalX_Update';
+export type MediaArticleDocAccessFields_FocalX_Update = {
+  __typename?: 'MediaArticleDocAccessFields_focalX_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalY = {
-  __typename?: 'MediaDocAccessFields_focalY';
-  create?: Maybe<MediaDocAccessFields_FocalY_Create>;
-  delete?: Maybe<MediaDocAccessFields_FocalY_Delete>;
-  read?: Maybe<MediaDocAccessFields_FocalY_Read>;
-  update?: Maybe<MediaDocAccessFields_FocalY_Update>;
+export type MediaArticleDocAccessFields_FocalY = {
+  __typename?: 'MediaArticleDocAccessFields_focalY';
+  create?: Maybe<MediaArticleDocAccessFields_FocalY_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_FocalY_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_FocalY_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_FocalY_Update>;
 };
 
-export type MediaDocAccessFields_FocalY_Create = {
-  __typename?: 'MediaDocAccessFields_focalY_Create';
+export type MediaArticleDocAccessFields_FocalY_Create = {
+  __typename?: 'MediaArticleDocAccessFields_focalY_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalY_Delete = {
-  __typename?: 'MediaDocAccessFields_focalY_Delete';
+export type MediaArticleDocAccessFields_FocalY_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_focalY_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalY_Read = {
-  __typename?: 'MediaDocAccessFields_focalY_Read';
+export type MediaArticleDocAccessFields_FocalY_Read = {
+  __typename?: 'MediaArticleDocAccessFields_focalY_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_FocalY_Update = {
-  __typename?: 'MediaDocAccessFields_focalY_Update';
+export type MediaArticleDocAccessFields_FocalY_Update = {
+  __typename?: 'MediaArticleDocAccessFields_focalY_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Height = {
-  __typename?: 'MediaDocAccessFields_height';
-  create?: Maybe<MediaDocAccessFields_Height_Create>;
-  delete?: Maybe<MediaDocAccessFields_Height_Delete>;
-  read?: Maybe<MediaDocAccessFields_Height_Read>;
-  update?: Maybe<MediaDocAccessFields_Height_Update>;
+export type MediaArticleDocAccessFields_Height = {
+  __typename?: 'MediaArticleDocAccessFields_height';
+  create?: Maybe<MediaArticleDocAccessFields_Height_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Height_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Height_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Height_Update>;
 };
 
-export type MediaDocAccessFields_Height_Create = {
-  __typename?: 'MediaDocAccessFields_height_Create';
+export type MediaArticleDocAccessFields_Height_Create = {
+  __typename?: 'MediaArticleDocAccessFields_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Height_Delete = {
-  __typename?: 'MediaDocAccessFields_height_Delete';
+export type MediaArticleDocAccessFields_Height_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Height_Read = {
-  __typename?: 'MediaDocAccessFields_height_Read';
+export type MediaArticleDocAccessFields_Height_Read = {
+  __typename?: 'MediaArticleDocAccessFields_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Height_Update = {
-  __typename?: 'MediaDocAccessFields_height_Update';
+export type MediaArticleDocAccessFields_Height_Update = {
+  __typename?: 'MediaArticleDocAccessFields_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_MimeType = {
-  __typename?: 'MediaDocAccessFields_mimeType';
-  create?: Maybe<MediaDocAccessFields_MimeType_Create>;
-  delete?: Maybe<MediaDocAccessFields_MimeType_Delete>;
-  read?: Maybe<MediaDocAccessFields_MimeType_Read>;
-  update?: Maybe<MediaDocAccessFields_MimeType_Update>;
+export type MediaArticleDocAccessFields_MimeType = {
+  __typename?: 'MediaArticleDocAccessFields_mimeType';
+  create?: Maybe<MediaArticleDocAccessFields_MimeType_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_MimeType_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_MimeType_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_MimeType_Update>;
 };
 
-export type MediaDocAccessFields_MimeType_Create = {
-  __typename?: 'MediaDocAccessFields_mimeType_Create';
+export type MediaArticleDocAccessFields_MimeType_Create = {
+  __typename?: 'MediaArticleDocAccessFields_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_MimeType_Delete = {
-  __typename?: 'MediaDocAccessFields_mimeType_Delete';
+export type MediaArticleDocAccessFields_MimeType_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_MimeType_Read = {
-  __typename?: 'MediaDocAccessFields_mimeType_Read';
+export type MediaArticleDocAccessFields_MimeType_Read = {
+  __typename?: 'MediaArticleDocAccessFields_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_MimeType_Update = {
-  __typename?: 'MediaDocAccessFields_mimeType_Update';
+export type MediaArticleDocAccessFields_MimeType_Update = {
+  __typename?: 'MediaArticleDocAccessFields_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes = {
-  __typename?: 'MediaDocAccessFields_sizes';
-  create?: Maybe<MediaDocAccessFields_Sizes_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Delete>;
-  fields?: Maybe<MediaDocAccessFields_Sizes_Fields>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Update>;
+export type MediaArticleDocAccessFields_Sizes = {
+  __typename?: 'MediaArticleDocAccessFields_sizes';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Delete>;
+  fields?: Maybe<MediaArticleDocAccessFields_Sizes_Fields>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_Create';
+export type MediaArticleDocAccessFields_Sizes_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_Delete';
+export type MediaArticleDocAccessFields_Sizes_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Fields = {
-  __typename?: 'MediaDocAccessFields_sizes_Fields';
-  desktop?: Maybe<MediaDocAccessFields_Sizes_Desktop>;
-  mobile?: Maybe<MediaDocAccessFields_Sizes_Mobile>;
-  tablet?: Maybe<MediaDocAccessFields_Sizes_Tablet>;
-  thumbnail?: Maybe<MediaDocAccessFields_Sizes_Thumbnail>;
+export type MediaArticleDocAccessFields_Sizes_Fields = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_Fields';
+  desktop?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop>;
+  mobile?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile>;
+  tablet?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet>;
+  thumbnail?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail>;
 };
 
-export type MediaDocAccessFields_Sizes_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_Read';
+export type MediaArticleDocAccessFields_Sizes_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_Update';
+export type MediaArticleDocAccessFields_Sizes_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop';
-  create?: Maybe<MediaDocAccessFields_Sizes_Desktop_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Desktop_Delete>;
-  fields?: Maybe<MediaDocAccessFields_Sizes_Desktop_Fields>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Desktop_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Desktop_Update>;
+export type MediaArticleDocAccessFields_Sizes_Desktop = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Delete>;
+  fields?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Fields>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_Create';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_Delete';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Fields = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_Fields';
-  filename?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filename>;
-  filesize?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filesize>;
-  height?: Maybe<MediaDocAccessFields_Sizes_Desktop_Height>;
-  mimeType?: Maybe<MediaDocAccessFields_Sizes_Desktop_MimeType>;
-  url?: Maybe<MediaDocAccessFields_Sizes_Desktop_Url>;
-  width?: Maybe<MediaDocAccessFields_Sizes_Desktop_Width>;
+export type MediaArticleDocAccessFields_Sizes_Desktop_Fields = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_Fields';
+  filename?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filename>;
+  filesize?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filesize>;
+  height?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Height>;
+  mimeType?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_MimeType>;
+  url?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Url>;
+  width?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Width>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_Read';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_Update';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filename = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filename';
-  create?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filename_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filename_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filename_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filename_Update>;
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filename = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filename';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filename_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filename_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filename_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filename_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filename_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filename_Create';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filename_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filename_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filename_Delete';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filename_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filename_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filename_Read';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filename_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filename_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filename_Update';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filename_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filesize = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filesize';
-  create?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filesize_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filesize_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filesize_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Desktop_Filesize_Update>;
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filesize = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filesize';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filesize_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filesize_Create';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filesize_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filesize_Delete';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filesize_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filesize_Read';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Filesize_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_filesize_Update';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Filesize_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Height = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_height';
-  create?: Maybe<MediaDocAccessFields_Sizes_Desktop_Height_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Desktop_Height_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Desktop_Height_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Desktop_Height_Update>;
+export type MediaArticleDocAccessFields_Sizes_Desktop_Height = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_height';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Height_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Height_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Height_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Height_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Height_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_height_Create';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Height_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Height_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_height_Delete';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Height_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Height_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_height_Read';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Height_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Height_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_height_Update';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Height_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_MimeType = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_mimeType';
-  create?: Maybe<MediaDocAccessFields_Sizes_Desktop_MimeType_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Desktop_MimeType_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Desktop_MimeType_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Desktop_MimeType_Update>;
+export type MediaArticleDocAccessFields_Sizes_Desktop_MimeType = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_mimeType';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_MimeType_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_mimeType_Create';
+export type MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_MimeType_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_mimeType_Delete';
+export type MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_MimeType_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_mimeType_Read';
+export type MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_MimeType_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_mimeType_Update';
+export type MediaArticleDocAccessFields_Sizes_Desktop_MimeType_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Url = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_url';
-  create?: Maybe<MediaDocAccessFields_Sizes_Desktop_Url_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Desktop_Url_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Desktop_Url_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Desktop_Url_Update>;
+export type MediaArticleDocAccessFields_Sizes_Desktop_Url = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_url';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Url_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Url_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Url_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Url_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Url_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_url_Create';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Url_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Url_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_url_Delete';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Url_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Url_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_url_Read';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Url_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Url_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_url_Update';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Url_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Width = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_width';
-  create?: Maybe<MediaDocAccessFields_Sizes_Desktop_Width_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Desktop_Width_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Desktop_Width_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Desktop_Width_Update>;
+export type MediaArticleDocAccessFields_Sizes_Desktop_Width = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_width';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Width_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Width_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Width_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Desktop_Width_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Width_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_width_Create';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Width_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Width_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_width_Delete';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Width_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Width_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_width_Read';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Width_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Desktop_Width_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_desktop_width_Update';
+export type MediaArticleDocAccessFields_Sizes_Desktop_Width_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_desktop_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile';
-  create?: Maybe<MediaDocAccessFields_Sizes_Mobile_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Mobile_Delete>;
-  fields?: Maybe<MediaDocAccessFields_Sizes_Mobile_Fields>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Mobile_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Mobile_Update>;
+export type MediaArticleDocAccessFields_Sizes_Mobile = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Delete>;
+  fields?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Fields>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_Create';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_Delete';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Fields = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_Fields';
-  filename?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filename>;
-  filesize?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filesize>;
-  height?: Maybe<MediaDocAccessFields_Sizes_Mobile_Height>;
-  mimeType?: Maybe<MediaDocAccessFields_Sizes_Mobile_MimeType>;
-  url?: Maybe<MediaDocAccessFields_Sizes_Mobile_Url>;
-  width?: Maybe<MediaDocAccessFields_Sizes_Mobile_Width>;
+export type MediaArticleDocAccessFields_Sizes_Mobile_Fields = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_Fields';
+  filename?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filename>;
+  filesize?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filesize>;
+  height?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Height>;
+  mimeType?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_MimeType>;
+  url?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Url>;
+  width?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Width>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_Read';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_Update';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filename = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filename';
-  create?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filename_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filename_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filename_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filename_Update>;
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filename = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filename';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filename_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filename_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filename_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filename_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filename_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filename_Create';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filename_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filename_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filename_Delete';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filename_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filename_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filename_Read';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filename_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filename_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filename_Update';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filename_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filesize = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filesize';
-  create?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filesize_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filesize_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filesize_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Mobile_Filesize_Update>;
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filesize = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filesize';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filesize_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filesize_Create';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filesize_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filesize_Delete';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filesize_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filesize_Read';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Filesize_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_filesize_Update';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Filesize_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Height = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_height';
-  create?: Maybe<MediaDocAccessFields_Sizes_Mobile_Height_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Mobile_Height_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Mobile_Height_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Mobile_Height_Update>;
+export type MediaArticleDocAccessFields_Sizes_Mobile_Height = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_height';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Height_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Height_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Height_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Height_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Height_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_height_Create';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Height_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Height_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_height_Delete';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Height_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Height_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_height_Read';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Height_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Height_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_height_Update';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Height_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_MimeType = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_mimeType';
-  create?: Maybe<MediaDocAccessFields_Sizes_Mobile_MimeType_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Mobile_MimeType_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Mobile_MimeType_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Mobile_MimeType_Update>;
+export type MediaArticleDocAccessFields_Sizes_Mobile_MimeType = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_mimeType';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_MimeType_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_mimeType_Create';
+export type MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_MimeType_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_mimeType_Delete';
+export type MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_MimeType_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_mimeType_Read';
+export type MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_MimeType_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_mimeType_Update';
+export type MediaArticleDocAccessFields_Sizes_Mobile_MimeType_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Url = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_url';
-  create?: Maybe<MediaDocAccessFields_Sizes_Mobile_Url_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Mobile_Url_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Mobile_Url_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Mobile_Url_Update>;
+export type MediaArticleDocAccessFields_Sizes_Mobile_Url = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_url';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Url_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Url_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Url_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Url_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Url_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_url_Create';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Url_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Url_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_url_Delete';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Url_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Url_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_url_Read';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Url_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Url_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_url_Update';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Url_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Width = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_width';
-  create?: Maybe<MediaDocAccessFields_Sizes_Mobile_Width_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Mobile_Width_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Mobile_Width_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Mobile_Width_Update>;
+export type MediaArticleDocAccessFields_Sizes_Mobile_Width = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_width';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Width_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Width_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Width_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Mobile_Width_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Width_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_width_Create';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Width_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Width_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_width_Delete';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Width_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Width_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_width_Read';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Width_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Mobile_Width_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_mobile_width_Update';
+export type MediaArticleDocAccessFields_Sizes_Mobile_Width_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_mobile_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet';
-  create?: Maybe<MediaDocAccessFields_Sizes_Tablet_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Tablet_Delete>;
-  fields?: Maybe<MediaDocAccessFields_Sizes_Tablet_Fields>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Tablet_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Tablet_Update>;
+export type MediaArticleDocAccessFields_Sizes_Tablet = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Delete>;
+  fields?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Fields>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_Create';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_Delete';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Fields = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_Fields';
-  filename?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filename>;
-  filesize?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filesize>;
-  height?: Maybe<MediaDocAccessFields_Sizes_Tablet_Height>;
-  mimeType?: Maybe<MediaDocAccessFields_Sizes_Tablet_MimeType>;
-  url?: Maybe<MediaDocAccessFields_Sizes_Tablet_Url>;
-  width?: Maybe<MediaDocAccessFields_Sizes_Tablet_Width>;
+export type MediaArticleDocAccessFields_Sizes_Tablet_Fields = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_Fields';
+  filename?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filename>;
+  filesize?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filesize>;
+  height?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Height>;
+  mimeType?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_MimeType>;
+  url?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Url>;
+  width?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Width>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_Read';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_Update';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filename = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filename';
-  create?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filename_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filename_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filename_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filename_Update>;
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filename = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filename';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filename_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filename_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filename_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filename_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filename_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filename_Create';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filename_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filename_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filename_Delete';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filename_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filename_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filename_Read';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filename_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filename_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filename_Update';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filename_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filesize = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filesize';
-  create?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filesize_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filesize_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filesize_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Tablet_Filesize_Update>;
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filesize = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filesize';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filesize_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filesize_Create';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filesize_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filesize_Delete';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filesize_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filesize_Read';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Filesize_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_filesize_Update';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Filesize_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Height = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_height';
-  create?: Maybe<MediaDocAccessFields_Sizes_Tablet_Height_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Tablet_Height_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Tablet_Height_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Tablet_Height_Update>;
+export type MediaArticleDocAccessFields_Sizes_Tablet_Height = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_height';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Height_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Height_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Height_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Height_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Height_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_height_Create';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Height_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Height_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_height_Delete';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Height_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Height_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_height_Read';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Height_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Height_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_height_Update';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Height_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_MimeType = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_mimeType';
-  create?: Maybe<MediaDocAccessFields_Sizes_Tablet_MimeType_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Tablet_MimeType_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Tablet_MimeType_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Tablet_MimeType_Update>;
+export type MediaArticleDocAccessFields_Sizes_Tablet_MimeType = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_mimeType';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_MimeType_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_mimeType_Create';
+export type MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_MimeType_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_mimeType_Delete';
+export type MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_MimeType_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_mimeType_Read';
+export type MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_MimeType_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_mimeType_Update';
+export type MediaArticleDocAccessFields_Sizes_Tablet_MimeType_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Url = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_url';
-  create?: Maybe<MediaDocAccessFields_Sizes_Tablet_Url_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Tablet_Url_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Tablet_Url_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Tablet_Url_Update>;
+export type MediaArticleDocAccessFields_Sizes_Tablet_Url = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_url';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Url_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Url_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Url_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Url_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Url_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_url_Create';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Url_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Url_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_url_Delete';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Url_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Url_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_url_Read';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Url_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Url_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_url_Update';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Url_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Width = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_width';
-  create?: Maybe<MediaDocAccessFields_Sizes_Tablet_Width_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Tablet_Width_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Tablet_Width_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Tablet_Width_Update>;
+export type MediaArticleDocAccessFields_Sizes_Tablet_Width = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_width';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Width_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Width_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Width_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Tablet_Width_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Width_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_width_Create';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Width_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Width_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_width_Delete';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Width_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Width_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_width_Read';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Width_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Tablet_Width_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_tablet_width_Update';
+export type MediaArticleDocAccessFields_Sizes_Tablet_Width_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_tablet_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail';
-  create?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Delete>;
-  fields?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Fields>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Update>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Delete>;
+  fields?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Fields>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_Create';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_Delete';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Fields = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_Fields';
-  filename?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filename>;
-  filesize?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filesize>;
-  height?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Height>;
-  mimeType?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_MimeType>;
-  url?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Url>;
-  width?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Width>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Fields = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_Fields';
+  filename?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filename>;
+  filesize?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize>;
+  height?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Height>;
+  mimeType?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType>;
+  url?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Url>;
+  width?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Width>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_Read';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_Update';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filename = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filename';
-  create?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filename_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filename_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filename_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filename_Update>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filename = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filename';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filename_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filename_Create';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filename_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filename_Delete';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filename_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filename_Read';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filename_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filename_Update';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filename_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filesize = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filesize';
-  create?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filesize_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filesize_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filesize_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Filesize_Update>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filesize';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filesize_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filesize_Create';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filesize_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filesize_Delete';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filesize_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filesize_Read';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Filesize_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_filesize_Update';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Filesize_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Height = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_height';
-  create?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Height_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Height_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Height_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Height_Update>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Height = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_height';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Height_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_height_Create';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Height_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_height_Delete';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Height_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_height_Read';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Height_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_height_Update';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Height_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_MimeType = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_mimeType';
-  create?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_MimeType_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_MimeType_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_MimeType_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_MimeType_Update>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_mimeType';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_MimeType_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_mimeType_Create';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_MimeType_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_mimeType_Delete';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_MimeType_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_mimeType_Read';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_MimeType_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_mimeType_Update';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_MimeType_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Url = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_url';
-  create?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Url_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Url_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Url_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Url_Update>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Url = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_url';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Url_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_url_Create';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Url_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_url_Delete';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Url_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_url_Read';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Url_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_url_Update';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Url_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Width = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_width';
-  create?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Width_Create>;
-  delete?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Width_Delete>;
-  read?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Width_Read>;
-  update?: Maybe<MediaDocAccessFields_Sizes_Thumbnail_Width_Update>;
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Width = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_width';
+  create?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Update>;
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Width_Create = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_width_Create';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Create = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Width_Delete = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_width_Delete';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Width_Read = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_width_Read';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Read = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Sizes_Thumbnail_Width_Update = {
-  __typename?: 'MediaDocAccessFields_sizes_thumbnail_width_Update';
+export type MediaArticleDocAccessFields_Sizes_Thumbnail_Width_Update = {
+  __typename?: 'MediaArticleDocAccessFields_sizes_thumbnail_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_UpdatedAt = {
-  __typename?: 'MediaDocAccessFields_updatedAt';
-  create?: Maybe<MediaDocAccessFields_UpdatedAt_Create>;
-  delete?: Maybe<MediaDocAccessFields_UpdatedAt_Delete>;
-  read?: Maybe<MediaDocAccessFields_UpdatedAt_Read>;
-  update?: Maybe<MediaDocAccessFields_UpdatedAt_Update>;
+export type MediaArticleDocAccessFields_UpdatedAt = {
+  __typename?: 'MediaArticleDocAccessFields_updatedAt';
+  create?: Maybe<MediaArticleDocAccessFields_UpdatedAt_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_UpdatedAt_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_UpdatedAt_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_UpdatedAt_Update>;
 };
 
-export type MediaDocAccessFields_UpdatedAt_Create = {
-  __typename?: 'MediaDocAccessFields_updatedAt_Create';
+export type MediaArticleDocAccessFields_UpdatedAt_Create = {
+  __typename?: 'MediaArticleDocAccessFields_updatedAt_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_UpdatedAt_Delete = {
-  __typename?: 'MediaDocAccessFields_updatedAt_Delete';
+export type MediaArticleDocAccessFields_UpdatedAt_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_updatedAt_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_UpdatedAt_Read = {
-  __typename?: 'MediaDocAccessFields_updatedAt_Read';
+export type MediaArticleDocAccessFields_UpdatedAt_Read = {
+  __typename?: 'MediaArticleDocAccessFields_updatedAt_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_UpdatedAt_Update = {
-  __typename?: 'MediaDocAccessFields_updatedAt_Update';
+export type MediaArticleDocAccessFields_UpdatedAt_Update = {
+  __typename?: 'MediaArticleDocAccessFields_updatedAt_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Url = {
-  __typename?: 'MediaDocAccessFields_url';
-  create?: Maybe<MediaDocAccessFields_Url_Create>;
-  delete?: Maybe<MediaDocAccessFields_Url_Delete>;
-  read?: Maybe<MediaDocAccessFields_Url_Read>;
-  update?: Maybe<MediaDocAccessFields_Url_Update>;
+export type MediaArticleDocAccessFields_Url = {
+  __typename?: 'MediaArticleDocAccessFields_url';
+  create?: Maybe<MediaArticleDocAccessFields_Url_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Url_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Url_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Url_Update>;
 };
 
-export type MediaDocAccessFields_Url_Create = {
-  __typename?: 'MediaDocAccessFields_url_Create';
+export type MediaArticleDocAccessFields_Url_Create = {
+  __typename?: 'MediaArticleDocAccessFields_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Url_Delete = {
-  __typename?: 'MediaDocAccessFields_url_Delete';
+export type MediaArticleDocAccessFields_Url_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Url_Read = {
-  __typename?: 'MediaDocAccessFields_url_Read';
+export type MediaArticleDocAccessFields_Url_Read = {
+  __typename?: 'MediaArticleDocAccessFields_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Url_Update = {
-  __typename?: 'MediaDocAccessFields_url_Update';
+export type MediaArticleDocAccessFields_Url_Update = {
+  __typename?: 'MediaArticleDocAccessFields_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Width = {
-  __typename?: 'MediaDocAccessFields_width';
-  create?: Maybe<MediaDocAccessFields_Width_Create>;
-  delete?: Maybe<MediaDocAccessFields_Width_Delete>;
-  read?: Maybe<MediaDocAccessFields_Width_Read>;
-  update?: Maybe<MediaDocAccessFields_Width_Update>;
+export type MediaArticleDocAccessFields_Width = {
+  __typename?: 'MediaArticleDocAccessFields_width';
+  create?: Maybe<MediaArticleDocAccessFields_Width_Create>;
+  delete?: Maybe<MediaArticleDocAccessFields_Width_Delete>;
+  read?: Maybe<MediaArticleDocAccessFields_Width_Read>;
+  update?: Maybe<MediaArticleDocAccessFields_Width_Update>;
 };
 
-export type MediaDocAccessFields_Width_Create = {
-  __typename?: 'MediaDocAccessFields_width_Create';
+export type MediaArticleDocAccessFields_Width_Create = {
+  __typename?: 'MediaArticleDocAccessFields_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Width_Delete = {
-  __typename?: 'MediaDocAccessFields_width_Delete';
+export type MediaArticleDocAccessFields_Width_Delete = {
+  __typename?: 'MediaArticleDocAccessFields_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Width_Read = {
-  __typename?: 'MediaDocAccessFields_width_Read';
+export type MediaArticleDocAccessFields_Width_Read = {
+  __typename?: 'MediaArticleDocAccessFields_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaDocAccessFields_Width_Update = {
-  __typename?: 'MediaDocAccessFields_width_Update';
+export type MediaArticleDocAccessFields_Width_Update = {
+  __typename?: 'MediaArticleDocAccessFields_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields = {
-  __typename?: 'MediaFields';
-  alt?: Maybe<MediaFields_Alt>;
-  createdAt?: Maybe<MediaFields_CreatedAt>;
-  filename?: Maybe<MediaFields_Filename>;
-  filesize?: Maybe<MediaFields_Filesize>;
-  focalX?: Maybe<MediaFields_FocalX>;
-  focalY?: Maybe<MediaFields_FocalY>;
-  height?: Maybe<MediaFields_Height>;
-  mimeType?: Maybe<MediaFields_MimeType>;
-  sizes?: Maybe<MediaFields_Sizes>;
-  updatedAt?: Maybe<MediaFields_UpdatedAt>;
-  url?: Maybe<MediaFields_Url>;
-  width?: Maybe<MediaFields_Width>;
+export type MediaArticleFields = {
+  __typename?: 'MediaArticleFields';
+  alt?: Maybe<MediaArticleFields_Alt>;
+  createdAt?: Maybe<MediaArticleFields_CreatedAt>;
+  filename?: Maybe<MediaArticleFields_Filename>;
+  filesize?: Maybe<MediaArticleFields_Filesize>;
+  focalX?: Maybe<MediaArticleFields_FocalX>;
+  focalY?: Maybe<MediaArticleFields_FocalY>;
+  height?: Maybe<MediaArticleFields_Height>;
+  mimeType?: Maybe<MediaArticleFields_MimeType>;
+  sizes?: Maybe<MediaArticleFields_Sizes>;
+  updatedAt?: Maybe<MediaArticleFields_UpdatedAt>;
+  url?: Maybe<MediaArticleFields_Url>;
+  width?: Maybe<MediaArticleFields_Width>;
 };
 
-export type MediaFields_Alt = {
-  __typename?: 'MediaFields_alt';
-  create?: Maybe<MediaFields_Alt_Create>;
-  delete?: Maybe<MediaFields_Alt_Delete>;
-  read?: Maybe<MediaFields_Alt_Read>;
-  update?: Maybe<MediaFields_Alt_Update>;
+export type MediaArticleFields_Alt = {
+  __typename?: 'MediaArticleFields_alt';
+  create?: Maybe<MediaArticleFields_Alt_Create>;
+  delete?: Maybe<MediaArticleFields_Alt_Delete>;
+  read?: Maybe<MediaArticleFields_Alt_Read>;
+  update?: Maybe<MediaArticleFields_Alt_Update>;
 };
 
-export type MediaFields_Alt_Create = {
-  __typename?: 'MediaFields_alt_Create';
+export type MediaArticleFields_Alt_Create = {
+  __typename?: 'MediaArticleFields_alt_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Alt_Delete = {
-  __typename?: 'MediaFields_alt_Delete';
+export type MediaArticleFields_Alt_Delete = {
+  __typename?: 'MediaArticleFields_alt_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Alt_Read = {
-  __typename?: 'MediaFields_alt_Read';
+export type MediaArticleFields_Alt_Read = {
+  __typename?: 'MediaArticleFields_alt_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Alt_Update = {
-  __typename?: 'MediaFields_alt_Update';
+export type MediaArticleFields_Alt_Update = {
+  __typename?: 'MediaArticleFields_alt_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_CreatedAt = {
-  __typename?: 'MediaFields_createdAt';
-  create?: Maybe<MediaFields_CreatedAt_Create>;
-  delete?: Maybe<MediaFields_CreatedAt_Delete>;
-  read?: Maybe<MediaFields_CreatedAt_Read>;
-  update?: Maybe<MediaFields_CreatedAt_Update>;
+export type MediaArticleFields_CreatedAt = {
+  __typename?: 'MediaArticleFields_createdAt';
+  create?: Maybe<MediaArticleFields_CreatedAt_Create>;
+  delete?: Maybe<MediaArticleFields_CreatedAt_Delete>;
+  read?: Maybe<MediaArticleFields_CreatedAt_Read>;
+  update?: Maybe<MediaArticleFields_CreatedAt_Update>;
 };
 
-export type MediaFields_CreatedAt_Create = {
-  __typename?: 'MediaFields_createdAt_Create';
+export type MediaArticleFields_CreatedAt_Create = {
+  __typename?: 'MediaArticleFields_createdAt_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_CreatedAt_Delete = {
-  __typename?: 'MediaFields_createdAt_Delete';
+export type MediaArticleFields_CreatedAt_Delete = {
+  __typename?: 'MediaArticleFields_createdAt_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_CreatedAt_Read = {
-  __typename?: 'MediaFields_createdAt_Read';
+export type MediaArticleFields_CreatedAt_Read = {
+  __typename?: 'MediaArticleFields_createdAt_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_CreatedAt_Update = {
-  __typename?: 'MediaFields_createdAt_Update';
+export type MediaArticleFields_CreatedAt_Update = {
+  __typename?: 'MediaArticleFields_createdAt_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filename = {
-  __typename?: 'MediaFields_filename';
-  create?: Maybe<MediaFields_Filename_Create>;
-  delete?: Maybe<MediaFields_Filename_Delete>;
-  read?: Maybe<MediaFields_Filename_Read>;
-  update?: Maybe<MediaFields_Filename_Update>;
+export type MediaArticleFields_Filename = {
+  __typename?: 'MediaArticleFields_filename';
+  create?: Maybe<MediaArticleFields_Filename_Create>;
+  delete?: Maybe<MediaArticleFields_Filename_Delete>;
+  read?: Maybe<MediaArticleFields_Filename_Read>;
+  update?: Maybe<MediaArticleFields_Filename_Update>;
 };
 
-export type MediaFields_Filename_Create = {
-  __typename?: 'MediaFields_filename_Create';
+export type MediaArticleFields_Filename_Create = {
+  __typename?: 'MediaArticleFields_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filename_Delete = {
-  __typename?: 'MediaFields_filename_Delete';
+export type MediaArticleFields_Filename_Delete = {
+  __typename?: 'MediaArticleFields_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filename_Read = {
-  __typename?: 'MediaFields_filename_Read';
+export type MediaArticleFields_Filename_Read = {
+  __typename?: 'MediaArticleFields_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filename_Update = {
-  __typename?: 'MediaFields_filename_Update';
+export type MediaArticleFields_Filename_Update = {
+  __typename?: 'MediaArticleFields_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filesize = {
-  __typename?: 'MediaFields_filesize';
-  create?: Maybe<MediaFields_Filesize_Create>;
-  delete?: Maybe<MediaFields_Filesize_Delete>;
-  read?: Maybe<MediaFields_Filesize_Read>;
-  update?: Maybe<MediaFields_Filesize_Update>;
+export type MediaArticleFields_Filesize = {
+  __typename?: 'MediaArticleFields_filesize';
+  create?: Maybe<MediaArticleFields_Filesize_Create>;
+  delete?: Maybe<MediaArticleFields_Filesize_Delete>;
+  read?: Maybe<MediaArticleFields_Filesize_Read>;
+  update?: Maybe<MediaArticleFields_Filesize_Update>;
 };
 
-export type MediaFields_Filesize_Create = {
-  __typename?: 'MediaFields_filesize_Create';
+export type MediaArticleFields_Filesize_Create = {
+  __typename?: 'MediaArticleFields_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filesize_Delete = {
-  __typename?: 'MediaFields_filesize_Delete';
+export type MediaArticleFields_Filesize_Delete = {
+  __typename?: 'MediaArticleFields_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filesize_Read = {
-  __typename?: 'MediaFields_filesize_Read';
+export type MediaArticleFields_Filesize_Read = {
+  __typename?: 'MediaArticleFields_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Filesize_Update = {
-  __typename?: 'MediaFields_filesize_Update';
+export type MediaArticleFields_Filesize_Update = {
+  __typename?: 'MediaArticleFields_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalX = {
-  __typename?: 'MediaFields_focalX';
-  create?: Maybe<MediaFields_FocalX_Create>;
-  delete?: Maybe<MediaFields_FocalX_Delete>;
-  read?: Maybe<MediaFields_FocalX_Read>;
-  update?: Maybe<MediaFields_FocalX_Update>;
+export type MediaArticleFields_FocalX = {
+  __typename?: 'MediaArticleFields_focalX';
+  create?: Maybe<MediaArticleFields_FocalX_Create>;
+  delete?: Maybe<MediaArticleFields_FocalX_Delete>;
+  read?: Maybe<MediaArticleFields_FocalX_Read>;
+  update?: Maybe<MediaArticleFields_FocalX_Update>;
 };
 
-export type MediaFields_FocalX_Create = {
-  __typename?: 'MediaFields_focalX_Create';
+export type MediaArticleFields_FocalX_Create = {
+  __typename?: 'MediaArticleFields_focalX_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalX_Delete = {
-  __typename?: 'MediaFields_focalX_Delete';
+export type MediaArticleFields_FocalX_Delete = {
+  __typename?: 'MediaArticleFields_focalX_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalX_Read = {
-  __typename?: 'MediaFields_focalX_Read';
+export type MediaArticleFields_FocalX_Read = {
+  __typename?: 'MediaArticleFields_focalX_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalX_Update = {
-  __typename?: 'MediaFields_focalX_Update';
+export type MediaArticleFields_FocalX_Update = {
+  __typename?: 'MediaArticleFields_focalX_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalY = {
-  __typename?: 'MediaFields_focalY';
-  create?: Maybe<MediaFields_FocalY_Create>;
-  delete?: Maybe<MediaFields_FocalY_Delete>;
-  read?: Maybe<MediaFields_FocalY_Read>;
-  update?: Maybe<MediaFields_FocalY_Update>;
+export type MediaArticleFields_FocalY = {
+  __typename?: 'MediaArticleFields_focalY';
+  create?: Maybe<MediaArticleFields_FocalY_Create>;
+  delete?: Maybe<MediaArticleFields_FocalY_Delete>;
+  read?: Maybe<MediaArticleFields_FocalY_Read>;
+  update?: Maybe<MediaArticleFields_FocalY_Update>;
 };
 
-export type MediaFields_FocalY_Create = {
-  __typename?: 'MediaFields_focalY_Create';
+export type MediaArticleFields_FocalY_Create = {
+  __typename?: 'MediaArticleFields_focalY_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalY_Delete = {
-  __typename?: 'MediaFields_focalY_Delete';
+export type MediaArticleFields_FocalY_Delete = {
+  __typename?: 'MediaArticleFields_focalY_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalY_Read = {
-  __typename?: 'MediaFields_focalY_Read';
+export type MediaArticleFields_FocalY_Read = {
+  __typename?: 'MediaArticleFields_focalY_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_FocalY_Update = {
-  __typename?: 'MediaFields_focalY_Update';
+export type MediaArticleFields_FocalY_Update = {
+  __typename?: 'MediaArticleFields_focalY_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Height = {
-  __typename?: 'MediaFields_height';
-  create?: Maybe<MediaFields_Height_Create>;
-  delete?: Maybe<MediaFields_Height_Delete>;
-  read?: Maybe<MediaFields_Height_Read>;
-  update?: Maybe<MediaFields_Height_Update>;
+export type MediaArticleFields_Height = {
+  __typename?: 'MediaArticleFields_height';
+  create?: Maybe<MediaArticleFields_Height_Create>;
+  delete?: Maybe<MediaArticleFields_Height_Delete>;
+  read?: Maybe<MediaArticleFields_Height_Read>;
+  update?: Maybe<MediaArticleFields_Height_Update>;
 };
 
-export type MediaFields_Height_Create = {
-  __typename?: 'MediaFields_height_Create';
+export type MediaArticleFields_Height_Create = {
+  __typename?: 'MediaArticleFields_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Height_Delete = {
-  __typename?: 'MediaFields_height_Delete';
+export type MediaArticleFields_Height_Delete = {
+  __typename?: 'MediaArticleFields_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Height_Read = {
-  __typename?: 'MediaFields_height_Read';
+export type MediaArticleFields_Height_Read = {
+  __typename?: 'MediaArticleFields_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Height_Update = {
-  __typename?: 'MediaFields_height_Update';
+export type MediaArticleFields_Height_Update = {
+  __typename?: 'MediaArticleFields_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_MimeType = {
-  __typename?: 'MediaFields_mimeType';
-  create?: Maybe<MediaFields_MimeType_Create>;
-  delete?: Maybe<MediaFields_MimeType_Delete>;
-  read?: Maybe<MediaFields_MimeType_Read>;
-  update?: Maybe<MediaFields_MimeType_Update>;
+export type MediaArticleFields_MimeType = {
+  __typename?: 'MediaArticleFields_mimeType';
+  create?: Maybe<MediaArticleFields_MimeType_Create>;
+  delete?: Maybe<MediaArticleFields_MimeType_Delete>;
+  read?: Maybe<MediaArticleFields_MimeType_Read>;
+  update?: Maybe<MediaArticleFields_MimeType_Update>;
 };
 
-export type MediaFields_MimeType_Create = {
-  __typename?: 'MediaFields_mimeType_Create';
+export type MediaArticleFields_MimeType_Create = {
+  __typename?: 'MediaArticleFields_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_MimeType_Delete = {
-  __typename?: 'MediaFields_mimeType_Delete';
+export type MediaArticleFields_MimeType_Delete = {
+  __typename?: 'MediaArticleFields_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_MimeType_Read = {
-  __typename?: 'MediaFields_mimeType_Read';
+export type MediaArticleFields_MimeType_Read = {
+  __typename?: 'MediaArticleFields_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_MimeType_Update = {
-  __typename?: 'MediaFields_mimeType_Update';
+export type MediaArticleFields_MimeType_Update = {
+  __typename?: 'MediaArticleFields_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes = {
-  __typename?: 'MediaFields_sizes';
-  create?: Maybe<MediaFields_Sizes_Create>;
-  delete?: Maybe<MediaFields_Sizes_Delete>;
-  fields?: Maybe<MediaFields_Sizes_Fields>;
-  read?: Maybe<MediaFields_Sizes_Read>;
-  update?: Maybe<MediaFields_Sizes_Update>;
+export type MediaArticleFields_Sizes = {
+  __typename?: 'MediaArticleFields_sizes';
+  create?: Maybe<MediaArticleFields_Sizes_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Delete>;
+  fields?: Maybe<MediaArticleFields_Sizes_Fields>;
+  read?: Maybe<MediaArticleFields_Sizes_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Update>;
 };
 
-export type MediaFields_Sizes_Create = {
-  __typename?: 'MediaFields_sizes_Create';
+export type MediaArticleFields_Sizes_Create = {
+  __typename?: 'MediaArticleFields_sizes_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Delete = {
-  __typename?: 'MediaFields_sizes_Delete';
+export type MediaArticleFields_Sizes_Delete = {
+  __typename?: 'MediaArticleFields_sizes_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Fields = {
-  __typename?: 'MediaFields_sizes_Fields';
-  desktop?: Maybe<MediaFields_Sizes_Desktop>;
-  mobile?: Maybe<MediaFields_Sizes_Mobile>;
-  tablet?: Maybe<MediaFields_Sizes_Tablet>;
-  thumbnail?: Maybe<MediaFields_Sizes_Thumbnail>;
+export type MediaArticleFields_Sizes_Fields = {
+  __typename?: 'MediaArticleFields_sizes_Fields';
+  desktop?: Maybe<MediaArticleFields_Sizes_Desktop>;
+  mobile?: Maybe<MediaArticleFields_Sizes_Mobile>;
+  tablet?: Maybe<MediaArticleFields_Sizes_Tablet>;
+  thumbnail?: Maybe<MediaArticleFields_Sizes_Thumbnail>;
 };
 
-export type MediaFields_Sizes_Read = {
-  __typename?: 'MediaFields_sizes_Read';
+export type MediaArticleFields_Sizes_Read = {
+  __typename?: 'MediaArticleFields_sizes_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Update = {
-  __typename?: 'MediaFields_sizes_Update';
+export type MediaArticleFields_Sizes_Update = {
+  __typename?: 'MediaArticleFields_sizes_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop = {
-  __typename?: 'MediaFields_sizes_desktop';
-  create?: Maybe<MediaFields_Sizes_Desktop_Create>;
-  delete?: Maybe<MediaFields_Sizes_Desktop_Delete>;
-  fields?: Maybe<MediaFields_Sizes_Desktop_Fields>;
-  read?: Maybe<MediaFields_Sizes_Desktop_Read>;
-  update?: Maybe<MediaFields_Sizes_Desktop_Update>;
+export type MediaArticleFields_Sizes_Desktop = {
+  __typename?: 'MediaArticleFields_sizes_desktop';
+  create?: Maybe<MediaArticleFields_Sizes_Desktop_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Desktop_Delete>;
+  fields?: Maybe<MediaArticleFields_Sizes_Desktop_Fields>;
+  read?: Maybe<MediaArticleFields_Sizes_Desktop_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Desktop_Update>;
 };
 
-export type MediaFields_Sizes_Desktop_Create = {
-  __typename?: 'MediaFields_sizes_desktop_Create';
+export type MediaArticleFields_Sizes_Desktop_Create = {
+  __typename?: 'MediaArticleFields_sizes_desktop_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Delete = {
-  __typename?: 'MediaFields_sizes_desktop_Delete';
+export type MediaArticleFields_Sizes_Desktop_Delete = {
+  __typename?: 'MediaArticleFields_sizes_desktop_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Fields = {
-  __typename?: 'MediaFields_sizes_desktop_Fields';
-  filename?: Maybe<MediaFields_Sizes_Desktop_Filename>;
-  filesize?: Maybe<MediaFields_Sizes_Desktop_Filesize>;
-  height?: Maybe<MediaFields_Sizes_Desktop_Height>;
-  mimeType?: Maybe<MediaFields_Sizes_Desktop_MimeType>;
-  url?: Maybe<MediaFields_Sizes_Desktop_Url>;
-  width?: Maybe<MediaFields_Sizes_Desktop_Width>;
+export type MediaArticleFields_Sizes_Desktop_Fields = {
+  __typename?: 'MediaArticleFields_sizes_desktop_Fields';
+  filename?: Maybe<MediaArticleFields_Sizes_Desktop_Filename>;
+  filesize?: Maybe<MediaArticleFields_Sizes_Desktop_Filesize>;
+  height?: Maybe<MediaArticleFields_Sizes_Desktop_Height>;
+  mimeType?: Maybe<MediaArticleFields_Sizes_Desktop_MimeType>;
+  url?: Maybe<MediaArticleFields_Sizes_Desktop_Url>;
+  width?: Maybe<MediaArticleFields_Sizes_Desktop_Width>;
 };
 
-export type MediaFields_Sizes_Desktop_Read = {
-  __typename?: 'MediaFields_sizes_desktop_Read';
+export type MediaArticleFields_Sizes_Desktop_Read = {
+  __typename?: 'MediaArticleFields_sizes_desktop_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Update = {
-  __typename?: 'MediaFields_sizes_desktop_Update';
+export type MediaArticleFields_Sizes_Desktop_Update = {
+  __typename?: 'MediaArticleFields_sizes_desktop_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filename = {
-  __typename?: 'MediaFields_sizes_desktop_filename';
-  create?: Maybe<MediaFields_Sizes_Desktop_Filename_Create>;
-  delete?: Maybe<MediaFields_Sizes_Desktop_Filename_Delete>;
-  read?: Maybe<MediaFields_Sizes_Desktop_Filename_Read>;
-  update?: Maybe<MediaFields_Sizes_Desktop_Filename_Update>;
+export type MediaArticleFields_Sizes_Desktop_Filename = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filename';
+  create?: Maybe<MediaArticleFields_Sizes_Desktop_Filename_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Desktop_Filename_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Desktop_Filename_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Desktop_Filename_Update>;
 };
 
-export type MediaFields_Sizes_Desktop_Filename_Create = {
-  __typename?: 'MediaFields_sizes_desktop_filename_Create';
+export type MediaArticleFields_Sizes_Desktop_Filename_Create = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filename_Delete = {
-  __typename?: 'MediaFields_sizes_desktop_filename_Delete';
+export type MediaArticleFields_Sizes_Desktop_Filename_Delete = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filename_Read = {
-  __typename?: 'MediaFields_sizes_desktop_filename_Read';
+export type MediaArticleFields_Sizes_Desktop_Filename_Read = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filename_Update = {
-  __typename?: 'MediaFields_sizes_desktop_filename_Update';
+export type MediaArticleFields_Sizes_Desktop_Filename_Update = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filesize = {
-  __typename?: 'MediaFields_sizes_desktop_filesize';
-  create?: Maybe<MediaFields_Sizes_Desktop_Filesize_Create>;
-  delete?: Maybe<MediaFields_Sizes_Desktop_Filesize_Delete>;
-  read?: Maybe<MediaFields_Sizes_Desktop_Filesize_Read>;
-  update?: Maybe<MediaFields_Sizes_Desktop_Filesize_Update>;
+export type MediaArticleFields_Sizes_Desktop_Filesize = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filesize';
+  create?: Maybe<MediaArticleFields_Sizes_Desktop_Filesize_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Desktop_Filesize_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Desktop_Filesize_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Desktop_Filesize_Update>;
 };
 
-export type MediaFields_Sizes_Desktop_Filesize_Create = {
-  __typename?: 'MediaFields_sizes_desktop_filesize_Create';
+export type MediaArticleFields_Sizes_Desktop_Filesize_Create = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filesize_Delete = {
-  __typename?: 'MediaFields_sizes_desktop_filesize_Delete';
+export type MediaArticleFields_Sizes_Desktop_Filesize_Delete = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filesize_Read = {
-  __typename?: 'MediaFields_sizes_desktop_filesize_Read';
+export type MediaArticleFields_Sizes_Desktop_Filesize_Read = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Filesize_Update = {
-  __typename?: 'MediaFields_sizes_desktop_filesize_Update';
+export type MediaArticleFields_Sizes_Desktop_Filesize_Update = {
+  __typename?: 'MediaArticleFields_sizes_desktop_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Height = {
-  __typename?: 'MediaFields_sizes_desktop_height';
-  create?: Maybe<MediaFields_Sizes_Desktop_Height_Create>;
-  delete?: Maybe<MediaFields_Sizes_Desktop_Height_Delete>;
-  read?: Maybe<MediaFields_Sizes_Desktop_Height_Read>;
-  update?: Maybe<MediaFields_Sizes_Desktop_Height_Update>;
+export type MediaArticleFields_Sizes_Desktop_Height = {
+  __typename?: 'MediaArticleFields_sizes_desktop_height';
+  create?: Maybe<MediaArticleFields_Sizes_Desktop_Height_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Desktop_Height_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Desktop_Height_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Desktop_Height_Update>;
 };
 
-export type MediaFields_Sizes_Desktop_Height_Create = {
-  __typename?: 'MediaFields_sizes_desktop_height_Create';
+export type MediaArticleFields_Sizes_Desktop_Height_Create = {
+  __typename?: 'MediaArticleFields_sizes_desktop_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Height_Delete = {
-  __typename?: 'MediaFields_sizes_desktop_height_Delete';
+export type MediaArticleFields_Sizes_Desktop_Height_Delete = {
+  __typename?: 'MediaArticleFields_sizes_desktop_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Height_Read = {
-  __typename?: 'MediaFields_sizes_desktop_height_Read';
+export type MediaArticleFields_Sizes_Desktop_Height_Read = {
+  __typename?: 'MediaArticleFields_sizes_desktop_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Height_Update = {
-  __typename?: 'MediaFields_sizes_desktop_height_Update';
+export type MediaArticleFields_Sizes_Desktop_Height_Update = {
+  __typename?: 'MediaArticleFields_sizes_desktop_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_MimeType = {
-  __typename?: 'MediaFields_sizes_desktop_mimeType';
-  create?: Maybe<MediaFields_Sizes_Desktop_MimeType_Create>;
-  delete?: Maybe<MediaFields_Sizes_Desktop_MimeType_Delete>;
-  read?: Maybe<MediaFields_Sizes_Desktop_MimeType_Read>;
-  update?: Maybe<MediaFields_Sizes_Desktop_MimeType_Update>;
+export type MediaArticleFields_Sizes_Desktop_MimeType = {
+  __typename?: 'MediaArticleFields_sizes_desktop_mimeType';
+  create?: Maybe<MediaArticleFields_Sizes_Desktop_MimeType_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Desktop_MimeType_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Desktop_MimeType_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Desktop_MimeType_Update>;
 };
 
-export type MediaFields_Sizes_Desktop_MimeType_Create = {
-  __typename?: 'MediaFields_sizes_desktop_mimeType_Create';
+export type MediaArticleFields_Sizes_Desktop_MimeType_Create = {
+  __typename?: 'MediaArticleFields_sizes_desktop_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_MimeType_Delete = {
-  __typename?: 'MediaFields_sizes_desktop_mimeType_Delete';
+export type MediaArticleFields_Sizes_Desktop_MimeType_Delete = {
+  __typename?: 'MediaArticleFields_sizes_desktop_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_MimeType_Read = {
-  __typename?: 'MediaFields_sizes_desktop_mimeType_Read';
+export type MediaArticleFields_Sizes_Desktop_MimeType_Read = {
+  __typename?: 'MediaArticleFields_sizes_desktop_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_MimeType_Update = {
-  __typename?: 'MediaFields_sizes_desktop_mimeType_Update';
+export type MediaArticleFields_Sizes_Desktop_MimeType_Update = {
+  __typename?: 'MediaArticleFields_sizes_desktop_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Url = {
-  __typename?: 'MediaFields_sizes_desktop_url';
-  create?: Maybe<MediaFields_Sizes_Desktop_Url_Create>;
-  delete?: Maybe<MediaFields_Sizes_Desktop_Url_Delete>;
-  read?: Maybe<MediaFields_Sizes_Desktop_Url_Read>;
-  update?: Maybe<MediaFields_Sizes_Desktop_Url_Update>;
+export type MediaArticleFields_Sizes_Desktop_Url = {
+  __typename?: 'MediaArticleFields_sizes_desktop_url';
+  create?: Maybe<MediaArticleFields_Sizes_Desktop_Url_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Desktop_Url_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Desktop_Url_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Desktop_Url_Update>;
 };
 
-export type MediaFields_Sizes_Desktop_Url_Create = {
-  __typename?: 'MediaFields_sizes_desktop_url_Create';
+export type MediaArticleFields_Sizes_Desktop_Url_Create = {
+  __typename?: 'MediaArticleFields_sizes_desktop_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Url_Delete = {
-  __typename?: 'MediaFields_sizes_desktop_url_Delete';
+export type MediaArticleFields_Sizes_Desktop_Url_Delete = {
+  __typename?: 'MediaArticleFields_sizes_desktop_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Url_Read = {
-  __typename?: 'MediaFields_sizes_desktop_url_Read';
+export type MediaArticleFields_Sizes_Desktop_Url_Read = {
+  __typename?: 'MediaArticleFields_sizes_desktop_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Url_Update = {
-  __typename?: 'MediaFields_sizes_desktop_url_Update';
+export type MediaArticleFields_Sizes_Desktop_Url_Update = {
+  __typename?: 'MediaArticleFields_sizes_desktop_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Width = {
-  __typename?: 'MediaFields_sizes_desktop_width';
-  create?: Maybe<MediaFields_Sizes_Desktop_Width_Create>;
-  delete?: Maybe<MediaFields_Sizes_Desktop_Width_Delete>;
-  read?: Maybe<MediaFields_Sizes_Desktop_Width_Read>;
-  update?: Maybe<MediaFields_Sizes_Desktop_Width_Update>;
+export type MediaArticleFields_Sizes_Desktop_Width = {
+  __typename?: 'MediaArticleFields_sizes_desktop_width';
+  create?: Maybe<MediaArticleFields_Sizes_Desktop_Width_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Desktop_Width_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Desktop_Width_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Desktop_Width_Update>;
 };
 
-export type MediaFields_Sizes_Desktop_Width_Create = {
-  __typename?: 'MediaFields_sizes_desktop_width_Create';
+export type MediaArticleFields_Sizes_Desktop_Width_Create = {
+  __typename?: 'MediaArticleFields_sizes_desktop_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Width_Delete = {
-  __typename?: 'MediaFields_sizes_desktop_width_Delete';
+export type MediaArticleFields_Sizes_Desktop_Width_Delete = {
+  __typename?: 'MediaArticleFields_sizes_desktop_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Width_Read = {
-  __typename?: 'MediaFields_sizes_desktop_width_Read';
+export type MediaArticleFields_Sizes_Desktop_Width_Read = {
+  __typename?: 'MediaArticleFields_sizes_desktop_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Desktop_Width_Update = {
-  __typename?: 'MediaFields_sizes_desktop_width_Update';
+export type MediaArticleFields_Sizes_Desktop_Width_Update = {
+  __typename?: 'MediaArticleFields_sizes_desktop_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile = {
-  __typename?: 'MediaFields_sizes_mobile';
-  create?: Maybe<MediaFields_Sizes_Mobile_Create>;
-  delete?: Maybe<MediaFields_Sizes_Mobile_Delete>;
-  fields?: Maybe<MediaFields_Sizes_Mobile_Fields>;
-  read?: Maybe<MediaFields_Sizes_Mobile_Read>;
-  update?: Maybe<MediaFields_Sizes_Mobile_Update>;
+export type MediaArticleFields_Sizes_Mobile = {
+  __typename?: 'MediaArticleFields_sizes_mobile';
+  create?: Maybe<MediaArticleFields_Sizes_Mobile_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Mobile_Delete>;
+  fields?: Maybe<MediaArticleFields_Sizes_Mobile_Fields>;
+  read?: Maybe<MediaArticleFields_Sizes_Mobile_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Mobile_Update>;
 };
 
-export type MediaFields_Sizes_Mobile_Create = {
-  __typename?: 'MediaFields_sizes_mobile_Create';
+export type MediaArticleFields_Sizes_Mobile_Create = {
+  __typename?: 'MediaArticleFields_sizes_mobile_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Delete = {
-  __typename?: 'MediaFields_sizes_mobile_Delete';
+export type MediaArticleFields_Sizes_Mobile_Delete = {
+  __typename?: 'MediaArticleFields_sizes_mobile_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Fields = {
-  __typename?: 'MediaFields_sizes_mobile_Fields';
-  filename?: Maybe<MediaFields_Sizes_Mobile_Filename>;
-  filesize?: Maybe<MediaFields_Sizes_Mobile_Filesize>;
-  height?: Maybe<MediaFields_Sizes_Mobile_Height>;
-  mimeType?: Maybe<MediaFields_Sizes_Mobile_MimeType>;
-  url?: Maybe<MediaFields_Sizes_Mobile_Url>;
-  width?: Maybe<MediaFields_Sizes_Mobile_Width>;
+export type MediaArticleFields_Sizes_Mobile_Fields = {
+  __typename?: 'MediaArticleFields_sizes_mobile_Fields';
+  filename?: Maybe<MediaArticleFields_Sizes_Mobile_Filename>;
+  filesize?: Maybe<MediaArticleFields_Sizes_Mobile_Filesize>;
+  height?: Maybe<MediaArticleFields_Sizes_Mobile_Height>;
+  mimeType?: Maybe<MediaArticleFields_Sizes_Mobile_MimeType>;
+  url?: Maybe<MediaArticleFields_Sizes_Mobile_Url>;
+  width?: Maybe<MediaArticleFields_Sizes_Mobile_Width>;
 };
 
-export type MediaFields_Sizes_Mobile_Read = {
-  __typename?: 'MediaFields_sizes_mobile_Read';
+export type MediaArticleFields_Sizes_Mobile_Read = {
+  __typename?: 'MediaArticleFields_sizes_mobile_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Update = {
-  __typename?: 'MediaFields_sizes_mobile_Update';
+export type MediaArticleFields_Sizes_Mobile_Update = {
+  __typename?: 'MediaArticleFields_sizes_mobile_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filename = {
-  __typename?: 'MediaFields_sizes_mobile_filename';
-  create?: Maybe<MediaFields_Sizes_Mobile_Filename_Create>;
-  delete?: Maybe<MediaFields_Sizes_Mobile_Filename_Delete>;
-  read?: Maybe<MediaFields_Sizes_Mobile_Filename_Read>;
-  update?: Maybe<MediaFields_Sizes_Mobile_Filename_Update>;
+export type MediaArticleFields_Sizes_Mobile_Filename = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filename';
+  create?: Maybe<MediaArticleFields_Sizes_Mobile_Filename_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Mobile_Filename_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Mobile_Filename_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Mobile_Filename_Update>;
 };
 
-export type MediaFields_Sizes_Mobile_Filename_Create = {
-  __typename?: 'MediaFields_sizes_mobile_filename_Create';
+export type MediaArticleFields_Sizes_Mobile_Filename_Create = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filename_Delete = {
-  __typename?: 'MediaFields_sizes_mobile_filename_Delete';
+export type MediaArticleFields_Sizes_Mobile_Filename_Delete = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filename_Read = {
-  __typename?: 'MediaFields_sizes_mobile_filename_Read';
+export type MediaArticleFields_Sizes_Mobile_Filename_Read = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filename_Update = {
-  __typename?: 'MediaFields_sizes_mobile_filename_Update';
+export type MediaArticleFields_Sizes_Mobile_Filename_Update = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filesize = {
-  __typename?: 'MediaFields_sizes_mobile_filesize';
-  create?: Maybe<MediaFields_Sizes_Mobile_Filesize_Create>;
-  delete?: Maybe<MediaFields_Sizes_Mobile_Filesize_Delete>;
-  read?: Maybe<MediaFields_Sizes_Mobile_Filesize_Read>;
-  update?: Maybe<MediaFields_Sizes_Mobile_Filesize_Update>;
+export type MediaArticleFields_Sizes_Mobile_Filesize = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filesize';
+  create?: Maybe<MediaArticleFields_Sizes_Mobile_Filesize_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Mobile_Filesize_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Mobile_Filesize_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Mobile_Filesize_Update>;
 };
 
-export type MediaFields_Sizes_Mobile_Filesize_Create = {
-  __typename?: 'MediaFields_sizes_mobile_filesize_Create';
+export type MediaArticleFields_Sizes_Mobile_Filesize_Create = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filesize_Delete = {
-  __typename?: 'MediaFields_sizes_mobile_filesize_Delete';
+export type MediaArticleFields_Sizes_Mobile_Filesize_Delete = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filesize_Read = {
-  __typename?: 'MediaFields_sizes_mobile_filesize_Read';
+export type MediaArticleFields_Sizes_Mobile_Filesize_Read = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Filesize_Update = {
-  __typename?: 'MediaFields_sizes_mobile_filesize_Update';
+export type MediaArticleFields_Sizes_Mobile_Filesize_Update = {
+  __typename?: 'MediaArticleFields_sizes_mobile_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Height = {
-  __typename?: 'MediaFields_sizes_mobile_height';
-  create?: Maybe<MediaFields_Sizes_Mobile_Height_Create>;
-  delete?: Maybe<MediaFields_Sizes_Mobile_Height_Delete>;
-  read?: Maybe<MediaFields_Sizes_Mobile_Height_Read>;
-  update?: Maybe<MediaFields_Sizes_Mobile_Height_Update>;
+export type MediaArticleFields_Sizes_Mobile_Height = {
+  __typename?: 'MediaArticleFields_sizes_mobile_height';
+  create?: Maybe<MediaArticleFields_Sizes_Mobile_Height_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Mobile_Height_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Mobile_Height_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Mobile_Height_Update>;
 };
 
-export type MediaFields_Sizes_Mobile_Height_Create = {
-  __typename?: 'MediaFields_sizes_mobile_height_Create';
+export type MediaArticleFields_Sizes_Mobile_Height_Create = {
+  __typename?: 'MediaArticleFields_sizes_mobile_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Height_Delete = {
-  __typename?: 'MediaFields_sizes_mobile_height_Delete';
+export type MediaArticleFields_Sizes_Mobile_Height_Delete = {
+  __typename?: 'MediaArticleFields_sizes_mobile_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Height_Read = {
-  __typename?: 'MediaFields_sizes_mobile_height_Read';
+export type MediaArticleFields_Sizes_Mobile_Height_Read = {
+  __typename?: 'MediaArticleFields_sizes_mobile_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Height_Update = {
-  __typename?: 'MediaFields_sizes_mobile_height_Update';
+export type MediaArticleFields_Sizes_Mobile_Height_Update = {
+  __typename?: 'MediaArticleFields_sizes_mobile_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_MimeType = {
-  __typename?: 'MediaFields_sizes_mobile_mimeType';
-  create?: Maybe<MediaFields_Sizes_Mobile_MimeType_Create>;
-  delete?: Maybe<MediaFields_Sizes_Mobile_MimeType_Delete>;
-  read?: Maybe<MediaFields_Sizes_Mobile_MimeType_Read>;
-  update?: Maybe<MediaFields_Sizes_Mobile_MimeType_Update>;
+export type MediaArticleFields_Sizes_Mobile_MimeType = {
+  __typename?: 'MediaArticleFields_sizes_mobile_mimeType';
+  create?: Maybe<MediaArticleFields_Sizes_Mobile_MimeType_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Mobile_MimeType_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Mobile_MimeType_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Mobile_MimeType_Update>;
 };
 
-export type MediaFields_Sizes_Mobile_MimeType_Create = {
-  __typename?: 'MediaFields_sizes_mobile_mimeType_Create';
+export type MediaArticleFields_Sizes_Mobile_MimeType_Create = {
+  __typename?: 'MediaArticleFields_sizes_mobile_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_MimeType_Delete = {
-  __typename?: 'MediaFields_sizes_mobile_mimeType_Delete';
+export type MediaArticleFields_Sizes_Mobile_MimeType_Delete = {
+  __typename?: 'MediaArticleFields_sizes_mobile_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_MimeType_Read = {
-  __typename?: 'MediaFields_sizes_mobile_mimeType_Read';
+export type MediaArticleFields_Sizes_Mobile_MimeType_Read = {
+  __typename?: 'MediaArticleFields_sizes_mobile_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_MimeType_Update = {
-  __typename?: 'MediaFields_sizes_mobile_mimeType_Update';
+export type MediaArticleFields_Sizes_Mobile_MimeType_Update = {
+  __typename?: 'MediaArticleFields_sizes_mobile_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Url = {
-  __typename?: 'MediaFields_sizes_mobile_url';
-  create?: Maybe<MediaFields_Sizes_Mobile_Url_Create>;
-  delete?: Maybe<MediaFields_Sizes_Mobile_Url_Delete>;
-  read?: Maybe<MediaFields_Sizes_Mobile_Url_Read>;
-  update?: Maybe<MediaFields_Sizes_Mobile_Url_Update>;
+export type MediaArticleFields_Sizes_Mobile_Url = {
+  __typename?: 'MediaArticleFields_sizes_mobile_url';
+  create?: Maybe<MediaArticleFields_Sizes_Mobile_Url_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Mobile_Url_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Mobile_Url_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Mobile_Url_Update>;
 };
 
-export type MediaFields_Sizes_Mobile_Url_Create = {
-  __typename?: 'MediaFields_sizes_mobile_url_Create';
+export type MediaArticleFields_Sizes_Mobile_Url_Create = {
+  __typename?: 'MediaArticleFields_sizes_mobile_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Url_Delete = {
-  __typename?: 'MediaFields_sizes_mobile_url_Delete';
+export type MediaArticleFields_Sizes_Mobile_Url_Delete = {
+  __typename?: 'MediaArticleFields_sizes_mobile_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Url_Read = {
-  __typename?: 'MediaFields_sizes_mobile_url_Read';
+export type MediaArticleFields_Sizes_Mobile_Url_Read = {
+  __typename?: 'MediaArticleFields_sizes_mobile_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Url_Update = {
-  __typename?: 'MediaFields_sizes_mobile_url_Update';
+export type MediaArticleFields_Sizes_Mobile_Url_Update = {
+  __typename?: 'MediaArticleFields_sizes_mobile_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Width = {
-  __typename?: 'MediaFields_sizes_mobile_width';
-  create?: Maybe<MediaFields_Sizes_Mobile_Width_Create>;
-  delete?: Maybe<MediaFields_Sizes_Mobile_Width_Delete>;
-  read?: Maybe<MediaFields_Sizes_Mobile_Width_Read>;
-  update?: Maybe<MediaFields_Sizes_Mobile_Width_Update>;
+export type MediaArticleFields_Sizes_Mobile_Width = {
+  __typename?: 'MediaArticleFields_sizes_mobile_width';
+  create?: Maybe<MediaArticleFields_Sizes_Mobile_Width_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Mobile_Width_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Mobile_Width_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Mobile_Width_Update>;
 };
 
-export type MediaFields_Sizes_Mobile_Width_Create = {
-  __typename?: 'MediaFields_sizes_mobile_width_Create';
+export type MediaArticleFields_Sizes_Mobile_Width_Create = {
+  __typename?: 'MediaArticleFields_sizes_mobile_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Width_Delete = {
-  __typename?: 'MediaFields_sizes_mobile_width_Delete';
+export type MediaArticleFields_Sizes_Mobile_Width_Delete = {
+  __typename?: 'MediaArticleFields_sizes_mobile_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Width_Read = {
-  __typename?: 'MediaFields_sizes_mobile_width_Read';
+export type MediaArticleFields_Sizes_Mobile_Width_Read = {
+  __typename?: 'MediaArticleFields_sizes_mobile_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Mobile_Width_Update = {
-  __typename?: 'MediaFields_sizes_mobile_width_Update';
+export type MediaArticleFields_Sizes_Mobile_Width_Update = {
+  __typename?: 'MediaArticleFields_sizes_mobile_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet = {
-  __typename?: 'MediaFields_sizes_tablet';
-  create?: Maybe<MediaFields_Sizes_Tablet_Create>;
-  delete?: Maybe<MediaFields_Sizes_Tablet_Delete>;
-  fields?: Maybe<MediaFields_Sizes_Tablet_Fields>;
-  read?: Maybe<MediaFields_Sizes_Tablet_Read>;
-  update?: Maybe<MediaFields_Sizes_Tablet_Update>;
+export type MediaArticleFields_Sizes_Tablet = {
+  __typename?: 'MediaArticleFields_sizes_tablet';
+  create?: Maybe<MediaArticleFields_Sizes_Tablet_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Tablet_Delete>;
+  fields?: Maybe<MediaArticleFields_Sizes_Tablet_Fields>;
+  read?: Maybe<MediaArticleFields_Sizes_Tablet_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Tablet_Update>;
 };
 
-export type MediaFields_Sizes_Tablet_Create = {
-  __typename?: 'MediaFields_sizes_tablet_Create';
+export type MediaArticleFields_Sizes_Tablet_Create = {
+  __typename?: 'MediaArticleFields_sizes_tablet_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Delete = {
-  __typename?: 'MediaFields_sizes_tablet_Delete';
+export type MediaArticleFields_Sizes_Tablet_Delete = {
+  __typename?: 'MediaArticleFields_sizes_tablet_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Fields = {
-  __typename?: 'MediaFields_sizes_tablet_Fields';
-  filename?: Maybe<MediaFields_Sizes_Tablet_Filename>;
-  filesize?: Maybe<MediaFields_Sizes_Tablet_Filesize>;
-  height?: Maybe<MediaFields_Sizes_Tablet_Height>;
-  mimeType?: Maybe<MediaFields_Sizes_Tablet_MimeType>;
-  url?: Maybe<MediaFields_Sizes_Tablet_Url>;
-  width?: Maybe<MediaFields_Sizes_Tablet_Width>;
+export type MediaArticleFields_Sizes_Tablet_Fields = {
+  __typename?: 'MediaArticleFields_sizes_tablet_Fields';
+  filename?: Maybe<MediaArticleFields_Sizes_Tablet_Filename>;
+  filesize?: Maybe<MediaArticleFields_Sizes_Tablet_Filesize>;
+  height?: Maybe<MediaArticleFields_Sizes_Tablet_Height>;
+  mimeType?: Maybe<MediaArticleFields_Sizes_Tablet_MimeType>;
+  url?: Maybe<MediaArticleFields_Sizes_Tablet_Url>;
+  width?: Maybe<MediaArticleFields_Sizes_Tablet_Width>;
 };
 
-export type MediaFields_Sizes_Tablet_Read = {
-  __typename?: 'MediaFields_sizes_tablet_Read';
+export type MediaArticleFields_Sizes_Tablet_Read = {
+  __typename?: 'MediaArticleFields_sizes_tablet_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Update = {
-  __typename?: 'MediaFields_sizes_tablet_Update';
+export type MediaArticleFields_Sizes_Tablet_Update = {
+  __typename?: 'MediaArticleFields_sizes_tablet_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filename = {
-  __typename?: 'MediaFields_sizes_tablet_filename';
-  create?: Maybe<MediaFields_Sizes_Tablet_Filename_Create>;
-  delete?: Maybe<MediaFields_Sizes_Tablet_Filename_Delete>;
-  read?: Maybe<MediaFields_Sizes_Tablet_Filename_Read>;
-  update?: Maybe<MediaFields_Sizes_Tablet_Filename_Update>;
+export type MediaArticleFields_Sizes_Tablet_Filename = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filename';
+  create?: Maybe<MediaArticleFields_Sizes_Tablet_Filename_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Tablet_Filename_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Tablet_Filename_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Tablet_Filename_Update>;
 };
 
-export type MediaFields_Sizes_Tablet_Filename_Create = {
-  __typename?: 'MediaFields_sizes_tablet_filename_Create';
+export type MediaArticleFields_Sizes_Tablet_Filename_Create = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filename_Delete = {
-  __typename?: 'MediaFields_sizes_tablet_filename_Delete';
+export type MediaArticleFields_Sizes_Tablet_Filename_Delete = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filename_Read = {
-  __typename?: 'MediaFields_sizes_tablet_filename_Read';
+export type MediaArticleFields_Sizes_Tablet_Filename_Read = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filename_Update = {
-  __typename?: 'MediaFields_sizes_tablet_filename_Update';
+export type MediaArticleFields_Sizes_Tablet_Filename_Update = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filesize = {
-  __typename?: 'MediaFields_sizes_tablet_filesize';
-  create?: Maybe<MediaFields_Sizes_Tablet_Filesize_Create>;
-  delete?: Maybe<MediaFields_Sizes_Tablet_Filesize_Delete>;
-  read?: Maybe<MediaFields_Sizes_Tablet_Filesize_Read>;
-  update?: Maybe<MediaFields_Sizes_Tablet_Filesize_Update>;
+export type MediaArticleFields_Sizes_Tablet_Filesize = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filesize';
+  create?: Maybe<MediaArticleFields_Sizes_Tablet_Filesize_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Tablet_Filesize_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Tablet_Filesize_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Tablet_Filesize_Update>;
 };
 
-export type MediaFields_Sizes_Tablet_Filesize_Create = {
-  __typename?: 'MediaFields_sizes_tablet_filesize_Create';
+export type MediaArticleFields_Sizes_Tablet_Filesize_Create = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filesize_Delete = {
-  __typename?: 'MediaFields_sizes_tablet_filesize_Delete';
+export type MediaArticleFields_Sizes_Tablet_Filesize_Delete = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filesize_Read = {
-  __typename?: 'MediaFields_sizes_tablet_filesize_Read';
+export type MediaArticleFields_Sizes_Tablet_Filesize_Read = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Filesize_Update = {
-  __typename?: 'MediaFields_sizes_tablet_filesize_Update';
+export type MediaArticleFields_Sizes_Tablet_Filesize_Update = {
+  __typename?: 'MediaArticleFields_sizes_tablet_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Height = {
-  __typename?: 'MediaFields_sizes_tablet_height';
-  create?: Maybe<MediaFields_Sizes_Tablet_Height_Create>;
-  delete?: Maybe<MediaFields_Sizes_Tablet_Height_Delete>;
-  read?: Maybe<MediaFields_Sizes_Tablet_Height_Read>;
-  update?: Maybe<MediaFields_Sizes_Tablet_Height_Update>;
+export type MediaArticleFields_Sizes_Tablet_Height = {
+  __typename?: 'MediaArticleFields_sizes_tablet_height';
+  create?: Maybe<MediaArticleFields_Sizes_Tablet_Height_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Tablet_Height_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Tablet_Height_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Tablet_Height_Update>;
 };
 
-export type MediaFields_Sizes_Tablet_Height_Create = {
-  __typename?: 'MediaFields_sizes_tablet_height_Create';
+export type MediaArticleFields_Sizes_Tablet_Height_Create = {
+  __typename?: 'MediaArticleFields_sizes_tablet_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Height_Delete = {
-  __typename?: 'MediaFields_sizes_tablet_height_Delete';
+export type MediaArticleFields_Sizes_Tablet_Height_Delete = {
+  __typename?: 'MediaArticleFields_sizes_tablet_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Height_Read = {
-  __typename?: 'MediaFields_sizes_tablet_height_Read';
+export type MediaArticleFields_Sizes_Tablet_Height_Read = {
+  __typename?: 'MediaArticleFields_sizes_tablet_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Height_Update = {
-  __typename?: 'MediaFields_sizes_tablet_height_Update';
+export type MediaArticleFields_Sizes_Tablet_Height_Update = {
+  __typename?: 'MediaArticleFields_sizes_tablet_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_MimeType = {
-  __typename?: 'MediaFields_sizes_tablet_mimeType';
-  create?: Maybe<MediaFields_Sizes_Tablet_MimeType_Create>;
-  delete?: Maybe<MediaFields_Sizes_Tablet_MimeType_Delete>;
-  read?: Maybe<MediaFields_Sizes_Tablet_MimeType_Read>;
-  update?: Maybe<MediaFields_Sizes_Tablet_MimeType_Update>;
+export type MediaArticleFields_Sizes_Tablet_MimeType = {
+  __typename?: 'MediaArticleFields_sizes_tablet_mimeType';
+  create?: Maybe<MediaArticleFields_Sizes_Tablet_MimeType_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Tablet_MimeType_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Tablet_MimeType_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Tablet_MimeType_Update>;
 };
 
-export type MediaFields_Sizes_Tablet_MimeType_Create = {
-  __typename?: 'MediaFields_sizes_tablet_mimeType_Create';
+export type MediaArticleFields_Sizes_Tablet_MimeType_Create = {
+  __typename?: 'MediaArticleFields_sizes_tablet_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_MimeType_Delete = {
-  __typename?: 'MediaFields_sizes_tablet_mimeType_Delete';
+export type MediaArticleFields_Sizes_Tablet_MimeType_Delete = {
+  __typename?: 'MediaArticleFields_sizes_tablet_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_MimeType_Read = {
-  __typename?: 'MediaFields_sizes_tablet_mimeType_Read';
+export type MediaArticleFields_Sizes_Tablet_MimeType_Read = {
+  __typename?: 'MediaArticleFields_sizes_tablet_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_MimeType_Update = {
-  __typename?: 'MediaFields_sizes_tablet_mimeType_Update';
+export type MediaArticleFields_Sizes_Tablet_MimeType_Update = {
+  __typename?: 'MediaArticleFields_sizes_tablet_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Url = {
-  __typename?: 'MediaFields_sizes_tablet_url';
-  create?: Maybe<MediaFields_Sizes_Tablet_Url_Create>;
-  delete?: Maybe<MediaFields_Sizes_Tablet_Url_Delete>;
-  read?: Maybe<MediaFields_Sizes_Tablet_Url_Read>;
-  update?: Maybe<MediaFields_Sizes_Tablet_Url_Update>;
+export type MediaArticleFields_Sizes_Tablet_Url = {
+  __typename?: 'MediaArticleFields_sizes_tablet_url';
+  create?: Maybe<MediaArticleFields_Sizes_Tablet_Url_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Tablet_Url_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Tablet_Url_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Tablet_Url_Update>;
 };
 
-export type MediaFields_Sizes_Tablet_Url_Create = {
-  __typename?: 'MediaFields_sizes_tablet_url_Create';
+export type MediaArticleFields_Sizes_Tablet_Url_Create = {
+  __typename?: 'MediaArticleFields_sizes_tablet_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Url_Delete = {
-  __typename?: 'MediaFields_sizes_tablet_url_Delete';
+export type MediaArticleFields_Sizes_Tablet_Url_Delete = {
+  __typename?: 'MediaArticleFields_sizes_tablet_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Url_Read = {
-  __typename?: 'MediaFields_sizes_tablet_url_Read';
+export type MediaArticleFields_Sizes_Tablet_Url_Read = {
+  __typename?: 'MediaArticleFields_sizes_tablet_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Url_Update = {
-  __typename?: 'MediaFields_sizes_tablet_url_Update';
+export type MediaArticleFields_Sizes_Tablet_Url_Update = {
+  __typename?: 'MediaArticleFields_sizes_tablet_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Width = {
-  __typename?: 'MediaFields_sizes_tablet_width';
-  create?: Maybe<MediaFields_Sizes_Tablet_Width_Create>;
-  delete?: Maybe<MediaFields_Sizes_Tablet_Width_Delete>;
-  read?: Maybe<MediaFields_Sizes_Tablet_Width_Read>;
-  update?: Maybe<MediaFields_Sizes_Tablet_Width_Update>;
+export type MediaArticleFields_Sizes_Tablet_Width = {
+  __typename?: 'MediaArticleFields_sizes_tablet_width';
+  create?: Maybe<MediaArticleFields_Sizes_Tablet_Width_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Tablet_Width_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Tablet_Width_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Tablet_Width_Update>;
 };
 
-export type MediaFields_Sizes_Tablet_Width_Create = {
-  __typename?: 'MediaFields_sizes_tablet_width_Create';
+export type MediaArticleFields_Sizes_Tablet_Width_Create = {
+  __typename?: 'MediaArticleFields_sizes_tablet_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Width_Delete = {
-  __typename?: 'MediaFields_sizes_tablet_width_Delete';
+export type MediaArticleFields_Sizes_Tablet_Width_Delete = {
+  __typename?: 'MediaArticleFields_sizes_tablet_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Width_Read = {
-  __typename?: 'MediaFields_sizes_tablet_width_Read';
+export type MediaArticleFields_Sizes_Tablet_Width_Read = {
+  __typename?: 'MediaArticleFields_sizes_tablet_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Tablet_Width_Update = {
-  __typename?: 'MediaFields_sizes_tablet_width_Update';
+export type MediaArticleFields_Sizes_Tablet_Width_Update = {
+  __typename?: 'MediaArticleFields_sizes_tablet_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail = {
-  __typename?: 'MediaFields_sizes_thumbnail';
-  create?: Maybe<MediaFields_Sizes_Thumbnail_Create>;
-  delete?: Maybe<MediaFields_Sizes_Thumbnail_Delete>;
-  fields?: Maybe<MediaFields_Sizes_Thumbnail_Fields>;
-  read?: Maybe<MediaFields_Sizes_Thumbnail_Read>;
-  update?: Maybe<MediaFields_Sizes_Thumbnail_Update>;
+export type MediaArticleFields_Sizes_Thumbnail = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail';
+  create?: Maybe<MediaArticleFields_Sizes_Thumbnail_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Thumbnail_Delete>;
+  fields?: Maybe<MediaArticleFields_Sizes_Thumbnail_Fields>;
+  read?: Maybe<MediaArticleFields_Sizes_Thumbnail_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Thumbnail_Update>;
 };
 
-export type MediaFields_Sizes_Thumbnail_Create = {
-  __typename?: 'MediaFields_sizes_thumbnail_Create';
+export type MediaArticleFields_Sizes_Thumbnail_Create = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Delete = {
-  __typename?: 'MediaFields_sizes_thumbnail_Delete';
+export type MediaArticleFields_Sizes_Thumbnail_Delete = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Fields = {
-  __typename?: 'MediaFields_sizes_thumbnail_Fields';
-  filename?: Maybe<MediaFields_Sizes_Thumbnail_Filename>;
-  filesize?: Maybe<MediaFields_Sizes_Thumbnail_Filesize>;
-  height?: Maybe<MediaFields_Sizes_Thumbnail_Height>;
-  mimeType?: Maybe<MediaFields_Sizes_Thumbnail_MimeType>;
-  url?: Maybe<MediaFields_Sizes_Thumbnail_Url>;
-  width?: Maybe<MediaFields_Sizes_Thumbnail_Width>;
+export type MediaArticleFields_Sizes_Thumbnail_Fields = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_Fields';
+  filename?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filename>;
+  filesize?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filesize>;
+  height?: Maybe<MediaArticleFields_Sizes_Thumbnail_Height>;
+  mimeType?: Maybe<MediaArticleFields_Sizes_Thumbnail_MimeType>;
+  url?: Maybe<MediaArticleFields_Sizes_Thumbnail_Url>;
+  width?: Maybe<MediaArticleFields_Sizes_Thumbnail_Width>;
 };
 
-export type MediaFields_Sizes_Thumbnail_Read = {
-  __typename?: 'MediaFields_sizes_thumbnail_Read';
+export type MediaArticleFields_Sizes_Thumbnail_Read = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Update = {
-  __typename?: 'MediaFields_sizes_thumbnail_Update';
+export type MediaArticleFields_Sizes_Thumbnail_Update = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filename = {
-  __typename?: 'MediaFields_sizes_thumbnail_filename';
-  create?: Maybe<MediaFields_Sizes_Thumbnail_Filename_Create>;
-  delete?: Maybe<MediaFields_Sizes_Thumbnail_Filename_Delete>;
-  read?: Maybe<MediaFields_Sizes_Thumbnail_Filename_Read>;
-  update?: Maybe<MediaFields_Sizes_Thumbnail_Filename_Update>;
+export type MediaArticleFields_Sizes_Thumbnail_Filename = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filename';
+  create?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filename_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filename_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filename_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filename_Update>;
 };
 
-export type MediaFields_Sizes_Thumbnail_Filename_Create = {
-  __typename?: 'MediaFields_sizes_thumbnail_filename_Create';
+export type MediaArticleFields_Sizes_Thumbnail_Filename_Create = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filename_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filename_Delete = {
-  __typename?: 'MediaFields_sizes_thumbnail_filename_Delete';
+export type MediaArticleFields_Sizes_Thumbnail_Filename_Delete = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filename_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filename_Read = {
-  __typename?: 'MediaFields_sizes_thumbnail_filename_Read';
+export type MediaArticleFields_Sizes_Thumbnail_Filename_Read = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filename_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filename_Update = {
-  __typename?: 'MediaFields_sizes_thumbnail_filename_Update';
+export type MediaArticleFields_Sizes_Thumbnail_Filename_Update = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filename_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filesize = {
-  __typename?: 'MediaFields_sizes_thumbnail_filesize';
-  create?: Maybe<MediaFields_Sizes_Thumbnail_Filesize_Create>;
-  delete?: Maybe<MediaFields_Sizes_Thumbnail_Filesize_Delete>;
-  read?: Maybe<MediaFields_Sizes_Thumbnail_Filesize_Read>;
-  update?: Maybe<MediaFields_Sizes_Thumbnail_Filesize_Update>;
+export type MediaArticleFields_Sizes_Thumbnail_Filesize = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filesize';
+  create?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filesize_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filesize_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filesize_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Thumbnail_Filesize_Update>;
 };
 
-export type MediaFields_Sizes_Thumbnail_Filesize_Create = {
-  __typename?: 'MediaFields_sizes_thumbnail_filesize_Create';
+export type MediaArticleFields_Sizes_Thumbnail_Filesize_Create = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filesize_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filesize_Delete = {
-  __typename?: 'MediaFields_sizes_thumbnail_filesize_Delete';
+export type MediaArticleFields_Sizes_Thumbnail_Filesize_Delete = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filesize_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filesize_Read = {
-  __typename?: 'MediaFields_sizes_thumbnail_filesize_Read';
+export type MediaArticleFields_Sizes_Thumbnail_Filesize_Read = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filesize_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Filesize_Update = {
-  __typename?: 'MediaFields_sizes_thumbnail_filesize_Update';
+export type MediaArticleFields_Sizes_Thumbnail_Filesize_Update = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_filesize_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Height = {
-  __typename?: 'MediaFields_sizes_thumbnail_height';
-  create?: Maybe<MediaFields_Sizes_Thumbnail_Height_Create>;
-  delete?: Maybe<MediaFields_Sizes_Thumbnail_Height_Delete>;
-  read?: Maybe<MediaFields_Sizes_Thumbnail_Height_Read>;
-  update?: Maybe<MediaFields_Sizes_Thumbnail_Height_Update>;
+export type MediaArticleFields_Sizes_Thumbnail_Height = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_height';
+  create?: Maybe<MediaArticleFields_Sizes_Thumbnail_Height_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Thumbnail_Height_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Thumbnail_Height_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Thumbnail_Height_Update>;
 };
 
-export type MediaFields_Sizes_Thumbnail_Height_Create = {
-  __typename?: 'MediaFields_sizes_thumbnail_height_Create';
+export type MediaArticleFields_Sizes_Thumbnail_Height_Create = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_height_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Height_Delete = {
-  __typename?: 'MediaFields_sizes_thumbnail_height_Delete';
+export type MediaArticleFields_Sizes_Thumbnail_Height_Delete = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_height_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Height_Read = {
-  __typename?: 'MediaFields_sizes_thumbnail_height_Read';
+export type MediaArticleFields_Sizes_Thumbnail_Height_Read = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_height_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Height_Update = {
-  __typename?: 'MediaFields_sizes_thumbnail_height_Update';
+export type MediaArticleFields_Sizes_Thumbnail_Height_Update = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_height_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_MimeType = {
-  __typename?: 'MediaFields_sizes_thumbnail_mimeType';
-  create?: Maybe<MediaFields_Sizes_Thumbnail_MimeType_Create>;
-  delete?: Maybe<MediaFields_Sizes_Thumbnail_MimeType_Delete>;
-  read?: Maybe<MediaFields_Sizes_Thumbnail_MimeType_Read>;
-  update?: Maybe<MediaFields_Sizes_Thumbnail_MimeType_Update>;
+export type MediaArticleFields_Sizes_Thumbnail_MimeType = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_mimeType';
+  create?: Maybe<MediaArticleFields_Sizes_Thumbnail_MimeType_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Thumbnail_MimeType_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Thumbnail_MimeType_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Thumbnail_MimeType_Update>;
 };
 
-export type MediaFields_Sizes_Thumbnail_MimeType_Create = {
-  __typename?: 'MediaFields_sizes_thumbnail_mimeType_Create';
+export type MediaArticleFields_Sizes_Thumbnail_MimeType_Create = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_mimeType_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_MimeType_Delete = {
-  __typename?: 'MediaFields_sizes_thumbnail_mimeType_Delete';
+export type MediaArticleFields_Sizes_Thumbnail_MimeType_Delete = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_mimeType_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_MimeType_Read = {
-  __typename?: 'MediaFields_sizes_thumbnail_mimeType_Read';
+export type MediaArticleFields_Sizes_Thumbnail_MimeType_Read = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_mimeType_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_MimeType_Update = {
-  __typename?: 'MediaFields_sizes_thumbnail_mimeType_Update';
+export type MediaArticleFields_Sizes_Thumbnail_MimeType_Update = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_mimeType_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Url = {
-  __typename?: 'MediaFields_sizes_thumbnail_url';
-  create?: Maybe<MediaFields_Sizes_Thumbnail_Url_Create>;
-  delete?: Maybe<MediaFields_Sizes_Thumbnail_Url_Delete>;
-  read?: Maybe<MediaFields_Sizes_Thumbnail_Url_Read>;
-  update?: Maybe<MediaFields_Sizes_Thumbnail_Url_Update>;
+export type MediaArticleFields_Sizes_Thumbnail_Url = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_url';
+  create?: Maybe<MediaArticleFields_Sizes_Thumbnail_Url_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Thumbnail_Url_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Thumbnail_Url_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Thumbnail_Url_Update>;
 };
 
-export type MediaFields_Sizes_Thumbnail_Url_Create = {
-  __typename?: 'MediaFields_sizes_thumbnail_url_Create';
+export type MediaArticleFields_Sizes_Thumbnail_Url_Create = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Url_Delete = {
-  __typename?: 'MediaFields_sizes_thumbnail_url_Delete';
+export type MediaArticleFields_Sizes_Thumbnail_Url_Delete = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Url_Read = {
-  __typename?: 'MediaFields_sizes_thumbnail_url_Read';
+export type MediaArticleFields_Sizes_Thumbnail_Url_Read = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Url_Update = {
-  __typename?: 'MediaFields_sizes_thumbnail_url_Update';
+export type MediaArticleFields_Sizes_Thumbnail_Url_Update = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Width = {
-  __typename?: 'MediaFields_sizes_thumbnail_width';
-  create?: Maybe<MediaFields_Sizes_Thumbnail_Width_Create>;
-  delete?: Maybe<MediaFields_Sizes_Thumbnail_Width_Delete>;
-  read?: Maybe<MediaFields_Sizes_Thumbnail_Width_Read>;
-  update?: Maybe<MediaFields_Sizes_Thumbnail_Width_Update>;
+export type MediaArticleFields_Sizes_Thumbnail_Width = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_width';
+  create?: Maybe<MediaArticleFields_Sizes_Thumbnail_Width_Create>;
+  delete?: Maybe<MediaArticleFields_Sizes_Thumbnail_Width_Delete>;
+  read?: Maybe<MediaArticleFields_Sizes_Thumbnail_Width_Read>;
+  update?: Maybe<MediaArticleFields_Sizes_Thumbnail_Width_Update>;
 };
 
-export type MediaFields_Sizes_Thumbnail_Width_Create = {
-  __typename?: 'MediaFields_sizes_thumbnail_width_Create';
+export type MediaArticleFields_Sizes_Thumbnail_Width_Create = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Width_Delete = {
-  __typename?: 'MediaFields_sizes_thumbnail_width_Delete';
+export type MediaArticleFields_Sizes_Thumbnail_Width_Delete = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Width_Read = {
-  __typename?: 'MediaFields_sizes_thumbnail_width_Read';
+export type MediaArticleFields_Sizes_Thumbnail_Width_Read = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Sizes_Thumbnail_Width_Update = {
-  __typename?: 'MediaFields_sizes_thumbnail_width_Update';
+export type MediaArticleFields_Sizes_Thumbnail_Width_Update = {
+  __typename?: 'MediaArticleFields_sizes_thumbnail_width_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_UpdatedAt = {
-  __typename?: 'MediaFields_updatedAt';
-  create?: Maybe<MediaFields_UpdatedAt_Create>;
-  delete?: Maybe<MediaFields_UpdatedAt_Delete>;
-  read?: Maybe<MediaFields_UpdatedAt_Read>;
-  update?: Maybe<MediaFields_UpdatedAt_Update>;
+export type MediaArticleFields_UpdatedAt = {
+  __typename?: 'MediaArticleFields_updatedAt';
+  create?: Maybe<MediaArticleFields_UpdatedAt_Create>;
+  delete?: Maybe<MediaArticleFields_UpdatedAt_Delete>;
+  read?: Maybe<MediaArticleFields_UpdatedAt_Read>;
+  update?: Maybe<MediaArticleFields_UpdatedAt_Update>;
 };
 
-export type MediaFields_UpdatedAt_Create = {
-  __typename?: 'MediaFields_updatedAt_Create';
+export type MediaArticleFields_UpdatedAt_Create = {
+  __typename?: 'MediaArticleFields_updatedAt_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_UpdatedAt_Delete = {
-  __typename?: 'MediaFields_updatedAt_Delete';
+export type MediaArticleFields_UpdatedAt_Delete = {
+  __typename?: 'MediaArticleFields_updatedAt_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_UpdatedAt_Read = {
-  __typename?: 'MediaFields_updatedAt_Read';
+export type MediaArticleFields_UpdatedAt_Read = {
+  __typename?: 'MediaArticleFields_updatedAt_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_UpdatedAt_Update = {
-  __typename?: 'MediaFields_updatedAt_Update';
+export type MediaArticleFields_UpdatedAt_Update = {
+  __typename?: 'MediaArticleFields_updatedAt_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Url = {
-  __typename?: 'MediaFields_url';
-  create?: Maybe<MediaFields_Url_Create>;
-  delete?: Maybe<MediaFields_Url_Delete>;
-  read?: Maybe<MediaFields_Url_Read>;
-  update?: Maybe<MediaFields_Url_Update>;
+export type MediaArticleFields_Url = {
+  __typename?: 'MediaArticleFields_url';
+  create?: Maybe<MediaArticleFields_Url_Create>;
+  delete?: Maybe<MediaArticleFields_Url_Delete>;
+  read?: Maybe<MediaArticleFields_Url_Read>;
+  update?: Maybe<MediaArticleFields_Url_Update>;
 };
 
-export type MediaFields_Url_Create = {
-  __typename?: 'MediaFields_url_Create';
+export type MediaArticleFields_Url_Create = {
+  __typename?: 'MediaArticleFields_url_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Url_Delete = {
-  __typename?: 'MediaFields_url_Delete';
+export type MediaArticleFields_Url_Delete = {
+  __typename?: 'MediaArticleFields_url_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Url_Read = {
-  __typename?: 'MediaFields_url_Read';
+export type MediaArticleFields_Url_Read = {
+  __typename?: 'MediaArticleFields_url_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Url_Update = {
-  __typename?: 'MediaFields_url_Update';
+export type MediaArticleFields_Url_Update = {
+  __typename?: 'MediaArticleFields_url_Update';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Width = {
-  __typename?: 'MediaFields_width';
-  create?: Maybe<MediaFields_Width_Create>;
-  delete?: Maybe<MediaFields_Width_Delete>;
-  read?: Maybe<MediaFields_Width_Read>;
-  update?: Maybe<MediaFields_Width_Update>;
+export type MediaArticleFields_Width = {
+  __typename?: 'MediaArticleFields_width';
+  create?: Maybe<MediaArticleFields_Width_Create>;
+  delete?: Maybe<MediaArticleFields_Width_Delete>;
+  read?: Maybe<MediaArticleFields_Width_Read>;
+  update?: Maybe<MediaArticleFields_Width_Update>;
 };
 
-export type MediaFields_Width_Create = {
-  __typename?: 'MediaFields_width_Create';
+export type MediaArticleFields_Width_Create = {
+  __typename?: 'MediaArticleFields_width_Create';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Width_Delete = {
-  __typename?: 'MediaFields_width_Delete';
+export type MediaArticleFields_Width_Delete = {
+  __typename?: 'MediaArticleFields_width_Delete';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Width_Read = {
-  __typename?: 'MediaFields_width_Read';
+export type MediaArticleFields_Width_Read = {
+  __typename?: 'MediaArticleFields_width_Read';
   permission: Scalars['Boolean']['output'];
 };
 
-export type MediaFields_Width_Update = {
-  __typename?: 'MediaFields_width_Update';
+export type MediaArticleFields_Width_Update = {
+  __typename?: 'MediaArticleFields_width_Update';
   permission: Scalars['Boolean']['output'];
+};
+
+export type MediaArticleReadAccess = {
+  __typename?: 'MediaArticleReadAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaArticleReadDocAccess = {
+  __typename?: 'MediaArticleReadDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaArticleUpdateAccess = {
+  __typename?: 'MediaArticleUpdateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaArticleUpdateDocAccess = {
+  __typename?: 'MediaArticleUpdateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaArticle_Sizes = {
+  __typename?: 'MediaArticle_Sizes';
+  desktop?: Maybe<MediaArticle_Sizes_Desktop>;
+  mobile?: Maybe<MediaArticle_Sizes_Mobile>;
+  tablet?: Maybe<MediaArticle_Sizes_Tablet>;
+  thumbnail?: Maybe<MediaArticle_Sizes_Thumbnail>;
+};
+
+export type MediaArticle_Sizes_Desktop = {
+  __typename?: 'MediaArticle_Sizes_Desktop';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaArticle_Sizes_Mobile = {
+  __typename?: 'MediaArticle_Sizes_Mobile';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaArticle_Sizes_Tablet = {
+  __typename?: 'MediaArticle_Sizes_Tablet';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaArticle_Sizes_Thumbnail = {
+  __typename?: 'MediaArticle_Sizes_Thumbnail';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaArticle_Alt_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_CreatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type MediaArticle_Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_FocalX_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_FocalY_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Id_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Desktop__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Desktop__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Desktop__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Desktop__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Desktop__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Desktop__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Mobile__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Mobile__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Mobile__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Mobile__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Mobile__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Mobile__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Tablet__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Tablet__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Tablet__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Tablet__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Tablet__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Tablet__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Thumbnail__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Thumbnail__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Thumbnail__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_Sizes__Thumbnail__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Thumbnail__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Sizes__Thumbnail__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticle_UpdatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type MediaArticle_Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaArticle_Where = {
+  AND?: InputMaybe<Array<InputMaybe<MediaArticle_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<MediaArticle_Where_Or>>>;
+  alt?: InputMaybe<MediaArticle_Alt_Operator>;
+  createdAt?: InputMaybe<MediaArticle_CreatedAt_Operator>;
+  filename?: InputMaybe<MediaArticle_Filename_Operator>;
+  filesize?: InputMaybe<MediaArticle_Filesize_Operator>;
+  focalX?: InputMaybe<MediaArticle_FocalX_Operator>;
+  focalY?: InputMaybe<MediaArticle_FocalY_Operator>;
+  height?: InputMaybe<MediaArticle_Height_Operator>;
+  id?: InputMaybe<MediaArticle_Id_Operator>;
+  mimeType?: InputMaybe<MediaArticle_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<MediaArticle_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<MediaArticle_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<MediaArticle_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<MediaArticle_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<MediaArticle_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<MediaArticle_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<MediaArticle_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<MediaArticle_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<MediaArticle_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<MediaArticle_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<MediaArticle_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<MediaArticle_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<MediaArticle_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<MediaArticle_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<MediaArticle_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<MediaArticle_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<MediaArticle_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<MediaArticle_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<MediaArticle_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<MediaArticle_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<MediaArticle_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<MediaArticle_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<MediaArticle_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<MediaArticle_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<MediaArticle_UpdatedAt_Operator>;
+  url?: InputMaybe<MediaArticle_Url_Operator>;
+  width?: InputMaybe<MediaArticle_Width_Operator>;
+};
+
+export type MediaArticle_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<MediaArticle_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<MediaArticle_Where_Or>>>;
+  alt?: InputMaybe<MediaArticle_Alt_Operator>;
+  createdAt?: InputMaybe<MediaArticle_CreatedAt_Operator>;
+  filename?: InputMaybe<MediaArticle_Filename_Operator>;
+  filesize?: InputMaybe<MediaArticle_Filesize_Operator>;
+  focalX?: InputMaybe<MediaArticle_FocalX_Operator>;
+  focalY?: InputMaybe<MediaArticle_FocalY_Operator>;
+  height?: InputMaybe<MediaArticle_Height_Operator>;
+  id?: InputMaybe<MediaArticle_Id_Operator>;
+  mimeType?: InputMaybe<MediaArticle_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<MediaArticle_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<MediaArticle_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<MediaArticle_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<MediaArticle_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<MediaArticle_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<MediaArticle_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<MediaArticle_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<MediaArticle_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<MediaArticle_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<MediaArticle_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<MediaArticle_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<MediaArticle_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<MediaArticle_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<MediaArticle_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<MediaArticle_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<MediaArticle_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<MediaArticle_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<MediaArticle_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<MediaArticle_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<MediaArticle_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<MediaArticle_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<MediaArticle_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<MediaArticle_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<MediaArticle_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<MediaArticle_UpdatedAt_Operator>;
+  url?: InputMaybe<MediaArticle_Url_Operator>;
+  width?: InputMaybe<MediaArticle_Width_Operator>;
+};
+
+export type MediaArticle_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<MediaArticle_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<MediaArticle_Where_Or>>>;
+  alt?: InputMaybe<MediaArticle_Alt_Operator>;
+  createdAt?: InputMaybe<MediaArticle_CreatedAt_Operator>;
+  filename?: InputMaybe<MediaArticle_Filename_Operator>;
+  filesize?: InputMaybe<MediaArticle_Filesize_Operator>;
+  focalX?: InputMaybe<MediaArticle_FocalX_Operator>;
+  focalY?: InputMaybe<MediaArticle_FocalY_Operator>;
+  height?: InputMaybe<MediaArticle_Height_Operator>;
+  id?: InputMaybe<MediaArticle_Id_Operator>;
+  mimeType?: InputMaybe<MediaArticle_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<MediaArticle_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<MediaArticle_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<MediaArticle_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<MediaArticle_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<MediaArticle_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<MediaArticle_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<MediaArticle_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<MediaArticle_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<MediaArticle_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<MediaArticle_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<MediaArticle_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<MediaArticle_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<MediaArticle_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<MediaArticle_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<MediaArticle_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<MediaArticle_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<MediaArticle_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<MediaArticle_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<MediaArticle_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<MediaArticle_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<MediaArticle_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<MediaArticle_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<MediaArticle_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<MediaArticle_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<MediaArticle_UpdatedAt_Operator>;
+  url?: InputMaybe<MediaArticle_Url_Operator>;
+  width?: InputMaybe<MediaArticle_Width_Operator>;
+};
+
+export type MediaArticle_Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaArticles = {
+  __typename?: 'MediaArticles';
+  docs?: Maybe<Array<Maybe<MediaArticle>>>;
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  hasPrevPage?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
+  pagingCounter?: Maybe<Scalars['Int']['output']>;
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+  totalPages?: Maybe<Scalars['Int']['output']>;
+};
+
+export type MediaKetagalan = {
+  __typename?: 'MediaKetagalan';
+  alt?: Maybe<Scalars['String']['output']>;
+  createdAt?: Maybe<Scalars['DateTime']['output']>;
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  focalX?: Maybe<Scalars['Float']['output']>;
+  focalY?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  id?: Maybe<Scalars['String']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  sizes?: Maybe<MediaKetagalan_Sizes>;
+  updatedAt?: Maybe<Scalars['DateTime']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaKetagalanCreateAccess = {
+  __typename?: 'MediaKetagalanCreateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalanCreateDocAccess = {
+  __typename?: 'MediaKetagalanCreateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalanDeleteAccess = {
+  __typename?: 'MediaKetagalanDeleteAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalanDeleteDocAccess = {
+  __typename?: 'MediaKetagalanDeleteDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalanDocAccessFields = {
+  __typename?: 'MediaKetagalanDocAccessFields';
+  alt?: Maybe<MediaKetagalanDocAccessFields_Alt>;
+  createdAt?: Maybe<MediaKetagalanDocAccessFields_CreatedAt>;
+  filename?: Maybe<MediaKetagalanDocAccessFields_Filename>;
+  filesize?: Maybe<MediaKetagalanDocAccessFields_Filesize>;
+  focalX?: Maybe<MediaKetagalanDocAccessFields_FocalX>;
+  focalY?: Maybe<MediaKetagalanDocAccessFields_FocalY>;
+  height?: Maybe<MediaKetagalanDocAccessFields_Height>;
+  mimeType?: Maybe<MediaKetagalanDocAccessFields_MimeType>;
+  sizes?: Maybe<MediaKetagalanDocAccessFields_Sizes>;
+  updatedAt?: Maybe<MediaKetagalanDocAccessFields_UpdatedAt>;
+  url?: Maybe<MediaKetagalanDocAccessFields_Url>;
+  width?: Maybe<MediaKetagalanDocAccessFields_Width>;
+};
+
+export type MediaKetagalanDocAccessFields_Alt = {
+  __typename?: 'MediaKetagalanDocAccessFields_alt';
+  create?: Maybe<MediaKetagalanDocAccessFields_Alt_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Alt_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Alt_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Alt_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Alt_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_alt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Alt_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_alt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Alt_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_alt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Alt_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_alt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_CreatedAt = {
+  __typename?: 'MediaKetagalanDocAccessFields_createdAt';
+  create?: Maybe<MediaKetagalanDocAccessFields_CreatedAt_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_CreatedAt_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_CreatedAt_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_CreatedAt_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_CreatedAt_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_CreatedAt_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_CreatedAt_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_CreatedAt_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filename = {
+  __typename?: 'MediaKetagalanDocAccessFields_filename';
+  create?: Maybe<MediaKetagalanDocAccessFields_Filename_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Filename_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Filename_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Filename_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Filename_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filename_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filename_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filename_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filesize = {
+  __typename?: 'MediaKetagalanDocAccessFields_filesize';
+  create?: Maybe<MediaKetagalanDocAccessFields_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Filesize_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Filesize_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Filesize_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filesize_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filesize_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Filesize_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalX = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalX';
+  create?: Maybe<MediaKetagalanDocAccessFields_FocalX_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_FocalX_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_FocalX_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_FocalX_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_FocalX_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalX_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalX_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalX_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalX_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalX_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalX_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalX_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalY = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalY';
+  create?: Maybe<MediaKetagalanDocAccessFields_FocalY_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_FocalY_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_FocalY_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_FocalY_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_FocalY_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalY_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalY_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalY_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalY_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalY_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_FocalY_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_focalY_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Height = {
+  __typename?: 'MediaKetagalanDocAccessFields_height';
+  create?: Maybe<MediaKetagalanDocAccessFields_Height_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Height_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Height_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Height_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Height_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Height_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Height_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Height_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_MimeType = {
+  __typename?: 'MediaKetagalanDocAccessFields_mimeType';
+  create?: Maybe<MediaKetagalanDocAccessFields_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_MimeType_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_MimeType_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_MimeType_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_MimeType_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_MimeType_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_MimeType_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Delete>;
+  fields?: Maybe<MediaKetagalanDocAccessFields_Sizes_Fields>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Fields = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_Fields';
+  desktop?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop>;
+  mobile?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile>;
+  tablet?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet>;
+  thumbnail?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Delete>;
+  fields?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Fields>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Fields = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_Fields';
+  filename?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filename>;
+  filesize?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize>;
+  height?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Height>;
+  mimeType?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType>;
+  url?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Url>;
+  width?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Width>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filename = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filename';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filename_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filesize';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Filesize_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Height = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_height';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Height_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_mimeType';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_MimeType_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Url = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_url';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Url_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Width = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_width';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Desktop_Width_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_desktop_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Delete>;
+  fields?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Fields>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Fields = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_Fields';
+  filename?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filename>;
+  filesize?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize>;
+  height?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Height>;
+  mimeType?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType>;
+  url?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Url>;
+  width?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Width>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filename = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filename';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filename_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filesize';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Filesize_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Height = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_height';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Height_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_mimeType';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_MimeType_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Url = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_url';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Url_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Width = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_width';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Mobile_Width_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_mobile_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Delete>;
+  fields?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Fields>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Fields = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_Fields';
+  filename?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filename>;
+  filesize?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize>;
+  height?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Height>;
+  mimeType?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType>;
+  url?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Url>;
+  width?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Width>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filename = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filename';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filename_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filesize';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Filesize_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Height = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_height';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Height_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_mimeType';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_MimeType_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Url = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_url';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Url_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Width = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_width';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Tablet_Width_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_tablet_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Delete>;
+  fields?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Fields>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Fields = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_Fields';
+  filename?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename>;
+  filesize?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize>;
+  height?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height>;
+  mimeType?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType>;
+  url?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url>;
+  width?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filename';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filename_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filesize';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Filesize_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_height';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Height_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_mimeType';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_MimeType_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_url';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Url_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_width';
+  create?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Sizes_Thumbnail_Width_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_sizes_thumbnail_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_UpdatedAt = {
+  __typename?: 'MediaKetagalanDocAccessFields_updatedAt';
+  create?: Maybe<MediaKetagalanDocAccessFields_UpdatedAt_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_UpdatedAt_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_UpdatedAt_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_UpdatedAt_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_UpdatedAt_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_UpdatedAt_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_UpdatedAt_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_UpdatedAt_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Url = {
+  __typename?: 'MediaKetagalanDocAccessFields_url';
+  create?: Maybe<MediaKetagalanDocAccessFields_Url_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Url_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Url_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Url_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Url_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Url_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Url_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Url_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Width = {
+  __typename?: 'MediaKetagalanDocAccessFields_width';
+  create?: Maybe<MediaKetagalanDocAccessFields_Width_Create>;
+  delete?: Maybe<MediaKetagalanDocAccessFields_Width_Delete>;
+  read?: Maybe<MediaKetagalanDocAccessFields_Width_Read>;
+  update?: Maybe<MediaKetagalanDocAccessFields_Width_Update>;
+};
+
+export type MediaKetagalanDocAccessFields_Width_Create = {
+  __typename?: 'MediaKetagalanDocAccessFields_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Width_Delete = {
+  __typename?: 'MediaKetagalanDocAccessFields_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Width_Read = {
+  __typename?: 'MediaKetagalanDocAccessFields_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanDocAccessFields_Width_Update = {
+  __typename?: 'MediaKetagalanDocAccessFields_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields = {
+  __typename?: 'MediaKetagalanFields';
+  alt?: Maybe<MediaKetagalanFields_Alt>;
+  createdAt?: Maybe<MediaKetagalanFields_CreatedAt>;
+  filename?: Maybe<MediaKetagalanFields_Filename>;
+  filesize?: Maybe<MediaKetagalanFields_Filesize>;
+  focalX?: Maybe<MediaKetagalanFields_FocalX>;
+  focalY?: Maybe<MediaKetagalanFields_FocalY>;
+  height?: Maybe<MediaKetagalanFields_Height>;
+  mimeType?: Maybe<MediaKetagalanFields_MimeType>;
+  sizes?: Maybe<MediaKetagalanFields_Sizes>;
+  updatedAt?: Maybe<MediaKetagalanFields_UpdatedAt>;
+  url?: Maybe<MediaKetagalanFields_Url>;
+  width?: Maybe<MediaKetagalanFields_Width>;
+};
+
+export type MediaKetagalanFields_Alt = {
+  __typename?: 'MediaKetagalanFields_alt';
+  create?: Maybe<MediaKetagalanFields_Alt_Create>;
+  delete?: Maybe<MediaKetagalanFields_Alt_Delete>;
+  read?: Maybe<MediaKetagalanFields_Alt_Read>;
+  update?: Maybe<MediaKetagalanFields_Alt_Update>;
+};
+
+export type MediaKetagalanFields_Alt_Create = {
+  __typename?: 'MediaKetagalanFields_alt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Alt_Delete = {
+  __typename?: 'MediaKetagalanFields_alt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Alt_Read = {
+  __typename?: 'MediaKetagalanFields_alt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Alt_Update = {
+  __typename?: 'MediaKetagalanFields_alt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_CreatedAt = {
+  __typename?: 'MediaKetagalanFields_createdAt';
+  create?: Maybe<MediaKetagalanFields_CreatedAt_Create>;
+  delete?: Maybe<MediaKetagalanFields_CreatedAt_Delete>;
+  read?: Maybe<MediaKetagalanFields_CreatedAt_Read>;
+  update?: Maybe<MediaKetagalanFields_CreatedAt_Update>;
+};
+
+export type MediaKetagalanFields_CreatedAt_Create = {
+  __typename?: 'MediaKetagalanFields_createdAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_CreatedAt_Delete = {
+  __typename?: 'MediaKetagalanFields_createdAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_CreatedAt_Read = {
+  __typename?: 'MediaKetagalanFields_createdAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_CreatedAt_Update = {
+  __typename?: 'MediaKetagalanFields_createdAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filename = {
+  __typename?: 'MediaKetagalanFields_filename';
+  create?: Maybe<MediaKetagalanFields_Filename_Create>;
+  delete?: Maybe<MediaKetagalanFields_Filename_Delete>;
+  read?: Maybe<MediaKetagalanFields_Filename_Read>;
+  update?: Maybe<MediaKetagalanFields_Filename_Update>;
+};
+
+export type MediaKetagalanFields_Filename_Create = {
+  __typename?: 'MediaKetagalanFields_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filename_Delete = {
+  __typename?: 'MediaKetagalanFields_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filename_Read = {
+  __typename?: 'MediaKetagalanFields_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filename_Update = {
+  __typename?: 'MediaKetagalanFields_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filesize = {
+  __typename?: 'MediaKetagalanFields_filesize';
+  create?: Maybe<MediaKetagalanFields_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanFields_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanFields_Filesize_Read>;
+  update?: Maybe<MediaKetagalanFields_Filesize_Update>;
+};
+
+export type MediaKetagalanFields_Filesize_Create = {
+  __typename?: 'MediaKetagalanFields_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filesize_Delete = {
+  __typename?: 'MediaKetagalanFields_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filesize_Read = {
+  __typename?: 'MediaKetagalanFields_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Filesize_Update = {
+  __typename?: 'MediaKetagalanFields_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalX = {
+  __typename?: 'MediaKetagalanFields_focalX';
+  create?: Maybe<MediaKetagalanFields_FocalX_Create>;
+  delete?: Maybe<MediaKetagalanFields_FocalX_Delete>;
+  read?: Maybe<MediaKetagalanFields_FocalX_Read>;
+  update?: Maybe<MediaKetagalanFields_FocalX_Update>;
+};
+
+export type MediaKetagalanFields_FocalX_Create = {
+  __typename?: 'MediaKetagalanFields_focalX_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalX_Delete = {
+  __typename?: 'MediaKetagalanFields_focalX_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalX_Read = {
+  __typename?: 'MediaKetagalanFields_focalX_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalX_Update = {
+  __typename?: 'MediaKetagalanFields_focalX_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalY = {
+  __typename?: 'MediaKetagalanFields_focalY';
+  create?: Maybe<MediaKetagalanFields_FocalY_Create>;
+  delete?: Maybe<MediaKetagalanFields_FocalY_Delete>;
+  read?: Maybe<MediaKetagalanFields_FocalY_Read>;
+  update?: Maybe<MediaKetagalanFields_FocalY_Update>;
+};
+
+export type MediaKetagalanFields_FocalY_Create = {
+  __typename?: 'MediaKetagalanFields_focalY_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalY_Delete = {
+  __typename?: 'MediaKetagalanFields_focalY_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalY_Read = {
+  __typename?: 'MediaKetagalanFields_focalY_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_FocalY_Update = {
+  __typename?: 'MediaKetagalanFields_focalY_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Height = {
+  __typename?: 'MediaKetagalanFields_height';
+  create?: Maybe<MediaKetagalanFields_Height_Create>;
+  delete?: Maybe<MediaKetagalanFields_Height_Delete>;
+  read?: Maybe<MediaKetagalanFields_Height_Read>;
+  update?: Maybe<MediaKetagalanFields_Height_Update>;
+};
+
+export type MediaKetagalanFields_Height_Create = {
+  __typename?: 'MediaKetagalanFields_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Height_Delete = {
+  __typename?: 'MediaKetagalanFields_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Height_Read = {
+  __typename?: 'MediaKetagalanFields_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Height_Update = {
+  __typename?: 'MediaKetagalanFields_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_MimeType = {
+  __typename?: 'MediaKetagalanFields_mimeType';
+  create?: Maybe<MediaKetagalanFields_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanFields_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanFields_MimeType_Read>;
+  update?: Maybe<MediaKetagalanFields_MimeType_Update>;
+};
+
+export type MediaKetagalanFields_MimeType_Create = {
+  __typename?: 'MediaKetagalanFields_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_MimeType_Delete = {
+  __typename?: 'MediaKetagalanFields_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_MimeType_Read = {
+  __typename?: 'MediaKetagalanFields_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_MimeType_Update = {
+  __typename?: 'MediaKetagalanFields_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes = {
+  __typename?: 'MediaKetagalanFields_sizes';
+  create?: Maybe<MediaKetagalanFields_Sizes_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Delete>;
+  fields?: Maybe<MediaKetagalanFields_Sizes_Fields>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Fields = {
+  __typename?: 'MediaKetagalanFields_sizes_Fields';
+  desktop?: Maybe<MediaKetagalanFields_Sizes_Desktop>;
+  mobile?: Maybe<MediaKetagalanFields_Sizes_Mobile>;
+  tablet?: Maybe<MediaKetagalanFields_Sizes_Tablet>;
+  thumbnail?: Maybe<MediaKetagalanFields_Sizes_Thumbnail>;
+};
+
+export type MediaKetagalanFields_Sizes_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop';
+  create?: Maybe<MediaKetagalanFields_Sizes_Desktop_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Desktop_Delete>;
+  fields?: Maybe<MediaKetagalanFields_Sizes_Desktop_Fields>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Desktop_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Desktop_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Fields = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_Fields';
+  filename?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filename>;
+  filesize?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filesize>;
+  height?: Maybe<MediaKetagalanFields_Sizes_Desktop_Height>;
+  mimeType?: Maybe<MediaKetagalanFields_Sizes_Desktop_MimeType>;
+  url?: Maybe<MediaKetagalanFields_Sizes_Desktop_Url>;
+  width?: Maybe<MediaKetagalanFields_Sizes_Desktop_Width>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filename = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filename';
+  create?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filename_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filename_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filename_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filename_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filename_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filename_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filename_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filename_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filesize = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filesize';
+  create?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filesize_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Desktop_Filesize_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filesize_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filesize_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filesize_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Filesize_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Height = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_height';
+  create?: Maybe<MediaKetagalanFields_Sizes_Desktop_Height_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Desktop_Height_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Desktop_Height_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Desktop_Height_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Height_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Height_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Height_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Height_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_MimeType = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_mimeType';
+  create?: Maybe<MediaKetagalanFields_Sizes_Desktop_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Desktop_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Desktop_MimeType_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Desktop_MimeType_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_MimeType_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_MimeType_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_MimeType_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_MimeType_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Url = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_url';
+  create?: Maybe<MediaKetagalanFields_Sizes_Desktop_Url_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Desktop_Url_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Desktop_Url_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Desktop_Url_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Url_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Url_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Url_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Url_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Width = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_width';
+  create?: Maybe<MediaKetagalanFields_Sizes_Desktop_Width_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Desktop_Width_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Desktop_Width_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Desktop_Width_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Width_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Width_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Width_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Desktop_Width_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_desktop_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile';
+  create?: Maybe<MediaKetagalanFields_Sizes_Mobile_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Mobile_Delete>;
+  fields?: Maybe<MediaKetagalanFields_Sizes_Mobile_Fields>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Mobile_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Mobile_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Fields = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_Fields';
+  filename?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filename>;
+  filesize?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filesize>;
+  height?: Maybe<MediaKetagalanFields_Sizes_Mobile_Height>;
+  mimeType?: Maybe<MediaKetagalanFields_Sizes_Mobile_MimeType>;
+  url?: Maybe<MediaKetagalanFields_Sizes_Mobile_Url>;
+  width?: Maybe<MediaKetagalanFields_Sizes_Mobile_Width>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filename = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filename';
+  create?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filename_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filename_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filename_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filename_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filename_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filename_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filename_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filename_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filesize = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filesize';
+  create?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filesize_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Mobile_Filesize_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filesize_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filesize_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filesize_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Filesize_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Height = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_height';
+  create?: Maybe<MediaKetagalanFields_Sizes_Mobile_Height_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Mobile_Height_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Mobile_Height_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Mobile_Height_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Height_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Height_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Height_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Height_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_MimeType = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_mimeType';
+  create?: Maybe<MediaKetagalanFields_Sizes_Mobile_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Mobile_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Mobile_MimeType_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Mobile_MimeType_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_MimeType_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_MimeType_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_MimeType_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_MimeType_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Url = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_url';
+  create?: Maybe<MediaKetagalanFields_Sizes_Mobile_Url_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Mobile_Url_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Mobile_Url_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Mobile_Url_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Url_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Url_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Url_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Url_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Width = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_width';
+  create?: Maybe<MediaKetagalanFields_Sizes_Mobile_Width_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Mobile_Width_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Mobile_Width_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Mobile_Width_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Width_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Width_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Width_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Mobile_Width_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_mobile_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet';
+  create?: Maybe<MediaKetagalanFields_Sizes_Tablet_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Tablet_Delete>;
+  fields?: Maybe<MediaKetagalanFields_Sizes_Tablet_Fields>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Tablet_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Tablet_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Fields = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_Fields';
+  filename?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filename>;
+  filesize?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filesize>;
+  height?: Maybe<MediaKetagalanFields_Sizes_Tablet_Height>;
+  mimeType?: Maybe<MediaKetagalanFields_Sizes_Tablet_MimeType>;
+  url?: Maybe<MediaKetagalanFields_Sizes_Tablet_Url>;
+  width?: Maybe<MediaKetagalanFields_Sizes_Tablet_Width>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filename = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filename';
+  create?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filename_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filename_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filename_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filename_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filename_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filename_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filename_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filename_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filesize = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filesize';
+  create?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filesize_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Tablet_Filesize_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filesize_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filesize_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filesize_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Filesize_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Height = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_height';
+  create?: Maybe<MediaKetagalanFields_Sizes_Tablet_Height_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Tablet_Height_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Tablet_Height_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Tablet_Height_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Height_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Height_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Height_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Height_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_MimeType = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_mimeType';
+  create?: Maybe<MediaKetagalanFields_Sizes_Tablet_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Tablet_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Tablet_MimeType_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Tablet_MimeType_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_MimeType_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_MimeType_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_MimeType_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_MimeType_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Url = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_url';
+  create?: Maybe<MediaKetagalanFields_Sizes_Tablet_Url_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Tablet_Url_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Tablet_Url_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Tablet_Url_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Url_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Url_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Url_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Url_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Width = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_width';
+  create?: Maybe<MediaKetagalanFields_Sizes_Tablet_Width_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Tablet_Width_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Tablet_Width_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Tablet_Width_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Width_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Width_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Width_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Tablet_Width_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_tablet_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail';
+  create?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Delete>;
+  fields?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Fields>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Fields = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_Fields';
+  filename?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filename>;
+  filesize?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filesize>;
+  height?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Height>;
+  mimeType?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_MimeType>;
+  url?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Url>;
+  width?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Width>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filename = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filename';
+  create?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filename_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filename_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filename_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filename_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filename_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filename_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filename_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filename_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filename_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filename_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filename_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filename_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filesize = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filesize';
+  create?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filesize_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filesize_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filesize_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Filesize_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filesize_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filesize_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filesize_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filesize_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filesize_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filesize_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Filesize_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_filesize_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Height = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_height';
+  create?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Height_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Height_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Height_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Height_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Height_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_height_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Height_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_height_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Height_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_height_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Height_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_height_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_MimeType = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_mimeType';
+  create?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_MimeType_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_MimeType_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_MimeType_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_MimeType_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_MimeType_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_mimeType_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_MimeType_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_mimeType_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_MimeType_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_mimeType_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_MimeType_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_mimeType_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Url = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_url';
+  create?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Url_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Url_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Url_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Url_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Url_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Url_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Url_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Url_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Width = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_width';
+  create?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Width_Create>;
+  delete?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Width_Delete>;
+  read?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Width_Read>;
+  update?: Maybe<MediaKetagalanFields_Sizes_Thumbnail_Width_Update>;
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Width_Create = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Width_Delete = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Width_Read = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Sizes_Thumbnail_Width_Update = {
+  __typename?: 'MediaKetagalanFields_sizes_thumbnail_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_UpdatedAt = {
+  __typename?: 'MediaKetagalanFields_updatedAt';
+  create?: Maybe<MediaKetagalanFields_UpdatedAt_Create>;
+  delete?: Maybe<MediaKetagalanFields_UpdatedAt_Delete>;
+  read?: Maybe<MediaKetagalanFields_UpdatedAt_Read>;
+  update?: Maybe<MediaKetagalanFields_UpdatedAt_Update>;
+};
+
+export type MediaKetagalanFields_UpdatedAt_Create = {
+  __typename?: 'MediaKetagalanFields_updatedAt_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_UpdatedAt_Delete = {
+  __typename?: 'MediaKetagalanFields_updatedAt_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_UpdatedAt_Read = {
+  __typename?: 'MediaKetagalanFields_updatedAt_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_UpdatedAt_Update = {
+  __typename?: 'MediaKetagalanFields_updatedAt_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Url = {
+  __typename?: 'MediaKetagalanFields_url';
+  create?: Maybe<MediaKetagalanFields_Url_Create>;
+  delete?: Maybe<MediaKetagalanFields_Url_Delete>;
+  read?: Maybe<MediaKetagalanFields_Url_Read>;
+  update?: Maybe<MediaKetagalanFields_Url_Update>;
+};
+
+export type MediaKetagalanFields_Url_Create = {
+  __typename?: 'MediaKetagalanFields_url_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Url_Delete = {
+  __typename?: 'MediaKetagalanFields_url_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Url_Read = {
+  __typename?: 'MediaKetagalanFields_url_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Url_Update = {
+  __typename?: 'MediaKetagalanFields_url_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Width = {
+  __typename?: 'MediaKetagalanFields_width';
+  create?: Maybe<MediaKetagalanFields_Width_Create>;
+  delete?: Maybe<MediaKetagalanFields_Width_Delete>;
+  read?: Maybe<MediaKetagalanFields_Width_Read>;
+  update?: Maybe<MediaKetagalanFields_Width_Update>;
+};
+
+export type MediaKetagalanFields_Width_Create = {
+  __typename?: 'MediaKetagalanFields_width_Create';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Width_Delete = {
+  __typename?: 'MediaKetagalanFields_width_Delete';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Width_Read = {
+  __typename?: 'MediaKetagalanFields_width_Read';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanFields_Width_Update = {
+  __typename?: 'MediaKetagalanFields_width_Update';
+  permission: Scalars['Boolean']['output'];
+};
+
+export type MediaKetagalanReadAccess = {
+  __typename?: 'MediaKetagalanReadAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalanReadDocAccess = {
+  __typename?: 'MediaKetagalanReadDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalanUpdateAccess = {
+  __typename?: 'MediaKetagalanUpdateAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalanUpdateDocAccess = {
+  __typename?: 'MediaKetagalanUpdateDocAccess';
+  permission: Scalars['Boolean']['output'];
+  where?: Maybe<Scalars['JSONObject']['output']>;
+};
+
+export type MediaKetagalan_Sizes = {
+  __typename?: 'MediaKetagalan_Sizes';
+  desktop?: Maybe<MediaKetagalan_Sizes_Desktop>;
+  mobile?: Maybe<MediaKetagalan_Sizes_Mobile>;
+  tablet?: Maybe<MediaKetagalan_Sizes_Tablet>;
+  thumbnail?: Maybe<MediaKetagalan_Sizes_Thumbnail>;
+};
+
+export type MediaKetagalan_Sizes_Desktop = {
+  __typename?: 'MediaKetagalan_Sizes_Desktop';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaKetagalan_Sizes_Mobile = {
+  __typename?: 'MediaKetagalan_Sizes_Mobile';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaKetagalan_Sizes_Tablet = {
+  __typename?: 'MediaKetagalan_Sizes_Tablet';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaKetagalan_Sizes_Thumbnail = {
+  __typename?: 'MediaKetagalan_Sizes_Thumbnail';
+  filename?: Maybe<Scalars['String']['output']>;
+  filesize?: Maybe<Scalars['Float']['output']>;
+  height?: Maybe<Scalars['Float']['output']>;
+  mimeType?: Maybe<Scalars['String']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
+  width?: Maybe<Scalars['Float']['output']>;
+};
+
+export type MediaKetagalan_Alt_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_CreatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type MediaKetagalan_Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_FocalX_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_FocalY_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Id_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Desktop__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Desktop__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Desktop__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Desktop__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Desktop__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Desktop__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Mobile__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Mobile__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Mobile__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Mobile__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Mobile__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Mobile__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Tablet__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Tablet__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Tablet__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Tablet__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Tablet__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Tablet__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Thumbnail__Filename_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Thumbnail__Filesize_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Thumbnail__Height_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_Sizes__Thumbnail__MimeType_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Thumbnail__Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Sizes__Thumbnail__Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalan_UpdatedAt_Operator = {
+  equals?: InputMaybe<Scalars['DateTime']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than?: InputMaybe<Scalars['DateTime']['input']>;
+  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
+  like?: InputMaybe<Scalars['DateTime']['input']>;
+  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+export type MediaKetagalan_Url_Operator = {
+  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  contains?: InputMaybe<Scalars['String']['input']>;
+  equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  like?: InputMaybe<Scalars['String']['input']>;
+  not_equals?: InputMaybe<Scalars['String']['input']>;
+  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+};
+
+export type MediaKetagalan_Where = {
+  AND?: InputMaybe<Array<InputMaybe<MediaKetagalan_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<MediaKetagalan_Where_Or>>>;
+  alt?: InputMaybe<MediaKetagalan_Alt_Operator>;
+  createdAt?: InputMaybe<MediaKetagalan_CreatedAt_Operator>;
+  filename?: InputMaybe<MediaKetagalan_Filename_Operator>;
+  filesize?: InputMaybe<MediaKetagalan_Filesize_Operator>;
+  focalX?: InputMaybe<MediaKetagalan_FocalX_Operator>;
+  focalY?: InputMaybe<MediaKetagalan_FocalY_Operator>;
+  height?: InputMaybe<MediaKetagalan_Height_Operator>;
+  id?: InputMaybe<MediaKetagalan_Id_Operator>;
+  mimeType?: InputMaybe<MediaKetagalan_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<MediaKetagalan_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<MediaKetagalan_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<MediaKetagalan_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<MediaKetagalan_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<MediaKetagalan_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<MediaKetagalan_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<MediaKetagalan_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<MediaKetagalan_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<MediaKetagalan_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<MediaKetagalan_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<MediaKetagalan_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<MediaKetagalan_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<MediaKetagalan_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<MediaKetagalan_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<MediaKetagalan_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<MediaKetagalan_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<MediaKetagalan_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<MediaKetagalan_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<MediaKetagalan_UpdatedAt_Operator>;
+  url?: InputMaybe<MediaKetagalan_Url_Operator>;
+  width?: InputMaybe<MediaKetagalan_Width_Operator>;
+};
+
+export type MediaKetagalan_Where_And = {
+  AND?: InputMaybe<Array<InputMaybe<MediaKetagalan_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<MediaKetagalan_Where_Or>>>;
+  alt?: InputMaybe<MediaKetagalan_Alt_Operator>;
+  createdAt?: InputMaybe<MediaKetagalan_CreatedAt_Operator>;
+  filename?: InputMaybe<MediaKetagalan_Filename_Operator>;
+  filesize?: InputMaybe<MediaKetagalan_Filesize_Operator>;
+  focalX?: InputMaybe<MediaKetagalan_FocalX_Operator>;
+  focalY?: InputMaybe<MediaKetagalan_FocalY_Operator>;
+  height?: InputMaybe<MediaKetagalan_Height_Operator>;
+  id?: InputMaybe<MediaKetagalan_Id_Operator>;
+  mimeType?: InputMaybe<MediaKetagalan_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<MediaKetagalan_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<MediaKetagalan_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<MediaKetagalan_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<MediaKetagalan_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<MediaKetagalan_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<MediaKetagalan_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<MediaKetagalan_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<MediaKetagalan_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<MediaKetagalan_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<MediaKetagalan_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<MediaKetagalan_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<MediaKetagalan_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<MediaKetagalan_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<MediaKetagalan_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<MediaKetagalan_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<MediaKetagalan_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<MediaKetagalan_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<MediaKetagalan_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<MediaKetagalan_UpdatedAt_Operator>;
+  url?: InputMaybe<MediaKetagalan_Url_Operator>;
+  width?: InputMaybe<MediaKetagalan_Width_Operator>;
+};
+
+export type MediaKetagalan_Where_Or = {
+  AND?: InputMaybe<Array<InputMaybe<MediaKetagalan_Where_And>>>;
+  OR?: InputMaybe<Array<InputMaybe<MediaKetagalan_Where_Or>>>;
+  alt?: InputMaybe<MediaKetagalan_Alt_Operator>;
+  createdAt?: InputMaybe<MediaKetagalan_CreatedAt_Operator>;
+  filename?: InputMaybe<MediaKetagalan_Filename_Operator>;
+  filesize?: InputMaybe<MediaKetagalan_Filesize_Operator>;
+  focalX?: InputMaybe<MediaKetagalan_FocalX_Operator>;
+  focalY?: InputMaybe<MediaKetagalan_FocalY_Operator>;
+  height?: InputMaybe<MediaKetagalan_Height_Operator>;
+  id?: InputMaybe<MediaKetagalan_Id_Operator>;
+  mimeType?: InputMaybe<MediaKetagalan_MimeType_Operator>;
+  sizes__desktop__filename?: InputMaybe<MediaKetagalan_Sizes__Desktop__Filename_Operator>;
+  sizes__desktop__filesize?: InputMaybe<MediaKetagalan_Sizes__Desktop__Filesize_Operator>;
+  sizes__desktop__height?: InputMaybe<MediaKetagalan_Sizes__Desktop__Height_Operator>;
+  sizes__desktop__mimeType?: InputMaybe<MediaKetagalan_Sizes__Desktop__MimeType_Operator>;
+  sizes__desktop__url?: InputMaybe<MediaKetagalan_Sizes__Desktop__Url_Operator>;
+  sizes__desktop__width?: InputMaybe<MediaKetagalan_Sizes__Desktop__Width_Operator>;
+  sizes__mobile__filename?: InputMaybe<MediaKetagalan_Sizes__Mobile__Filename_Operator>;
+  sizes__mobile__filesize?: InputMaybe<MediaKetagalan_Sizes__Mobile__Filesize_Operator>;
+  sizes__mobile__height?: InputMaybe<MediaKetagalan_Sizes__Mobile__Height_Operator>;
+  sizes__mobile__mimeType?: InputMaybe<MediaKetagalan_Sizes__Mobile__MimeType_Operator>;
+  sizes__mobile__url?: InputMaybe<MediaKetagalan_Sizes__Mobile__Url_Operator>;
+  sizes__mobile__width?: InputMaybe<MediaKetagalan_Sizes__Mobile__Width_Operator>;
+  sizes__tablet__filename?: InputMaybe<MediaKetagalan_Sizes__Tablet__Filename_Operator>;
+  sizes__tablet__filesize?: InputMaybe<MediaKetagalan_Sizes__Tablet__Filesize_Operator>;
+  sizes__tablet__height?: InputMaybe<MediaKetagalan_Sizes__Tablet__Height_Operator>;
+  sizes__tablet__mimeType?: InputMaybe<MediaKetagalan_Sizes__Tablet__MimeType_Operator>;
+  sizes__tablet__url?: InputMaybe<MediaKetagalan_Sizes__Tablet__Url_Operator>;
+  sizes__tablet__width?: InputMaybe<MediaKetagalan_Sizes__Tablet__Width_Operator>;
+  sizes__thumbnail__filename?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Filename_Operator>;
+  sizes__thumbnail__filesize?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Filesize_Operator>;
+  sizes__thumbnail__height?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Height_Operator>;
+  sizes__thumbnail__mimeType?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__MimeType_Operator>;
+  sizes__thumbnail__url?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Url_Operator>;
+  sizes__thumbnail__width?: InputMaybe<MediaKetagalan_Sizes__Thumbnail__Width_Operator>;
+  updatedAt?: InputMaybe<MediaKetagalan_UpdatedAt_Operator>;
+  url?: InputMaybe<MediaKetagalan_Url_Operator>;
+  width?: InputMaybe<MediaKetagalan_Width_Operator>;
+};
+
+export type MediaKetagalan_Width_Operator = {
+  equals?: InputMaybe<Scalars['Float']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
+  greater_than?: InputMaybe<Scalars['Float']['input']>;
+  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  less_than?: InputMaybe<Scalars['Float']['input']>;
+  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
+  not_equals?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MediaKetagalans = {
+  __typename?: 'MediaKetagalans';
+  docs?: Maybe<Array<Maybe<MediaKetagalan>>>;
+  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
+  hasPrevPage?: Maybe<Scalars['Boolean']['output']>;
+  limit?: Maybe<Scalars['Int']['output']>;
+  nextPage?: Maybe<Scalars['Int']['output']>;
+  offset?: Maybe<Scalars['Int']['output']>;
+  page?: Maybe<Scalars['Int']['output']>;
+  pagingCounter?: Maybe<Scalars['Int']['output']>;
+  prevPage?: Maybe<Scalars['Int']['output']>;
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+  totalPages?: Maybe<Scalars['Int']['output']>;
 };
 
 export type MediaPeople = {
@@ -13954,18 +20682,6 @@ export type MediaPerson_Width_Operator = {
   not_equals?: InputMaybe<Scalars['Float']['input']>;
 };
 
-export type MediaReadAccess = {
-  __typename?: 'MediaReadAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type MediaReadDocAccess = {
-  __typename?: 'MediaReadDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
 export type MediaTaiwanRecord = {
   __typename?: 'MediaTaiwanRecord';
   alt?: Maybe<Scalars['String']['output']>;
@@ -15448,568 +22164,6 @@ export type MediaTaiwanRecords = {
   prevPage?: Maybe<Scalars['Int']['output']>;
   totalDocs?: Maybe<Scalars['Int']['output']>;
   totalPages?: Maybe<Scalars['Int']['output']>;
-};
-
-export type MediaUpdateAccess = {
-  __typename?: 'MediaUpdateAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type MediaUpdateDocAccess = {
-  __typename?: 'MediaUpdateDocAccess';
-  permission: Scalars['Boolean']['output'];
-  where?: Maybe<Scalars['JSONObject']['output']>;
-};
-
-export type Media_Sizes = {
-  __typename?: 'Media_Sizes';
-  desktop?: Maybe<Media_Sizes_Desktop>;
-  mobile?: Maybe<Media_Sizes_Mobile>;
-  tablet?: Maybe<Media_Sizes_Tablet>;
-  thumbnail?: Maybe<Media_Sizes_Thumbnail>;
-};
-
-export type Media_Sizes_Desktop = {
-  __typename?: 'Media_Sizes_Desktop';
-  filename?: Maybe<Scalars['String']['output']>;
-  filesize?: Maybe<Scalars['Float']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
-  mimeType?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type Media_Sizes_Mobile = {
-  __typename?: 'Media_Sizes_Mobile';
-  filename?: Maybe<Scalars['String']['output']>;
-  filesize?: Maybe<Scalars['Float']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
-  mimeType?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type Media_Sizes_Tablet = {
-  __typename?: 'Media_Sizes_Tablet';
-  filename?: Maybe<Scalars['String']['output']>;
-  filesize?: Maybe<Scalars['Float']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
-  mimeType?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type Media_Sizes_Thumbnail = {
-  __typename?: 'Media_Sizes_Thumbnail';
-  filename?: Maybe<Scalars['String']['output']>;
-  filesize?: Maybe<Scalars['Float']['output']>;
-  height?: Maybe<Scalars['Float']['output']>;
-  mimeType?: Maybe<Scalars['String']['output']>;
-  url?: Maybe<Scalars['String']['output']>;
-  width?: Maybe<Scalars['Float']['output']>;
-};
-
-export type Media_Alt_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_CreatedAt_Operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type Media_Filename_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Filesize_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_FocalX_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_FocalY_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Height_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Id_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_MimeType_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Desktop__Filename_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Desktop__Filesize_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Desktop__Height_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Desktop__MimeType_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Desktop__Url_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Desktop__Width_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Mobile__Filename_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Mobile__Filesize_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Mobile__Height_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Mobile__MimeType_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Mobile__Url_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Mobile__Width_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Tablet__Filename_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Tablet__Filesize_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Tablet__Height_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Tablet__MimeType_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Tablet__Url_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Tablet__Width_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Thumbnail__Filename_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Thumbnail__Filesize_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Thumbnail__Height_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_Sizes__Thumbnail__MimeType_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Thumbnail__Url_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Sizes__Thumbnail__Width_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type Media_UpdatedAt_Operator = {
-  equals?: InputMaybe<Scalars['DateTime']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['DateTime']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than?: InputMaybe<Scalars['DateTime']['input']>;
-  less_than_equal?: InputMaybe<Scalars['DateTime']['input']>;
-  like?: InputMaybe<Scalars['DateTime']['input']>;
-  not_equals?: InputMaybe<Scalars['DateTime']['input']>;
-};
-
-export type Media_Url_Operator = {
-  all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  contains?: InputMaybe<Scalars['String']['input']>;
-  equals?: InputMaybe<Scalars['String']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-  like?: InputMaybe<Scalars['String']['input']>;
-  not_equals?: InputMaybe<Scalars['String']['input']>;
-  not_in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
-};
-
-export type Media_Where = {
-  AND?: InputMaybe<Array<InputMaybe<Media_Where_And>>>;
-  OR?: InputMaybe<Array<InputMaybe<Media_Where_Or>>>;
-  alt?: InputMaybe<Media_Alt_Operator>;
-  createdAt?: InputMaybe<Media_CreatedAt_Operator>;
-  filename?: InputMaybe<Media_Filename_Operator>;
-  filesize?: InputMaybe<Media_Filesize_Operator>;
-  focalX?: InputMaybe<Media_FocalX_Operator>;
-  focalY?: InputMaybe<Media_FocalY_Operator>;
-  height?: InputMaybe<Media_Height_Operator>;
-  id?: InputMaybe<Media_Id_Operator>;
-  mimeType?: InputMaybe<Media_MimeType_Operator>;
-  sizes__desktop__filename?: InputMaybe<Media_Sizes__Desktop__Filename_Operator>;
-  sizes__desktop__filesize?: InputMaybe<Media_Sizes__Desktop__Filesize_Operator>;
-  sizes__desktop__height?: InputMaybe<Media_Sizes__Desktop__Height_Operator>;
-  sizes__desktop__mimeType?: InputMaybe<Media_Sizes__Desktop__MimeType_Operator>;
-  sizes__desktop__url?: InputMaybe<Media_Sizes__Desktop__Url_Operator>;
-  sizes__desktop__width?: InputMaybe<Media_Sizes__Desktop__Width_Operator>;
-  sizes__mobile__filename?: InputMaybe<Media_Sizes__Mobile__Filename_Operator>;
-  sizes__mobile__filesize?: InputMaybe<Media_Sizes__Mobile__Filesize_Operator>;
-  sizes__mobile__height?: InputMaybe<Media_Sizes__Mobile__Height_Operator>;
-  sizes__mobile__mimeType?: InputMaybe<Media_Sizes__Mobile__MimeType_Operator>;
-  sizes__mobile__url?: InputMaybe<Media_Sizes__Mobile__Url_Operator>;
-  sizes__mobile__width?: InputMaybe<Media_Sizes__Mobile__Width_Operator>;
-  sizes__tablet__filename?: InputMaybe<Media_Sizes__Tablet__Filename_Operator>;
-  sizes__tablet__filesize?: InputMaybe<Media_Sizes__Tablet__Filesize_Operator>;
-  sizes__tablet__height?: InputMaybe<Media_Sizes__Tablet__Height_Operator>;
-  sizes__tablet__mimeType?: InputMaybe<Media_Sizes__Tablet__MimeType_Operator>;
-  sizes__tablet__url?: InputMaybe<Media_Sizes__Tablet__Url_Operator>;
-  sizes__tablet__width?: InputMaybe<Media_Sizes__Tablet__Width_Operator>;
-  sizes__thumbnail__filename?: InputMaybe<Media_Sizes__Thumbnail__Filename_Operator>;
-  sizes__thumbnail__filesize?: InputMaybe<Media_Sizes__Thumbnail__Filesize_Operator>;
-  sizes__thumbnail__height?: InputMaybe<Media_Sizes__Thumbnail__Height_Operator>;
-  sizes__thumbnail__mimeType?: InputMaybe<Media_Sizes__Thumbnail__MimeType_Operator>;
-  sizes__thumbnail__url?: InputMaybe<Media_Sizes__Thumbnail__Url_Operator>;
-  sizes__thumbnail__width?: InputMaybe<Media_Sizes__Thumbnail__Width_Operator>;
-  updatedAt?: InputMaybe<Media_UpdatedAt_Operator>;
-  url?: InputMaybe<Media_Url_Operator>;
-  width?: InputMaybe<Media_Width_Operator>;
-};
-
-export type Media_Where_And = {
-  AND?: InputMaybe<Array<InputMaybe<Media_Where_And>>>;
-  OR?: InputMaybe<Array<InputMaybe<Media_Where_Or>>>;
-  alt?: InputMaybe<Media_Alt_Operator>;
-  createdAt?: InputMaybe<Media_CreatedAt_Operator>;
-  filename?: InputMaybe<Media_Filename_Operator>;
-  filesize?: InputMaybe<Media_Filesize_Operator>;
-  focalX?: InputMaybe<Media_FocalX_Operator>;
-  focalY?: InputMaybe<Media_FocalY_Operator>;
-  height?: InputMaybe<Media_Height_Operator>;
-  id?: InputMaybe<Media_Id_Operator>;
-  mimeType?: InputMaybe<Media_MimeType_Operator>;
-  sizes__desktop__filename?: InputMaybe<Media_Sizes__Desktop__Filename_Operator>;
-  sizes__desktop__filesize?: InputMaybe<Media_Sizes__Desktop__Filesize_Operator>;
-  sizes__desktop__height?: InputMaybe<Media_Sizes__Desktop__Height_Operator>;
-  sizes__desktop__mimeType?: InputMaybe<Media_Sizes__Desktop__MimeType_Operator>;
-  sizes__desktop__url?: InputMaybe<Media_Sizes__Desktop__Url_Operator>;
-  sizes__desktop__width?: InputMaybe<Media_Sizes__Desktop__Width_Operator>;
-  sizes__mobile__filename?: InputMaybe<Media_Sizes__Mobile__Filename_Operator>;
-  sizes__mobile__filesize?: InputMaybe<Media_Sizes__Mobile__Filesize_Operator>;
-  sizes__mobile__height?: InputMaybe<Media_Sizes__Mobile__Height_Operator>;
-  sizes__mobile__mimeType?: InputMaybe<Media_Sizes__Mobile__MimeType_Operator>;
-  sizes__mobile__url?: InputMaybe<Media_Sizes__Mobile__Url_Operator>;
-  sizes__mobile__width?: InputMaybe<Media_Sizes__Mobile__Width_Operator>;
-  sizes__tablet__filename?: InputMaybe<Media_Sizes__Tablet__Filename_Operator>;
-  sizes__tablet__filesize?: InputMaybe<Media_Sizes__Tablet__Filesize_Operator>;
-  sizes__tablet__height?: InputMaybe<Media_Sizes__Tablet__Height_Operator>;
-  sizes__tablet__mimeType?: InputMaybe<Media_Sizes__Tablet__MimeType_Operator>;
-  sizes__tablet__url?: InputMaybe<Media_Sizes__Tablet__Url_Operator>;
-  sizes__tablet__width?: InputMaybe<Media_Sizes__Tablet__Width_Operator>;
-  sizes__thumbnail__filename?: InputMaybe<Media_Sizes__Thumbnail__Filename_Operator>;
-  sizes__thumbnail__filesize?: InputMaybe<Media_Sizes__Thumbnail__Filesize_Operator>;
-  sizes__thumbnail__height?: InputMaybe<Media_Sizes__Thumbnail__Height_Operator>;
-  sizes__thumbnail__mimeType?: InputMaybe<Media_Sizes__Thumbnail__MimeType_Operator>;
-  sizes__thumbnail__url?: InputMaybe<Media_Sizes__Thumbnail__Url_Operator>;
-  sizes__thumbnail__width?: InputMaybe<Media_Sizes__Thumbnail__Width_Operator>;
-  updatedAt?: InputMaybe<Media_UpdatedAt_Operator>;
-  url?: InputMaybe<Media_Url_Operator>;
-  width?: InputMaybe<Media_Width_Operator>;
-};
-
-export type Media_Where_Or = {
-  AND?: InputMaybe<Array<InputMaybe<Media_Where_And>>>;
-  OR?: InputMaybe<Array<InputMaybe<Media_Where_Or>>>;
-  alt?: InputMaybe<Media_Alt_Operator>;
-  createdAt?: InputMaybe<Media_CreatedAt_Operator>;
-  filename?: InputMaybe<Media_Filename_Operator>;
-  filesize?: InputMaybe<Media_Filesize_Operator>;
-  focalX?: InputMaybe<Media_FocalX_Operator>;
-  focalY?: InputMaybe<Media_FocalY_Operator>;
-  height?: InputMaybe<Media_Height_Operator>;
-  id?: InputMaybe<Media_Id_Operator>;
-  mimeType?: InputMaybe<Media_MimeType_Operator>;
-  sizes__desktop__filename?: InputMaybe<Media_Sizes__Desktop__Filename_Operator>;
-  sizes__desktop__filesize?: InputMaybe<Media_Sizes__Desktop__Filesize_Operator>;
-  sizes__desktop__height?: InputMaybe<Media_Sizes__Desktop__Height_Operator>;
-  sizes__desktop__mimeType?: InputMaybe<Media_Sizes__Desktop__MimeType_Operator>;
-  sizes__desktop__url?: InputMaybe<Media_Sizes__Desktop__Url_Operator>;
-  sizes__desktop__width?: InputMaybe<Media_Sizes__Desktop__Width_Operator>;
-  sizes__mobile__filename?: InputMaybe<Media_Sizes__Mobile__Filename_Operator>;
-  sizes__mobile__filesize?: InputMaybe<Media_Sizes__Mobile__Filesize_Operator>;
-  sizes__mobile__height?: InputMaybe<Media_Sizes__Mobile__Height_Operator>;
-  sizes__mobile__mimeType?: InputMaybe<Media_Sizes__Mobile__MimeType_Operator>;
-  sizes__mobile__url?: InputMaybe<Media_Sizes__Mobile__Url_Operator>;
-  sizes__mobile__width?: InputMaybe<Media_Sizes__Mobile__Width_Operator>;
-  sizes__tablet__filename?: InputMaybe<Media_Sizes__Tablet__Filename_Operator>;
-  sizes__tablet__filesize?: InputMaybe<Media_Sizes__Tablet__Filesize_Operator>;
-  sizes__tablet__height?: InputMaybe<Media_Sizes__Tablet__Height_Operator>;
-  sizes__tablet__mimeType?: InputMaybe<Media_Sizes__Tablet__MimeType_Operator>;
-  sizes__tablet__url?: InputMaybe<Media_Sizes__Tablet__Url_Operator>;
-  sizes__tablet__width?: InputMaybe<Media_Sizes__Tablet__Width_Operator>;
-  sizes__thumbnail__filename?: InputMaybe<Media_Sizes__Thumbnail__Filename_Operator>;
-  sizes__thumbnail__filesize?: InputMaybe<Media_Sizes__Thumbnail__Filesize_Operator>;
-  sizes__thumbnail__height?: InputMaybe<Media_Sizes__Thumbnail__Height_Operator>;
-  sizes__thumbnail__mimeType?: InputMaybe<Media_Sizes__Thumbnail__MimeType_Operator>;
-  sizes__thumbnail__url?: InputMaybe<Media_Sizes__Thumbnail__Url_Operator>;
-  sizes__thumbnail__width?: InputMaybe<Media_Sizes__Thumbnail__Width_Operator>;
-  updatedAt?: InputMaybe<Media_UpdatedAt_Operator>;
-  url?: InputMaybe<Media_Url_Operator>;
-  width?: InputMaybe<Media_Width_Operator>;
-};
-
-export type Media_Width_Operator = {
-  equals?: InputMaybe<Scalars['Float']['input']>;
-  exists?: InputMaybe<Scalars['Boolean']['input']>;
-  greater_than?: InputMaybe<Scalars['Float']['input']>;
-  greater_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  less_than?: InputMaybe<Scalars['Float']['input']>;
-  less_than_equal?: InputMaybe<Scalars['Float']['input']>;
-  not_equals?: InputMaybe<Scalars['Float']['input']>;
 };
 
 export type Member = {
@@ -17909,8 +24063,12 @@ export type Mutation = {
   createBill?: Maybe<Bill>;
   createCategoriesArticle?: Maybe<CategoriesArticle>;
   createCategoriesBill?: Maybe<CategoriesBill>;
+  createCategoriesKetagalan?: Maybe<CategoriesKetagalan>;
   createCategoriesPerson?: Maybe<CategoriesPerson>;
-  createMedia?: Maybe<Media>;
+  createKetagalanArticle?: Maybe<KetagalanArticle>;
+  createKetagalanAuthor?: Maybe<KetagalanAuthor>;
+  createMediaArticle?: Maybe<MediaArticle>;
+  createMediaKetagalan?: Maybe<MediaKetagalan>;
   createMediaPerson?: Maybe<MediaPerson>;
   createMediaTaiwanRecord?: Maybe<MediaTaiwanRecord>;
   createMember?: Maybe<Member>;
@@ -17926,8 +24084,12 @@ export type Mutation = {
   deleteBill?: Maybe<Bill>;
   deleteCategoriesArticle?: Maybe<CategoriesArticle>;
   deleteCategoriesBill?: Maybe<CategoriesBill>;
+  deleteCategoriesKetagalan?: Maybe<CategoriesKetagalan>;
   deleteCategoriesPerson?: Maybe<CategoriesPerson>;
-  deleteMedia?: Maybe<Media>;
+  deleteKetagalanArticle?: Maybe<KetagalanArticle>;
+  deleteKetagalanAuthor?: Maybe<KetagalanAuthor>;
+  deleteMediaArticle?: Maybe<MediaArticle>;
+  deleteMediaKetagalan?: Maybe<MediaKetagalan>;
   deleteMediaPerson?: Maybe<MediaPerson>;
   deleteMediaTaiwanRecord?: Maybe<MediaTaiwanRecord>;
   deleteMember?: Maybe<Member>;
@@ -17951,8 +24113,12 @@ export type Mutation = {
   updateBill?: Maybe<Bill>;
   updateCategoriesArticle?: Maybe<CategoriesArticle>;
   updateCategoriesBill?: Maybe<CategoriesBill>;
+  updateCategoriesKetagalan?: Maybe<CategoriesKetagalan>;
   updateCategoriesPerson?: Maybe<CategoriesPerson>;
-  updateMedia?: Maybe<Media>;
+  updateKetagalanArticle?: Maybe<KetagalanArticle>;
+  updateKetagalanAuthor?: Maybe<KetagalanAuthor>;
+  updateMediaArticle?: Maybe<MediaArticle>;
+  updateMediaKetagalan?: Maybe<MediaKetagalan>;
   updateMediaPerson?: Maybe<MediaPerson>;
   updateMediaTaiwanRecord?: Maybe<MediaTaiwanRecord>;
   updateMember?: Maybe<Member>;
@@ -18002,13 +24168,33 @@ export type MutationCreateCategoriesBillArgs = {
 };
 
 
+export type MutationCreateCategoriesKetagalanArgs = {
+  data: MutationCategoriesKetagalanInput;
+};
+
+
 export type MutationCreateCategoriesPersonArgs = {
   data: MutationCategoriesPersonInput;
 };
 
 
-export type MutationCreateMediaArgs = {
-  data: MutationMediaInput;
+export type MutationCreateKetagalanArticleArgs = {
+  data: MutationKetagalanArticleInput;
+};
+
+
+export type MutationCreateKetagalanAuthorArgs = {
+  data: MutationKetagalanAuthorInput;
+};
+
+
+export type MutationCreateMediaArticleArgs = {
+  data: MutationMediaArticleInput;
+};
+
+
+export type MutationCreateMediaKetagalanArgs = {
+  data: MutationMediaKetagalanInput;
 };
 
 
@@ -18087,12 +24273,32 @@ export type MutationDeleteCategoriesBillArgs = {
 };
 
 
+export type MutationDeleteCategoriesKetagalanArgs = {
+  id: Scalars['String']['input'];
+};
+
+
 export type MutationDeleteCategoriesPersonArgs = {
   id: Scalars['String']['input'];
 };
 
 
-export type MutationDeleteMediaArgs = {
+export type MutationDeleteKetagalanArticleArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteKetagalanAuthorArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteMediaArticleArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationDeleteMediaKetagalanArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -18216,6 +24422,13 @@ export type MutationUpdateCategoriesBillArgs = {
 };
 
 
+export type MutationUpdateCategoriesKetagalanArgs = {
+  autosave?: InputMaybe<Scalars['Boolean']['input']>;
+  data: MutationCategoriesKetagalanUpdateInput;
+  id: Scalars['String']['input'];
+};
+
+
 export type MutationUpdateCategoriesPersonArgs = {
   autosave?: InputMaybe<Scalars['Boolean']['input']>;
   data: MutationCategoriesPersonUpdateInput;
@@ -18223,9 +24436,30 @@ export type MutationUpdateCategoriesPersonArgs = {
 };
 
 
-export type MutationUpdateMediaArgs = {
+export type MutationUpdateKetagalanArticleArgs = {
   autosave?: InputMaybe<Scalars['Boolean']['input']>;
-  data: MutationMediaUpdateInput;
+  data: MutationKetagalanArticleUpdateInput;
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateKetagalanAuthorArgs = {
+  autosave?: InputMaybe<Scalars['Boolean']['input']>;
+  data: MutationKetagalanAuthorUpdateInput;
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateMediaArticleArgs = {
+  autosave?: InputMaybe<Scalars['Boolean']['input']>;
+  data: MutationMediaArticleUpdateInput;
+  id: Scalars['String']['input'];
+};
+
+
+export type MutationUpdateMediaKetagalanArgs = {
+  autosave?: InputMaybe<Scalars['Boolean']['input']>;
+  data: MutationMediaKetagalanUpdateInput;
   id: Scalars['String']['input'];
 };
 
@@ -26718,10 +32952,19 @@ export type Query = {
   CategoriesArticles?: Maybe<CategoriesArticles>;
   CategoriesBill?: Maybe<CategoriesBill>;
   CategoriesBills?: Maybe<CategoriesBills>;
+  CategoriesKetagalan?: Maybe<CategoriesKetagalan>;
+  CategoriesKetagalans?: Maybe<CategoriesKetagalans>;
   CategoriesPeople?: Maybe<CategoriesPeople>;
   CategoriesPerson?: Maybe<CategoriesPerson>;
+  KetagalanArticle?: Maybe<KetagalanArticle>;
+  KetagalanArticles?: Maybe<KetagalanArticles>;
+  KetagalanAuthor?: Maybe<KetagalanAuthor>;
+  KetagalanAuthors?: Maybe<KetagalanAuthors>;
   Me?: Maybe<Me>;
-  Media?: Maybe<Media>;
+  MediaArticle?: Maybe<MediaArticle>;
+  MediaArticles?: Maybe<MediaArticles>;
+  MediaKetagalan?: Maybe<MediaKetagalan>;
+  MediaKetagalans?: Maybe<MediaKetagalans>;
   MediaPeople?: Maybe<MediaPeople>;
   MediaPerson?: Maybe<MediaPerson>;
   MediaTaiwanRecord?: Maybe<MediaTaiwanRecord>;
@@ -26743,13 +32986,17 @@ export type Query = {
   Users?: Maybe<Users>;
   Vote?: Maybe<Vote>;
   Votes?: Maybe<Votes>;
-  allMedia?: Maybe<AllMedia>;
   countArticles?: Maybe<CountArticles>;
   countAuthors?: Maybe<CountAuthors>;
   countBills?: Maybe<CountBills>;
   countCategoriesArticles?: Maybe<CountCategoriesArticles>;
   countCategoriesBills?: Maybe<CountCategoriesBills>;
+  countCategoriesKetagalans?: Maybe<CountCategoriesKetagalans>;
   countCategoriesPeople?: Maybe<CountCategoriesPeople>;
+  countKetagalanArticles?: Maybe<CountKetagalanArticles>;
+  countKetagalanAuthors?: Maybe<CountKetagalanAuthors>;
+  countMediaArticles?: Maybe<CountMediaArticles>;
+  countMediaKetagalans?: Maybe<CountMediaKetagalans>;
   countMediaPeople?: Maybe<CountMediaPeople>;
   countMediaTaiwanRecords?: Maybe<CountMediaTaiwanRecords>;
   countMembers?: Maybe<CountMembers>;
@@ -26760,14 +33007,17 @@ export type Query = {
   countTaiwanRecords?: Maybe<CountTaiwanRecords>;
   countUsers?: Maybe<CountUsers>;
   countVotes?: Maybe<CountVotes>;
-  countallMedia?: Maybe<CountallMedia>;
   docAccessArticle?: Maybe<ArticlesDocAccess>;
   docAccessAuthor?: Maybe<AuthorsDocAccess>;
   docAccessBill?: Maybe<BillsDocAccess>;
   docAccessCategoriesArticle?: Maybe<Categories_ArticleDocAccess>;
   docAccessCategoriesBill?: Maybe<Categories_BillDocAccess>;
+  docAccessCategoriesKetagalan?: Maybe<Categories_KetagalanDocAccess>;
   docAccessCategoriesPerson?: Maybe<Categories_PeopleDocAccess>;
-  docAccessMedia?: Maybe<MediaDocAccess>;
+  docAccessKetagalanArticle?: Maybe<Ketagalan_ArticlesDocAccess>;
+  docAccessKetagalanAuthor?: Maybe<Ketagalan_AuthorsDocAccess>;
+  docAccessMediaArticle?: Maybe<Media_ArticleDocAccess>;
+  docAccessMediaKetagalan?: Maybe<Media_KetagalanDocAccess>;
   docAccessMediaPerson?: Maybe<Media_PeopleDocAccess>;
   docAccessMediaTaiwanRecord?: Maybe<Media_Taiwan_RecordDocAccess>;
   docAccessMember?: Maybe<MembersDocAccess>;
@@ -26881,6 +33131,19 @@ export type QueryCategoriesBillsArgs = {
 };
 
 
+export type QueryCategoriesKetagalanArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryCategoriesKetagalansArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<CategoriesKetagalan_Where>;
+};
+
+
 export type QueryCategoriesPeopleArgs = {
   limit?: InputMaybe<Scalars['Int']['input']>;
   page?: InputMaybe<Scalars['Int']['input']>;
@@ -26894,8 +33157,55 @@ export type QueryCategoriesPersonArgs = {
 };
 
 
-export type QueryMediaArgs = {
+export type QueryKetagalanArticleArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryKetagalanArticlesArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<KetagalanArticle_Where>;
+};
+
+
+export type QueryKetagalanAuthorArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryKetagalanAuthorsArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<KetagalanAuthor_Where>;
+};
+
+
+export type QueryMediaArticleArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryMediaArticlesArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<MediaArticle_Where>;
+};
+
+
+export type QueryMediaKetagalanArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryMediaKetagalansArgs = {
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+  where?: InputMaybe<MediaKetagalan_Where>;
 };
 
 
@@ -27037,14 +33347,6 @@ export type QueryVotesArgs = {
 };
 
 
-export type QueryAllMediaArgs = {
-  limit?: InputMaybe<Scalars['Int']['input']>;
-  page?: InputMaybe<Scalars['Int']['input']>;
-  sort?: InputMaybe<Scalars['String']['input']>;
-  where?: InputMaybe<Media_Where>;
-};
-
-
 export type QueryCountArticlesArgs = {
   where?: InputMaybe<Article_Where>;
 };
@@ -27070,8 +33372,33 @@ export type QueryCountCategoriesBillsArgs = {
 };
 
 
+export type QueryCountCategoriesKetagalansArgs = {
+  where?: InputMaybe<CategoriesKetagalan_Where>;
+};
+
+
 export type QueryCountCategoriesPeopleArgs = {
   where?: InputMaybe<CategoriesPerson_Where>;
+};
+
+
+export type QueryCountKetagalanArticlesArgs = {
+  where?: InputMaybe<KetagalanArticle_Where>;
+};
+
+
+export type QueryCountKetagalanAuthorsArgs = {
+  where?: InputMaybe<KetagalanAuthor_Where>;
+};
+
+
+export type QueryCountMediaArticlesArgs = {
+  where?: InputMaybe<MediaArticle_Where>;
+};
+
+
+export type QueryCountMediaKetagalansArgs = {
+  where?: InputMaybe<MediaKetagalan_Where>;
 };
 
 
@@ -27125,11 +33452,6 @@ export type QueryCountVotesArgs = {
 };
 
 
-export type QueryCountallMediaArgs = {
-  where?: InputMaybe<Media_Where>;
-};
-
-
 export type QueryDocAccessArticleArgs = {
   id: Scalars['String']['input'];
 };
@@ -27155,12 +33477,32 @@ export type QueryDocAccessCategoriesBillArgs = {
 };
 
 
+export type QueryDocAccessCategoriesKetagalanArgs = {
+  id: Scalars['String']['input'];
+};
+
+
 export type QueryDocAccessCategoriesPersonArgs = {
   id: Scalars['String']['input'];
 };
 
 
-export type QueryDocAccessMediaArgs = {
+export type QueryDocAccessKetagalanArticleArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryDocAccessKetagalanAuthorArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryDocAccessMediaArticleArgs = {
+  id: Scalars['String']['input'];
+};
+
+
+export type QueryDocAccessMediaKetagalanArgs = {
   id: Scalars['String']['input'];
 };
 
@@ -31467,21 +37809,6 @@ export type VotesUpdateDocAccess = {
   where?: Maybe<Scalars['JSONObject']['output']>;
 };
 
-export type AllMedia = {
-  __typename?: 'allMedia';
-  docs?: Maybe<Array<Maybe<Media>>>;
-  hasNextPage?: Maybe<Scalars['Boolean']['output']>;
-  hasPrevPage?: Maybe<Scalars['Boolean']['output']>;
-  limit?: Maybe<Scalars['Int']['output']>;
-  nextPage?: Maybe<Scalars['Int']['output']>;
-  offset?: Maybe<Scalars['Int']['output']>;
-  page?: Maybe<Scalars['Int']['output']>;
-  pagingCounter?: Maybe<Scalars['Int']['output']>;
-  prevPage?: Maybe<Scalars['Int']['output']>;
-  totalDocs?: Maybe<Scalars['Int']['output']>;
-  totalPages?: Maybe<Scalars['Int']['output']>;
-};
-
 export type ArticlesAccess = {
   __typename?: 'articlesAccess';
   create?: Maybe<ArticlesCreateAccess>;
@@ -31572,6 +37899,24 @@ export type Categories_BillDocAccess = {
   update?: Maybe<CategoriesBillUpdateDocAccess>;
 };
 
+export type Categories_KetagalanAccess = {
+  __typename?: 'categories_ketagalanAccess';
+  create?: Maybe<CategoriesKetagalanCreateAccess>;
+  delete?: Maybe<CategoriesKetagalanDeleteAccess>;
+  fields?: Maybe<CategoriesKetagalanFields>;
+  read?: Maybe<CategoriesKetagalanReadAccess>;
+  update?: Maybe<CategoriesKetagalanUpdateAccess>;
+};
+
+export type Categories_KetagalanDocAccess = {
+  __typename?: 'categories_ketagalanDocAccess';
+  create?: Maybe<CategoriesKetagalanCreateDocAccess>;
+  delete?: Maybe<CategoriesKetagalanDeleteDocAccess>;
+  fields?: Maybe<CategoriesKetagalanDocAccessFields>;
+  read?: Maybe<CategoriesKetagalanReadDocAccess>;
+  update?: Maybe<CategoriesKetagalanUpdateDocAccess>;
+};
+
 export type Categories_PeopleAccess = {
   __typename?: 'categories_peopleAccess';
   create?: Maybe<CategoriesPeopleCreateAccess>;
@@ -31615,8 +37960,33 @@ export type CountCategoriesBills = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
 
+export type CountCategoriesKetagalans = {
+  __typename?: 'countCategoriesKetagalans';
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
 export type CountCategoriesPeople = {
   __typename?: 'countCategoriesPeople';
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CountKetagalanArticles = {
+  __typename?: 'countKetagalanArticles';
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CountKetagalanAuthors = {
+  __typename?: 'countKetagalanAuthors';
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CountMediaArticles = {
+  __typename?: 'countMediaArticles';
+  totalDocs?: Maybe<Scalars['Int']['output']>;
+};
+
+export type CountMediaKetagalans = {
+  __typename?: 'countMediaKetagalans';
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
 
@@ -31670,27 +38040,76 @@ export type CountVotes = {
   totalDocs?: Maybe<Scalars['Int']['output']>;
 };
 
-export type CountallMedia = {
-  __typename?: 'countallMedia';
-  totalDocs?: Maybe<Scalars['Int']['output']>;
+export type Ketagalan_ArticlesAccess = {
+  __typename?: 'ketagalan_articlesAccess';
+  create?: Maybe<KetagalanArticlesCreateAccess>;
+  delete?: Maybe<KetagalanArticlesDeleteAccess>;
+  fields?: Maybe<KetagalanArticlesFields>;
+  read?: Maybe<KetagalanArticlesReadAccess>;
+  update?: Maybe<KetagalanArticlesUpdateAccess>;
 };
 
-export type MediaAccess = {
-  __typename?: 'mediaAccess';
-  create?: Maybe<MediaCreateAccess>;
-  delete?: Maybe<MediaDeleteAccess>;
-  fields?: Maybe<MediaFields>;
-  read?: Maybe<MediaReadAccess>;
-  update?: Maybe<MediaUpdateAccess>;
+export type Ketagalan_ArticlesDocAccess = {
+  __typename?: 'ketagalan_articlesDocAccess';
+  create?: Maybe<KetagalanArticlesCreateDocAccess>;
+  delete?: Maybe<KetagalanArticlesDeleteDocAccess>;
+  fields?: Maybe<KetagalanArticlesDocAccessFields>;
+  read?: Maybe<KetagalanArticlesReadDocAccess>;
+  update?: Maybe<KetagalanArticlesUpdateDocAccess>;
 };
 
-export type MediaDocAccess = {
-  __typename?: 'mediaDocAccess';
-  create?: Maybe<MediaCreateDocAccess>;
-  delete?: Maybe<MediaDeleteDocAccess>;
-  fields?: Maybe<MediaDocAccessFields>;
-  read?: Maybe<MediaReadDocAccess>;
-  update?: Maybe<MediaUpdateDocAccess>;
+export type Ketagalan_AuthorsAccess = {
+  __typename?: 'ketagalan_authorsAccess';
+  create?: Maybe<KetagalanAuthorsCreateAccess>;
+  delete?: Maybe<KetagalanAuthorsDeleteAccess>;
+  fields?: Maybe<KetagalanAuthorsFields>;
+  read?: Maybe<KetagalanAuthorsReadAccess>;
+  update?: Maybe<KetagalanAuthorsUpdateAccess>;
+};
+
+export type Ketagalan_AuthorsDocAccess = {
+  __typename?: 'ketagalan_authorsDocAccess';
+  create?: Maybe<KetagalanAuthorsCreateDocAccess>;
+  delete?: Maybe<KetagalanAuthorsDeleteDocAccess>;
+  fields?: Maybe<KetagalanAuthorsDocAccessFields>;
+  read?: Maybe<KetagalanAuthorsReadDocAccess>;
+  update?: Maybe<KetagalanAuthorsUpdateDocAccess>;
+};
+
+export type Media_ArticleAccess = {
+  __typename?: 'media_articleAccess';
+  create?: Maybe<MediaArticleCreateAccess>;
+  delete?: Maybe<MediaArticleDeleteAccess>;
+  fields?: Maybe<MediaArticleFields>;
+  read?: Maybe<MediaArticleReadAccess>;
+  update?: Maybe<MediaArticleUpdateAccess>;
+};
+
+export type Media_ArticleDocAccess = {
+  __typename?: 'media_articleDocAccess';
+  create?: Maybe<MediaArticleCreateDocAccess>;
+  delete?: Maybe<MediaArticleDeleteDocAccess>;
+  fields?: Maybe<MediaArticleDocAccessFields>;
+  read?: Maybe<MediaArticleReadDocAccess>;
+  update?: Maybe<MediaArticleUpdateDocAccess>;
+};
+
+export type Media_KetagalanAccess = {
+  __typename?: 'media_ketagalanAccess';
+  create?: Maybe<MediaKetagalanCreateAccess>;
+  delete?: Maybe<MediaKetagalanDeleteAccess>;
+  fields?: Maybe<MediaKetagalanFields>;
+  read?: Maybe<MediaKetagalanReadAccess>;
+  update?: Maybe<MediaKetagalanUpdateAccess>;
+};
+
+export type Media_KetagalanDocAccess = {
+  __typename?: 'media_ketagalanDocAccess';
+  create?: Maybe<MediaKetagalanCreateDocAccess>;
+  delete?: Maybe<MediaKetagalanDeleteDocAccess>;
+  fields?: Maybe<MediaKetagalanDocAccessFields>;
+  read?: Maybe<MediaKetagalanReadDocAccess>;
+  update?: Maybe<MediaKetagalanUpdateDocAccess>;
 };
 
 export type Media_PeopleAccess = {
@@ -32059,6 +38478,48 @@ export type MutationCategoriesBill_I18n_ZhInput = {
   name: Scalars['String']['input'];
 };
 
+export type MutationCategoriesKetagalanInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  i18n?: InputMaybe<MutationCategoriesKetagalan_I18nInput>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationCategoriesKetagalanUpdateInput = {
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  i18n?: InputMaybe<MutationCategoriesKetagalanUpdate_I18nInput>;
+  nameEn?: InputMaybe<Scalars['String']['input']>;
+  nameZh?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationCategoriesKetagalanUpdate_I18nInput = {
+  en: MutationCategoriesKetagalanUpdate_I18n_EnInput;
+  zh: MutationCategoriesKetagalanUpdate_I18n_ZhInput;
+};
+
+export type MutationCategoriesKetagalanUpdate_I18n_EnInput = {
+  name: Scalars['String']['input'];
+};
+
+export type MutationCategoriesKetagalanUpdate_I18n_ZhInput = {
+  name: Scalars['String']['input'];
+};
+
+export type MutationCategoriesKetagalan_I18nInput = {
+  en: MutationCategoriesKetagalan_I18n_EnInput;
+  zh: MutationCategoriesKetagalan_I18n_ZhInput;
+};
+
+export type MutationCategoriesKetagalan_I18n_EnInput = {
+  name: Scalars['String']['input'];
+};
+
+export type MutationCategoriesKetagalan_I18n_ZhInput = {
+  name: Scalars['String']['input'];
+};
+
 export type MutationCategoriesPersonInput = {
   createdAt?: InputMaybe<Scalars['String']['input']>;
   i18n?: InputMaybe<MutationCategoriesPerson_I18nInput>;
@@ -32101,7 +38562,77 @@ export type MutationCategoriesPerson_I18n_ZhInput = {
   name: Scalars['String']['input'];
 };
 
-export type MutationMediaInput = {
+export type MutationKetagalanArticleInput = {
+  authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  content?: InputMaybe<Scalars['JSON']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  excerpt: Scalars['String']['input'];
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  media: MutationKetagalanArticle_MediaInput;
+  podcast?: InputMaybe<Scalars['String']['input']>;
+  releaseTime: Scalars['String']['input'];
+  sources?: InputMaybe<Array<InputMaybe<MutationKetagalanArticle_SourcesInput>>>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  title: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationKetagalanArticleUpdateInput = {
+  authors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  categories?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  content?: InputMaybe<Scalars['JSON']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  excerpt?: InputMaybe<Scalars['String']['input']>;
+  isFeatured?: InputMaybe<Scalars['Boolean']['input']>;
+  media: MutationKetagalanArticleUpdate_MediaInput;
+  podcast?: InputMaybe<Scalars['String']['input']>;
+  releaseTime?: InputMaybe<Scalars['String']['input']>;
+  sources?: InputMaybe<Array<InputMaybe<MutationKetagalanArticleUpdate_SourcesInput>>>;
+  subtitle?: InputMaybe<Scalars['String']['input']>;
+  tags?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationKetagalanArticleUpdate_MediaInput = {
+  caption?: InputMaybe<Scalars['String']['input']>;
+  photo: Scalars['String']['input'];
+};
+
+export type MutationKetagalanArticleUpdate_SourcesInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  text: Scalars['String']['input'];
+};
+
+export type MutationKetagalanArticle_MediaInput = {
+  caption?: InputMaybe<Scalars['String']['input']>;
+  photo: Scalars['String']['input'];
+};
+
+export type MutationKetagalanArticle_SourcesInput = {
+  id?: InputMaybe<Scalars['String']['input']>;
+  link: Scalars['String']['input'];
+  text: Scalars['String']['input'];
+};
+
+export type MutationKetagalanAuthorInput = {
+  bio: Scalars['String']['input'];
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  name: Scalars['String']['input'];
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationKetagalanAuthorUpdateInput = {
+  bio?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  name?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type MutationMediaArticleInput = {
   alt?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['String']['input']>;
   filename?: InputMaybe<Scalars['String']['input']>;
@@ -32110,8 +38641,225 @@ export type MutationMediaInput = {
   focalY?: InputMaybe<Scalars['Float']['input']>;
   height?: InputMaybe<Scalars['Float']['input']>;
   mimeType?: InputMaybe<Scalars['String']['input']>;
-  sizes?: InputMaybe<MutationMedia_SizesInput>;
+  sizes?: InputMaybe<MutationMediaArticle_SizesInput>;
   updatedAt?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticleUpdateInput = {
+  alt?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  focalX?: InputMaybe<Scalars['Float']['input']>;
+  focalY?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  sizes?: InputMaybe<MutationMediaArticleUpdate_SizesInput>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticleUpdate_SizesInput = {
+  desktop?: InputMaybe<MutationMediaArticleUpdate_Sizes_DesktopInput>;
+  mobile?: InputMaybe<MutationMediaArticleUpdate_Sizes_MobileInput>;
+  tablet?: InputMaybe<MutationMediaArticleUpdate_Sizes_TabletInput>;
+  thumbnail?: InputMaybe<MutationMediaArticleUpdate_Sizes_ThumbnailInput>;
+};
+
+export type MutationMediaArticleUpdate_Sizes_DesktopInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticleUpdate_Sizes_MobileInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticleUpdate_Sizes_TabletInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticleUpdate_Sizes_ThumbnailInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticle_SizesInput = {
+  desktop?: InputMaybe<MutationMediaArticle_Sizes_DesktopInput>;
+  mobile?: InputMaybe<MutationMediaArticle_Sizes_MobileInput>;
+  tablet?: InputMaybe<MutationMediaArticle_Sizes_TabletInput>;
+  thumbnail?: InputMaybe<MutationMediaArticle_Sizes_ThumbnailInput>;
+};
+
+export type MutationMediaArticle_Sizes_DesktopInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticle_Sizes_MobileInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticle_Sizes_TabletInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaArticle_Sizes_ThumbnailInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalanInput = {
+  alt?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  focalX?: InputMaybe<Scalars['Float']['input']>;
+  focalY?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  sizes?: InputMaybe<MutationMediaKetagalan_SizesInput>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalanUpdateInput = {
+  alt?: InputMaybe<Scalars['String']['input']>;
+  createdAt?: InputMaybe<Scalars['String']['input']>;
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  focalX?: InputMaybe<Scalars['Float']['input']>;
+  focalY?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  sizes?: InputMaybe<MutationMediaKetagalanUpdate_SizesInput>;
+  updatedAt?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalanUpdate_SizesInput = {
+  desktop?: InputMaybe<MutationMediaKetagalanUpdate_Sizes_DesktopInput>;
+  mobile?: InputMaybe<MutationMediaKetagalanUpdate_Sizes_MobileInput>;
+  tablet?: InputMaybe<MutationMediaKetagalanUpdate_Sizes_TabletInput>;
+  thumbnail?: InputMaybe<MutationMediaKetagalanUpdate_Sizes_ThumbnailInput>;
+};
+
+export type MutationMediaKetagalanUpdate_Sizes_DesktopInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalanUpdate_Sizes_MobileInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalanUpdate_Sizes_TabletInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalanUpdate_Sizes_ThumbnailInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalan_SizesInput = {
+  desktop?: InputMaybe<MutationMediaKetagalan_Sizes_DesktopInput>;
+  mobile?: InputMaybe<MutationMediaKetagalan_Sizes_MobileInput>;
+  tablet?: InputMaybe<MutationMediaKetagalan_Sizes_TabletInput>;
+  thumbnail?: InputMaybe<MutationMediaKetagalan_Sizes_ThumbnailInput>;
+};
+
+export type MutationMediaKetagalan_Sizes_DesktopInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalan_Sizes_MobileInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalan_Sizes_TabletInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
+  url?: InputMaybe<Scalars['String']['input']>;
+  width?: InputMaybe<Scalars['Float']['input']>;
+};
+
+export type MutationMediaKetagalan_Sizes_ThumbnailInput = {
+  filename?: InputMaybe<Scalars['String']['input']>;
+  filesize?: InputMaybe<Scalars['Float']['input']>;
+  height?: InputMaybe<Scalars['Float']['input']>;
+  mimeType?: InputMaybe<Scalars['String']['input']>;
   url?: InputMaybe<Scalars['String']['input']>;
   width?: InputMaybe<Scalars['Float']['input']>;
 };
@@ -32280,107 +39028,6 @@ export type MutationMediaTaiwanRecord_SizesInput = {
 };
 
 export type MutationMediaTaiwanRecord_Sizes_TabletInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMediaUpdateInput = {
-  alt?: InputMaybe<Scalars['String']['input']>;
-  createdAt?: InputMaybe<Scalars['String']['input']>;
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  focalX?: InputMaybe<Scalars['Float']['input']>;
-  focalY?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  sizes?: InputMaybe<MutationMediaUpdate_SizesInput>;
-  updatedAt?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMediaUpdate_SizesInput = {
-  desktop?: InputMaybe<MutationMediaUpdate_Sizes_DesktopInput>;
-  mobile?: InputMaybe<MutationMediaUpdate_Sizes_MobileInput>;
-  tablet?: InputMaybe<MutationMediaUpdate_Sizes_TabletInput>;
-  thumbnail?: InputMaybe<MutationMediaUpdate_Sizes_ThumbnailInput>;
-};
-
-export type MutationMediaUpdate_Sizes_DesktopInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMediaUpdate_Sizes_MobileInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMediaUpdate_Sizes_TabletInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMediaUpdate_Sizes_ThumbnailInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMedia_SizesInput = {
-  desktop?: InputMaybe<MutationMedia_Sizes_DesktopInput>;
-  mobile?: InputMaybe<MutationMedia_Sizes_MobileInput>;
-  tablet?: InputMaybe<MutationMedia_Sizes_TabletInput>;
-  thumbnail?: InputMaybe<MutationMedia_Sizes_ThumbnailInput>;
-};
-
-export type MutationMedia_Sizes_DesktopInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMedia_Sizes_MobileInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMedia_Sizes_TabletInput = {
-  filename?: InputMaybe<Scalars['String']['input']>;
-  filesize?: InputMaybe<Scalars['Float']['input']>;
-  height?: InputMaybe<Scalars['Float']['input']>;
-  mimeType?: InputMaybe<Scalars['String']['input']>;
-  url?: InputMaybe<Scalars['String']['input']>;
-  width?: InputMaybe<Scalars['Float']['input']>;
-};
-
-export type MutationMedia_Sizes_ThumbnailInput = {
   filename?: InputMaybe<Scalars['String']['input']>;
   filesize?: InputMaybe<Scalars['Float']['input']>;
   height?: InputMaybe<Scalars['Float']['input']>;
@@ -33101,16 +39748,16 @@ export type VotesDocAccess = {
 
 export type CategoriesArticleFragment = { __typename?: 'CategoriesArticle', id?: string | null, i18n?: { __typename?: 'CategoriesArticle_I18n', en?: { __typename?: 'CategoriesArticle_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesArticle_I18n_Zh', name?: string | null } | null } | null };
 
-export type ArticleMediaFragment = { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'Media', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'Media_Sizes', desktop?: { __typename?: 'Media_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'Media_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'Media_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'Media_Sizes_Thumbnail', url?: string | null } | null } | null } | null };
+export type ArticleMediaFragment = { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'MediaArticle', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaArticle_Sizes', desktop?: { __typename?: 'MediaArticle_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaArticle_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaArticle_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaArticle_Sizes_Thumbnail', url?: string | null } | null } | null } | null };
 
-export type FullArticleFragment = { __typename?: 'Article', id?: string | null, title: string, subtitle?: string | null, excerpt: string, content?: any | null, podcast?: string | null, isFeatured?: boolean | null, releaseTime: any, updatedAt?: any | null, createdAt?: any | null, sources?: Array<{ __typename?: 'Article_Sources', id?: string | null, link?: string | null, text?: string | null }> | null, media?: { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'Media', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'Media_Sizes', desktop?: { __typename?: 'Media_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'Media_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'Media_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'Media_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null, authors?: Array<{ __typename?: 'Author', id?: string | null, name: string, bio: string }> | null, categories: Array<{ __typename?: 'CategoriesArticle', id?: string | null, i18n?: { __typename?: 'CategoriesArticle_I18n', en?: { __typename?: 'CategoriesArticle_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesArticle_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null };
+export type FullArticleFragment = { __typename?: 'Article', id?: string | null, title: string, subtitle?: string | null, excerpt: string, content?: any | null, podcast?: string | null, isFeatured?: boolean | null, releaseTime: any, updatedAt?: any | null, createdAt?: any | null, sources?: Array<{ __typename?: 'Article_Sources', id?: string | null, link?: string | null, text?: string | null }> | null, media?: { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'MediaArticle', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaArticle_Sizes', desktop?: { __typename?: 'MediaArticle_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaArticle_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaArticle_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaArticle_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null, authors?: Array<{ __typename?: 'Author', id?: string | null, name: string, bio: string }> | null, categories: Array<{ __typename?: 'CategoriesArticle', id?: string | null, i18n?: { __typename?: 'CategoriesArticle_I18n', en?: { __typename?: 'CategoriesArticle_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesArticle_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null };
 
 export type ArticleQueryVariables = Exact<{
   id: Scalars['String']['input'];
 }>;
 
 
-export type ArticleQuery = { __typename?: 'Query', Article?: { __typename?: 'Article', id?: string | null, title: string, subtitle?: string | null, excerpt: string, content?: any | null, podcast?: string | null, isFeatured?: boolean | null, releaseTime: any, updatedAt?: any | null, createdAt?: any | null, sources?: Array<{ __typename?: 'Article_Sources', id?: string | null, link?: string | null, text?: string | null }> | null, media?: { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'Media', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'Media_Sizes', desktop?: { __typename?: 'Media_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'Media_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'Media_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'Media_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null, authors?: Array<{ __typename?: 'Author', id?: string | null, name: string, bio: string }> | null, categories: Array<{ __typename?: 'CategoriesArticle', id?: string | null, i18n?: { __typename?: 'CategoriesArticle_I18n', en?: { __typename?: 'CategoriesArticle_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesArticle_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null } | null };
+export type ArticleQuery = { __typename?: 'Query', Article?: { __typename?: 'Article', id?: string | null, title: string, subtitle?: string | null, excerpt: string, content?: any | null, podcast?: string | null, isFeatured?: boolean | null, releaseTime: any, updatedAt?: any | null, createdAt?: any | null, sources?: Array<{ __typename?: 'Article_Sources', id?: string | null, link?: string | null, text?: string | null }> | null, media?: { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'MediaArticle', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaArticle_Sizes', desktop?: { __typename?: 'MediaArticle_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaArticle_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaArticle_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaArticle_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null, authors?: Array<{ __typename?: 'Author', id?: string | null, name: string, bio: string }> | null, categories: Array<{ __typename?: 'CategoriesArticle', id?: string | null, i18n?: { __typename?: 'CategoriesArticle_I18n', en?: { __typename?: 'CategoriesArticle_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesArticle_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null } | null };
 
 export type ArticlesQueryVariables = Exact<{
   where?: InputMaybe<Article_Where>;
@@ -33120,7 +39767,7 @@ export type ArticlesQueryVariables = Exact<{
 }>;
 
 
-export type ArticlesQuery = { __typename?: 'Query', Articles?: { __typename?: 'Articles', hasNextPage?: boolean | null, hasPrevPage?: boolean | null, limit?: number | null, nextPage?: number | null, offset?: number | null, page?: number | null, pagingCounter?: number | null, prevPage?: number | null, totalDocs?: number | null, totalPages?: number | null, docs?: Array<{ __typename?: 'Article', id?: string | null, title: string, subtitle?: string | null, excerpt: string, categories: Array<{ __typename?: 'CategoriesArticle', id?: string | null, i18n?: { __typename?: 'CategoriesArticle_I18n', en?: { __typename?: 'CategoriesArticle_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesArticle_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null, media?: { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'Media', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'Media_Sizes', desktop?: { __typename?: 'Media_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'Media_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'Media_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'Media_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null } | null> | null } | null };
+export type ArticlesQuery = { __typename?: 'Query', Articles?: { __typename?: 'Articles', hasNextPage?: boolean | null, hasPrevPage?: boolean | null, limit?: number | null, nextPage?: number | null, offset?: number | null, page?: number | null, pagingCounter?: number | null, prevPage?: number | null, totalDocs?: number | null, totalPages?: number | null, docs?: Array<{ __typename?: 'Article', id?: string | null, title: string, subtitle?: string | null, excerpt: string, categories: Array<{ __typename?: 'CategoriesArticle', id?: string | null, i18n?: { __typename?: 'CategoriesArticle_I18n', en?: { __typename?: 'CategoriesArticle_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesArticle_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null, media?: { __typename?: 'Article_Media', caption?: string | null, photo?: { __typename?: 'MediaArticle', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaArticle_Sizes', desktop?: { __typename?: 'MediaArticle_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaArticle_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaArticle_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaArticle_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null } | null> | null } | null };
 
 export type CategoriesArticlesQueryVariables = Exact<{
   where?: InputMaybe<CategoriesArticle_Where>;
@@ -33138,6 +39785,46 @@ export type ArticleMetadataQueryVariables = Exact<{
 
 
 export type ArticleMetadataQuery = { __typename?: 'Query', Article?: { __typename?: 'Article', title: string, subtitle?: string | null, excerpt: string } | null };
+
+export type CategoriesKetagalanFragment = { __typename?: 'CategoriesKetagalan', id?: string | null, i18n?: { __typename?: 'CategoriesKetagalan_I18n', en?: { __typename?: 'CategoriesKetagalan_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesKetagalan_I18n_Zh', name?: string | null } | null } | null };
+
+export type KetagalanArticleMediaFragment = { __typename?: 'KetagalanArticle_Media', caption?: string | null, photo?: { __typename?: 'MediaKetagalan', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaKetagalan_Sizes', desktop?: { __typename?: 'MediaKetagalan_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaKetagalan_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaKetagalan_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaKetagalan_Sizes_Thumbnail', url?: string | null } | null } | null } | null };
+
+export type FullKetagalanArticleFragment = { __typename?: 'KetagalanArticle', id?: string | null, title: string, subtitle?: string | null, excerpt: string, content?: any | null, podcast?: string | null, isFeatured?: boolean | null, releaseTime: any, updatedAt?: any | null, createdAt?: any | null, sources?: Array<{ __typename?: 'KetagalanArticle_Sources', id?: string | null, link?: string | null, text?: string | null }> | null, media?: { __typename?: 'KetagalanArticle_Media', caption?: string | null, photo?: { __typename?: 'MediaKetagalan', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaKetagalan_Sizes', desktop?: { __typename?: 'MediaKetagalan_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaKetagalan_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaKetagalan_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaKetagalan_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null, authors?: Array<{ __typename?: 'KetagalanAuthor', id?: string | null, name: string, bio: string }> | null, categories: Array<{ __typename?: 'CategoriesKetagalan', id?: string | null, i18n?: { __typename?: 'CategoriesKetagalan_I18n', en?: { __typename?: 'CategoriesKetagalan_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesKetagalan_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null };
+
+export type KetagalanArticleQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type KetagalanArticleQuery = { __typename?: 'Query', KetagalanArticle?: { __typename?: 'KetagalanArticle', id?: string | null, title: string, subtitle?: string | null, excerpt: string, content?: any | null, podcast?: string | null, isFeatured?: boolean | null, releaseTime: any, updatedAt?: any | null, createdAt?: any | null, sources?: Array<{ __typename?: 'KetagalanArticle_Sources', id?: string | null, link?: string | null, text?: string | null }> | null, media?: { __typename?: 'KetagalanArticle_Media', caption?: string | null, photo?: { __typename?: 'MediaKetagalan', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaKetagalan_Sizes', desktop?: { __typename?: 'MediaKetagalan_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaKetagalan_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaKetagalan_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaKetagalan_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null, authors?: Array<{ __typename?: 'KetagalanAuthor', id?: string | null, name: string, bio: string }> | null, categories: Array<{ __typename?: 'CategoriesKetagalan', id?: string | null, i18n?: { __typename?: 'CategoriesKetagalan_I18n', en?: { __typename?: 'CategoriesKetagalan_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesKetagalan_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null } | null };
+
+export type KetagalanArticlesQueryVariables = Exact<{
+  where?: InputMaybe<KetagalanArticle_Where>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type KetagalanArticlesQuery = { __typename?: 'Query', KetagalanArticles?: { __typename?: 'KetagalanArticles', hasNextPage?: boolean | null, hasPrevPage?: boolean | null, limit?: number | null, nextPage?: number | null, offset?: number | null, page?: number | null, pagingCounter?: number | null, prevPage?: number | null, totalDocs?: number | null, totalPages?: number | null, docs?: Array<{ __typename?: 'KetagalanArticle', id?: string | null, title: string, subtitle?: string | null, excerpt: string, categories: Array<{ __typename?: 'CategoriesKetagalan', id?: string | null, i18n?: { __typename?: 'CategoriesKetagalan_I18n', en?: { __typename?: 'CategoriesKetagalan_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesKetagalan_I18n_Zh', name?: string | null } | null } | null }>, tags?: Array<{ __typename?: 'Tag', id?: string | null, isFeatured?: boolean | null, i18n?: { __typename?: 'Tag_I18n', en?: { __typename?: 'Tag_I18n_En', name?: string | null } | null, zh?: { __typename?: 'Tag_I18n_Zh', name?: string | null } | null } | null }> | null, media?: { __typename?: 'KetagalanArticle_Media', caption?: string | null, photo?: { __typename?: 'MediaKetagalan', id?: string | null, alt?: string | null, url?: string | null, sizes?: { __typename?: 'MediaKetagalan_Sizes', desktop?: { __typename?: 'MediaKetagalan_Sizes_Desktop', url?: string | null } | null, tablet?: { __typename?: 'MediaKetagalan_Sizes_Tablet', url?: string | null } | null, mobile?: { __typename?: 'MediaKetagalan_Sizes_Mobile', url?: string | null } | null, thumbnail?: { __typename?: 'MediaKetagalan_Sizes_Thumbnail', url?: string | null } | null } | null } | null } | null } | null> | null } | null };
+
+export type CategoriesKetagalansQueryVariables = Exact<{
+  where?: InputMaybe<CategoriesKetagalan_Where>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  page?: InputMaybe<Scalars['Int']['input']>;
+  sort?: InputMaybe<Scalars['String']['input']>;
+}>;
+
+
+export type CategoriesKetagalansQuery = { __typename?: 'Query', CategoriesKetagalans?: { __typename?: 'CategoriesKetagalans', docs?: Array<{ __typename?: 'CategoriesKetagalan', id?: string | null, i18n?: { __typename?: 'CategoriesKetagalan_I18n', en?: { __typename?: 'CategoriesKetagalan_I18n_En', name?: string | null } | null, zh?: { __typename?: 'CategoriesKetagalan_I18n_Zh', name?: string | null } | null } | null } | null> | null } | null };
+
+export type KetagalanArticleMetadataQueryVariables = Exact<{
+  id: Scalars['String']['input'];
+}>;
+
+
+export type KetagalanArticleMetadataQuery = { __typename?: 'Query', KetagalanArticle?: { __typename?: 'KetagalanArticle', title: string, subtitle?: string | null, excerpt: string } | null };
 
 export type BillI18nFragment = { __typename?: 'Bill_I18n', en?: { __typename?: 'Bill_I18n_En', title?: string | null, summary?: string | null, actionsOverview?: any | null, actionsAll?: any | null } | null, zh?: { __typename?: 'Bill_I18n_Zh', title?: string | null, summary?: string | null, actionsOverview?: any | null, actionsAll?: any | null } | null };
 
@@ -33342,6 +40029,9 @@ export const ArticleMediaFragmentDoc = {"kind":"Document","definitions":[{"kind"
 export const CategoriesArticleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesArticle"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesArticle"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<CategoriesArticleFragment, unknown>;
 export const TagFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}}]} as unknown as DocumentNode<TagFragment, unknown>;
 export const FullArticleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullArticle"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Article"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"sources"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}},{"kind":"Field","name":{"kind":"Name","value":"podcast"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ArticleMedia"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}},{"kind":"Field","name":{"kind":"Name","value":"releaseTime"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesArticle"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Tag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ArticleMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Article_Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"sizes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"desktop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tablet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mobile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesArticle"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesArticle"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}}]} as unknown as DocumentNode<FullArticleFragment, unknown>;
+export const KetagalanArticleMediaFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"KetagalanArticleMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"KetagalanArticle_Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"sizes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"desktop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tablet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mobile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}}]} as unknown as DocumentNode<KetagalanArticleMediaFragment, unknown>;
+export const CategoriesKetagalanFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesKetagalan"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesKetagalan"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<CategoriesKetagalanFragment, unknown>;
+export const FullKetagalanArticleFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullKetagalanArticle"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"KetagalanArticle"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"sources"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}},{"kind":"Field","name":{"kind":"Name","value":"podcast"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"KetagalanArticleMedia"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}},{"kind":"Field","name":{"kind":"Name","value":"releaseTime"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesKetagalan"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Tag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"KetagalanArticleMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"KetagalanArticle_Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"sizes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"desktop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tablet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mobile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesKetagalan"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesKetagalan"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}}]} as unknown as DocumentNode<FullKetagalanArticleFragment, unknown>;
 export const BillI18nFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BillI18n"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Bill_I18n"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"actionsOverview"}},{"kind":"Field","name":{"kind":"Name","value":"actionsAll"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"actionsOverview"}},{"kind":"Field","name":{"kind":"Name","value":"actionsAll"}}]}}]}}]} as unknown as DocumentNode<BillI18nFragment, unknown>;
 export const CategoriesBillFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesBill"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesBill"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]} as unknown as DocumentNode<CategoriesBillFragment, unknown>;
 export const PeopleI18nFragmentDoc = {"kind":"Document","definitions":[{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PeopleI18n"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"People_I18n"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"middleName"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"otherNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"otherName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"middleName"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"otherNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"otherName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}}]} as unknown as DocumentNode<PeopleI18nFragment, unknown>;
@@ -33365,6 +40055,10 @@ export const ArticleDocument = {"kind":"Document","definitions":[{"kind":"Operat
 export const ArticlesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Articles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Article_where"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Articles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevPage"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"nextPage"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pagingCounter"}},{"kind":"Field","name":{"kind":"Name","value":"prevPage"}},{"kind":"Field","name":{"kind":"Name","value":"totalDocs"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"docs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesArticle"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Tag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"ArticleMedia"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesArticle"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesArticle"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"ArticleMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Article_Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"sizes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"desktop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tablet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mobile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}}]} as unknown as DocumentNode<ArticlesQuery, ArticlesQueryVariables>;
 export const CategoriesArticlesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CategoriesArticles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesArticle_where"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"CategoriesArticles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"docs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<CategoriesArticlesQuery, CategoriesArticlesQueryVariables>;
 export const ArticleMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"ArticleMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Article"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}}]}}]}}]} as unknown as DocumentNode<ArticleMetadataQuery, ArticleMetadataQueryVariables>;
+export const KetagalanArticleDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"KetagalanArticle"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"KetagalanArticle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullKetagalanArticle"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"KetagalanArticleMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"KetagalanArticle_Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"sizes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"desktop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tablet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mobile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesKetagalan"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesKetagalan"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullKetagalanArticle"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"KetagalanArticle"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"content"}},{"kind":"Field","name":{"kind":"Name","value":"sources"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"link"}},{"kind":"Field","name":{"kind":"Name","value":"text"}}]}},{"kind":"Field","name":{"kind":"Name","value":"podcast"}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"KetagalanArticleMedia"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}},{"kind":"Field","name":{"kind":"Name","value":"releaseTime"}},{"kind":"Field","name":{"kind":"Name","value":"authors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"name"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesKetagalan"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Tag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]} as unknown as DocumentNode<KetagalanArticleQuery, KetagalanArticleQueryVariables>;
+export const KetagalanArticlesDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"KetagalanArticles"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"KetagalanArticle_where"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"KetagalanArticles"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevPage"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"nextPage"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pagingCounter"}},{"kind":"Field","name":{"kind":"Name","value":"prevPage"}},{"kind":"Field","name":{"kind":"Name","value":"totalDocs"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"docs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesKetagalan"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Tag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"media"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"KetagalanArticleMedia"}}]}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesKetagalan"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesKetagalan"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"KetagalanArticleMedia"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"KetagalanArticle_Media"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}},{"kind":"Field","name":{"kind":"Name","value":"sizes"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"desktop"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tablet"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"mobile"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"Field","name":{"kind":"Name","value":"thumbnail"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"url"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"caption"}}]}}]} as unknown as DocumentNode<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>;
+export const CategoriesKetagalansDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CategoriesKetagalans"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesKetagalan_where"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"CategoriesKetagalans"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"docs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}}]}}]}}]} as unknown as DocumentNode<CategoriesKetagalansQuery, CategoriesKetagalansQueryVariables>;
+export const KetagalanArticleMetadataDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"KetagalanArticleMetadata"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"KetagalanArticle"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"subtitle"}},{"kind":"Field","name":{"kind":"Name","value":"excerpt"}}]}}]}}]} as unknown as DocumentNode<KetagalanArticleMetadataQuery, KetagalanArticleMetadataQueryVariables>;
 export const BillDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Bill"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"id"}},"type":{"kind":"NonNullType","type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Bill"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"id"},"value":{"kind":"Variable","name":{"kind":"Name","value":"id"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"FullBill"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BillI18n"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Bill_I18n"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"actionsOverview"}},{"kind":"Field","name":{"kind":"Name","value":"actionsAll"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"actionsOverview"}},{"kind":"Field","name":{"kind":"Name","value":"actionsAll"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesBill"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesBill"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PeopleI18n"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"People_I18n"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"middleName"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"otherNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"otherName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"middleName"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"otherNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"otherName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaPerson"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaPerson"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PeopleExperiences"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"People_Experiences"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isCurrent"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"positions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"start"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}}]}},{"kind":"Field","name":{"kind":"Name","value":"end"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}}]}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"district"}},{"kind":"Field","name":{"kind":"Name","value":"party"}},{"kind":"Field","name":{"kind":"Name","value":"congresses"}},{"kind":"Field","name":{"kind":"Name","value":"officialAreas"}},{"kind":"Field","name":{"kind":"Name","value":"companyType"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BillSponsor"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Bill_Sponsor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PeopleI18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"currentParty"}},{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaPerson"}}]}},{"kind":"Field","name":{"kind":"Name","value":"experiences"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PeopleExperiences"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"party"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BillCosponsors"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Bill_Cosponsors"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PeopleI18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"currentParty"}},{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaPerson"}}]}},{"kind":"Field","name":{"kind":"Name","value":"experiences"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PeopleExperiences"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"constituency"}},{"kind":"Field","name":{"kind":"Name","value":"party"}},{"kind":"Field","name":{"kind":"Name","value":"cosponsoredAt"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}},{"kind":"Field","name":{"kind":"Name","value":"precision"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"FullBill"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Bill"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"congress"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"congressGovUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BillI18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"introducedAt"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}},{"kind":"Field","name":{"kind":"Name","value":"precision"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesBill"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Tag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"statusTracker"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentStep"}},{"kind":"Field","name":{"kind":"Name","value":"passedSteps"}},{"kind":"Field","name":{"kind":"Name","value":"futureSteps"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sponsor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BillSponsor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"cosponsors"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BillCosponsors"}}]}},{"kind":"Field","name":{"kind":"Name","value":"congressGovUrl"}},{"kind":"Field","name":{"kind":"Name","value":"popularityRank"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"latestActionTime"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}},{"kind":"Field","name":{"kind":"Name","value":"relatedBills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"congress"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"congressGovUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BillI18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"congress"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"introducedAt"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}},{"kind":"Field","name":{"kind":"Name","value":"precision"}}]}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesBill"}}]}},{"kind":"Field","name":{"kind":"Name","value":"statusTracker"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentStep"}},{"kind":"Field","name":{"kind":"Name","value":"passedSteps"}},{"kind":"Field","name":{"kind":"Name","value":"futureSteps"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sponsor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BillSponsor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"popularityRank"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"latestActionTime"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]} as unknown as DocumentNode<BillQuery, BillQueryVariables>;
 export const BillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"Bills"},"variableDefinitions":[{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"where"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Bill_where"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"limit"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"page"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"Int"}}},{"kind":"VariableDefinition","variable":{"kind":"Variable","name":{"kind":"Name","value":"sort"}},"type":{"kind":"NamedType","name":{"kind":"Name","value":"String"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"Bills"},"arguments":[{"kind":"Argument","name":{"kind":"Name","value":"where"},"value":{"kind":"Variable","name":{"kind":"Name","value":"where"}}},{"kind":"Argument","name":{"kind":"Name","value":"limit"},"value":{"kind":"Variable","name":{"kind":"Name","value":"limit"}}},{"kind":"Argument","name":{"kind":"Name","value":"page"},"value":{"kind":"Variable","name":{"kind":"Name","value":"page"}}},{"kind":"Argument","name":{"kind":"Name","value":"sort"},"value":{"kind":"Variable","name":{"kind":"Name","value":"sort"}}}],"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"hasNextPage"}},{"kind":"Field","name":{"kind":"Name","value":"hasPrevPage"}},{"kind":"Field","name":{"kind":"Name","value":"limit"}},{"kind":"Field","name":{"kind":"Name","value":"nextPage"}},{"kind":"Field","name":{"kind":"Name","value":"offset"}},{"kind":"Field","name":{"kind":"Name","value":"page"}},{"kind":"Field","name":{"kind":"Name","value":"pagingCounter"}},{"kind":"Field","name":{"kind":"Name","value":"prevPage"}},{"kind":"Field","name":{"kind":"Name","value":"totalDocs"}},{"kind":"Field","name":{"kind":"Name","value":"totalPages"}},{"kind":"Field","name":{"kind":"Name","value":"docs"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"congress"}},{"kind":"Field","name":{"kind":"Name","value":"number"}},{"kind":"Field","name":{"kind":"Name","value":"type"}},{"kind":"Field","name":{"kind":"Name","value":"congressGovUrl"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BillI18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"introducedAt"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}},{"kind":"Field","name":{"kind":"Name","value":"precision"}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}},{"kind":"Field","name":{"kind":"Name","value":"categories"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"CategoriesBill"}}]}},{"kind":"Field","name":{"kind":"Name","value":"tags"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"Tag"}}]}},{"kind":"Field","name":{"kind":"Name","value":"statusTracker"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"currentStep"}},{"kind":"Field","name":{"kind":"Name","value":"passedSteps"}},{"kind":"Field","name":{"kind":"Name","value":"futureSteps"}}]}},{"kind":"Field","name":{"kind":"Name","value":"sponsor"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"BillSponsor"}}]}},{"kind":"Field","name":{"kind":"Name","value":"popularityRank"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"latestActionTime"}},{"kind":"Field","name":{"kind":"Name","value":"updatedAt"}},{"kind":"Field","name":{"kind":"Name","value":"createdAt"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PeopleI18n"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"People_I18n"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"middleName"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"otherNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"otherName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"firstName"}},{"kind":"Field","name":{"kind":"Name","value":"lastName"}},{"kind":"Field","name":{"kind":"Name","value":"middleName"}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"bio"}},{"kind":"Field","name":{"kind":"Name","value":"otherNames"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"otherName"}},{"kind":"Field","name":{"kind":"Name","value":"id"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"MediaPerson"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"MediaPerson"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"alt"}},{"kind":"Field","name":{"kind":"Name","value":"url"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"PeopleExperiences"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"People_Experiences"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"isCurrent"}},{"kind":"Field","name":{"kind":"Name","value":"category"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"company"}},{"kind":"Field","name":{"kind":"Name","value":"positions"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"description"}},{"kind":"Field","name":{"kind":"Name","value":"start"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}}]}},{"kind":"Field","name":{"kind":"Name","value":"end"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"datetime"}}]}},{"kind":"Field","name":{"kind":"Name","value":"state"}},{"kind":"Field","name":{"kind":"Name","value":"district"}},{"kind":"Field","name":{"kind":"Name","value":"party"}},{"kind":"Field","name":{"kind":"Name","value":"congresses"}},{"kind":"Field","name":{"kind":"Name","value":"officialAreas"}},{"kind":"Field","name":{"kind":"Name","value":"companyType"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BillI18n"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Bill_I18n"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"actionsOverview"}},{"kind":"Field","name":{"kind":"Name","value":"actionsAll"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"title"}},{"kind":"Field","name":{"kind":"Name","value":"summary"}},{"kind":"Field","name":{"kind":"Name","value":"actionsOverview"}},{"kind":"Field","name":{"kind":"Name","value":"actionsAll"}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"CategoriesBill"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"CategoriesBill"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"Tag"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Tag"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"en"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}},{"kind":"Field","name":{"kind":"Name","value":"zh"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"name"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"isFeatured"}}]}},{"kind":"FragmentDefinition","name":{"kind":"Name","value":"BillSponsor"},"typeCondition":{"kind":"NamedType","name":{"kind":"Name","value":"Bill_Sponsor"}},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"people"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"gender"}},{"kind":"Field","name":{"kind":"Name","value":"id"}},{"kind":"Field","name":{"kind":"Name","value":"i18n"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PeopleI18n"}}]}},{"kind":"Field","name":{"kind":"Name","value":"displayName"}},{"kind":"Field","name":{"kind":"Name","value":"currentParty"}},{"kind":"Field","name":{"kind":"Name","value":"photo"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"MediaPerson"}}]}},{"kind":"Field","name":{"kind":"Name","value":"experiences"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"FragmentSpread","name":{"kind":"Name","value":"PeopleExperiences"}}]}}]}},{"kind":"Field","name":{"kind":"Name","value":"party"}}]}}]} as unknown as DocumentNode<BillsQuery, BillsQueryVariables>;
 export const CountBillsDocument = {"kind":"Document","definitions":[{"kind":"OperationDefinition","operation":"query","name":{"kind":"Name","value":"CountBills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"countBills"},"selectionSet":{"kind":"SelectionSet","selections":[{"kind":"Field","name":{"kind":"Name","value":"totalDocs"}}]}}]}}]} as unknown as DocumentNode<CountBillsQuery, CountBillsQueryVariables>;

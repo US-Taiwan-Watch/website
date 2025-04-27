@@ -10,7 +10,10 @@ import {
   ArticleCategoryUtils,
 } from '@/modules/Article/business/ArticleCategory'
 import { ROUTES } from '@/routes'
-import { Article as ApiArticle } from '@/common/lib/graphql/__generated__/graphql'
+import {
+  Article as ApiArticle,
+  KetagalanArticle as ApiKetagalanArticle,
+} from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
 
 export enum ArticleType {
@@ -56,7 +59,7 @@ export class ArticleUtils {
    */
   static parse(
     lang: Language,
-    dto: Partial<ApiArticle>,
+    dto: Partial<ApiArticle | ApiKetagalanArticle>,
     articleType: ArticleType
   ) {
     return articleSchema.parse({

@@ -487,7 +487,7 @@ const _lightTheme: USTWThemeOptions = {
     categoryChip: {
       backgroundColor: color.common.white,
       textColor: color.common.black,
-      activeBackgroundColor: color.wheat[200],
+      activeBackgroundColor: color.lime[500],
       activeTextColor: color.common.black,
     },
     tag: {
