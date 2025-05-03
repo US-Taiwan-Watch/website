@@ -1,6 +1,5 @@
 import { Party } from '@/common/enums/Party'
 import { PeoplePosition } from '@/modules/People/enums/PeoplePosition'
-import { ROUTES } from '@/routes'
 import {
   isArray,
   isNumber,
@@ -20,6 +19,8 @@ import {
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TagUtils, { tagSchema } from '@/modules/Common/business/Tag'
 import { DateUtils } from '@/modules/Common/business/Date'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { RouteName } from '@/common/lib/router/routes'
 
 const congressExperienceRangeSchema = z.object({
   earliestCongress: z.number().optional(),
@@ -178,8 +179,13 @@ export class PeopleUtils {
   /**
    * People link
    */
-  static getLink(people: People) {
-    return `${ROUTES.PEOPLE}/${people.id}`
+  static getLink(peopleId: People['id']) {
+    if (!peopleId) return '#'
+    const { resolveRouteUrl } = getURouterServer()
+    return resolveRouteUrl({
+      name: RouteName.PeopleDetail,
+      params: { peopleId },
+    })
   }
 
   /**

@@ -1,3 +1,5 @@
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { RouteName } from '@/common/lib/router/routes'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { Episode } from '@/modules/Podcast/business/Episode'
 import { z } from 'zod'
@@ -104,5 +106,20 @@ export default class PodcastUtils {
     [PodcastType.WATCH_HERE]: PodcastUtils.watchHereEpisodeTitleRegex,
     [PodcastType.WATCH_INFO]: PodcastUtils.watchInfoEpisodeTitleRegex,
     [PodcastType.WATCH_BOOK_CLUB]: PodcastUtils.watchBookClubEpisodeTitleRegex,
+  }
+
+  /** Podcast pages */
+  static getPodcastPageLink(type: PodcastType) {
+    const { resolveRouteUrl } = getURouterServer()
+    switch (type) {
+      case PodcastType.WATCH_HERE:
+        return resolveRouteUrl({ name: RouteName.PodcastWatchHere })
+      case PodcastType.WATCH_INFO:
+        return resolveRouteUrl({ name: RouteName.PodcastWatchInfo })
+      case PodcastType.WATCH_BOOK_CLUB:
+        return resolveRouteUrl({ name: RouteName.PodcastWatchBookClub })
+      default:
+        return ''
+    }
   }
 }

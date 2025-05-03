@@ -1,52 +1,67 @@
 'use client'
 
-import React, { useCallback, useContext, useState } from 'react'
-import Snackbar from '@mui/material/Snackbar'
-import Grow from '@mui/material/Grow'
+import type React from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
+import { Snackbar, Alert, AlertColor } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
+import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import ErrorIcon from '@mui/icons-material/Error'
+import WarningIcon from '@mui/icons-material/Warning'
+import InfoIcon from '@mui/icons-material/Info'
 
-const StyledSnackbar = styled(Snackbar)(({ theme }) => ({
-  '& .MuiSnackbarContent-root': {
-    backgroundColor: theme.color.common.white,
-    color: theme.color.common.black,
-  },
-}))
-
-const TOAST_DURATION = 3000
-
-type ToastType = 'success' | 'error' | 'info'
-
-type Toast = {
-  type: ToastType
-  message: string
-  open: boolean
+type ToastContextType = {
+  toast: (type: AlertColor, message: string) => void
 }
 
-const defaultToast: Toast = {
-  type: 'success',
-  message: '',
-  open: false,
-}
-
-type ToastProviderContextType = {
-  toast: (type: ToastType, message: string) => void
-}
-
-export const ToastProviderContext =
-  React.createContext<ToastProviderContextType>({
-    toast: () => {},
-  })
+const ToastContext = createContext<ToastContextType>({
+  toast: () => {},
+})
 
 export const useToast = () => {
-  const context = useContext(ToastProviderContext)
+  const context = useContext(ToastContext)
   if (!context) {
     throw new Error('useToast must be used within a ToastProvider')
   }
   return context
 }
 
-interface ToastProviderProps {
-  children: React.ReactNode
+const StyledSnackbar = styled(Snackbar)(({ theme }) => ({
+  '& .MuiSnackbarContent-root': {
+    padding: 0,
+    minWidth: 'auto',
+    boxShadow: theme.shadows[3],
+  },
+}))
+
+const StyledAlert = styled(Alert)<{ type: AlertColor }>(({ theme, type }) => {
+  const toastColors = theme.color.toast[type]
+  return {
+    backgroundColor: toastColors.background,
+    color: toastColors.text,
+    '& .MuiAlert-icon': {
+      color: toastColors.icon,
+    },
+    '& .MuiAlert-message': {
+      padding: '8px 0',
+    },
+    borderRadius: '8px',
+    boxShadow: 'none',
+  }
+})
+
+const getIcon = (type: AlertColor) => {
+  switch (type) {
+    case 'success':
+      return <CheckCircleIcon />
+    case 'error':
+      return <ErrorIcon />
+    case 'warning':
+      return <WarningIcon />
+    case 'info':
+      return <InfoIcon />
+    default:
+      return <InfoIcon />
+  }
 }
 
 /**
@@ -58,38 +73,43 @@ interface ToastProviderProps {
  * const { toast } = useToast()
  * toast('success', 'Copied')
  */
-export default function ToastProvider({ children }: ToastProviderProps) {
-  const [toast, setToast] = useState<Toast>(defaultToast)
+export default function ToastProvider({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  const [open, setOpen] = useState(false)
+  const [message, setMessage] = useState('')
+  const [type, setType] = useState<AlertColor>('info')
 
-  const handleToast = useCallback((type: ToastType, message: string) => {
-    setToast({
-      type,
-      message,
-      open: true,
-    })
+  const toast = useCallback((type: AlertColor, message: string) => {
+    setType(type)
+    setMessage(message)
+    setOpen(true)
   }, [])
 
   const handleClose = useCallback(() => {
-    setToast(defaultToast)
+    setOpen(false)
   }, [])
 
   return (
-    <ToastProviderContext.Provider value={{ toast: handleToast }}>
-      {toast && (
-        <StyledSnackbar
-          open={toast.open}
-          onClose={handleClose}
-          message={toast.message}
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
-          autoHideDuration={TOAST_DURATION}
-          ClickAwayListenerProps={{
-            mouseEvent: false,
-            touchEvent: false,
-          }}
-          TransitionComponent={Grow}
-        />
-      )}
+    <ToastContext.Provider value={{ toast }}>
       {children}
-    </ToastProviderContext.Provider>
+      <StyledSnackbar
+        open={open}
+        autoHideDuration={3000}
+        onClose={handleClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <StyledAlert
+          type={type}
+          icon={getIcon(type)}
+          onClose={handleClose}
+          severity={type}
+        >
+          {message}
+        </StyledAlert>
+      </StyledSnackbar>
+    </ToastContext.Provider>
   )
 }

@@ -88,7 +88,12 @@ const BillInfoSection = memo(function BillInfoSection({
       </StyledInfoContainer>
 
       {/** Actions */}
-      <UHStack spacing={2}>
+      <UHStack
+        spacing={{
+          xs: 1,
+          sm: 2,
+        }}
+      >
         <TitleVersion bill={bill} />
         <SubscribeButton bill={bill} />
       </UHStack>

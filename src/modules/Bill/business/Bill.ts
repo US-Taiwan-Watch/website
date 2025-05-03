@@ -1,6 +1,5 @@
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
 import { isArray, isNull, isString, isUndefined } from 'lodash-es'
-import { ROUTES } from '@/routes'
 import { Bill as ApiBill } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
@@ -16,6 +15,8 @@ import {
   BillCosponsorUtils,
 } from '@/modules/People/business/BillCosponsor'
 import { DateUtils } from '@/modules/Common/business/Date'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { RouteName } from '@/common/lib/router/routes'
 
 interface BillActionOverviewDto {
   actionAt: {
@@ -183,8 +184,10 @@ export class BillUtils {
       .sort((a, b) => b.count - a.count)
   }
 
-  static getLink(bill: Bill) {
-    return `${ROUTES.BILL}/${bill.id}`
+  static getLink(billId: Bill['id']) {
+    if (!billId) return '#'
+    const { resolveRouteUrl } = getURouterServer()
+    return resolveRouteUrl({ name: RouteName.BillDetail, params: { billId } })
   }
 
   /**

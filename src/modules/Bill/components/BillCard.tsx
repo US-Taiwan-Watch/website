@@ -115,7 +115,7 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
           </Typography>
 
           <Box flex={1}>
-            <Link href={BillUtils.getLink(bill)}>
+            <Link href={BillUtils.getLink(bill.id)}>
               <UHeightLimitedText maxLine={4} variant="articleH3">
                 {bill.title}
               </UHeightLimitedText>

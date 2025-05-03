@@ -1,5 +1,8 @@
 import { Box, Icon, Typography } from '@mui/material'
-import SearchResult from '@/modules/Search/classes/SearchResult'
+import {
+  SearchResult,
+  SearchResultUtils,
+} from '@/modules/Search/business/SearchResult'
 import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
@@ -59,7 +62,10 @@ const MobileSearchResultList = ({
       <StyledResultContainer>
         {results.length > 0 ? (
           results.map((result) => (
-            <Link href={result.href} key={result.value}>
+            <Link
+              href={SearchResultUtils.getHref(result.value)}
+              key={result.value}
+            >
               <StyledResultItem display="flex" gap={1}>
                 <StyledIcon fontSize="small">
                   <SearchIcon />

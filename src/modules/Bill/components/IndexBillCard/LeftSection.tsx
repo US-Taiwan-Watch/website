@@ -70,7 +70,7 @@ export default function LeftSection({ bill }: Props) {
             })()}
         </TypographyWithSelectable>
 
-        <Link href={BillUtils.getLink(bill)}>
+        <Link href={BillUtils.getLink(bill.id)}>
           <UHeightLimitedTextWithSelectable
             maxLine={4}
             variant="h6"

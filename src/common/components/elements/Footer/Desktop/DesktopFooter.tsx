@@ -10,7 +10,8 @@ import Link from 'next/link'
 import UButton from '@/common/components/atoms/UButton'
 import LanguageSwitcher from '@/common/components/elements/LanguageSwitcher'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { ROUTES } from '@/routes'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const StyledFooter = styled('footer')(({ theme }) => ({
   paddingTop: theme.spacing(4),
@@ -29,6 +30,7 @@ const StyledBottomLink = styled(Link)(() => ({
 }))
 
 const DesktopFooter = () => {
+  const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('footer')
   const { socialLinkItems, subLinkItems } = useLinks()
 
@@ -127,7 +129,7 @@ const DesktopFooter = () => {
                 ))}
               </StyledSubLinkContainer>
               {/** Donation Button */}
-              <Link href={ROUTES.ABOUT_DONATION}>
+              <Link href={resolveRouteUrl({ name: RouteName.AboutDonation })}>
                 <UButton
                   variant="contained"
                   color="secondary"
@@ -155,7 +157,9 @@ const DesktopFooter = () => {
               {/** Links: not for phase1 */}
               <Stack direction="row" gap={2} flex={1} alignItems="center">
                 <StyledBottomLink
-                  href={ROUTES.ABOUT_USER_AGREEMENT_PRIVACY_POLICY}
+                  href={resolveRouteUrl({
+                    name: RouteName.AboutUserAgreementPrivacyPolicy,
+                  })}
                 >
                   {t('navItem.privacy.title', { ns: 'footer' })}
                 </StyledBottomLink>

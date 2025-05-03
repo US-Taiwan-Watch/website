@@ -14,6 +14,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
+    "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills\n      subscribePeoples\n      bookmarkArticles\n      notifications\n    }\n  }\n": types.MeDocument,
+    "\n  mutation SubscribeBill($billId: String!) {\n    subscribeBill(id: $billId) {\n      id\n    }\n  }\n": types.SubscribeBillDocument,
+    "\n  mutation SubscribePeople($peopleId: String!) {\n    subscribePeople(id: $peopleId) {\n      id\n    }\n  }\n": types.SubscribePeopleDocument,
+    "\n  mutation BookmarkArticle($articleId: String!) {\n    bookmarkArticle(id: $articleId) {\n      id\n    }\n  }\n": types.BookmarkArticleDocument,
     "\n  fragment CategoriesArticle on CategoriesArticle {\n    id\n    i18n {\n      en {\n        name\n      }\n      zh {\n        name\n      }\n    }\n  }\n": types.CategoriesArticleFragmentDoc,
     "\n  fragment ArticleMedia on Article_Media {\n    photo {\n      id\n      alt\n      url\n      sizes {\n        desktop {\n          url\n        }\n        tablet {\n          url\n        }\n        mobile {\n          url\n        }\n        thumbnail {\n          url\n        }\n      }\n    }\n    caption\n  }\n": types.ArticleMediaFragmentDoc,
     "\n  fragment FullArticle on Article {\n    id\n    title\n    subtitle\n    excerpt\n    content\n    sources {\n      id\n      link\n      text\n    }\n    podcast\n    media {\n      ...ArticleMedia\n    }\n    isFeatured\n    releaseTime\n    authors {\n      id\n      name\n      bio\n    }\n    categories {\n      ...CategoriesArticle\n    }\n    tags {\n      ...Tag\n    }\n    updatedAt\n    createdAt\n  }\n\n  \n  \n  \n": types.FullArticleFragmentDoc,
@@ -83,6 +87,22 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills\n      subscribePeoples\n      bookmarkArticles\n      notifications\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills\n      subscribePeoples\n      bookmarkArticles\n      notifications\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation SubscribeBill($billId: String!) {\n    subscribeBill(id: $billId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation SubscribeBill($billId: String!) {\n    subscribeBill(id: $billId) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation SubscribePeople($peopleId: String!) {\n    subscribePeople(id: $peopleId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation SubscribePeople($peopleId: String!) {\n    subscribePeople(id: $peopleId) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation BookmarkArticle($articleId: String!) {\n    bookmarkArticle(id: $articleId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation BookmarkArticle($articleId: String!) {\n    bookmarkArticle(id: $articleId) {\n      id\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

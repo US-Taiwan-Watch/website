@@ -11,11 +11,12 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import Link from 'next/link'
 import UButton from '@/common/components/atoms/UButton'
-import { ROUTES } from '@/routes'
 import useSocialLinks from '@/common/hooks/useSocialLinks'
 import HeaderPopper from '@/common/components/elements/Header/HeaderPopper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import UHStack from '@/common/components/atoms/UHStack'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const StyledNavItemListTitleContainer = styled(Box)(({ theme }) => ({
   width: '100%',
@@ -170,6 +171,7 @@ const MobileNavMenu = ({
 }: MobileNavMenuProps) => {
   const { t } = useTranslationClient('header')
   const { socialLinkItems } = useSocialLinks()
+  const { resolveRouteUrl } = useURouterClient()
 
   const handleMenuItemClick = useCallback(
     (item: HeaderNavItem) => {
@@ -193,7 +195,10 @@ const MobileNavMenu = ({
           <MobileNavMenuItemList onMenuItemClick={handleMenuItemClick} />
           {/** 捐款 */}
           <Box width="100%" display="flex" justifyContent="center">
-            <Link href={ROUTES.ABOUT_DONATION} style={{ width: '100%' }}>
+            <Link
+              href={resolveRouteUrl({ name: RouteName.AboutDonation })}
+              style={{ width: '100%' }}
+            >
               <UButton
                 className="donation-button"
                 variant="contained"

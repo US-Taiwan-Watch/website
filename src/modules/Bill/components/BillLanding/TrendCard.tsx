@@ -12,17 +12,19 @@ import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFi
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { ROUTES } from '@/routes'
 import { BillTrendByCategoryQuery } from '@/common/lib/graphql/__generated__/graphql'
 import { useQuery } from '@apollo/client'
 import { QUERY_BILL_TREND_BY_CATEGORY } from '@/modules/Bill/graphql/gql'
 import { isNull, isUndefined } from 'lodash-es'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 export default function TrendCard() {
   const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
   const router = useRouter()
+  const { resolveRouteUrl } = useURouterClient()
   const { categoryOptions } = useBillFilterOptions()
   const [selectedCategory, setSelectedCategory] = useState('')
 
@@ -55,7 +57,12 @@ export default function TrendCard() {
       params.set('category', selectedCategory)
     }
     params.set('congress', clickedData.congress.toString())
-    router.push(`${ROUTES.BILL_LIST}?${params.toString()}`)
+    router.push(
+      resolveRouteUrl({
+        name: RouteName.BillList,
+        query: Object.fromEntries(params.entries()),
+      })
+    )
   }
 
   return (

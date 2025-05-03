@@ -149,23 +149,25 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
                 </Link>
               ))}
             </Stack>
-            <UButtonWithSelectable
-              variant="contained"
-              color="info"
-              rounded
-              size="medium"
-              endIcon={
-                <ArrowForwardIcon
-                  sx={{
-                    width: { xs: 16, sm: 24 },
-                    height: { xs: 16, sm: 24 },
-                  }}
-                />
-              }
-              sx={{ width: 'max-content' }}
-            >
-              {t('card.cta.more', { ns: 'podcast' })}
-            </UButtonWithSelectable>
+            <Link href={PodcastUtils.getPodcastPageLink(podcast.type)}>
+              <UButtonWithSelectable
+                variant="contained"
+                color="info"
+                rounded
+                size="medium"
+                endIcon={
+                  <ArrowForwardIcon
+                    sx={{
+                      width: { xs: 16, sm: 24 },
+                      height: { xs: 16, sm: 24 },
+                    }}
+                  />
+                }
+                sx={{ width: 'max-content' }}
+              >
+                {t('card.cta.more', { ns: 'podcast' })}
+              </UButtonWithSelectable>
+            </Link>
           </Stack>
         </Grid>
         {!isMobile && (

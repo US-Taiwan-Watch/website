@@ -1,5 +1,6 @@
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { ROUTES } from '@/routes'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 import { useMemo } from 'react'
 
 export type HeaderNavItem =
@@ -17,6 +18,7 @@ export type HeaderNavItem =
     }
 
 export default function useNavItems() {
+  const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('header')
 
   const navItems = useMemo<Array<HeaderNavItem>>(() => {
@@ -30,13 +32,13 @@ export default function useNavItems() {
             id: 'discover-bill',
             type: 'link',
             title: t('navItem.discover.bills.title', { ns: 'header' }),
-            href: ROUTES.BILL,
+            href: resolveRouteUrl({ name: RouteName.Bill }),
           },
           {
             id: 'discover-people',
             type: 'link',
             title: t('navItem.discover.people.title', { ns: 'header' }),
-            href: ROUTES.PEOPLE,
+            href: resolveRouteUrl({ name: RouteName.People }),
           },
         ],
       },
@@ -44,13 +46,13 @@ export default function useNavItems() {
         id: 'articles',
         type: 'link',
         title: t('navItem.articles.title', { ns: 'header' }),
-        href: ROUTES.ARTICLE,
+        href: resolveRouteUrl({ name: RouteName.Article }),
       },
       {
         id: 'ketagalan-media',
         type: 'link',
         title: t('navItem.ketagalanMedia.title', { ns: 'header' }),
-        href: ROUTES.KETAGALAN_MEDIA,
+        href: resolveRouteUrl({ name: RouteName.KetagalanMedia }),
       },
       {
         id: 'podcasts',
@@ -61,19 +63,19 @@ export default function useNavItems() {
             id: 'podcasts-1',
             type: 'link',
             title: t('navItem.podcasts.watchHere.title', { ns: 'header' }),
-            href: ROUTES.PODCAST_WATCH_HERE,
+            href: resolveRouteUrl({ name: RouteName.PodcastWatchHere }),
           },
           {
             id: 'podcasts-2',
             type: 'link',
             title: t('navItem.podcasts.watchInfo.title', { ns: 'header' }),
-            href: ROUTES.PODCAST_WATCH_INFO,
+            href: resolveRouteUrl({ name: RouteName.PodcastWatchInfo }),
           },
           {
             id: 'podcasts-3',
             type: 'link',
             title: t('navItem.podcasts.watchBookClub.title', { ns: 'header' }),
-            href: ROUTES.PODCAST_WATCH_BOOK_CLUB,
+            href: resolveRouteUrl({ name: RouteName.PodcastWatchBookClub }),
           },
         ],
       },
@@ -81,7 +83,7 @@ export default function useNavItems() {
         id: 'events',
         type: 'link',
         title: t('navItem.events.title', { ns: 'header' }),
-        href: ROUTES.HOME,
+        href: resolveRouteUrl({ name: RouteName.Home }),
       },
       {
         id: 'about',
@@ -92,30 +94,30 @@ export default function useNavItems() {
             id: 'about-mission',
             type: 'link',
             title: t('navItem.about.mission.title', { ns: 'header' }),
-            href: ROUTES.HOME,
+            href: resolveRouteUrl({ name: RouteName.AboutMission }),
           },
           {
             id: 'about-footprints',
             type: 'link',
             title: t('navItem.about.footprints.title', { ns: 'header' }),
-            href: ROUTES.HOME,
+            href: resolveRouteUrl({ name: RouteName.AboutFootprints }),
           },
           {
             id: 'about-data',
             type: 'link',
             title: t('navItem.about.data.title', { ns: 'header' }),
-            href: ROUTES.HOME,
+            href: resolveRouteUrl({ name: RouteName.AboutData }),
           },
           {
             id: 'about-newsroom',
             type: 'link',
             title: t('navItem.about.newsroom.title', { ns: 'header' }),
-            href: ROUTES.HOME,
+            href: resolveRouteUrl({ name: RouteName.AboutNewsroom }),
           },
         ],
       },
     ]
-  }, [t])
+  }, [t, resolveRouteUrl])
 
   return { navItems }
 }

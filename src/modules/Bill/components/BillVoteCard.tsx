@@ -95,7 +95,9 @@ export default function BillVoteCard({ vote }: BillVoteCardProps) {
             {`${chamberPrefix} | ${CongressUtils.getCurrentCongressNumber()}th Congress`}
           </Typography>
 
-          <Link href={vote.vote?.bill ? BillUtils.getLink(vote.vote.bill) : ''}>
+          <Link
+            href={vote.vote?.bill ? BillUtils.getLink(vote.vote.bill.id) : ''}
+          >
             <UHeightLimitedText
               maxLine={4}
               variant="subtitleL"

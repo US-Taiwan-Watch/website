@@ -4,7 +4,6 @@ import { CongressUtils } from '@/common/business/Congress'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
 import { useQuery } from '@apollo/client'
-import { ROUTES } from '@/routes'
 import { Stack, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import { CurrentCongressBillCountQuery } from '@/common/lib/graphql/__generated__/graphql'
@@ -12,6 +11,8 @@ import { QUERY_CURRENT_CONGRESS_BILL_COUNT } from '@/modules/Bill/graphql/gql'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { memo } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
@@ -37,13 +38,14 @@ const BillTotalCountLink = memo(function BillTotalCountLink({
 }) {
   const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
+  const { resolveRouteUrl } = useURouterClient()
 
   return (
     <Link
-      href={{
-        pathname: ROUTES.BILL_LIST,
+      href={resolveRouteUrl({
+        name: RouteName.BillList,
         query: { congress: currentCongressNumber },
-      }}
+      })}
     >
       <StyledBillTotalCountCard>
         <Typography

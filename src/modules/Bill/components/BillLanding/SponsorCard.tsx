@@ -9,10 +9,11 @@ import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import Link from 'next/link'
-import { ROUTES } from '@/routes'
 import { CongressUtils } from '@/common/business/Congress'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 type SponsorRowData = {
   people: People
@@ -71,8 +72,9 @@ export default function SponsorCard({
   isCosponsor,
 }: SponsorCardProps) {
   const { t } = useTranslationClient('bill')
-
+  const { resolveRouteUrl } = useURouterClient()
   const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
+
   return (
     <UContentCard
       withHeader
@@ -95,15 +97,15 @@ export default function SponsorCard({
         {sponsorsData.map(({ people, billCount }, index) => (
           <Link
             key={index}
-            href={{
-              pathname: ROUTES.BILL_LIST,
+            href={resolveRouteUrl({
+              name: RouteName.BillList,
               query: {
                 congress: currentCongressNumber,
                 ...(isCosponsor
-                  ? { cosponsor: people.id }
-                  : { sponsor: people.id }),
+                  ? { cosponsor: people.id ?? null }
+                  : { sponsor: people.id ?? null }),
               },
-            }}
+            })}
           >
             <SponsorRow data={{ people, billCount }} />
           </Link>

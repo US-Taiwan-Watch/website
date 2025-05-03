@@ -13,6 +13,7 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Link from 'next/link'
 import { DateUtils } from '@/modules/Common/business/Date'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 interface ArticlePostHeaderProps {
@@ -22,6 +23,7 @@ interface ArticlePostHeaderProps {
 const ArticlePostHeader = function ArticlePostHeader({
   article,
 }: ArticlePostHeaderProps) {
+  const { bookmarkArticle } = useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient(['article'])
   const { categories, title, subtitle, date, tags, repostSources, authors } =
@@ -76,7 +78,12 @@ const ArticlePostHeader = function ArticlePostHeader({
             <UIconButton variant="rounded" color="black" size="xs">
               <OutlinedShareIcon />
             </UIconButton>
-            <UIconButton variant="rounded" color="black" size="xs">
+            <UIconButton
+              variant="rounded"
+              color="black"
+              size="xs"
+              onClick={() => bookmarkArticle(article)}
+            >
               <BookmarkIcon />
             </UIconButton>
           </UHStack>

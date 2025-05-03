@@ -331,6 +331,7 @@ interface USTWThemeColor {
       postFixedToolBorder: string // 文章頁面固定工具列邊框顏色
       postFixedToolButton: string // 文章頁面固定工具列按鈕顏色
       postFixedToolButtonText: string // 文章頁面固定工具列按鈕文字顏色
+      postFixedToolButtonHover: string // 文章頁面固定工具列按鈕滑鼠移入顏色
       postCategoryText: string // 文章分類文字顏色
       postTitle: string // 文章標題文字顏色
       postSubtitle: string // 文章副標題文字顏色
@@ -344,6 +345,28 @@ interface USTWThemeColor {
       postAuthorTitle: string // 文章作者標題文字顏色
       postAuthorName: string // 文章作者姓名文字顏色
       postAuthorDescription: string // 文章作者描述文字顏色
+    }
+    toast: {
+      success: {
+        background: string
+        text: string
+        icon: string
+      }
+      error: {
+        background: string
+        text: string
+        icon: string
+      }
+      warning: {
+        background: string
+        text: string
+        icon: string
+      }
+      info: {
+        background: string
+        text: string
+        icon: string
+      }
     }
   }
 }
@@ -454,7 +477,7 @@ const _lightTheme: USTWThemeOptions = {
       menuBackground: color.common.white,
       mobileNavMenuBackground: '#F0F0F0',
       mobileNavMenuDivider: color.neutral[100],
-      mobileNavMenuListItemText: color.neutral[100],
+      mobileNavMenuListItemText: color.neutral[500],
     },
     learMore: {
       text: color.common.black,
@@ -515,6 +538,7 @@ const _lightTheme: USTWThemeOptions = {
       postFixedToolBorder: '#0000001A',
       postFixedToolButton: color.grey[1000],
       postFixedToolButtonText: color.common.white,
+      postFixedToolButtonHover: color.grey[1000],
       postCategoryText: color.orange[900],
       postTitle: color.grey[3100],
       postSubtitle: color.grey[3200],
@@ -528,6 +552,28 @@ const _lightTheme: USTWThemeOptions = {
       postAuthorTitle: color.purple[100],
       postAuthorName: color.common.black,
       postAuthorDescription: color.neutral[500],
+    },
+    toast: {
+      success: {
+        background: '#E8F5E9',
+        text: '#2E7D32',
+        icon: '#4CAF50',
+      },
+      error: {
+        background: '#FFEBEE',
+        text: '#C62828',
+        icon: '#F44336',
+      },
+      warning: {
+        background: '#FFF3E0',
+        text: '#EF6C00',
+        icon: '#FF9800',
+      },
+      info: {
+        background: '#E3F2FD',
+        text: '#1565C0',
+        icon: '#2196F3',
+      },
     },
   },
   components: {
@@ -613,6 +659,7 @@ const _ketagalanTheme: USTWThemeOptions = {
       postFixedToolBorder: '#0000001A',
       postFixedToolButton: color.wheat[200],
       postFixedToolButtonText: color.common.black,
+      postFixedToolButtonHover: color.wheat[200],
       postCategoryText: color.wheat[200],
       postTitle: color.common.white,
       postSubtitle: color.neutral[300],
@@ -626,6 +673,28 @@ const _ketagalanTheme: USTWThemeOptions = {
       postAuthorTitle: color.wheat[200],
       postAuthorName: color.common.white,
       postAuthorDescription: color.neutral[200],
+    },
+    toast: {
+      success: {
+        background: '#1B5E20',
+        text: '#A5D6A7',
+        icon: '#81C784',
+      },
+      error: {
+        background: '#B71C1C',
+        text: '#EF9A9A',
+        icon: '#E57373',
+      },
+      warning: {
+        background: '#E65100',
+        text: '#FFB74D',
+        icon: '#FFA726',
+      },
+      info: {
+        background: '#0D47A1',
+        text: '#90CAF9',
+        icon: '#64B5F6',
+      },
     },
   },
   components: {

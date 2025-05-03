@@ -37,7 +37,7 @@ export default function TitleVersion({ bill }: Props) {
       rel="noopener noreferrer"
     >
       {isMobile ? (
-        <UIconButton variant="rounded" color="white" size="medium">
+        <UIconButton variant="rounded" color="white" size="xs">
           <CongressIcon />
         </UIconButton>
       ) : (

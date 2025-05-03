@@ -8,7 +8,8 @@ import { LogoutIcon } from '@/common/styles/assets/Icons'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useCallback, useEffect, useState } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'
-import { useAuth0 } from '@auth0/auth0-react'
+import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 
 const JOIN_DATE_FORMAT = 'YYYY/MM/DD'
 
@@ -120,12 +121,13 @@ export default function AccountSidebar() {
     setJoinDate(DateUtils.formatLocal(undefined, JOIN_DATE_FORMAT))
   }, [])
 
-  const { logout, user } = useAuth0()
+  const { logout } = useUAuth()
+  const account = useAccountStore.use.account()
   const handleLogout = useCallback(() => {
     logout()
   }, [logout])
 
-  if (!user) return null
+  if (!account) return null
 
   return (
     <SidebarContainer>
@@ -152,13 +154,16 @@ export default function AccountSidebar() {
                   xs: 54,
                   sm: 64,
                 },
+                color: 'common.black',
               }}
-              alt={user.name ?? 'User Avatar'}
-              src={user.picture ?? ''}
-            />
+              alt={account.fullName ?? 'User Avatar'}
+              src={account.picture}
+            >
+              {account.fullName?.charAt(0)}
+            </Avatar>
             <Stack>
-              <Typography variant="subtitleM">{user.name}</Typography>
-              <Typography variant="bodyS">{user.email}</Typography>
+              <Typography variant="subtitleM">{account.fullName}</Typography>
+              <Typography variant="bodyS">{account.email}</Typography>
             </Stack>
           </Stack>
         </ProfileInfo>
