@@ -11,7 +11,8 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import type React from 'react'
 import UContainer from '@/common/components/atoms/UContainer'
-import { ROUTES } from '@/routes'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 type AboutHeaderSectionProps = {
   currentPathname: string
@@ -47,6 +48,7 @@ const AboutHeaderTabsWrapper = ({
 }
 
 const AboutHeaderTabs = ({ currentPathname }: AboutHeaderSectionProps) => {
+  const { resolveRouteUrl } = useURouterClient()
   const theme = useTheme<USTWTheme>()
 
   const { t } = useTranslationClient('about')
@@ -54,26 +56,26 @@ const AboutHeaderTabs = ({ currentPathname }: AboutHeaderSectionProps) => {
     return [
       {
         label: t('tabs.mission', { ns: 'about' }),
-        path: ROUTES.ABOUT_MISSION,
+        path: resolveRouteUrl({ name: RouteName.AboutMission }),
       },
       {
         label: t('tabs.projects', { ns: 'about' }),
-        path: ROUTES.ABOUT_PROJECTS,
+        path: resolveRouteUrl({ name: RouteName.AboutProjects }),
       },
       {
         label: t('tabs.members', { ns: 'about' }),
-        path: ROUTES.ABOUT_MEMBERS,
+        path: resolveRouteUrl({ name: RouteName.AboutMembers }),
       },
       {
         label: t('tabs.footprints', { ns: 'about' }),
-        path: ROUTES.ABOUT_FOOTPRINTS,
+        path: resolveRouteUrl({ name: RouteName.AboutFootprints }),
       },
       {
         label: t('tabs.newsroom', { ns: 'about' }),
-        path: ROUTES.ABOUT_NEWSROOM,
+        path: resolveRouteUrl({ name: RouteName.AboutNewsroom }),
       },
     ]
-  }, [t])
+  }, [t, resolveRouteUrl])
 
   return (
     <AboutHeaderTabsWrapper>

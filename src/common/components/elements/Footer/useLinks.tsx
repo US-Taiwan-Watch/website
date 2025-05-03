@@ -1,6 +1,7 @@
 import useSocialLinks from '@/common/hooks/useSocialLinks'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { ROUTES } from '@/routes'
+import { RouteName } from '@/common/lib/router/routes'
+import useURouterClient from '@/common/lib/router/useURouterClient'
 import { useMemo } from 'react'
 
 export type SubLinkItem =
@@ -16,6 +17,7 @@ export type SubLinkItem =
     }
 
 export default function useLinks() {
+  const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('footer')
   const { socialLinkItems } = useSocialLinks()
 
@@ -29,27 +31,27 @@ export default function useLinks() {
           {
             type: 'subLink',
             title: t('navItem.ustw.mission.title', { ns: 'footer' }),
-            url: ROUTES.ABOUT_MISSION,
+            url: resolveRouteUrl({ name: RouteName.AboutMission }),
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.footprints.title', { ns: 'footer' }),
-            url: ROUTES.ABOUT_FOOTPRINTS,
+            url: resolveRouteUrl({ name: RouteName.AboutFootprints }),
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.member.title', { ns: 'footer' }),
-            url: ROUTES.ABOUT_MEMBERS,
+            url: resolveRouteUrl({ name: RouteName.AboutMembers }),
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.newsroom.title', { ns: 'footer' }),
-            url: ROUTES.ABOUT_NEWSROOM,
+            url: resolveRouteUrl({ name: RouteName.AboutNewsroom }),
           },
           {
             type: 'subLink',
             title: t('navItem.ustw.data.title', { ns: 'footer' }),
-            url: ROUTES.ABOUT_DATA,
+            url: resolveRouteUrl({ name: RouteName.AboutData }),
           },
           {
             type: 'subLink',
@@ -59,7 +61,7 @@ export default function useLinks() {
           {
             type: 'subLink',
             title: t('navItem.ustw.articles.title', { ns: 'footer' }),
-            url: ROUTES.ARTICLE,
+            url: resolveRouteUrl({ name: RouteName.Article }),
           },
           {
             type: 'subLink',
@@ -75,7 +77,7 @@ export default function useLinks() {
           {
             type: 'subLink',
             title: t('navItem.ketagalanMedia.articles.title', { ns: 'footer' }),
-            url: '#articles',
+            url: resolveRouteUrl({ name: RouteName.KetagalanMedia }),
           },
           {
             type: 'subLink',
@@ -91,12 +93,12 @@ export default function useLinks() {
           {
             type: 'subLink',
             title: t('navItem.discover.bills.title', { ns: 'footer' }),
-            url: ROUTES.BILL,
+            url: resolveRouteUrl({ name: RouteName.Bill }),
           },
           {
             type: 'subLink',
             title: t('navItem.discover.people.title', { ns: 'footer' }),
-            url: ROUTES.PEOPLE,
+            url: resolveRouteUrl({ name: RouteName.People }),
           },
         ],
       },
@@ -107,22 +109,22 @@ export default function useLinks() {
           {
             type: 'subLink',
             title: t('navItem.podcasts.watchHere.title', { ns: 'footer' }),
-            url: ROUTES.PODCAST_WATCH_HERE,
+            url: resolveRouteUrl({ name: RouteName.PodcastWatchHere }),
           },
           {
             type: 'subLink',
             title: t('navItem.podcasts.watchInfo.title', { ns: 'footer' }),
-            url: ROUTES.PODCAST_WATCH_INFO,
+            url: resolveRouteUrl({ name: RouteName.PodcastWatchInfo }),
           },
           {
             type: 'subLink',
             title: t('navItem.podcasts.watchBookClub.title', { ns: 'footer' }),
-            url: ROUTES.PODCAST_WATCH_BOOK_CLUB,
+            url: resolveRouteUrl({ name: RouteName.PodcastWatchBookClub }),
           },
         ],
       },
     ],
-    [t]
+    [t, resolveRouteUrl]
   )
 
   return {

@@ -6,12 +6,14 @@ import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { AccountSubscribe } from '@/modules/Account/Subscribe/business/AccountSubscribe'
 import { Box, Stack } from '@mui/material'
-import { memo } from 'react'
+import { memo, useEffect } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import Link from 'next/link'
 import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
+import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import AccountUtils from '@/modules/Account/business/Account'
 
 type AccountSubscribeListItemProps = {
   accountSubscribe: AccountSubscribe
@@ -103,6 +105,14 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
 })
 
 const AccountSubscribeList = memo(function AccountSubscribeList() {
+  const { account } = useAccountStore()
+  const setAccountSubscribeList =
+    useAccountSubscribeStore.use.setAccountSubscribeList()
+  useEffect(() => {
+    if (!account) return
+    setAccountSubscribeList(AccountUtils.getAccountSubscribeList(account))
+  }, [account, setAccountSubscribeList])
+
   const filteredAccountSubscribeList =
     useAccountSubscribeStore.use.filteredAccountSubscribeList()
   const { isNarrow } = useAccountLayout()

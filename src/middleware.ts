@@ -1,10 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
 import acceptLanguage from 'accept-language'
-import {
-  I18N_FALLBACK_LANGUAGE,
-  I18N_SUPPORTED_LANGUAGE,
-} from '@/common/lib/i18n/settings'
-import CookiesKey from '@/common/enums/CookiesKey'
+import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
+import { chainMiddlewares } from '@/middlewares/chainMiddlewares'
+import { withI18nMiddleware } from '@/middlewares/withI18nMiddleware'
+import { withAuth0Middleware } from '@/middlewares/withAuth0Middleware'
 
 acceptLanguage.languages(I18N_SUPPORTED_LANGUAGE)
 
@@ -24,48 +22,7 @@ export const config = {
   ],
 }
 
-export function middleware(req: NextRequest) {
-  // 如果路徑包含 /design_system 且環境為正式則進到 404
-  if (
-    req.nextUrl.pathname.indexOf('design_system') > -1 &&
-    process.env.NODE_ENV === 'production'
-  ) {
-    return NextResponse.redirect(new URL('/404', req.url))
-  }
+// middleware chain, the order of the array is the order of the middleware execution
+const middlewares = [withAuth0Middleware, withI18nMiddleware]
 
-  if (
-    req.nextUrl.pathname.indexOf('icon') > -1 ||
-    req.nextUrl.pathname.indexOf('chrome') > -1
-  )
-    return NextResponse.next()
-  let lng
-  if (req.cookies.has(CookiesKey.I18n))
-    lng = acceptLanguage.get(req.cookies.get(CookiesKey.I18n)!.value)
-  if (!lng) lng = acceptLanguage.get(req.headers.get('Accept-Language'))
-  if (!lng) lng = I18N_FALLBACK_LANGUAGE
-
-  // Redirect if lng in path is not supported
-  const search = req.nextUrl.search
-  if (
-    !I18N_SUPPORTED_LANGUAGE.some((loc) =>
-      req.nextUrl.pathname.startsWith(`/${loc}`)
-    ) &&
-    !req.nextUrl.pathname.startsWith('/_next')
-  ) {
-    return NextResponse.redirect(
-      new URL(`/${lng}${req.nextUrl.pathname}${search}`, req.url)
-    )
-  }
-
-  if (req.headers.has('referer')) {
-    const refererUrl = new URL(req.headers.get('referer')!)
-    const lngInReferer = I18N_SUPPORTED_LANGUAGE.find((l) =>
-      refererUrl.pathname.startsWith(`/${l}`)
-    )
-    const response = NextResponse.next()
-    if (lngInReferer) response.cookies.set(CookiesKey.I18n, lngInReferer)
-    return response
-  }
-
-  return NextResponse.next()
-}
+export default chainMiddlewares(middlewares)

@@ -18,12 +18,13 @@ import BillCard, { BillCardSkeleton } from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
 import { BillFilterOutput } from '@/modules/Bill/components/BillFilter/schema'
 import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
-import { ROUTES } from '@/routes'
 import { useLazyQuery } from '@apollo/client'
 import { Stack, Typography } from '@mui/material'
 import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
 import { useCallback, useMemo, useEffect, useState, useRef } from 'react'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const BillCardsSkeleton = () => {
   const { isMobile } = useResponsive()
@@ -47,7 +48,7 @@ export default function BillList() {
   const { t } = useTranslationClient('bill')
   const router = useRouter()
   const { lang } = useParams<{ lang: Language }>()
-
+  const { resolveRouteUrl } = useURouterClient()
   const params = useSearchParams()
 
   /**
@@ -125,11 +126,17 @@ export default function BillList() {
         BillsFilterUtils.transformFilterToUrlQueryString(filter)
       )
 
-      router.replace(`${ROUTES.BILL_LIST}?${urlQuery.toString()}`, {
-        scroll: false,
-      })
+      router.replace(
+        resolveRouteUrl({
+          name: RouteName.BillList,
+          query: Object.fromEntries(urlQuery.entries()),
+        }),
+        {
+          scroll: false,
+        }
+      )
     },
-    [router]
+    [router, resolveRouteUrl]
   )
 
   useEffect(() => {

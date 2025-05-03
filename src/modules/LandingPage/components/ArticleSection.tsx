@@ -12,7 +12,6 @@ import ArticlePostCards, {
   ScrollableArticlePostCards,
   ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
-import { ROUTES } from '@/routes'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import ArticleStoreProvider from '@/modules/Article/providers/ArticleStoreProvider'
@@ -38,6 +37,8 @@ import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/Ful
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import UKetagalanLogo from '@/common/components/atoms/UKetagalanLogo'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 type ArticleSectionProps = {
   articleType: ArticleType
@@ -48,6 +49,7 @@ const ArticleSection = ({
   articleType,
   defaultArticles,
 }: ArticleSectionProps) => {
+  const { resolveRouteUrl } = useURouterClient()
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('home')
   const { isMobile } = useResponsive()
@@ -154,8 +156,8 @@ const ArticleSection = ({
           }
           link={
             articleType === ArticleType.Ketagalan
-              ? ROUTES.KETAGALAN_MEDIA
-              : ROUTES.ARTICLE
+              ? resolveRouteUrl({ name: RouteName.KetagalanMedia })
+              : resolveRouteUrl({ name: RouteName.Article })
           }
         />
         <Stack gap={5}>

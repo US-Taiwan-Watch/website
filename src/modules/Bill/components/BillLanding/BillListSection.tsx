@@ -9,7 +9,6 @@ import {
   ScrollableBillCards,
 } from '@/modules/Bill/components/BillCards'
 import { Stack } from '@mui/material'
-import { ROUTES } from '@/routes'
 import { BillSorterEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { CongressUtils } from '@/common/business/Congress'
 import { useMemo } from 'react'
@@ -17,6 +16,8 @@ import { Bill } from '@/modules/Bill/business/Bill'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 interface BillListSectionProps {
   latestBills: Bill[]
@@ -27,6 +28,7 @@ const BillListSection = ({
   latestBills,
   popularBills,
 }: BillListSectionProps) => {
+  const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('bill')
   const { isMobile } = useResponsive()
   const currentCongressNumber = useMemo(
@@ -57,13 +59,13 @@ const BillListSection = ({
       >
         <SectionTitleWithLink
           title={t('landing.section.latestBills.title', { ns: 'bill' })}
-          link={{
-            pathname: ROUTES.BILL_LIST,
+          link={resolveRouteUrl({
+            name: RouteName.BillList,
             query: {
               congress: currentCongressNumber,
               sorter: BillSorterEnum.LatestAction,
             },
-          }}
+          })}
         />
         {isMobile ? (
           <FullWidthScrollableListWrapper>
@@ -94,12 +96,12 @@ const BillListSection = ({
       >
         <SectionTitleWithLink
           title={t('landing.section.popularBills.title', { ns: 'bill' })}
-          link={{
-            pathname: ROUTES.BILL_LIST,
+          link={resolveRouteUrl({
+            name: RouteName.BillList,
             query: {
               sorter: BillSorterEnum.Popularity,
             },
-          }}
+          })}
         />
         {isMobile ? (
           <FullWidthScrollableListWrapper>

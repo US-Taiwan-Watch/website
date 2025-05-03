@@ -1,17 +1,21 @@
 import React, { useState } from 'react'
-import SearchResult from '../classes/SearchResult'
+import {
+  SearchResult,
+  SearchResultInput,
+  SearchResultUtils,
+} from '@/modules/Search/business/SearchResult'
 
-const MOCK_SEARCH_RESULTS: Array<ConstructorParameters<typeof SearchResult>> = [
-  [{ value: 'test' }],
-  [{ value: 'test2' }],
-  [{ value: 'test3' }],
-  [{ value: 'test4' }],
-  [{ value: 'test5' }],
-  [{ value: 'test6' }],
-  [{ value: 'test7' }],
-  [{ value: 'test8' }],
-  [{ value: 'test9' }],
-  [{ value: 'test10' }],
+const MOCK_SEARCH_RESULTS: Array<SearchResultInput> = [
+  { value: 'test' },
+  { value: 'test2' },
+  { value: 'test3' },
+  { value: 'test4' },
+  { value: 'test5' },
+  { value: 'test6' },
+  { value: 'test7' },
+  { value: 'test8' },
+  { value: 'test9' },
+  { value: 'test10' },
 ]
 
 export default function useSearch() {
@@ -28,7 +32,7 @@ export default function useSearch() {
   const handleSearch = () => {
     setSearched(true)
     setSearchResults(
-      MOCK_SEARCH_RESULTS.map((result) => new SearchResult(...result))
+      MOCK_SEARCH_RESULTS.map((result) => SearchResultUtils.parse(result))
     )
     // setSearchResults([])
   }

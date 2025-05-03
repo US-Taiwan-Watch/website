@@ -29,7 +29,6 @@ import {
   PeopleFilterOutput,
 } from '@/modules/People/components/PeopleFilter/schema'
 import { PeoplesFilterUtils } from '@/modules/People/business/PeoplesFilter'
-import { ROUTES } from '@/routes'
 import useCategoriesPeople from '@/modules/People/hooks/useCategoriesPeople'
 import { PeopleCategoryEnum } from '@/modules/People/components/PeopleFilter/enums'
 import { PeopleCategory } from '@/modules/People/business/PeopleCategory'
@@ -38,6 +37,8 @@ import UHStack from '@/common/components/atoms/UHStack'
 import { Typography } from '@mui/material'
 import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const PeopleCardsSkeleton = () => {
   return (
@@ -63,7 +64,7 @@ const PeopleListSection = () => {
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const router = useRouter()
-
+  const { resolveRouteUrl } = useURouterClient()
   const params = useSearchParams()
 
   const { categoriesPeople } = useCategoriesPeople(lang)
@@ -169,11 +170,17 @@ const PeopleListSection = () => {
         PeoplesFilterUtils.transformFilterToUrlQueryString(filter)
       )
 
-      router.replace(`${ROUTES.PEOPLE}?${urlQuery.toString()}`, {
-        scroll: false,
-      })
+      router.replace(
+        resolveRouteUrl({
+          name: RouteName.People,
+          query: Object.fromEntries(urlQuery.entries()),
+        }),
+        {
+          scroll: false,
+        }
+      )
     },
-    [router, resetPage]
+    [router, resetPage, resolveRouteUrl]
   )
 
   useEffect(() => {

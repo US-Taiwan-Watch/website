@@ -9,12 +9,13 @@ import {
   articleCategorySchema,
   ArticleCategoryUtils,
 } from '@/modules/Article/business/ArticleCategory'
-import { ROUTES } from '@/routes'
 import {
   Article as ApiArticle,
   KetagalanArticle as ApiKetagalanArticle,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { RouteName } from '@/common/lib/router/routes'
 
 export enum ArticleType {
   Article = 'article',
@@ -94,9 +95,10 @@ export class ArticleUtils {
   }
 
   static getLinkRoute(articleType: ArticleType) {
+    const { resolveRouteUrl } = getURouterServer()
     return articleType === ArticleType.Ketagalan
-      ? ROUTES.KETAGALAN_MEDIA
-      : ROUTES.ARTICLE
+      ? resolveRouteUrl({ name: RouteName.KetagalanMedia })
+      : resolveRouteUrl({ name: RouteName.Article })
   }
 
   static getLink(articleType: ArticleType, articleId: Article['id']) {

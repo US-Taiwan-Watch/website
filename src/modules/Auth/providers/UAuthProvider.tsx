@@ -1,21 +1,56 @@
 'use client'
 
-import { Auth0Provider } from '@auth0/auth0-react'
-import { config } from '@/config'
+import { useRouter } from 'next/navigation'
 import type React from 'react'
+import { createContext, useCallback, useContext } from 'react'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
+
+type UAuthContextType = {
+  login: (options?: { returnTo?: string }) => void
+  logout: () => void
+}
+
+const UAuthContext = createContext<UAuthContextType>({
+  login: () => {},
+  logout: () => {},
+})
+
+export const useUAuth = () => {
+  const context = useContext(UAuthContext)
+  if (!context) {
+    throw new Error('useUAuth must be used within a UAuthProvider')
+  }
+  return context
+}
 
 export default function UAuthProvider({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const router = useRouter()
+  const { resolveRouteUrl } = useURouterClient()
+
+  const login = useCallback(
+    (options?: { returnTo?: string }) => {
+      router.push(
+        resolveRouteUrl({
+          name: RouteName.AuthLogin,
+          query: { returnTo: options?.returnTo ?? null },
+        })
+      )
+    },
+    [router, resolveRouteUrl]
+  )
+
+  const logout = useCallback(() => {
+    router.push(resolveRouteUrl({ name: RouteName.AuthLogout }))
+  }, [router, resolveRouteUrl])
+
   return (
-    <Auth0Provider
-      domain={config.AUTH0_DOMAIN}
-      clientId={config.AUTH0_CLIENT_ID}
-      authorizationParams={{ redirect_uri: config.AUTH0_REDIRECT_URI }}
-    >
+    <UAuthContext.Provider value={{ login, logout }}>
       {children}
-    </Auth0Provider>
+    </UAuthContext.Provider>
   )
 }

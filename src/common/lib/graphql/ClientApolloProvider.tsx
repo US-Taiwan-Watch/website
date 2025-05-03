@@ -6,6 +6,7 @@ import {
   ApolloClient,
   InMemoryCache,
 } from '@apollo/experimental-nextjs-app-support'
+import { setContext } from '@apollo/client/link/context'
 import type React from 'react'
 import { config } from '@/config'
 
@@ -23,11 +24,25 @@ function makeClient() {
     // const { data } = useSuspenseQuery(MY_QUERY, { context: { fetchOptions: { cache: "force-cache" }}});
   })
 
+  // 創建一個 auth link 來處理 token
+  const authLink = setContext(async (_, { headers, token }) => {
+    // 返回新的 headers
+    return {
+      headers: {
+        ...headers,
+        ...(token && { authorization: `Bearer ${token}` }),
+      },
+    }
+  })
+
   // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
   return new ApolloClient({
     // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
     cache: new InMemoryCache(),
-    link: httpLink,
+    link: authLink.concat(httpLink),
+    devtools: {
+      enabled: true,
+    },
   })
 }
 

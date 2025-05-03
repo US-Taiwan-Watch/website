@@ -76,7 +76,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  <Link href={PeopleUtils.getLink(people)}>
+                  <Link href={PeopleUtils.getLink(people.id)}>
                     <StyledNameText>
                       {people?.name ? people.name : EMPTY_CELL}
                     </StyledNameText>

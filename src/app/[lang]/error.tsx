@@ -3,14 +3,16 @@
 import UButton from '@/common/components/atoms/UButton'
 import UContainer from '@/common/components/atoms/UContainer'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { ROUTES } from '@/routes'
 import { Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { Language } from '@/common/lib/i18n/types'
 import { useParams } from 'next/navigation'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 export default function Error() {
+  const { resolveRouteUrl } = useURouterClient()
   const { lang } = useParams<{ lang: Language }>()
   const { t } = useTranslationClient('common')
 
@@ -62,7 +64,7 @@ export default function Error() {
               {t('msg.error.pageError.description', { ns: 'common' })}
             </Typography>
           </Stack>
-          <Link href={ROUTES.HOME}>
+          <Link href={resolveRouteUrl({ name: RouteName.Home })}>
             <UButton
               sx={{
                 backgroundColor: 'common.black',
