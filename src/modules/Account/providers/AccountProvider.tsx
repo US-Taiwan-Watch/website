@@ -28,6 +28,8 @@ import { Article } from '@/modules/Article/business/Article'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useUser } from '@auth0/nextjs-auth0'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 type AccountProviderContext = {
   refetchAccount: () => void
@@ -56,6 +58,7 @@ export default function AccountProvider({
 }: {
   children: React.ReactNode
 }) {
+  const { lang } = useParams<{ lang: Language }>()
   const { login } = useUAuth()
   const { user, isLoading } = useUser()
   const { setAccount } = useAccountStore()
@@ -95,9 +98,9 @@ export default function AccountProvider({
     const me = data.Me
     if (!me || !user) return
 
-    const account = AccountUtils.parseMeAndAuth0User(me, user)
+    const account = AccountUtils.parseMeAndAuth0User(lang, me, user)
     setAccount(account)
-  }, [isLoading, user, data, setAccount])
+  }, [isLoading, user, data, setAccount, lang])
 
   /**
    * Clear account data when user is not authenticated
