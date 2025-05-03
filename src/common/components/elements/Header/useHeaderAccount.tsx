@@ -19,7 +19,9 @@ export default function useHeaderAccount() {
     if (isLoading) return
 
     if (!user) {
-      login()
+      login({
+        returnTo: resolveRouteUrl({ name: RouteName.Account }),
+      })
       return
     }
 
