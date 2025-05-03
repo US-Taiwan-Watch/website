@@ -14,7 +14,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
-    "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills\n      subscribePeoples\n      bookmarkArticles\n      notifications\n    }\n  }\n": types.MeDocument,
+    "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkArticles {\n        ...FullArticle\n      }\n      notifications\n    }\n  }\n\n  \n  \n  \n": types.MeDocument,
     "\n  mutation SubscribeBill($billId: String!) {\n    subscribeBill(id: $billId) {\n      id\n    }\n  }\n": types.SubscribeBillDocument,
     "\n  mutation SubscribePeople($peopleId: String!) {\n    subscribePeople(id: $peopleId) {\n      id\n    }\n  }\n": types.SubscribePeopleDocument,
     "\n  mutation BookmarkArticle($articleId: String!) {\n    bookmarkArticle(id: $articleId) {\n      id\n    }\n  }\n": types.BookmarkArticleDocument,
@@ -90,7 +90,7 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills\n      subscribePeoples\n      bookmarkArticles\n      notifications\n    }\n  }\n"): (typeof documents)["\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills\n      subscribePeoples\n      bookmarkArticles\n      notifications\n    }\n  }\n"];
+export function gql(source: "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkArticles {\n        ...FullArticle\n      }\n      notifications\n    }\n  }\n\n  \n  \n  \n"): (typeof documents)["\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkArticles {\n        ...FullArticle\n      }\n      notifications\n    }\n  }\n\n  \n  \n  \n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

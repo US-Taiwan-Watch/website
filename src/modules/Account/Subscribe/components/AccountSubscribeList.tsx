@@ -48,7 +48,7 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
           sx={{
             minWidth: {
               xs: '46px',
-              lg: '80px',
+              sm: '100px',
             },
             textAlign: 'center',
             px: isNarrow ? 0.75 : 3.125,
