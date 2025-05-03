@@ -6,7 +6,7 @@ export const GET = async function GET() {
     return new Response('Unauthorized', { status: 401 })
   }
 
-  // 獲取 ID Token Claims
+  // 獲取 ID Token
   const idToken = session.tokenSet.idToken
 
   return Response.json({ idToken })
