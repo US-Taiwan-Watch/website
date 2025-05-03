@@ -31805,9 +31805,9 @@ type Me {
   providerId: String
   fullName: String
   email: String
-  subscribeBills: [String]
-  subscribePeoples: [String]
-  bookmarkArticles: [String]
+  subscribeBills: [Bill]
+  subscribePeoples: [People]
+  bookmarkArticles: [Article]
   notifications: JSON
 }
 
