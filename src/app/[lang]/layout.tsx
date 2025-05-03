@@ -13,6 +13,8 @@ import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
 import { ResponsiveProvider } from '@/common/lib/responsive/ResponsiveProvider'
 import I18nProvider from '@/common/lib/i18n/provider/I18nProvider'
 import UAuthProvider from '@/modules/Auth/providers/UAuthProvider'
+import AccountProvider from '@/modules/Account/providers/AccountProvider'
+import { Auth0Provider } from '@auth0/nextjs-auth0'
 
 export const metadata: Metadata = {
   title: 'USTW',
@@ -40,17 +42,21 @@ export default async function RootLayout({
           <ThemeProvider lang={params.lang}>
             <I18nProvider>
               <ResponsiveProvider defaultValue={{ isMobile, isTablet }}>
-                <UAuthProvider>
-                  <Stack minHeight="100dvh">
-                    <Header />
-                    <ToastProvider>
-                      <ClientApolloProvider>
-                        <Stack flexGrow={1}>{children}</Stack>
-                      </ClientApolloProvider>
-                    </ToastProvider>
-                    <Footer />
-                  </Stack>
-                </UAuthProvider>
+                <Auth0Provider>
+                  <UAuthProvider>
+                    <Stack minHeight="100dvh">
+                      <Header />
+                      <ToastProvider>
+                        <ClientApolloProvider>
+                          <AccountProvider>
+                            <Stack flexGrow={1}>{children}</Stack>
+                          </AccountProvider>
+                        </ClientApolloProvider>
+                      </ToastProvider>
+                      <Footer />
+                    </Stack>
+                  </UAuthProvider>
+                </Auth0Provider>
               </ResponsiveProvider>
             </I18nProvider>
           </ThemeProvider>

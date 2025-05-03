@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography'
 import Container from '@mui/material/Container'
 import { styled } from '@/common/lib/mui/theme'
 import React, { useMemo, useRef, useState } from 'react'
-import { ROUTES } from '@/routes'
 import { useRouter } from 'next/navigation'
 import { HeaderProps } from '@/common/components/elements/Header'
 import UIconButton from '@/common/components/atoms/UIconButton'
@@ -19,6 +18,8 @@ import {
 import MobileNavMenu from '@/common/components/elements/Header/Mobile/MobileNavMenu'
 import MobileSearchMenu from '@/modules/Search/components/Mobile/MobileSearchMenu'
 import useHeaderAccount from '@/common/components/elements/Header/useHeaderAccount'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const StyledHeaderContainer = styled(Container)(({ theme }) => ({
   position: 'sticky',
@@ -52,6 +53,7 @@ const StyledHeaderWrapper = styled(Box)(({ theme }) => ({
 }))
 
 const MobileHeader = ({ containerClassName, className }: HeaderProps) => {
+  const { resolveRouteUrl } = useURouterClient()
   const router = useRouter()
   const { handleAccountClick } = useHeaderAccount()
   const headerRef = useRef<HTMLHeadElement>(null)
@@ -106,7 +108,7 @@ const MobileHeader = ({ containerClassName, className }: HeaderProps) => {
               gap={1}
               sx={{ cursor: 'pointer' }}
               onClick={() => {
-                router.push(ROUTES.HOME)
+                router.push(resolveRouteUrl({ name: RouteName.Home }))
               }}
             >
               <ULogo size="xs" />

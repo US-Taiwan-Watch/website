@@ -6,10 +6,11 @@ import { styled } from '@/common/lib/mui/theme'
 import { BackIcon } from '@/common/styles/assets/Icons'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useAccountNavItems from '@/modules/Account/hooks/useAccountNavItems'
-import { ROUTES } from '@/routes'
 import { Box, Stack, Typography } from '@mui/material'
 import Link from 'next/link'
 import { type ReactNode } from 'react'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const AccountContentWrapper = styled(Box)(({ theme }) => ({
   flex: 1,
@@ -31,6 +32,7 @@ export default function AccountContent({
   children,
   headerChildren,
 }: AccountContentProps) {
+  const { resolveRouteUrl } = useURouterClient()
   const { isNarrow } = useAccountLayout()
   const { currentNavItem } = useAccountNavItems()
 
@@ -60,7 +62,7 @@ export default function AccountContent({
             </Typography>
           </UHStack>
           {isNarrow && (
-            <Link href={ROUTES.ACCOUNT}>
+            <Link href={resolveRouteUrl({ name: RouteName.Account })}>
               <UIconButton variant="text" color="inherit">
                 <BackIcon
                   sx={{ width: 20, height: 20, color: 'neutral.500' }}

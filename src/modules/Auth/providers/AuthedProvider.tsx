@@ -1,10 +1,12 @@
 'use client'
 
-import { ROUTES } from '@/routes'
-import { useAuth0 } from '@auth0/auth0-react'
+import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
+import { useUser } from '@auth0/nextjs-auth0'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useEffect } from 'react'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 type UnAuthedAction =
   | /** 跳轉到登入頁 */
@@ -15,6 +17,7 @@ type UnAuthedAction =
 type AuthedProviderProps = {
   children: React.ReactNode
   unAuthedAction?: UnAuthedAction
+  redirectToSamePage?: boolean
 }
 
 /**
@@ -25,23 +28,40 @@ type AuthedProviderProps = {
 export default function AuthedProvider({
   children,
   unAuthedAction = 'home',
+  redirectToSamePage = false,
 }: AuthedProviderProps) {
   const router = useRouter()
-  const { isAuthenticated, loginWithRedirect, isLoading } = useAuth0()
+  const { resolveRouteUrl } = useURouterClient()
+  const { login } = useUAuth()
+  const { user, isLoading } = useUser()
 
   useEffect(() => {
-    if (!isAuthenticated && !isLoading) {
+    if (!user && !isLoading) {
       switch (unAuthedAction) {
         case 'login':
-          loginWithRedirect()
+          if (!redirectToSamePage) {
+            login()
+            return
+          }
+          login({
+            returnTo: window.location.pathname + window.location.search,
+          })
           break
         case 'home':
-          router.push(ROUTES.HOME)
+          router.push(resolveRouteUrl({ name: RouteName.Home }))
           break
       }
     }
-  }, [isAuthenticated, loginWithRedirect, router, unAuthedAction, isLoading])
+  }, [
+    user,
+    isLoading,
+    login,
+    unAuthedAction,
+    redirectToSamePage,
+    router,
+    resolveRouteUrl,
+  ])
 
-  if (!isAuthenticated) return null
+  if (!user) return null
   return <>{children}</>
 }

@@ -48,7 +48,7 @@ const getHyperLinkTooltipCardProps = (
     return {
       title: bill.title ?? '',
       description: bill.summary ?? '',
-      link: BillUtils.getLink(bill),
+      link: BillUtils.getLink(bill.id),
     }
   }
 

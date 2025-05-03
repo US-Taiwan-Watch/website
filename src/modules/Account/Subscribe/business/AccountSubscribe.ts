@@ -6,7 +6,7 @@ export enum AccountSubscribeType {
   People = 'people',
 }
 
-const accountSubscribeSchema = z.object({
+export const accountSubscribeSchema = z.object({
   id: z.string(),
   type: z.nativeEnum(AccountSubscribeType),
   title: z.string(),

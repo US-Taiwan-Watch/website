@@ -2,7 +2,8 @@ import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { usePathname, useParams } from 'next/navigation'
 import { useMemo } from 'react'
 import { Language } from '@/common/lib/i18n/types'
-import { ROUTES } from '@/routes'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 /**
  * 是否顯示相關介面
@@ -10,6 +11,7 @@ import { ROUTES } from '@/routes'
  */
 export default function useAccountLayout() {
   const { lang } = useParams<{ lang: Language }>()
+  const { resolveRouteUrl } = useURouterClient()
   const { isMobile } = useResponsive()
   const pathname = usePathname()
   const pathnameWithoutLang = useMemo(() => {
@@ -28,14 +30,14 @@ export default function useAccountLayout() {
   const withSidebar = useMemo(() => {
     if (isNarrow) {
       return ![
-        ROUTES.ACCOUNT_SUBSCRIBE,
-        ROUTES.ACCOUNT_SETTING,
-        ROUTES.ACCOUNT_PASSWORD,
-        ROUTES.ACCOUNT_NOTIFICATION,
+        resolveRouteUrl({ name: RouteName.AccountSubscribe }),
+        resolveRouteUrl({ name: RouteName.AccountSetting }),
+        resolveRouteUrl({ name: RouteName.AccountPassword }),
+        resolveRouteUrl({ name: RouteName.AccountNotification }),
       ].includes(pathnameWithoutLang)
     }
     return true
-  }, [isNarrow, pathnameWithoutLang])
+  }, [isNarrow, pathnameWithoutLang, resolveRouteUrl])
 
   /**
    * 是否顯示內容
@@ -43,19 +45,25 @@ export default function useAccountLayout() {
    */
   const withContent = useMemo(() => {
     if (isNarrow) {
-      return pathnameWithoutLang !== ROUTES.ACCOUNT
+      return (
+        pathnameWithoutLang !== resolveRouteUrl({ name: RouteName.Account })
+      )
     }
     return true
-  }, [isNarrow, pathnameWithoutLang])
+  }, [isNarrow, pathnameWithoutLang, resolveRouteUrl])
 
   /**
    * 背景顏色
    */
   const backgroundColor = useMemo(() => {
-    if (isNarrow && pathnameWithoutLang === ROUTES.ACCOUNT) return '#F3F3F3'
+    if (
+      isNarrow &&
+      pathnameWithoutLang === resolveRouteUrl({ name: RouteName.Account })
+    )
+      return '#F3F3F3'
     if (isNarrow) return '#E0E0E0'
     return '#C0C5C8'
-  }, [isNarrow, pathnameWithoutLang])
+  }, [isNarrow, pathnameWithoutLang, resolveRouteUrl])
 
   return {
     withSidebar,

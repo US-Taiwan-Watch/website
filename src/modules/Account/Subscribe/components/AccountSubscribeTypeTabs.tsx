@@ -4,6 +4,7 @@ import UButton from '@/common/components/atoms/UButton'
 import UHStack from '@/common/components/atoms/UHStack'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
+import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import { AccountSubscribeType } from '@/modules/Account/Subscribe/business/AccountSubscribe'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
 import { Box } from '@mui/material'
@@ -36,6 +37,7 @@ type AccountSubscribeTypeTab = {
 }
 
 const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
+  const { account } = useAccountStore()
   const currentAccountSubscribeType =
     useAccountSubscribeStore.use.currentAccountSubscribeType()
   const setCurrentAccountSubscribeType =
@@ -48,21 +50,20 @@ const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
       {
         label: t('subscribe.type.bill', { ns: 'account' }),
         value: AccountSubscribeType.Bill,
-        // TODO: get count from api
-        count: 10,
+        count: account?.subscribeBills.length ?? 0,
       },
       {
         label: t('subscribe.type.article', { ns: 'account' }),
         value: AccountSubscribeType.Article,
-        count: 10,
+        count: account?.bookmarkArticles.length ?? 0,
       },
       {
         label: t('subscribe.type.people', { ns: 'account' }),
         value: AccountSubscribeType.People,
-        count: 10,
+        count: account?.subscribePeoples.length ?? 0,
       },
     ]
-  }, [t])
+  }, [t, account])
 
   return (
     <UHStack

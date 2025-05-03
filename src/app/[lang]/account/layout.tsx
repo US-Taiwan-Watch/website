@@ -7,8 +7,10 @@ import { useParams } from 'next/navigation'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import UContainer from '@/common/components/atoms/UContainer'
 import AuthedProvider from '@/modules/Auth/providers/AuthedProvider'
+import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 
 export default function AccountLayout({ children }: { children: ReactNode }) {
+  const { account } = useAccountStore()
   const { lang } = useParams<{ lang: Language }>()
   const { backgroundColor } = useAccountLayout()
 
@@ -24,7 +26,9 @@ export default function AccountLayout({ children }: { children: ReactNode }) {
       }}
     >
       <UContainer>
-        <AuthedProvider unAuthedAction="login">{children}</AuthedProvider>
+        <AuthedProvider unAuthedAction="login">
+          {account ? children : null}
+        </AuthedProvider>
       </UContainer>
     </ThemeProvider>
   )

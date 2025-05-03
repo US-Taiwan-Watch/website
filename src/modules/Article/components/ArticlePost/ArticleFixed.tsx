@@ -7,10 +7,20 @@ import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
 import { useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import { Article } from '@/modules/Article/business/Article'
+import { memo } from 'react'
 
-const ArticleFixed = () => {
+type ArticleFixedProps = {
+  article: Article
+}
+
+const ArticleFixed = memo(function ArticleFixed({
+  article,
+}: ArticleFixedProps) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
+  const { bookmarkArticle } = useAccount()
 
   if (isMobile) return null
 
@@ -46,7 +56,11 @@ const ArticleFixed = () => {
           sx={{
             backgroundColor: theme.color.article.postFixedToolButton,
             color: theme.color.article.postFixedToolButtonText,
+            '&:hover': {
+              backgroundColor: theme.color.article.postFixedToolButtonHover,
+            },
           }}
+          onClick={() => bookmarkArticle(article)}
         >
           <BookmarkIcon />
         </UIconButton>
@@ -56,6 +70,9 @@ const ArticleFixed = () => {
           sx={{
             backgroundColor: theme.color.article.postFixedToolButton,
             color: theme.color.article.postFixedToolButtonText,
+            '&:hover': {
+              backgroundColor: theme.color.article.postFixedToolButtonHover,
+            },
           }}
         >
           <OutlinedShareIcon />
@@ -63,6 +80,6 @@ const ArticleFixed = () => {
       </Stack>
     </Container>
   )
-}
+})
 
 export default ArticleFixed

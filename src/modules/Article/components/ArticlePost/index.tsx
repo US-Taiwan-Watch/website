@@ -34,7 +34,7 @@ const ArticlePost = function ArticlePost({
       }}
     >
       <Box>
-        <ArticleFixed />
+        <ArticleFixed article={article} />
         <UContainer>
           <Box
             sx={{

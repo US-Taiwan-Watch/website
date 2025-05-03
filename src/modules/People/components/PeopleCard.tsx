@@ -167,7 +167,7 @@ const PeopleCard = memo(function PeopleCard({
             justifyContent="end"
             alignItems="flex-start"
           >
-            <Link href={PeopleUtils.getLink(people)}>
+            <Link href={PeopleUtils.getLink(people.id)}>
               <StyledPeopleCardIconButton variant="rounded" color="inherit">
                 {isMobile ? <ArrowTopRightIcon /> : <ArrowForwardIcon />}
               </StyledPeopleCardIconButton>

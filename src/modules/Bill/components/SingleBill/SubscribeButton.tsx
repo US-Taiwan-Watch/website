@@ -5,21 +5,27 @@ import { Bill } from '@/modules/Bill/business/Bill'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 
 type SubscribeButtonProps = {
   bill: Bill
 }
 
 const SubscribeButton = memo(function SubscribeButton({
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   bill,
 }: SubscribeButtonProps) {
+  const { subscribeBill } = useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient('bill')
 
   if (isMobile) {
     return (
-      <UIconButton variant="rounded" color="primary" size="xs">
+      <UIconButton
+        variant="rounded"
+        color="primary"
+        size="xs"
+        onClick={() => subscribeBill(bill)}
+      >
         <BookmarkBorderOutlinedIcon />
       </UIconButton>
     )
@@ -31,6 +37,7 @@ const SubscribeButton = memo(function SubscribeButton({
       color="primary"
       rounded
       startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
+      onClick={() => subscribeBill(bill)}
     >
       {t('page.subscribe.btn', {
         ns: 'bill',

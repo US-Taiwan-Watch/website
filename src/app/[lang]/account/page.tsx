@@ -1,13 +1,15 @@
 import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { RouteName } from '@/common/lib/router/routes'
 import AccountLayout from '@/modules/Account/components/AccountLayout'
-import { ROUTES } from '@/routes'
 import { redirect } from 'next/navigation'
 
 export default async function AccountPage() {
+  const { resolveRouteUrl } = getURouterServer()
   const { isMobile, isTablet } = await getServerDevice()
 
   if (!isMobile && !isTablet) {
-    redirect(ROUTES.ACCOUNT_SUBSCRIBE)
+    redirect(resolveRouteUrl({ name: RouteName.AccountSubscribe }))
   }
 
   return (

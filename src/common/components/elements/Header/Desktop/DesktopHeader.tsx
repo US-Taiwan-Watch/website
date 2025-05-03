@@ -16,11 +16,12 @@ import React, { useRef, useState } from 'react'
 import useNavItems, { HeaderNavItem } from '../useNavItems'
 import DesktopSearchBar from '@/modules/Search/components/Desktop/DesktopSearchBar'
 import { ProfileIcon, SearchIcon } from '@/common/styles/assets/Icons'
-import { ROUTES } from '@/routes'
 import { useRouter } from 'next/navigation'
 import { HeaderProps } from '@/common/components/elements/Header'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useHeaderAccount from '@/common/components/elements/Header/useHeaderAccount'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 const StyledHeaderContainer = styled(Container)(({ theme }) => ({
   position: 'sticky',
@@ -119,6 +120,7 @@ const StyledNavMenu = styled(Menu)(({ theme }) => ({
 }))
 
 const DesktopHeader = ({ className }: HeaderProps) => {
+  const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('header')
   const router = useRouter()
   const { navItems } = useNavItems()
@@ -182,7 +184,7 @@ const DesktopHeader = ({ className }: HeaderProps) => {
             gap={1}
             sx={{ cursor: 'pointer' }}
             onClick={() => {
-              router.push(ROUTES.HOME)
+              router.push(resolveRouteUrl({ name: RouteName.Home }))
             }}
           >
             <ULogo size="small" />
@@ -293,7 +295,7 @@ const DesktopHeader = ({ className }: HeaderProps) => {
                 >
                   <SearchIcon />
                 </UIconButton>
-                <Link href={ROUTES.ABOUT_DONATION}>
+                <Link href={resolveRouteUrl({ name: RouteName.AboutDonation })}>
                   <UButton
                     className="donation-button"
                     variant="contained"

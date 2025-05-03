@@ -1,23 +1,30 @@
-import { ROUTES } from '@/routes'
-import { useAuth0 } from '@auth0/auth0-react'
+import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
+import { useUser } from '@auth0/nextjs-auth0'
 import { useRouter } from 'next/navigation'
+import { useCallback } from 'react'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 /**
  * Header 的 Account 功能
  * @returns
  */
 export default function useHeaderAccount() {
+  const { resolveRouteUrl } = useURouterClient()
   const router = useRouter()
-  const { isAuthenticated, loginWithRedirect } = useAuth0()
+  const { login } = useUAuth()
+  const { user, isLoading } = useUser()
 
-  const handleAccountClick = () => {
-    if (!isAuthenticated) {
-      loginWithRedirect()
+  const handleAccountClick = useCallback(() => {
+    if (isLoading) return
+
+    if (!user) {
+      login()
       return
     }
 
-    router.push(ROUTES.ACCOUNT)
-  }
+    router.push(resolveRouteUrl({ name: RouteName.Account }))
+  }, [router, user, isLoading, login, resolveRouteUrl])
 
   return { handleAccountClick }
 }

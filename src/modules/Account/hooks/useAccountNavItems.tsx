@@ -6,10 +6,12 @@ import {
 } from '@/common/styles/assets/Icons'
 import { useMemo } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { ROUTES } from '@/routes'
 import useAccountPathname from '@/modules/Account/hooks/useAccountPathname'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 export default function useAccountNavItems() {
+  const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('account')
   const { pathnameWithoutLang } = useAccountPathname()
 
@@ -17,26 +19,26 @@ export default function useAccountNavItems() {
     () => [
       {
         label: t('navItem.subscribe', { ns: 'account' }),
-        href: ROUTES.ACCOUNT_SUBSCRIBE,
+        href: resolveRouteUrl({ name: RouteName.AccountSubscribe }),
         icon: <BookmarkIcon sx={{ width: 24, height: 24 }} />,
       },
       {
         label: t('navItem.setting', { ns: 'account' }),
-        href: ROUTES.ACCOUNT_SETTING,
+        href: resolveRouteUrl({ name: RouteName.AccountSetting }),
         icon: <SettingIcon sx={{ width: 24, height: 24 }} />,
       },
       {
         label: t('navItem.password', { ns: 'account' }),
-        href: ROUTES.ACCOUNT_PASSWORD,
+        href: resolveRouteUrl({ name: RouteName.AccountPassword }),
         icon: <PasswordIcon sx={{ width: 24, height: 24 }} />,
       },
       {
         label: t('navItem.notification', { ns: 'account' }),
-        href: ROUTES.ACCOUNT_NOTIFICATION,
+        href: resolveRouteUrl({ name: RouteName.AccountNotification }),
         icon: <NotificationIcon sx={{ width: 24, height: 24 }} />,
       },
     ],
-    [t]
+    [t, resolveRouteUrl]
   )
 
   const currentNavItem = useMemo(() => {

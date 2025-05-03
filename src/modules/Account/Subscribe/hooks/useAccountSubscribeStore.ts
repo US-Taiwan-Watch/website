@@ -7,45 +7,6 @@ import {
 import { create } from 'zustand'
 import { devtools } from 'zustand/middleware'
 
-const MOCK_ACCOUNT_SUBSCRIBE_LIST: AccountSubscribe[] = [
-  {
-    id: '1',
-    type: AccountSubscribeType.Bill,
-    title: 'Bill',
-    url: 'https://www.google.com',
-  },
-  {
-    id: '2',
-    type: AccountSubscribeType.Bill,
-    title: 'Bill',
-    url: 'https://www.google.com',
-  },
-  {
-    id: '3',
-    type: AccountSubscribeType.Article,
-    title: 'Article',
-    url: 'https://www.google.com',
-  },
-  {
-    id: '4',
-    type: AccountSubscribeType.Article,
-    title: 'Article',
-    url: 'https://www.google.com',
-  },
-  {
-    id: '5',
-    type: AccountSubscribeType.People,
-    title: 'People',
-    url: 'https://www.google.com',
-  },
-  {
-    id: '6',
-    type: AccountSubscribeType.People,
-    title: 'People',
-    url: 'https://www.google.com',
-  },
-]
-
 type State = {
   currentAccountSubscribeType: AccountSubscribeType | null
   accountSubscribeList: AccountSubscribe[]
@@ -59,8 +20,8 @@ type Action = {
 
 const initialState: State = {
   currentAccountSubscribeType: null,
-  accountSubscribeList: MOCK_ACCOUNT_SUBSCRIBE_LIST,
-  filteredAccountSubscribeList: MOCK_ACCOUNT_SUBSCRIBE_LIST,
+  accountSubscribeList: [],
+  filteredAccountSubscribeList: [],
 }
 
 const useAccountSubscribeStore = createSelectors(
