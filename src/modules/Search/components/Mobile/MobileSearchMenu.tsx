@@ -6,17 +6,16 @@ import Stack from '@mui/material/Stack'
 import Input from '@mui/material/Input'
 import Box from '@mui/material/Box'
 import Icon from '@mui/material/Icon'
-import { memo, useCallback } from 'react'
+import { memo } from 'react'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import useSearch from '@/modules/Search/hooks/useSearch'
 import MobileSearchResultList from '@/modules/Search/components/Mobile/MobileSearchResultList'
-import { debounce } from 'lodash-es'
 import type React from 'react'
 
 interface MobileSearchMenuProps {
   anchorEl: HTMLElement | null
   clickAwayClassNameWhiteList?: string[]
-  onClose: () => void
+  onClose?: () => void
 }
 
 const StyledContainer = styled(Box)(({ theme }) => ({
@@ -48,25 +47,15 @@ const MobileSearchMenu = ({
   onClose,
 }: MobileSearchMenuProps) => {
   const {
+    searchQuery,
     handleSearchQueryChange,
-    handleSearchSuggestions,
     searchSuggestions,
-    searched,
+    handleNavigateSearchPage,
   } = useSearch()
-
-  const handleInputChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
-      handleSearchQueryChange(event)
-      debounce(() => {
-        handleSearchSuggestions()
-      }, 1000)()
-    },
-    [handleSearchQueryChange, handleSearchSuggestions]
-  )
 
   return (
     <HeaderPopper
-      headerAnchorEl={anchorEl}
+      anchorEl={anchorEl}
       clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
       onClose={onClose}
     >
@@ -80,14 +69,19 @@ const MobileSearchMenu = ({
                 <SearchIcon />
               </StyledIcon>
             }
-            onChange={handleInputChange}
+            onChange={(e) => handleSearchQueryChange(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                handleNavigateSearchPage(searchQuery)
+              }
+            }}
             autoFocus
             sx={{
               marginTop: 1.5,
             }}
           />
 
-          {searched && (
+          {searchSuggestions.length > 0 && (
             <MobileSearchResultList suggestions={searchSuggestions} />
           )}
         </Stack>

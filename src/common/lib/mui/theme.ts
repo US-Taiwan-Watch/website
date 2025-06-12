@@ -284,6 +284,12 @@ interface USTWThemeColor {
       resultItemText: string // 搜尋結果文字顏色
       mobileResultItemText: string // 手機搜尋結果文字顏色
     }
+    searchPageSearchBar: {
+      inputBackground: string // 搜尋欄背景色
+      resultBackground: string // 搜尋結果背景色
+      noResultSubtitle: string // 搜尋結果無結果文字顏色
+      resultItemText: string // 搜尋結果文字顏色
+    }
     pagination: {
       dotPagination: string // 分頁點擊顏色
       backgroundColor: string // 分頁背景色
@@ -491,6 +497,12 @@ const _lightTheme: USTWThemeOptions = {
       resultItemText: color.common.black,
       mobileResultItemText: color.grey[3900],
     },
+    searchPageSearchBar: {
+      inputBackground: color.neutral[100],
+      resultBackground: color.common.white,
+      noResultSubtitle: color.neutral[500],
+      resultItemText: color.common.black,
+    },
     pagination: {
       dotPagination: color.grey[1200],
       backgroundColor: color.common.white,
@@ -611,6 +623,12 @@ const _ketagalanTheme: USTWThemeOptions = {
       noResultSubtitle: color.neutral[200],
       resultItemText: color.common.white,
       mobileResultItemText: color.common.white,
+    },
+    searchPageSearchBar: {
+      inputBackground: color.neutral[100],
+      resultBackground: color.common.white,
+      noResultSubtitle: color.neutral[500],
+      resultItemText: color.common.black,
     },
     pagination: {
       dotPagination: color.grey[900],

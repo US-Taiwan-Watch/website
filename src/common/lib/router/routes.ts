@@ -99,9 +99,6 @@ export type URoute = {
     }
   | {
       name: RouteName.Search
-      params: {
-        query: string
-      }
     }
   | {
       name: Exclude<

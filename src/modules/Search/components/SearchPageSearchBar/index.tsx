@@ -1,25 +1,11 @@
 'use client'
 
-import UButton from '@/common/components/atoms/UButton'
 import { styled } from '@/common/lib/mui/theme'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import { Box, Icon, Input } from '@mui/material'
 import useSearch from '@/modules/Search/hooks/useSearch'
-import DesktopSearchResultList from '@/modules/Search/components/Desktop/DesktopSearchResultList'
-import { useRef } from 'react'
-import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-
-interface DesktopSearchBarProps {
-  className?: string
-  /** 讓 SearchResultList 渲染在特定元件底下 */
-  resultParentEl: HTMLElement | null
-  /**
-   * 點擊其他區域不會觸發 onClickAway
-   * 例如：點擊 SearchBar 不會觸發 onClickAway
-   */
-  clickAwayClassNameWhiteList?: string[]
-  onClose?: () => void
-}
+import { useCallback, useRef } from 'react'
+import SearchResultList from '@/modules/Search/components/SearchPageSearchBar/SearchResultList'
 
 const StyledIcon = styled(Icon)(({ theme }) => ({
   color: theme.color.grey[600],
@@ -31,25 +17,15 @@ const StyledContainer = styled(Box)(() => ({
 }))
 
 const StyledInput = styled(Input)(({ theme }) => ({
-  backgroundColor: theme.color.searchBar.inputBackground,
+  backgroundColor: theme.color.searchPageSearchBar.inputBackground,
   borderRadius: '100px',
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
   height: '40px',
+  zIndex: 1001,
 }))
 
-const StyledButton = styled(UButton)(({ theme }) => ({
-  backgroundColor: theme.color.searchBar.searchButtonBackground,
-  '&:hover': {
-    backgroundColor: theme.color.searchBar.searchButtonBackground,
-  },
-}))
-
-const DesktopSearchBar = ({
-  resultParentEl,
-  clickAwayClassNameWhiteList,
-  onClose,
-}: DesktopSearchBarProps) => {
-  const { t } = useTranslationClient('search')
+const SearchPageSearchBar = () => {
+  const boxRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const {
     searchQuery,
@@ -58,8 +34,19 @@ const DesktopSearchBar = ({
     handleNavigateSearchPage,
   } = useSearch()
 
+  const handleResultListClose = useCallback(() => {
+    handleSearchQueryChange('')
+  }, [handleSearchQueryChange])
+
   return (
-    <Box display="flex" flexDirection="column" width="100%">
+    <Box
+      ref={boxRef}
+      className="search-bar"
+      display="flex"
+      flexDirection="column"
+      width="100%"
+      position="relative"
+    >
       <StyledContainer
         display="flex"
         alignItems="center"
@@ -83,23 +70,14 @@ const DesktopSearchBar = ({
             }
           }}
         />
-        <StyledButton
-          variant="contained"
-          rounded
-          onClick={() => handleNavigateSearchPage(searchQuery)}
-          disabled={!searchQuery}
-        >
-          {t('submit.btn.title', { ns: 'search' })}
-        </StyledButton>
       </StyledContainer>
       {searchSuggestions.length > 0 && (
         <>
-          <DesktopSearchResultList
+          <SearchResultList
             suggestions={searchSuggestions}
-            headerAnchorEl={resultParentEl}
+            anchorEl={boxRef.current}
             inputAnchorEl={inputRef.current}
-            clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
-            onClose={onClose}
+            onClose={handleResultListClose}
           />
         </>
       )}
@@ -107,4 +85,4 @@ const DesktopSearchBar = ({
   )
 }
 
-export default DesktopSearchBar
+export default SearchPageSearchBar

@@ -16,6 +16,6 @@ export class SearchSuggestionUtils {
 
   static getHref(value: string) {
     const { resolveRouteUrl } = getURouterServer()
-    return resolveRouteUrl({ name: RouteName.Search, params: { query: value } })
+    return resolveRouteUrl({ name: RouteName.Search, query: { query: value } })
   }
 }

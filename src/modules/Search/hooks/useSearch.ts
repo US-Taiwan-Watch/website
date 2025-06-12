@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
   SearchSuggestion,
   SearchSuggestionInput,
   SearchSuggestionUtils,
 } from '@/modules/Search/business/SearchSuggestion'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { useRouter } from 'next/navigation'
+import { RouteName } from '@/common/lib/router/routes'
+import { debounce } from 'lodash-es'
 
 const MOCK_SEARCH_SUGGESTIONS: Array<SearchSuggestionInput> = [
   { value: 'test' },
@@ -19,33 +23,58 @@ const MOCK_SEARCH_SUGGESTIONS: Array<SearchSuggestionInput> = [
 ]
 
 export default function useSearch() {
-  const [searched, setSearched] = useState(false)
+  const { resolveRouteUrl } = useURouterClient()
   const [searchQuery, setSearchQuery] = useState('')
-  const handleSearchQueryChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSearchQuery(event.target.value)
-  }
 
-  const [searchSuggestions, setSearchSuggestions] = useState<
-    Array<SearchSuggestion>
-  >([])
+  const handleSearchSuggestions = debounce((query: string) => {
+    console.log('query', query)
 
-  const handleSearchSuggestions = () => {
-    setSearched(true)
+    if (!query) {
+      setSearchSuggestions([])
+      return
+    }
+
     setSearchSuggestions(
       MOCK_SEARCH_SUGGESTIONS.map((suggestion) =>
         SearchSuggestionUtils.parse(suggestion)
       )
     )
     // setSearchSuggestions([])
-  }
+  }, 500)
+
+  const handleSearchQueryChange = useCallback(
+    (value: string) => {
+      setSearchQuery(value)
+
+      handleSearchSuggestions(value)
+    },
+    [handleSearchSuggestions]
+  )
+
+  const [searchSuggestions, setSearchSuggestions] = useState<
+    Array<SearchSuggestion>
+  >([])
+
+  const router = useRouter()
+  const handleNavigateSearchPage = useCallback(
+    (query: string) => {
+      router.push(
+        resolveRouteUrl({
+          name: RouteName.Search,
+          query: {
+            query,
+          },
+        })
+      )
+    },
+    [resolveRouteUrl, router]
+  )
 
   return {
-    searched,
     searchQuery,
     handleSearchQueryChange,
     searchSuggestions,
     handleSearchSuggestions,
+    handleNavigateSearchPage,
   }
 }

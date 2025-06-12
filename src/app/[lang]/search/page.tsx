@@ -23,6 +23,7 @@ import SearchResultTypeTabs from '@/modules/Search/components/SearchResultTypeTa
 import ResultCard, {
   ResultCardSkeleton,
 } from '@/modules/Search/components/ResultCard'
+import SearchPageSearchBar from '@/modules/Search/components/SearchPageSearchBar'
 
 interface SearchPageProps {
   lang: Language
@@ -99,6 +100,10 @@ export default function SearchPage({ lang }: SearchPageProps) {
         Showing search result page {page}. There are {totalCount} results for “
         {query}” .
       </Typography>
+
+      {/** Search Bar */}
+      <SearchPageSearchBar />
+
       <SearchResultTypeTabs
         value={currentSearchResultType}
         onTabClick={(value) => {
