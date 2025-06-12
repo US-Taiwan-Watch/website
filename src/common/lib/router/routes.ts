@@ -55,51 +55,6 @@ export enum RouteName {
   KetagalanMediaCategory = 'ketagalan_media_category',
 }
 
-export const ROUTES = {
-  [RouteName.NotFound]: '/404',
-  [RouteName.Home]: '/',
-  [RouteName.Bill]: '/bill',
-  [RouteName.BillDetail]: '/bill',
-  [RouteName.BillList]: '/bill-list',
-  [RouteName.People]: '/people',
-  [RouteName.PeopleDetail]: '/people',
-  [RouteName.Article]: '/article',
-  [RouteName.ArticleCategory]: '/article/search',
-  [RouteName.ArticleDetail]: '/article',
-  [RouteName.Search]: '/search',
-  /** Auth */
-  [RouteName.AuthLogin]: '/auth/login',
-  [RouteName.AuthLogout]: '/auth/logout',
-  [RouteName.AuthCallback]: '/auth/callback',
-  [RouteName.AuthProfile]: '/auth/profile',
-  [RouteName.AuthAccessToken]: '/auth/access-token',
-  [RouteName.AuthBackchannelLogout]: '/auth/backchannel-logout',
-  /** About */
-  [RouteName.AboutMission]: '/about/mission',
-  [RouteName.AboutProjects]: '/about/projects',
-  [RouteName.AboutMembers]: '/about/members',
-  [RouteName.AboutFootprints]: '/about/footprints',
-  [RouteName.AboutNewsroom]: '/about/newsroom',
-  [RouteName.AboutData]: '/about/data',
-  [RouteName.AboutUserAgreementPrivacyPolicy]:
-    '/about/user-agreement-privacy-policy',
-  [RouteName.AboutDonation]: '/about/donation',
-  /** Podcast */
-  [RouteName.PodcastWatchHere]: '/podcast/category/watch-here',
-  [RouteName.PodcastWatchInfo]: '/podcast/category/watch-info',
-  [RouteName.PodcastWatchBookClub]: '/podcast/category/watch-book-club',
-  /** Account */
-  [RouteName.Account]: '/account',
-  [RouteName.AccountSubscribe]: '/account/subscribe',
-  [RouteName.AccountSetting]: '/account/setting',
-  [RouteName.AccountPassword]: '/account/password',
-  [RouteName.AccountNotification]: '/account/notification',
-  /** Ketagalan Media */
-  [RouteName.KetagalanMedia]: '/ketagalan-media',
-  [RouteName.KetagalanMediaCategory]: '/ketagalan-media/search',
-  [RouteName.KetagalanMediaDetail]: '/ketagalan-media',
-} as const
-
 export type URoute = {
   name: RouteName
   query?: {

@@ -47,17 +47,21 @@ const MobileSearchMenu = ({
   clickAwayClassNameWhiteList,
   onClose,
 }: MobileSearchMenuProps) => {
-  const { handleSearchQueryChange, handleSearch, searchResults, searched } =
-    useSearch()
+  const {
+    handleSearchQueryChange,
+    handleSearchSuggestions,
+    searchSuggestions,
+    searched,
+  } = useSearch()
 
   const handleInputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       handleSearchQueryChange(event)
       debounce(() => {
-        handleSearch()
+        handleSearchSuggestions()
       }, 1000)()
     },
-    [handleSearchQueryChange, handleSearch]
+    [handleSearchQueryChange, handleSearchSuggestions]
   )
 
   return (
@@ -83,7 +87,9 @@ const MobileSearchMenu = ({
             }}
           />
 
-          {searched && <MobileSearchResultList results={searchResults} />}
+          {searched && (
+            <MobileSearchResultList suggestions={searchSuggestions} />
+          )}
         </Stack>
       </StyledContainer>
     </HeaderPopper>

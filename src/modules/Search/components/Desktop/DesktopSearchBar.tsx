@@ -54,8 +54,8 @@ const DesktopSearchBar = ({
   const {
     searchQuery,
     handleSearchQueryChange,
-    handleSearch,
-    searchResults,
+    handleSearchSuggestions,
+    searchSuggestions,
     searched,
   } = useSearch()
 
@@ -82,7 +82,7 @@ const DesktopSearchBar = ({
         <StyledButton
           variant="contained"
           rounded
-          onClick={handleSearch}
+          onClick={handleSearchSuggestions}
           disabled={!searchQuery}
         >
           {t('submit.btn.title', { ns: 'search' })}
@@ -91,7 +91,7 @@ const DesktopSearchBar = ({
       {searched && (
         <>
           <DesktopSearchResultList
-            results={searchResults}
+            suggestions={searchSuggestions}
             headerAnchorEl={resultParentEl}
             inputAnchorEl={inputRef.current}
             clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}

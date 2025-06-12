@@ -1,15 +1,15 @@
 import { Box, Icon, Typography } from '@mui/material'
 import {
-  SearchResult,
-  SearchResultUtils,
-} from '@/modules/Search/business/SearchResult'
+  SearchSuggestion,
+  SearchSuggestionUtils,
+} from '@/modules/Search/business/SearchSuggestion'
 import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 
 interface MobileSearchResultProps {
   className?: string
-  results: Array<SearchResult>
+  suggestions: Array<SearchSuggestion>
 }
 
 const StyledContainer = styled(Box)(() => ({
@@ -54,23 +54,23 @@ const StyledNoResultContainer = styled(Box)(({ theme }) => ({
 }))
 
 const MobileSearchResultList = ({
-  results,
+  suggestions,
   className,
 }: MobileSearchResultProps) => {
   return (
     <StyledContainer className={className}>
       <StyledResultContainer>
-        {results.length > 0 ? (
-          results.map((result) => (
+        {suggestions.length > 0 ? (
+          suggestions.map((suggestion) => (
             <Link
-              href={SearchResultUtils.getHref(result.value)}
-              key={result.value}
+              href={SearchSuggestionUtils.getHref(suggestion.value)}
+              key={suggestion.value}
             >
               <StyledResultItem display="flex" gap={1}>
                 <StyledIcon fontSize="small">
                   <SearchIcon />
                 </StyledIcon>
-                <Typography>{result.value}</Typography>
+                <Typography>{suggestion.value}</Typography>
               </StyledResultItem>
             </Link>
           ))

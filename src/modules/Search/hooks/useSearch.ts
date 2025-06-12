@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import {
-  SearchResult,
-  SearchResultInput,
-  SearchResultUtils,
-} from '@/modules/Search/business/SearchResult'
+  SearchSuggestion,
+  SearchSuggestionInput,
+  SearchSuggestionUtils,
+} from '@/modules/Search/business/SearchSuggestion'
 
-const MOCK_SEARCH_RESULTS: Array<SearchResultInput> = [
+const MOCK_SEARCH_SUGGESTIONS: Array<SearchSuggestionInput> = [
   { value: 'test' },
   { value: 'test2' },
   { value: 'test3' },
@@ -27,21 +27,25 @@ export default function useSearch() {
     setSearchQuery(event.target.value)
   }
 
-  const [searchResults, setSearchResults] = useState<Array<SearchResult>>([])
+  const [searchSuggestions, setSearchSuggestions] = useState<
+    Array<SearchSuggestion>
+  >([])
 
-  const handleSearch = () => {
+  const handleSearchSuggestions = () => {
     setSearched(true)
-    setSearchResults(
-      MOCK_SEARCH_RESULTS.map((result) => SearchResultUtils.parse(result))
+    setSearchSuggestions(
+      MOCK_SEARCH_SUGGESTIONS.map((suggestion) =>
+        SearchSuggestionUtils.parse(suggestion)
+      )
     )
-    // setSearchResults([])
+    // setSearchSuggestions([])
   }
 
   return {
     searched,
     searchQuery,
     handleSearchQueryChange,
-    searchResults,
-    handleSearch,
+    searchSuggestions,
+    handleSearchSuggestions,
   }
 }

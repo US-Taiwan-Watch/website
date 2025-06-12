@@ -66,7 +66,6 @@ export type Bill = z.infer<typeof billSchema>
 
 export class BillUtils {
   static parse(lang: Language, dto: ApiBill) {
-    console.log(dto.latestActionTime)
     return billSchema.parse({
       id: dto.id ?? undefined,
       type: dto.type

@@ -172,6 +172,12 @@ type Query {
     where: People_filter_where
   ): PeoplesFilter
   Me: Me
+  Search(
+    search: String
+    page: Int
+    limit: Int
+    filter: SearchFilterEnum
+  ): Search
 }
 
 type User {
@@ -31809,6 +31815,44 @@ type Me {
   subscribePeoples: [People]
   bookmarkArticles: [Article]
   notifications: JSON
+}
+
+type Search {
+  people: PeopleSearchResult
+  bill: BillSearchResult
+  article: ArticleSearchResult
+  ketagalanArticle: KetagalanArticleSearchResult
+}
+
+type PeopleSearchResult {
+  count: Int
+  items: [People]
+  highlights: JSON
+}
+
+type BillSearchResult {
+  count: Int
+  items: [Bill]
+  highlights: JSON
+}
+
+type ArticleSearchResult {
+  count: Int
+  items: [Article]
+  highlights: JSON
+}
+
+type KetagalanArticleSearchResult {
+  count: Int
+  items: [KetagalanArticle]
+  highlights: JSON
+}
+
+enum SearchFilterEnum {
+  PEOPLE
+  BILL
+  ARTICLE
+  KETAGALAN_ARTICLE
 }
 
 type Mutation {

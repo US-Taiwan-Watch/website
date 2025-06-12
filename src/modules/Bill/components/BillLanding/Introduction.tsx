@@ -56,7 +56,7 @@ const BillTotalCountLink = memo(function BillTotalCountLink({
         >
           {t('landing.introduction.congress.title', {
             ns: 'bill',
-            count: currentCongressNumber,
+            congressNo: currentCongressNumber,
           })}
         </Typography>
         <Typography fontSize={26} fontWeight={600}>
