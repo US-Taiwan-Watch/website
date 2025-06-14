@@ -54,9 +54,8 @@ const DesktopSearchBar = ({
   const {
     searchQuery,
     handleSearchQueryChange,
-    handleSearch,
-    searchResults,
-    searched,
+    searchSuggestions,
+    handleNavigateSearchPage,
   } = useSearch()
 
   return (
@@ -76,22 +75,28 @@ const DesktopSearchBar = ({
               <SearchIcon />
             </StyledIcon>
           }
-          onChange={handleSearchQueryChange}
+          onChange={(e) => handleSearchQueryChange(e.target.value)}
           autoFocus
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleNavigateSearchPage(searchQuery)
+              onClose?.()
+            }
+          }}
         />
         <StyledButton
           variant="contained"
           rounded
-          onClick={handleSearch}
+          onClick={() => handleNavigateSearchPage(searchQuery)}
           disabled={!searchQuery}
         >
           {t('submit.btn.title', { ns: 'search' })}
         </StyledButton>
       </StyledContainer>
-      {searched && (
+      {searchSuggestions.length > 0 && (
         <>
           <DesktopSearchResultList
-            results={searchResults}
+            suggestions={searchSuggestions}
             headerAnchorEl={resultParentEl}
             inputAnchorEl={inputRef.current}
             clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}

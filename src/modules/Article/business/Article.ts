@@ -22,7 +22,7 @@ export enum ArticleType {
   Ketagalan = 'ketagalan',
 }
 
-const articleSchema = z.object({
+export const articleSchema = z.object({
   type: z.nativeEnum(ArticleType),
   id: z.string().optional(),
   title: z.string().optional(),

@@ -1,11 +1,15 @@
-import React, { useState } from 'react'
+import { useCallback, useState } from 'react'
 import {
-  SearchResult,
-  SearchResultInput,
-  SearchResultUtils,
-} from '@/modules/Search/business/SearchResult'
+  SearchSuggestion,
+  SearchSuggestionInput,
+  SearchSuggestionUtils,
+} from '@/modules/Search/business/SearchSuggestion'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { useRouter } from 'next/navigation'
+import { RouteName } from '@/common/lib/router/routes'
+import { debounce } from 'lodash-es'
 
-const MOCK_SEARCH_RESULTS: Array<SearchResultInput> = [
+const MOCK_SEARCH_SUGGESTIONS: Array<SearchSuggestionInput> = [
   { value: 'test' },
   { value: 'test2' },
   { value: 'test3' },
@@ -19,29 +23,58 @@ const MOCK_SEARCH_RESULTS: Array<SearchResultInput> = [
 ]
 
 export default function useSearch() {
-  const [searched, setSearched] = useState(false)
+  const { resolveRouteUrl } = useURouterClient()
   const [searchQuery, setSearchQuery] = useState('')
-  const handleSearchQueryChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setSearchQuery(event.target.value)
-  }
 
-  const [searchResults, setSearchResults] = useState<Array<SearchResult>>([])
+  const handleSearchSuggestions = debounce((query: string) => {
+    console.log('query', query)
 
-  const handleSearch = () => {
-    setSearched(true)
-    setSearchResults(
-      MOCK_SEARCH_RESULTS.map((result) => SearchResultUtils.parse(result))
+    if (!query) {
+      setSearchSuggestions([])
+      return
+    }
+
+    setSearchSuggestions(
+      MOCK_SEARCH_SUGGESTIONS.map((suggestion) =>
+        SearchSuggestionUtils.parse(suggestion)
+      )
     )
-    // setSearchResults([])
-  }
+    // setSearchSuggestions([])
+  }, 500)
+
+  const handleSearchQueryChange = useCallback(
+    (value: string) => {
+      setSearchQuery(value)
+
+      handleSearchSuggestions(value)
+    },
+    [handleSearchSuggestions]
+  )
+
+  const [searchSuggestions, setSearchSuggestions] = useState<
+    Array<SearchSuggestion>
+  >([])
+
+  const router = useRouter()
+  const handleNavigateSearchPage = useCallback(
+    (query: string) => {
+      router.push(
+        resolveRouteUrl({
+          name: RouteName.Search,
+          query: {
+            query,
+          },
+        })
+      )
+    },
+    [resolveRouteUrl, router]
+  )
 
   return {
-    searched,
     searchQuery,
     handleSearchQueryChange,
-    searchResults,
-    handleSearch,
+    searchSuggestions,
+    handleSearchSuggestions,
+    handleNavigateSearchPage,
   }
 }

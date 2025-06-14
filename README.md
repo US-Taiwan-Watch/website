@@ -148,7 +148,7 @@ feature branch 會以 `Squash` 的方式合併到 `develop` 分支。
 
 ### 頁面跳轉
 
-凡要進行頁面跳轉，請至 `src/routes.ts` 中定義，並使用 `ROUTES` 物件拿取連結，避免於程式碼中寫死字串，以防路由更名。
+凡要進行頁面跳轉，請至 `src/routes.ts` 中定義。
 
 ### GraphQL
 

@@ -6,25 +6,29 @@ import {
 import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
-import HeaderPopper from '@/common/components/elements/Header/HeaderPopper'
+import UPopper from '@/common/components/elements/UPopper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
-interface DesktopSearchResultProps {
+interface SearchResultListProps {
   className?: string
   suggestions: Array<SearchSuggestion>
-  headerAnchorEl: HTMLElement | null
+  anchorEl: HTMLElement | null
   inputAnchorEl: HTMLElement | null
-  clickAwayClassNameWhiteList?: string[]
   onClose?: () => void
 }
+
+const StyledPopper = styled(UPopper)(() => ({
+  zIndex: 1000,
+  marginTop: '-40px !important',
+}))
 
 const StyledContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   display: 'flex',
-  backgroundColor: theme.color.searchBar.resultBackground,
-  borderRadius: '30px',
+  backgroundColor: theme.color.searchPageSearchBar.resultBackground,
+  borderRadius: '20px',
   paddingBottom: theme.spacing(2),
-  paddingTop: `${theme.constants.headerHeight.md}px`,
+  paddingTop: '40px',
 }))
 
 const StyledResultContainer = styled(Box)(({ theme }) => ({
@@ -43,7 +47,7 @@ const StyledResultItem = styled(Box)(({ theme }) => ({
   borderBottom: `1px solid ${theme.color.grey[400]}`,
   '& .MuiTypography-root': {
     textDecoration: 'none',
-    color: theme.color.searchBar.resultItemText,
+    color: theme.color.searchPageSearchBar.resultItemText,
   },
 }))
 
@@ -58,26 +62,25 @@ const StyledNoResultContainer = styled(Box)(({ theme }) => ({
     fontSize: '1.75rem',
   },
   '& .no-result-subtitle': {
-    color: theme.color.searchBar.noResultSubtitle,
+    color: theme.color.searchPageSearchBar.noResultSubtitle,
     fontSize: '1rem',
   },
 }))
 
-const DesktopSearchResultList = ({
+const SearchResultList = ({
   suggestions,
   className,
-  headerAnchorEl,
+  anchorEl,
   inputAnchorEl,
-  clickAwayClassNameWhiteList,
   onClose,
-}: DesktopSearchResultProps) => {
-  const { t } = useTranslationClient()
+}: SearchResultListProps) => {
+  const { t } = useTranslationClient('search')
 
   return (
-    <HeaderPopper
-      anchorEl={headerAnchorEl}
-      clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
+    <StyledPopper
+      anchorEl={anchorEl}
       onClose={onClose}
+      clickAwayClassNameWhiteList={['search-bar']}
     >
       <StyledContainer className={className}>
         <StyledResultContainer
@@ -114,8 +117,8 @@ const DesktopSearchResultList = ({
           )}
         </StyledResultContainer>
       </StyledContainer>
-    </HeaderPopper>
+    </StyledPopper>
   )
 }
 
-export default DesktopSearchResultList
+export default SearchResultList

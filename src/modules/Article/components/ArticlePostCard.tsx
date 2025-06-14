@@ -1,10 +1,10 @@
-import UButton from '@/common/components/atoms/UButton'
 import UHashTag from '@/common/components/atoms/UHashTag'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
 import UTagList from '@/common/components/atoms/UTagList'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
+import ArticleCategories from '@/modules/Article/components/ArticleCategories'
 import { Skeleton, Stack, useTheme } from '@mui/material'
 import Box from '@mui/material/Box'
 import Image from 'next/image'
@@ -92,37 +92,7 @@ const ArticlePostCard = ({
         }}
       >
         {/** Categories */}
-        {showCategory &&
-          article.categories &&
-          article.categories.length > 0 && (
-            <UTagList
-              tags={article.categories.map((category) => (
-                <Link
-                  href={ArticleUtils.getCategoryLink(article.type, category)}
-                  key={category.id}
-                >
-                  <UButton
-                    variant="outlined"
-                    size="small"
-                    sx={{
-                      padding: theme.spacing(0.5, 1),
-                      minWidth: 'fit-content',
-                      lineHeight: 1,
-                      borderColor: theme.color.article.cardCategoryText,
-                      color: theme.color.article.cardCategoryText,
-                    }}
-                    className="category-tag"
-                  >
-                    {category.label}
-                  </UButton>
-                </Link>
-              ))}
-              containerProps={{
-                gap: 1,
-              }}
-              maxTags={2}
-            />
-          )}
+        {showCategory && <ArticleCategories article={article} />}
         <Link href={ArticleUtils.getLink(article.type, article.id)}>
           {/** Title */}
           <UHeightLimitedText
