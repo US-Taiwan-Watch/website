@@ -71,7 +71,7 @@ const DesktopSearchResultList = ({
   clickAwayClassNameWhiteList,
   onClose,
 }: DesktopSearchResultProps) => {
-  const { t } = useTranslationClient()
+  const { t } = useTranslationClient('search')
 
   return (
     <HeaderPopper

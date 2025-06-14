@@ -185,7 +185,7 @@ const MobileNavMenu = ({
 
   return (
     <HeaderPopper
-      headerAnchorEl={anchorEl}
+      anchorEl={anchorEl}
       clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
       onClose={onClose}
     >

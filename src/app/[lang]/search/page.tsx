@@ -36,11 +36,14 @@ const SearchPageSkeleton = () => {
   )
 }
 
-interface SearchPageProps {
-  lang: Language
+type SearchPageProps = {
+  params: {
+    lang: Language
+  }
 }
 
-export default function SearchPage({ lang }: SearchPageProps) {
+export default function SearchPage({ params }: SearchPageProps) {
+  const { lang } = params
   const searchParams = useSearchParams()
   const query = searchParams.get('query')
   const { t } = useTranslationClient('search')

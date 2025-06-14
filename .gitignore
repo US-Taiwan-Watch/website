@@ -40,3 +40,6 @@ next-env.d.ts
 
 # i18n assets
 src/common/lib/i18n/locales/
+
+# Claude
+CLAUDE.md
