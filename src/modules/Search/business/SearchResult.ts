@@ -198,7 +198,10 @@ export class SearchResultsUtils {
           value: matched,
           highlights: {
             name: matchedHighlight?.displayName?.value ?? matched.name ?? '',
-            bioByAI: matchedHighlight?.bio?.value ?? matched.bioByAI ?? '',
+            bioByAI:
+              SearchResultsUtils.trimHighlightText(
+                matchedHighlight?.bio?.value ?? matched.bioByAI ?? ''
+              ) ?? '',
           },
         }
       }),
@@ -231,7 +234,10 @@ export class SearchResultsUtils {
           value: matched,
           highlights: {
             title: matchedHighlight?.title?.value ?? matched.title ?? '',
-            summary: matchedHighlight?.summary?.value ?? matched.summary ?? '',
+            summary:
+              SearchResultsUtils.trimHighlightText(
+                matchedHighlight?.summary?.value ?? matched.summary ?? ''
+              ) ?? '',
           },
         }
       }),
@@ -265,7 +271,10 @@ export class SearchResultsUtils {
           value: matched,
           highlights: {
             title: highlight.title?.value ?? matched.title ?? '',
-            description: highlight.excerpt?.value ?? matched.description ?? '',
+            description:
+              SearchResultsUtils.trimHighlightText(
+                highlight.excerpt?.value ?? matched.description ?? ''
+              ) ?? '',
           },
         }
       }),
@@ -301,7 +310,9 @@ export class SearchResultsUtils {
             highlights: {
               title: highlight.title?.value ?? matched.title ?? '',
               description:
-                highlight.excerpt?.value ?? matched.description ?? '',
+                SearchResultsUtils.trimHighlightText(
+                  highlight.excerpt?.value ?? matched.description ?? ''
+                ) ?? '',
             },
           }
         }
@@ -343,5 +354,24 @@ export class SearchResultsUtils {
   static sort(results: Array<SearchResult>): Array<SearchResult> {
     // TODO: Ensure the sorting logic
     return results
+  }
+
+  /**
+   * 裁切 `<em>...</em>` 出現前最多 10 個字
+   * @param text - The text to trim
+   * @returns The trimmed text
+   */
+  static trimHighlightText(text: string) {
+    const emIndex = text.indexOf('<em>')
+    if (emIndex === -1) return text
+
+    const startIndex = Math.max(0, emIndex - 10)
+    const slicedText = text.slice(startIndex)
+
+    if (startIndex === 0) return slicedText
+
+    const lastSpaceIndex = text.slice(0, startIndex).lastIndexOf(' ')
+
+    return '... ' + text.slice(lastSpaceIndex + 1)
   }
 }

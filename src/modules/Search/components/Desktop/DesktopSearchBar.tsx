@@ -80,6 +80,7 @@ const DesktopSearchBar = ({
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
               handleNavigateSearchPage(searchQuery)
+              onClose?.()
             }
           }}
         />

@@ -73,6 +73,7 @@ const MobileSearchMenu = ({
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 handleNavigateSearchPage(searchQuery)
+                onClose?.()
               }
             }}
             autoFocus

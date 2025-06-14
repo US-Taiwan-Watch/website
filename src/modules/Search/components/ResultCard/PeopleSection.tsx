@@ -5,6 +5,7 @@ import {
 } from '@/modules/Search/business/SearchResult'
 import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 type PeopleSectionProps = {
   result: Extract<SearchResult, { type: SearchResultType.People }>
@@ -35,7 +36,8 @@ const PeopleSection = ({ result }: PeopleSectionProps) => {
           }}
         />
       </Typography>
-      <Typography
+      <UHeightLimitedText
+        maxLine={4}
         sx={{
           fontSize: {
             xs: '0.75rem',
@@ -50,7 +52,7 @@ const PeopleSection = ({ result }: PeopleSectionProps) => {
             __html: result.highlights.bioByAI,
           }}
         />
-      </Typography>
+      </UHeightLimitedText>
     </Stack>
   )
 }

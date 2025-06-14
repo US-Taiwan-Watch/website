@@ -58,6 +58,13 @@ export default function SearchPage({ lang }: SearchPageProps) {
     }),
     [query, page, currentSearchResultType]
   )
+  /**
+   * 當 searchResultType 或 query 改變時，重置 page 為 1
+   */
+  useEffect(() => {
+    handlePageChange(1)
+  }, [currentSearchResultType, query, handlePageChange])
+
   const [search, { loading: isSearchLoading, data: searchQueryData }] =
     useLazyQuery<SearchQuery, SearchQueryVariables>(QUERY_SEARCH, {
       fetchPolicy: 'network-only',
@@ -66,11 +73,13 @@ export default function SearchPage({ lang }: SearchPageProps) {
   const handleSearch = useCallback(async () => {
     if (!queryVariables.search) return
 
+    setSearchResults(null)
     await search({ variables: queryVariables })
-  }, [queryVariables, search])
+  }, [queryVariables, search, setSearchResults])
 
   useEffect(() => {
     if (!searchQueryData || !searchQueryData.Search) return
+
     setSearchResults(
       SearchResultsUtils.parse(lang, searchQueryData.Search as ApiSearch)
     ) // FIXME: The type is not correct
@@ -110,8 +119,6 @@ export default function SearchPage({ lang }: SearchPageProps) {
           if (value === currentSearchResultType) return
 
           setCurrentSearchResultType(value)
-          setSearchResults(null)
-          handlePageChange(1)
         }}
       />
       <Stack
@@ -130,7 +137,6 @@ export default function SearchPage({ lang }: SearchPageProps) {
             count={totalPages}
             page={page}
             onChange={(_, page) => {
-              setSearchResults(null)
               handlePageChange(page)
             }}
           />

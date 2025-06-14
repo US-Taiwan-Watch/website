@@ -5,6 +5,7 @@ import {
 import { Stack, Typography } from '@mui/material'
 import { memo } from 'react'
 import ArticleCategories from '@/modules/Article/components/ArticleCategories'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
 type ArticleSectionProps = {
   result:
@@ -37,7 +38,8 @@ const ArticleSection = ({ result }: ArticleSectionProps) => {
           }}
         />
       </Typography>
-      <Typography
+      <UHeightLimitedText
+        maxLine={4}
         sx={{
           fontSize: {
             xs: '0.75rem',
@@ -52,7 +54,7 @@ const ArticleSection = ({ result }: ArticleSectionProps) => {
             __html: result.highlights.description,
           }}
         />
-      </Typography>
+      </UHeightLimitedText>
     </Stack>
   )
 }
