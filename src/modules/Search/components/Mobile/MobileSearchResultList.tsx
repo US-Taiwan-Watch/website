@@ -58,7 +58,7 @@ const MobileSearchResultList = ({
   suggestions,
   className,
 }: MobileSearchResultProps) => {
-  const { t } = useTranslationClient()
+  const { t } = useTranslationClient('search')
 
   return (
     <StyledContainer className={className}>
