@@ -7,6 +7,7 @@ import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import UPopper from '@/common/components/elements/UPopper'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface SearchResultListProps {
   className?: string
@@ -73,6 +74,8 @@ const SearchResultList = ({
   inputAnchorEl,
   onClose,
 }: SearchResultListProps) => {
+  const { t } = useTranslationClient('search')
+
   return (
     <StyledPopper
       anchorEl={anchorEl}
@@ -105,10 +108,10 @@ const SearchResultList = ({
               flexDirection="column"
             >
               <Typography className="no-result-title">
-                No results found
+                {t('suggestion.noResult.title', { ns: 'search' })}
               </Typography>
               <Typography className="no-result-subtitle">
-                Please change the search keywords and search again
+                {t('suggestion.noResult.subtitle', { ns: 'search' })}
               </Typography>
             </StyledNoResultContainer>
           )}

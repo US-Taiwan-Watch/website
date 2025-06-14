@@ -7,6 +7,7 @@ import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import HeaderPopper from '@/common/components/elements/Header/HeaderPopper'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface DesktopSearchResultProps {
   className?: string
@@ -70,6 +71,8 @@ const DesktopSearchResultList = ({
   clickAwayClassNameWhiteList,
   onClose,
 }: DesktopSearchResultProps) => {
+  const { t } = useTranslationClient()
+
   return (
     <HeaderPopper
       anchorEl={headerAnchorEl}
@@ -102,10 +105,10 @@ const DesktopSearchResultList = ({
               flexDirection="column"
             >
               <Typography className="no-result-title">
-                No results found
+                {t('suggestion.noResult.title', { ns: 'search' })}
               </Typography>
               <Typography className="no-result-subtitle">
-                Please change the search keywords and search again
+                {t('suggestion.noResult.subtitle', { ns: 'search' })}
               </Typography>
             </StyledNoResultContainer>
           )}

@@ -106,7 +106,7 @@ export const ResultCardSkeleton = () => {
       variant="rounded"
       sx={{
         width: '100%',
-        height: '100px',
+        height: '200px',
       }}
     />
   )

@@ -24,6 +24,17 @@ import ResultCard, {
   ResultCardSkeleton,
 } from '@/modules/Search/components/ResultCard'
 import SearchPageSearchBar from '@/modules/Search/components/SearchPageSearchBar'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+
+const SearchPageSkeleton = () => {
+  return (
+    <Stack gap={2} py={2}>
+      {Array.from({ length: 10 }).map((_, index) => (
+        <ResultCardSkeleton key={index} />
+      ))}
+    </Stack>
+  )
+}
 
 interface SearchPageProps {
   lang: Language
@@ -32,6 +43,7 @@ interface SearchPageProps {
 export default function SearchPage({ lang }: SearchPageProps) {
   const searchParams = useSearchParams()
   const query = searchParams.get('query')
+  const { t } = useTranslationClient('search')
 
   /// //// Search Result ///////
   const [currentSearchResultType, setCurrentSearchResultType] =
@@ -94,20 +106,17 @@ export default function SearchPage({ lang }: SearchPageProps) {
   }, [handleSearch])
 
   if (isSearchLoading) {
-    return (
-      <Stack gap={2} py={2}>
-        {Array.from({ length: 10 }).map((_, index) => (
-          <ResultCardSkeleton key={index} />
-        ))}
-      </Stack>
-    )
+    return <SearchPageSkeleton />
   }
 
   return (
     <Stack gap={2} py={2}>
       <Typography>
-        Showing search result page {page}. There are {totalCount} results for “
-        {query}” .
+        {t('page.title', {
+          page,
+          totalCount,
+          query,
+        })}
       </Typography>
 
       {/** Search Bar */}

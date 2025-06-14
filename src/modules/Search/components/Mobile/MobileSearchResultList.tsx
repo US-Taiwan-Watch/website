@@ -6,6 +6,7 @@ import {
 import { styled } from '@/common/lib/mui/theme'
 import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface MobileSearchResultProps {
   className?: string
@@ -57,6 +58,8 @@ const MobileSearchResultList = ({
   suggestions,
   className,
 }: MobileSearchResultProps) => {
+  const { t } = useTranslationClient()
+
   return (
     <StyledContainer className={className}>
       <StyledResultContainer>
@@ -82,10 +85,10 @@ const MobileSearchResultList = ({
             flexDirection="column"
           >
             <Typography className="no-result-title">
-              No results found
+              {t('suggestion.noResult.title', { ns: 'search' })}
             </Typography>
             <Typography className="no-result-subtitle">
-              Please change the search keywords and search again
+              {t('suggestion.noResult.subtitle', { ns: 'search' })}
             </Typography>
           </StyledNoResultContainer>
         )}
