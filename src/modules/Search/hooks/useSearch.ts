@@ -8,6 +8,10 @@ import useURouterClient from '@/common/lib/router/useURouterClient'
 import { useRouter } from 'next/navigation'
 import { RouteName } from '@/common/lib/router/routes'
 import { debounce } from 'lodash-es'
+import {
+  googleAnalyticsSearchEvent,
+  googleAnalyticsSearchSuggestionEvent,
+} from '@/common/lib/googleAnalytics'
 
 const MOCK_SEARCH_SUGGESTIONS: Array<SearchSuggestionInput> = [
   { value: 'test' },
@@ -26,13 +30,17 @@ export default function useSearch() {
   const { resolveRouteUrl } = useURouterClient()
   const [searchQuery, setSearchQuery] = useState('')
 
-  const handleSearchSuggestions = debounce((query: string) => {
-    console.log('query', query)
-
+  const handleSearchSuggestions = useCallback((query: string) => {
     if (!query) {
       setSearchSuggestions([])
       return
     }
+
+    /** 記錄 GA 搜尋建議事件 */
+    googleAnalyticsSearchSuggestionEvent({
+      keyword: query,
+      pageType: 'search_suggestion',
+    })
 
     setSearchSuggestions(
       MOCK_SEARCH_SUGGESTIONS.map((suggestion) =>
@@ -40,7 +48,7 @@ export default function useSearch() {
       )
     )
     // setSearchSuggestions([])
-  }, 500)
+  }, [])
 
   const handleSearchQueryChange = useCallback(
     (value: string) => {
@@ -58,6 +66,12 @@ export default function useSearch() {
   const router = useRouter()
   const handleNavigateSearchPage = useCallback(
     (query: string) => {
+      /** 記錄 GA 搜尋事件 */
+      googleAnalyticsSearchEvent({
+        keyword: query,
+        pageType: 'search',
+      })
+
       router.push(
         resolveRouteUrl({
           name: RouteName.Search,
@@ -72,7 +86,7 @@ export default function useSearch() {
 
   return {
     searchQuery,
-    handleSearchQueryChange,
+    handleSearchQueryChange: debounce(handleSearchQueryChange, 1000),
     searchSuggestions,
     handleSearchSuggestions,
     handleNavigateSearchPage,
