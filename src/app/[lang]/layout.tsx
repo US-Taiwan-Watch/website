@@ -15,6 +15,10 @@ import I18nProvider from '@/common/lib/i18n/provider/I18nProvider'
 import UAuthProvider from '@/modules/Auth/providers/UAuthProvider'
 import AccountProvider from '@/modules/Account/providers/AccountProvider'
 import { Auth0Provider } from '@auth0/nextjs-auth0'
+import { GoogleTagManager } from '@next/third-parties/google'
+import { config } from '@/config'
+import GoogleAnalyticsConsentScript from '@/common/lib/googleAnalytics/GoogleAnalyticsConsentScript'
+import CookieConsentBanner from '@/common/components/elements/CookieConsentBanner'
 
 export const metadata: Metadata = {
   title: 'USTW',
@@ -37,6 +41,14 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
+      {config.GOOGLE_TAG_MANAGER_ID && (
+        <>
+          {/** Google Tag Manager */}
+          <GoogleTagManager gtmId={config.GOOGLE_TAG_MANAGER_ID} />
+          {/** Google Analytics Consent Script */}
+          <GoogleAnalyticsConsentScript />
+        </>
+      )}
       <body>
         <AppRouterCacheProvider>
           <ThemeProvider lang={params.lang}>
@@ -50,6 +62,7 @@ export default async function RootLayout({
                         <ClientApolloProvider>
                           <AccountProvider>
                             <Stack flexGrow={1}>{children}</Stack>
+                            <CookieConsentBanner />
                           </AccountProvider>
                         </ClientApolloProvider>
                       </ToastProvider>
