@@ -39,7 +39,6 @@ export default function useSearch() {
     /** 記錄 GA 搜尋建議事件 */
     googleAnalyticsSearchSuggestionEvent({
       keyword: query,
-      pageType: 'search_suggestion',
     })
 
     setSearchSuggestions(
@@ -69,7 +68,6 @@ export default function useSearch() {
       /** 記錄 GA 搜尋事件 */
       googleAnalyticsSearchEvent({
         keyword: query,
-        pageType: 'search',
       })
 
       router.push(

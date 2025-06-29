@@ -1,3 +1,5 @@
+import { sendGTMEvent } from '@next/third-parties/google'
+
 /**
  * 更新 GA 同意聲明
  * @param value 同意聲明值，"denied" 或 "granted"
@@ -22,25 +24,19 @@ export const googleAnalyticsUpdateConsent = (value: 'denied' | 'granted') => {
  */
 export const googleAnalyticsSearchSuggestionEvent = (value: {
   keyword: string
-  pageType: string
 }) => {
-  if (!window.gtag) return
-  window.gtag('event', 'search_suggestion', {
+  sendGTMEvent({
+    event: 'search_suggestion',
     keyword: value.keyword,
-    page_type: value.pageType,
   })
 }
 
 /**
  * 記錄 GA 搜尋事件
  */
-export const googleAnalyticsSearchEvent = (value: {
-  keyword: string
-  pageType: string
-}) => {
-  if (!window.gtag) return
-  window.gtag('event', 'search', {
+export const googleAnalyticsSearchEvent = (value: { keyword: string }) => {
+  sendGTMEvent({
+    event: 'search',
     keyword: value.keyword,
-    page_type: value.pageType,
   })
 }
