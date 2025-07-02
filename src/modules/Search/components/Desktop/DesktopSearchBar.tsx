@@ -77,17 +77,14 @@ const DesktopSearchBar = ({
           }
           onChange={(e) => handleSearchQueryChange(e.target.value)}
           autoFocus
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              handleNavigateSearchPage(searchQuery)
-              onClose?.()
-            }
-          }}
         />
         <StyledButton
           variant="contained"
           rounded
-          onClick={() => handleNavigateSearchPage(searchQuery)}
+          onClick={() => {
+            handleNavigateSearchPage(searchQuery)
+            onClose?.()
+          }}
           disabled={!searchQuery}
         >
           {t('submit.btn.title', { ns: 'search' })}
