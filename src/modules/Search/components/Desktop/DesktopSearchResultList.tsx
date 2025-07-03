@@ -1,13 +1,10 @@
 import { Box, Icon, Typography } from '@mui/material'
-import {
-  SearchSuggestion,
-  SearchSuggestionUtils,
-} from '@/modules/Search/business/SearchSuggestion'
+import { SearchSuggestion } from '@/modules/Search/business/SearchSuggestion'
 import { styled } from '@/common/lib/mui/theme'
-import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import HeaderPopper from '@/common/components/elements/Header/HeaderPopper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useSearch from '@/modules/Search/hooks/useSearch'
 
 interface DesktopSearchResultProps {
   className?: string
@@ -71,6 +68,7 @@ const DesktopSearchResultList = ({
   clickAwayClassNameWhiteList,
   onClose,
 }: DesktopSearchResultProps) => {
+  const { handleNavigateSearchPage } = useSearch()
   const { t } = useTranslationClient('search')
 
   return (
@@ -85,9 +83,15 @@ const DesktopSearchResultList = ({
         >
           {suggestions.length > 0 ? (
             suggestions.map((suggestion) => (
-              <Link
-                href={SearchSuggestionUtils.getHref(suggestion.value)}
+              <Box
                 key={suggestion.value}
+                onClick={() => {
+                  handleNavigateSearchPage(suggestion.value)
+                  onClose?.()
+                }}
+                sx={{
+                  cursor: 'pointer',
+                }}
               >
                 <StyledResultItem display="flex" gap={1}>
                   <StyledIcon fontSize="small">
@@ -95,7 +99,7 @@ const DesktopSearchResultList = ({
                   </StyledIcon>
                   <Typography>{suggestion.value}</Typography>
                 </StyledResultItem>
-              </Link>
+              </Box>
             ))
           ) : (
             <StyledNoResultContainer
