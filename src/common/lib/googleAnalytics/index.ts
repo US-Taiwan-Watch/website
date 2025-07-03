@@ -1,4 +1,4 @@
-import { sendGTMEvent } from '@next/third-parties/google'
+// import { sendGTMEvent } from '@next/third-parties/google'
 
 /**
  * 更新 GA 同意聲明
@@ -25,8 +25,12 @@ export const googleAnalyticsUpdateConsent = (value: 'denied' | 'granted') => {
 export const googleAnalyticsSearchSuggestionEvent = (value: {
   keyword: string
 }) => {
-  sendGTMEvent({
-    event: 'search_suggestion',
+  // sendGTMEvent({
+  //   event: 'search_suggestion',
+  //   keyword: value.keyword,
+  // })
+  if (!window.gtag) return
+  window.gtag('event', 'search_suggestion', {
     keyword: value.keyword,
   })
 }
@@ -35,8 +39,12 @@ export const googleAnalyticsSearchSuggestionEvent = (value: {
  * 記錄 GA 搜尋事件
  */
 export const googleAnalyticsSearchEvent = (value: { keyword: string }) => {
-  sendGTMEvent({
-    event: 'search',
+  // sendGTMEvent({
+  //   event: 'search',
+  //   keyword: value.keyword,
+  // })
+  if (!window.gtag) return
+  window.gtag('event', 'search', {
     keyword: value.keyword,
   })
 }

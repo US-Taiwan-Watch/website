@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - fix-ga4
   workflow_dispatch:
 
 jobs:
