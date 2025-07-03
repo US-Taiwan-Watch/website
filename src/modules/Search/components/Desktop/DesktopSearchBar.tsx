@@ -51,6 +51,7 @@ const DesktopSearchBar = ({
 }: DesktopSearchBarProps) => {
   const { t } = useTranslationClient('search')
   const inputRef = useRef<HTMLInputElement>(null)
+  const isComposingRef = useRef(false)
   const {
     searchQuery,
     handleSearchQueryChange,
@@ -75,8 +76,20 @@ const DesktopSearchBar = ({
               <SearchIcon />
             </StyledIcon>
           }
-          onChange={(e) => handleSearchQueryChange(e.target.value)}
+          onChange={(e) => handleSearchQueryChange(e.target.value.trim())}
+          onCompositionStart={() => {
+            isComposingRef.current = true
+          }}
+          onCompositionEnd={() => {
+            isComposingRef.current = false
+          }}
           autoFocus
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' && !isComposingRef.current) {
+              handleNavigateSearchPage(searchQuery)
+              onClose?.()
+            }
+          }}
         />
         <StyledButton
           variant="contained"

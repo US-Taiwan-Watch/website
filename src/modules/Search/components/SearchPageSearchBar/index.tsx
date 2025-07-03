@@ -27,6 +27,7 @@ const StyledInput = styled(Input)(({ theme }) => ({
 const SearchPageSearchBar = () => {
   const boxRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
+  const isComposingRef = useRef(false)
   const {
     searchQuery,
     handleSearchQueryChange,
@@ -62,11 +63,18 @@ const SearchPageSearchBar = () => {
               <SearchIcon />
             </StyledIcon>
           }
-          onChange={(e) => handleSearchQueryChange(e.target.value)}
+          onChange={(e) => handleSearchQueryChange(e.target.value.trim())}
           autoFocus
+          onCompositionStart={() => {
+            isComposingRef.current = true
+          }}
+          onCompositionEnd={() => {
+            isComposingRef.current = false
+          }}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === 'Enter' && !isComposingRef.current) {
               handleNavigateSearchPage(searchQuery)
+              handleResultListClose()
             }
           }}
         />

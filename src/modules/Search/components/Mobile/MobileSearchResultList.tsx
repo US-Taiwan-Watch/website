@@ -1,16 +1,14 @@
 import { Box, Icon, Typography } from '@mui/material'
-import {
-  SearchSuggestion,
-  SearchSuggestionUtils,
-} from '@/modules/Search/business/SearchSuggestion'
+import { SearchSuggestion } from '@/modules/Search/business/SearchSuggestion'
 import { styled } from '@/common/lib/mui/theme'
-import Link from 'next/link'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useSearch from '@/modules/Search/hooks/useSearch'
 
 interface MobileSearchResultProps {
   className?: string
   suggestions: Array<SearchSuggestion>
+  onClose?: () => void
 }
 
 const StyledContainer = styled(Box)(() => ({
@@ -57,7 +55,9 @@ const StyledNoResultContainer = styled(Box)(({ theme }) => ({
 const MobileSearchResultList = ({
   suggestions,
   className,
+  onClose,
 }: MobileSearchResultProps) => {
+  const { handleNavigateSearchPage } = useSearch()
   const { t } = useTranslationClient('search')
 
   return (
@@ -65,9 +65,15 @@ const MobileSearchResultList = ({
       <StyledResultContainer>
         {suggestions.length > 0 ? (
           suggestions.map((suggestion) => (
-            <Link
-              href={SearchSuggestionUtils.getHref(suggestion.value)}
+            <Box
               key={suggestion.value}
+              onClick={() => {
+                handleNavigateSearchPage(suggestion.value)
+                onClose?.()
+              }}
+              sx={{
+                cursor: 'pointer',
+              }}
             >
               <StyledResultItem display="flex" gap={1}>
                 <StyledIcon fontSize="small">
@@ -75,7 +81,7 @@ const MobileSearchResultList = ({
                 </StyledIcon>
                 <Typography>{suggestion.value}</Typography>
               </StyledResultItem>
-            </Link>
+            </Box>
           ))
         ) : (
           <StyledNoResultContainer

@@ -23,20 +23,20 @@ export const googleAnalyticsUpdateConsent = (value: 'denied' | 'granted') => {
  * 記錄 GA 搜尋建議事件
  */
 export const googleAnalyticsSearchSuggestionEvent = (value: {
-  keyword: string
+  searchTerm: string
 }) => {
   sendGTMEvent({
     event: 'search_suggestion',
-    keyword: value.keyword,
+    search_term: value.searchTerm,
   })
 }
 
 /**
  * 記錄 GA 搜尋事件
  */
-export const googleAnalyticsSearchEvent = (value: { keyword: string }) => {
+export const googleAnalyticsSearchEvent = (value: { searchTerm: string }) => {
   sendGTMEvent({
     event: 'search',
-    keyword: value.keyword,
+    search_term: value.searchTerm,
   })
 }

@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack'
 import Input from '@mui/material/Input'
 import Box from '@mui/material/Box'
 import Icon from '@mui/material/Icon'
-import { memo } from 'react'
+import { memo, useRef } from 'react'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import useSearch from '@/modules/Search/hooks/useSearch'
 import MobileSearchResultList from '@/modules/Search/components/Mobile/MobileSearchResultList'
@@ -46,6 +46,7 @@ const MobileSearchMenu = ({
   clickAwayClassNameWhiteList,
   onClose,
 }: MobileSearchMenuProps) => {
+  const isComposingRef = useRef(false)
   const {
     searchQuery,
     handleSearchQueryChange,
@@ -69,9 +70,15 @@ const MobileSearchMenu = ({
                 <SearchIcon />
               </StyledIcon>
             }
-            onChange={(e) => handleSearchQueryChange(e.target.value)}
+            onChange={(e) => handleSearchQueryChange(e.target.value.trim())}
+            onCompositionStart={() => {
+              isComposingRef.current = true
+            }}
+            onCompositionEnd={() => {
+              isComposingRef.current = false
+            }}
             onKeyDown={(e) => {
-              if (e.key === 'Enter') {
+              if (e.key === 'Enter' && !isComposingRef.current) {
                 handleNavigateSearchPage(searchQuery)
                 onClose?.()
               }
@@ -83,7 +90,10 @@ const MobileSearchMenu = ({
           />
 
           {searchSuggestions.length > 0 && (
-            <MobileSearchResultList suggestions={searchSuggestions} />
+            <MobileSearchResultList
+              suggestions={searchSuggestions}
+              onClose={onClose}
+            />
           )}
         </Stack>
       </StyledContainer>
