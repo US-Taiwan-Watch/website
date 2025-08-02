@@ -32,7 +32,7 @@ export default async function Article() {
     <UContainer>
       <Stack flex={1}>
         <UFullWidthBackgroundBox>
-          <ArticleNavbar articleType={ArticleType.Article} />
+          <ArticleNavbar />
         </UFullWidthBackgroundBox>
         {landingBannerArticles.length > 0 && (
           <ArticleLandingBannerCards articles={landingBannerArticles} />
