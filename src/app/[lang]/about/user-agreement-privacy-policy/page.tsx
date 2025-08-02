@@ -1,4 +1,4 @@
-import AboutLayout from '@/modules/About/components/AboutLayout'
+import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Box } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import UserAgreementPrivacyPolicyContent from '@/modules/About/UserAgreementPrivacyPolicy/components/UserAgreementPrivacyPolicyContent'
@@ -33,13 +33,14 @@ export default function AboutUserAgreementPrivacyPolicyPage({
   const { lang } = params
 
   return (
-    <AboutLayout
+    <UstwAboutLayout
+      lang={lang}
       withHeaderSection={false}
       currentPathname={'/about/user-agreement-privacy-policy'}
     >
       <Box>
         <UserAgreementPrivacyPolicyContent lang={lang} />
       </Box>
-    </AboutLayout>
+    </UstwAboutLayout>
   )
 }

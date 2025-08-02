@@ -1,4 +1,4 @@
-import KetagalanAboutLayout from '@/modules/About/components/KetagalanAboutLayout'
+import { KetagalanAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import ProjectCard from '@/modules/About/Project/components/ProjectCard'
@@ -24,11 +24,17 @@ export async function generateMetadata({
   }
 }
 
-export default async function KetagalanAboutProjectsPage() {
+export default async function KetagalanAboutProjectsPage({
+  params,
+}: KetagalanAboutProjectsPageProps) {
+  const { lang } = params
   const projects = await ServerProjectApi.getKetagalanProjects()
 
   return (
-    <KetagalanAboutLayout currentPathname={'/ketagalan/about/projects'}>
+    <KetagalanAboutLayout
+      lang={lang}
+      currentPathname={'/ketagalan/about/projects'}
+    >
       <Stack gap={2}>
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />

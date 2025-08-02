@@ -1,4 +1,4 @@
-import AboutLayout from '@/modules/About/components/AboutLayout'
+import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import FootprintCard from '@/modules/About/Footprint/components/FootprintCard'
@@ -24,16 +24,20 @@ export async function generateMetadata({
   }
 }
 
-export default async function AboutFootprintsPage() {
+export default async function AboutFootprintsPage({
+  params,
+}: AboutFootprintsPageProps) {
+  const { lang } = params
+
   const footprints = await ServerFootprintApi.getUstwFootprints()
 
   return (
-    <AboutLayout currentPathname={'/about/footprints'}>
+    <UstwAboutLayout lang={lang} currentPathname={'/about/footprints'}>
       <Stack gap={2.5}>
         {footprints.map((footprint) => (
           <FootprintCard key={footprint.id} footprint={footprint} />
         ))}
       </Stack>
-    </AboutLayout>
+    </UstwAboutLayout>
   )
 }

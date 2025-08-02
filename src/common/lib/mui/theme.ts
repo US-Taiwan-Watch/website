@@ -374,6 +374,23 @@ interface USTWThemeColor {
         icon: string
       }
     }
+    about: {
+      header: {
+        tabText: string
+        tabActiveText: string
+        tabActiveBackground: string
+        borderDesktop: string
+        borderMobile: string
+      }
+      card: {
+        backgroundColor: string
+      }
+      footprint: {
+        labelText: string
+        labelBackground: string
+        captionText: string
+      }
+    }
   }
 }
 
@@ -587,6 +604,23 @@ const _lightTheme: USTWThemeOptions = {
         icon: '#2196F3',
       },
     },
+    about: {
+      header: {
+        tabText: color.common.black,
+        tabActiveText: color.common.white,
+        tabActiveBackground: color.common.black,
+        borderDesktop: '#0000001A',
+        borderMobile: '#787F84',
+      },
+      card: {
+        backgroundColor: '#F3F3F3',
+      },
+      footprint: {
+        labelText: color.common.black,
+        labelBackground: '#C1C1FF80',
+        captionText: '#787F84',
+      },
+    },
   },
   components: {
     ...commonThemeComponents,
@@ -712,6 +746,23 @@ const _ketagalanTheme: USTWThemeOptions = {
         background: '#0D47A1',
         text: '#90CAF9',
         icon: '#64B5F6',
+      },
+    },
+    about: {
+      header: {
+        tabText: color.common.white,
+        tabActiveText: color.common.white,
+        tabActiveBackground: '#FFFFFF1A',
+        borderDesktop: '#FFFFFF1A',
+        borderMobile: '#787F84',
+      },
+      card: {
+        backgroundColor: '#FFFFFF1A',
+      },
+      footprint: {
+        labelText: color.common.black,
+        labelBackground: '#E6CA87',
+        captionText: '#C0C5C8',
       },
     },
   },
