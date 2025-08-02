@@ -8,13 +8,13 @@ import {
 import { useParams } from 'next/navigation'
 import { useMemo, useState, useEffect, useCallback } from 'react'
 import {
-  ArticlesQuery,
-  ArticlesQueryVariables,
+  UstwArticlesQuery,
+  UstwArticlesQueryVariables,
   KetagalanArticlesQuery,
   KetagalanArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import {
-  QUERY_ARTICLES,
+  QUERY_USTW_ARTICLES,
   QUERY_KETAGALAN_ARTICLES,
 } from '@/modules/Article/graphql/gql'
 import { isEmpty, isNull, isNumber } from 'lodash-es'
@@ -49,7 +49,7 @@ export default function useArticleSearch(
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
   const queryVariables = useMemo<
-    ArticlesQueryVariables | KetagalanArticlesQueryVariables
+    UstwArticlesQueryVariables | KetagalanArticlesQueryVariables
   >(
     () => ({
       limit: ARTICLE_POST_COUNT,
@@ -66,9 +66,12 @@ export default function useArticleSearch(
   )
 
   const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
-    useLazyQuery<ArticlesQuery, ArticlesQueryVariables>(QUERY_ARTICLES, {
-      variables: queryVariables,
-    })
+    useLazyQuery<UstwArticlesQuery, UstwArticlesQueryVariables>(
+      QUERY_USTW_ARTICLES,
+      {
+        variables: queryVariables,
+      }
+    )
 
   const [
     getKetagalanArticles,
@@ -85,7 +88,7 @@ export default function useArticleSearch(
       return ketagalanQueryData?.KetagalanArticles
     }
 
-    return articlesQueryData?.Articles
+    return articlesQueryData?.UstwArticles
   }, [articleType, ketagalanQueryData, articlesQueryData])
 
   const loading = useMemo(() => {

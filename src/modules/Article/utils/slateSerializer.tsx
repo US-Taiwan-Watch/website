@@ -2,7 +2,7 @@ import { Text } from 'slate'
 import { ReactNode } from 'react'
 import Typography from '@mui/material/Typography'
 import {
-  Article as ApiArticle,
+  UstwArticle as ApiUstwArticle,
   Bill as ApiBill,
 } from '@/common/lib/graphql/__generated__/graphql'
 import HyperLinkTooltip from '@/modules/Article/components/ArticlePost/Content/HyperLinkTooltip'
@@ -37,7 +37,7 @@ export type LinkDoc =
     }
   | {
       relationTo: 'articles'
-      value: ApiArticle
+      value: ApiUstwArticle
     }
 const getHyperLinkTooltipCardProps = (
   lang: Language,

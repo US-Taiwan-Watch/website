@@ -15,8 +15,8 @@ export const CATEGORIES_ARTICLE_FRAGMENT = gql`
   }
 `
 
-export const ARTICLE_MEDIA_FRAGMENT = gql`
-  fragment ArticleMedia on Article_Media {
+export const USTW_ARTICLE_MEDIA_FRAGMENT = gql`
+  fragment UstwArticleMedia on UstwArticle_Media {
     photo {
       id
       alt
@@ -40,8 +40,8 @@ export const ARTICLE_MEDIA_FRAGMENT = gql`
   }
 `
 
-export const FULL_ARTICLE_FRAGMENT = gql`
-  fragment FullArticle on Article {
+export const FULL_USTW_ARTICLE_FRAGMENT = gql`
+  fragment FullUstwArticle on UstwArticle {
     id
     title
     subtitle
@@ -54,7 +54,7 @@ export const FULL_ARTICLE_FRAGMENT = gql`
     }
     podcast
     media {
-      ...ArticleMedia
+      ...UstwArticleMedia
     }
     isFeatured
     releaseTime
@@ -73,29 +73,29 @@ export const FULL_ARTICLE_FRAGMENT = gql`
     createdAt
   }
 
-  ${ARTICLE_MEDIA_FRAGMENT}
+  ${USTW_ARTICLE_MEDIA_FRAGMENT}
   ${CATEGORIES_ARTICLE_FRAGMENT}
   ${TAG_FRAGMENT}
 `
 
-export const QUERY_ARTICLE = gql`
-  query Article($id: String!) {
-    Article(id: $id) {
-      ...FullArticle
+export const QUERY_USTW_ARTICLE = gql`
+  query UstwArticle($id: String!) {
+    UstwArticle(id: $id) {
+      ...FullUstwArticle
     }
   }
 
-  ${FULL_ARTICLE_FRAGMENT}
+  ${FULL_USTW_ARTICLE_FRAGMENT}
 `
 
-export const QUERY_ARTICLES = gql`
-  query Articles(
-    $where: Article_where
+export const QUERY_USTW_ARTICLES = gql`
+  query UstwArticles(
+    $where: UstwArticle_where
     $limit: Int
     $page: Int
     $sort: String
   ) {
-    Articles(where: $where, limit: $limit, page: $page, sort: $sort) {
+    UstwArticles(where: $where, limit: $limit, page: $page, sort: $sort) {
       hasNextPage
       hasPrevPage
       limit
@@ -118,7 +118,7 @@ export const QUERY_ARTICLES = gql`
           ...Tag
         }
         media {
-          ...ArticleMedia
+          ...UstwArticleMedia
         }
       }
     }
@@ -126,7 +126,7 @@ export const QUERY_ARTICLES = gql`
 
   ${CATEGORIES_ARTICLE_FRAGMENT}
   ${TAG_FRAGMENT}
-  ${ARTICLE_MEDIA_FRAGMENT}
+  ${USTW_ARTICLE_MEDIA_FRAGMENT}
 `
 
 export const QUERY_CATEGORIES_ARTICLES = gql`
@@ -152,9 +152,9 @@ export const QUERY_CATEGORIES_ARTICLES = gql`
   }
 `
 
-export const QUERY_ARTICLE_METADATA = gql`
-  query ArticleMetadata($id: String!) {
-    Article(id: $id) {
+export const QUERY_USTW_ARTICLE_METADATA = gql`
+  query UstwArticleMetadata($id: String!) {
+    UstwArticle(id: $id) {
       title
       subtitle
       excerpt

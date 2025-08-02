@@ -1,5 +1,5 @@
 import {
-  Author,
+  UstwAuthor,
   KetagalanAuthor,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
@@ -15,7 +15,7 @@ export class ArticleAuthorUtils {
   /**
    * Author -> ArticleAuthor
    */
-  static parse(dto: Author | KetagalanAuthor) {
+  static parse(dto: UstwAuthor | KetagalanAuthor) {
     return ArticleAuthorSchema.parse({
       name: dto.name,
       description: dto.bio,

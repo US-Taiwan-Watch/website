@@ -1,4 +1,4 @@
-import { Language } from '@/common/lib/i18n/types'
+import { UstwProject as ApiUstwProject } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
 
 export const projectSchema = z.object({
@@ -8,19 +8,15 @@ export const projectSchema = z.object({
   image: z.string(),
 })
 
-// FIXME: Real API 型別
-type ApiProject = z.infer<typeof projectSchema>
-
 export type Project = z.infer<typeof projectSchema>
 
 export class ProjectUtils {
-  // TODO: 實作 parse
-  static parse(lang: Language, dto: ApiProject) {
+  static parse(dto: ApiUstwProject) {
     return projectSchema.parse({
       id: dto.id,
       title: dto.title,
       description: dto.description,
-      image: dto.image,
+      image: dto.photo?.url ?? '',
     })
   }
 }
