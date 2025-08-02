@@ -1,6 +1,6 @@
-import { memo } from 'react'
+import { memo, useState, useEffect } from 'react'
 import UButton from '@/common/components/atoms/UButton'
-import BookmarkBorderOutlinedIcon from '@mui/icons-material/BookmarkBorderOutlined'
+import { BookmarkFilledIcon, BookmarkIcon } from '@/common/styles/assets/Icons'
 import { Bill } from '@/modules/Bill/business/Bill'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UIconButton from '@/common/components/atoms/UIconButton'
@@ -14,9 +14,14 @@ type SubscribeButtonProps = {
 const SubscribeButton = memo(function SubscribeButton({
   bill,
 }: SubscribeButtonProps) {
-  const { subscribeBill } = useAccount()
+  const { subscribeBill, isMutating, checkIfBillIsSubscribed } = useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient('bill')
+
+  const [isSubscribed, setIsSubscribed] = useState(false)
+  useEffect(() => {
+    setIsSubscribed(checkIfBillIsSubscribed(bill))
+  }, [checkIfBillIsSubscribed, bill])
 
   if (isMobile) {
     return (
@@ -24,9 +29,13 @@ const SubscribeButton = memo(function SubscribeButton({
         variant="rounded"
         color="primary"
         size="xs"
-        onClick={() => subscribeBill(bill)}
+        onClick={async () => {
+          await subscribeBill(bill)
+          setIsSubscribed(true)
+        }}
+        disabled={isMutating}
       >
-        <BookmarkBorderOutlinedIcon />
+        {isSubscribed ? <BookmarkFilledIcon /> : <BookmarkIcon />}
       </UIconButton>
     )
   }
@@ -36,10 +45,20 @@ const SubscribeButton = memo(function SubscribeButton({
       variant="contained"
       color="primary"
       rounded
-      startIcon={<BookmarkBorderOutlinedIcon width={24} height={24} />}
-      onClick={() => subscribeBill(bill)}
+      startIcon={
+        isSubscribed ? (
+          <BookmarkFilledIcon sx={{ width: 24, height: 24 }} />
+        ) : (
+          <BookmarkIcon sx={{ width: 24, height: 24 }} />
+        )
+      }
+      onClick={async () => {
+        await subscribeBill(bill)
+        setIsSubscribed(true)
+      }}
+      disabled={isMutating}
     >
-      {t('page.subscribe.btn', {
+      {t(isSubscribed ? 'page.subscribed.btn' : 'page.subscribe.btn', {
         ns: 'bill',
       })}
     </UButton>

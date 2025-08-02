@@ -49,9 +49,17 @@ export const MUTATION_SUBSCRIBE_PEOPLE = gql`
   }
 `
 
-export const MUTATION_BOOKMARK_ARTICLE = gql`
-  mutation BookmarkArticle($articleId: String!) {
-    bookmarkArticle(id: $articleId) {
+export const MUTATION_BOOKMARK_USTW_ARTICLE = gql`
+  mutation BookmarkUstwArticle($articleId: String!) {
+    bookmarkUstwArticle(id: $articleId) {
+      id
+    }
+  }
+`
+
+export const MUTATION_BOOKMARK_KETAGALAN_ARTICLE = gql`
+  mutation BookmarkKetagalanArticle($articleId: String!) {
+    bookmarkKetagalanArticle(id: $articleId) {
       id
     }
   }

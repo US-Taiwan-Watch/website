@@ -8,7 +8,11 @@ import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePost
 import { Stack, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
-import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
+import {
+  BookmarkFilledIcon,
+  BookmarkIcon,
+  OutlinedShareIcon,
+} from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Link from 'next/link'
@@ -23,12 +27,17 @@ interface ArticlePostHeaderProps {
 const ArticlePostHeader = function ArticlePostHeader({
   article,
 }: ArticlePostHeaderProps) {
-  const { bookmarkArticle } = useAccount()
+  const { bookmarkArticle, isMutating, checkIfArticleIsBookmarked } =
+    useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient(['article'])
   const { categories, title, subtitle, date, tags, repostSources, authors } =
     article
   const theme = useTheme<USTWTheme>()
+  const [isBookmarked, setIsBookmarked] = useState(false)
+  useEffect(() => {
+    setIsBookmarked(checkIfArticleIsBookmarked(article))
+  }, [checkIfArticleIsBookmarked, article])
 
   const [formattedDate, setFormattedDate] = useState('')
   useEffect(() => {
@@ -72,19 +81,25 @@ const ArticlePostHeader = function ArticlePostHeader({
           </UHStack>
         )}
 
-        {/** 分享功能 (Mobile) */}
+        {/** 功能 (Mobile) */}
         {isMobile && (
           <UHStack gap={1}>
+            {/** 分享功能 */}
             <UIconButton variant="rounded" color="black" size="xs">
               <OutlinedShareIcon />
             </UIconButton>
+            {/** 收藏功能 */}
             <UIconButton
               variant="rounded"
               color="black"
               size="xs"
-              onClick={() => bookmarkArticle(article)}
+              onClick={async () => {
+                await bookmarkArticle(article)
+                setIsBookmarked(true)
+              }}
+              disabled={isMutating}
             >
-              <BookmarkIcon />
+              {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
             </UIconButton>
           </UHStack>
         )}

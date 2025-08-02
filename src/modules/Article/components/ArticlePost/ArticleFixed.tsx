@@ -3,13 +3,17 @@
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
-import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
+import {
+  BookmarkFilledIcon,
+  BookmarkIcon,
+  OutlinedShareIcon,
+} from '@/common/styles/assets/Icons'
 import { useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { Article } from '@/modules/Article/business/Article'
-import { memo } from 'react'
+import { memo, useEffect, useState } from 'react'
 
 type ArticleFixedProps = {
   article: Article
@@ -20,7 +24,12 @@ const ArticleFixed = memo(function ArticleFixed({
 }: ArticleFixedProps) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
-  const { bookmarkArticle } = useAccount()
+  const { bookmarkArticle, isMutating, checkIfArticleIsBookmarked } =
+    useAccount()
+  const [isBookmarked, setIsBookmarked] = useState(false)
+  useEffect(() => {
+    setIsBookmarked(checkIfArticleIsBookmarked(article))
+  }, [checkIfArticleIsBookmarked, article])
 
   if (isMobile) return null
 
@@ -60,9 +69,13 @@ const ArticleFixed = memo(function ArticleFixed({
               backgroundColor: theme.color.article.postFixedToolButtonHover,
             },
           }}
-          onClick={() => bookmarkArticle(article)}
+          onClick={async () => {
+            await bookmarkArticle(article)
+            setIsBookmarked(true)
+          }}
+          disabled={isMutating}
         >
-          <BookmarkIcon />
+          {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
         </UIconButton>
         <UIconButton
           variant="rounded"
