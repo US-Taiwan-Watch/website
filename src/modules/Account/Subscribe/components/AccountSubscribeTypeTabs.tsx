@@ -53,9 +53,14 @@ const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
         count: account?.subscribeBills.length ?? 0,
       },
       {
-        label: t('subscribe.type.article', { ns: 'account' }),
-        value: AccountSubscribeType.Article,
-        count: account?.bookmarkArticles.length ?? 0,
+        label: t('subscribe.type.ustwArticle', { ns: 'account' }),
+        value: AccountSubscribeType.UstwArticle,
+        count: account?.bookmarkUstwArticles.length ?? 0,
+      },
+      {
+        label: t('subscribe.type.ketagalanArticle', { ns: 'account' }),
+        value: AccountSubscribeType.KetagalanArticle,
+        count: account?.bookmarkKetagalanArticles.length ?? 0,
       },
       {
         label: t('subscribe.type.people', { ns: 'account' }),

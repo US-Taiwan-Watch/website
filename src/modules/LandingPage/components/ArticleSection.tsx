@@ -21,12 +21,12 @@ import {
   Article,
 } from '@/modules/Article/business/Article'
 import {
-  QUERY_ARTICLES,
+  QUERY_USTW_ARTICLES,
   QUERY_KETAGALAN_ARTICLES,
 } from '@/modules/Article/graphql/gql'
 import {
-  ArticlesQueryVariables,
-  ArticlesQuery,
+  UstwArticlesQueryVariables,
+  UstwArticlesQuery,
   KetagalanArticlesQuery,
   KetagalanArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
@@ -65,7 +65,7 @@ const ArticleSection = ({
     return articleLandingTags
   }, [articleType, articleLandingTags, ketagalanLandingTags])
 
-  const queryVariables = useMemo<ArticlesQueryVariables>(
+  const queryVariables = useMemo<UstwArticlesQueryVariables>(
     () => ({
       limit: 3,
       sort: '-releaseTime',
@@ -81,9 +81,12 @@ const ArticleSection = ({
   )
 
   const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
-    useLazyQuery<ArticlesQuery, ArticlesQueryVariables>(QUERY_ARTICLES, {
-      variables: queryVariables,
-    })
+    useLazyQuery<UstwArticlesQuery, UstwArticlesQueryVariables>(
+      QUERY_USTW_ARTICLES,
+      {
+        variables: queryVariables,
+      }
+    )
 
   const [
     getKetagalanArticles,
@@ -113,7 +116,7 @@ const ArticleSection = ({
       return ketagalanQueryData?.KetagalanArticles
     }
 
-    return articlesQueryData?.Articles
+    return articlesQueryData?.UstwArticles
   }, [articleType, ketagalanQueryData, articlesQueryData])
 
   const loading = useMemo(() => {

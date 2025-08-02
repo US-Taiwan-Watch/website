@@ -19,7 +19,8 @@ const accountSchema = z.object({
   email: z.string(),
   subscribeBills: z.array(accountSubscribeSchema),
   subscribePeoples: z.array(accountSubscribeSchema),
-  bookmarkArticles: z.array(accountSubscribeSchema),
+  bookmarkUstwArticles: z.array(accountSubscribeSchema),
+  bookmarkKetagalanArticles: z.array(accountSubscribeSchema),
   notifications: z.any(),
   picture: z.string().optional(),
 })
@@ -44,9 +45,13 @@ export default class AccountUtils {
         lang,
         me.subscribePeoples
       ),
-      bookmarkArticles: AccountUtils.parseBookmarkArticles(
+      bookmarkUstwArticles: AccountUtils.parseBookmarkUstwArticles(
         lang,
-        me.bookmarkArticles
+        me.bookmarkUstwArticles
+      ),
+      bookmarkKetagalanArticles: AccountUtils.parseBookmarkKetagalanArticles(
+        lang,
+        me.bookmarkKetagalanArticles
       ),
       notifications: me.notifications ?? [],
       picture: user.picture,
@@ -91,12 +96,12 @@ export default class AccountUtils {
       .filter((subscribe) => !isNull(subscribe))
   }
 
-  static parseBookmarkArticles(
+  static parseBookmarkUstwArticles(
     lang: Language,
-    bookmarkArticles: Me['bookmarkArticles']
+    bookmarkUstwArticles: Me['bookmarkUstwArticles']
   ) {
-    if (!bookmarkArticles) return []
-    return bookmarkArticles
+    if (!bookmarkUstwArticles) return []
+    return bookmarkUstwArticles
       .map((subscribeArticle) => {
         if (!subscribeArticle) return null
         const article = ArticleUtils.parse(
@@ -106,9 +111,32 @@ export default class AccountUtils {
         )
         return AccountSubscribeUtils.parse({
           id: article.id ?? '',
-          type: AccountSubscribeType.Article,
+          type: AccountSubscribeType.UstwArticle,
           title: article.title ?? '',
           url: ArticleUtils.getLink(ArticleType.Article, article.id),
+        })
+      })
+      .filter((subscribe) => !isNull(subscribe))
+  }
+
+  static parseBookmarkKetagalanArticles(
+    lang: Language,
+    bookmarkKetagalanArticles: Me['bookmarkKetagalanArticles']
+  ) {
+    if (!bookmarkKetagalanArticles) return []
+    return bookmarkKetagalanArticles
+      .map((subscribeArticle) => {
+        if (!subscribeArticle) return null
+        const article = ArticleUtils.parse(
+          lang,
+          subscribeArticle,
+          ArticleType.Ketagalan
+        )
+        return AccountSubscribeUtils.parse({
+          id: article.id ?? '',
+          type: AccountSubscribeType.KetagalanArticle,
+          title: article.title ?? '',
+          url: ArticleUtils.getLink(ArticleType.Ketagalan, article.id),
         })
       })
       .filter((subscribe) => !isNull(subscribe))
@@ -118,7 +146,8 @@ export default class AccountUtils {
     return [
       ...account.subscribeBills,
       ...account.subscribePeoples,
-      ...account.bookmarkArticles,
+      ...account.bookmarkUstwArticles,
+      ...account.bookmarkKetagalanArticles,
     ]
   }
 }

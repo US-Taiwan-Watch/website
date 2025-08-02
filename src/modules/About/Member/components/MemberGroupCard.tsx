@@ -1,12 +1,20 @@
 import { Grid2, Stack, Typography } from '@mui/material'
 import { MemberGroup } from '@/modules/About/Member/business/Member'
 import MemberCard from '@/modules/About/Member/components/MemberCard'
+import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
+import { Language } from '@/common/lib/i18n/types'
 
 type MemberGroupCardProps = {
+  lang: Language
   memberGroup: MemberGroup
 }
 
-export default function MemberGroupCard({ memberGroup }: MemberGroupCardProps) {
+export default async function MemberGroupCard({
+  lang,
+  memberGroup,
+}: MemberGroupCardProps) {
+  const { t } = await getTranslationServer(lang, 'about_member')
+
   return (
     <Stack
       px={{
@@ -29,7 +37,9 @@ export default function MemberGroupCard({ memberGroup }: MemberGroupCardProps) {
         backgroundColor: 'background.paper',
       }}
     >
-      <Typography variant="subtitleXL">{memberGroup.name}</Typography>
+      <Typography variant="subtitleXL">
+        {t(`member.type.${memberGroup.type}`)}
+      </Typography>
       <Grid2
         container
         spacing={{

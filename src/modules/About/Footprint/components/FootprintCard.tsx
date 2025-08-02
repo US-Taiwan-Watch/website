@@ -1,7 +1,7 @@
 'use client'
 
 import { Box, Grid2, Stack, Typography } from '@mui/material'
-import { Footprint } from '@/modules/About/Footprint/business/Project'
+import { Footprint } from '@/modules/About/Footprint/business/Footprint'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useEffect, useState } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'

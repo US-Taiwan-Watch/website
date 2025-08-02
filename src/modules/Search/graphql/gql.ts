@@ -42,7 +42,7 @@ export const QUERY_SEARCH = gql`
         }
         highlights
       }
-      article {
+      ustwArticle {
         count
         items {
           id

@@ -1,4 +1,4 @@
-import { Language } from '@/common/lib/i18n/types'
+import { UstwFootprint as ApiUstwFootprint } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
 
 export enum FootprintType {
@@ -14,20 +14,16 @@ export const footprintSchema = z.object({
   releaseDate: z.string().datetime(),
 })
 
-// FIXME: Real API 型別
-type ApiFootprint = z.infer<typeof footprintSchema>
-
 export type Footprint = z.infer<typeof footprintSchema>
 
 export class FootprintUtils {
-  // TODO: 實作 parse
-  static parse(lang: Language, dto: ApiFootprint) {
+  static parse(dto: ApiUstwFootprint) {
     return footprintSchema.parse({
       id: dto.id,
       title: dto.title,
       source: dto.source,
       type: dto.type,
-      releaseDate: dto.releaseDate,
+      releaseDate: dto.createdAt,
     })
   }
 }

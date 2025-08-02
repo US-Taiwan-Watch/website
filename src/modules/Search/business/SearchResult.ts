@@ -247,7 +247,7 @@ export class SearchResultsUtils {
 
     // Articles
     const articleMap = new Map<string, Article>()
-    dto.article?.items
+    dto.ustwArticle?.items
       ?.filter((item) => item !== null)
       .forEach((item) => {
         if (item.id)
@@ -258,26 +258,28 @@ export class SearchResultsUtils {
       })
 
     const articleResults: SearchResults['articles'] = {
-      total: dto.article?.count ?? 0,
-      results: dto.article?.highlights?.map((highlight: ArticleHighlight) => {
-        const matched = articleMap.get(highlight.id)
+      total: dto.ustwArticle?.count ?? 0,
+      results: dto.ustwArticle?.highlights?.map(
+        (highlight: ArticleHighlight) => {
+          const matched = articleMap.get(highlight.id)
 
-        if (!matched) {
-          return null
-        }
+          if (!matched) {
+            return null
+          }
 
-        return {
-          type: SearchResultType.Article,
-          value: matched,
-          highlights: {
-            title: highlight.title?.value ?? matched.title ?? '',
-            description:
-              SearchResultsUtils.trimHighlightText(
-                highlight.excerpt?.value ?? matched.description ?? ''
-              ) ?? '',
-          },
+          return {
+            type: SearchResultType.Article,
+            value: matched,
+            highlights: {
+              title: highlight.title?.value ?? matched.title ?? '',
+              description:
+                SearchResultsUtils.trimHighlightText(
+                  highlight.excerpt?.value ?? matched.description ?? ''
+                ) ?? '',
+            },
+          }
         }
-      }),
+      ),
     }
 
     results.articles = articleResults
@@ -333,7 +335,7 @@ export class SearchResultsUtils {
       case SearchResultType.Bill:
         return ApiSearchFilterEnum.Bill
       case SearchResultType.Article:
-        return ApiSearchFilterEnum.Article
+        return ApiSearchFilterEnum.UstwArticle
       case SearchResultType.Ketagalan:
         return ApiSearchFilterEnum.KetagalanArticle
     }
@@ -345,7 +347,7 @@ export class SearchResultsUtils {
     return Math.ceil(
       ((results.people?.count ?? 0) +
         (results.bill?.count ?? 0) +
-        (results.article?.count ?? 0) +
+        (results.ustwArticle?.count ?? 0) +
         (results.ketagalanArticle?.count ?? 0)) /
         SearchResultsUtils.PAGE_SIZE
     )

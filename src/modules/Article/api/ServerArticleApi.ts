@@ -1,8 +1,8 @@
 import {
-  ArticleQuery,
-  ArticleQueryVariables,
-  ArticlesQuery,
-  ArticlesQueryVariables,
+  UstwArticleQuery,
+  UstwArticleQueryVariables,
+  UstwArticlesQuery,
+  UstwArticlesQueryVariables,
   KetagalanArticleQuery,
   KetagalanArticleQueryVariables,
   KetagalanArticlesQuery,
@@ -11,8 +11,8 @@ import {
 import { query } from '@/common/lib/graphql/ServerApolloClient'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
 import {
-  QUERY_ARTICLE,
-  QUERY_ARTICLES,
+  QUERY_USTW_ARTICLE,
+  QUERY_USTW_ARTICLES,
   QUERY_KETAGALAN_ARTICLE,
   QUERY_KETAGALAN_ARTICLES,
 } from '@/modules/Article/graphql/gql'
@@ -56,15 +56,17 @@ export default class ServerArticleApi {
       )
     }
 
-    const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
-      query: QUERY_ARTICLES,
-      variables: {
-        limit,
-      },
-    })
+    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
+      {
+        query: QUERY_USTW_ARTICLES,
+        variables: {
+          limit,
+        },
+      }
+    )
 
     return (
-      data?.Articles?.docs
+      data?.UstwArticles?.docs
         ?.filter((article) => !isNull(article))
         .map((article) =>
           ArticleUtils.parse(apiConfig.lang, article, articleType)
@@ -104,15 +106,17 @@ export default class ServerArticleApi {
       )
     }
 
-    const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
-      query: QUERY_ARTICLES,
-      variables: {
-        limit,
-      },
-    })
+    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
+      {
+        query: QUERY_USTW_ARTICLES,
+        variables: {
+          limit,
+        },
+      }
+    )
 
     return (
-      data?.Articles?.docs
+      data?.UstwArticles?.docs
         ?.filter((article) => !isNull(article))
         .map((article) =>
           ArticleUtils.parse(apiConfig.lang, article, articleType)
@@ -157,20 +161,22 @@ export default class ServerArticleApi {
       )
     }
 
-    const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
-      query: QUERY_ARTICLES,
-      variables: {
-        limit,
-        where: {
-          isFeatured: {
-            equals: true,
+    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
+      {
+        query: QUERY_USTW_ARTICLES,
+        variables: {
+          limit,
+          where: {
+            isFeatured: {
+              equals: true,
+            },
           },
         },
-      },
-    })
+      }
+    )
 
     return (
-      data?.Articles?.docs
+      data?.UstwArticles?.docs
         ?.filter((article) => !isNull(article))
         .map((article) =>
           ArticleUtils.parse(apiConfig.lang, article, articleType)
@@ -191,9 +197,9 @@ export default class ServerArticleApi {
     where,
     articleType,
   }: {
-    limit?: ArticlesQueryVariables['limit']
-    page?: ArticlesQueryVariables['page']
-    where?: ArticlesQueryVariables['where']
+    limit?: UstwArticlesQueryVariables['limit']
+    page?: UstwArticlesQueryVariables['page']
+    where?: UstwArticlesQueryVariables['where']
     articleType: ArticleType
   }) {
     if (articleType === ArticleType.Ketagalan) {
@@ -218,17 +224,19 @@ export default class ServerArticleApi {
       )
     }
 
-    const { data } = await query<ArticlesQuery, ArticlesQueryVariables>({
-      query: QUERY_ARTICLES,
-      variables: {
-        page,
-        limit,
-        where,
-      },
-    })
+    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
+      {
+        query: QUERY_USTW_ARTICLES,
+        variables: {
+          page,
+          limit,
+          where,
+        },
+      }
+    )
 
     return (
-      data?.Articles?.docs
+      data?.UstwArticles?.docs
         ?.filter((article) => !isNull(article))
         .map((article) =>
           ArticleUtils.parse(apiConfig.lang, article, articleType)
@@ -266,14 +274,14 @@ export default class ServerArticleApi {
       )
     }
 
-    const { data } = await query<ArticleQuery, ArticleQueryVariables>({
-      query: QUERY_ARTICLE,
+    const { data } = await query<UstwArticleQuery, UstwArticleQueryVariables>({
+      query: QUERY_USTW_ARTICLE,
       variables: { id },
     })
 
-    if (!data?.Article) return null
+    if (!data?.UstwArticle) return null
 
-    return ArticleUtils.parse(apiConfig.lang, data.Article, articleType)
+    return ArticleUtils.parse(apiConfig.lang, data.UstwArticle, articleType)
   }
 
   /**
@@ -315,10 +323,10 @@ export default class ServerArticleApi {
     }
 
     const { data: relatedData } = await query<
-      ArticlesQuery,
-      ArticlesQueryVariables
+      UstwArticlesQuery,
+      UstwArticlesQueryVariables
     >({
-      query: QUERY_ARTICLES,
+      query: QUERY_USTW_ARTICLES,
       variables: {
         limit: 3,
         where: {
@@ -331,7 +339,7 @@ export default class ServerArticleApi {
     })
 
     return (
-      relatedData?.Articles?.docs
+      relatedData?.UstwArticles?.docs
         ?.filter((article) => !isNull(article))
         .map((article) =>
           ArticleUtils.parse(apiConfig.lang, article, articleType)
