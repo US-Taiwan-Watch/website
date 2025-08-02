@@ -2,7 +2,9 @@ import {
   UstwMember as ApiUstwMember,
   UstwMember_Type as UstwMemberType,
 } from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
 import { z } from 'zod'
+import CommonUtils from '@/modules/Common/Common.utils'
 
 export const memberSchema = z.object({
   type: z.nativeEnum(UstwMemberType),
@@ -21,11 +23,12 @@ export type Member = z.infer<typeof memberSchema>
 export type MemberGroup = z.infer<typeof memberGroupSchema>
 
 export class MemberUtils {
-  static parseMember(dto: ApiUstwMember) {
+  static parseMember(lang: Language, dto: ApiUstwMember) {
     return memberSchema.parse({
       id: dto.id,
-      name: dto.name,
-      description: dto.description,
+      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+      description:
+        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.description ?? '',
       image: dto.photo?.url ?? '',
       type: dto.type,
     })

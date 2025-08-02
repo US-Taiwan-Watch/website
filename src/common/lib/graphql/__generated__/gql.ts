@@ -14,6 +14,9 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
+    "\n  query UstwFootprints {\n    UstwFootprints {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            source\n          }\n          zh {\n            title\n            source\n          }\n        }\n        type\n        link\n        title\n        source\n        updatedAt\n        createdAt\n      }\n    }\n  }\n": types.UstwFootprintsDocument,
+    "\n  query UstwMembers {\n    UstwMembers {\n      docs {\n        id\n        i18n {\n          en {\n            name\n            description\n          }\n          zh {\n            name\n            description\n          }\n        }\n        photo {\n          url\n        }\n        type\n        name\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n": types.UstwMembersDocument,
+    "\n  query UstwProjects {\n    UstwProjects {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            description\n          }\n          zh {\n            title\n            description\n          }\n        }\n        photo {\n          url\n        }\n        title\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n": types.UstwProjectsDocument,
     "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notifications\n    }\n  }\n\n  \n  \n  \n  \n": types.MeDocument,
     "\n  mutation SubscribeBill($billId: String!) {\n    subscribeBill(id: $billId) {\n      id\n    }\n  }\n": types.SubscribeBillDocument,
     "\n  mutation SubscribePeople($peopleId: String!) {\n    subscribePeople(id: $peopleId) {\n      id\n    }\n  }\n": types.SubscribePeopleDocument,
@@ -88,6 +91,18 @@ const documents = {
  */
 export function gql(source: string): unknown;
 
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query UstwFootprints {\n    UstwFootprints {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            source\n          }\n          zh {\n            title\n            source\n          }\n        }\n        type\n        link\n        title\n        source\n        updatedAt\n        createdAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query UstwFootprints {\n    UstwFootprints {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            source\n          }\n          zh {\n            title\n            source\n          }\n        }\n        type\n        link\n        title\n        source\n        updatedAt\n        createdAt\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query UstwMembers {\n    UstwMembers {\n      docs {\n        id\n        i18n {\n          en {\n            name\n            description\n          }\n          zh {\n            name\n            description\n          }\n        }\n        photo {\n          url\n        }\n        type\n        name\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query UstwMembers {\n    UstwMembers {\n      docs {\n        id\n        i18n {\n          en {\n            name\n            description\n          }\n          zh {\n            name\n            description\n          }\n        }\n        photo {\n          url\n        }\n        type\n        name\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query UstwProjects {\n    UstwProjects {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            description\n          }\n          zh {\n            title\n            description\n          }\n        }\n        photo {\n          url\n        }\n        title\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n"): (typeof documents)["\n  query UstwProjects {\n    UstwProjects {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            description\n          }\n          zh {\n            title\n            description\n          }\n        }\n        photo {\n          url\n        }\n        title\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
