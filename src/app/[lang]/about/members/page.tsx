@@ -1,10 +1,11 @@
 import AboutLayout from '@/modules/About/components/AboutLayout'
 import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
-import { Member, MemberUtils } from '@/modules/About/Member/business/Member'
+import { MemberUtils } from '@/modules/About/Member/business/Member'
 import MemberGroupCard from '@/modules/About/Member/components/MemberGroupCard'
 import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
 import { Metadata } from 'next/types'
+import ServerMemberApi from '@/modules/About/Member/api/ServerMemberApi'
 
 type AboutMembersPageProps = {
   params: {
@@ -24,23 +25,26 @@ export async function generateMetadata({
   }
 }
 
-export default function AboutMembersPage({ params }: AboutMembersPageProps) {
+export default async function AboutMembersPage({
+  params,
+}: AboutMembersPageProps) {
   const { lang } = params
 
-  /** TODO: 實作 API 取得 */
-  const members: Member[] = []
+  const members = await ServerMemberApi.getUstwMembers()
   const memberGroups = MemberUtils.parseMemberGroup(members)
 
   return (
     <AboutLayout currentPathname={'/about/members'}>
       <Stack gap={2}>
-        {memberGroups.map((memberGroup) => (
-          <MemberGroupCard
-            key={memberGroup.type}
-            lang={lang}
-            memberGroup={memberGroup}
-          />
-        ))}
+        {memberGroups
+          .filter((memberGroup) => memberGroup.members.length > 0)
+          .map((memberGroup) => (
+            <MemberGroupCard
+              key={memberGroup.type}
+              lang={lang}
+              memberGroup={memberGroup}
+            />
+          ))}
       </Stack>
     </AboutLayout>
   )

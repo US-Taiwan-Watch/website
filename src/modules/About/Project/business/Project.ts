@@ -1,5 +1,7 @@
 import { UstwProject as ApiUstwProject } from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
 import { z } from 'zod'
+import CommonUtils from '@/modules/Common/Common.utils'
 
 export const projectSchema = z.object({
   id: z.string(),
@@ -11,11 +13,12 @@ export const projectSchema = z.object({
 export type Project = z.infer<typeof projectSchema>
 
 export class ProjectUtils {
-  static parse(dto: ApiUstwProject) {
+  static parse(lang: Language, dto: ApiUstwProject) {
     return projectSchema.parse({
       id: dto.id,
-      title: dto.title,
-      description: dto.description,
+      title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? '',
+      description:
+        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.description ?? '',
       image: dto.photo?.url ?? '',
     })
   }
