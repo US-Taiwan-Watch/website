@@ -10,7 +10,7 @@ import {
   ArticleCategoryUtils,
 } from '@/modules/Article/business/ArticleCategory'
 import {
-  Article as ApiArticle,
+  UstwArticle as ApiUstwArticle,
   KetagalanArticle as ApiKetagalanArticle,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
@@ -60,7 +60,7 @@ export class ArticleUtils {
    */
   static parse(
     lang: Language,
-    dto: Partial<ApiArticle | ApiKetagalanArticle>,
+    dto: Partial<ApiUstwArticle | ApiKetagalanArticle>,
     articleType: ArticleType
   ) {
     return articleSchema.parse({

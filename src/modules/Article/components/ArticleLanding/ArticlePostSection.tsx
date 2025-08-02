@@ -4,8 +4,8 @@ import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import UHStack from '@/common/components/atoms/UHStack'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import {
-  ArticlesQuery,
-  ArticlesQueryVariables,
+  UstwArticlesQuery,
+  UstwArticlesQueryVariables,
   KetagalanArticlesQuery,
   KetagalanArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
@@ -20,7 +20,7 @@ import ArticlePostCards, {
   ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
 import {
-  QUERY_ARTICLES,
+  QUERY_USTW_ARTICLES,
   QUERY_KETAGALAN_ARTICLES,
 } from '@/modules/Article/graphql/gql'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
@@ -63,7 +63,7 @@ const ArticlePostSection = ({
   }, [articleType, articleLandingTags, ketagalanLandingTags])
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
-  const queryVariables = useMemo<ArticlesQueryVariables>(
+  const queryVariables = useMemo<UstwArticlesQueryVariables>(
     () => ({
       limit: ARTICLE_POST_COUNT,
       page,
@@ -79,9 +79,12 @@ const ArticlePostSection = ({
   )
 
   const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
-    useLazyQuery<ArticlesQuery, ArticlesQueryVariables>(QUERY_ARTICLES, {
-      variables: queryVariables,
-    })
+    useLazyQuery<UstwArticlesQuery, UstwArticlesQueryVariables>(
+      QUERY_USTW_ARTICLES,
+      {
+        variables: queryVariables,
+      }
+    )
 
   const [
     getKetagalanArticles,
@@ -98,7 +101,7 @@ const ArticlePostSection = ({
       return ketagalanQueryData?.KetagalanArticles
     }
 
-    return articlesQueryData?.Articles
+    return articlesQueryData?.UstwArticles
   }, [articleType, ketagalanQueryData, articlesQueryData])
 
   const loading = useMemo(() => {

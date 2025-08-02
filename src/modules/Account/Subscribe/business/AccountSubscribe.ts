@@ -2,7 +2,8 @@ import { z } from 'zod'
 
 export enum AccountSubscribeType {
   Bill = 'bill',
-  Article = 'article',
+  UstwArticle = 'ustwArticle',
+  KetagalanArticle = 'ketagalanArticle',
   People = 'people',
 }
 
