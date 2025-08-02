@@ -26,3 +26,30 @@ export const QUERY_USTW_PROJECTS = gql`
     }
   }
 `
+
+export const QUERY_KETAGALAN_PROJECTS = gql`
+  query KetagalanProjects {
+    KetagalanProjects {
+      docs {
+        id
+        i18n {
+          en {
+            title
+            description
+          }
+          zh {
+            title
+            description
+          }
+        }
+        photo {
+          url
+        }
+        title
+        description
+        updatedAt
+        createdAt
+      }
+    }
+  }
+`
