@@ -287,7 +287,15 @@ export default function AccountProvider({
       // refetch me
       await fetchMe()
     },
-    [toast, t, user, loginOnceSubscribe, gqlBookmarkUstwArticle, fetchMe]
+    [
+      toast,
+      t,
+      user,
+      loginOnceSubscribe,
+      gqlBookmarkUstwArticle,
+      gqlBookmarkKetagalanArticle,
+      fetchMe,
+    ]
   )
 
   const checkIfArticleIsBookmarked = useCallback(
