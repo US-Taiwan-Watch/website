@@ -1,13 +1,27 @@
 import Image from 'next/image'
+import { SxProps } from '@mui/material'
+import { styled } from '@/common/lib/mui/theme'
+interface UKetagalanLogoProps {
+  width?: number
+  height?: number
+  sx?: SxProps
+}
 
-// NOTE: no need to be sizable for phase1, because only landing page needs it
-const UKetagalanLogo = () => {
+const StyledImage = styled(Image)(() => ({}))
+
+const UKetagalanLogo = ({
+  width = 271,
+  height = 50,
+  sx,
+}: UKetagalanLogoProps) => {
   return (
-    <Image
-      width={271}
-      height={50}
+    <StyledImage
+      width={width}
+      height={height}
+      objectFit="contain"
       alt="Ketagalan Logo"
       src="/assets/logo/KetagalanLogo.png"
+      sx={sx}
     />
   )
 }

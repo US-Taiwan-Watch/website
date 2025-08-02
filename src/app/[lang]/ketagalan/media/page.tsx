@@ -4,7 +4,7 @@ import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 import { ArticleType } from '@/modules/Article/business/Article'
 import ArticleLandingBannerCards from '@/modules/Article/components/ArticleLanding/ArticleLandingBannerCards'
 import ArticlePostSection from '@/modules/Article/components/ArticleLanding/ArticlePostSection'
-import ArticleNavbar from '@/modules/Article/components/ArticleNavbar'
+import KetagalanArticleNavbar from '@/modules/Article/components/KetagalanArticleNavbar'
 import Stack from '@mui/material/Stack'
 
 /**
@@ -32,7 +32,7 @@ export default async function Article() {
     <UContainer>
       <Stack flex={1}>
         <UFullWidthBackgroundBox>
-          <ArticleNavbar articleType={ArticleType.Ketagalan} />
+          <KetagalanArticleNavbar />
         </UFullWidthBackgroundBox>
         {landingBannerArticles.length > 0 && (
           <ArticleLandingBannerCards articles={landingBannerArticles} />

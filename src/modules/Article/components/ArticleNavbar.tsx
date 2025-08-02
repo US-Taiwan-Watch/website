@@ -1,37 +1,22 @@
 'use client'
 
+import UContainer from '@/common/components/atoms/UContainer'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { ArticleUtils, ArticleType } from '@/modules/Article/business/Article'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
-import { useMemo } from 'react'
 
 interface ArticleNavbarProps {
-  articleType: ArticleType
   activeId?: string
 }
 
-const ArticleNavbar = ({ articleType, activeId }: ArticleNavbarProps) => {
+const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
   const theme = useTheme<USTWTheme>()
 
   const articleHighlightedCategories =
     useArticleStore.use.articleHighlightedCategories()
-  const ketagalanHighlightedCategories =
-    useArticleStore.use.ketagalanHighlightedCategories()
-
-  const highlightedCategories = useMemo(() => {
-    if (articleType === ArticleType.Ketagalan) {
-      return ketagalanHighlightedCategories
-    }
-
-    return articleHighlightedCategories
-  }, [
-    articleType,
-    articleHighlightedCategories,
-    ketagalanHighlightedCategories,
-  ])
 
   return (
     <Box
@@ -47,35 +32,37 @@ const ArticleNavbar = ({ articleType, activeId }: ArticleNavbarProps) => {
         },
       }}
     >
-      <UHStack
-        spacing={6}
-        sx={{
-          color: theme.color.article.navText,
-        }}
-      >
-        {highlightedCategories.map((item) => (
-          <Link
-            href={ArticleUtils.getCategoryLink(articleType, item)}
-            key={item.id}
-            style={{
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <Typography
-              variant="menu"
-              sx={{
-                color:
-                  activeId === item.id
-                    ? theme.color.article.navActiveText
-                    : 'inherit',
+      <UContainer>
+        <UHStack
+          spacing={6}
+          sx={{
+            color: theme.color.article.navText,
+          }}
+        >
+          {articleHighlightedCategories.map((item) => (
+            <Link
+              href={ArticleUtils.getCategoryLink(ArticleType.Article, item)}
+              key={item.id}
+              style={{
+                whiteSpace: 'nowrap',
               }}
-              fontWeight={500}
             >
-              {item.label}
-            </Typography>
-          </Link>
-        ))}
-      </UHStack>
+              <Typography
+                variant="menu"
+                sx={{
+                  color:
+                    activeId === item.id
+                      ? theme.color.article.navActiveText
+                      : 'inherit',
+                }}
+                fontWeight={500}
+              >
+                {item.label}
+              </Typography>
+            </Link>
+          ))}
+        </UHStack>
+      </UContainer>
     </Box>
   )
 }
