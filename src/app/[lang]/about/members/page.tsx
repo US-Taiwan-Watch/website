@@ -1,4 +1,4 @@
-import AboutLayout from '@/modules/About/components/AboutLayout'
+import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import { MemberUtils } from '@/modules/About/Member/business/Member'
@@ -34,18 +34,14 @@ export default async function AboutMembersPage({
   const memberGroups = MemberUtils.parseMemberGroup(members)
 
   return (
-    <AboutLayout currentPathname={'/about/members'}>
+    <UstwAboutLayout lang={lang} currentPathname={'/about/members'}>
       <Stack gap={2}>
         {memberGroups
           .filter((memberGroup) => memberGroup.members.length > 0)
           .map((memberGroup) => (
-            <MemberGroupCard
-              key={memberGroup.type}
-              lang={lang}
-              memberGroup={memberGroup}
-            />
+            <MemberGroupCard key={memberGroup.type} memberGroup={memberGroup} />
           ))}
       </Stack>
-    </AboutLayout>
+    </UstwAboutLayout>
   )
 }

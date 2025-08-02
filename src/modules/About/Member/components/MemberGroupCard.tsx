@@ -1,19 +1,18 @@
-import { Grid2, Stack, Typography } from '@mui/material'
+'use client'
+
+import { Grid2, Stack, Typography, useTheme } from '@mui/material'
 import { MemberGroup } from '@/modules/About/Member/business/Member'
 import MemberCard from '@/modules/About/Member/components/MemberCard'
-import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
-import { Language } from '@/common/lib/i18n/types'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
 type MemberGroupCardProps = {
-  lang: Language
   memberGroup: MemberGroup
 }
 
-export default async function MemberGroupCard({
-  lang,
-  memberGroup,
-}: MemberGroupCardProps) {
-  const { t } = await getTranslationServer(lang, 'about_member')
+export default function MemberGroupCard({ memberGroup }: MemberGroupCardProps) {
+  const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('about_member')
 
   return (
     <Stack
@@ -34,7 +33,7 @@ export default async function MemberGroupCard({
       }}
       sx={{
         borderRadius: '15px',
-        backgroundColor: 'background.paper',
+        backgroundColor: theme.color.about.card.backgroundColor,
       }}
     >
       <Typography variant="subtitleXL">

@@ -1,11 +1,12 @@
 'use client'
 
-import { Box, Grid2, Stack, Typography } from '@mui/material'
+import { Box, Grid2, Stack, Typography, useTheme } from '@mui/material'
 import { Footprint } from '@/modules/About/Footprint/business/Footprint'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useEffect, useState } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'
 import Link from 'next/link'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
 const DATE_FORMAT = 'MMM DD, YYYY' // Mar 13, 2024
 
@@ -14,6 +15,7 @@ type FootprintCardProps = {
 }
 
 export default function FootprintCard({ footprint }: FootprintCardProps) {
+  const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('about_footprint')
   const [releaseDate, setReleaseDate] = useState('')
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
         }}
         sx={{
           borderRadius: '15px',
-          backgroundColor: 'background.paper',
+          backgroundColor: theme.color.about.card.backgroundColor,
         }}
       >
         <Grid2
@@ -57,7 +59,8 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
               py={0.25}
               borderRadius="30px"
               sx={{
-                backgroundColor: 'secondary.main',
+                backgroundColor: theme.color.about.footprint.labelBackground,
+                color: theme.color.about.footprint.labelText,
               }}
             >
               <Typography fontSize="0.875rem" fontWeight={600}>
@@ -83,7 +86,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
             sm: 3,
             lg: 5,
           }}
-          alignItems="flex-start"
+          alignItems="flex-end"
         >
           <Grid2
             size={{
@@ -95,7 +98,7 @@ export default function FootprintCard({ footprint }: FootprintCardProps) {
               fontSize="0.75rem"
               fontWeight={600}
               sx={{
-                color: 'neutral.500',
+                color: theme.color.about.footprint.captionText,
               }}
             >
               {releaseDate}

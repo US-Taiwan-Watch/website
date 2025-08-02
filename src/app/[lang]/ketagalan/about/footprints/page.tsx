@@ -1,4 +1,4 @@
-import KetagalanAboutLayout from '@/modules/About/components/KetagalanAboutLayout'
+import { KetagalanAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import FootprintCard from '@/modules/About/Footprint/components/FootprintCard'
@@ -27,11 +27,18 @@ export async function generateMetadata({
   }
 }
 
-export default async function KetagalanAboutFootprintsPage() {
+export default async function KetagalanAboutFootprintsPage({
+  params,
+}: KetagalanAboutFootprintsPageProps) {
+  const { lang } = params
+
   const footprints = await ServerFootprintApi.getKetagalanFootprints()
 
   return (
-    <KetagalanAboutLayout currentPathname={'/ketagalan/about/footprints'}>
+    <KetagalanAboutLayout
+      lang={lang}
+      currentPathname={'/ketagalan/about/footprints'}
+    >
       <Stack gap={2.5}>
         {footprints.map((footprint) => (
           <FootprintCard key={footprint.id} footprint={footprint} />

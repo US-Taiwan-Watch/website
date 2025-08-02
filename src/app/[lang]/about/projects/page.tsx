@@ -1,4 +1,4 @@
-import AboutLayout from '@/modules/About/components/AboutLayout'
+import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import ProjectCard from '@/modules/About/Project/components/ProjectCard'
@@ -24,16 +24,20 @@ export async function generateMetadata({
   }
 }
 
-export default async function AboutProjectsPage() {
+export default async function AboutProjectsPage({
+  params,
+}: AboutProjectsPageProps) {
+  const { lang } = params
+
   const projects = await ServerProjectApi.getUstwProjects()
 
   return (
-    <AboutLayout currentPathname={'/about/projects'}>
+    <UstwAboutLayout lang={lang} currentPathname={'/about/projects'}>
       <Stack gap={2}>
         {projects.map((project) => (
           <ProjectCard key={project.id} project={project} />
         ))}
       </Stack>
-    </AboutLayout>
+    </UstwAboutLayout>
   )
 }

@@ -1,4 +1,4 @@
-import AboutLayout from '@/modules/About/components/AboutLayout'
+import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Box, Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import DonationBanner from '@/modules/About/Donation/components/DonationBanner'
@@ -32,7 +32,11 @@ export default function AboutDonationPage({ params }: AboutDonationPageProps) {
   const { lang } = params
 
   return (
-    <AboutLayout withHeaderSection={false} currentPathname={'/about/donation'}>
+    <UstwAboutLayout
+      lang={lang}
+      withHeaderSection={false}
+      currentPathname={'/about/donation'}
+    >
       <Stack
         gap={{
           xs: 2,
@@ -59,6 +63,6 @@ export default function AboutDonationPage({ params }: AboutDonationPageProps) {
           <DonationButtonInternational />
         </Stack>
       </Stack>
-    </AboutLayout>
+    </UstwAboutLayout>
   )
 }
