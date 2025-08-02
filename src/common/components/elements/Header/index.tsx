@@ -18,7 +18,7 @@ export type HeaderProps = {
 
 const Header = (props: HeaderProps) => {
   const { lang } = useParams<{ lang: Language }>()
-  const { isKetagalanMedia } = useRouteDetect()
+  const { isKetagalan } = useRouteDetect()
   const { isMobile, isTablet } = useResponsive()
 
   const header = useMemo(() => {
@@ -30,7 +30,7 @@ const Header = (props: HeaderProps) => {
   }, [isMobile, isTablet, props])
 
   return (
-    <ThemeProvider mode={isKetagalanMedia ? 'ketagalan' : 'light'} lang={lang}>
+    <ThemeProvider mode={isKetagalan ? 'ketagalan' : 'light'} lang={lang}>
       {header}
     </ThemeProvider>
   )

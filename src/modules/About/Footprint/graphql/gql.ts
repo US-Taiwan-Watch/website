@@ -25,3 +25,29 @@ export const QUERY_USTW_FOOTPRINTS = gql`
     }
   }
 `
+
+export const QUERY_KETAGALAN_FOOTPRINTS = gql`
+  query KetagalanFootprints {
+    KetagalanFootprints {
+      docs {
+        id
+        i18n {
+          en {
+            title
+            source
+          }
+          zh {
+            title
+            source
+          }
+        }
+        type
+        link
+        title
+        source
+        updatedAt
+        createdAt
+      }
+    }
+  }
+`

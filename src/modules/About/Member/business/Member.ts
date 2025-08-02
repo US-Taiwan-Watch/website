@@ -1,6 +1,8 @@
 import {
   UstwMember as ApiUstwMember,
   UstwMember_Type as UstwMemberType,
+  KetagalanMember as ApiKetagalanMember,
+  KetagalanMember_Type as KetagalanMemberType,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { z } from 'zod'
@@ -15,7 +17,10 @@ export const memberSchema = z.object({
 })
 
 export const memberGroupSchema = z.object({
-  type: z.nativeEnum(UstwMemberType),
+  type: z.union([
+    z.nativeEnum(UstwMemberType),
+    z.nativeEnum(KetagalanMemberType),
+  ]),
   members: z.array(memberSchema),
 })
 
@@ -24,6 +29,17 @@ export type MemberGroup = z.infer<typeof memberGroupSchema>
 
 export class MemberUtils {
   static parseMember(lang: Language, dto: ApiUstwMember) {
+    return memberSchema.parse({
+      id: dto.id,
+      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+      description:
+        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.description ?? '',
+      image: dto.photo?.url ?? '',
+      type: dto.type,
+    })
+  }
+
+  static parseKetagalanMember(lang: Language, dto: ApiKetagalanMember) {
     return memberSchema.parse({
       id: dto.id,
       name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
