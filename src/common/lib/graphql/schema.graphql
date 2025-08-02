@@ -43911,7 +43911,8 @@ type Mutation {
   ): PayloadPreference
   deletePayloadPreference(id: String!): PayloadPreference
   AddViewCountPeopleMutation(id: String!): Int
-  bookmarkArticle(id: String!): Member
+  bookmarkUstwArticle(id: String!): Member
+  bookmarkKetagalanArticle(id: String!): Member
   subscribeBill(id: String!): Member
   subscribePeople(id: String!): Member
 }

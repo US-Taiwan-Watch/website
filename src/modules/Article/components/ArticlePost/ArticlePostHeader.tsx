@@ -3,17 +3,26 @@
 import UButton from '@/common/components/atoms/UButton'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { Article, ArticleUtils } from '@/modules/Article/business/Article'
+import {
+  Article,
+  ArticleType,
+  ArticleUtils,
+} from '@/modules/Article/business/Article'
 import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
-import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
+import {
+  BookmarkFilledIcon,
+  BookmarkIcon,
+  OutlinedShareIcon,
+} from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Link from 'next/link'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 interface ArticlePostHeaderProps {
@@ -24,11 +33,23 @@ const ArticlePostHeader = function ArticlePostHeader({
   article,
 }: ArticlePostHeaderProps) {
   const { bookmarkArticle } = useAccount()
+  const account = useAccountStore.use.account()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient(['article'])
   const { categories, title, subtitle, date, tags, repostSources, authors } =
     article
   const theme = useTheme<USTWTheme>()
+  const isBookmarked = useMemo(() => {
+    if (article.type === ArticleType.Article) {
+      return account?.bookmarkUstwArticles.some(
+        (bookmark) => bookmark.id === article.id
+      )
+    } else if (article.type === ArticleType.Ketagalan) {
+      return account?.bookmarkKetagalanArticles.some(
+        (bookmark) => bookmark.id === article.id
+      )
+    }
+  }, [article.type, account])
 
   const [formattedDate, setFormattedDate] = useState('')
   useEffect(() => {
@@ -72,19 +93,21 @@ const ArticlePostHeader = function ArticlePostHeader({
           </UHStack>
         )}
 
-        {/** 分享功能 (Mobile) */}
+        {/** 功能 (Mobile) */}
         {isMobile && (
           <UHStack gap={1}>
+            {/** 分享功能 */}
             <UIconButton variant="rounded" color="black" size="xs">
               <OutlinedShareIcon />
             </UIconButton>
+            {/** 收藏功能 */}
             <UIconButton
               variant="rounded"
               color="black"
               size="xs"
               onClick={() => bookmarkArticle(article)}
             >
-              <BookmarkIcon />
+              {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
             </UIconButton>
           </UHStack>
         )}

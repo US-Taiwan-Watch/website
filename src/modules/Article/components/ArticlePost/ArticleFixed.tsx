@@ -3,13 +3,18 @@
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
-import { BookmarkIcon, OutlinedShareIcon } from '@/common/styles/assets/Icons'
+import {
+  BookmarkFilledIcon,
+  BookmarkIcon,
+  OutlinedShareIcon,
+} from '@/common/styles/assets/Icons'
 import { useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
-import { Article } from '@/modules/Article/business/Article'
-import { memo } from 'react'
+import { Article, ArticleType } from '@/modules/Article/business/Article'
+import { memo, useMemo } from 'react'
+import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 
 type ArticleFixedProps = {
   article: Article
@@ -18,9 +23,21 @@ type ArticleFixedProps = {
 const ArticleFixed = memo(function ArticleFixed({
   article,
 }: ArticleFixedProps) {
+  const account = useAccountStore.use.account()
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
   const { bookmarkArticle } = useAccount()
+  const isBookmarked = useMemo(() => {
+    if (article.type === ArticleType.Article) {
+      return account?.bookmarkUstwArticles.some(
+        (bookmark) => bookmark.id === article.id
+      )
+    } else if (article.type === ArticleType.Ketagalan) {
+      return account?.bookmarkKetagalanArticles.some(
+        (bookmark) => bookmark.id === article.id
+      )
+    }
+  }, [article.type, account])
 
   if (isMobile) return null
 
@@ -62,7 +79,7 @@ const ArticleFixed = memo(function ArticleFixed({
           }}
           onClick={() => bookmarkArticle(article)}
         >
-          <BookmarkIcon />
+          {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
         </UIconButton>
         <UIconButton
           variant="rounded"

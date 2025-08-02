@@ -2,7 +2,8 @@
 
 import { useApolloClient, useLazyQuery, useMutation } from '@apollo/client'
 import {
-  MUTATION_BOOKMARK_ARTICLE,
+  MUTATION_BOOKMARK_USTW_ARTICLE,
+  MUTATION_BOOKMARK_KETAGALAN_ARTICLE,
   MUTATION_SUBSCRIBE_BILL,
   MUTATION_SUBSCRIBE_PEOPLE,
   QUERY_ME,
@@ -16,15 +17,17 @@ import {
   SubscribeBillMutationVariables,
   SubscribePeopleMutationVariables,
   SubscribePeopleMutation,
-  BookmarkArticleMutation,
-  BookmarkArticleMutationVariables,
+  BookmarkUstwArticleMutation,
+  BookmarkUstwArticleMutationVariables,
+  BookmarkKetagalanArticleMutation,
+  BookmarkKetagalanArticleMutationVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import AccountUtils from '@/modules/Account/business/Account'
 import type React from 'react'
 import { useToast } from '@/common/providers/ToastProvider'
 import { Bill } from '@/modules/Bill/business/Bill'
 import { People } from '@/modules/People/business/People'
-import { Article } from '@/modules/Article/business/Article'
+import { Article, ArticleType } from '@/modules/Article/business/Article'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useUser } from '@auth0/nextjs-auth0'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
@@ -70,23 +73,25 @@ export default function AccountProvider({
   )
   const apolloClient = useApolloClient()
 
+  const fetchMe = useCallback(async () => {
+    if (!user || isLoading) return
+
+    apolloClient.defaultContext.token = await fetch('/api/auth/token')
+      .then((res) => res.json())
+      .then((data) => data.idToken)
+    getMe({
+      context: {
+        token: apolloClient.defaultContext.token,
+      },
+    })
+  }, [user, isLoading, apolloClient.defaultContext, getMe])
+
   /**
    * Set Id_Token to Apollo Client and get user data
    */
   useEffect(() => {
-    ;(async () => {
-      if (!user || isLoading) return
-
-      apolloClient.defaultContext.token = await fetch('/api/auth/token')
-        .then((res) => res.json())
-        .then((data) => data.idToken)
-      getMe({
-        context: {
-          token: apolloClient.defaultContext.token,
-        },
-      })
-    })()
-  }, [user, apolloClient.defaultContext, getMe, isLoading])
+    fetchMe()
+  }, [fetchMe])
 
   /**
    * Set user data to AccountStore
@@ -123,10 +128,14 @@ export default function AccountProvider({
     SubscribePeopleMutation,
     SubscribePeopleMutationVariables
   >(MUTATION_SUBSCRIBE_PEOPLE)
-  const [gqlBookmarkArticle] = useMutation<
-    BookmarkArticleMutation,
-    BookmarkArticleMutationVariables
-  >(MUTATION_BOOKMARK_ARTICLE)
+  const [gqlBookmarkUstwArticle] = useMutation<
+    BookmarkUstwArticleMutation,
+    BookmarkUstwArticleMutationVariables
+  >(MUTATION_BOOKMARK_USTW_ARTICLE)
+  const [gqlBookmarkKetagalanArticle] = useMutation<
+    BookmarkKetagalanArticleMutation,
+    BookmarkKetagalanArticleMutationVariables
+  >(MUTATION_BOOKMARK_KETAGALAN_ARTICLE)
 
   const loginOnceSubscribe = useCallback(() => {
     toast('warning', t('subscribe.login.msg', { ns: 'common' }))
@@ -154,8 +163,11 @@ export default function AccountProvider({
         'success',
         t('subscribe.msg', { ns: 'bill', bill: bill.title ?? '' })
       )
+
+      // refetch me
+      await fetchMe()
     },
-    [toast, t, user, loginOnceSubscribe, gqlSubscribeBill]
+    [toast, t, user, loginOnceSubscribe, gqlSubscribeBill, fetchMe]
   )
 
   /**
@@ -175,8 +187,11 @@ export default function AccountProvider({
         'success',
         t('subscribe.msg', { ns: 'people', people: people.name ?? '' })
       )
+
+      // refetch me
+      await fetchMe()
     },
-    [toast, t, user, loginOnceSubscribe, gqlSubscribePeople]
+    [toast, t, user, loginOnceSubscribe, gqlSubscribePeople, fetchMe]
   )
 
   /**
@@ -191,13 +206,24 @@ export default function AccountProvider({
       }
 
       if (!article.id) return
-      await gqlBookmarkArticle({ variables: { articleId: article.id } })
+
+      if (article.type === ArticleType.Article) {
+        await gqlBookmarkUstwArticle({ variables: { articleId: article.id } })
+      } else if (article.type === ArticleType.Ketagalan) {
+        await gqlBookmarkKetagalanArticle({
+          variables: { articleId: article.id },
+        })
+      }
+
       toast(
         'success',
         t('bookmark.msg', { ns: 'article', article: article.title ?? '' })
       )
+
+      // refetch me
+      await fetchMe()
     },
-    [toast, t, user, loginOnceSubscribe, gqlBookmarkArticle]
+    [toast, t, user, loginOnceSubscribe, gqlBookmarkUstwArticle, fetchMe]
   )
 
   return (
