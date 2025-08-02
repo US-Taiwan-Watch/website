@@ -37,6 +37,10 @@ export enum RouteName {
   AboutData = 'about_data',
   AboutUserAgreementPrivacyPolicy = 'about_user_agreement_privacy_policy',
   AboutDonation = 'about_donation',
+  /** Ketagalan About */
+  KetagalanAboutProjects = 'ketagalan_about_projects',
+  KetagalanAboutMembers = 'ketagalan_about_members',
+  KetagalanAboutFootprints = 'ketagalan_about_footprints',
   /** Podcast */
   PodcastWatchHere = 'podcast_watch_here',
   PodcastWatchInfo = 'podcast_watch_info',
@@ -164,6 +168,10 @@ export const ROUTE_PATH_MAP: {
   [RouteName.AboutUserAgreementPrivacyPolicy]: () =>
     '/about/user-agreement-privacy-policy',
   [RouteName.AboutDonation]: () => '/about/donation',
+  /** Ketagalan About */
+  [RouteName.KetagalanAboutProjects]: () => '/ketagalan/about/projects',
+  [RouteName.KetagalanAboutMembers]: () => '/ketagalan/about/members',
+  [RouteName.KetagalanAboutFootprints]: () => '/ketagalan/about/footprints',
   /** Podcast */
   [RouteName.PodcastWatchHere]: () => '/podcast/category/watch-here',
   [RouteName.PodcastWatchInfo]: () => '/podcast/category/watch-info',
@@ -175,9 +183,9 @@ export const ROUTE_PATH_MAP: {
   [RouteName.AccountPassword]: () => '/account/password',
   [RouteName.AccountNotification]: () => '/account/notification',
   /** Ketagalan Media */
-  [RouteName.KetagalanMedia]: () => '/ketagalan-media',
+  [RouteName.KetagalanMedia]: () => '/ketagalan/media',
   [RouteName.KetagalanMediaDetail]: (params) =>
-    `/ketagalan-media/${params.articleId}`,
+    `/ketagalan/media/${params.articleId}`,
   [RouteName.KetagalanMediaCategory]: (params) =>
-    `/ketagalan-media/search/${params.categoryId}`,
+    `/ketagalan/media/search/${params.categoryId}`,
 } as const
