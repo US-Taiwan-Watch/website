@@ -1,10 +1,10 @@
 import AboutLayout from '@/modules/About/components/AboutLayout'
 import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
-import { Project } from '@/modules/About/Project/business/Project'
 import ProjectCard from '@/modules/About/Project/components/ProjectCard'
 import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
 import { Metadata } from 'next/types'
+import ServerProjectApi from '@/modules/About/Project/api/ServerProjectApi'
 
 type AboutProjectsPageProps = {
   params: {
@@ -24,9 +24,8 @@ export async function generateMetadata({
   }
 }
 
-export default function AboutProjectsPage() {
-  /** TODO: 實作 API 取得 */
-  const projects: Project[] = []
+export default async function AboutProjectsPage() {
+  const projects = await ServerProjectApi.getUstwProjects()
 
   return (
     <AboutLayout currentPathname={'/about/projects'}>
