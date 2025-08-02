@@ -3,6 +3,7 @@
 import { SvgIcon, SvgIconProps } from '@mui/material'
 
 import SvgBookmarkIcon from './BookmarkIcon.svg'
+import SvgBookmarkFilledIcon from './BookmarkFilledIcon.svg'
 import SvgFacebookIcon from './FacebookIcon.svg'
 import SvgInstagramIcon from './InstagramIcon.svg'
 import SvgLanguageIcon from './LanguageIcon.svg'
@@ -72,6 +73,10 @@ export const SizableSvgIcon = (props: SvgIconProps & { component: any }) => {
 
 export const BookmarkIcon = (props: SvgIconProps) => (
   <SizableSvgIcon component={SvgBookmarkIcon} {...props} />
+)
+
+export const BookmarkFilledIcon = (props: SvgIconProps) => (
+  <SizableSvgIcon component={SvgBookmarkFilledIcon} {...props} />
 )
 
 export const FacebookIcon = (props: SvgIconProps) => (

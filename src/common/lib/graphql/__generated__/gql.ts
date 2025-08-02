@@ -23,7 +23,8 @@ const documents = {
     "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notifications\n    }\n  }\n\n  \n  \n  \n  \n": types.MeDocument,
     "\n  mutation SubscribeBill($billId: String!) {\n    subscribeBill(id: $billId) {\n      id\n    }\n  }\n": types.SubscribeBillDocument,
     "\n  mutation SubscribePeople($peopleId: String!) {\n    subscribePeople(id: $peopleId) {\n      id\n    }\n  }\n": types.SubscribePeopleDocument,
-    "\n  mutation BookmarkArticle($articleId: String!) {\n    bookmarkArticle(id: $articleId) {\n      id\n    }\n  }\n": types.BookmarkArticleDocument,
+    "\n  mutation BookmarkUstwArticle($articleId: String!) {\n    bookmarkUstwArticle(id: $articleId) {\n      id\n    }\n  }\n": types.BookmarkUstwArticleDocument,
+    "\n  mutation BookmarkKetagalanArticle($articleId: String!) {\n    bookmarkKetagalanArticle(id: $articleId) {\n      id\n    }\n  }\n": types.BookmarkKetagalanArticleDocument,
     "\n  fragment CategoriesArticle on CategoriesArticle {\n    id\n    i18n {\n      en {\n        name\n      }\n      zh {\n        name\n      }\n    }\n  }\n": types.CategoriesArticleFragmentDoc,
     "\n  fragment UstwArticleMedia on UstwArticle_Media {\n    photo {\n      id\n      alt\n      url\n      sizes {\n        desktop {\n          url\n        }\n        tablet {\n          url\n        }\n        mobile {\n          url\n        }\n        thumbnail {\n          url\n        }\n      }\n    }\n    caption\n  }\n": types.UstwArticleMediaFragmentDoc,
     "\n  fragment FullUstwArticle on UstwArticle {\n    id\n    title\n    subtitle\n    excerpt\n    content\n    sources {\n      id\n      link\n      text\n    }\n    podcast\n    media {\n      ...UstwArticleMedia\n    }\n    isFeatured\n    releaseTime\n    authors {\n      id\n      name\n      bio\n    }\n    categories {\n      ...CategoriesArticle\n    }\n    tags {\n      ...Tag\n    }\n    updatedAt\n    createdAt\n  }\n\n  \n  \n  \n": types.FullUstwArticleFragmentDoc,
@@ -133,7 +134,11 @@ export function gql(source: "\n  mutation SubscribePeople($peopleId: String!) {\
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation BookmarkArticle($articleId: String!) {\n    bookmarkArticle(id: $articleId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation BookmarkArticle($articleId: String!) {\n    bookmarkArticle(id: $articleId) {\n      id\n    }\n  }\n"];
+export function gql(source: "\n  mutation BookmarkUstwArticle($articleId: String!) {\n    bookmarkUstwArticle(id: $articleId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation BookmarkUstwArticle($articleId: String!) {\n    bookmarkUstwArticle(id: $articleId) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation BookmarkKetagalanArticle($articleId: String!) {\n    bookmarkKetagalanArticle(id: $articleId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation BookmarkKetagalanArticle($articleId: String!) {\n    bookmarkKetagalanArticle(id: $articleId) {\n      id\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
