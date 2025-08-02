@@ -16,10 +16,7 @@ export default function ArticleSearchCategory({
   return (
     <Stack>
       <UFullWidthBackgroundBox>
-        <ArticleNavbar
-          articleType={ArticleType.Article}
-          activeId={categoryId}
-        />
+        <ArticleNavbar activeId={categoryId} />
       </UFullWidthBackgroundBox>
       <ArticleSearchCategorySection
         categoryId={categoryId}
