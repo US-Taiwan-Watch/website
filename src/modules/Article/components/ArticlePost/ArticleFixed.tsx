@@ -12,9 +12,8 @@ import { useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
-import { Article, ArticleType } from '@/modules/Article/business/Article'
-import { memo, useMemo } from 'react'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import { Article } from '@/modules/Article/business/Article'
+import { memo, useEffect, useState } from 'react'
 
 type ArticleFixedProps = {
   article: Article
@@ -23,21 +22,14 @@ type ArticleFixedProps = {
 const ArticleFixed = memo(function ArticleFixed({
   article,
 }: ArticleFixedProps) {
-  const account = useAccountStore.use.account()
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
-  const { bookmarkArticle } = useAccount()
-  const isBookmarked = useMemo(() => {
-    if (article.type === ArticleType.Article) {
-      return account?.bookmarkUstwArticles.some(
-        (bookmark) => bookmark.id === article.id
-      )
-    } else if (article.type === ArticleType.Ketagalan) {
-      return account?.bookmarkKetagalanArticles.some(
-        (bookmark) => bookmark.id === article.id
-      )
-    }
-  }, [article.type, account])
+  const { bookmarkArticle, isMutating, checkIfArticleIsBookmarked } =
+    useAccount()
+  const [isBookmarked, setIsBookmarked] = useState(false)
+  useEffect(() => {
+    setIsBookmarked(checkIfArticleIsBookmarked(article))
+  }, [checkIfArticleIsBookmarked, article])
 
   if (isMobile) return null
 
@@ -77,7 +69,11 @@ const ArticleFixed = memo(function ArticleFixed({
               backgroundColor: theme.color.article.postFixedToolButtonHover,
             },
           }}
-          onClick={() => bookmarkArticle(article)}
+          onClick={async () => {
+            await bookmarkArticle(article)
+            setIsBookmarked(true)
+          }}
+          disabled={isMutating}
         >
           {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
         </UIconButton>

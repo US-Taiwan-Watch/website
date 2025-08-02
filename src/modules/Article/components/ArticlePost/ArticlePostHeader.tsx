@@ -3,14 +3,10 @@
 import UButton from '@/common/components/atoms/UButton'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import {
-  Article,
-  ArticleType,
-  ArticleUtils,
-} from '@/modules/Article/business/Article'
+import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import {
   BookmarkFilledIcon,
@@ -22,7 +18,6 @@ import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Link from 'next/link'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 interface ArticlePostHeaderProps {
@@ -32,24 +27,17 @@ interface ArticlePostHeaderProps {
 const ArticlePostHeader = function ArticlePostHeader({
   article,
 }: ArticlePostHeaderProps) {
-  const { bookmarkArticle } = useAccount()
-  const account = useAccountStore.use.account()
+  const { bookmarkArticle, isMutating, checkIfArticleIsBookmarked } =
+    useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient(['article'])
   const { categories, title, subtitle, date, tags, repostSources, authors } =
     article
   const theme = useTheme<USTWTheme>()
-  const isBookmarked = useMemo(() => {
-    if (article.type === ArticleType.Article) {
-      return account?.bookmarkUstwArticles.some(
-        (bookmark) => bookmark.id === article.id
-      )
-    } else if (article.type === ArticleType.Ketagalan) {
-      return account?.bookmarkKetagalanArticles.some(
-        (bookmark) => bookmark.id === article.id
-      )
-    }
-  }, [article.type, account])
+  const [isBookmarked, setIsBookmarked] = useState(false)
+  useEffect(() => {
+    setIsBookmarked(checkIfArticleIsBookmarked(article))
+  }, [checkIfArticleIsBookmarked, article])
 
   const [formattedDate, setFormattedDate] = useState('')
   useEffect(() => {
@@ -105,7 +93,11 @@ const ArticlePostHeader = function ArticlePostHeader({
               variant="rounded"
               color="black"
               size="xs"
-              onClick={() => bookmarkArticle(article)}
+              onClick={async () => {
+                await bookmarkArticle(article)
+                setIsBookmarked(true)
+              }}
+              disabled={isMutating}
             >
               {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
             </UIconButton>
