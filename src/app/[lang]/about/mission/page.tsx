@@ -1,4 +1,4 @@
-import AboutLayout from '@/modules/About/components/AboutLayout'
+import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import MissionContent from '@/modules/About/Mission/components/MissionContent'
 import MissionHighlightSection from '@/modules/About/Mission/components/MissionHighlightSection'
 import { Box } from '@mui/material'
@@ -28,7 +28,8 @@ export default function AboutMissionPage({ params }: AboutMissionPageProps) {
   const { lang } = params
 
   return (
-    <AboutLayout
+    <UstwAboutLayout
+      lang={lang}
       currentPathname={'/about/mission'}
       containerSx={{
         overflowX: {
@@ -41,6 +42,6 @@ export default function AboutMissionPage({ params }: AboutMissionPageProps) {
       <Box zIndex={10}>
         <MissionContent lang={lang} />
       </Box>
-    </AboutLayout>
+    </UstwAboutLayout>
   )
 }

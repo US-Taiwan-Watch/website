@@ -1,8 +1,8 @@
 'use client'
 
-import { styled } from '@/common/lib/mui/theme'
+import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Project } from '@/modules/About/Project/business/Project'
-import { Typography, Stack } from '@mui/material'
+import { Typography, Stack, useTheme } from '@mui/material'
 import Image from 'next/image'
 
 const StyledImage = styled(Image)(() => ({}))
@@ -12,6 +12,8 @@ type ProjectCardProps = {
 }
 
 export default function ProjectCard({ project }: ProjectCardProps) {
+  const theme = useTheme<USTWTheme>()
+
   return (
     <Stack
       direction={{
@@ -25,7 +27,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       }}
       sx={{
         borderRadius: '15px',
-        backgroundColor: 'background.paper',
+        backgroundColor: theme.color.about.card.backgroundColor,
       }}
     >
       <StyledImage

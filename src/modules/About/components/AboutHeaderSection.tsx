@@ -6,16 +6,19 @@ import { Stack, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { useMemo } from 'react'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import type React from 'react'
 import UContainer from '@/common/components/atoms/UContainer'
-import useURouterClient from '@/common/lib/router/useURouterClient'
-import { RouteName } from '@/common/lib/router/routes'
+
+export type AboutHeaderTab = {
+  label: string
+  path: string
+}
 
 type AboutHeaderSectionProps = {
   currentPathname: string
+  tabs: AboutHeaderTab[]
 }
 
 const AboutHeaderTabsWrapper = ({
@@ -47,35 +50,11 @@ const AboutHeaderTabsWrapper = ({
   return children
 }
 
-const AboutHeaderTabs = ({ currentPathname }: AboutHeaderSectionProps) => {
-  const { resolveRouteUrl } = useURouterClient()
+const AboutHeaderTabs = ({
+  currentPathname,
+  tabs,
+}: AboutHeaderSectionProps) => {
   const theme = useTheme<USTWTheme>()
-
-  const { t } = useTranslationClient('about')
-  const tabs = useMemo(() => {
-    return [
-      {
-        label: t('tabs.mission', { ns: 'about' }),
-        path: resolveRouteUrl({ name: RouteName.AboutMission }),
-      },
-      {
-        label: t('tabs.projects', { ns: 'about' }),
-        path: resolveRouteUrl({ name: RouteName.AboutProjects }),
-      },
-      {
-        label: t('tabs.members', { ns: 'about' }),
-        path: resolveRouteUrl({ name: RouteName.AboutMembers }),
-      },
-      {
-        label: t('tabs.footprints', { ns: 'about' }),
-        path: resolveRouteUrl({ name: RouteName.AboutFootprints }),
-      },
-      {
-        label: t('tabs.newsroom', { ns: 'about' }),
-        path: resolveRouteUrl({ name: RouteName.AboutNewsroom }),
-      },
-    ]
-  }, [t, resolveRouteUrl])
 
   return (
     <AboutHeaderTabsWrapper>
@@ -91,8 +70,8 @@ const AboutHeaderTabs = ({ currentPathname }: AboutHeaderSectionProps) => {
         }}
         sx={{
           borderBottom: {
-            xs: `1px solid ${theme.color.neutral[500]}`,
-            lg: '1px solid #0000001A',
+            xs: `1px solid ${theme.color.about.header.borderMobile}`,
+            lg: `1px solid ${theme.color.about.header.borderDesktop}`,
           },
         }}
       >
@@ -104,11 +83,11 @@ const AboutHeaderTabs = ({ currentPathname }: AboutHeaderSectionProps) => {
               sx={{
                 color:
                   currentPathname === tab.path
-                    ? theme.color.common.white
-                    : theme.color.common.black,
+                    ? theme.color.about.header.tabActiveText
+                    : theme.color.about.header.tabText,
                 backgroundColor:
                   currentPathname === tab.path
-                    ? theme.color.common.black
+                    ? theme.color.about.header.tabActiveBackground
                     : 'transparent',
                 px: {
                   xs: 1,
@@ -131,6 +110,7 @@ const AboutHeaderTabs = ({ currentPathname }: AboutHeaderSectionProps) => {
 
 export default function AboutHeaderSection({
   currentPathname,
+  tabs,
 }: AboutHeaderSectionProps) {
   const { t } = useTranslationClient('about')
 
@@ -159,7 +139,7 @@ export default function AboutHeaderSection({
       >
         {t('title', { ns: 'about' })}
       </Typography>
-      <AboutHeaderTabs currentPathname={currentPathname} />
+      <AboutHeaderTabs currentPathname={currentPathname} tabs={tabs} />
     </Stack>
   )
 }
