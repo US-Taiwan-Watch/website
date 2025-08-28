@@ -34,6 +34,13 @@ jobs:
         echo "AUTH0_M2M_CLIENT_SECRET=${{ secrets.AUTH0_M2M_CLIENT_SECRET }}" >> .env
         echo "AUTH0_M2M_CLIENT_ID=${{ secrets.AUTH0_M2M_CLIENT_ID }}" >> .env
         echo "AUTH0_M2M_CLIENT_SECRET=${{ secrets.AUTH0_M2M_CLIENT_SECRET }}" >> .env
+
+    - name: Log in to ACR
+      uses: azure/docker-login@v1
+      with:
+        login-server: ${{ secrets.ACR_LOGIN_SERVER }}
+        username: ${{ secrets.ACR_USERNAME }}
+        password: ${{ secrets.ACR_PASSWORD }}
     
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
