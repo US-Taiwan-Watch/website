@@ -11,6 +11,11 @@ import { User } from '@auth0/nextjs-auth0/types'
 import { isNull } from 'lodash-es'
 import { z } from 'zod'
 
+export enum Connection {
+  'User-Password' = 'User-Password',
+  'Google-Oauth2' = 'Google-Oauth2',
+}
+
 const accountSchema = z.object({
   id: z.string(),
   givenName: z.string(),
@@ -23,6 +28,7 @@ const accountSchema = z.object({
   bookmarkKetagalanArticles: z.array(accountSubscribeSchema),
   notifications: z.any(),
   picture: z.string().optional(),
+  connection: z.nativeEnum(Connection).optional(),
 })
 
 export type AccountInput = z.input<typeof accountSchema>
@@ -55,7 +61,20 @@ export default class AccountUtils {
       ),
       notifications: me.notifications ?? [],
       picture: user.picture,
+      connection: AccountUtils.parseConnection(me.providerId),
     })
+  }
+
+  static parseConnection(providerId: Me['providerId']) {
+    if (!providerId) return undefined
+
+    if (providerId.startsWith('auth0|')) {
+      return Connection['User-Password']
+    }
+    if (providerId.startsWith('google-oauth2|')) {
+      return Connection['Google-Oauth2']
+    }
+    return undefined
   }
 
   static parseSubscribeBills(
@@ -150,4 +169,63 @@ export default class AccountUtils {
       ...account.bookmarkKetagalanArticles,
     ]
   }
+}
+
+const passwordSchema = z.string().superRefine((val, ctx) => {
+  if (val.length < 8) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: 'password.minLength' },
+    })
+  }
+
+  if (!/[A-Z]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: 'password.minUppercase' },
+    })
+  }
+
+  if (!/[a-z]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: 'password.minLowercase' },
+    })
+  }
+
+  if (!/\d/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: 'password.minDigit' },
+    })
+  }
+
+  if (!/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      params: { i18n: 'password.minSymbols' },
+    })
+  }
+})
+
+export const accountChangePasswordSchema = z
+  .object({
+    newPassword: passwordSchema,
+    confirmPassword: z.string(),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, {
+    params: { i18n: 'password.confirmNotMatch' },
+    path: ['confirmPassword'],
+  })
+
+export type AccountChangePasswordInput = z.input<
+  typeof accountChangePasswordSchema
+>
+export type AccountChangePasswordOutput = z.output<
+  typeof accountChangePasswordSchema
+>
+
+export const defaultAccountChangePasswordInput: AccountChangePasswordInput = {
+  newPassword: '',
+  confirmPassword: '',
 }
