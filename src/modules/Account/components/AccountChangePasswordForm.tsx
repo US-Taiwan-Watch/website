@@ -103,7 +103,14 @@ export default function AccountChangePasswordForm() {
   }
 
   return (
-    <Box sx={{ px: 4, py: 2 }}>
+    <Box
+      sx={{
+        px: 4,
+        py: 2,
+        backgroundColor: 'background.paper',
+        borderRadius: 4,
+      }}
+    >
       <Box>
         <Typography variant="body2" color="text.secondary" mb={3}>
           {t('changePassword.description')}
@@ -192,6 +199,10 @@ export default function AccountChangePasswordForm() {
               rounded
               sx={{
                 mt: 3,
+                width: {
+                  xs: '100%',
+                  sm: 'auto',
+                },
               }}
             >
               {isSubmitting ? (
