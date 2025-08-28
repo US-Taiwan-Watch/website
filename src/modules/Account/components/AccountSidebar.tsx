@@ -63,39 +63,43 @@ const NavList = styled(Stack)(({ theme }) => ({
   gap: theme.spacing(1),
 }))
 
-const NavItem = styled(Link)<{ active?: boolean }>(({ theme, active }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  gap: theme.spacing(1),
-  padding: theme.spacing(0.75, 2.5),
-  borderRadius: '30px',
-  textDecoration: 'none',
-  color: active ? theme.color.common.black : theme.color.grey[500],
-  backgroundColor: active ? theme.color.grey[100] : 'transparent',
-  '& .MuiSvgIcon-root': {
+const NavItemBase = styled('div')<{ active?: boolean }>(
+  ({ theme, active }) => ({
+    fontSize: '16px',
+    display: 'flex',
+    alignItems: 'center',
+    gap: theme.spacing(1),
+    padding: theme.spacing(0.75, 2.5),
+    borderRadius: '30px',
+    textDecoration: 'none',
     color: active ? theme.color.common.black : theme.color.grey[500],
-  },
-  '& .MuiTypography-root': {
-    fontWeight: active ? 600 : 500,
-  },
-  '&:hover': {
-    backgroundColor: theme.color.grey[100],
-    color: theme.color.common.black,
+    backgroundColor: active ? theme.color.grey[100] : 'transparent',
+    cursor: 'pointer',
     '& .MuiSvgIcon-root': {
-      color: theme.color.common.black,
-    },
-  },
-  [theme.breakpoints.down('sm')]: {
-    color: theme.color.common.black,
-    backgroundColor: 'transparent',
-    '& .MuiSvgIcon-root': {
-      color: theme.color.common.black,
+      color: active ? theme.color.common.black : theme.color.grey[500],
     },
     '& .MuiTypography-root': {
-      fontWeight: 500,
+      fontWeight: active ? 600 : 500,
     },
-  },
-}))
+    '&:hover': {
+      backgroundColor: theme.color.grey[100],
+      color: theme.color.common.black,
+      '& .MuiSvgIcon-root': {
+        color: theme.color.common.black,
+      },
+    },
+    [theme.breakpoints.down('sm')]: {
+      color: theme.color.common.black,
+      backgroundColor: 'transparent',
+      '& .MuiSvgIcon-root': {
+        color: theme.color.common.black,
+      },
+      '& .MuiTypography-root': {
+        fontWeight: 500,
+      },
+    },
+  })
+)
 
 const DeleteAccount = styled(Box)(({ theme }) => ({
   borderTop: `1px solid ${theme.color.grey[1600]}`,
@@ -185,21 +189,17 @@ export default function AccountSidebar() {
       <NavContainer flex={1}>
         <NavList flex={1}>
           {navItems.map((item) => (
-            <NavItem
-              key={item.href}
-              href={item.href}
-              active={currentNavItem?.href === item.href}
-            >
-              {item.icon}
-              <Typography>{item.label}</Typography>
-            </NavItem>
+            <Link key={item.href} href={item.href}>
+              <NavItemBase active={currentNavItem?.href === item.href}>
+                {item.icon}
+                <Typography>{item.label}</Typography>
+              </NavItemBase>
+            </Link>
           ))}
-          <NavItem href="#" onClick={handleLogout}>
+          <NavItemBase onClick={handleLogout}>
             <LogoutIcon sx={{ width: 24, height: 24 }} />
-            <Typography variant="buttonM">
-              {t('logout.btn', { ns: 'account' })}
-            </Typography>
-          </NavItem>
+            <Typography>{t('logout.btn', { ns: 'account' })}</Typography>
+          </NavItemBase>
         </NavList>
 
         <DeleteAccount>

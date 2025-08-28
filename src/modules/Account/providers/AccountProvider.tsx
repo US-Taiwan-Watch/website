@@ -132,6 +132,7 @@ export default function AccountProvider({
    * Set user data to AccountStore
    */
   useEffect(() => {
+    console.log('useEffect', user, isLoading, data)
     if (!user || isLoading) return
     if (!data) return
 

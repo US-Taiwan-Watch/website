@@ -28,6 +28,7 @@ export enum RouteName {
   AuthProfile = 'auth_profile',
   AuthAccessToken = 'auth_access_token',
   AuthBackchannelLogout = 'auth_backchannel_logout',
+  AuthChangePassword = 'auth_change_password',
   /** About */
   AboutMission = 'about_mission',
   AboutProjects = 'about_projects',
@@ -158,6 +159,7 @@ export const ROUTE_PATH_MAP: {
   [RouteName.AuthProfile]: () => '/auth/profile',
   [RouteName.AuthAccessToken]: () => '/auth/access-token',
   [RouteName.AuthBackchannelLogout]: () => '/auth/backchannel-logout',
+  [RouteName.AuthChangePassword]: () => '/api/auth/change-password',
   /** About */
   [RouteName.AboutMission]: () => '/about/mission',
   [RouteName.AboutProjects]: () => '/about/projects',
