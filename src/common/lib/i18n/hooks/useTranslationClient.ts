@@ -9,7 +9,7 @@ import LanguageDetector from 'i18next-browser-languagedetector'
 import resourcesToBackend from 'i18next-resources-to-backend'
 import { useParams } from 'next/navigation'
 import { useEffect } from 'react'
-import { useCookies } from 'react-cookie'
+import { Cookies } from 'react-cookie'
 import {
   initReactI18next,
   useTranslation,
@@ -31,9 +31,6 @@ i18next
   .init({
     ...getOptions(),
     lng: undefined, // 讓語言在 I18nProvider 中決定
-    detection: {
-      order: ['path', 'htmlTag', 'cookie', 'navigator'],
-    },
     preload: runsOnServerSide ? I18N_SUPPORTED_LANGUAGE : [],
   })
 
@@ -43,7 +40,6 @@ export default function useTranslationClient(
     lng?: Language
   }
 ) {
-  const [cookies, setCookie] = useCookies([CookiesKey.I18n])
   const ret = useTranslation(namespace, options)
 
   const { lang: paramLang } = useParams<{ lang: Language }>()
@@ -66,9 +62,10 @@ export default function useTranslationClient(
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    if (cookies[CookiesKey.I18n] === lang) return
-    setCookie(CookiesKey.I18n, lang, { path: '/' })
-  }, [cookies, lang, setCookie])
+    const cookies = new Cookies()
+    if (cookies.get(CookiesKey.I18n) === lang) return
+    cookies.set(CookiesKey.I18n, lang, { path: '/' })
+  }, [lang])
 
   return ret
 }
