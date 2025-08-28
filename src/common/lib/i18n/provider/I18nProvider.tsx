@@ -12,11 +12,9 @@ export default function I18nProvider({
   children: React.ReactNode
 }) {
   const { lang } = useParams<{ lang: Language }>()
-  const { t } = useTranslationClient(lang)
+  useTranslationClient(lang)
 
-  // const { t } = useTranslationClient('zod', {
-  //   lng: lang,
-  // })
+  const { t } = useTranslationClient('zod')
   setZodI18n({ t })
 
   return <>{children}</>

@@ -41,7 +41,7 @@ function makeClient() {
     cache: new InMemoryCache(),
     link: authLink.concat(httpLink),
     devtools: {
-      enabled: true,
+      enabled: config.NODE_ENV === 'development',
     },
   })
 }
