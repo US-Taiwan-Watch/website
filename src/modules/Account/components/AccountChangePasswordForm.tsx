@@ -13,12 +13,12 @@ import {
 } from '@mui/material'
 import { Visibility, VisibilityOff, Lock } from '@mui/icons-material'
 import useURouterClient from '@/common/lib/router/useURouterClient'
-import { RouteName } from '@/common/lib/router/routes'
 import useAccountChangePassword from '@/modules/Account/hooks/useAccountChangePassword'
 import { Controller } from 'react-hook-form'
 import UButton from '@/common/components/atoms/UButton'
 import UAlertDialog from '@/common/components/elements/UAlertDialog'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { changePassword } from '@/modules/Account/api/change-password'
 
 interface ApiResonseMessage {
   text: string
@@ -47,16 +47,7 @@ export default function AccountChangePasswordForm() {
 
     try {
       setIsSubmitting(true)
-      const response = await fetch(
-        resolveRouteUrl({ name: RouteName.AuthChangePassword }),
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ newPassword: form.getValues('newPassword') }),
-        }
-      )
+      const response = await changePassword(form.getValues('newPassword'))
 
       const data = await response.json()
 
