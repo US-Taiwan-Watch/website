@@ -8,13 +8,17 @@ import useURouterClient from '@/common/lib/router/useURouterClient'
 import { Connection } from '@/modules/Account/business/Account'
 import { redirect } from 'next/navigation'
 import { RouteName } from '@/common/lib/router/routes'
+import { useEffect } from 'react'
 
 export default function PasswordPage() {
   const { resolveRouteUrl } = useURouterClient()
   const account = useAccountStore.use.account()
-  if (account?.connection !== Connection['User-Password']) {
-    redirect(resolveRouteUrl({ name: RouteName.Account }))
-  }
+
+  useEffect(() => {
+    if (account?.connection !== Connection['User-Password']) {
+      redirect(resolveRouteUrl({ name: RouteName.Account }))
+    }
+  }, [account?.connection, resolveRouteUrl])
 
   return (
     <AccountLayout>

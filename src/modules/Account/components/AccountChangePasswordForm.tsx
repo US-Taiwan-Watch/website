@@ -12,7 +12,6 @@ import {
   AlertColor,
 } from '@mui/material'
 import { Visibility, VisibilityOff, Lock } from '@mui/icons-material'
-import { useUser } from '@auth0/nextjs-auth0'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 import useAccountChangePassword from '@/modules/Account/hooks/useAccountChangePassword'
@@ -29,7 +28,6 @@ interface ApiResonseMessage {
 export default function AccountChangePasswordForm() {
   const { t } = useTranslationClient('account')
   const { resolveRouteUrl } = useURouterClient()
-  const { isLoading } = useUser()
   const { form, handleReset } = useAccountChangePassword()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -88,19 +86,6 @@ export default function AccountChangePasswordForm() {
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword((prev) => !prev)
   }, [])
-
-  if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        minHeight="200px"
-      >
-        <CircularProgress />
-      </Box>
-    )
-  }
 
   return (
     <Box
