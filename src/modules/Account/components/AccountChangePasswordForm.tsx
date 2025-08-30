@@ -87,110 +87,105 @@ export default function AccountChangePasswordForm() {
         borderRadius: 4,
       }}
     >
-      <Box>
-        <Typography variant="body2" color="text.secondary" mb={3}>
-          {t('changePassword.description')}
-        </Typography>
+      <Typography variant="body2" color="text.secondary" mb={3}>
+        {t('changePassword.description')}
+      </Typography>
 
-        {apiResonseMessage.text && (
-          <Alert severity={apiResonseMessage.type} sx={{ mb: 3 }}>
-            {apiResonseMessage.text}
-          </Alert>
-        )}
+      {apiResonseMessage.text && (
+        <Alert severity={apiResonseMessage.type} sx={{ mb: 3 }}>
+          {apiResonseMessage.text}
+        </Alert>
+      )}
 
-        <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
-          <Controller
-            control={form.control}
-            name="newPassword"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                type={showPassword ? 'text' : 'password'}
-                label={t('changePassword.newPassword.label', { ns: 'account' })}
-                error={Boolean(form.formState.errors.newPassword)}
-                helperText={form.formState.errors.newPassword?.message}
-                margin="normal"
-                required
-                color="info"
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock color="action" />
-                      </InputAdornment>
-                    ),
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={togglePasswordVisibility}
-                          edge="end"
-                        >
-                          {showPassword ? <VisibilityOff /> : <Visibility />}
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              />
-            )}
-          />
-
-          <Controller
-            control={form.control}
-            name="confirmPassword"
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                type="password"
-                label={t('changePassword.confirmPassword.label', {
-                  ns: 'account',
-                })}
-                error={Boolean(form.formState.errors.confirmPassword)}
-                helperText={form.formState.errors.confirmPassword?.message}
-                margin="normal"
-                required
-                color="info"
-                slotProps={{
-                  input: {
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Lock color="action" />
-                      </InputAdornment>
-                    ),
-                  },
-                }}
-              />
-            )}
-          />
-
-          <Box display="flex" alignItems="center" justifyContent="center">
-            <UButton
-              type="submit"
-              variant="contained"
+      <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
+        <Controller
+          control={form.control}
+          name="newPassword"
+          render={({ field }) => (
+            <TextField
+              {...field}
+              fullWidth
+              type={showPassword ? 'text' : 'password'}
+              label={t('changePassword.newPassword.label', { ns: 'account' })}
+              error={Boolean(form.formState.errors.newPassword)}
+              helperText={form.formState.errors.newPassword?.message}
+              margin="normal"
+              required
               color="info"
-              size="large"
-              disabled={isSubmitting}
-              rounded
-              sx={{
-                mt: 3,
-                width: {
-                  xs: '100%',
-                  sm: 'auto',
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Lock color="action" />
+                    </InputAdornment>
+                  ),
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={togglePasswordVisibility} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
                 },
               }}
-            >
-              {isSubmitting ? (
-                <>
-                  <CircularProgress size={20} sx={{ mr: 1 }} />
-                  {t('changePassword.submitting.msg', { ns: 'account' })}
-                </>
-              ) : (
-                t('changePassword.submit.btn', { ns: 'account' })
-              )}
-            </UButton>
-          </Box>
+            />
+          )}
+        />
+
+        <Controller
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <TextField
+              {...field}
+              fullWidth
+              type="password"
+              label={t('changePassword.confirmPassword.label', {
+                ns: 'account',
+              })}
+              error={Boolean(form.formState.errors.confirmPassword)}
+              helperText={form.formState.errors.confirmPassword?.message}
+              margin="normal"
+              required
+              color="info"
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Lock color="action" />
+                    </InputAdornment>
+                  ),
+                },
+              }}
+            />
+          )}
+        />
+
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <UButton
+            type="submit"
+            variant="contained"
+            color="info"
+            size="large"
+            disabled={isSubmitting}
+            rounded
+            sx={{
+              mt: 3,
+              width: {
+                xs: '100%',
+                sm: 'auto',
+              },
+            }}
+          >
+            {isSubmitting ? (
+              <>
+                <CircularProgress color="info" size={20} sx={{ mr: 1 }} />
+                {t('changePassword.submitting.msg', { ns: 'account' })}
+              </>
+            ) : (
+              t('changePassword.submit.btn', { ns: 'account' })
+            )}
+          </UButton>
         </Box>
       </Box>
       <UAlertDialog
