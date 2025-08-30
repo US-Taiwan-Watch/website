@@ -7,6 +7,7 @@ import type React from 'react'
 import { useEffect } from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
+import { Box, CircularProgress } from '@mui/material'
 
 type UnAuthedAction =
   | /** 跳轉到登入頁 */
@@ -62,6 +63,20 @@ export default function AuthedProvider({
     resolveRouteUrl,
   ])
 
+  if (isLoading)
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '400px',
+          width: '100%',
+        }}
+      >
+        <CircularProgress color="info" />
+      </Box>
+    )
   if (!user) return null
   return <>{children}</>
 }

@@ -29,7 +29,9 @@ import {
   BookmarkKetagalanArticleMutation,
   BookmarkKetagalanArticleMutationVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import AccountUtils from '@/modules/Account/business/Account'
+import AccountUtils, {
+  AccountSettingOutput,
+} from '@/modules/Account/business/Account'
 import type React from 'react'
 import { useToast } from '@/common/providers/ToastProvider'
 import { Bill } from '@/modules/Bill/business/Bill'
@@ -50,6 +52,7 @@ type AccountProviderContext = {
   checkIfPeopleIsSubscribed: (people: People) => boolean
   bookmarkArticle: (article: Article) => void
   checkIfArticleIsBookmarked: (article: Article) => boolean
+  updateAccountSetting: (setting: AccountSettingOutput) => void
 }
 
 const AccountContext = createContext<AccountProviderContext>({
@@ -61,6 +64,7 @@ const AccountContext = createContext<AccountProviderContext>({
   checkIfPeopleIsSubscribed: () => false,
   bookmarkArticle: () => {},
   checkIfArticleIsBookmarked: () => false,
+  updateAccountSetting: () => {},
 })
 
 export const useAccount = () => {
@@ -311,6 +315,16 @@ export default function AccountProvider({
     [bookmarkedUstwArticlesSet, bookmarkedKetagalanArticlesSet]
   )
 
+  const updateAccountSetting = useCallback(
+    async (setting: AccountSettingOutput) => {
+      console.log('updateAccountSetting', setting)
+
+      // refetch me
+      await fetchMe()
+    },
+    []
+  )
+
   return (
     <AccountContext.Provider
       value={{
@@ -322,6 +336,7 @@ export default function AccountProvider({
         checkIfPeopleIsSubscribed,
         bookmarkArticle,
         checkIfArticleIsBookmarked,
+        updateAccountSetting,
       }}
     >
       {children}
