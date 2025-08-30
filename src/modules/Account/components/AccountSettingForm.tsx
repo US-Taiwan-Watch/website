@@ -55,8 +55,6 @@ const AccountSettingForm = () => {
 
   const handleSubmit = useCallback(
     (value: AccountSettingOutput) => {
-      console.log(value)
-
       setIsSubmitting(true)
       updateAccountSetting(value)
       setIsSubmitting(false)

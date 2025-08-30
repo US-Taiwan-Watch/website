@@ -322,7 +322,7 @@ export default function AccountProvider({
       // refetch me
       await fetchMe()
     },
-    []
+    [fetchMe]
   )
 
   return (
