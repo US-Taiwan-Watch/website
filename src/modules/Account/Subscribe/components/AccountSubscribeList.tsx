@@ -65,7 +65,7 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
         <UHeightLimitedText
           maxLine={2}
           variant="bodyS"
-          color="gray.4400"
+          color="grey.4400"
           fontWeight={'600 !important'}
         >
           {accountSubscribe.title}

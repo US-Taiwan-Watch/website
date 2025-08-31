@@ -30,23 +30,17 @@ const AccountNotificationListItem = memo(function AccountNotificationListItem({
         <UHeightLimitedText
           maxLine={2}
           variant="bodyS"
-          color="gray.4400"
           fontWeight={'600 !important'}
         >
           {accountNotification.title}
         </UHeightLimitedText>
-        <UHeightLimitedText
-          maxLine={2}
-          variant="bodyS"
-          color="gray.4400"
-          fontWeight={'600 !important'}
-        >
+        <UHeightLimitedText maxLine={2} variant="bodyS">
           {accountNotification.content}
         </UHeightLimitedText>
         <UHeightLimitedText
           maxLine={2}
           variant="bodyS"
-          color="gray.4400"
+          color="grey.4200"
           fontWeight={'600 !important'}
         >
           {DateUtils.formatLocal(accountNotification.createdAt)}
