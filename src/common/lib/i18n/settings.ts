@@ -22,12 +22,13 @@ export function getOptions(
     lng: lang,
     fallbackNS: I18N_DEFAULT_NAMESPACE,
     defaultNS: I18N_DEFAULT_NAMESPACE,
-    ns /**
+    ns,
+    /**
      * Detection options for `i18next-browser-languagedetector`
      * @see {@link https://github.com/i18next/i18next-browser-languageDetector}
      * Default options
      * @see {@link https://github.com/i18next/i18next-browser-languageDetector/blob/9efebe6ca0271c3797bc09b84babf1ba2d9b4dbb/src/index.js#L11}
-     */,
+     */
     detection: {
       order: ['path', 'htmlTag', 'navigator'],
       caches: ['cookie'],

@@ -48,7 +48,10 @@ export const getZodTranslations = async (language: Language) => {
     `@/common/lib/i18n/locales/${language}/${namespace}.json`
   )
 
-  Object.assign(zodTranslation, customTranslations)
+  Object.assign(
+    zodTranslation,
+    customTranslations.default || customTranslations
+  )
   return zodTranslation
 }
 

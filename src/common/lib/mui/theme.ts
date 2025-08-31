@@ -473,6 +473,11 @@ const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
       disableRipple: true,
     },
   },
+  MuiIconButton: {
+    defaultProps: {
+      disableRipple: true,
+    },
+  },
   MuiButton: {
     styleOverrides: {
       root: {

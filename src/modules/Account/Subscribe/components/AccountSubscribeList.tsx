@@ -30,9 +30,6 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
       alignItems="center"
       justifyContent="space-between"
       sx={{
-        borderBottomColor: 'grey.4600',
-        borderBottomWidth: 1,
-        borderBottomStyle: 'solid',
         px: 4,
         py: 2,
       }}
@@ -68,7 +65,7 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
         <UHeightLimitedText
           maxLine={2}
           variant="bodyS"
-          color="gray.4400"
+          color="grey.4400"
           fontWeight={'600 !important'}
         >
           {accountSubscribe.title}
@@ -127,10 +124,18 @@ const AccountSubscribeList = memo(function AccountSubscribeList() {
           }}
         >
           {filteredAccountSubscribeList.map((accountSubscribe) => (
-            <AccountSubscribeListItem
+            <Box
               key={accountSubscribe.id}
-              accountSubscribe={accountSubscribe}
-            />
+              sx={{
+                '&:not(:last-child)': {
+                  borderBottomColor: 'grey.4600',
+                  borderBottomWidth: 1,
+                  borderBottomStyle: 'solid',
+                },
+              }}
+            >
+              <AccountSubscribeListItem accountSubscribe={accountSubscribe} />
+            </Box>
           ))}
         </Stack>
       </UFullWidthBackgroundBox>
@@ -138,17 +143,20 @@ const AccountSubscribeList = memo(function AccountSubscribeList() {
   }
 
   return (
-    <Stack
-      width="100%"
-      sx={{
-        backgroundColor: 'common.white',
-      }}
-    >
+    <Stack width="100%">
       {filteredAccountSubscribeList.map((accountSubscribe) => (
-        <AccountSubscribeListItem
+        <Box
           key={accountSubscribe.id}
-          accountSubscribe={accountSubscribe}
-        />
+          sx={{
+            '&:not(:last-child)': {
+              borderBottomColor: 'grey.4600',
+              borderBottomWidth: 1,
+              borderBottomStyle: 'solid',
+            },
+          }}
+        >
+          <AccountSubscribeListItem accountSubscribe={accountSubscribe} />
+        </Box>
       ))}
     </Stack>
   )
