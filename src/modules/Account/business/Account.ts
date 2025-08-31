@@ -1,5 +1,6 @@
 import { Me } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
+import { accountNotificationSchema } from '@/modules/Account/Notification/business/AccountNotification'
 import AccountSubscribeUtils, {
   accountSubscribeSchema,
   AccountSubscribeType,
@@ -26,7 +27,7 @@ const accountSchema = z.object({
   subscribePeoples: z.array(accountSubscribeSchema),
   bookmarkUstwArticles: z.array(accountSubscribeSchema),
   bookmarkKetagalanArticles: z.array(accountSubscribeSchema),
-  notifications: z.any(),
+  notifications: z.array(accountNotificationSchema),
   picture: z.string().optional(),
   connection: z.nativeEnum(Connection).optional(),
 })
@@ -59,7 +60,45 @@ export default class AccountUtils {
         lang,
         me.bookmarkKetagalanArticles
       ),
-      notifications: me.notifications ?? [],
+      // notifications: me.notifications ?? [],
+      notifications: [
+        {
+          id: '1',
+          title: 'New Bill Update',
+          content: 'Bill H.R. 1234 has been updated with new amendments',
+          url: '/bill/1234',
+          createdAt: '2024-01-15T10:30:00Z',
+        },
+        {
+          id: '2',
+          title: 'Article Published',
+          content:
+            'New article "Understanding Taiwan\'s Political Landscape" is now available',
+          url: '/article/5678',
+          createdAt: '2024-01-14T15:45:00Z',
+        },
+        {
+          id: '3',
+          title: 'Podcast Episode',
+          content: 'New podcast episode "Weekly Political Roundup" is live',
+          url: '/podcast/9012',
+          createdAt: '2024-01-13T09:20:00Z',
+        },
+        {
+          id: '4',
+          title: 'Legislator Activity',
+          content: 'Rep. John Smith has new voting activity on recent bills',
+          url: '/people/3456',
+          createdAt: '2024-01-12T14:15:00Z',
+        },
+        {
+          id: '5',
+          title: 'System Update',
+          content: 'Your account settings have been successfully updated',
+          url: '/account/setting',
+          createdAt: '2024-01-11T11:00:00Z',
+        },
+      ],
       picture: user.picture,
       connection: AccountUtils.parseConnection(me.providerId),
     })
@@ -168,88 +207,5 @@ export default class AccountUtils {
       ...account.bookmarkUstwArticles,
       ...account.bookmarkKetagalanArticles,
     ]
-  }
-}
-
-const passwordSchema = z.string().superRefine((val, ctx) => {
-  if (val.length < 8) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      params: { i18n: 'password.minLength' },
-    })
-  }
-
-  if (!/[A-Z]/.test(val)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      params: { i18n: 'password.minUppercase' },
-    })
-  }
-
-  if (!/[a-z]/.test(val)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      params: { i18n: 'password.minLowercase' },
-    })
-  }
-
-  if (!/\d/.test(val)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      params: { i18n: 'password.minDigit' },
-    })
-  }
-
-  if (!/[!@#$%^&*(),.?":{}|<>]/.test(val)) {
-    ctx.addIssue({
-      code: z.ZodIssueCode.custom,
-      params: { i18n: 'password.minSymbols' },
-    })
-  }
-})
-
-export const accountChangePasswordSchema = z
-  .object({
-    newPassword: passwordSchema,
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.newPassword === data.confirmPassword, {
-    params: { i18n: 'password.confirmNotMatch' },
-    path: ['confirmPassword'],
-  })
-
-export type AccountChangePasswordInput = z.input<
-  typeof accountChangePasswordSchema
->
-export type AccountChangePasswordOutput = z.output<
-  typeof accountChangePasswordSchema
->
-
-export const defaultAccountChangePasswordInput: AccountChangePasswordInput = {
-  newPassword: '',
-  confirmPassword: '',
-}
-
-export const accountSettingSchema = z.object({
-  fullName: z.string().min(1),
-  /**
-   * 在更新圖片前的暫存
-   */
-  avatarBlob: z.instanceof(Blob).optional(),
-})
-
-export type AccountSettingInput = z.input<typeof accountSettingSchema>
-export type AccountSettingOutput = z.output<typeof accountSettingSchema>
-
-export const getDefaultAccountSettingInput = (account: Account | null) => {
-  if (!account)
-    return {
-      fullName: '',
-      avatarBlob: undefined,
-    }
-
-  return {
-    fullName: account.fullName,
-    avatarBlob: undefined,
   }
 }

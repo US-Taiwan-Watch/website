@@ -40,7 +40,7 @@ export default async function RootLayout({
   const { isMobile, isTablet } = await getServerDevice()
 
   return (
-    <html lang="en">
+    <html lang={params.lang}>
       {config.GOOGLE_TAG_MANAGER_ID && (
         <>
           {/** Google Tag Manager */}

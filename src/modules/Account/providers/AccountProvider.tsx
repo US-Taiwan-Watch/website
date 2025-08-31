@@ -29,9 +29,7 @@ import {
   BookmarkKetagalanArticleMutation,
   BookmarkKetagalanArticleMutationVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import AccountUtils, {
-  AccountSettingOutput,
-} from '@/modules/Account/business/Account'
+import AccountUtils from '@/modules/Account/business/Account'
 import type React from 'react'
 import { useToast } from '@/common/providers/ToastProvider'
 import { Bill } from '@/modules/Bill/business/Bill'
@@ -42,6 +40,7 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
+import { AccountSettingOutput } from '@/modules/Account/Setting/business/AccountSetting'
 
 type AccountProviderContext = {
   refetchAccount: () => void

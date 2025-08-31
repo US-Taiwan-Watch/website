@@ -3,7 +3,7 @@ import {
   AccountChangePasswordInput,
   accountChangePasswordSchema,
   defaultAccountChangePasswordInput,
-} from '@/modules/Account/business/Account'
+} from '@/modules/Account/AuthSetting/business/AccountAuthSetting'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCallback } from 'react'
 

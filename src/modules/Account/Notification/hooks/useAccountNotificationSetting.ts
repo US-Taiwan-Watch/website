@@ -3,21 +3,21 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCallback, useMemo } from 'react'
 import {
-  AccountSettingInput,
-  accountSettingSchema,
-  getDefaultAccountSettingInput,
-} from '@/modules/Account/business/Account'
+  AccountNotificationSettingInput,
+  accountNotificationSettingSchema,
+  getDefaultAccountNotificationSettingInput,
+} from '@/modules/Account/Notification/business/AccountNotification'
 import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 
-export default function useAccountSetting() {
+export default function useAccountNotificationSetting() {
   const account = useAccountStore.use.account()
   const defaultAccountSettingInput = useMemo(
-    () => getDefaultAccountSettingInput(account),
+    () => getDefaultAccountNotificationSettingInput(account),
     [account]
   )
 
-  const form = useForm<AccountSettingInput>({
-    resolver: zodResolver(accountSettingSchema),
+  const form = useForm<AccountNotificationSettingInput>({
+    resolver: zodResolver(accountNotificationSettingSchema),
     mode: 'onSubmit',
     defaultValues: defaultAccountSettingInput,
   })
