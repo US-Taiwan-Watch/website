@@ -60,7 +60,6 @@ const AccountNotificationSettingDialog = memo(
 
     const handleSubmit = useCallback(
       (value: AccountNotificationSettingOutput) => {
-        console.log(value)
         setIsSubmitting(true)
         // TODO: update account notification setting
         setIsSubmitting(false)
