@@ -1,8 +1,8 @@
 import UButton from '@/common/components/atoms/UButton'
 import UImageUploader from '@/common/components/elements/UImageUploader'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { AccountSettingOutput } from '@/modules/Account/business/Account'
-import useAccountSetting from '@/modules/Account/hooks/useAccountSetting'
+import { AccountSettingOutput } from '@/modules/Account/Setting/business/AccountSetting'
+import useAccountSetting from '@/modules/Account/Setting/hooks/useAccountSetting'
 import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import {
   Avatar,

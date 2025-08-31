@@ -12,8 +12,7 @@ import {
   AlertColor,
 } from '@mui/material'
 import { Visibility, VisibilityOff, Lock } from '@mui/icons-material'
-import useURouterClient from '@/common/lib/router/useURouterClient'
-import useAccountChangePassword from '@/modules/Account/hooks/useAccountChangePassword'
+import useAccountChangePassword from '@/modules/Account/AuthSetting/hooks/useAccountChangePassword'
 import { Controller } from 'react-hook-form'
 import UButton from '@/common/components/atoms/UButton'
 import UAlertDialog from '@/common/components/elements/UAlertDialog'
@@ -27,7 +26,6 @@ interface ApiResonseMessage {
 
 export default function AccountChangePasswordForm() {
   const { t } = useTranslationClient('account')
-  const { resolveRouteUrl } = useURouterClient()
   const { form, handleReset } = useAccountChangePassword()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -72,7 +70,7 @@ export default function AccountChangePasswordForm() {
     } finally {
       setIsSubmitting(false)
     }
-  }, [form, resolveRouteUrl, handleReset, t])
+  }, [form, handleReset, t])
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword((prev) => !prev)

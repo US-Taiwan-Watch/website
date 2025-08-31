@@ -1,6 +1,6 @@
 'use client'
 
-import AccountChangePasswordForm from '@/modules/Account/components/AccountChangePasswordForm'
+import AccountChangePasswordForm from '@/modules/Account/AuthSetting/components/AccountChangePasswordForm'
 import AccountContent from '@/modules/Account/components/AccountContent'
 import AccountLayout from '@/modules/Account/components/AccountLayout'
 import useAccountStore from '@/modules/Account/hooks/useAccountStore'
