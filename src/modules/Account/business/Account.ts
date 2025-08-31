@@ -60,45 +60,7 @@ export default class AccountUtils {
         lang,
         me.bookmarkKetagalanArticles
       ),
-      // notifications: me.notifications ?? [],
-      notifications: [
-        {
-          id: '1',
-          title: 'New Bill Update',
-          content: 'Bill H.R. 1234 has been updated with new amendments',
-          url: '/bill/1234',
-          createdAt: '2024-01-15T10:30:00Z',
-        },
-        {
-          id: '2',
-          title: 'Article Published',
-          content:
-            'New article "Understanding Taiwan\'s Political Landscape" is now available',
-          url: '/article/5678',
-          createdAt: '2024-01-14T15:45:00Z',
-        },
-        {
-          id: '3',
-          title: 'Podcast Episode',
-          content: 'New podcast episode "Weekly Political Roundup" is live',
-          url: '/podcast/9012',
-          createdAt: '2024-01-13T09:20:00Z',
-        },
-        {
-          id: '4',
-          title: 'Legislator Activity',
-          content: 'Rep. John Smith has new voting activity on recent bills',
-          url: '/people/3456',
-          createdAt: '2024-01-12T14:15:00Z',
-        },
-        {
-          id: '5',
-          title: 'System Update',
-          content: 'Your account settings have been successfully updated',
-          url: '/account/setting',
-          createdAt: '2024-01-11T11:00:00Z',
-        },
-      ],
+      notifications: me.notifications ?? [],
       picture: user.picture,
       connection: AccountUtils.parseConnection(me.providerId),
     })
