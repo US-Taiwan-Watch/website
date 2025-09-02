@@ -22,7 +22,7 @@ export default function TaiwanRecordSection({
   const { t } = useTranslationClient(['people'])
 
   return (
-    <LandingSectionWrapper>
+    <LandingSectionWrapper backgroundColor={theme.color.neutral[200]}>
       <Stack gap={theme.spacing(7.5)}>
         <SectionTitle
           title={t('page.section.taiwanRecord.title', { ns: 'people' })}
