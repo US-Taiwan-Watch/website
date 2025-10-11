@@ -20,13 +20,21 @@ const getLocale = (request: NextRequest) => {
 
   // 2. Get language from cookies
   const lngFromCookies = request.cookies.get(CookiesKey.I18n)
-  if (lngFromCookies) return lngFromCookies.value
+  if (
+    lngFromCookies &&
+    I18N_SUPPORTED_LANGUAGE_SET.has(lngFromCookies.value as Language)
+  )
+    return lngFromCookies.value
 
   // 3. Get language from headers
   const lngFromHeaders = acceptLanguage.get(
     request.headers.get('Accept-Language')
   )
-  if (lngFromHeaders) return lngFromHeaders
+  if (
+    lngFromHeaders &&
+    I18N_SUPPORTED_LANGUAGE_SET.has(lngFromHeaders as Language)
+  )
+    return lngFromHeaders
 
   // 4. Fallback to default language
   return I18N_FALLBACK_LANGUAGE
