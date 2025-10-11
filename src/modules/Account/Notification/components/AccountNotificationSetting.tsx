@@ -35,6 +35,7 @@ const AccountFormItem = ({
       gap={1}
       sx={{
         alignItems: direction === 'row' ? 'center' : 'flex-start',
+        justifyContent: direction === 'row' ? 'space-between' : 'initial',
       }}
     >
       <Typography variant="body1" fontWeight={600}>
@@ -67,26 +68,7 @@ const AccountNotificationSettingDialog = memo(
     )
 
     return (
-      <Dialog
-        {...dialogProps}
-        PaperProps={{
-          sx: {
-            borderRadius: 4,
-            minWidth: {
-              xs: '280px', // Mobile: 280px
-              sm: '400px', // Tablet: 400px
-              md: '480px', // Desktop: 480px
-              lg: '520px', // Large desktop: 520px
-            },
-            maxWidth: {
-              xs: '90vw', // Mobile: 90% of viewport width
-              sm: '500px', // Tablet: 500px max
-              md: '600px', // Desktop: 600px max
-              lg: '650px', // Large desktop: 650px max
-            },
-          },
-        }}
-      >
+      <Dialog {...dialogProps}>
         <DialogTitle>
           {t('notificationSetting.dialog.title', { ns: 'account' })}
         </DialogTitle>
