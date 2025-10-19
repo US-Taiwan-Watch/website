@@ -39,11 +39,5 @@ export const getDefaultAccountNotificationSettingInput = (
       newsletter: false,
     }
 
-  return {
-    subscribedBillUpdate: false,
-    podcastRelease: false,
-    ustwArticleRelease: false,
-    ketagalanArticleRelease: false,
-    newsletter: false,
-  }
+  return account.notificationSetting
 }

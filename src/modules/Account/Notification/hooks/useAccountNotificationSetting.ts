@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import {
   AccountNotificationSettingInput,
   AccountNotificationSettingOutput,
@@ -34,6 +34,11 @@ export default function useAccountNotificationSetting() {
     form.reset(defaultAccountSettingInput)
   }, [form, defaultAccountSettingInput])
 
+  // 表單預設值變化時，更新表單，保持最新狀態
+  useEffect(() => {
+    form.reset(defaultAccountSettingInput)
+  }, [form, defaultAccountSettingInput])
+
   const handleSubmit = useCallback(
     async (value: AccountNotificationSettingOutput) => {
       try {
@@ -42,12 +47,11 @@ export default function useAccountNotificationSetting() {
           'success',
           t('notificationSetting.success.msg', { ns: 'account' })
         )
-        handleReset()
       } catch {
         toast('error', t('notificationSetting.error.msg', { ns: 'account' }))
       }
     },
-    [updateNotificationSetting, toast, t, handleReset]
+    [updateNotificationSetting, toast, t]
   )
 
   return { form, handleReset, handleSubmit, defaultAccountSettingInput }

@@ -43943,7 +43943,7 @@ type Me {
   subscribePeoples: [People]
   bookmarkUstwArticles: [UstwArticle]
   bookmarkKetagalanArticles: [KetagalanArticle]
-  notifications: JSON
+  notificationSetting: Member_NotificationSetting
 }
 
 type Search {

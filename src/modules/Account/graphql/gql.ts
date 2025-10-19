@@ -23,7 +23,13 @@ export const QUERY_ME = gql`
       bookmarkKetagalanArticles {
         ...FullKetagalanArticle
       }
-      notifications
+      notificationSetting {
+        subscribedBillUpdate
+        podcastRelease
+        ustwArticleRelease
+        ketagalanArticleRelease
+        newsletter
+      }
       providerId
     }
   }
