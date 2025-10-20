@@ -1,6 +1,8 @@
 'use client'
 
 import UButton from '@/common/components/atoms/UButton'
+import UContainer from '@/common/components/atoms/UContainer'
+import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import UHStack from '@/common/components/atoms/UHStack'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
@@ -9,9 +11,10 @@ import { AccountSubscribeType } from '@/modules/Account/Subscribe/business/Accou
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
 import { Box } from '@mui/material'
 import { memo, useMemo } from 'react'
+import type React from 'react'
 
 const TabCount = ({ count }: { count: number }) => {
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   return (
     <Box
@@ -21,8 +24,12 @@ const TabCount = ({ count }: { count: number }) => {
         borderRadius: '25px',
         px: '4.8px !important',
         py: '1.6px !important',
-        fontSize: isNarrow ? '8px !important' : '9.6px !important',
+        fontSize: isCompactView ? '8px !important' : '9.6px !important',
         fontWeight: 500,
+        height: '20px',
+        minWidth: '20px',
+        textAlign: 'center',
+        lineHeight: '18px',
       }}
     >
       {count}
@@ -36,6 +43,32 @@ type AccountSubscribeTypeTab = {
   count: number
 }
 
+const TabsWrapper = ({ children }: { children: React.ReactNode }) => {
+  const { isCompactView } = useAccountLayout()
+
+  if (isCompactView) {
+    return (
+      <UFullWidthBackgroundBox
+        backgroundColor="neutral.100"
+        containerSx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <UContainer
+          sx={{
+            px: 0,
+          }}
+        >
+          {children}
+        </UContainer>
+      </UFullWidthBackgroundBox>
+    )
+  }
+
+  return children
+}
+
 const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
   const { account } = useAccountStore()
   const currentAccountSubscribeType =
@@ -43,7 +76,7 @@ const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
   const setCurrentAccountSubscribeType =
     useAccountSubscribeStore.use.setCurrentAccountSubscribeType()
   const { t } = useTranslationClient('account')
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   const tabs = useMemo<AccountSubscribeTypeTab[]>(() => {
     return [
@@ -71,42 +104,53 @@ const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
   }, [t, account])
 
   return (
-    <UHStack
-      gap={1}
-      width={isNarrow ? '100%' : 'auto'}
-      justifyContent={isNarrow ? 'space-between' : 'flex-start'}
-    >
-      {tabs.map((tab) => (
-        <UButton
-          key={tab.value}
-          variant="contained"
-          color="info"
-          rounded
-          onClick={() => {
-            if (currentAccountSubscribeType !== tab.value) {
-              setCurrentAccountSubscribeType(tab.value)
-            } else {
-              setCurrentAccountSubscribeType(null)
-            }
-          }}
-          sx={{
-            ...(currentAccountSubscribeType &&
-              currentAccountSubscribeType !== tab.value && {
-                opacity: 0.5,
-              }),
-            px: isNarrow ? '8px !important' : '12px !important',
-            py: isNarrow ? '6px !important' : '7.2px !important',
-            fontSize: isNarrow ? '12px !important' : '12.8px !important',
-            fontWeight: 500,
-            flex: isNarrow ? '1 1 0' : 'none',
-          }}
-          endIcon={<TabCount count={tab.count} />}
-          size="small"
-        >
-          {tab.label}
-        </UButton>
-      ))}
-    </UHStack>
+    <TabsWrapper>
+      <UHStack
+        gap={1}
+        px={isCompactView ? 4 : 2}
+        sx={{
+          width: isCompactView ? '100%' : 'auto',
+          overflowX: 'auto',
+          flexWrap: 'nowrap',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+          scrollbarWidth: 'none',
+        }}
+      >
+        {tabs.map((tab) => (
+          <UButton
+            key={tab.value}
+            variant="contained"
+            color="info"
+            rounded
+            onClick={() => {
+              if (currentAccountSubscribeType !== tab.value) {
+                setCurrentAccountSubscribeType(tab.value)
+              } else {
+                setCurrentAccountSubscribeType(null)
+              }
+            }}
+            sx={{
+              ...(currentAccountSubscribeType &&
+                currentAccountSubscribeType !== tab.value && {
+                  opacity: 0.5,
+                }),
+              px: isCompactView ? '8px !important' : '12px !important',
+              py: isCompactView ? '6px !important' : '7.2px !important',
+              fontSize: isCompactView ? '12px !important' : '12.8px !important',
+              fontWeight: 500,
+              whiteSpace: 'nowrap',
+              flexShrink: 0,
+            }}
+            endIcon={<TabCount count={tab.count} />}
+            size="small"
+          >
+            {tab.label}
+          </UButton>
+        ))}
+      </UHStack>
+    </TabsWrapper>
   )
 })
 

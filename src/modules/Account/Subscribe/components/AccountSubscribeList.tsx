@@ -23,7 +23,7 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
   accountSubscribe,
 }: AccountSubscribeListItemProps) {
   const { t } = useTranslationClient('account')
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   return (
     <UHStack
@@ -34,24 +34,15 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
         py: 2,
       }}
     >
-      <UHStack
-        alignItems="flex-start"
-        gap={{
-          xs: 1.5,
-          lg: 3.75,
-        }}
-      >
+      <UHStack alignItems="center" gap={isCompactView ? 1.5 : 3.75}>
         <Box
           sx={{
-            minWidth: {
-              xs: '46px',
-              sm: '100px',
-            },
+            minWidth: isCompactView ? '46px' : '100px',
             textAlign: 'center',
-            px: isNarrow ? 0.75 : 3.125,
-            py: isNarrow ? 0.75 : 0.75,
+            px: isCompactView ? 0.75 : 3.125,
+            py: isCompactView ? 0.75 : 0.75,
             color: 'indigo.1000',
-            fontSize: isNarrow ? '0.625rem' : '0.875rem',
+            fontSize: isCompactView ? '0.625rem' : '0.875rem',
             fontWeight: 600,
             borderRadius: '9.35px',
             borderColor: 'grey.1400',
@@ -71,7 +62,7 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
           {accountSubscribe.title}
         </UHeightLimitedText>
       </UHStack>
-      <UHStack gap={isNarrow ? 0 : 1.5}>
+      <UHStack gap={isCompactView ? 0 : 1.5}>
         <Link
           href={accountSubscribe.url}
           target="_blank"
@@ -112,9 +103,9 @@ const AccountSubscribeList = memo(function AccountSubscribeList() {
 
   const filteredAccountSubscribeList =
     useAccountSubscribeStore.use.filteredAccountSubscribeList()
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
-  if (isNarrow) {
+  if (isCompactView) {
     return (
       <UFullWidthBackgroundBox>
         <Stack

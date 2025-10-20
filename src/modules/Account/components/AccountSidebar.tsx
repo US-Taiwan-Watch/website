@@ -10,25 +10,18 @@ import { useCallback, useEffect, useState } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'
 import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
+import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 
 const JOIN_DATE_FORMAT = 'YYYY/MM/DD'
 
 const SidebarContainer = styled(Stack)(({ theme }) => ({
   gap: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-  },
 }))
 
 const ProfileCard = styled(Box)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(2, 2.5, 1.5),
-  [theme.breakpoints.down('sm')]: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    padding: 0,
-  },
 }))
 
 const ProfileInfo = styled(Stack)(({ theme }) => ({
@@ -52,11 +45,6 @@ const NavContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(2.5),
-  [theme.breakpoints.down('sm')]: {
-    backgroundColor: 'transparent',
-    border: 'none',
-    padding: 0,
-  },
 }))
 
 const NavList = styled(Stack)(({ theme }) => ({
@@ -88,16 +76,6 @@ const NavItemBase = styled('div')<{ active?: boolean }>(
         color: theme.color.common.black,
       },
     },
-    [theme.breakpoints.down('sm')]: {
-      color: theme.color.common.black,
-      backgroundColor: 'transparent',
-      '& .MuiSvgIcon-root': {
-        color: theme.color.common.black,
-      },
-      '& .MuiTypography-root': {
-        fontWeight: 500,
-      },
-    },
   })
 )
 
@@ -120,6 +98,7 @@ const DeleteAccount = styled(Box)(({ theme }) => ({
 export default function AccountSidebar() {
   const { t } = useTranslationClient('account')
   const { navItems, currentNavItem } = useAccountNavItems()
+  const { isCompactView } = useAccountLayout()
   const [joinDate, setJoinDate] = useState('')
   useEffect(() => {
     setJoinDate(DateUtils.formatLocal(undefined, JOIN_DATE_FORMAT))
@@ -134,30 +113,30 @@ export default function AccountSidebar() {
   if (!account) return null
 
   return (
-    <SidebarContainer>
-      <ProfileCard>
+    <SidebarContainer
+      sx={{
+        ...(isCompactView && { width: '100%' }),
+      }}
+    >
+      <ProfileCard
+        sx={{
+          ...(isCompactView && {
+            backgroundColor: 'transparent',
+            border: 'none',
+            padding: 0,
+          }),
+        }}
+      >
         <ProfileInfo>
           <Stack
-            direction={{
-              xs: 'row',
-              sm: 'column',
-            }}
+            direction={isCompactView ? 'row' : 'column'}
             spacing={1.75}
-            alignItems={{
-              xs: 'center',
-              sm: 'flex-start',
-            }}
+            alignItems={isCompactView ? 'center' : 'flex-start'}
           >
             <Avatar
               sx={{
-                width: {
-                  xs: 54,
-                  sm: 64,
-                },
-                height: {
-                  xs: 54,
-                  sm: 64,
-                },
+                width: isCompactView ? 54 : 64,
+                height: isCompactView ? 54 : 64,
                 color: 'common.black',
               }}
               alt={account.fullName ?? 'User Avatar'}
@@ -186,17 +165,54 @@ export default function AccountSidebar() {
         </JoinDate>
       </ProfileCard>
 
-      <NavContainer flex={1}>
+      <NavContainer
+        flex={1}
+        sx={{
+          ...(isCompactView && {
+            backgroundColor: 'transparent',
+            border: 'none',
+            padding: 0,
+          }),
+        }}
+      >
         <NavList flex={1}>
           {navItems.map((item) => (
             <Link key={item.href} href={item.href}>
-              <NavItemBase active={currentNavItem?.href === item.href}>
+              <NavItemBase
+                active={currentNavItem?.href === item.href}
+                sx={{
+                  ...(isCompactView && {
+                    color: 'common.black',
+                    backgroundColor: 'transparent',
+                    '& .MuiSvgIcon-root': {
+                      color: 'common.black',
+                    },
+                    '& .MuiTypography-root': {
+                      fontWeight: 500,
+                    },
+                  }),
+                }}
+              >
                 {item.icon}
                 <Typography>{item.label}</Typography>
               </NavItemBase>
             </Link>
           ))}
-          <NavItemBase onClick={handleLogout}>
+          <NavItemBase
+            onClick={handleLogout}
+            sx={{
+              ...(isCompactView && {
+                color: 'common.black',
+                backgroundColor: 'transparent',
+                '& .MuiSvgIcon-root': {
+                  color: 'common.black',
+                },
+                '& .MuiTypography-root': {
+                  fontWeight: 500,
+                },
+              }),
+            }}
+          >
             <LogoutIcon sx={{ width: 24, height: 24 }} />
             <Typography>{t('logout.btn', { ns: 'account' })}</Typography>
           </NavItemBase>

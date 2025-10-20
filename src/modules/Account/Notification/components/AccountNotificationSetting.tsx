@@ -19,6 +19,7 @@ import { memo, useCallback, useState } from 'react'
 import { Controller } from 'react-hook-form'
 import type React from 'react'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 
 const AccountFormItem = ({
   label,
@@ -58,6 +59,7 @@ const AccountNotificationSettingDialog = memo(
     const { t } = useTranslationClient('account')
     const { form, handleSubmit: submitForm } = useAccountNotificationSetting()
     const { isMutating } = useAccount()
+    const { isCompactView } = useAccountLayout()
 
     const handleSubmit = useCallback(
       async (value: AccountNotificationSettingOutput) => {
@@ -192,10 +194,7 @@ const AccountNotificationSettingDialog = memo(
                 disabled={isMutating}
                 sx={{
                   mt: 3,
-                  width: {
-                    xs: '100%',
-                    sm: 'auto',
-                  },
+                  width: isCompactView ? '100%' : 'auto',
                 }}
               >
                 {isMutating ? (

@@ -18,9 +18,7 @@ const AccountContentWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(0),
-  [theme.breakpoints.down('sm')]: {
-    backgroundColor: 'transparent',
-  },
+  width: '100%',
 }))
 
 type AccountContentProps = {
@@ -33,35 +31,50 @@ export default function AccountContent({
   headerChildren,
 }: AccountContentProps) {
   const { resolveRouteUrl } = useURouterClient()
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
   const { currentNavItem } = useAccountNavItems()
 
   return (
-    <AccountContentWrapper>
+    <AccountContentWrapper
+      sx={{
+        ...(isCompactView && {
+          backgroundColor: 'transparent',
+        }),
+      }}
+    >
       {/** Header */}
       <Stack
-        direction={isNarrow ? 'column' : 'row'}
+        direction={isCompactView ? 'column' : 'row'}
         justifyContent="space-between"
         sx={{
-          backgroundColor: isNarrow ? 'neutral.100' : 'grey.4300',
-          px: isNarrow ? 2 : 8,
+          backgroundColor: isCompactView ? 'transparent' : 'grey.4300',
+          px: isCompactView
+            ? 0
+            : {
+                md: 2,
+                lg: 8,
+              },
           py: 2.5,
-          pt: isNarrow ? 0 : 2.5,
+          pt: isCompactView ? 0 : 2.5,
           borderTopLeftRadius: '15px',
           borderTopRightRadius: '15px',
         }}
       >
-        <UHStack justifyContent="space-between" alignItems="center">
+        <UHStack
+          justifyContent="space-between"
+          alignItems="center"
+          px={isCompactView ? 2 : 0}
+        >
           <UHStack alignItems="center" gap={1}>
             {currentNavItem?.icon}
             <Typography
-              fontSize={isNarrow ? '1.125rem' : '1.25rem'}
-              fontWeight={isNarrow ? 600 : 700}
+              fontSize={isCompactView ? '1.125rem' : '1.25rem'}
+              fontWeight={isCompactView ? 600 : 700}
             >
               {currentNavItem?.label}
             </Typography>
           </UHStack>
-          {isNarrow && (
+          {isCompactView && (
             <Link href={resolveRouteUrl({ name: RouteName.Account })}>
               <UIconButton variant="text" color="inherit">
                 <BackIcon

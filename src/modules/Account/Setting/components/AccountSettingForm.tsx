@@ -16,6 +16,7 @@ import { Controller } from 'react-hook-form'
 import { Trans } from 'react-i18next'
 import type React from 'react'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 
 const AccountFormItem = ({
   label,
@@ -45,6 +46,7 @@ const AccountSettingForm = () => {
   const account = useAccountStore.use.account()
   const { isMutating } = useAccount()
   const { form, handleSubmit } = useAccountSetting()
+  const { isCompactView } = useAccountLayout()
 
   const existingAvatarSrc = useMemo(() => {
     if (!account) return undefined
@@ -53,7 +55,15 @@ const AccountSettingForm = () => {
 
   return (
     <Box
-      sx={{ px: 4, py: 2, display: 'flex', flexDirection: 'column', gap: 1 }}
+      sx={{
+        px: 4,
+        py: 2,
+        backgroundColor: 'background.paper',
+        borderRadius: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 1,
+      }}
       component="form"
       onSubmit={form.handleSubmit(handleSubmit)}
     >
@@ -156,10 +166,7 @@ const AccountSettingForm = () => {
           rounded
           sx={{
             mt: 3,
-            width: {
-              xs: '100%',
-              sm: 'auto',
-            },
+            width: isCompactView ? '100%' : 'auto',
           }}
         >
           {isMutating ? (
