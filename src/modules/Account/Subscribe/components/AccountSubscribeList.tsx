@@ -34,19 +34,10 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
         py: 2,
       }}
     >
-      <UHStack
-        alignItems="flex-start"
-        gap={{
-          xs: 1.5,
-          lg: 3.75,
-        }}
-      >
+      <UHStack alignItems="flex-start" gap={isNarrow ? 1.5 : 3.75}>
         <Box
           sx={{
-            minWidth: {
-              xs: '46px',
-              sm: '100px',
-            },
+            minWidth: isNarrow ? '46px' : '100px',
             textAlign: 'center',
             px: isNarrow ? 0.75 : 3.125,
             py: isNarrow ? 0.75 : 0.75,

@@ -16,6 +16,7 @@ import { Controller } from 'react-hook-form'
 import { Trans } from 'react-i18next'
 import type React from 'react'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 
 const AccountFormItem = ({
   label,
@@ -45,6 +46,7 @@ const AccountSettingForm = () => {
   const account = useAccountStore.use.account()
   const { isMutating } = useAccount()
   const { form, handleSubmit } = useAccountSetting()
+  const { isNarrow } = useAccountLayout()
 
   const existingAvatarSrc = useMemo(() => {
     if (!account) return undefined
@@ -164,10 +166,7 @@ const AccountSettingForm = () => {
           rounded
           sx={{
             mt: 3,
-            width: {
-              xs: '100%',
-              sm: 'auto',
-            },
+            width: isNarrow ? '100%' : 'auto',
           }}
         >
           {isMutating ? (

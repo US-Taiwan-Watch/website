@@ -16,11 +16,13 @@ import UButton from '@/common/components/atoms/UButton'
 import UAlertDialog from '@/common/components/elements/UAlertDialog'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 
 export default function AccountChangePasswordForm() {
   const { t } = useTranslationClient('account')
   const { form, handleSubmit: submitForm } = useAccountChangePassword()
   const { isMutating } = useAccount()
+  const { isNarrow } = useAccountLayout()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -54,10 +56,7 @@ export default function AccountChangePasswordForm() {
         mb={3}
         sx={{
           whiteSpace: 'pre-line',
-          textAlign: {
-            xs: 'center',
-            sm: 'left',
-          },
+          textAlign: isNarrow ? 'center' : 'left',
         }}
       >
         {t('changePassword.description')}
@@ -137,10 +136,7 @@ export default function AccountChangePasswordForm() {
             rounded
             sx={{
               mt: 3,
-              width: {
-                xs: '100%',
-                sm: 'auto',
-              },
+              width: isNarrow ? '100%' : 'auto',
             }}
           >
             {isMutating ? (

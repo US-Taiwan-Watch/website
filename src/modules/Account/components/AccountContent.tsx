@@ -19,9 +19,6 @@ const AccountContentWrapper = styled(Box)(({ theme }) => ({
   borderRadius: '15px',
   padding: theme.spacing(0),
   width: '100%',
-  [theme.breakpoints.down('lg')]: {
-    backgroundColor: 'transparent',
-  },
 }))
 
 type AccountContentProps = {
@@ -38,7 +35,13 @@ export default function AccountContent({
   const { currentNavItem } = useAccountNavItems()
 
   return (
-    <AccountContentWrapper>
+    <AccountContentWrapper
+      sx={{
+        ...(isNarrow && {
+          backgroundColor: 'transparent',
+        }),
+      }}
+    >
       {/** Header */}
       <Stack
         direction={isNarrow ? 'column' : 'row'}
