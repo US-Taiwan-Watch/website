@@ -1,6 +1,9 @@
 import { Me } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
-import { accountNotificationSchema } from '@/modules/Account/Notification/business/AccountNotification'
+import {
+  accountNotificationSchema,
+  accountNotificationSettingSchema,
+} from '@/modules/Account/Notification/business/AccountNotification'
 import AccountSubscribeUtils, {
   accountSubscribeSchema,
   AccountSubscribeType,
@@ -27,7 +30,9 @@ const accountSchema = z.object({
   subscribePeoples: z.array(accountSubscribeSchema),
   bookmarkUstwArticles: z.array(accountSubscribeSchema),
   bookmarkKetagalanArticles: z.array(accountSubscribeSchema),
+  // TODO: 確認 notifications 是否為另外 query 而非綁在 Query.Me
   notifications: z.array(accountNotificationSchema),
+  notificationSetting: accountNotificationSettingSchema,
   picture: z.string().optional(),
   connection: z.nativeEnum(Connection).optional(),
 })
@@ -60,7 +65,16 @@ export default class AccountUtils {
         lang,
         me.bookmarkKetagalanArticles
       ),
-      notifications: me.notifications ?? [],
+      notifications: [],
+      notificationSetting: {
+        subscribedBillUpdate:
+          me.notificationSetting?.subscribedBillUpdate ?? false,
+        podcastRelease: me.notificationSetting?.podcastRelease ?? false,
+        ustwArticleRelease: me.notificationSetting?.ustwArticleRelease ?? false,
+        ketagalanArticleRelease:
+          me.notificationSetting?.ketagalanArticleRelease ?? false,
+        newsletter: me.notificationSetting?.newsletter ?? false,
+      },
       picture: user.picture,
       connection: AccountUtils.parseConnection(me.providerId),
     })

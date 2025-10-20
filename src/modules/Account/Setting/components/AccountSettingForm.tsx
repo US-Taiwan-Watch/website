@@ -1,7 +1,6 @@
 import UButton from '@/common/components/atoms/UButton'
 import UImageUploader from '@/common/components/elements/UImageUploader'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { AccountSettingOutput } from '@/modules/Account/Setting/business/AccountSetting'
 import useAccountSetting from '@/modules/Account/Setting/hooks/useAccountSetting'
 import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import {
@@ -12,7 +11,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import { useCallback, useMemo, useState } from 'react'
+import { useMemo } from 'react'
 import { Controller } from 'react-hook-form'
 import { Trans } from 'react-i18next'
 import type React from 'react'
@@ -44,23 +43,13 @@ const AccountFormItem = ({
 const AccountSettingForm = () => {
   const { t } = useTranslationClient('account')
   const account = useAccountStore.use.account()
-  const { updateAccountSetting } = useAccount()
-  const { form } = useAccountSetting()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const { isMutating } = useAccount()
+  const { form, handleSubmit } = useAccountSetting()
 
   const existingAvatarSrc = useMemo(() => {
     if (!account) return undefined
     return account.picture
   }, [account])
-
-  const handleSubmit = useCallback(
-    (value: AccountSettingOutput) => {
-      setIsSubmitting(true)
-      updateAccountSetting(value)
-      setIsSubmitting(false)
-    },
-    [updateAccountSetting]
-  )
 
   return (
     <Box
@@ -78,6 +67,26 @@ const AccountSettingForm = () => {
               fullWidth
               error={Boolean(form.formState.errors.fullName)}
               helperText={form.formState.errors.fullName?.message}
+              margin="normal"
+              color="info"
+              sx={{
+                my: 0,
+              }}
+            />
+          )}
+        />
+      </AccountFormItem>
+      <AccountFormItem label={t('setting.email.label', { ns: 'account' })}>
+        <Controller
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <TextField
+              {...field}
+              fullWidth
+              type="email"
+              error={Boolean(form.formState.errors.email)}
+              helperText={form.formState.errors.email?.message}
               margin="normal"
               color="info"
               sx={{
@@ -143,7 +152,7 @@ const AccountSettingForm = () => {
           variant="contained"
           color="info"
           size="large"
-          disabled={isSubmitting}
+          disabled={isMutating}
           rounded
           sx={{
             mt: 3,
@@ -153,7 +162,7 @@ const AccountSettingForm = () => {
             },
           }}
         >
-          {isSubmitting ? (
+          {isMutating ? (
             <>
               <CircularProgress color="info" size={20} sx={{ mr: 1 }} />
               {t('setting.submitting.msg', { ns: 'account' })}

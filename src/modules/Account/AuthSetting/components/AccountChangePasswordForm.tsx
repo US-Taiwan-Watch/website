@@ -5,11 +5,9 @@ import {
   Box,
   TextField,
   Typography,
-  Alert,
   IconButton,
   InputAdornment,
   CircularProgress,
-  AlertColor,
 } from '@mui/material'
 import { Visibility, VisibilityOff, Lock } from '@mui/icons-material'
 import useAccountChangePassword from '@/modules/Account/AuthSetting/hooks/useAccountChangePassword'
@@ -17,22 +15,14 @@ import { Controller } from 'react-hook-form'
 import UButton from '@/common/components/atoms/UButton'
 import UAlertDialog from '@/common/components/elements/UAlertDialog'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { changePassword } from '@/modules/Account/api/change-password'
-
-interface ApiResonseMessage {
-  text: string
-  type: AlertColor
-}
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 
 export default function AccountChangePasswordForm() {
   const { t } = useTranslationClient('account')
-  const { form, handleReset } = useAccountChangePassword()
+  const { form, handleSubmit: submitForm } = useAccountChangePassword()
+  const { isMutating } = useAccount()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
-  const [apiResonseMessage, setApiResonseMessage] = useState<ApiResonseMessage>(
-    { text: '', type: 'info' }
-  )
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
 
@@ -42,35 +32,8 @@ export default function AccountChangePasswordForm() {
 
   const handleConfirm = useCallback(async () => {
     setIsConfirmDialogOpen(false)
-
-    try {
-      setIsSubmitting(true)
-      const response = await changePassword(form.getValues('newPassword'))
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setApiResonseMessage({
-          text: t('changePassword.sucess.msg', { ns: 'account' }),
-          type: 'success',
-        })
-        handleReset()
-      } else {
-        setApiResonseMessage({
-          text:
-            data.message || t('changePassword.failed.msg', { ns: 'account' }),
-          type: 'error',
-        })
-      }
-    } catch {
-      setApiResonseMessage({
-        text: t('changePassword.error.msg', { ns: 'account' }),
-        type: 'error',
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
-  }, [form, handleReset, t])
+    await submitForm(form.getValues())
+  }, [form, submitForm])
 
   const togglePasswordVisibility = useCallback(() => {
     setShowPassword((prev) => !prev)
@@ -85,15 +48,20 @@ export default function AccountChangePasswordForm() {
         borderRadius: 4,
       }}
     >
-      <Typography variant="body2" color="text.secondary" mb={3}>
+      <Typography
+        variant="body2"
+        color="text.secondary"
+        mb={3}
+        sx={{
+          whiteSpace: 'pre-line',
+          textAlign: {
+            xs: 'center',
+            sm: 'left',
+          },
+        }}
+      >
         {t('changePassword.description')}
       </Typography>
-
-      {apiResonseMessage.text && (
-        <Alert severity={apiResonseMessage.type} sx={{ mb: 3 }}>
-          {apiResonseMessage.text}
-        </Alert>
-      )}
 
       <Box component="form" onSubmit={form.handleSubmit(handleSubmit)}>
         <Controller
@@ -165,7 +133,7 @@ export default function AccountChangePasswordForm() {
             variant="contained"
             color="info"
             size="large"
-            disabled={isSubmitting}
+            disabled={isMutating}
             rounded
             sx={{
               mt: 3,
@@ -175,7 +143,7 @@ export default function AccountChangePasswordForm() {
               },
             }}
           >
-            {isSubmitting ? (
+            {isMutating ? (
               <>
                 <CircularProgress color="info" size={20} sx={{ mr: 1 }} />
                 {t('changePassword.submitting.msg', { ns: 'account' })}

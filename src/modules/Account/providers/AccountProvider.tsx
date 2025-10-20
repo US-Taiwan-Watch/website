@@ -6,6 +6,10 @@ import {
   MUTATION_BOOKMARK_KETAGALAN_ARTICLE,
   MUTATION_SUBSCRIBE_BILL,
   MUTATION_SUBSCRIBE_PEOPLE,
+  MUTATION_UPDATE_MY_PASSWORD,
+  MUTATION_UPDATE_MY_NAME,
+  MUTATION_UPDATE_MY_EMAIL,
+  MUTATION_UPDATE_MY_NOTIFICATION_SETTING,
   QUERY_ME,
 } from '@/modules/Account/graphql/gql'
 import useAccountStore from '@/modules/Account/hooks/useAccountStore'
@@ -28,6 +32,14 @@ import {
   BookmarkUstwArticleMutationVariables,
   BookmarkKetagalanArticleMutation,
   BookmarkKetagalanArticleMutationVariables,
+  UpdateMyPasswordMutation,
+  UpdateMyPasswordMutationVariables,
+  UpdateMyNameMutation,
+  UpdateMyNameMutationVariables,
+  UpdateMyEmailMutation,
+  UpdateMyEmailMutationVariables,
+  UpdateMyNotificationSettingMutation,
+  UpdateMyNotificationSettingMutationVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import AccountUtils from '@/modules/Account/business/Account'
 import type React from 'react'
@@ -41,6 +53,7 @@ import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import { AccountSettingOutput } from '@/modules/Account/Setting/business/AccountSetting'
+import { AccountNotificationSettingOutput } from '@/modules/Account/Notification/business/AccountNotification'
 
 type AccountProviderContext = {
   refetchAccount: () => void
@@ -52,6 +65,12 @@ type AccountProviderContext = {
   bookmarkArticle: (article: Article) => void
   checkIfArticleIsBookmarked: (article: Article) => boolean
   updateAccountSetting: (setting: AccountSettingOutput) => void
+  updatePassword: (password: string) => Promise<void>
+  updateName: (name: string) => Promise<void>
+  updateEmail: (email: string) => Promise<void>
+  updateNotificationSetting: (
+    setting: AccountNotificationSettingOutput
+  ) => Promise<void>
 }
 
 const AccountContext = createContext<AccountProviderContext>({
@@ -64,6 +83,10 @@ const AccountContext = createContext<AccountProviderContext>({
   bookmarkArticle: () => {},
   checkIfArticleIsBookmarked: () => false,
   updateAccountSetting: () => {},
+  updatePassword: async () => {},
+  updateName: async () => {},
+  updateEmail: async () => {},
+  updateNotificationSetting: async () => {},
 })
 
 export const useAccount = () => {
@@ -154,7 +177,6 @@ export default function AccountProvider({
     apolloClient.defaultContext.token = null
   }, [isLoading, user, setAccount, apolloClient.defaultContext])
 
-  // ----- 訂閱相關 -----
   const [isMutating, setIsMutating] = useState(false)
   const { t } = useTranslationClient(['bill', 'people', 'article', 'common'])
   const { toast } = useToast()
@@ -175,6 +197,22 @@ export default function AccountProvider({
     BookmarkKetagalanArticleMutation,
     BookmarkKetagalanArticleMutationVariables
   >(MUTATION_BOOKMARK_KETAGALAN_ARTICLE)
+  const [gqlUpdateMyPassword] = useMutation<
+    UpdateMyPasswordMutation,
+    UpdateMyPasswordMutationVariables
+  >(MUTATION_UPDATE_MY_PASSWORD)
+  const [gqlUpdateMyName] = useMutation<
+    UpdateMyNameMutation,
+    UpdateMyNameMutationVariables
+  >(MUTATION_UPDATE_MY_NAME)
+  const [gqlUpdateMyEmail] = useMutation<
+    UpdateMyEmailMutation,
+    UpdateMyEmailMutationVariables
+  >(MUTATION_UPDATE_MY_EMAIL)
+  const [gqlUpdateMyNotificationSetting] = useMutation<
+    UpdateMyNotificationSettingMutation,
+    UpdateMyNotificationSettingMutationVariables
+  >(MUTATION_UPDATE_MY_NOTIFICATION_SETTING)
 
   const loginOnceSubscribe = useCallback(() => {
     toast('warning', t('subscribe.login.msg', { ns: 'common' }))
@@ -324,6 +362,122 @@ export default function AccountProvider({
     [fetchMe]
   )
 
+  /**
+   * 更新密碼
+   * @param password - 新密碼
+   */
+  const updatePassword = useCallback(
+    async (password: string) => {
+      if (!user) {
+        throw new Error('User not authenticated')
+      }
+
+      setIsMutating(true)
+      try {
+        const response = await gqlUpdateMyPassword({
+          variables: { password },
+        })
+
+        if (response.errors) {
+          throw new Error('Failed to update password')
+        }
+
+        // refetch me
+        await fetchMe()
+      } finally {
+        setIsMutating(false)
+      }
+    },
+    [user, gqlUpdateMyPassword, fetchMe]
+  )
+
+  /**
+   * 更新姓名
+   * @param name - 新姓名
+   */
+  const updateName = useCallback(
+    async (name: string) => {
+      if (!user) {
+        throw new Error('User not authenticated')
+      }
+
+      setIsMutating(true)
+      try {
+        const response = await gqlUpdateMyName({
+          variables: { name },
+        })
+
+        if (response.errors) {
+          throw new Error('Failed to update name')
+        }
+
+        // refetch me
+        await fetchMe()
+      } finally {
+        setIsMutating(false)
+      }
+    },
+    [user, gqlUpdateMyName, fetchMe]
+  )
+
+  /**
+   * 更新電子郵件
+   * @param email - 新電子郵件
+   */
+  const updateEmail = useCallback(
+    async (email: string) => {
+      if (!user) {
+        throw new Error('User not authenticated')
+      }
+
+      setIsMutating(true)
+      try {
+        const response = await gqlUpdateMyEmail({
+          variables: { email },
+        })
+
+        if (response.errors) {
+          throw new Error('Failed to update email')
+        }
+
+        // refetch me
+        await fetchMe()
+      } finally {
+        setIsMutating(false)
+      }
+    },
+    [user, gqlUpdateMyEmail, fetchMe]
+  )
+
+  /**
+   * 更新通知設定
+   * @param setting - 通知設定
+   */
+  const updateNotificationSetting = useCallback(
+    async (setting: AccountNotificationSettingOutput) => {
+      if (!user) {
+        throw new Error('User not authenticated')
+      }
+
+      setIsMutating(true)
+      try {
+        const response = await gqlUpdateMyNotificationSetting({
+          variables: { notificationSetting: setting },
+        })
+
+        if (response.errors) {
+          throw new Error('Failed to update notification setting')
+        }
+
+        // refetch me
+        await fetchMe()
+      } finally {
+        setIsMutating(false)
+      }
+    },
+    [user, gqlUpdateMyNotificationSetting, fetchMe]
+  )
+
   return (
     <AccountContext.Provider
       value={{
@@ -336,6 +490,10 @@ export default function AccountProvider({
         bookmarkArticle,
         checkIfArticleIsBookmarked,
         updateAccountSetting,
+        updatePassword,
+        updateName,
+        updateEmail,
+        updateNotificationSetting,
       }}
     >
       {children}

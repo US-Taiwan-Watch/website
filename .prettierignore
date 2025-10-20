@@ -15,3 +15,4 @@ yarn.lock
 src/common/lib/graphql/__generated__/**
 Dockerfile
 **/*.yml
+.nvmrc

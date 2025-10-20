@@ -488,6 +488,27 @@ const commonThemeComponents: Components<Omit<Theme, 'components'>> = {
       },
     },
   },
+  MuiDialog: {
+    defaultProps: {
+      PaperProps: {
+        sx: {
+          borderRadius: 4,
+          minWidth: {
+            xs: '280px',
+            sm: '400px',
+            md: '480px',
+            lg: '520px',
+          },
+          maxWidth: {
+            xs: '90vw',
+            sm: '500px',
+            md: '600px',
+            lg: '650px',
+          },
+        },
+      },
+    },
+  },
 }
 
 const _lightTheme: USTWThemeOptions = {

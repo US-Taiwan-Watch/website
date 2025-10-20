@@ -23,7 +23,13 @@ export const QUERY_ME = gql`
       bookmarkKetagalanArticles {
         ...FullKetagalanArticle
       }
-      notifications
+      notificationSetting {
+        subscribedBillUpdate
+        podcastRelease
+        ustwArticleRelease
+        ketagalanArticleRelease
+        newsletter
+      }
       providerId
     }
   }
@@ -61,6 +67,40 @@ export const MUTATION_BOOKMARK_USTW_ARTICLE = gql`
 export const MUTATION_BOOKMARK_KETAGALAN_ARTICLE = gql`
   mutation BookmarkKetagalanArticle($articleId: String!) {
     bookmarkKetagalanArticle(id: $articleId) {
+      id
+    }
+  }
+`
+
+export const MUTATION_UPDATE_MY_NAME = gql`
+  mutation UpdateMyName($name: String!) {
+    updateMyName(name: $name) {
+      id
+    }
+  }
+`
+
+export const MUTATION_UPDATE_MY_EMAIL = gql`
+  mutation UpdateMyEmail($email: String!) {
+    updateMyEmail(email: $email) {
+      id
+    }
+  }
+`
+
+export const MUTATION_UPDATE_MY_PASSWORD = gql`
+  mutation UpdateMyPassword($password: String!) {
+    updateMyPassword(password: $password) {
+      id
+    }
+  }
+`
+
+export const MUTATION_UPDATE_MY_NOTIFICATION_SETTING = gql`
+  mutation UpdateMyNotificationSetting(
+    $notificationSetting: mutationMember_NotificationSettingInput!
+  ) {
+    updateMyNotificationSetting(notificationSetting: $notificationSetting) {
       id
     }
   }
