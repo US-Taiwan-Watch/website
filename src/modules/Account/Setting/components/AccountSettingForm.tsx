@@ -46,7 +46,7 @@ const AccountSettingForm = () => {
   const account = useAccountStore.use.account()
   const { isMutating } = useAccount()
   const { form, handleSubmit } = useAccountSetting()
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   const existingAvatarSrc = useMemo(() => {
     if (!account) return undefined
@@ -166,7 +166,7 @@ const AccountSettingForm = () => {
           rounded
           sx={{
             mt: 3,
-            width: isNarrow ? '100%' : 'auto',
+            width: isCompactView ? '100%' : 'auto',
           }}
         >
           {isMutating ? (

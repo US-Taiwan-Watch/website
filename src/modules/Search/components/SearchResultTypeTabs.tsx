@@ -10,7 +10,7 @@ import { Box } from '@mui/material'
 import { memo, useMemo } from 'react'
 
 const TabCount = ({ count }: { count: number }) => {
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   return (
     <Box
@@ -20,7 +20,7 @@ const TabCount = ({ count }: { count: number }) => {
         borderRadius: '25px',
         px: '4.8px !important',
         py: '1.6px !important',
-        fontSize: isNarrow ? '8px !important' : '9.6px !important',
+        fontSize: isCompactView ? '8px !important' : '9.6px !important',
         fontWeight: 500,
       }}
     >
@@ -46,7 +46,7 @@ const SearchResultTypeTabs = memo(function SearchResultTypeTabs({
 }: SearchResultTypeTabsProps) {
   const searchResults = useSearchResultsStore.use.searchResults()
   const { t } = useTranslationClient('search')
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   const tabs = useMemo<SearchResultTypeTab[]>(() => {
     if (!searchResults) return []
@@ -111,9 +111,9 @@ const SearchResultTypeTabs = memo(function SearchResultTypeTabs({
                 value !== tab.value && {
                   opacity: 0.5,
                 }),
-              px: isNarrow ? '8px !important' : '12px !important',
-              py: isNarrow ? '6px !important' : '7.2px !important',
-              fontSize: isNarrow ? '12px !important' : '12.8px !important',
+              px: isCompactView ? '8px !important' : '12px !important',
+              py: isCompactView ? '6px !important' : '7.2px !important',
+              fontSize: isCompactView ? '12px !important' : '12.8px !important',
               fontWeight: 500,
             }}
             endIcon={<TabCount count={tab.count} />}

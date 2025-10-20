@@ -31,26 +31,31 @@ export default function AccountContent({
   headerChildren,
 }: AccountContentProps) {
   const { resolveRouteUrl } = useURouterClient()
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
   const { currentNavItem } = useAccountNavItems()
 
   return (
     <AccountContentWrapper
       sx={{
-        ...(isNarrow && {
+        ...(isCompactView && {
           backgroundColor: 'transparent',
         }),
       }}
     >
       {/** Header */}
       <Stack
-        direction={isNarrow ? 'column' : 'row'}
+        direction={isCompactView ? 'column' : 'row'}
         justifyContent="space-between"
         sx={{
-          backgroundColor: isNarrow ? 'transparent' : 'grey.4300',
-          px: isNarrow ? 0 : 8,
+          backgroundColor: isCompactView ? 'transparent' : 'grey.4300',
+          px: isCompactView
+            ? 0
+            : {
+                md: 2,
+                lg: 8,
+              },
           py: 2.5,
-          pt: isNarrow ? 0 : 2.5,
+          pt: isCompactView ? 0 : 2.5,
           borderTopLeftRadius: '15px',
           borderTopRightRadius: '15px',
         }}
@@ -58,18 +63,18 @@ export default function AccountContent({
         <UHStack
           justifyContent="space-between"
           alignItems="center"
-          px={isNarrow ? 2 : 0}
+          px={isCompactView ? 2 : 0}
         >
           <UHStack alignItems="center" gap={1}>
             {currentNavItem?.icon}
             <Typography
-              fontSize={isNarrow ? '1.125rem' : '1.25rem'}
-              fontWeight={isNarrow ? 600 : 700}
+              fontSize={isCompactView ? '1.125rem' : '1.25rem'}
+              fontWeight={isCompactView ? 600 : 700}
             >
               {currentNavItem?.label}
             </Typography>
           </UHStack>
-          {isNarrow && (
+          {isCompactView && (
             <Link href={resolveRouteUrl({ name: RouteName.Account })}>
               <UIconButton variant="text" color="inherit">
                 <BackIcon

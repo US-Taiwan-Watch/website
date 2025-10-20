@@ -59,7 +59,7 @@ const AccountNotificationSettingDialog = memo(
     const { t } = useTranslationClient('account')
     const { form, handleSubmit: submitForm } = useAccountNotificationSetting()
     const { isMutating } = useAccount()
-    const { isNarrow } = useAccountLayout()
+    const { isCompactView } = useAccountLayout()
 
     const handleSubmit = useCallback(
       async (value: AccountNotificationSettingOutput) => {
@@ -194,7 +194,7 @@ const AccountNotificationSettingDialog = memo(
                 disabled={isMutating}
                 sx={{
                   mt: 3,
-                  width: isNarrow ? '100%' : 'auto',
+                  width: isCompactView ? '100%' : 'auto',
                 }}
               >
                 {isMutating ? (

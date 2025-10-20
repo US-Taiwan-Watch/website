@@ -10,13 +10,13 @@ import { useEffect } from 'react'
 export default function AccountPage() {
   const router = useRouter()
   const { resolveRouteUrl } = useURouterClient()
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   useEffect(() => {
-    if (!isNarrow) {
+    if (!isCompactView) {
       router.push(resolveRouteUrl({ name: RouteName.AccountSubscribe }))
     }
-  }, [isNarrow, router, resolveRouteUrl])
+  }, [isCompactView, router, resolveRouteUrl])
 
   return (
     <AccountLayout>

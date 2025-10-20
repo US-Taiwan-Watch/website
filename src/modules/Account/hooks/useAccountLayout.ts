@@ -19,8 +19,8 @@ export default function useAccountLayout() {
     return pathname.replace(regex, '')
   }, [lang, pathname])
 
-  const isNarrow = useMediaQuery((theme: USTWTheme) =>
-    theme.breakpoints.down('lg')
+  const isCompactView = useMediaQuery((theme: USTWTheme) =>
+    theme.breakpoints.down('md')
   )
 
   /**
@@ -28,7 +28,7 @@ export default function useAccountLayout() {
    * Mobile 和 Tablet 在 /account/... 時不顯示側邊欄
    */
   const withSidebar = useMemo(() => {
-    if (isNarrow) {
+    if (isCompactView) {
       return ![
         resolveRouteUrl({ name: RouteName.AccountSubscribe }),
         resolveRouteUrl({ name: RouteName.AccountSetting }),
@@ -37,39 +37,39 @@ export default function useAccountLayout() {
       ].includes(pathnameWithoutLang)
     }
     return true
-  }, [isNarrow, pathnameWithoutLang, resolveRouteUrl])
+  }, [isCompactView, pathnameWithoutLang, resolveRouteUrl])
 
   /**
    * 是否顯示內容
    * Mobile 和 Tablet 在 /account 時不顯示內容
    */
   const withContent = useMemo(() => {
-    if (isNarrow) {
+    if (isCompactView) {
       return (
         pathnameWithoutLang !== resolveRouteUrl({ name: RouteName.Account })
       )
     }
     return true
-  }, [isNarrow, pathnameWithoutLang, resolveRouteUrl])
+  }, [isCompactView, pathnameWithoutLang, resolveRouteUrl])
 
   /**
    * 背景顏色
    */
   const backgroundColor = useMemo(() => {
     if (
-      isNarrow &&
+      isCompactView &&
       pathnameWithoutLang === resolveRouteUrl({ name: RouteName.Account })
     )
       return '#F3F3F3'
-    if (isNarrow) return '#E0E0E0'
+    if (isCompactView) return '#E0E0E0'
     return '#C0C5C8'
-  }, [isNarrow, pathnameWithoutLang, resolveRouteUrl])
+  }, [isCompactView, pathnameWithoutLang, resolveRouteUrl])
 
   return {
     withSidebar,
     withContent,
     backgroundColor,
     pathnameWithoutLang,
-    isNarrow,
+    isCompactView,
   }
 }

@@ -98,7 +98,7 @@ const DeleteAccount = styled(Box)(({ theme }) => ({
 export default function AccountSidebar() {
   const { t } = useTranslationClient('account')
   const { navItems, currentNavItem } = useAccountNavItems()
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
   const [joinDate, setJoinDate] = useState('')
   useEffect(() => {
     setJoinDate(DateUtils.formatLocal(undefined, JOIN_DATE_FORMAT))
@@ -115,12 +115,12 @@ export default function AccountSidebar() {
   return (
     <SidebarContainer
       sx={{
-        ...(isNarrow && { width: '100%' }),
+        ...(isCompactView && { width: '100%' }),
       }}
     >
       <ProfileCard
         sx={{
-          ...(isNarrow && {
+          ...(isCompactView && {
             backgroundColor: 'transparent',
             border: 'none',
             padding: 0,
@@ -129,14 +129,14 @@ export default function AccountSidebar() {
       >
         <ProfileInfo>
           <Stack
-            direction={isNarrow ? 'row' : 'column'}
+            direction={isCompactView ? 'row' : 'column'}
             spacing={1.75}
-            alignItems={isNarrow ? 'center' : 'flex-start'}
+            alignItems={isCompactView ? 'center' : 'flex-start'}
           >
             <Avatar
               sx={{
-                width: isNarrow ? 54 : 64,
-                height: isNarrow ? 54 : 64,
+                width: isCompactView ? 54 : 64,
+                height: isCompactView ? 54 : 64,
                 color: 'common.black',
               }}
               alt={account.fullName ?? 'User Avatar'}
@@ -168,7 +168,7 @@ export default function AccountSidebar() {
       <NavContainer
         flex={1}
         sx={{
-          ...(isNarrow && {
+          ...(isCompactView && {
             backgroundColor: 'transparent',
             border: 'none',
             padding: 0,
@@ -181,7 +181,7 @@ export default function AccountSidebar() {
               <NavItemBase
                 active={currentNavItem?.href === item.href}
                 sx={{
-                  ...(isNarrow && {
+                  ...(isCompactView && {
                     color: 'common.black',
                     backgroundColor: 'transparent',
                     '& .MuiSvgIcon-root': {
@@ -201,7 +201,7 @@ export default function AccountSidebar() {
           <NavItemBase
             onClick={handleLogout}
             sx={{
-              ...(isNarrow && {
+              ...(isCompactView && {
                 color: 'common.black',
                 backgroundColor: 'transparent',
                 '& .MuiSvgIcon-root': {

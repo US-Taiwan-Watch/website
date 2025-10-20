@@ -22,7 +22,7 @@ export default function AccountChangePasswordForm() {
   const { t } = useTranslationClient('account')
   const { form, handleSubmit: submitForm } = useAccountChangePassword()
   const { isMutating } = useAccount()
-  const { isNarrow } = useAccountLayout()
+  const { isCompactView } = useAccountLayout()
 
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -56,7 +56,7 @@ export default function AccountChangePasswordForm() {
         mb={3}
         sx={{
           whiteSpace: 'pre-line',
-          textAlign: isNarrow ? 'center' : 'left',
+          textAlign: isCompactView ? 'center' : 'left',
         }}
       >
         {t('changePassword.description')}
@@ -136,7 +136,7 @@ export default function AccountChangePasswordForm() {
             rounded
             sx={{
               mt: 3,
-              width: isNarrow ? '100%' : 'auto',
+              width: isCompactView ? '100%' : 'auto',
             }}
           >
             {isMutating ? (
