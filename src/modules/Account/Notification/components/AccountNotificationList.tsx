@@ -54,6 +54,7 @@ const AccountNotificationList = memo(function AccountNotificationList() {
   const account = useAccountStore.use.account()
   const notifications = useMemo(() => {
     if (!account) return []
+    // TODO: 確認 notifications 是否為另外 query 而非綁在 Query.Me
     return account.notifications
   }, [account])
   const { isNarrow } = useAccountLayout()

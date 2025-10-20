@@ -20,11 +20,15 @@ const documents = {
     "\n  query KetagalanMembers {\n    KetagalanMembers {\n      docs {\n        id\n        i18n {\n          en {\n            name\n            description\n          }\n          zh {\n            name\n            description\n          }\n        }\n        photo {\n          url\n        }\n        type\n        name\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n": types.KetagalanMembersDocument,
     "\n  query UstwProjects {\n    UstwProjects {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            description\n          }\n          zh {\n            title\n            description\n          }\n        }\n        photo {\n          url\n        }\n        title\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n": types.UstwProjectsDocument,
     "\n  query KetagalanProjects {\n    KetagalanProjects {\n      docs {\n        id\n        i18n {\n          en {\n            title\n            description\n          }\n          zh {\n            title\n            description\n          }\n        }\n        photo {\n          url\n        }\n        title\n        description\n        updatedAt\n        createdAt\n      }\n    }\n  }\n": types.KetagalanProjectsDocument,
-    "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notifications\n      provider\n    }\n  }\n\n  \n  \n  \n  \n": types.MeDocument,
+    "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notificationSetting {\n        subscribedBillUpdate\n        podcastRelease\n        ustwArticleRelease\n        ketagalanArticleRelease\n        newsletter\n      }\n      providerId\n    }\n  }\n\n  \n  \n  \n  \n": types.MeDocument,
     "\n  mutation SubscribeBill($billId: String!) {\n    subscribeBill(id: $billId) {\n      id\n    }\n  }\n": types.SubscribeBillDocument,
     "\n  mutation SubscribePeople($peopleId: String!) {\n    subscribePeople(id: $peopleId) {\n      id\n    }\n  }\n": types.SubscribePeopleDocument,
     "\n  mutation BookmarkUstwArticle($articleId: String!) {\n    bookmarkUstwArticle(id: $articleId) {\n      id\n    }\n  }\n": types.BookmarkUstwArticleDocument,
     "\n  mutation BookmarkKetagalanArticle($articleId: String!) {\n    bookmarkKetagalanArticle(id: $articleId) {\n      id\n    }\n  }\n": types.BookmarkKetagalanArticleDocument,
+    "\n  mutation UpdateMyName($name: String!) {\n    updateMyName(name: $name) {\n      id\n    }\n  }\n": types.UpdateMyNameDocument,
+    "\n  mutation UpdateMyEmail($email: String!) {\n    updateMyEmail(email: $email) {\n      id\n    }\n  }\n": types.UpdateMyEmailDocument,
+    "\n  mutation UpdateMyPassword($password: String!) {\n    updateMyPassword(password: $password) {\n      id\n    }\n  }\n": types.UpdateMyPasswordDocument,
+    "\n  mutation UpdateMyNotificationSetting(\n    $notificationSetting: mutationMember_NotificationSettingInput!\n  ) {\n    updateMyNotificationSetting(notificationSetting: $notificationSetting) {\n      id\n    }\n  }\n": types.UpdateMyNotificationSettingDocument,
     "\n  fragment CategoriesArticle on CategoriesArticle {\n    id\n    i18n {\n      en {\n        name\n      }\n      zh {\n        name\n      }\n    }\n  }\n": types.CategoriesArticleFragmentDoc,
     "\n  fragment UstwArticleMedia on UstwArticle_Media {\n    photo {\n      id\n      alt\n      url\n      sizes {\n        desktop {\n          url\n        }\n        tablet {\n          url\n        }\n        mobile {\n          url\n        }\n        thumbnail {\n          url\n        }\n      }\n    }\n    caption\n  }\n": types.UstwArticleMediaFragmentDoc,
     "\n  fragment FullUstwArticle on UstwArticle {\n    id\n    title\n    subtitle\n    excerpt\n    content\n    sources {\n      id\n      link\n      text\n    }\n    podcast\n    media {\n      ...UstwArticleMedia\n    }\n    isFeatured\n    releaseTime\n    authors {\n      id\n      name\n      bio\n    }\n    categories {\n      ...CategoriesArticle\n    }\n    tags {\n      ...Tag\n    }\n    updatedAt\n    createdAt\n  }\n\n  \n  \n  \n": types.FullUstwArticleFragmentDoc,
@@ -122,7 +126,7 @@ export function gql(source: "\n  query KetagalanProjects {\n    KetagalanProject
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notifications\n      provider\n    }\n  }\n\n  \n  \n  \n  \n"): (typeof documents)["\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notifications\n      provider\n    }\n  }\n\n  \n  \n  \n  \n"];
+export function gql(source: "\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notificationSetting {\n        subscribedBillUpdate\n        podcastRelease\n        ustwArticleRelease\n        ketagalanArticleRelease\n        newsletter\n      }\n      providerId\n    }\n  }\n\n  \n  \n  \n  \n"): (typeof documents)["\n  query Me {\n    Me {\n      fullName\n      email\n      subscribeBills {\n        ...FullBill\n      }\n      subscribePeoples {\n        ...FullPeople\n      }\n      bookmarkUstwArticles {\n        ...FullUstwArticle\n      }\n      bookmarkKetagalanArticles {\n        ...FullKetagalanArticle\n      }\n      notificationSetting {\n        subscribedBillUpdate\n        podcastRelease\n        ustwArticleRelease\n        ketagalanArticleRelease\n        newsletter\n      }\n      providerId\n    }\n  }\n\n  \n  \n  \n  \n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
@@ -139,6 +143,22 @@ export function gql(source: "\n  mutation BookmarkUstwArticle($articleId: String
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation BookmarkKetagalanArticle($articleId: String!) {\n    bookmarkKetagalanArticle(id: $articleId) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation BookmarkKetagalanArticle($articleId: String!) {\n    bookmarkKetagalanArticle(id: $articleId) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateMyName($name: String!) {\n    updateMyName(name: $name) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateMyName($name: String!) {\n    updateMyName(name: $name) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateMyEmail($email: String!) {\n    updateMyEmail(email: $email) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateMyEmail($email: String!) {\n    updateMyEmail(email: $email) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateMyPassword($password: String!) {\n    updateMyPassword(password: $password) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateMyPassword($password: String!) {\n    updateMyPassword(password: $password) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation UpdateMyNotificationSetting(\n    $notificationSetting: mutationMember_NotificationSettingInput!\n  ) {\n    updateMyNotificationSetting(notificationSetting: $notificationSetting) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation UpdateMyNotificationSetting(\n    $notificationSetting: mutationMember_NotificationSettingInput!\n  ) {\n    updateMyNotificationSetting(notificationSetting: $notificationSetting) {\n      id\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

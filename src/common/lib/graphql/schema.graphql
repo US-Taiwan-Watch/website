@@ -1187,7 +1187,7 @@ type Member {
   subscribePeoples: [People!]
   bookmarkUstwArticles: [UstwArticle!]
   bookmarkKetagalanArticles: [KetagalanArticle!]
-  notifications: JSON
+  notificationSetting: Member_NotificationSetting
   updatedAt: DateTime
   createdAt: DateTime
 }
@@ -2676,6 +2676,14 @@ type CategoriesKetagalan_I18n_En {
 
 type CategoriesKetagalan_I18n_Zh {
   name: String
+}
+
+type Member_NotificationSetting {
+  subscribedBillUpdate: Boolean
+  podcastRelease: Boolean
+  ustwArticleRelease: Boolean
+  ketagalanArticleRelease: Boolean
+  newsletter: Boolean
 }
 
 enum TaiwanRecord_status {
@@ -27649,7 +27657,11 @@ input Member_where {
   subscribePeoples: Member_subscribePeoples_operator
   bookmarkUstwArticles: Member_bookmarkUstwArticles_operator
   bookmarkKetagalanArticles: Member_bookmarkKetagalanArticles_operator
-  notifications: Member_notifications_operator
+  notificationSetting__subscribedBillUpdate: Member_notificationSetting__subscribedBillUpdate_operator
+  notificationSetting__podcastRelease: Member_notificationSetting__podcastRelease_operator
+  notificationSetting__ustwArticleRelease: Member_notificationSetting__ustwArticleRelease_operator
+  notificationSetting__ketagalanArticleRelease: Member_notificationSetting__ketagalanArticleRelease_operator
+  notificationSetting__newsletter: Member_notificationSetting__newsletter_operator
   updatedAt: Member_updatedAt_operator
   createdAt: Member_createdAt_operator
   id: Member_id_operator
@@ -27735,13 +27747,33 @@ input Member_bookmarkKetagalanArticles_operator {
   exists: Boolean
 }
 
-input Member_notifications_operator {
-  equals: JSON
-  not_equals: JSON
-  like: JSON
-  contains: JSON
-  within: JSON
-  intersects: JSON
+input Member_notificationSetting__subscribedBillUpdate_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Member_notificationSetting__podcastRelease_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Member_notificationSetting__ustwArticleRelease_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Member_notificationSetting__ketagalanArticleRelease_operator {
+  equals: Boolean
+  not_equals: Boolean
+  exists: Boolean
+}
+
+input Member_notificationSetting__newsletter_operator {
+  equals: Boolean
+  not_equals: Boolean
   exists: Boolean
 }
 
@@ -27787,7 +27819,11 @@ input Member_where_and {
   subscribePeoples: Member_subscribePeoples_operator
   bookmarkUstwArticles: Member_bookmarkUstwArticles_operator
   bookmarkKetagalanArticles: Member_bookmarkKetagalanArticles_operator
-  notifications: Member_notifications_operator
+  notificationSetting__subscribedBillUpdate: Member_notificationSetting__subscribedBillUpdate_operator
+  notificationSetting__podcastRelease: Member_notificationSetting__podcastRelease_operator
+  notificationSetting__ustwArticleRelease: Member_notificationSetting__ustwArticleRelease_operator
+  notificationSetting__ketagalanArticleRelease: Member_notificationSetting__ketagalanArticleRelease_operator
+  notificationSetting__newsletter: Member_notificationSetting__newsletter_operator
   updatedAt: Member_updatedAt_operator
   createdAt: Member_createdAt_operator
   id: Member_id_operator
@@ -27804,7 +27840,11 @@ input Member_where_or {
   subscribePeoples: Member_subscribePeoples_operator
   bookmarkUstwArticles: Member_bookmarkUstwArticles_operator
   bookmarkKetagalanArticles: Member_bookmarkKetagalanArticles_operator
-  notifications: Member_notifications_operator
+  notificationSetting__subscribedBillUpdate: Member_notificationSetting__subscribedBillUpdate_operator
+  notificationSetting__podcastRelease: Member_notificationSetting__podcastRelease_operator
+  notificationSetting__ustwArticleRelease: Member_notificationSetting__ustwArticleRelease_operator
+  notificationSetting__ketagalanArticleRelease: Member_notificationSetting__ketagalanArticleRelease_operator
+  notificationSetting__newsletter: Member_notificationSetting__newsletter_operator
   updatedAt: Member_updatedAt_operator
   createdAt: Member_createdAt_operator
   id: Member_id_operator
@@ -27833,7 +27873,7 @@ type MembersDocAccessFields {
   subscribePeoples: MembersDocAccessFields_subscribePeoples
   bookmarkUstwArticles: MembersDocAccessFields_bookmarkUstwArticles
   bookmarkKetagalanArticles: MembersDocAccessFields_bookmarkKetagalanArticles
-  notifications: MembersDocAccessFields_notifications
+  notificationSetting: MembersDocAccessFields_notificationSetting
   updatedAt: MembersDocAccessFields_updatedAt
   createdAt: MembersDocAccessFields_createdAt
 }
@@ -28022,26 +28062,150 @@ type MembersDocAccessFields_bookmarkKetagalanArticles_Delete {
   permission: Boolean!
 }
 
-type MembersDocAccessFields_notifications {
-  create: MembersDocAccessFields_notifications_Create
-  read: MembersDocAccessFields_notifications_Read
-  update: MembersDocAccessFields_notifications_Update
-  delete: MembersDocAccessFields_notifications_Delete
+type MembersDocAccessFields_notificationSetting {
+  create: MembersDocAccessFields_notificationSetting_Create
+  read: MembersDocAccessFields_notificationSetting_Read
+  update: MembersDocAccessFields_notificationSetting_Update
+  delete: MembersDocAccessFields_notificationSetting_Delete
+  fields: MembersDocAccessFields_notificationSetting_Fields
 }
 
-type MembersDocAccessFields_notifications_Create {
+type MembersDocAccessFields_notificationSetting_Create {
   permission: Boolean!
 }
 
-type MembersDocAccessFields_notifications_Read {
+type MembersDocAccessFields_notificationSetting_Read {
   permission: Boolean!
 }
 
-type MembersDocAccessFields_notifications_Update {
+type MembersDocAccessFields_notificationSetting_Update {
   permission: Boolean!
 }
 
-type MembersDocAccessFields_notifications_Delete {
+type MembersDocAccessFields_notificationSetting_Delete {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_Fields {
+  subscribedBillUpdate: MembersDocAccessFields_notificationSetting_subscribedBillUpdate
+  podcastRelease: MembersDocAccessFields_notificationSetting_podcastRelease
+  ustwArticleRelease: MembersDocAccessFields_notificationSetting_ustwArticleRelease
+  ketagalanArticleRelease: MembersDocAccessFields_notificationSetting_ketagalanArticleRelease
+  newsletter: MembersDocAccessFields_notificationSetting_newsletter
+}
+
+type MembersDocAccessFields_notificationSetting_subscribedBillUpdate {
+  create: MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Create
+  read: MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Read
+  update: MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Update
+  delete: MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Delete
+}
+
+type MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Create {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Read {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Update {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_subscribedBillUpdate_Delete {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_podcastRelease {
+  create: MembersDocAccessFields_notificationSetting_podcastRelease_Create
+  read: MembersDocAccessFields_notificationSetting_podcastRelease_Read
+  update: MembersDocAccessFields_notificationSetting_podcastRelease_Update
+  delete: MembersDocAccessFields_notificationSetting_podcastRelease_Delete
+}
+
+type MembersDocAccessFields_notificationSetting_podcastRelease_Create {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_podcastRelease_Read {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_podcastRelease_Update {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_podcastRelease_Delete {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ustwArticleRelease {
+  create: MembersDocAccessFields_notificationSetting_ustwArticleRelease_Create
+  read: MembersDocAccessFields_notificationSetting_ustwArticleRelease_Read
+  update: MembersDocAccessFields_notificationSetting_ustwArticleRelease_Update
+  delete: MembersDocAccessFields_notificationSetting_ustwArticleRelease_Delete
+}
+
+type MembersDocAccessFields_notificationSetting_ustwArticleRelease_Create {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ustwArticleRelease_Read {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ustwArticleRelease_Update {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ustwArticleRelease_Delete {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ketagalanArticleRelease {
+  create: MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Create
+  read: MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Read
+  update: MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Update
+  delete: MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Delete
+}
+
+type MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Create {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Read {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Update {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_ketagalanArticleRelease_Delete {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_newsletter {
+  create: MembersDocAccessFields_notificationSetting_newsletter_Create
+  read: MembersDocAccessFields_notificationSetting_newsletter_Read
+  update: MembersDocAccessFields_notificationSetting_newsletter_Update
+  delete: MembersDocAccessFields_notificationSetting_newsletter_Delete
+}
+
+type MembersDocAccessFields_notificationSetting_newsletter_Create {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_newsletter_Read {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_newsletter_Update {
+  permission: Boolean!
+}
+
+type MembersDocAccessFields_notificationSetting_newsletter_Delete {
   permission: Boolean!
 }
 
@@ -43073,7 +43237,7 @@ type MembersFields {
   subscribePeoples: MembersFields_subscribePeoples
   bookmarkUstwArticles: MembersFields_bookmarkUstwArticles
   bookmarkKetagalanArticles: MembersFields_bookmarkKetagalanArticles
-  notifications: MembersFields_notifications
+  notificationSetting: MembersFields_notificationSetting
   updatedAt: MembersFields_updatedAt
   createdAt: MembersFields_createdAt
 }
@@ -43262,26 +43426,150 @@ type MembersFields_bookmarkKetagalanArticles_Delete {
   permission: Boolean!
 }
 
-type MembersFields_notifications {
-  create: MembersFields_notifications_Create
-  read: MembersFields_notifications_Read
-  update: MembersFields_notifications_Update
-  delete: MembersFields_notifications_Delete
+type MembersFields_notificationSetting {
+  create: MembersFields_notificationSetting_Create
+  read: MembersFields_notificationSetting_Read
+  update: MembersFields_notificationSetting_Update
+  delete: MembersFields_notificationSetting_Delete
+  fields: MembersFields_notificationSetting_Fields
 }
 
-type MembersFields_notifications_Create {
+type MembersFields_notificationSetting_Create {
   permission: Boolean!
 }
 
-type MembersFields_notifications_Read {
+type MembersFields_notificationSetting_Read {
   permission: Boolean!
 }
 
-type MembersFields_notifications_Update {
+type MembersFields_notificationSetting_Update {
   permission: Boolean!
 }
 
-type MembersFields_notifications_Delete {
+type MembersFields_notificationSetting_Delete {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_Fields {
+  subscribedBillUpdate: MembersFields_notificationSetting_subscribedBillUpdate
+  podcastRelease: MembersFields_notificationSetting_podcastRelease
+  ustwArticleRelease: MembersFields_notificationSetting_ustwArticleRelease
+  ketagalanArticleRelease: MembersFields_notificationSetting_ketagalanArticleRelease
+  newsletter: MembersFields_notificationSetting_newsletter
+}
+
+type MembersFields_notificationSetting_subscribedBillUpdate {
+  create: MembersFields_notificationSetting_subscribedBillUpdate_Create
+  read: MembersFields_notificationSetting_subscribedBillUpdate_Read
+  update: MembersFields_notificationSetting_subscribedBillUpdate_Update
+  delete: MembersFields_notificationSetting_subscribedBillUpdate_Delete
+}
+
+type MembersFields_notificationSetting_subscribedBillUpdate_Create {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_subscribedBillUpdate_Read {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_subscribedBillUpdate_Update {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_subscribedBillUpdate_Delete {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_podcastRelease {
+  create: MembersFields_notificationSetting_podcastRelease_Create
+  read: MembersFields_notificationSetting_podcastRelease_Read
+  update: MembersFields_notificationSetting_podcastRelease_Update
+  delete: MembersFields_notificationSetting_podcastRelease_Delete
+}
+
+type MembersFields_notificationSetting_podcastRelease_Create {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_podcastRelease_Read {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_podcastRelease_Update {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_podcastRelease_Delete {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ustwArticleRelease {
+  create: MembersFields_notificationSetting_ustwArticleRelease_Create
+  read: MembersFields_notificationSetting_ustwArticleRelease_Read
+  update: MembersFields_notificationSetting_ustwArticleRelease_Update
+  delete: MembersFields_notificationSetting_ustwArticleRelease_Delete
+}
+
+type MembersFields_notificationSetting_ustwArticleRelease_Create {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ustwArticleRelease_Read {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ustwArticleRelease_Update {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ustwArticleRelease_Delete {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ketagalanArticleRelease {
+  create: MembersFields_notificationSetting_ketagalanArticleRelease_Create
+  read: MembersFields_notificationSetting_ketagalanArticleRelease_Read
+  update: MembersFields_notificationSetting_ketagalanArticleRelease_Update
+  delete: MembersFields_notificationSetting_ketagalanArticleRelease_Delete
+}
+
+type MembersFields_notificationSetting_ketagalanArticleRelease_Create {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ketagalanArticleRelease_Read {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ketagalanArticleRelease_Update {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_ketagalanArticleRelease_Delete {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_newsletter {
+  create: MembersFields_notificationSetting_newsletter_Create
+  read: MembersFields_notificationSetting_newsletter_Read
+  update: MembersFields_notificationSetting_newsletter_Update
+  delete: MembersFields_notificationSetting_newsletter_Delete
+}
+
+type MembersFields_notificationSetting_newsletter_Create {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_newsletter_Read {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_newsletter_Update {
+  permission: Boolean!
+}
+
+type MembersFields_notificationSetting_newsletter_Delete {
   permission: Boolean!
 }
 
@@ -43655,7 +43943,7 @@ type Me {
   subscribePeoples: [People]
   bookmarkUstwArticles: [UstwArticle]
   bookmarkKetagalanArticles: [KetagalanArticle]
-  notifications: JSON
+  notificationSetting: Member_NotificationSetting
 }
 
 type Search {
@@ -43915,6 +44203,12 @@ type Mutation {
   bookmarkKetagalanArticle(id: String!): Member
   subscribeBill(id: String!): Member
   subscribePeople(id: String!): Member
+  updateMyName(name: String!): Member
+  updateMyEmail(email: String!): Member
+  updateMyPassword(password: String!): Member
+  updateMyNotificationSetting(
+    notificationSetting: mutationMember_NotificationSettingInput
+  ): Member
 }
 
 input mutationPeopleInput {
@@ -46481,13 +46775,21 @@ input mutationMemberInput {
   subscribePeoples: [String]
   bookmarkUstwArticles: [String]
   bookmarkKetagalanArticles: [String]
-  notifications: JSON
+  notificationSetting: mutationMember_NotificationSettingInput
   updatedAt: String
   createdAt: String
 }
 
 enum Member_provider_MutationInput {
   auth0
+}
+
+input mutationMember_NotificationSettingInput {
+  subscribedBillUpdate: Boolean
+  podcastRelease: Boolean
+  ustwArticleRelease: Boolean
+  ketagalanArticleRelease: Boolean
+  newsletter: Boolean
 }
 
 input mutationMemberUpdateInput {
@@ -46499,13 +46801,21 @@ input mutationMemberUpdateInput {
   subscribePeoples: [String]
   bookmarkUstwArticles: [String]
   bookmarkKetagalanArticles: [String]
-  notifications: JSON
+  notificationSetting: mutationMemberUpdate_NotificationSettingInput
   updatedAt: String
   createdAt: String
 }
 
 enum MemberUpdate_provider_MutationInput {
   auth0
+}
+
+input mutationMemberUpdate_NotificationSettingInput {
+  subscribedBillUpdate: Boolean
+  podcastRelease: Boolean
+  ustwArticleRelease: Boolean
+  ketagalanArticleRelease: Boolean
+  newsletter: Boolean
 }
 
 input mutationPayloadPreferenceInput {

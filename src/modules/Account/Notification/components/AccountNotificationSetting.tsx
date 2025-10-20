@@ -13,12 +13,12 @@ import {
   DialogProps,
   DialogTitle,
   Stack,
-  TextField,
   Typography,
 } from '@mui/material'
 import { memo, useCallback, useState } from 'react'
 import { Controller } from 'react-hook-form'
 import type React from 'react'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 
 const AccountFormItem = ({
   label,
@@ -35,6 +35,7 @@ const AccountFormItem = ({
       gap={1}
       sx={{
         alignItems: direction === 'row' ? 'center' : 'flex-start',
+        justifyContent: direction === 'row' ? 'space-between' : 'initial',
       }}
     >
       <Typography variant="body1" fontWeight={600}>
@@ -55,40 +56,19 @@ const AccountNotificationSettingDialog = memo(
   ) {
     const { onSettingSubmit, ...dialogProps } = props
     const { t } = useTranslationClient('account')
-    const { form } = useAccountNotificationSetting()
-    const [isSubmitting, setIsSubmitting] = useState(false)
+    const { form, handleSubmit: submitForm } = useAccountNotificationSetting()
+    const { isMutating } = useAccount()
 
     const handleSubmit = useCallback(
-      (value: AccountNotificationSettingOutput) => {
-        setIsSubmitting(true)
-        // TODO: update account notification setting
-        setIsSubmitting(false)
+      async (value: AccountNotificationSettingOutput) => {
+        await submitForm(value)
         onSettingSubmit?.(value)
       },
-      [onSettingSubmit]
+      [onSettingSubmit, submitForm]
     )
 
     return (
-      <Dialog
-        {...dialogProps}
-        PaperProps={{
-          sx: {
-            borderRadius: 4,
-            minWidth: {
-              xs: '280px', // Mobile: 280px
-              sm: '400px', // Tablet: 400px
-              md: '480px', // Desktop: 480px
-              lg: '520px', // Large desktop: 520px
-            },
-            maxWidth: {
-              xs: '90vw', // Mobile: 90% of viewport width
-              sm: '500px', // Tablet: 500px max
-              md: '600px', // Desktop: 600px max
-              lg: '650px', // Large desktop: 650px max
-            },
-          },
-        }}
-      >
+      <Dialog {...dialogProps}>
         <DialogTitle>
           {t('notificationSetting.dialog.title', { ns: 'account' })}
         </DialogTitle>
@@ -99,35 +79,98 @@ const AccountNotificationSettingDialog = memo(
             onSubmit={form.handleSubmit(handleSubmit)}
           >
             <AccountFormItem
-              label={t('notificationSetting.email.label', { ns: 'account' })}
-            >
-              <Controller
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <TextField
-                    {...field}
-                    fullWidth
-                    error={Boolean(form.formState.errors.email)}
-                    helperText={form.formState.errors.email?.message}
-                    margin="normal"
-                    color="info"
-                    sx={{
-                      my: 0,
-                    }}
-                  />
-                )}
-              />
-            </AccountFormItem>
-            <AccountFormItem
-              label={t('notificationSetting.subscribeNewsletter.label', {
+              label={t('notificationSetting.subscribedBillUpdate.label', {
                 ns: 'account',
               })}
               direction="row"
             >
               <Controller
                 control={form.control}
-                name="subscribeNewsletter"
+                name="subscribedBillUpdate"
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    onChange={(_e, checked) => {
+                      field.onChange(checked)
+                    }}
+                    color="info"
+                  />
+                )}
+              />
+            </AccountFormItem>
+            <AccountFormItem
+              label={t('notificationSetting.podcastRelease.label', {
+                ns: 'account',
+              })}
+              direction="row"
+            >
+              <Controller
+                control={form.control}
+                name="podcastRelease"
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    onChange={(_e, checked) => {
+                      field.onChange(checked)
+                    }}
+                    color="info"
+                  />
+                )}
+              />
+            </AccountFormItem>
+            <AccountFormItem
+              label={t('notificationSetting.ustwArticleRelease.label', {
+                ns: 'account',
+              })}
+              direction="row"
+            >
+              <Controller
+                control={form.control}
+                name="ustwArticleRelease"
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    onChange={(_e, checked) => {
+                      field.onChange(checked)
+                    }}
+                    color="info"
+                  />
+                )}
+              />
+            </AccountFormItem>
+            <AccountFormItem
+              label={t('notificationSetting.ketagalanArticleRelease.label', {
+                ns: 'account',
+              })}
+              direction="row"
+            >
+              <Controller
+                control={form.control}
+                name="ketagalanArticleRelease"
+                render={({ field }) => (
+                  <Checkbox
+                    {...field}
+                    checked={field.value}
+                    onChange={(_e, checked) => {
+                      field.onChange(checked)
+                    }}
+                    color="info"
+                  />
+                )}
+              />
+            </AccountFormItem>
+            <AccountFormItem
+              label={t('notificationSetting.newsletter.label', {
+                ns: 'account',
+              })}
+              direction="row"
+            >
+              <Controller
+                control={form.control}
+                name="newsletter"
                 render={({ field }) => (
                   <Checkbox
                     {...field}
@@ -146,7 +189,7 @@ const AccountNotificationSettingDialog = memo(
                 type="submit"
                 variant="contained"
                 color="info"
-                disabled={isSubmitting}
+                disabled={isMutating}
                 sx={{
                   mt: 3,
                   width: {
@@ -155,7 +198,7 @@ const AccountNotificationSettingDialog = memo(
                   },
                 }}
               >
-                {isSubmitting ? (
+                {isMutating ? (
                   <>
                     <CircularProgress color="info" size={20} sx={{ mr: 1 }} />
                     {t('notificationSetting.submitting.msg', { ns: 'account' })}
