@@ -54,6 +54,10 @@ export default function AccountChangePasswordForm() {
         mb={3}
         sx={{
           whiteSpace: 'pre-line',
+          textAlign: {
+            xs: 'center',
+            sm: 'left',
+          },
         }}
       >
         {t('changePassword.description')}
