@@ -1,9 +1,10 @@
-import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { usePathname, useParams } from 'next/navigation'
 import { useMemo } from 'react'
 import { Language } from '@/common/lib/i18n/types'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
+import { USTWTheme } from '@/common/lib/mui/theme'
+import { useMediaQuery } from '@mui/material'
 
 /**
  * 是否顯示相關介面
@@ -12,16 +13,15 @@ import { RouteName } from '@/common/lib/router/routes'
 export default function useAccountLayout() {
   const { lang } = useParams<{ lang: Language }>()
   const { resolveRouteUrl } = useURouterClient()
-  const { isMobile } = useResponsive()
   const pathname = usePathname()
   const pathnameWithoutLang = useMemo(() => {
     const regex = new RegExp(`^/${lang}`)
     return pathname.replace(regex, '')
   }, [lang, pathname])
 
-  const isNarrow = useMemo(() => {
-    return isMobile
-  }, [isMobile])
+  const isNarrow = useMediaQuery((theme: USTWTheme) =>
+    theme.breakpoints.down('lg')
+  )
 
   /**
    * 是否顯示側邊欄

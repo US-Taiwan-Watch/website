@@ -15,7 +15,7 @@ const JOIN_DATE_FORMAT = 'YYYY/MM/DD'
 
 const SidebarContainer = styled(Stack)(({ theme }) => ({
   gap: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('lg')]: {
     width: '100%',
   },
 }))
@@ -24,7 +24,7 @@ const ProfileCard = styled(Box)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(2, 2.5, 1.5),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('lg')]: {
     backgroundColor: 'transparent',
     border: 'none',
     padding: 0,
@@ -52,7 +52,7 @@ const NavContainer = styled(Box)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(2.5),
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('lg')]: {
     backgroundColor: 'transparent',
     border: 'none',
     padding: 0,
@@ -88,7 +88,7 @@ const NavItemBase = styled('div')<{ active?: boolean }>(
         color: theme.color.common.black,
       },
     },
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down('lg')]: {
       color: theme.color.common.black,
       backgroundColor: 'transparent',
       '& .MuiSvgIcon-root': {

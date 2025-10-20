@@ -18,7 +18,8 @@ const AccountContentWrapper = styled(Box)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
   borderRadius: '15px',
   padding: theme.spacing(0),
-  [theme.breakpoints.down('sm')]: {
+  width: '100%',
+  [theme.breakpoints.down('lg')]: {
     backgroundColor: 'transparent',
   },
 }))
@@ -43,15 +44,19 @@ export default function AccountContent({
         direction={isNarrow ? 'column' : 'row'}
         justifyContent="space-between"
         sx={{
-          backgroundColor: isNarrow ? 'neutral.100' : 'grey.4300',
-          px: isNarrow ? 2 : 8,
+          backgroundColor: isNarrow ? 'transparent' : 'grey.4300',
+          px: isNarrow ? 0 : 8,
           py: 2.5,
           pt: isNarrow ? 0 : 2.5,
           borderTopLeftRadius: '15px',
           borderTopRightRadius: '15px',
         }}
       >
-        <UHStack justifyContent="space-between" alignItems="center">
+        <UHStack
+          justifyContent="space-between"
+          alignItems="center"
+          px={isNarrow ? 2 : 0}
+        >
           <UHStack alignItems="center" gap={1}>
             {currentNavItem?.icon}
             <Typography

@@ -1,16 +1,22 @@
-import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
-import getURouterServer from '@/common/lib/router/getURouterServer'
+'use client'
+
 import { RouteName } from '@/common/lib/router/routes'
+import useURouterClient from '@/common/lib/router/useURouterClient'
 import AccountLayout from '@/modules/Account/components/AccountLayout'
-import { redirect } from 'next/navigation'
+import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
-export default async function AccountPage() {
-  const { resolveRouteUrl } = getURouterServer()
-  const { isMobile, isTablet } = await getServerDevice()
+export default function AccountPage() {
+  const router = useRouter()
+  const { resolveRouteUrl } = useURouterClient()
+  const { isNarrow } = useAccountLayout()
 
-  if (!isMobile && !isTablet) {
-    redirect(resolveRouteUrl({ name: RouteName.AccountSubscribe }))
-  }
+  useEffect(() => {
+    if (!isNarrow) {
+      router.push(resolveRouteUrl({ name: RouteName.AccountSubscribe }))
+    }
+  }, [isNarrow, router, resolveRouteUrl])
 
   return (
     <AccountLayout>

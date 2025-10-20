@@ -53,7 +53,15 @@ const AccountSettingForm = () => {
 
   return (
     <Box
-      sx={{ px: 4, py: 2, display: 'flex', flexDirection: 'column', gap: 1 }}
+      sx={{
+        px: 4,
+        py: 2,
+        backgroundColor: 'background.paper',
+        borderRadius: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 1,
+      }}
       component="form"
       onSubmit={form.handleSubmit(handleSubmit)}
     >
