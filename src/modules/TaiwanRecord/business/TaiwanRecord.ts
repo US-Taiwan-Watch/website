@@ -5,13 +5,6 @@ import {
   TaiwanRecord as TaiwanRecordDTO,
 } from '@/common/lib/graphql/__generated__/graphql'
 
-export interface Sources {
-  links: Array<string>
-}
-const sourcesSchema = z.object({
-  from: z.string(),
-  links: z.array(z.string()),
-})
 const imagesSchema = z.array(z.string())
 
 export const taiwanRecordSchema = z.object({
@@ -21,11 +14,47 @@ export const taiwanRecordSchema = z.object({
   images: imagesSchema.optional(),
   createdAt: z.string().datetime().optional(),
   author: z.string().optional(),
-  sources: sourcesSchema.optional(),
+  sources: z.array(z.string()),
   status: z.nativeEnum(TaiwanRecordStatus).optional(),
 })
 
 export type TaiwanRecord = z.infer<typeof taiwanRecordSchema>
+
+export const taiwanRecordCreateSchema = taiwanRecordSchema.pick({
+  title: true,
+  content: true,
+  images: true,
+  sources: true,
+})
+
+export type TaiwanRecordCreateInput = z.input<typeof taiwanRecordCreateSchema>
+export type TaiwanRecordCreateOutput = z.infer<typeof taiwanRecordCreateSchema>
+
+export const defaultTaiwanRecordCreate: TaiwanRecordCreateInput = {
+  title: '',
+  content: '',
+  images: [],
+  sources: [],
+}
+
+export const taiwanRecordUpdateSchema = taiwanRecordSchema.pick({
+  id: true,
+  title: true,
+  content: true,
+  images: true,
+  sources: true,
+})
+
+export type TaiwanRecordUpdateInput = z.input<typeof taiwanRecordUpdateSchema>
+export type TaiwanRecordUpdateOutput = z.infer<typeof taiwanRecordUpdateSchema>
+
+export const defaultTaiwanRecordUpdate: TaiwanRecordUpdateInput = {
+  id: '',
+  title: '',
+  content: '',
+  images: [],
+  sources: [],
+}
 
 export class TaiwanRecordUtils {
   static parse(dto: TaiwanRecordDTO) {
@@ -37,10 +66,7 @@ export class TaiwanRecordUtils {
         dto.photos?.map((photo) => photo.photo?.url).filter(isString) ?? [],
       createdAt: dto.createdAt ?? '',
       author: dto.author?.fullName ?? '',
-      sources: {
-        from: '',
-        links: dto.sources?.map((source) => source.link).filter(isString) ?? [],
-      },
+      sources: dto.sources?.map((source) => source.link).filter(isString) ?? [],
       status: dto.status,
     })
   }
