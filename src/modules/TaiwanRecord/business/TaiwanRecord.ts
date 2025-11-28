@@ -5,16 +5,21 @@ import {
   TaiwanRecord as TaiwanRecordDTO,
 } from '@/common/lib/graphql/__generated__/graphql'
 
-const imagesSchema = z.array(z.string())
+export const LENGTH_CONSTRAINTS = {
+  title: 100, // 100 characters
+  content: 1000, // 1000 characters
+  images: 10, // 10 images
+  sources: 10, // 10 sources
+} as const
 
 export const taiwanRecordSchema = z.object({
   id: z.string().optional(),
-  title: z.string().optional(),
-  content: z.string().optional(),
-  images: imagesSchema.optional(),
+  title: z.string().max(LENGTH_CONSTRAINTS.title).optional(),
+  content: z.string().max(LENGTH_CONSTRAINTS.content).optional(),
+  images: z.array(z.string()).max(LENGTH_CONSTRAINTS.images).optional(),
   createdAt: z.string().datetime().optional(),
   author: z.string().optional(),
-  sources: z.array(z.string()),
+  sources: z.array(z.string()).max(LENGTH_CONSTRAINTS.sources),
   status: z.nativeEnum(TaiwanRecordStatus).optional(),
 })
 
@@ -48,7 +53,7 @@ export const taiwanRecordUpdateSchema = taiwanRecordSchema.pick({
 export type TaiwanRecordUpdateInput = z.input<typeof taiwanRecordUpdateSchema>
 export type TaiwanRecordUpdateOutput = z.infer<typeof taiwanRecordUpdateSchema>
 
-export const defaultTaiwanRecordUpdate: TaiwanRecordUpdateInput = {
+export const defaultTaiwanRecordUpdate: TaiwanRecordUpdateOutput = {
   id: '',
   title: '',
   content: '',

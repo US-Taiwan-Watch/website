@@ -13,6 +13,8 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
   const { mode, ...dialogProps } = props
   const { t } = useTranslationClient(['taiwan_record'])
 
+  // const { form, handleReset, handleSubmit } = useTaiwanRecordForm({ mode })
+
   const title = useMemo(() => {
     return mode === 'create'
       ? t('dialog.create.title', { ns: 'taiwan_record' })
