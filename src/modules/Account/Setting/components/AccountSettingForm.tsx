@@ -1,19 +1,8 @@
 import UButton from '@/common/components/atoms/UButton'
-import UImageUploader from '@/common/components/elements/UImageUploader'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useAccountSetting from '@/modules/Account/Setting/hooks/useAccountSetting'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
-import {
-  Avatar,
-  Box,
-  CircularProgress,
-  Stack,
-  TextField,
-  Typography,
-} from '@mui/material'
-import { useMemo } from 'react'
+import { Box, CircularProgress, TextField, Typography } from '@mui/material'
 import { Controller } from 'react-hook-form'
-import { Trans } from 'react-i18next'
 import type React from 'react'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
@@ -43,15 +32,9 @@ const AccountFormItem = ({
 
 const AccountSettingForm = () => {
   const { t } = useTranslationClient('account')
-  const account = useAccountStore.use.account()
   const { isMutating } = useAccount()
   const { form, handleSubmit } = useAccountSetting()
   const { isCompactView } = useAccountLayout()
-
-  const existingAvatarSrc = useMemo(() => {
-    if (!account) return undefined
-    return account.picture
-  }, [account])
 
   return (
     <Box
@@ -103,55 +86,6 @@ const AccountSettingForm = () => {
                 my: 0,
               }}
             />
-          )}
-        />
-      </AccountFormItem>
-      <AccountFormItem label={t('setting.avatar.label', { ns: 'account' })}>
-        <Controller
-          control={form.control}
-          name="avatarBlob"
-          render={({ field }) => (
-            <Box ref={field.ref}>
-              <UImageUploader
-                value={field.value}
-                onChange={(value) => {
-                  if (!value) {
-                    field.onChange(undefined)
-                    return
-                  }
-                  field.onChange(value)
-                }}
-                enableCrop
-                cropAspectRatio={1}
-                cropDialogTitle={t('setting.avatar.dialog.title', {
-                  ns: 'account',
-                })}
-                caption={
-                  existingAvatarSrc ? (
-                    <Stack gap={0.5} alignItems="center">
-                      <Trans
-                        i18nKey="setting.avatar.upload.caption.replace"
-                        ns="account"
-                        components={{
-                          Avatar: (
-                            <Avatar
-                              sx={{
-                                width: 24,
-                                height: 24,
-                                color: 'common.black',
-                              }}
-                              src={existingAvatarSrc}
-                            />
-                          ),
-                        }}
-                      />
-                    </Stack>
-                  ) : (
-                    t('setting.avatar.upload.caption.create', { ns: 'account' })
-                  )
-                }
-              />
-            </Box>
           )}
         />
       </AccountFormItem>
