@@ -13,7 +13,9 @@ export const accountNotificationSchema = z.object({
 export type AccountNotification = z.infer<typeof accountNotificationSchema>
 
 export const accountNotificationSettingSchema = z.object({
+  subscribedPeopleUpdate: z.boolean(),
   subscribedBillUpdate: z.boolean(),
+  billRelease: z.boolean(),
   podcastRelease: z.boolean(),
   ustwArticleRelease: z.boolean(),
   ketagalanArticleRelease: z.boolean(),
@@ -32,7 +34,9 @@ export const getDefaultAccountNotificationSettingInput = (
 ): AccountNotificationSettingInput => {
   if (!account)
     return {
+      subscribedPeopleUpdate: false,
       subscribedBillUpdate: false,
+      billRelease: false,
       podcastRelease: false,
       ustwArticleRelease: false,
       ketagalanArticleRelease: false,
