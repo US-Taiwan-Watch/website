@@ -26,17 +26,17 @@ import TaiwanRecordSourceManager from '@/modules/TaiwanRecord/components/TaiwanR
 
 type TaiwanRecordDialogProps = DialogProps & {
   mode: TaiwanRecordFormMode
-  record?: TaiwanRecord
+  taiwanRecord?: TaiwanRecord
 }
 
 export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
-  const { mode, record, ...dialogProps } = props
+  const { mode, taiwanRecord, ...dialogProps } = props
   const { t } = useTranslationClient(['taiwan_record', 'common'])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const { form, handleReset, handleSubmit } = useTaiwanRecordForm({
     mode,
-    record,
+    taiwanRecord,
   })
 
   const title = useMemo(() => {
