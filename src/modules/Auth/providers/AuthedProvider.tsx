@@ -34,28 +34,28 @@ export default function AuthedProvider({
   const router = useRouter()
   const { resolveRouteUrl } = useURouterClient()
   const { login } = useUAuth()
-  const { isLoadingAccount, account } = useAccount()
+  const { isAccountLoading, account } = useAccount()
 
   useEffect(() => {
-    if (!account && !isLoadingAccount) {
-      switch (unAuthedAction) {
-        case 'login':
-          if (!redirectToSamePage) {
-            login()
-            return
-          }
-          login({
-            returnTo: window.location.pathname + window.location.search,
-          })
-          break
-        case 'home':
-          router.push(resolveRouteUrl({ name: RouteName.Home }))
-          break
-      }
+    if (isAccountLoading) return
+    if (account) return
+    switch (unAuthedAction) {
+      case 'login':
+        if (!redirectToSamePage) {
+          login()
+          return
+        }
+        login({
+          returnTo: window.location.pathname + window.location.search,
+        })
+        break
+      case 'home':
+        router.push(resolveRouteUrl({ name: RouteName.Home }))
+        break
     }
   }, [
     account,
-    isLoadingAccount,
+    isAccountLoading,
     login,
     unAuthedAction,
     redirectToSamePage,
@@ -63,7 +63,7 @@ export default function AuthedProvider({
     resolveRouteUrl,
   ])
 
-  if (isLoadingAccount)
+  if (isAccountLoading)
     return (
       <Box
         sx={{
