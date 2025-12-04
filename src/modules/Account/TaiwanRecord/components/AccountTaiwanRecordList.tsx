@@ -49,7 +49,7 @@ const AccountTaiwanRecordListItem = memo(function AccountTaiwanRecordListItem({
             backgroundColor: 'grey.2600',
           }}
         >
-          {t(`taiwanRecord.type.${taiwanRecord.status}`, { ns: 'account' })}
+          {t(`taiwanRecord.status.${taiwanRecord.status}`, { ns: 'account' })}
         </Box>
         <UHeightLimitedText
           maxLine={2}
