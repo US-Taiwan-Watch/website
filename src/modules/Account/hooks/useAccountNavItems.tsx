@@ -26,6 +26,11 @@ export default function useAccountNavItems() {
         icon: <BookmarkIcon sx={{ width: 24, height: 24 }} />,
       },
       {
+        label: t('navItem.taiwanRecord', { ns: 'account' }),
+        href: resolveRouteUrl({ name: RouteName.AccountTaiwanRecord }),
+        icon: <BookmarkIcon sx={{ width: 24, height: 24 }} />,
+      },
+      {
         label: t('navItem.setting', { ns: 'account' }),
         href: resolveRouteUrl({ name: RouteName.AccountSetting }),
         icon: <SettingIcon sx={{ width: 24, height: 24 }} />,

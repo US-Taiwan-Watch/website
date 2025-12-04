@@ -48,6 +48,7 @@ export enum RouteName {
   /** Account */
   Account = 'account',
   AccountSubscribe = 'account_subscribe',
+  AccountTaiwanRecord = 'account_taiwan_record',
   AccountSetting = 'account_setting',
   AccountPassword = 'account_password',
   AccountNotification = 'account_notification',
@@ -179,6 +180,7 @@ export const ROUTE_PATH_MAP: {
   /** Account */
   [RouteName.Account]: () => '/account',
   [RouteName.AccountSubscribe]: () => '/account/subscribe',
+  [RouteName.AccountTaiwanRecord]: () => '/account/taiwan-record',
   [RouteName.AccountSetting]: () => '/account/setting',
   [RouteName.AccountPassword]: () => '/account/password',
   [RouteName.AccountNotification]: () => '/account/notification',
