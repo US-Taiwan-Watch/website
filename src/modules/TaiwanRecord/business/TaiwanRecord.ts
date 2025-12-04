@@ -11,14 +11,14 @@ import {
 export const MAX_IMAGE_COUNT = 10
 
 export const taiwanRecordSchema = z.object({
-  id: z.string().optional(),
-  title: z.string().optional(),
-  content: z.string().optional(),
-  images: z.array(z.string()).max(MAX_IMAGE_COUNT).optional(),
-  createdAt: z.string().datetime().optional(),
-  author: z.string().optional(),
-  sources: z.array(z.string()).optional(),
-  status: z.nativeEnum(TaiwanRecordStatus).optional(),
+  id: z.string(),
+  title: z.string().min(1),
+  content: z.string().min(1),
+  images: z.array(z.string()).max(MAX_IMAGE_COUNT),
+  createdAt: z.string().datetime(),
+  author: z.string(),
+  sources: z.array(z.string().url()),
+  status: z.nativeEnum(TaiwanRecordStatus),
 })
 
 export type TaiwanRecord = z.infer<typeof taiwanRecordSchema>

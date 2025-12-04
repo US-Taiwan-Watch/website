@@ -9,7 +9,6 @@ import {
   DialogProps,
   DialogTitle,
   DialogContent,
-  DialogActions,
   Box,
   Button,
   TextField,
@@ -75,6 +74,13 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
       }}
       maxWidth="sm"
       fullWidth
+      PaperProps={{
+        sx: {
+          overflowX: 'hidden',
+          overflowY: 'auto',
+          maxHeight: '80dvh',
+        },
+      }}
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
@@ -148,35 +154,43 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
               {/* 連結管理元件 */}
               <TaiwanRecordSourceManager />
             </Stack>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                gap: 1,
+                mt: 2,
+              }}
+            >
+              <Button
+                onClick={onClose}
+                disabled={isSubmitting}
+                sx={{ textTransform: 'none' }}
+                color="info"
+              >
+                {t('cancel.btn', { ns: 'common' })}
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                color="info"
+                disabled={isSubmitting}
+                sx={{ textTransform: 'none' }}
+              >
+                {isSubmitting && (
+                  <CircularProgress size={16} sx={{ mr: 1 }} color="inherit" />
+                )}
+                {isSubmitting
+                  ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
+                  : mode === 'create'
+                    ? t('dialog.create.btn', { ns: 'taiwan_record' })
+                    : t('dialog.update.btn', { ns: 'taiwan_record' })}
+              </Button>
+            </Box>
           </Box>
         </FormProvider>
       </DialogContent>
-      <DialogActions sx={{ p: 2 }}>
-        <Button
-          onClick={onClose}
-          disabled={isSubmitting}
-          sx={{ textTransform: 'none' }}
-          color="info"
-        >
-          {t('cancel.btn', { ns: 'common' })}
-        </Button>
-        <Button
-          onClick={form.handleSubmit(onSubmit)}
-          variant="contained"
-          color="info"
-          disabled={isSubmitting}
-          sx={{ textTransform: 'none' }}
-        >
-          {isSubmitting && (
-            <CircularProgress size={16} sx={{ mr: 1 }} color="inherit" />
-          )}
-          {isSubmitting
-            ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
-            : mode === 'create'
-              ? t('dialog.create.btn', { ns: 'taiwan_record' })
-              : t('dialog.update.btn', { ns: 'taiwan_record' })}
-        </Button>
-      </DialogActions>
     </Dialog>
   )
 }
