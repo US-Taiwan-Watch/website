@@ -5,21 +5,19 @@ import {
   TaiwanRecord as TaiwanRecordDTO,
 } from '@/common/lib/graphql/__generated__/graphql'
 
-export const LENGTH_CONSTRAINTS = {
-  title: 100, // 100 characters
-  content: 1000, // 1000 characters
-  images: 10, // 10 images
-  sources: 10, // 10 sources
-} as const
+/**
+ * 最多10張圖片
+ */
+export const MAX_IMAGE_COUNT = 10
 
 export const taiwanRecordSchema = z.object({
   id: z.string().optional(),
-  title: z.string().max(LENGTH_CONSTRAINTS.title).optional(),
-  content: z.string().max(LENGTH_CONSTRAINTS.content).optional(),
-  images: z.array(z.string()).max(LENGTH_CONSTRAINTS.images).optional(),
+  title: z.string().optional(),
+  content: z.string().optional(),
+  images: z.array(z.string()).max(MAX_IMAGE_COUNT).optional(),
   createdAt: z.string().datetime().optional(),
   author: z.string().optional(),
-  sources: z.array(z.string()).max(LENGTH_CONSTRAINTS.sources),
+  sources: z.array(z.string()).optional(),
   status: z.nativeEnum(TaiwanRecordStatus).optional(),
 })
 

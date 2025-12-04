@@ -21,9 +21,9 @@ import { useMemo, useCallback, useState } from 'react'
 import useTaiwanRecordForm, {
   TaiwanRecordFormMode,
 } from '@/modules/TaiwanRecord/hooks/useTaiwanRecordForm'
-import { Controller } from 'react-hook-form'
-import TaiwanRecordImageUpload from './TaiwanRecordImageUpload'
-import TaiwanRecordSourceManager from './TaiwanRecordSourceManager'
+import { Controller, FormProvider } from 'react-hook-form'
+import TaiwanRecordImageUpload from '@/modules/TaiwanRecord/components/TaiwanRecordImageUpload'
+import TaiwanRecordSourceManager from '@/modules/TaiwanRecord/components/TaiwanRecordSourceManager'
 
 type TaiwanRecordDialogProps = DialogProps & {
   mode: TaiwanRecordFormMode
@@ -78,82 +78,78 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
     >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
-        <Box
-          component="form"
-          sx={{ pt: 2 }}
-          onSubmit={form.handleSubmit(onSubmit)}
-        >
-          <Stack gap={2}>
-            {/* 標題欄位 */}
-            <Controller
-              control={form.control}
-              name="title"
-              rules={{
-                required: t('form.required', { ns: 'common' }),
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <Box>
-                  <Typography variant="body2" fontWeight={600} mb={1}>
-                    {t('form.title.label', { ns: 'taiwan_record' })}
-                  </Typography>
-                  <TextField
-                    {...field}
-                    fullWidth
-                    size="small"
-                    error={!!error}
-                    helperText={error?.message}
-                    placeholder={t('form.title.placeholder', {
-                      ns: 'taiwan_record',
-                    })}
-                    disabled={isSubmitting}
-                    color="info"
-                  />
-                </Box>
-              )}
-            />
+        <FormProvider {...form}>
+          <Box
+            component="form"
+            sx={{ pt: 2 }}
+            onSubmit={form.handleSubmit(onSubmit)}
+          >
+            <Stack gap={2}>
+              {/* 標題欄位 */}
+              <Controller
+                control={form.control}
+                name="title"
+                rules={{
+                  required: t('form.required', { ns: 'common' }),
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <Box>
+                    <Typography variant="body2" fontWeight={600} mb={1}>
+                      {t('form.title.label', { ns: 'taiwan_record' })}
+                    </Typography>
+                    <TextField
+                      {...field}
+                      fullWidth
+                      size="small"
+                      error={!!error}
+                      helperText={error?.message}
+                      placeholder={t('form.title.placeholder', {
+                        ns: 'taiwan_record',
+                      })}
+                      disabled={isSubmitting}
+                      color="info"
+                    />
+                  </Box>
+                )}
+              />
 
-            {/* 內文欄位 */}
-            <Controller
-              control={form.control}
-              name="content"
-              rules={{
-                required: t('form.required', { ns: 'common' }),
-              }}
-              render={({ field, fieldState: { error } }) => (
-                <Box>
-                  <Typography variant="body2" fontWeight={600} mb={1}>
-                    {t('form.content.label', { ns: 'taiwan_record' })}
-                  </Typography>
-                  <TextField
-                    {...field}
-                    fullWidth
-                    multiline
-                    rows={5}
-                    error={!!error}
-                    helperText={error?.message}
-                    placeholder={t('form.content.placeholder', {
-                      ns: 'taiwan_record',
-                    })}
-                    disabled={isSubmitting}
-                    color="info"
-                  />
-                </Box>
-              )}
-            />
+              {/* 內文欄位 */}
+              <Controller
+                control={form.control}
+                name="content"
+                rules={{
+                  required: t('form.required', { ns: 'common' }),
+                }}
+                render={({ field, fieldState: { error } }) => (
+                  <Box>
+                    <Typography variant="body2" fontWeight={600} mb={1}>
+                      {t('form.content.label', { ns: 'taiwan_record' })}
+                    </Typography>
+                    <TextField
+                      {...field}
+                      fullWidth
+                      multiline
+                      rows={5}
+                      error={!!error}
+                      helperText={error?.message}
+                      placeholder={t('form.content.placeholder', {
+                        ns: 'taiwan_record',
+                      })}
+                      disabled={isSubmitting}
+                      color="info"
+                    />
+                  </Box>
+                )}
+              />
 
-            {/* 圖片上傳元件 */}
-            <TaiwanRecordImageUpload
-              control={form.control}
-              fieldName="images"
-            />
+              {/* 圖片上傳元件 */}
+              <TaiwanRecordImageUpload />
 
-            {/* 連結管理元件 */}
-            <TaiwanRecordSourceManager
-              control={form.control}
-              fieldName="sources"
-            />
-          </Stack>
-        </Box>
+              {/* 連結管理元件 */}
+              <TaiwanRecordSourceManager />
+            </Stack>
+          </Box>
+        </FormProvider>
       </DialogContent>
       <DialogActions sx={{ p: 2 }}>
         <Button
