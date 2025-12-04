@@ -56,7 +56,7 @@ import { AccountNotificationSettingOutput } from '@/modules/Account/Notification
 
 type AccountProviderContext = {
   account: Account | null
-  isLoadingAccount: boolean
+  isAccountLoading: boolean
   refetchAccount: () => void
   isMutating: boolean
   subscribeBill: (bill: Bill) => void
@@ -76,7 +76,7 @@ type AccountProviderContext = {
 
 const AccountContext = createContext<AccountProviderContext>({
   account: null,
-  isLoadingAccount: false,
+  isAccountLoading: true,
   refetchAccount: () => {},
   isMutating: false,
   subscribeBill: () => {},
@@ -107,8 +107,9 @@ export default function AccountProvider({
 }) {
   const { lang } = useParams<{ lang: Language }>()
   const { login } = useUAuth()
-  const { user, isLoading } = useUser()
+  const { user, isLoading: isAuth0Loading } = useUser()
   const [account, setAccount] = useState<Account | null>(null)
+  const [isAccountLoading, setIsAccountLoading] = useState(true)
   const subscribedBillsSet = useMemo(() => {
     if (!account) return new Set<string>()
     return new Set(account.subscribeBills.map((bill) => bill.id))
@@ -128,56 +129,63 @@ export default function AccountProvider({
     )
   }, [account])
 
-  const [getMe, { data, refetch, loading: isLoadingAccount }] = useLazyQuery<
-    MeQuery,
-    MeQueryVariables
-  >(QUERY_ME, {
-    fetchPolicy: 'cache-and-network',
-  })
+  const [getMe, { data, refetch }] = useLazyQuery<MeQuery, MeQueryVariables>(
+    QUERY_ME,
+    {
+      fetchPolicy: 'cache-and-network',
+    }
+  )
   const apolloClient = useApolloClient()
 
   const fetchMe = useCallback(async () => {
-    if (!user || isLoading) return
+    if (isAuth0Loading) return
+    // After Auth0 is cheched, if user is not authenticated, set account loading to false and return
+    if (!user) {
+      setIsAccountLoading(false)
+      return
+    }
 
-    apolloClient.defaultContext.token = await fetch('/api/auth/token')
-      .then((res) => res.json())
-      .then((data) => data.idToken)
-    getMe({
-      context: {
-        token: apolloClient.defaultContext.token,
-      },
-    })
-  }, [user, isLoading, apolloClient.defaultContext, getMe])
+    try {
+      setIsAccountLoading(true)
+      apolloClient.defaultContext.token = await fetch('/api/auth/token')
+        .then((res) => res.json())
+        .then((data) => data.idToken)
+      await getMe({
+        context: {
+          token: apolloClient.defaultContext.token,
+        },
+      })
+    } finally {
+      setIsAccountLoading(false)
+    }
+  }, [user, isAuth0Loading, apolloClient.defaultContext, getMe])
 
-  /**
-   * Set Id_Token to Apollo Client and get user data
-   */
   useEffect(() => {
+    if (isAuth0Loading) return
+
     fetchMe()
-  }, [fetchMe])
+  }, [isAuth0Loading, fetchMe])
 
   /**
-   * Set user data to AccountStore
+   * Set user data to state
    */
   useEffect(() => {
-    if (!user || isLoading) return
-    if (!data) return
+    if (!data || !user || !data.Me) return
 
-    const me = data.Me
-    if (!me || !user) return
-
-    const account = AccountUtils.parseMeAndAuth0User(lang, me, user)
+    const account = AccountUtils.parseMeAndAuth0User(lang, data.Me, user)
     setAccount(account)
-  }, [isLoading, user, data, setAccount, lang])
+  }, [user, data, setAccount, lang])
 
   /**
    * Clear account data when user is not authenticated
    */
   useEffect(() => {
-    if (user || isLoading) return
+    if (isAuth0Loading) return
+    // After Auth0 is cheched, if user is authenticated, return
+    if (user) return
     setAccount(null)
     apolloClient.defaultContext.token = null
-  }, [isLoading, user, setAccount, apolloClient.defaultContext])
+  }, [isAuth0Loading, user, setAccount, apolloClient.defaultContext, data])
 
   const [isMutating, setIsMutating] = useState(false)
   const { t } = useTranslationClient(['bill', 'people', 'article', 'common'])
@@ -356,6 +364,7 @@ export default function AccountProvider({
 
   const updateAccountSetting = useCallback(
     async (setting: AccountSettingOutput) => {
+      // TODO: Implement update account setting
       console.log('updateAccountSetting', setting)
 
       // refetch me
@@ -484,7 +493,7 @@ export default function AccountProvider({
     <AccountContext.Provider
       value={{
         account,
-        isLoadingAccount,
+        isAccountLoading,
         refetchAccount: refetch,
         isMutating,
         subscribeBill,

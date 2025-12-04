@@ -13,10 +13,10 @@ export default function useHeaderAccount() {
   const { resolveRouteUrl } = useURouterClient()
   const router = useRouter()
   const { login } = useUAuth()
-  const { isLoadingAccount, account } = useAccount()
+  const { isAccountLoading, account } = useAccount()
 
   const handleAccountClick = useCallback(() => {
-    if (isLoadingAccount) return
+    if (isAccountLoading) return
 
     if (!account) {
       login({
@@ -26,7 +26,7 @@ export default function useHeaderAccount() {
     }
 
     router.push(resolveRouteUrl({ name: RouteName.Account }))
-  }, [router, account, isLoadingAccount, login, resolveRouteUrl])
+  }, [router, account, isAccountLoading, login, resolveRouteUrl])
 
   return { handleAccountClick }
 }
