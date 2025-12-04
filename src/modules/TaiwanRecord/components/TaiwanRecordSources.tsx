@@ -1,6 +1,5 @@
 import UContentCard from '@/common/components/atoms/UContentCard'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
-import { Sources } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
 import Box from '@mui/material/Box'
@@ -156,7 +155,7 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
 const MAX_FAVICON_AVATAR_COUNT = 4
 
 interface TaiwanRecordSourcesProps {
-  sources: Sources
+  sources: string[]
 }
 
 const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
@@ -167,7 +166,7 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
 
   useEffect(() => {
     const fetchSourceMetadatas = async () => {
-      const sourceMetadatas = await Promise.all(sources.links.map(getMetadata))
+      const sourceMetadatas = await Promise.all(sources.map(getMetadata))
       setSourceMetadatas(sourceMetadatas)
     }
     fetchSourceMetadatas()
@@ -212,7 +211,7 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
                 height: 16,
               }}
               key={index}
-              alt={new URL(sources.links[index]).hostname}
+              alt={new URL(sources[index]).hostname}
               src={m.favicon}
             >
               <LinkIcon sx={{ width: 12, height: 12 }} />

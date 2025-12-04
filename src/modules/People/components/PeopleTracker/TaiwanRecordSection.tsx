@@ -10,6 +10,8 @@ import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
+import { useState } from 'react'
 
 interface TaiwanRecordSectionProps {
   people: People
@@ -20,6 +22,7 @@ export default function TaiwanRecordSection({
 }: TaiwanRecordSectionProps) {
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient(['people'])
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
 
   return (
     <LandingSectionWrapper backgroundColor={theme.color.neutral[200]}>
@@ -33,6 +36,7 @@ export default function TaiwanRecordSection({
               rounded
               size="medium"
               startIcon={<AddIcon />}
+              onClick={() => setIsCreateDialogOpen(true)}
             >
               {t('page.section.taiwanRecord.submit.btn', { ns: 'people' })}
             </UButton>
@@ -40,6 +44,11 @@ export default function TaiwanRecordSection({
         />
         <TaiwanRecordList records={people.taiwanRecords} />
       </Stack>
+      <TaiwanRecordDialog
+        mode="create"
+        open={isCreateDialogOpen}
+        onClose={() => setIsCreateDialogOpen(false)}
+      />
     </LandingSectionWrapper>
   )
 }

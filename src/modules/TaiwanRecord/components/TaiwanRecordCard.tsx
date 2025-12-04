@@ -130,7 +130,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
           </UHStack>
           <Stack gap={theme.spacing(0.5)}>
             <Typography variant="bodyS">{dateAndAuthor}</Typography>
-            {taiwanRecord.sources && taiwanRecord.sources.links.length > 0 && (
+            {taiwanRecord.sources && taiwanRecord.sources.length > 0 && (
               <TaiwanRecordSources sources={taiwanRecord.sources} />
             )}
           </Stack>
