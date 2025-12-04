@@ -1,9 +1,12 @@
 import { isString } from 'lodash-es'
 import { z } from 'zod'
-import {
-  TaiwanRecord_Status as TaiwanRecordStatus,
-  TaiwanRecord as TaiwanRecordDTO,
-} from '@/common/lib/graphql/__generated__/graphql'
+import { TaiwanRecord as TaiwanRecordDTO } from '@/common/lib/graphql/__generated__/graphql'
+
+export enum TaiwanRecordStatus {
+  Approved = 'approved',
+  Drafted = 'drafted',
+  Rejected = 'rejected',
+}
 
 /**
  * 最多10張圖片

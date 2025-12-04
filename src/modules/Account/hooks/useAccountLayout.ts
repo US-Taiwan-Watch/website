@@ -31,6 +31,7 @@ export default function useAccountLayout() {
     if (isCompactView) {
       return ![
         resolveRouteUrl({ name: RouteName.AccountSubscribe }),
+        resolveRouteUrl({ name: RouteName.AccountTaiwanRecord }),
         resolveRouteUrl({ name: RouteName.AccountSetting }),
         resolveRouteUrl({ name: RouteName.AccountPassword }),
         resolveRouteUrl({ name: RouteName.AccountNotification }),
