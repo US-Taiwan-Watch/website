@@ -56,18 +56,18 @@ export default async function RootLayout({
               <ResponsiveProvider defaultValue={{ isMobile, isTablet }}>
                 <Auth0Provider>
                   <UAuthProvider>
-                    <Stack minHeight="100dvh">
-                      <Header />
-                      <ToastProvider>
-                        <ClientApolloProvider>
-                          <AccountProvider>
+                    <ClientApolloProvider>
+                      <AccountProvider>
+                        <Stack minHeight="100dvh">
+                          <Header />
+                          <ToastProvider>
                             <Stack flexGrow={1}>{children}</Stack>
                             <CookieConsentBanner />
-                          </AccountProvider>
-                        </ClientApolloProvider>
-                      </ToastProvider>
-                      <Footer />
-                    </Stack>
+                          </ToastProvider>
+                          <Footer />
+                        </Stack>
+                      </AccountProvider>
+                    </ClientApolloProvider>
                   </UAuthProvider>
                 </Auth0Provider>
               </ResponsiveProvider>

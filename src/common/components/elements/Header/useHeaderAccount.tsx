@@ -1,9 +1,9 @@
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
-import { useUser } from '@auth0/nextjs-auth0'
 import { useRouter } from 'next/navigation'
 import { useCallback } from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 
 /**
  * Header 的 Account 功能
@@ -13,12 +13,12 @@ export default function useHeaderAccount() {
   const { resolveRouteUrl } = useURouterClient()
   const router = useRouter()
   const { login } = useUAuth()
-  const { user, isLoading } = useUser()
+  const { isLoadingAccount, account } = useAccount()
 
   const handleAccountClick = useCallback(() => {
-    if (isLoading) return
+    if (isLoadingAccount) return
 
-    if (!user) {
+    if (!account) {
       login({
         returnTo: resolveRouteUrl({ name: RouteName.Account }),
       })
@@ -26,7 +26,7 @@ export default function useHeaderAccount() {
     }
 
     router.push(resolveRouteUrl({ name: RouteName.Account }))
-  }, [router, user, isLoading, login, resolveRouteUrl])
+  }, [router, account, isLoadingAccount, login, resolveRouteUrl])
 
   return { handleAccountClick }
 }
