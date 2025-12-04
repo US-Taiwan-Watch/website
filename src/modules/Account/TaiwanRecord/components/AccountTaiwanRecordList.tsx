@@ -5,11 +5,12 @@ import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { Box, Stack } from '@mui/material'
-import { memo, useCallback, useEffect } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
 import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import { TaiwanRecord } from '@/modules/TaiwanRecord/business/TaiwanRecord'
+import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
 
 type AccountTaiwanRecordListItemProps = {
   taiwanRecord: TaiwanRecord
@@ -85,9 +86,17 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
     useAccountTaiwanRecordStore.use.filteredAccountTaiwanRecordList()
   const { isCompactView } = useAccountLayout()
 
+  const [taiwanRecordToUpdate, setTaiwanRecordToUpdate] =
+    useState<TaiwanRecord | null>(null)
+  const [isTaiwanRecordDialogOpen, setIsTaiwanRecordDialogOpen] =
+    useState(false)
   const handleTaiwanRecordClick = useCallback((taiwanRecord: TaiwanRecord) => {
-    // TODO: popup taiwan record dialog
-    console.log(taiwanRecord)
+    setTaiwanRecordToUpdate(taiwanRecord)
+    setIsTaiwanRecordDialogOpen(true)
+  }, [])
+  const handleTaiwanRecordDialogClose = useCallback(() => {
+    setTaiwanRecordToUpdate(null)
+    setIsTaiwanRecordDialogOpen(false)
   }, [])
 
   if (isCompactView) {
@@ -140,6 +149,14 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
           />
         </Box>
       ))}
+      {taiwanRecordToUpdate && (
+        <TaiwanRecordDialog
+          mode="update"
+          taiwanRecord={taiwanRecordToUpdate}
+          open={isTaiwanRecordDialogOpen}
+          onClose={handleTaiwanRecordDialogClose}
+        />
+      )}
     </Stack>
   )
 })

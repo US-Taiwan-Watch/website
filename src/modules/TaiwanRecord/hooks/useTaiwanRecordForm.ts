@@ -17,20 +17,20 @@ export type TaiwanRecordFormMode = 'create' | 'update'
 
 type UseTaiwanRecordFormProps = {
   mode: TaiwanRecordFormMode
-  record?: TaiwanRecord
+  taiwanRecord?: TaiwanRecord
 }
 
 export default function useTaiwanRecordForm(props: UseTaiwanRecordFormProps) {
-  const { mode, record } = props
+  const { mode, taiwanRecord } = props
 
   const defaultValues = useMemo(() => {
-    if (mode === 'update' && record) {
-      return record
+    if (mode === 'update' && taiwanRecord) {
+      return taiwanRecord
     }
     return mode === 'create'
       ? defaultTaiwanRecordCreate
       : defaultTaiwanRecordUpdate
-  }, [mode, record])
+  }, [mode, taiwanRecord])
 
   const form = useForm<TaiwanRecordCreateInput | TaiwanRecordUpdateInput>({
     resolver: zodResolver(
