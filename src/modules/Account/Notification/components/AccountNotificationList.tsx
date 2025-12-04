@@ -1,7 +1,7 @@
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { AccountNotification } from '@/modules/Account/Notification/business/AccountNotification'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { Box, Stack } from '@mui/material'
@@ -51,7 +51,7 @@ const AccountNotificationListItem = memo(function AccountNotificationListItem({
 })
 
 const AccountNotificationList = memo(function AccountNotificationList() {
-  const account = useAccountStore.use.account()
+  const { account } = useAccount()
   const notifications = useMemo(() => {
     if (!account) return []
     // TODO: 確認 notifications 是否為另外 query 而非綁在 Query.Me

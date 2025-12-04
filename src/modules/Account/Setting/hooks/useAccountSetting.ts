@@ -8,14 +8,13 @@ import {
   accountSettingSchema,
   getDefaultAccountSettingInput,
 } from '@/modules/Account/Setting/business/AccountSetting'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { useToast } from '@/common/providers/ToastProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 export default function useAccountSetting() {
-  const account = useAccountStore.use.account()
-  const { updateAccountSetting, updateName, updateEmail } = useAccount()
+  const { account, updateAccountSetting, updateName, updateEmail } =
+    useAccount()
   const { toast } = useToast()
   const { t } = useTranslationClient('account')
 

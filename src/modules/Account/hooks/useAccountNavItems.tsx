@@ -9,11 +9,11 @@ import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useAccountPathname from '@/modules/Account/hooks/useAccountPathname'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { Connection } from '@/modules/Account/business/Account'
 
 export default function useAccountNavItems() {
-  const account = useAccountStore.use.account()
+  const { account } = useAccount()
   const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('account')
   const { pathnameWithoutLang } = useAccountPathname()

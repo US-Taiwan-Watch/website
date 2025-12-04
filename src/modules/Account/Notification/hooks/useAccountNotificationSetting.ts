@@ -8,14 +8,12 @@ import {
   accountNotificationSettingSchema,
   getDefaultAccountNotificationSettingInput,
 } from '@/modules/Account/Notification/business/AccountNotification'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { useToast } from '@/common/providers/ToastProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 export default function useAccountNotificationSetting() {
-  const account = useAccountStore.use.account()
-  const { updateNotificationSetting } = useAccount()
+  const { account, updateNotificationSetting } = useAccount()
   const { toast } = useToast()
   const { t } = useTranslationClient('account')
 

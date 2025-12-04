@@ -1,13 +1,13 @@
 'use client'
 
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
-import { useUser } from '@auth0/nextjs-auth0'
 import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { useEffect } from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 import { Box, CircularProgress } from '@mui/material'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 
 type UnAuthedAction =
   | /** 跳轉到登入頁 */
@@ -34,10 +34,10 @@ export default function AuthedProvider({
   const router = useRouter()
   const { resolveRouteUrl } = useURouterClient()
   const { login } = useUAuth()
-  const { user, isLoading } = useUser()
+  const { isLoadingAccount, account } = useAccount()
 
   useEffect(() => {
-    if (!user && !isLoading) {
+    if (!account && !isLoadingAccount) {
       switch (unAuthedAction) {
         case 'login':
           if (!redirectToSamePage) {
@@ -54,8 +54,8 @@ export default function AuthedProvider({
       }
     }
   }, [
-    user,
-    isLoading,
+    account,
+    isLoadingAccount,
     login,
     unAuthedAction,
     redirectToSamePage,
@@ -63,7 +63,7 @@ export default function AuthedProvider({
     resolveRouteUrl,
   ])
 
-  if (isLoading)
+  if (isLoadingAccount)
     return (
       <Box
         sx={{
@@ -77,6 +77,6 @@ export default function AuthedProvider({
         <CircularProgress color="info" />
       </Box>
     )
-  if (!user) return null
+  if (!account) return null
   return <>{children}</>
 }

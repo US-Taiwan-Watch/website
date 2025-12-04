@@ -12,7 +12,6 @@ import {
   MUTATION_UPDATE_MY_NOTIFICATION_SETTING,
   QUERY_ME,
 } from '@/modules/Account/graphql/gql'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
 import {
   createContext,
   useCallback,
@@ -41,7 +40,7 @@ import {
   UpdateMyNotificationSettingMutation,
   UpdateMyNotificationSettingMutationVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import AccountUtils from '@/modules/Account/business/Account'
+import AccountUtils, { Account } from '@/modules/Account/business/Account'
 import type React from 'react'
 import { useToast } from '@/common/providers/ToastProvider'
 import { Bill } from '@/modules/Bill/business/Bill'
@@ -56,6 +55,8 @@ import { AccountSettingOutput } from '@/modules/Account/Setting/business/Account
 import { AccountNotificationSettingOutput } from '@/modules/Account/Notification/business/AccountNotification'
 
 type AccountProviderContext = {
+  account: Account | null
+  isLoadingAccount: boolean
   refetchAccount: () => void
   isMutating: boolean
   subscribeBill: (bill: Bill) => void
@@ -74,6 +75,8 @@ type AccountProviderContext = {
 }
 
 const AccountContext = createContext<AccountProviderContext>({
+  account: null,
+  isLoadingAccount: false,
   refetchAccount: () => {},
   isMutating: false,
   subscribeBill: () => {},
@@ -105,8 +108,7 @@ export default function AccountProvider({
   const { lang } = useParams<{ lang: Language }>()
   const { login } = useUAuth()
   const { user, isLoading } = useUser()
-  const setAccount = useAccountStore.use.setAccount()
-  const account = useAccountStore.use.account()
+  const [account, setAccount] = useState<Account | null>(null)
   const subscribedBillsSet = useMemo(() => {
     if (!account) return new Set<string>()
     return new Set(account.subscribeBills.map((bill) => bill.id))
@@ -126,12 +128,12 @@ export default function AccountProvider({
     )
   }, [account])
 
-  const [getMe, { data, refetch }] = useLazyQuery<MeQuery, MeQueryVariables>(
-    QUERY_ME,
-    {
-      fetchPolicy: 'cache-and-network',
-    }
-  )
+  const [getMe, { data, refetch, loading: isLoadingAccount }] = useLazyQuery<
+    MeQuery,
+    MeQueryVariables
+  >(QUERY_ME, {
+    fetchPolicy: 'cache-and-network',
+  })
   const apolloClient = useApolloClient()
 
   const fetchMe = useCallback(async () => {
@@ -481,6 +483,8 @@ export default function AccountProvider({
   return (
     <AccountContext.Provider
       value={{
+        account,
+        isLoadingAccount,
         refetchAccount: refetch,
         isMutating,
         subscribeBill,

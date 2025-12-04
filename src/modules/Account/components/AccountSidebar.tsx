@@ -8,7 +8,7 @@ import { LogoutIcon } from '@/common/styles/assets/Icons'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useCallback, useEffect, useState } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 
@@ -105,7 +105,7 @@ export default function AccountSidebar() {
   }, [])
 
   const { logout } = useUAuth()
-  const account = useAccountStore.use.account()
+  const { account } = useAccount()
   const handleLogout = useCallback(() => {
     logout()
   }, [logout])

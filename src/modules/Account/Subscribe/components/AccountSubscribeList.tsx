@@ -12,7 +12,7 @@ import Link from 'next/link'
 import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import AccountUtils from '@/modules/Account/business/Account'
 
 type AccountSubscribeListItemProps = {
@@ -93,7 +93,7 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
 })
 
 const AccountSubscribeList = memo(function AccountSubscribeList() {
-  const { account } = useAccountStore()
+  const { account } = useAccount()
   const setAccountSubscribeList =
     useAccountSubscribeStore.use.setAccountSubscribeList()
   useEffect(() => {

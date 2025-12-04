@@ -8,7 +8,7 @@ import { Box, Stack } from '@mui/material'
 import { memo, useCallback, useEffect, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
-import useAccountStore from '@/modules/Account/hooks/useAccountStore'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { TaiwanRecord } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
 
@@ -73,7 +73,7 @@ const AccountTaiwanRecordListItem = memo(function AccountTaiwanRecordListItem({
 })
 
 const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
-  const { account } = useAccountStore()
+  const { account } = useAccount()
   const setAccountTaiwanRecordList =
     useAccountTaiwanRecordStore.use.setAccountTaiwanRecordList()
   useEffect(() => {
