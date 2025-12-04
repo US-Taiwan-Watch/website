@@ -1,14 +1,87 @@
-import { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback, useMemo, useState } from 'react'
 import { Controller, useFormContext, useWatch } from 'react-hook-form'
-import { Box, Button, IconButton, Stack, Typography } from '@mui/material'
+import { Box, Button, Stack, Typography } from '@mui/material'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
-import DeleteIcon from '@mui/icons-material/Delete'
+import ClearIcon from '@mui/icons-material/Clear'
 import {
   TaiwanRecordCreateInput,
   TaiwanRecordUpdateInput,
   MAX_IMAGE_COUNT,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import { useTheme } from '@mui/material/styles'
+import { USTWTheme } from '@/common/lib/mui/theme'
+
+type PriviewImageProps = {
+  image: string
+  index: number
+  onRemove: () => void
+}
+
+const PriviewImage = memo(function PriviewImage({
+  image,
+  index,
+  onRemove,
+}: PriviewImageProps) {
+  const theme = useTheme<USTWTheme>()
+  const [showRemoveButton, setShowRemoveButton] = useState(false)
+
+  return (
+    <Box
+      sx={{
+        position: 'relative',
+        aspectRatio: '1',
+        borderRadius: 1,
+        overflow: 'visible',
+        backgroundColor: '#f5f5f5',
+        border: '1px solid #e0e0e0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+      onMouseEnter={() => setShowRemoveButton(true)}
+      onMouseLeave={() => setShowRemoveButton(false)}
+    >
+      <img
+        src={image}
+        alt={`uploaded-${index}`}
+        style={{
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+        }}
+      />
+      {showRemoveButton && (
+        <Box
+          sx={{
+            position: 'absolute',
+            opacity: 0.8,
+            width: '100%',
+            height: '100%',
+            backgroundColor: theme.color.grey[2300],
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <UIconButton
+            size="xs"
+            variant="rounded"
+            color="white"
+            onClick={onRemove}
+            sx={{
+              p: 0.5,
+              backgroundColor: theme.color.grey[1100],
+            }}
+          >
+            <ClearIcon sx={{ width: 12, height: 12 }} />
+          </UIconButton>
+        </Box>
+      )}
+    </Box>
+  )
+})
 
 const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload() {
   const { control } = useFormContext<
@@ -17,31 +90,27 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload() {
   const { t } = useTranslationClient(['taiwan_record'])
   const images = useWatch({ control, name: 'images' })
 
-  const handleAddImages = useCallback(
-    (files: FileList | null): Promise<string[]> => {
-      return new Promise((resolve) => {
-        if (!files) return resolve([])
+  const handleAddImages = useCallback((files: FileList | null) => {
+    if (!files) return Promise.resolve([])
 
-        const newImages: string[] = []
-        for (let i = 0; i < files.length; i++) {
-          const file = files[i]
-          if (file.type.startsWith('image/')) {
-            const reader = new FileReader()
-            reader.onload = (e) => {
-              if (e.target?.result) {
-                newImages.push(e.target.result as string)
-                if (i === files.length - 1) {
-                  resolve(newImages)
-                }
-              }
+    const imagePromises = Array.from(files)
+      .filter((file) => file.type.startsWith('image/'))
+      .map((file) => {
+        return new Promise<string>((resolve, reject) => {
+          const reader = new FileReader()
+          reader.onload = (e) => {
+            if (e.target?.result) {
+              resolve(e.target.result as string)
             }
-            reader.readAsDataURL(file)
           }
-        }
+          reader.onerror = () =>
+            reject(new Error(`Failed to read ${file.name}`))
+          reader.readAsDataURL(file)
+        })
       })
-    },
-    []
-  )
+
+    return Promise.allSettled(imagePromises)
+  }, [])
 
   const getRemovedFilteredImages = useCallback(
     (currentImages: string[], index: number) => {
@@ -90,7 +159,9 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload() {
                   const uploadedImages = await handleAddImages(e.target.files)
                   const comprehensiveUploadedImages = [
                     ...(field.value || []),
-                    ...uploadedImages,
+                    ...uploadedImages
+                      .filter((image) => image.status === 'fulfilled')
+                      .map((image) => image.value),
                   ]
                   // 限制最多張數
                   field.onChange(
@@ -133,50 +204,17 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload() {
                   }}
                 >
                   {field.value.map((image, index) => (
-                    <Box
+                    <PriviewImage
                       key={index}
-                      sx={{
-                        position: 'relative',
-                        aspectRatio: '1',
-                        borderRadius: 1,
-                        overflow: 'hidden',
-                        backgroundColor: '#f5f5f5',
-                        border: '1px solid #e0e0e0',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
+                      image={image}
+                      index={index}
+                      onRemove={() => {
+                        if (!field.value) return
+                        field.onChange(
+                          getRemovedFilteredImages(field.value, index)
+                        )
                       }}
-                    >
-                      <img
-                        src={image}
-                        alt={`uploaded-${index}`}
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                      <IconButton
-                        size="small"
-                        onClick={() => {
-                          if (!field.value) return
-                          field.onChange(
-                            getRemovedFilteredImages(field.value, index)
-                          )
-                        }}
-                        sx={{
-                          position: 'absolute',
-                          top: -8,
-                          right: -8,
-                          backgroundColor: 'rgba(0, 0, 0, 0.6)',
-                          '&:hover': {
-                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                          },
-                        }}
-                      >
-                        <DeleteIcon sx={{ color: 'white', fontSize: '1rem' }} />
-                      </IconButton>
-                    </Box>
+                    />
                   ))}
                 </Box>
               </Stack>
