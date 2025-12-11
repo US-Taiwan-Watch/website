@@ -12,6 +12,7 @@ import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
+import Image from 'next/image'
 
 type PriviewImageProps = {
   image: string
@@ -45,7 +46,7 @@ const PriviewImage = memo(function PriviewImage({
       onMouseEnter={() => !isReadOnly && setShowRemoveButton(true)}
       onMouseLeave={() => !isReadOnly && setShowRemoveButton(false)}
     >
-      <img
+      <Image
         src={image}
         alt={`uploaded-${index}`}
         style={{
@@ -53,6 +54,8 @@ const PriviewImage = memo(function PriviewImage({
           height: '100%',
           objectFit: 'cover',
         }}
+        height={500}
+        width={500}
       />
       {showRemoveButton && !isReadOnly && (
         <Box
