@@ -34,6 +34,16 @@ export const QUERY_ME = gql`
       }
       provider
       providerId
+      submittedTaiwanRecords {
+        id
+        title
+        description
+        people {
+          id
+          gender
+        }
+        status
+      }
     }
   }
 

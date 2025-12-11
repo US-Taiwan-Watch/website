@@ -22,6 +22,7 @@ export const taiwanRecordSchema = z.object({
   author: z.string(),
   sources: z.array(z.string().url()),
   status: z.nativeEnum(TaiwanRecordStatus),
+  peopleId: z.string(),
 })
 
 export type TaiwanRecord = z.infer<typeof taiwanRecordSchema>

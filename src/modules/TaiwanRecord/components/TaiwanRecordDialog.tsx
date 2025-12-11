@@ -23,21 +23,26 @@ import useTaiwanRecordForm, {
 import { Controller, FormProvider } from 'react-hook-form'
 import TaiwanRecordImageUpload from '@/modules/TaiwanRecord/components/TaiwanRecordImageUpload'
 import TaiwanRecordSourceManager from '@/modules/TaiwanRecord/components/TaiwanRecordSourceManager'
+import useTaiwanRecord from '@/modules/TaiwanRecord/hooks/useTaiwanRecord'
+import { useToast } from '@/common/providers/ToastProvider'
 
 type TaiwanRecordDialogProps = DialogProps & {
   mode: TaiwanRecordFormMode
+  peopleId: string
   taiwanRecord?: TaiwanRecord
 }
 
 export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
-  const { mode, taiwanRecord, ...dialogProps } = props
+  const { mode, peopleId, taiwanRecord, ...dialogProps } = props
   const { t } = useTranslationClient(['taiwan_record', 'common'])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { toast } = useToast()
 
-  const { form, handleReset, handleSubmit } = useTaiwanRecordForm({
+  const { form, handleReset } = useTaiwanRecordForm({
     mode,
     taiwanRecord,
   })
+  const { handleSubmitTaiwanRecord } = useTaiwanRecord()
 
   const title = useMemo(() => {
     return mode === 'create'
@@ -45,24 +50,34 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
       : t('dialog.update.title', { ns: 'taiwan_record' })
   }, [mode, t])
 
-  const onSubmit = useCallback(
-    async (data: TaiwanRecordCreateOutput | TaiwanRecordUpdateOutput) => {
-      setIsSubmitting(true)
-      try {
-        await handleSubmit(data)
-      } finally {
-        setIsSubmitting(false)
-      }
-    },
-    [handleSubmit]
-  )
-
   const onClose = useCallback(() => {
     if (!isSubmitting) {
       handleReset()
       dialogProps.onClose?.({}, 'backdropClick')
     }
   }, [isSubmitting, handleReset, dialogProps])
+
+  const onSubmit = useCallback(
+    async (data: TaiwanRecordCreateOutput | TaiwanRecordUpdateOutput) => {
+      try {
+        setIsSubmitting(true)
+        if (mode === 'create') {
+          await handleSubmitTaiwanRecord(peopleId, data)
+          toast('success', t('submitTaiwanRecord.msg', { ns: 'taiwan_record' }))
+          onClose()
+        }
+      } catch (error) {
+        if (error instanceof Error) {
+          toast('error', error.message)
+          return
+        }
+        toast('error', t('submitTaiwanRecord.error', { ns: 'taiwan_record' }))
+      } finally {
+        setIsSubmitting(false)
+      }
+    },
+    [peopleId, mode, handleSubmitTaiwanRecord, onClose, toast, t]
+  )
 
   return (
     <Dialog

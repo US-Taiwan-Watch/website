@@ -4,9 +4,7 @@ import { useCallback, useEffect, useMemo } from 'react'
 import {
   defaultTaiwanRecordCreate,
   TaiwanRecordCreateInput,
-  TaiwanRecordCreateOutput,
   TaiwanRecordUpdateInput,
-  TaiwanRecordUpdateOutput,
   taiwanRecordUpdateSchema,
   taiwanRecordCreateSchema,
   defaultTaiwanRecordUpdate,
@@ -49,13 +47,5 @@ export default function useTaiwanRecordForm(props: UseTaiwanRecordFormProps) {
     form.reset(defaultValues)
   }, [form, defaultValues])
 
-  const handleSubmit = useCallback(
-    async (value: TaiwanRecordCreateOutput | TaiwanRecordUpdateOutput) => {
-      console.log(value)
-      // TODO: 呼教 API 新增/更新 Taiwan Record
-    },
-    []
-  )
-
-  return { form, handleReset, handleSubmit }
+  return { form, handleReset }
 }

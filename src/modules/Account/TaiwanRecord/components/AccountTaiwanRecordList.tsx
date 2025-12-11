@@ -152,6 +152,7 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
       {taiwanRecordToUpdate && (
         <TaiwanRecordDialog
           mode="update"
+          peopleId={taiwanRecordToUpdate.peopleId}
           taiwanRecord={taiwanRecordToUpdate}
           open={isTaiwanRecordDialogOpen}
           onClose={handleTaiwanRecordDialogClose}

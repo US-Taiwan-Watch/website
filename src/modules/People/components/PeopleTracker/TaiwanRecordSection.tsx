@@ -44,11 +44,14 @@ export default function TaiwanRecordSection({
         />
         <TaiwanRecordList records={people.taiwanRecords} />
       </Stack>
-      <TaiwanRecordDialog
-        mode="create"
-        open={isCreateDialogOpen}
-        onClose={() => setIsCreateDialogOpen(false)}
-      />
+      {people.id && (
+        <TaiwanRecordDialog
+          mode="create"
+          open={isCreateDialogOpen}
+          onClose={() => setIsCreateDialogOpen(false)}
+          peopleId={people.id}
+        />
+      )}
     </LandingSectionWrapper>
   )
 }
