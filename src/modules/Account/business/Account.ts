@@ -67,15 +67,11 @@ export default class AccountUtils {
       ),
       notifications: [],
       notificationSetting: {
-        // TODO: 等後端實作 `subscribedPeopleUpdate`
-        // subscribedPeopleUpdate:
-        //   me.notificationSetting?.subscribedPeopleUpdate ?? false,
-        subscribedPeopleUpdate: false,
+        subscribedPeopleUpdate:
+          me.notificationSetting?.subscribedPeopleUpdate ?? false,
         subscribedBillUpdate:
           me.notificationSetting?.subscribedBillUpdate ?? false,
-        // TODO: 等後端實作 `billRelease`
-        // billRelease: me.notificationSetting?.billRelease ?? false,
-        billRelease: false,
+        billRelease: me.notificationSetting?.billRelease ?? false,
         podcastRelease: me.notificationSetting?.podcastRelease ?? false,
         ustwArticleRelease: me.notificationSetting?.ustwArticleRelease ?? false,
         ketagalanArticleRelease:

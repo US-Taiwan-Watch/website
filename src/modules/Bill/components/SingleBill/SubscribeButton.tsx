@@ -1,4 +1,4 @@
-import { memo, useState, useEffect } from 'react'
+import { memo, useState, useEffect, useCallback } from 'react'
 import UButton from '@/common/components/atoms/UButton'
 import { BookmarkFilledIcon, BookmarkIcon } from '@/common/styles/assets/Icons'
 import { Bill } from '@/modules/Bill/business/Bill'
@@ -14,7 +14,12 @@ type SubscribeButtonProps = {
 const SubscribeButton = memo(function SubscribeButton({
   bill,
 }: SubscribeButtonProps) {
-  const { subscribeBill, isMutating, checkIfBillIsSubscribed } = useAccount()
+  const {
+    subscribeBill,
+    unsubscribeBill,
+    isMutating,
+    checkIfBillIsSubscribed,
+  } = useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient('bill')
 
@@ -23,16 +28,23 @@ const SubscribeButton = memo(function SubscribeButton({
     setIsSubscribed(checkIfBillIsSubscribed(bill))
   }, [checkIfBillIsSubscribed, bill])
 
+  const handleSubscribeClick = useCallback(async () => {
+    if (isSubscribed) {
+      setIsSubscribed(false)
+      await unsubscribeBill(bill)
+      return
+    }
+    setIsSubscribed(true)
+    await subscribeBill(bill)
+  }, [isSubscribed, unsubscribeBill, subscribeBill, bill])
+
   if (isMobile) {
     return (
       <UIconButton
         variant="rounded"
         color="primary"
         size="xs"
-        onClick={async () => {
-          await subscribeBill(bill)
-          setIsSubscribed(true)
-        }}
+        onClick={handleSubscribeClick}
         disabled={isMutating}
       >
         {isSubscribed ? <BookmarkFilledIcon /> : <BookmarkIcon />}
@@ -52,10 +64,7 @@ const SubscribeButton = memo(function SubscribeButton({
           <BookmarkIcon sx={{ width: 24, height: 24 }} />
         )
       }
-      onClick={async () => {
-        await subscribeBill(bill)
-        setIsSubscribed(true)
-      }}
+      onClick={handleSubscribeClick}
       disabled={isMutating}
     >
       {t(isSubscribed ? 'page.subscribed.btn' : 'page.subscribe.btn', {
