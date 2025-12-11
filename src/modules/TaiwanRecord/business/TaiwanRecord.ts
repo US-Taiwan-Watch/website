@@ -51,6 +51,7 @@ export const taiwanRecordUpdateSchema = taiwanRecordSchema.pick({
   content: true,
   images: true,
   sources: true,
+  peopleId: true,
 })
 
 export type TaiwanRecordUpdateInput = z.input<typeof taiwanRecordUpdateSchema>
@@ -62,6 +63,7 @@ export const defaultTaiwanRecordUpdate: TaiwanRecordUpdateOutput = {
   content: '',
   images: [],
   sources: [],
+  peopleId: '',
 }
 
 export class TaiwanRecordUtils {

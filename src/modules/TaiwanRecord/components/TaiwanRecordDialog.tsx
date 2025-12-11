@@ -31,10 +31,12 @@ type TaiwanRecordDialogProps = DialogProps & {
   mode: TaiwanRecordFormMode
   peopleId: string
   taiwanRecord?: TaiwanRecord
+  onSubmitTaiwanRecord?: () => void
 }
 
 export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
-  const { mode, peopleId, taiwanRecord, ...dialogProps } = props
+  const { mode, peopleId, taiwanRecord, onSubmitTaiwanRecord, ...dialogProps } =
+    props
   const { t } = useTranslationClient(['taiwan_record', 'common'])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
@@ -43,7 +45,11 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
     mode,
     taiwanRecord,
   })
-  const { handleSubmitTaiwanRecord } = useTaiwanRecord()
+  const {
+    handleSubmitTaiwanRecord,
+    handleUpdateTaiwanRecord,
+    handleWithdrawTaiwanRecord,
+  } = useTaiwanRecord()
 
   const title = useMemo(() => {
     if (mode === 'create') {
@@ -69,8 +75,14 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
         if (mode === 'create') {
           await handleSubmitTaiwanRecord(peopleId, data)
           toast('success', t('submitTaiwanRecord.msg', { ns: 'taiwan_record' }))
-          onClose()
         }
+        if (mode === 'update' && taiwanRecord && 'id' in data) {
+          await handleUpdateTaiwanRecord(data)
+          toast('success', t('updateTaiwanRecord.msg', { ns: 'taiwan_record' }))
+        }
+
+        onClose()
+        onSubmitTaiwanRecord?.()
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -81,7 +93,37 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
         setIsSubmitting(false)
       }
     },
-    [peopleId, mode, handleSubmitTaiwanRecord, onClose, toast, t]
+    [
+      peopleId,
+      mode,
+      handleSubmitTaiwanRecord,
+      onClose,
+      toast,
+      t,
+      onSubmitTaiwanRecord,
+    ]
+  )
+
+  const handleWithdraw = useCallback(
+    async (id: string) => {
+      try {
+        setIsSubmitting(true)
+        await handleWithdrawTaiwanRecord(id)
+        toast('success', t('withdrawTaiwanRecord.msg', { ns: 'taiwan_record' }))
+
+        onClose()
+        onSubmitTaiwanRecord?.()
+      } catch (error) {
+        if (error instanceof Error) {
+          toast('error', error.message)
+          return
+        }
+        toast('error', t('withdrawTaiwanRecord.error', { ns: 'taiwan_record' }))
+      } finally {
+        setIsSubmitting(false)
+      }
+    },
+    [taiwanRecord?.id, handleWithdrawTaiwanRecord, onClose, toast, t]
   )
 
   return (
@@ -214,43 +256,54 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: 'flex-end',
-                gap: 1,
+                justifyContent: 'space-between',
                 mt: 2,
               }}
             >
-              <Button
-                onClick={onClose}
-                disabled={isSubmitting}
-                sx={{ textTransform: 'none' }}
-                color="info"
-              >
-                {mode === 'view'
-                  ? t('close.btn', { ns: 'common' })
-                  : t('cancel.btn', { ns: 'common' })}
-              </Button>
-              {mode !== 'view' && (
+              {mode !== 'create' && taiwanRecord && (
                 <Button
-                  type="submit"
-                  variant="contained"
-                  color="info"
+                  onClick={() => handleWithdraw(taiwanRecord.id)}
                   disabled={isSubmitting}
                   sx={{ textTransform: 'none' }}
+                  color="error"
                 >
-                  {isSubmitting && (
-                    <CircularProgress
-                      size={16}
-                      sx={{ mr: 1 }}
-                      color="inherit"
-                    />
-                  )}
-                  {isSubmitting
-                    ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
-                    : mode === 'create'
-                      ? t('dialog.create.btn', { ns: 'taiwan_record' })
-                      : t('dialog.update.btn', { ns: 'taiwan_record' })}
+                  {t('dialog.withdraw.btn', { ns: 'taiwan_record' })}
                 </Button>
               )}
+              <UHStack gap={1} alignItems="center" ml="auto">
+                <Button
+                  onClick={onClose}
+                  disabled={isSubmitting}
+                  sx={{ textTransform: 'none' }}
+                  color="info"
+                >
+                  {mode === 'view'
+                    ? t('close.btn', { ns: 'common' })
+                    : t('cancel.btn', { ns: 'common' })}
+                </Button>
+                {mode !== 'view' && (
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="info"
+                    disabled={isSubmitting}
+                    sx={{ textTransform: 'none' }}
+                  >
+                    {isSubmitting && (
+                      <CircularProgress
+                        size={16}
+                        sx={{ mr: 1 }}
+                        color="inherit"
+                      />
+                    )}
+                    {isSubmitting
+                      ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
+                      : mode === 'create'
+                        ? t('dialog.create.btn', { ns: 'taiwan_record' })
+                        : t('dialog.update.btn', { ns: 'taiwan_record' })}
+                  </Button>
+                )}
+              </UHStack>
             </Box>
           </Box>
         </FormProvider>

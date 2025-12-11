@@ -92,7 +92,7 @@ export default function useTaiwanRecord() {
    * 更新 Taiwan Record
    */
   const handleUpdateTaiwanRecord = useCallback(
-    async (peopleId: string, value: TaiwanRecordUpdateOutput) => {
+    async (value: TaiwanRecordUpdateOutput) => {
       // Filter by started with `data:`
       const newImages = value.images.filter((image) =>
         image.startsWith('data:')
@@ -108,7 +108,7 @@ export default function useTaiwanRecord() {
           data: {
             title: value.title,
             description: value.content,
-            people: peopleId,
+            people: value.peopleId,
             sources: value.sources.map((source) => ({
               link: source,
             })),

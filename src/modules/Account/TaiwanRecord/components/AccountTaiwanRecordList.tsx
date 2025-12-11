@@ -76,7 +76,7 @@ const AccountTaiwanRecordListItem = memo(function AccountTaiwanRecordListItem({
 })
 
 const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
-  const { account } = useAccount()
+  const { account, fetchMe } = useAccount()
   const setAccountTaiwanRecordList =
     useAccountTaiwanRecordStore.use.setAccountTaiwanRecordList()
   useEffect(() => {
@@ -100,6 +100,13 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
     setTaiwanRecordForDialog(null)
     setIsTaiwanRecordDialogOpen(false)
   }, [])
+
+  const onSubmit = useCallback(() => {
+    /**
+     * 重新獲取使用者資料
+     */
+    fetchMe()
+  }, [fetchMe])
 
   if (isCompactView) {
     return (
@@ -162,6 +169,7 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
           taiwanRecord={taiwanRecordForDialog}
           open={isTaiwanRecordDialogOpen}
           onClose={handleTaiwanRecordDialogClose}
+          onSubmitTaiwanRecord={onSubmit}
         />
       )}
     </Stack>
