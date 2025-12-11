@@ -3,9 +3,10 @@ import { z } from 'zod'
 import { TaiwanRecord as TaiwanRecordDTO } from '@/common/lib/graphql/__generated__/graphql'
 
 export enum TaiwanRecordStatus {
-  Approved = 'approved',
+  InReview = 'inReview',
   Drafted = 'drafted',
-  Rejected = 'rejected',
+  Published = 'published',
+  Deleted = 'deleted',
 }
 
 /**
@@ -71,14 +72,15 @@ export class TaiwanRecordUtils {
       content: dto.description ?? '',
       images:
         dto.photos?.map((photo) => photo.photo?.url).filter(isString) ?? [],
-      createdAt: dto.createdAt ?? '',
-      author: dto.author?.fullName ?? '',
       sources: dto.sources?.map((source) => source.link).filter(isString) ?? [],
       status: dto.status,
+      createdAt: dto.createdAt ?? '',
+      author: dto.author?.fullName ?? '',
+      peopleId: dto.people?.id ?? '',
     })
   }
 
-  static isApproved(record: TaiwanRecord) {
-    return record.status === TaiwanRecordStatus.Approved
+  static isPublished(record: TaiwanRecord) {
+    return record.status === TaiwanRecordStatus.Published
   }
 }

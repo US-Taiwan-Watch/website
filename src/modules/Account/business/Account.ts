@@ -11,6 +11,10 @@ import AccountSubscribeUtils, {
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import { PeopleUtils } from '@/modules/People/business/People'
+import {
+  taiwanRecordSchema,
+  TaiwanRecordUtils,
+} from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import { User } from '@auth0/nextjs-auth0/types'
 import { isNull } from 'lodash-es'
 import { z } from 'zod'
@@ -30,9 +34,9 @@ const accountSchema = z.object({
   subscribePeoples: z.array(accountSubscribeSchema),
   bookmarkUstwArticles: z.array(accountSubscribeSchema),
   bookmarkKetagalanArticles: z.array(accountSubscribeSchema),
-  // TODO: 確認 notifications 是否為另外 query 而非綁在 Query.Me
   notifications: z.array(accountNotificationSchema),
   notificationSetting: accountNotificationSettingSchema,
+  submittedTaiwanRecords: z.array(taiwanRecordSchema),
   picture: z.string().optional(),
   connection: z.nativeEnum(Connection).optional(),
 })
@@ -78,6 +82,9 @@ export default class AccountUtils {
           me.notificationSetting?.ketagalanArticleRelease ?? false,
         newsletter: me.notificationSetting?.newsletter ?? false,
       },
+      submittedTaiwanRecords: AccountUtils.parseSubmittedTaiwanRecords(
+        me.submittedTaiwanRecords
+      ),
       picture: user.picture,
       connection: AccountUtils.parseConnection(me.providerId),
     })
@@ -177,6 +184,18 @@ export default class AccountUtils {
         })
       })
       .filter((subscribe) => !isNull(subscribe))
+  }
+
+  static parseSubmittedTaiwanRecords(
+    submittedTaiwanRecords: Member['submittedTaiwanRecords']
+  ) {
+    if (!submittedTaiwanRecords) return []
+    return submittedTaiwanRecords
+      .map((submittedTaiwanRecord) => {
+        if (!submittedTaiwanRecord) return null
+        return TaiwanRecordUtils.parse(submittedTaiwanRecord)
+      })
+      .filter((record) => !isNull(record))
   }
 
   static getAccountSubscribeList(account: Account) {

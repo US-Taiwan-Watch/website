@@ -78,8 +78,7 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
     useAccountTaiwanRecordStore.use.setAccountTaiwanRecordList()
   useEffect(() => {
     if (!account) return
-    // TODO: get account taiwan record list from api
-    setAccountTaiwanRecordList([])
+    setAccountTaiwanRecordList(account.submittedTaiwanRecords)
   }, [account, setAccountTaiwanRecordList])
 
   const filteredAccountTaiwanRecordList =

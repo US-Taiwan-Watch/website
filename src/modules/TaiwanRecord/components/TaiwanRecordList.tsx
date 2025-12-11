@@ -19,7 +19,7 @@ const TaiwanRecordList = ({ records }: TaiwanRecordListProps) => {
     <Stack gap={theme.spacing(7.5)}>
       <Stack gap={theme.spacing(1.5)}>
         {records
-          .filter((record) => TaiwanRecordUtils.isApproved(record))
+          .filter((record) => TaiwanRecordUtils.isPublished(record))
           .map((item) => (
             <div key={item.id}>
               <TaiwanRecordCard taiwanRecord={item} />

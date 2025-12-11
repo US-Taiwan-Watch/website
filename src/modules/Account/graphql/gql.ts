@@ -38,11 +38,27 @@ export const QUERY_ME = gql`
         id
         title
         description
+        photos {
+          photo {
+            url
+          }
+        }
+        sources {
+          link
+        }
+        status
+        createdAt
+        author {
+          id
+          fullName
+          provider
+          providerId
+          email
+        }
         people {
           id
           gender
         }
-        status
       }
     }
   }
