@@ -9,7 +9,10 @@ import { memo, useCallback, useEffect, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
-import { TaiwanRecord } from '@/modules/TaiwanRecord/business/TaiwanRecord'
+import {
+  TaiwanRecord,
+  TaiwanRecordUtils,
+} from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
 
 type AccountTaiwanRecordListItemProps = {
@@ -85,16 +88,16 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
     useAccountTaiwanRecordStore.use.filteredAccountTaiwanRecordList()
   const { isCompactView } = useAccountLayout()
 
-  const [taiwanRecordToUpdate, setTaiwanRecordToUpdate] =
+  const [taiwanRecordForDialog, setTaiwanRecordForDialog] =
     useState<TaiwanRecord | null>(null)
   const [isTaiwanRecordDialogOpen, setIsTaiwanRecordDialogOpen] =
     useState(false)
   const handleTaiwanRecordClick = useCallback((taiwanRecord: TaiwanRecord) => {
-    setTaiwanRecordToUpdate(taiwanRecord)
+    setTaiwanRecordForDialog(taiwanRecord)
     setIsTaiwanRecordDialogOpen(true)
   }, [])
   const handleTaiwanRecordDialogClose = useCallback(() => {
-    setTaiwanRecordToUpdate(null)
+    setTaiwanRecordForDialog(null)
     setIsTaiwanRecordDialogOpen(false)
   }, [])
 
@@ -148,11 +151,15 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
           />
         </Box>
       ))}
-      {taiwanRecordToUpdate && (
+      {taiwanRecordForDialog && (
         <TaiwanRecordDialog
-          mode="update"
-          peopleId={taiwanRecordToUpdate.peopleId}
-          taiwanRecord={taiwanRecordToUpdate}
+          mode={
+            TaiwanRecordUtils.isReadonly(taiwanRecordForDialog)
+              ? 'view'
+              : 'update'
+          }
+          peopleId={taiwanRecordForDialog.peopleId}
+          taiwanRecord={taiwanRecordForDialog}
           open={isTaiwanRecordDialogOpen}
           onClose={handleTaiwanRecordDialogClose}
         />

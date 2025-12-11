@@ -11,7 +11,7 @@ import {
   TaiwanRecord,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 
-export type TaiwanRecordFormMode = 'create' | 'update'
+export type TaiwanRecordFormMode = 'create' | 'update' | 'view'
 
 type UseTaiwanRecordFormProps = {
   mode: TaiwanRecordFormMode

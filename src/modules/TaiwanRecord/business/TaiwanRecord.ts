@@ -83,4 +83,11 @@ export class TaiwanRecordUtils {
   static isPublished(record: TaiwanRecord) {
     return record.status === TaiwanRecordStatus.Published
   }
+
+  static isReadonly(record: TaiwanRecord) {
+    return (
+      record.status === TaiwanRecordStatus.InReview ||
+      record.status === TaiwanRecordStatus.Deleted
+    )
+  }
 }
