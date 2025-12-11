@@ -22,7 +22,7 @@ export default function useTaiwanRecordForm(props: UseTaiwanRecordFormProps) {
   const { mode, taiwanRecord } = props
 
   const defaultValues = useMemo(() => {
-    if (mode === 'update' && taiwanRecord) {
+    if (taiwanRecord) {
       return taiwanRecord
     }
     return mode === 'create'

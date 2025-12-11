@@ -45,9 +45,13 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
   const { handleSubmitTaiwanRecord } = useTaiwanRecord()
 
   const title = useMemo(() => {
-    return mode === 'create'
-      ? t('dialog.create.title', { ns: 'taiwan_record' })
-      : t('dialog.update.title', { ns: 'taiwan_record' })
+    if (mode === 'create') {
+      return t('dialog.create.title', { ns: 'taiwan_record' })
+    } else if (mode === 'update') {
+      return t('dialog.update.title', { ns: 'taiwan_record' })
+    } else {
+      return t('dialog.view.title', { ns: 'taiwan_record' })
+    }
   }, [mode, t])
 
   const onClose = useCallback(() => {
@@ -129,6 +133,11 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
                       })}
                       disabled={isSubmitting}
                       color="info"
+                      slotProps={{
+                        input: {
+                          readOnly: mode === 'view',
+                        },
+                      }}
                     />
                   </Box>
                 )}
@@ -158,16 +167,21 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
                       })}
                       disabled={isSubmitting}
                       color="info"
+                      slotProps={{
+                        input: {
+                          readOnly: mode === 'view',
+                        },
+                      }}
                     />
                   </Box>
                 )}
               />
 
               {/* 圖片上傳元件 */}
-              <TaiwanRecordImageUpload />
+              <TaiwanRecordImageUpload isReadOnly={mode === 'view'} />
 
               {/* 連結管理元件 */}
-              <TaiwanRecordSourceManager />
+              <TaiwanRecordSourceManager isReadOnly={mode === 'view'} />
             </Stack>
 
             <Box
@@ -184,24 +198,32 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
                 sx={{ textTransform: 'none' }}
                 color="info"
               >
-                {t('cancel.btn', { ns: 'common' })}
+                {mode === 'view'
+                  ? t('close.btn', { ns: 'common' })
+                  : t('cancel.btn', { ns: 'common' })}
               </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                color="info"
-                disabled={isSubmitting}
-                sx={{ textTransform: 'none' }}
-              >
-                {isSubmitting && (
-                  <CircularProgress size={16} sx={{ mr: 1 }} color="inherit" />
-                )}
-                {isSubmitting
-                  ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
-                  : mode === 'create'
-                    ? t('dialog.create.btn', { ns: 'taiwan_record' })
-                    : t('dialog.update.btn', { ns: 'taiwan_record' })}
-              </Button>
+              {mode !== 'view' && (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="info"
+                  disabled={isSubmitting}
+                  sx={{ textTransform: 'none' }}
+                >
+                  {isSubmitting && (
+                    <CircularProgress
+                      size={16}
+                      sx={{ mr: 1 }}
+                      color="inherit"
+                    />
+                  )}
+                  {isSubmitting
+                    ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
+                    : mode === 'create'
+                      ? t('dialog.create.btn', { ns: 'taiwan_record' })
+                      : t('dialog.update.btn', { ns: 'taiwan_record' })}
+                </Button>
+              )}
             </Box>
           </Box>
         </FormProvider>

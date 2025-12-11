@@ -17,12 +17,14 @@ type PriviewImageProps = {
   image: string
   index: number
   onRemove: () => void
+  isReadOnly?: boolean
 }
 
 const PriviewImage = memo(function PriviewImage({
   image,
   index,
   onRemove,
+  isReadOnly = false,
 }: PriviewImageProps) {
   const theme = useTheme<USTWTheme>()
   const [showRemoveButton, setShowRemoveButton] = useState(false)
@@ -40,8 +42,8 @@ const PriviewImage = memo(function PriviewImage({
         alignItems: 'center',
         justifyContent: 'center',
       }}
-      onMouseEnter={() => setShowRemoveButton(true)}
-      onMouseLeave={() => setShowRemoveButton(false)}
+      onMouseEnter={() => !isReadOnly && setShowRemoveButton(true)}
+      onMouseLeave={() => !isReadOnly && setShowRemoveButton(false)}
     >
       <img
         src={image}
@@ -52,7 +54,7 @@ const PriviewImage = memo(function PriviewImage({
           objectFit: 'cover',
         }}
       />
-      {showRemoveButton && (
+      {showRemoveButton && !isReadOnly && (
         <Box
           sx={{
             position: 'absolute',
@@ -83,7 +85,13 @@ const PriviewImage = memo(function PriviewImage({
   )
 })
 
-const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload() {
+type TaiwanRecordImageUploadProps = {
+  isReadOnly?: boolean
+}
+
+const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload({
+  isReadOnly = false,
+}: TaiwanRecordImageUploadProps) {
   const { control } = useFormContext<
     TaiwanRecordCreateInput | TaiwanRecordUpdateInput
   >()
@@ -150,41 +158,43 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload() {
 
           <Stack gap={2}>
             {/* 上傳按鈕 */}
-            <Box>
-              <input
-                type="file"
-                multiple
-                accept="image/*"
-                onChange={async (e) => {
-                  const uploadedImages = await handleAddImages(e.target.files)
-                  const comprehensiveUploadedImages = [
-                    ...(field.value || []),
-                    ...uploadedImages
-                      .filter((image) => image.status === 'fulfilled')
-                      .map((image) => image.value),
-                  ]
-                  // 限制最多張數
-                  field.onChange(
-                    comprehensiveUploadedImages.slice(0, MAX_IMAGE_COUNT)
-                  )
-                }}
-                style={{ display: 'none' }}
-                id="image-upload-input"
-              />
-              <label htmlFor="image-upload-input" style={{ width: '100%' }}>
-                <Button
-                  component="span"
-                  variant="outlined"
-                  startIcon={<CloudUploadIcon />}
-                  disabled={!canAddMore}
-                  fullWidth
-                  sx={{ textTransform: 'none' }}
-                  color="info"
-                >
-                  {t('form.images.upload.btn', { ns: 'taiwan_record' })}
-                </Button>
-              </label>
-            </Box>
+            {!isReadOnly && (
+              <Box>
+                <input
+                  type="file"
+                  multiple
+                  accept="image/*"
+                  onChange={async (e) => {
+                    const uploadedImages = await handleAddImages(e.target.files)
+                    const comprehensiveUploadedImages = [
+                      ...(field.value || []),
+                      ...uploadedImages
+                        .filter((image) => image.status === 'fulfilled')
+                        .map((image) => image.value),
+                    ]
+                    // 限制最多張數
+                    field.onChange(
+                      comprehensiveUploadedImages.slice(0, MAX_IMAGE_COUNT)
+                    )
+                  }}
+                  style={{ display: 'none' }}
+                  id="image-upload-input"
+                />
+                <label htmlFor="image-upload-input" style={{ width: '100%' }}>
+                  <Button
+                    component="span"
+                    variant="outlined"
+                    startIcon={<CloudUploadIcon />}
+                    disabled={!canAddMore}
+                    fullWidth
+                    sx={{ textTransform: 'none' }}
+                    color="info"
+                  >
+                    {t('form.images.upload.btn', { ns: 'taiwan_record' })}
+                  </Button>
+                </label>
+              </Box>
+            )}
 
             {/* 已上傳的圖片列表 */}
             {field.value && field.value.length > 0 && (
@@ -208,6 +218,7 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload() {
                       key={index}
                       image={image}
                       index={index}
+                      isReadOnly={isReadOnly}
                       onRemove={() => {
                         if (!field.value) return
                         field.onChange(
