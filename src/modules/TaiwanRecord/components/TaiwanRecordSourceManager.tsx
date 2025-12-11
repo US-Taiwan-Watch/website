@@ -10,7 +10,13 @@ import {
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { z } from 'zod'
 
-const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager() {
+type TaiwanRecordSourceManagerProps = {
+  isReadOnly?: boolean
+}
+
+const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
+  isReadOnly = false,
+}: TaiwanRecordSourceManagerProps) {
   const { control } = useFormContext<
     TaiwanRecordCreateInput | TaiwanRecordUpdateInput
   >()
@@ -62,46 +68,48 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager() {
 
           <Stack gap={2}>
             {/* 輸入框和新增按鈕 */}
-            <Stack direction="row" gap={1}>
-              <TextField
-                size="small"
-                fullWidth
-                placeholder={t('form.sources.input.placeholder', {
-                  ns: 'taiwan_record',
-                })}
-                value={inputUrl}
-                onChange={(e) => {
-                  setInputUrl(e.target.value)
-                  setUrlError('')
-                }}
-                onKeyUp={(e) => {
-                  if (!field.value) return
-                  if (e.key === 'Enter') {
+            {!isReadOnly && (
+              <Stack direction="row" gap={1}>
+                <TextField
+                  size="small"
+                  fullWidth
+                  placeholder={t('form.sources.input.placeholder', {
+                    ns: 'taiwan_record',
+                  })}
+                  value={inputUrl}
+                  onChange={(e) => {
+                    setInputUrl(e.target.value)
+                    setUrlError('')
+                  }}
+                  onKeyUp={(e) => {
+                    if (!field.value) return
+                    if (e.key === 'Enter') {
+                      const newSource = handleAddSource()
+                      if (!newSource) return
+                      field.onChange([...(field.value || []), newSource])
+                    }
+                  }}
+                  error={!!urlError}
+                  helperText={urlError}
+                  color="info"
+                />
+                <Button
+                  variant="contained"
+                  size="small"
+                  onClick={() => {
+                    if (!field.value) return
                     const newSource = handleAddSource()
                     if (!newSource) return
                     field.onChange([...(field.value || []), newSource])
-                  }
-                }}
-                error={!!urlError}
-                helperText={urlError}
-                color="info"
-              />
-              <Button
-                variant="contained"
-                size="small"
-                onClick={() => {
-                  if (!field.value) return
-                  const newSource = handleAddSource()
-                  if (!newSource) return
-                  field.onChange([...(field.value || []), newSource])
-                }}
-                sx={{ textTransform: 'none', minWidth: 'fit-content' }}
-                color="info"
-              >
-                <AddIcon sx={{ mr: 0.5 }} fontSize="small" />
-                {t('form.sources.add.btn', { ns: 'taiwan_record' })}
-              </Button>
-            </Stack>
+                  }}
+                  sx={{ textTransform: 'none', minWidth: 'fit-content' }}
+                  color="info"
+                >
+                  <AddIcon sx={{ mr: 0.5 }} fontSize="small" />
+                  {t('form.sources.add.btn', { ns: 'taiwan_record' })}
+                </Button>
+              </Stack>
+            )}
 
             {/* 已登錄的連結列表 */}
             {field.value && field.value.length > 0 && (
@@ -118,10 +126,16 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager() {
                       key={index}
                       icon={<LinkIcon />}
                       label={source}
-                      onDelete={() => {
-                        if (!field.value) return
-                        field.onChange(handleRemoveSource(field.value, index))
-                      }}
+                      onDelete={
+                        isReadOnly
+                          ? undefined
+                          : () => {
+                              if (!field.value) return
+                              field.onChange(
+                                handleRemoveSource(field.value, index)
+                              )
+                            }
+                      }
                       variant="outlined"
                       size="small"
                       sx={{

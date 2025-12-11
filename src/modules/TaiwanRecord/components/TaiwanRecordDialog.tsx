@@ -23,39 +23,43 @@ import useTaiwanRecordForm, {
 import { Controller, FormProvider } from 'react-hook-form'
 import TaiwanRecordImageUpload from '@/modules/TaiwanRecord/components/TaiwanRecordImageUpload'
 import TaiwanRecordSourceManager from '@/modules/TaiwanRecord/components/TaiwanRecordSourceManager'
+import useTaiwanRecord from '@/modules/TaiwanRecord/hooks/useTaiwanRecord'
+import { useToast } from '@/common/providers/ToastProvider'
+import UHStack from '@/common/components/atoms/UHStack'
 
 type TaiwanRecordDialogProps = DialogProps & {
   mode: TaiwanRecordFormMode
+  peopleId: string
   taiwanRecord?: TaiwanRecord
+  onSubmitTaiwanRecord?: () => void
 }
 
 export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
-  const { mode, taiwanRecord, ...dialogProps } = props
+  const { mode, peopleId, taiwanRecord, onSubmitTaiwanRecord, ...dialogProps } =
+    props
   const { t } = useTranslationClient(['taiwan_record', 'common'])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const { toast } = useToast()
 
-  const { form, handleReset, handleSubmit } = useTaiwanRecordForm({
+  const { form, handleReset } = useTaiwanRecordForm({
     mode,
     taiwanRecord,
   })
+  const {
+    handleSubmitTaiwanRecord,
+    handleUpdateTaiwanRecord,
+    handleWithdrawTaiwanRecord,
+  } = useTaiwanRecord()
 
   const title = useMemo(() => {
-    return mode === 'create'
-      ? t('dialog.create.title', { ns: 'taiwan_record' })
-      : t('dialog.update.title', { ns: 'taiwan_record' })
+    if (mode === 'create') {
+      return t('dialog.create.title', { ns: 'taiwan_record' })
+    } else if (mode === 'update') {
+      return t('dialog.update.title', { ns: 'taiwan_record' })
+    } else {
+      return t('dialog.view.title', { ns: 'taiwan_record' })
+    }
   }, [mode, t])
-
-  const onSubmit = useCallback(
-    async (data: TaiwanRecordCreateOutput | TaiwanRecordUpdateOutput) => {
-      setIsSubmitting(true)
-      try {
-        await handleSubmit(data)
-      } finally {
-        setIsSubmitting(false)
-      }
-    },
-    [handleSubmit]
-  )
 
   const onClose = useCallback(() => {
     if (!isSubmitting) {
@@ -63,6 +67,64 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
       dialogProps.onClose?.({}, 'backdropClick')
     }
   }, [isSubmitting, handleReset, dialogProps])
+
+  const onSubmit = useCallback(
+    async (data: TaiwanRecordCreateOutput | TaiwanRecordUpdateOutput) => {
+      try {
+        setIsSubmitting(true)
+        if (mode === 'create') {
+          await handleSubmitTaiwanRecord(peopleId, data)
+          toast('success', t('submitTaiwanRecord.msg', { ns: 'taiwan_record' }))
+        }
+        if (mode === 'update' && taiwanRecord && 'id' in data) {
+          await handleUpdateTaiwanRecord(data)
+          toast('success', t('updateTaiwanRecord.msg', { ns: 'taiwan_record' }))
+        }
+
+        onClose()
+        onSubmitTaiwanRecord?.()
+      } catch (error) {
+        if (error instanceof Error) {
+          toast('error', error.message)
+          return
+        }
+        toast('error', t('submitTaiwanRecord.error', { ns: 'taiwan_record' }))
+      } finally {
+        setIsSubmitting(false)
+      }
+    },
+    [
+      peopleId,
+      mode,
+      handleSubmitTaiwanRecord,
+      onClose,
+      toast,
+      t,
+      onSubmitTaiwanRecord,
+    ]
+  )
+
+  const handleWithdraw = useCallback(
+    async (id: string) => {
+      try {
+        setIsSubmitting(true)
+        await handleWithdrawTaiwanRecord(id)
+        toast('success', t('withdrawTaiwanRecord.msg', { ns: 'taiwan_record' }))
+
+        onClose()
+        onSubmitTaiwanRecord?.()
+      } catch (error) {
+        if (error instanceof Error) {
+          toast('error', error.message)
+          return
+        }
+        toast('error', t('withdrawTaiwanRecord.error', { ns: 'taiwan_record' }))
+      } finally {
+        setIsSubmitting(false)
+      }
+    },
+    [taiwanRecord?.id, handleWithdrawTaiwanRecord, onClose, toast, t]
+  )
 
   return (
     <Dialog
@@ -82,7 +144,33 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
         },
       }}
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>
+        <UHStack justifyContent="space-between" alignItems="center">
+          <Typography variant="h6">{title}</Typography>
+          {taiwanRecord && (
+            <Box
+              sx={{
+                textAlign: 'center',
+                px: 1,
+                py: 0.5,
+                color: 'indigo.1000',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                borderRadius: '10px',
+                borderColor: 'indigo.1000',
+                borderWidth: 1,
+                borderStyle: 'solid',
+              }}
+            >
+              <span>
+                {t(`taiwanRecord.status.${taiwanRecord.status}`, {
+                  ns: 'taiwan_record',
+                })}
+              </span>
+            </Box>
+          )}
+        </UHStack>
+      </DialogTitle>
       <DialogContent>
         <FormProvider {...form}>
           <Box
@@ -114,6 +202,11 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
                       })}
                       disabled={isSubmitting}
                       color="info"
+                      slotProps={{
+                        input: {
+                          readOnly: mode === 'view',
+                        },
+                      }}
                     />
                   </Box>
                 )}
@@ -143,50 +236,74 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
                       })}
                       disabled={isSubmitting}
                       color="info"
+                      slotProps={{
+                        input: {
+                          readOnly: mode === 'view',
+                        },
+                      }}
                     />
                   </Box>
                 )}
               />
 
               {/* 圖片上傳元件 */}
-              <TaiwanRecordImageUpload />
+              <TaiwanRecordImageUpload isReadOnly={mode === 'view'} />
 
               {/* 連結管理元件 */}
-              <TaiwanRecordSourceManager />
+              <TaiwanRecordSourceManager isReadOnly={mode === 'view'} />
             </Stack>
 
             <Box
               sx={{
                 display: 'flex',
-                justifyContent: 'flex-end',
-                gap: 1,
+                justifyContent: 'space-between',
                 mt: 2,
               }}
             >
-              <Button
-                onClick={onClose}
-                disabled={isSubmitting}
-                sx={{ textTransform: 'none' }}
-                color="info"
-              >
-                {t('cancel.btn', { ns: 'common' })}
-              </Button>
-              <Button
-                type="submit"
-                variant="contained"
-                color="info"
-                disabled={isSubmitting}
-                sx={{ textTransform: 'none' }}
-              >
-                {isSubmitting && (
-                  <CircularProgress size={16} sx={{ mr: 1 }} color="inherit" />
+              {mode !== 'create' && taiwanRecord && (
+                <Button
+                  onClick={() => handleWithdraw(taiwanRecord.id)}
+                  disabled={isSubmitting}
+                  sx={{ textTransform: 'none' }}
+                  color="error"
+                >
+                  {t('dialog.withdraw.btn', { ns: 'taiwan_record' })}
+                </Button>
+              )}
+              <UHStack gap={1} alignItems="center" ml="auto">
+                <Button
+                  onClick={onClose}
+                  disabled={isSubmitting}
+                  sx={{ textTransform: 'none' }}
+                  color="info"
+                >
+                  {mode === 'view'
+                    ? t('close.btn', { ns: 'common' })
+                    : t('cancel.btn', { ns: 'common' })}
+                </Button>
+                {mode !== 'view' && (
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="info"
+                    disabled={isSubmitting}
+                    sx={{ textTransform: 'none' }}
+                  >
+                    {isSubmitting && (
+                      <CircularProgress
+                        size={16}
+                        sx={{ mr: 1 }}
+                        color="inherit"
+                      />
+                    )}
+                    {isSubmitting
+                      ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
+                      : mode === 'create'
+                        ? t('dialog.create.btn', { ns: 'taiwan_record' })
+                        : t('dialog.update.btn', { ns: 'taiwan_record' })}
+                  </Button>
                 )}
-                {isSubmitting
-                  ? t('dialog.submitting.msg', { ns: 'taiwan_record' })
-                  : mode === 'create'
-                    ? t('dialog.create.btn', { ns: 'taiwan_record' })
-                    : t('dialog.update.btn', { ns: 'taiwan_record' })}
-              </Button>
+              </UHStack>
             </Box>
           </Box>
         </FormProvider>

@@ -67,6 +67,7 @@ import { AccountSettingOutput } from '@/modules/Account/Setting/business/Account
 import { AccountNotificationSettingOutput } from '@/modules/Account/Notification/business/AccountNotification'
 
 type AccountProviderContext = {
+  fetchMe: () => void
   account: Account | null
   isAccountLoading: boolean
   refetchAccount: () => void
@@ -90,6 +91,7 @@ type AccountProviderContext = {
 }
 
 const AccountContext = createContext<AccountProviderContext>({
+  fetchMe: () => {},
   account: null,
   isAccountLoading: true,
   refetchAccount: () => {},
@@ -666,6 +668,7 @@ export default function AccountProvider({
   return (
     <AccountContext.Provider
       value={{
+        fetchMe,
         account,
         isAccountLoading,
         refetchAccount: refetch,

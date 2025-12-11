@@ -35,3 +35,35 @@ export const TAIWAN_RECORD_FRAGMENT = gql`
 
   ${MEMBER_FRAGMENT}
 `
+
+export const MUTATION_SUBMIT_TAIWAN_RECORD = gql`
+  mutation SubmitTaiwanRecord($data: mutationSubmitTaiwanRecordInput!) {
+    submitTaiwanRecord(data: $data) {
+      id
+    }
+  }
+`
+
+export const MUTATION_WITHDRAW_TAIWAN_RECORD = gql`
+  mutation WithdrawTaiwanRecord($id: String!) {
+    withdrawTaiwanRecord(id: $id) {
+      id
+    }
+  }
+`
+
+export const MUTATION_MODIFY_TAIWAN_RECORD = gql`
+  mutation ModifyTaiwanRecord(
+    $id: String!
+    $data: mutationModifyTaiwanRecordInput!
+    $resubmitForReview: Boolean
+  ) {
+    modifyTaiwanRecord(
+      id: $id
+      data: $data
+      resubmitForReview: $resubmitForReview
+    ) {
+      id
+    }
+  }
+`

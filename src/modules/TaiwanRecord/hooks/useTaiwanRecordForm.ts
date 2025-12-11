@@ -4,16 +4,14 @@ import { useCallback, useEffect, useMemo } from 'react'
 import {
   defaultTaiwanRecordCreate,
   TaiwanRecordCreateInput,
-  TaiwanRecordCreateOutput,
   TaiwanRecordUpdateInput,
-  TaiwanRecordUpdateOutput,
   taiwanRecordUpdateSchema,
   taiwanRecordCreateSchema,
   defaultTaiwanRecordUpdate,
   TaiwanRecord,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 
-export type TaiwanRecordFormMode = 'create' | 'update'
+export type TaiwanRecordFormMode = 'create' | 'update' | 'view'
 
 type UseTaiwanRecordFormProps = {
   mode: TaiwanRecordFormMode
@@ -24,7 +22,7 @@ export default function useTaiwanRecordForm(props: UseTaiwanRecordFormProps) {
   const { mode, taiwanRecord } = props
 
   const defaultValues = useMemo(() => {
-    if (mode === 'update' && taiwanRecord) {
+    if (taiwanRecord) {
       return taiwanRecord
     }
     return mode === 'create'
@@ -49,13 +47,5 @@ export default function useTaiwanRecordForm(props: UseTaiwanRecordFormProps) {
     form.reset(defaultValues)
   }, [form, defaultValues])
 
-  const handleSubmit = useCallback(
-    async (value: TaiwanRecordCreateOutput | TaiwanRecordUpdateOutput) => {
-      console.log(value)
-      // TODO: 呼教 API 新增/更新 Taiwan Record
-    },
-    []
-  )
-
-  return { form, handleReset, handleSubmit }
+  return { form, handleReset }
 }

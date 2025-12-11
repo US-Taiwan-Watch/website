@@ -82,12 +82,12 @@ const AccountTaiwanRecordStatusTabs = memo(
     const tabs = useMemo<AccountTaiwanRecordStatusTab[]>(() => {
       return [
         {
-          label: t('taiwanRecord.status.approved', { ns: 'account' }),
-          value: TaiwanRecordStatus.Approved,
+          label: t('taiwanRecord.status.published', { ns: 'account' }),
+          value: TaiwanRecordStatus.Published,
           count:
             accountTaiwanRecordList.filter(
               (taiwanRecord) =>
-                taiwanRecord.status === TaiwanRecordStatus.Approved
+                taiwanRecord.status === TaiwanRecordStatus.Published
             ).length ?? 0,
         },
         {
@@ -100,12 +100,21 @@ const AccountTaiwanRecordStatusTabs = memo(
             ).length ?? 0,
         },
         {
-          label: t('taiwanRecord.status.rejected', { ns: 'account' }),
-          value: TaiwanRecordStatus.Rejected,
+          label: t('taiwanRecord.status.inReview', { ns: 'account' }),
+          value: TaiwanRecordStatus.InReview,
           count:
             accountTaiwanRecordList.filter(
               (taiwanRecord) =>
-                taiwanRecord.status === TaiwanRecordStatus.Rejected
+                taiwanRecord.status === TaiwanRecordStatus.InReview
+            ).length ?? 0,
+        },
+        {
+          label: t('taiwanRecord.status.deleted', { ns: 'account' }),
+          value: TaiwanRecordStatus.Deleted,
+          count:
+            accountTaiwanRecordList.filter(
+              (taiwanRecord) =>
+                taiwanRecord.status === TaiwanRecordStatus.Deleted
             ).length ?? 0,
         },
       ]
