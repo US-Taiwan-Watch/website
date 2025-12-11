@@ -25,6 +25,7 @@ import TaiwanRecordImageUpload from '@/modules/TaiwanRecord/components/TaiwanRec
 import TaiwanRecordSourceManager from '@/modules/TaiwanRecord/components/TaiwanRecordSourceManager'
 import useTaiwanRecord from '@/modules/TaiwanRecord/hooks/useTaiwanRecord'
 import { useToast } from '@/common/providers/ToastProvider'
+import UHStack from '@/common/components/atoms/UHStack'
 
 type TaiwanRecordDialogProps = DialogProps & {
   mode: TaiwanRecordFormMode
@@ -101,7 +102,33 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
         },
       }}
     >
-      <DialogTitle>{title}</DialogTitle>
+      <DialogTitle>
+        <UHStack justifyContent="space-between" alignItems="center">
+          <Typography variant="h6">{title}</Typography>
+          {taiwanRecord && (
+            <Box
+              sx={{
+                textAlign: 'center',
+                px: 1,
+                py: 0.5,
+                color: 'indigo.1000',
+                fontSize: '0.875rem',
+                fontWeight: 600,
+                borderRadius: '10px',
+                borderColor: 'indigo.1000',
+                borderWidth: 1,
+                borderStyle: 'solid',
+              }}
+            >
+              <span>
+                {t(`taiwanRecord.status.${taiwanRecord.status}`, {
+                  ns: 'taiwan_record',
+                })}
+              </span>
+            </Box>
+          )}
+        </UHStack>
+      </DialogTitle>
       <DialogContent>
         <FormProvider {...form}>
           <Box
