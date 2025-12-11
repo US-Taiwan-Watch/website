@@ -32,6 +32,7 @@ export const QUERY_ME = gql`
         subscribedPeopleUpdate
         billRelease
       }
+      provider
       providerId
     }
   }

@@ -1,4 +1,4 @@
-import { Me } from '@/common/lib/graphql/__generated__/graphql'
+import { Member } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import {
   accountNotificationSchema,
@@ -45,7 +45,7 @@ export default class AccountUtils {
     return accountSchema.parse(input)
   }
 
-  static parseMeAndAuth0User(lang: Language, me: Me, user: User) {
+  static parseMeAndAuth0User(lang: Language, me: Member, user: User) {
     return AccountUtils.parse({
       id: user.sub ?? '',
       givenName: user.given_name ?? '',
@@ -83,7 +83,7 @@ export default class AccountUtils {
     })
   }
 
-  static parseConnection(providerId: Me['providerId']) {
+  static parseConnection(providerId: Member['providerId']) {
     if (!providerId) return undefined
 
     if (providerId.startsWith('auth0|')) {
@@ -97,7 +97,7 @@ export default class AccountUtils {
 
   static parseSubscribeBills(
     lang: Language,
-    subscribeBills: Me['subscribeBills']
+    subscribeBills: Member['subscribeBills']
   ) {
     if (!subscribeBills) return []
     return subscribeBills
@@ -116,7 +116,7 @@ export default class AccountUtils {
 
   static parseSubscribePeoples(
     lang: Language,
-    subscribePeoples: Me['subscribePeoples']
+    subscribePeoples: Member['subscribePeoples']
   ) {
     if (!subscribePeoples) return []
     return subscribePeoples
@@ -135,7 +135,7 @@ export default class AccountUtils {
 
   static parseBookmarkUstwArticles(
     lang: Language,
-    bookmarkUstwArticles: Me['bookmarkUstwArticles']
+    bookmarkUstwArticles: Member['bookmarkUstwArticles']
   ) {
     if (!bookmarkUstwArticles) return []
     return bookmarkUstwArticles
@@ -158,7 +158,7 @@ export default class AccountUtils {
 
   static parseBookmarkKetagalanArticles(
     lang: Language,
-    bookmarkKetagalanArticles: Me['bookmarkKetagalanArticles']
+    bookmarkKetagalanArticles: Member['bookmarkKetagalanArticles']
   ) {
     if (!bookmarkKetagalanArticles) return []
     return bookmarkKetagalanArticles
