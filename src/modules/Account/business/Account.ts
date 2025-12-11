@@ -1,4 +1,4 @@
-import { Me } from '@/common/lib/graphql/__generated__/graphql'
+import { Member } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import {
   accountNotificationSchema,
@@ -45,7 +45,7 @@ export default class AccountUtils {
     return accountSchema.parse(input)
   }
 
-  static parseMeAndAuth0User(lang: Language, me: Me, user: User) {
+  static parseMeAndAuth0User(lang: Language, me: Member, user: User) {
     return AccountUtils.parse({
       id: user.sub ?? '',
       givenName: user.given_name ?? '',
@@ -67,15 +67,11 @@ export default class AccountUtils {
       ),
       notifications: [],
       notificationSetting: {
-        // TODO: 等後端實作 `subscribedPeopleUpdate`
-        // subscribedPeopleUpdate:
-        //   me.notificationSetting?.subscribedPeopleUpdate ?? false,
-        subscribedPeopleUpdate: false,
+        subscribedPeopleUpdate:
+          me.notificationSetting?.subscribedPeopleUpdate ?? false,
         subscribedBillUpdate:
           me.notificationSetting?.subscribedBillUpdate ?? false,
-        // TODO: 等後端實作 `billRelease`
-        // billRelease: me.notificationSetting?.billRelease ?? false,
-        billRelease: false,
+        billRelease: me.notificationSetting?.billRelease ?? false,
         podcastRelease: me.notificationSetting?.podcastRelease ?? false,
         ustwArticleRelease: me.notificationSetting?.ustwArticleRelease ?? false,
         ketagalanArticleRelease:
@@ -87,7 +83,7 @@ export default class AccountUtils {
     })
   }
 
-  static parseConnection(providerId: Me['providerId']) {
+  static parseConnection(providerId: Member['providerId']) {
     if (!providerId) return undefined
 
     if (providerId.startsWith('auth0|')) {
@@ -101,7 +97,7 @@ export default class AccountUtils {
 
   static parseSubscribeBills(
     lang: Language,
-    subscribeBills: Me['subscribeBills']
+    subscribeBills: Member['subscribeBills']
   ) {
     if (!subscribeBills) return []
     return subscribeBills
@@ -120,7 +116,7 @@ export default class AccountUtils {
 
   static parseSubscribePeoples(
     lang: Language,
-    subscribePeoples: Me['subscribePeoples']
+    subscribePeoples: Member['subscribePeoples']
   ) {
     if (!subscribePeoples) return []
     return subscribePeoples
@@ -139,7 +135,7 @@ export default class AccountUtils {
 
   static parseBookmarkUstwArticles(
     lang: Language,
-    bookmarkUstwArticles: Me['bookmarkUstwArticles']
+    bookmarkUstwArticles: Member['bookmarkUstwArticles']
   ) {
     if (!bookmarkUstwArticles) return []
     return bookmarkUstwArticles
@@ -162,7 +158,7 @@ export default class AccountUtils {
 
   static parseBookmarkKetagalanArticles(
     lang: Language,
-    bookmarkKetagalanArticles: Me['bookmarkKetagalanArticles']
+    bookmarkKetagalanArticles: Member['bookmarkKetagalanArticles']
   ) {
     if (!bookmarkKetagalanArticles) return []
     return bookmarkKetagalanArticles

@@ -13,7 +13,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { Article } from '@/modules/Article/business/Article'
-import { memo, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useState } from 'react'
 
 type ArticleFixedProps = {
   article: Article
@@ -24,12 +24,26 @@ const ArticleFixed = memo(function ArticleFixed({
 }: ArticleFixedProps) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
-  const { bookmarkArticle, isMutating, checkIfArticleIsBookmarked } =
-    useAccount()
+  const {
+    bookmarkArticle,
+    unbookmarkArticle,
+    isMutating,
+    checkIfArticleIsBookmarked,
+  } = useAccount()
   const [isBookmarked, setIsBookmarked] = useState(false)
   useEffect(() => {
     setIsBookmarked(checkIfArticleIsBookmarked(article))
   }, [checkIfArticleIsBookmarked, article])
+
+  const handleBookmarkClick = useCallback(async () => {
+    if (isBookmarked) {
+      setIsBookmarked(false)
+      await unbookmarkArticle(article)
+      return
+    }
+    setIsBookmarked(true)
+    await bookmarkArticle(article)
+  }, [isBookmarked, bookmarkArticle, unbookmarkArticle, article])
 
   if (isMobile) return null
 
@@ -69,10 +83,7 @@ const ArticleFixed = memo(function ArticleFixed({
               backgroundColor: theme.color.article.postFixedToolButtonHover,
             },
           }}
-          onClick={async () => {
-            await bookmarkArticle(article)
-            setIsBookmarked(true)
-          }}
+          onClick={handleBookmarkClick}
           disabled={isMutating}
         >
           {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}

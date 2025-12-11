@@ -29,7 +29,10 @@ export const QUERY_ME = gql`
         ustwArticleRelease
         ketagalanArticleRelease
         newsletter
+        subscribedPeopleUpdate
+        billRelease
       }
+      provider
       providerId
     }
   }
@@ -48,9 +51,25 @@ export const MUTATION_SUBSCRIBE_BILL = gql`
   }
 `
 
+export const MUTATION_UNSUBSCRIBE_BILL = gql`
+  mutation UnsubscribeBill($billId: String!) {
+    unsubscribeBill(id: $billId) {
+      id
+    }
+  }
+`
+
 export const MUTATION_SUBSCRIBE_PEOPLE = gql`
   mutation SubscribePeople($peopleId: String!) {
     subscribePeople(id: $peopleId) {
+      id
+    }
+  }
+`
+
+export const MUTATION_UNSUBSCRIBE_PEOPLE = gql`
+  mutation UnsubscribePeople($peopleId: String!) {
+    unsubscribePeople(id: $peopleId) {
       id
     }
   }
@@ -64,9 +83,25 @@ export const MUTATION_BOOKMARK_USTW_ARTICLE = gql`
   }
 `
 
+export const MUTATION_UNBOOKMARK_USTW_ARTICLE = gql`
+  mutation UnbookmarkUstwArticle($articleId: String!) {
+    unbookmarkUstwArticle(id: $articleId) {
+      id
+    }
+  }
+`
+
 export const MUTATION_BOOKMARK_KETAGALAN_ARTICLE = gql`
   mutation BookmarkKetagalanArticle($articleId: String!) {
     bookmarkKetagalanArticle(id: $articleId) {
+      id
+    }
+  }
+`
+
+export const MUTATION_UNBOOKMARK_KETAGALAN_ARTICLE = gql`
+  mutation UnbookmarkKetagalanArticle($articleId: String!) {
+    unbookmarkKetagalanArticle(id: $articleId) {
       id
     }
   }

@@ -6,7 +6,7 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePostTag'
 import { Stack, Typography, useTheme } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import {
   BookmarkFilledIcon,
@@ -27,8 +27,12 @@ interface ArticlePostHeaderProps {
 const ArticlePostHeader = function ArticlePostHeader({
   article,
 }: ArticlePostHeaderProps) {
-  const { bookmarkArticle, isMutating, checkIfArticleIsBookmarked } =
-    useAccount()
+  const {
+    bookmarkArticle,
+    unbookmarkArticle,
+    isMutating,
+    checkIfArticleIsBookmarked,
+  } = useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient(['article'])
   const { categories, title, subtitle, date, tags, repostSources, authors } =
@@ -38,6 +42,16 @@ const ArticlePostHeader = function ArticlePostHeader({
   useEffect(() => {
     setIsBookmarked(checkIfArticleIsBookmarked(article))
   }, [checkIfArticleIsBookmarked, article])
+
+  const handleBookmarkClick = useCallback(async () => {
+    if (isBookmarked) {
+      await unbookmarkArticle(article)
+      setIsBookmarked(false)
+      return
+    }
+    await bookmarkArticle(article)
+    setIsBookmarked(true)
+  }, [isBookmarked, bookmarkArticle, unbookmarkArticle, article])
 
   const [formattedDate, setFormattedDate] = useState('')
   useEffect(() => {
@@ -93,10 +107,7 @@ const ArticlePostHeader = function ArticlePostHeader({
               variant="rounded"
               color="black"
               size="xs"
-              onClick={async () => {
-                await bookmarkArticle(article)
-                setIsBookmarked(true)
-              }}
+              onClick={handleBookmarkClick}
               disabled={isMutating}
             >
               {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
