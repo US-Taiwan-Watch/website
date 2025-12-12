@@ -20,27 +20,29 @@ export const generateMetadata = async ({
 }: PodcastPageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
   let episodeTitle = ''
+  let episodeDescription = ''
   const podcastId = config.SOUNDON_PODCAST_ID
   if (podcastId) {
     const episode = await getEpisode({ podcastId, episodeId: params.id })
     if (episode) {
       episodeTitle = episode.title ?? ''
+      episodeDescription = episode.description ?? ''
     }
   }
-  return generateCommonMetadata({
-    lang: params.lang,
-    pathname: resolveRouteUrl({
-      name: RouteName.PodcastDetail,
-      params: { episodeId: params.id },
-    }),
-    namespace: 'seo_podcast_detail',
-    titleVariables: {
-      episodeTitle,
-    },
-    descriptionVariables: {
-      episodeTitle,
-    },
-  })
+  return {
+    ...(await generateCommonMetadata({
+      lang: params.lang,
+      pathname: resolveRouteUrl({
+        name: RouteName.PodcastDetail,
+        params: { episodeId: params.id },
+      }),
+      namespace: 'seo_podcast_detail',
+      titleVariables: {
+        episodeTitle,
+      },
+    })),
+    description: episodeDescription,
+  }
 }
 
 export default async function PodcastPage({ params }: PodcastPageProps) {

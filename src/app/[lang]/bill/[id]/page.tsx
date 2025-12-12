@@ -23,21 +23,25 @@ export const generateMetadata = async ({
   const { resolveRouteUrl } = getURouterServer()
   const bill = await ServerBillApi.getBill({ id: params.id })
   const billTitle = bill?.title ?? ''
+  const billDescription = bill?.summary ?? ''
 
-  return generateCommonMetadata({
-    lang: params.lang,
-    pathname: resolveRouteUrl({
-      name: RouteName.BillDetail,
-      params: { billId: params.id },
-    }),
-    namespace: 'seo_bill_detail',
-    titleVariables: {
-      billTitle,
-    },
-    descriptionVariables: {
-      billTitle,
-    },
-  })
+  return {
+    ...(await generateCommonMetadata({
+      lang: params.lang,
+      pathname: resolveRouteUrl({
+        name: RouteName.BillDetail,
+        params: { billId: params.id },
+      }),
+      namespace: 'seo_bill_detail',
+      titleVariables: {
+        billTitle,
+      },
+      descriptionVariables: {
+        billTitle,
+      },
+    })),
+    description: billDescription,
+  }
 }
 
 export default async function Bill({ params }: BillPageProps) {

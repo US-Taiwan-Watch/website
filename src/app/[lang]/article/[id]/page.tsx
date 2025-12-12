@@ -23,21 +23,25 @@ export const generateMetadata = async ({
     articleType: ArticleType.Article,
   })
   const articleTitle = article?.title ?? ''
+  const articleDescription = article?.description ?? ''
 
-  return generateCommonMetadata({
-    lang: params.lang,
-    pathname: resolveRouteUrl({
-      name: RouteName.ArticleDetail,
-      params: { articleId: params.id },
-    }),
-    namespace: 'seo_article_detail',
-    titleVariables: {
-      articleTitle,
-    },
-    descriptionVariables: {
-      articleTitle,
-    },
-  })
+  return {
+    ...(await generateCommonMetadata({
+      lang: params.lang,
+      pathname: resolveRouteUrl({
+        name: RouteName.ArticleDetail,
+        params: { articleId: params.id },
+      }),
+      namespace: 'seo_article_detail',
+      titleVariables: {
+        articleTitle,
+      },
+      descriptionVariables: {
+        articleTitle,
+      },
+    })),
+    description: articleDescription,
+  }
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
