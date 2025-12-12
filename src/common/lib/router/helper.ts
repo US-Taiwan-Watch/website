@@ -1,3 +1,4 @@
+import { Language } from '@/common/lib/i18n/types'
 import {
   URoute,
   ROUTE_PATH_MAP,
@@ -8,10 +9,14 @@ import { config } from '@/config'
 // 共用 Helper
 export type ResolveRouteUrlHelperOptions = {
   /**
-   * 是否回傳絕對路徑, e.g. "https://gogoout.com/cars/1/detail"
+   * 是否回傳絕對路徑, e.g. "https://ustw.com/people/1"
    * @default false
    * */
   returnAbsoluteUrl?: boolean
+  /**
+   * 語系
+   */
+  language?: Language
 }
 
 /**
@@ -20,7 +25,7 @@ export type ResolveRouteUrlHelperOptions = {
  * resolveRouteUrlHelper({ name: "home" }) => "/"
  * resolveRouteUrlHelper({ name: "bill", params: { billId: "123" } }) => "/bill/123"
  * resolveRouteUrlHelper({ name: "bill", params: { billId: "123" }, query: { a: "1", b: "2" } }) => "/bill/123?a=1&b=2"
- * resolveRouteUrlHelper({ name: "bill", params: { billId: "123" }, query: { a: "1", b: "2" }, returnAbsoluteUrl: true }) => "https://gogoout.com/bill/123?a=1&b=2"
+ * resolveRouteUrlHelper({ name: "bill", params: { billId: "123" }, query: { a: "1", b: "2" }, returnAbsoluteUrl: true }) => "https://ustw.com/bill/123?a=1&b=2"
  */
 export default function resolveRouteUrlHelper(
   route: URoute,
@@ -68,10 +73,14 @@ type ConCatPathAndQueryProps = {
 
 type ConCatPathAndQueryOptions = {
   /**
-   * 是否回傳絕對路徑, e.g. "https://gogoout.com/cars/1/detail"
+   * 是否回傳絕對路徑, e.g. "https://ustw.com/people/1"
    * @default false
    * */
   returnAbsoluteUrl?: boolean
+  /**
+   * 語系
+   */
+  language?: Language
 }
 
 /** 簡易判斷 URL 是否為 absolute URL */
@@ -97,11 +106,19 @@ export const concatPathAndQuery = (
   }
 
   // 組合 path 和 query string
-  const urlWithQueryString =
+  let urlWithQueryString =
     (path || '') + (searchParams.size > 0 ? `?${searchParams.toString()}` : '')
 
+  if (isAbsoluteUrl(urlWithQueryString)) {
+    return urlWithQueryString
+  }
+
+  if (options.language) {
+    urlWithQueryString = `/${options.language}${urlWithQueryString}`
+  }
+
   // 如果需要回傳絕對路徑，且 url 不是絕對路徑，則加上 base
-  if (options.returnAbsoluteUrl && !isAbsoluteUrl(urlWithQueryString)) {
+  if (options.returnAbsoluteUrl) {
     return new URL(urlWithQueryString, config.WEB_BASE_URL).toString()
   }
 

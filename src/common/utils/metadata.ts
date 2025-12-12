@@ -18,7 +18,9 @@ const SOCIAL_SHARE_IMAGE_URL = new URL(
  * 並透過 languages 回傳不同語言的 alternate url。
  *
  * - 生成翻譯 title & description：
- * namespace 的 meta.title & meta.description。
+ * 透過 SEO 的語言包，
+ * 可觀察出 title & description 的 key 是有 pattern 的，
+ * 分別是不同 namespace 的 meta.title & meta.description。
  */
 export const generateCommonMetadata = async ({
   lang,
@@ -66,10 +68,10 @@ export const generateCommonMetadata = async ({
 
   // Metadata for Open Graph
   const openGraph: Metadata['openGraph'] = {
-    title: 'gogoout',
-    description: 'gogoout',
+    title: 'USTW',
+    description: 'USTW',
     url: baseUrl,
-    siteName: 'gogoout',
+    siteName: 'USTW',
     images: [{ url: SOCIAL_SHARE_IMAGE_URL }],
     type: 'website',
   }
