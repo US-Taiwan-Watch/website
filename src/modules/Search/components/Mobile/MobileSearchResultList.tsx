@@ -57,7 +57,7 @@ const MobileSearchResultList = ({
   className,
   onClose,
 }: MobileSearchResultProps) => {
-  const { handleNavigateSearchPage } = useSearch()
+  const { handleNavigateSuggestionObject } = useSearch()
   const { t } = useTranslationClient('search')
 
   return (
@@ -68,7 +68,7 @@ const MobileSearchResultList = ({
             <Box
               key={suggestion.value}
               onClick={() => {
-                handleNavigateSearchPage(suggestion.value)
+                handleNavigateSuggestionObject(suggestion)
                 onClose?.()
               }}
               sx={{

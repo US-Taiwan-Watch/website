@@ -10,7 +10,6 @@ import { useSearchParams } from 'next/navigation'
 import {
   SearchQuery,
   SearchQueryVariables,
-  Search as ApiSearch,
 } from '@/common/lib/graphql/__generated__/graphql'
 import UPagination, {
   usePagination,
@@ -95,13 +94,9 @@ export default function SearchPage({ params }: SearchPageProps) {
   useEffect(() => {
     if (!searchQueryData || !searchQueryData.Search) return
 
-    setSearchResults(
-      SearchResultsUtils.parse(lang, searchQueryData.Search as ApiSearch)
-    ) // FIXME: The type is not correct
+    setSearchResults(SearchResultsUtils.parse(lang, searchQueryData.Search))
 
-    setTotalPages(
-      SearchResultsUtils.getTotalPages(searchQueryData.Search as ApiSearch)
-    ) // FIXME: The type is not correct
+    setTotalPages(SearchResultsUtils.getTotalPages(searchQueryData.Search))
   }, [lang, searchQueryData, setSearchResults, setTotalPages])
 
   useEffect(() => {

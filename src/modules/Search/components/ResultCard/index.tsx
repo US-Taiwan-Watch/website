@@ -1,6 +1,8 @@
 import UHStack from '@/common/components/atoms/UHStack'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { styled } from '@/common/lib/mui/theme'
+import { RouteName } from '@/common/lib/router/routes'
+import useURouterClient from '@/common/lib/router/useURouterClient'
 import {
   SearchResult,
   SearchResultType,
@@ -9,6 +11,7 @@ import ArticleSection from '@/modules/Search/components/ResultCard/ArticleSectio
 import BillSection from '@/modules/Search/components/ResultCard/BillSection'
 import PeopleSection from '@/modules/Search/components/ResultCard/PeopleSection'
 import { Box, Divider, Skeleton, Typography } from '@mui/material'
+import Link from 'next/link'
 import { memo, useMemo } from 'react'
 
 const StyledUHStack = styled(UHStack)(({ theme }) => ({
@@ -75,26 +78,69 @@ const ResultCard = ({ result }: ResultCardProps) => {
     }
   }, [result])
 
+  const { resolveRouteUrl } = useURouterClient()
+  const link = useMemo(() => {
+    if (result.type === SearchResultType.People) {
+      if (!result.value.id) return '#'
+      return resolveRouteUrl({
+        name: RouteName.PeopleDetail,
+        params: {
+          peopleId: result.value.id,
+        },
+      })
+    }
+    if (result.type === SearchResultType.Bill) {
+      if (!result.value.id) return '#'
+      return resolveRouteUrl({
+        name: RouteName.BillDetail,
+        params: {
+          billId: result.value.id,
+        },
+      })
+    }
+    if (result.type === SearchResultType.Article) {
+      if (!result.value.id) return '#'
+      return resolveRouteUrl({
+        name: RouteName.ArticleDetail,
+        params: {
+          articleId: result.value.id,
+        },
+      })
+    }
+    if (result.type === SearchResultType.Ketagalan) {
+      if (!result.value.id) return '#'
+      return resolveRouteUrl({
+        name: RouteName.KetagalanMediaDetail,
+        params: {
+          articleId: result.value.id,
+        },
+      })
+    }
+    return '#'
+  }, [result, resolveRouteUrl])
+
   return (
-    <StyledUHStack
-      sx={{
-        p: {
-          xs: 1.5,
-          lg: 3.75,
-        },
-        borderRadius: '15px',
-        backgroundColor: 'common.white',
-        gap: {
-          xs: 1.75,
-          lg: 4.25,
-        },
-        alignItems: 'flex-start',
-      }}
-    >
-      <Tag label={result.type} />
-      <Divider orientation="vertical" flexItem />
-      {Section}
-    </StyledUHStack>
+    <Link href={link}>
+      <StyledUHStack
+        sx={{
+          p: {
+            xs: 1.5,
+            lg: 3.75,
+          },
+          borderRadius: '15px',
+          backgroundColor: 'common.white',
+          gap: {
+            xs: 1.75,
+            lg: 4.25,
+          },
+          alignItems: 'flex-start',
+        }}
+      >
+        <Tag label={result.type} />
+        <Divider orientation="vertical" flexItem />
+        {Section}
+      </StyledUHStack>
+    </Link>
   )
 }
 

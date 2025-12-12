@@ -1,53 +1,66 @@
 import { useCallback, useState } from 'react'
 import {
   SearchSuggestion,
-  SearchSuggestionInput,
-  SearchSuggestionUtils,
+  SearchSuggestionType,
 } from '@/modules/Search/business/SearchSuggestion'
 import useURouterClient from '@/common/lib/router/useURouterClient'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 import { RouteName } from '@/common/lib/router/routes'
-import { debounce } from 'lodash-es'
+import { debounce, isNull } from 'lodash-es'
 import {
   googleAnalyticsSearchEvent,
   googleAnalyticsSearchSuggestionEvent,
 } from '@/common/lib/googleAnalytics'
+import { algoliaClient, ALGOLIA_INDEX_NAME } from '@/common/lib/algolia/client'
+import {
+  type Hit,
+  parseSearchSuggestionFromHit,
+} from '@/common/lib/algolia/utils'
+import { Language } from '@/common/lib/i18n/types'
 
-const MOCK_SEARCH_SUGGESTIONS: Array<SearchSuggestionInput> = [
-  { value: 'test' },
-  { value: 'test2' },
-  { value: 'test3' },
-  { value: 'test4' },
-  { value: 'test5' },
-  { value: 'test6' },
-  { value: 'test7' },
-  { value: 'test8' },
-  { value: 'test9' },
-  { value: 'test10' },
-]
+const HITS_PER_PAGE = 20
 
 export default function useSearch() {
+  const { lang } = useParams<{ lang: Language }>()
   const { resolveRouteUrl } = useURouterClient()
   const [searchQuery, setSearchQuery] = useState('')
 
-  const handleSearchSuggestions = useCallback((query: string) => {
-    if (!query) {
-      setSearchSuggestions([])
-      return
-    }
+  const handleSearchSuggestions = useCallback(
+    async (query: string) => {
+      if (!query) {
+        setSearchSuggestions([])
+        return
+      }
 
-    /** 記錄 GA 搜尋建議事件 */
-    googleAnalyticsSearchSuggestionEvent({
-      searchTerm: query,
-    })
+      /** 記錄 GA 搜尋建議事件 */
+      googleAnalyticsSearchSuggestionEvent({
+        searchTerm: query,
+      })
 
-    setSearchSuggestions(
-      MOCK_SEARCH_SUGGESTIONS.map((suggestion) =>
-        SearchSuggestionUtils.parse(suggestion)
-      )
-    )
-    // setSearchSuggestions([])
-  }, [])
+      try {
+        const { hits } = await algoliaClient.searchSingleIndex({
+          indexName: ALGOLIA_INDEX_NAME,
+          searchParams: {
+            query,
+            hitsPerPage: HITS_PER_PAGE,
+            attributesToRetrieve: ['*'],
+          },
+        })
+
+        const suggestions = hits
+          .map((hit) =>
+            parseSearchSuggestionFromHit(lang, hit as unknown as Hit)
+          )
+          .filter((suggestion) => !isNull(suggestion))
+
+        setSearchSuggestions(suggestions)
+      } catch (error) {
+        console.error('Algolia search error:', error)
+        setSearchSuggestions([])
+      }
+    },
+    [lang]
+  )
 
   const handleSearchQueryChange = useCallback(
     (value: string) => {
@@ -82,11 +95,64 @@ export default function useSearch() {
     [resolveRouteUrl, router]
   )
 
+  /**
+   * 跳轉到特定物件頁面
+   */
+  const handleNavigateSuggestionObject = useCallback(
+    (suggestion: SearchSuggestion) => {
+      if (suggestion.type === SearchSuggestionType.UstwArticle) {
+        router.push(
+          resolveRouteUrl({
+            name: RouteName.ArticleDetail,
+            params: {
+              articleId: suggestion.objectID,
+            },
+          })
+        )
+      }
+
+      if (suggestion.type === SearchSuggestionType.KetagalanArticle) {
+        router.push(
+          resolveRouteUrl({
+            name: RouteName.KetagalanMediaDetail,
+            params: {
+              articleId: suggestion.objectID,
+            },
+          })
+        )
+      }
+
+      if (suggestion.type === SearchSuggestionType.Bill) {
+        router.push(
+          resolveRouteUrl({
+            name: RouteName.BillDetail,
+            params: {
+              billId: suggestion.objectID,
+            },
+          })
+        )
+      }
+
+      if (suggestion.type === SearchSuggestionType.People) {
+        router.push(
+          resolveRouteUrl({
+            name: RouteName.PeopleDetail,
+            params: {
+              peopleId: suggestion.objectID,
+            },
+          })
+        )
+      }
+    },
+    [resolveRouteUrl, router]
+  )
+
   return {
     searchQuery,
     handleSearchQueryChange: debounce(handleSearchQueryChange, 1000),
     searchSuggestions,
     handleSearchSuggestions,
     handleNavigateSearchPage,
+    handleNavigateSuggestionObject,
   }
 }

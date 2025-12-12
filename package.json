@@ -32,6 +32,7 @@
     "@next/third-parties": "^15.3.4",
     "@slate-serializers/html": "^2.2.2",
     "accept-language": "^3.0.20",
+    "algoliasearch": "^5.46.0",
     "dayjs": "^1.11.13",
     "dompurify": "^3.1.7",
     "graphql": "^16.9.0",
