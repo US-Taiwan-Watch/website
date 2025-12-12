@@ -18,6 +18,8 @@ import {
 } from '@/common/lib/algolia/utils'
 import { Language } from '@/common/lib/i18n/types'
 
+const HITS_PER_PAGE = 20
+
 export default function useSearch() {
   const { lang } = useParams<{ lang: Language }>()
   const { resolveRouteUrl } = useURouterClient()
@@ -36,13 +38,12 @@ export default function useSearch() {
       })
 
       try {
-        // 使用 Algolia v5 的 searchSingleIndex API
         const { hits } = await algoliaClient.searchSingleIndex({
           indexName: ALGOLIA_INDEX_NAME,
           searchParams: {
             query,
-            hitsPerPage: 10, // 限制建議數量
-            attributesToRetrieve: ['*'], // 根據你的 index schema 調整需要的欄位
+            hitsPerPage: HITS_PER_PAGE,
+            attributesToRetrieve: ['*'],
           },
         })
 
