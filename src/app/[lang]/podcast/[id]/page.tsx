@@ -19,6 +19,14 @@ export const generateMetadata = async ({
   params,
 }: PodcastPageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
+  let episodeTitle = ''
+  const podcastId = config.SOUNDON_PODCAST_ID
+  if (podcastId) {
+    const episode = await getEpisode({ podcastId, episodeId: params.id })
+    if (episode) {
+      episodeTitle = episode.title ?? ''
+    }
+  }
   return generateCommonMetadata({
     lang: params.lang,
     pathname: resolveRouteUrl({
@@ -26,6 +34,12 @@ export const generateMetadata = async ({
       params: { episodeId: params.id },
     }),
     namespace: 'seo_podcast_detail',
+    titleVariables: {
+      episodeTitle,
+    },
+    descriptionVariables: {
+      episodeTitle,
+    },
   })
 }
 

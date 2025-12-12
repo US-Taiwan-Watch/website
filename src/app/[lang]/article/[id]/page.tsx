@@ -18,6 +18,12 @@ export const generateMetadata = async ({
   params,
 }: ArticlePageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
+  const article = await ServerArticleApi.getArticle({
+    id: params.id,
+    articleType: ArticleType.Article,
+  })
+  const articleTitle = article?.title ?? ''
+
   return generateCommonMetadata({
     lang: params.lang,
     pathname: resolveRouteUrl({
@@ -25,6 +31,12 @@ export const generateMetadata = async ({
       params: { articleId: params.id },
     }),
     namespace: 'seo_article_detail',
+    titleVariables: {
+      articleTitle,
+    },
+    descriptionVariables: {
+      articleTitle,
+    },
   })
 }
 

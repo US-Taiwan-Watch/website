@@ -21,6 +21,9 @@ export const generateMetadata = async ({
   params,
 }: PeopleTrackerProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
+  const people = await ServerPeopleApi.getPeople({ id: params.id })
+  const peopleName = people?.name ?? ''
+
   return generateCommonMetadata({
     lang: params.lang,
     pathname: resolveRouteUrl({
@@ -28,6 +31,12 @@ export const generateMetadata = async ({
       params: { peopleId: params.id },
     }),
     namespace: 'seo_people_detail',
+    titleVariables: {
+      peopleName,
+    },
+    descriptionVariables: {
+      peopleName,
+    },
   })
 }
 

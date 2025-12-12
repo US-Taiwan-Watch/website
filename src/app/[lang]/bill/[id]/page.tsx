@@ -21,6 +21,9 @@ export const generateMetadata = async ({
   params,
 }: BillPageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
+  const bill = await ServerBillApi.getBill({ id: params.id })
+  const billTitle = bill?.title ?? ''
+
   return generateCommonMetadata({
     lang: params.lang,
     pathname: resolveRouteUrl({
@@ -28,6 +31,12 @@ export const generateMetadata = async ({
       params: { billId: params.id },
     }),
     namespace: 'seo_bill_detail',
+    titleVariables: {
+      billTitle,
+    },
+    descriptionVariables: {
+      billTitle,
+    },
   })
 }
 
