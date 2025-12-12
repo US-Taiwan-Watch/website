@@ -10,11 +10,26 @@ import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
 import { ArticleType } from '@/modules/Article/business/Article'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
+import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 type HomeProps = {
   params: {
     lang: Language
   }
+}
+
+export const generateMetadata = async ({
+  params,
+}: HomeProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({ name: RouteName.Home }),
+    namespace: 'seo_home',
+  })
 }
 
 export default async function Home({ params }: HomeProps) {

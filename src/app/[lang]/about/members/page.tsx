@@ -3,8 +3,10 @@ import { Stack } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import { MemberUtils } from '@/modules/About/Member/business/Member'
 import MemberGroupCard from '@/modules/About/Member/components/MemberGroupCard'
-import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
-import { Metadata } from 'next/types'
+import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 import ServerMemberApi from '@/modules/About/Member/api/ServerMemberApi'
 
 type AboutMembersPageProps = {
@@ -13,16 +15,15 @@ type AboutMembersPageProps = {
   }
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: AboutMembersPageProps): Promise<Metadata> {
-  const { lang } = params
-  const { t } = await getTranslationServer(lang, 'seo_about_member')
-
-  return {
-    title: t('meta.title', { ns: 'seo_about_member' }),
-    description: t('meta.description', { ns: 'seo_about_member' }),
-  }
+}: AboutMembersPageProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({ name: RouteName.AboutMembers }),
+    namespace: 'seo_about_members',
+  })
 }
 
 export default async function AboutMembersPage({

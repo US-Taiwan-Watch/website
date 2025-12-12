@@ -2,8 +2,10 @@ import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Box } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import UserAgreementPrivacyPolicyContent from '@/modules/About/UserAgreementPrivacyPolicy/components/UserAgreementPrivacyPolicyContent'
-import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
-import { Metadata } from 'next/types'
+import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 type AboutUserAgreementPrivacyPolicyPageProps = {
   params: {
@@ -11,21 +13,17 @@ type AboutUserAgreementPrivacyPolicyPageProps = {
   }
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: AboutUserAgreementPrivacyPolicyPageProps): Promise<Metadata> {
-  const { lang } = params
-  const { t } = await getTranslationServer(
-    lang,
-    'seo_about_user_agreement_privacy_policy'
-  )
-
-  return {
-    title: t('meta.title', { ns: 'seo_about_user_agreement_privacy_policy' }),
-    description: t('meta.description', {
-      ns: 'seo_about_user_agreement_privacy_policy',
+}: AboutUserAgreementPrivacyPolicyPageProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({
+      name: RouteName.AboutUserAgreementPrivacyPolicy,
     }),
-  }
+    namespace: 'seo_about_user_agreement_privacy_policy',
+  })
 }
 export default function AboutUserAgreementPrivacyPolicyPage({
   params,

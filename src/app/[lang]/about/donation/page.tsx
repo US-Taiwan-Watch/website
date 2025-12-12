@@ -7,8 +7,10 @@ import {
   DonationButtonTaiwan,
   DonationButtonInternational,
 } from '@/modules/About/Donation/components/DonationButton'
-import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
-import { Metadata } from 'next/types'
+import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 type AboutDonationPageProps = {
   params: {
@@ -16,16 +18,15 @@ type AboutDonationPageProps = {
   }
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: AboutDonationPageProps): Promise<Metadata> {
-  const { lang } = params
-  const { t } = await getTranslationServer(lang, 'seo_about_donation')
-
-  return {
-    title: t('meta.title', { ns: 'seo_about_donation' }),
-    description: t('meta.description', { ns: 'seo_about_donation' }),
-  }
+}: AboutDonationPageProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({ name: RouteName.AboutDonation }),
+    namespace: 'seo_about_donation',
+  })
 }
 
 export default function AboutDonationPage({ params }: AboutDonationPageProps) {

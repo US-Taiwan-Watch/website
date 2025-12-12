@@ -45,6 +45,7 @@ export enum RouteName {
   PodcastWatchHere = 'podcast_watch_here',
   PodcastWatchInfo = 'podcast_watch_info',
   PodcastWatchBookClub = 'podcast_watch_book_club',
+  PodcastDetail = 'podcast_detail',
   /** Account */
   Account = 'account',
   AccountSubscribe = 'account_subscribe',
@@ -103,6 +104,12 @@ export type URoute = {
       }
     }
   | {
+      name: RouteName.PodcastDetail
+      params: {
+        episodeId: string
+      }
+    }
+  | {
       name: RouteName.Search
     }
   | {
@@ -114,6 +121,7 @@ export type URoute = {
         | RouteName.KetagalanMediaDetail
         | RouteName.ArticleCategory
         | RouteName.KetagalanMediaCategory
+        | RouteName.PodcastDetail
         | RouteName.Search
       >
     }
@@ -177,6 +185,7 @@ export const ROUTE_PATH_MAP: {
   [RouteName.PodcastWatchHere]: () => '/podcast/category/watch-here',
   [RouteName.PodcastWatchInfo]: () => '/podcast/category/watch-info',
   [RouteName.PodcastWatchBookClub]: () => '/podcast/category/watch-book-club',
+  [RouteName.PodcastDetail]: (params) => `/podcast/${params.episodeId}`,
   /** Account */
   [RouteName.Account]: () => '/account',
   [RouteName.AccountSubscribe]: () => '/account/subscribe',
