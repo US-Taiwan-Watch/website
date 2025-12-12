@@ -66,12 +66,14 @@ export const generateCommonMetadata = async ({
     },
   }
 
+  const { t } = await getTranslationServer(lang, namespace)
+
   // Metadata for Open Graph
   const openGraph: Metadata['openGraph'] = {
-    title: 'USTW',
-    description: 'USTW',
+    title: t('og.title', { ns: 'seo_common' }),
+    description: t('og.description', { ns: 'seo_common' }),
     url: baseUrl,
-    siteName: 'USTW',
+    siteName: t('og.siteName', { ns: 'seo_common' }),
     images: [{ url: SOCIAL_SHARE_IMAGE_URL }],
     type: 'website',
   }
@@ -83,8 +85,6 @@ export const generateCommonMetadata = async ({
       openGraph,
     }
   }
-
-  const { t } = await getTranslationServer(lang, namespace)
 
   const title = t('meta.title', {
     ns: namespace,
