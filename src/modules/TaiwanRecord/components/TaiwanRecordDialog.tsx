@@ -94,9 +94,11 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
       }
     },
     [
+      taiwanRecord,
       peopleId,
       mode,
       handleSubmitTaiwanRecord,
+      handleUpdateTaiwanRecord,
       onClose,
       toast,
       t,
@@ -123,7 +125,7 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
         setIsSubmitting(false)
       }
     },
-    [taiwanRecord?.id, handleWithdrawTaiwanRecord, onClose, toast, t]
+    [handleWithdrawTaiwanRecord, onClose, toast, t, onSubmitTaiwanRecord]
   )
 
   return (
