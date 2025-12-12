@@ -1,7 +1,16 @@
 import { z } from 'zod'
 
+export enum SearchSuggestionType {
+  UstwArticle = 'ustw-article',
+  KetagalanArticle = 'ketagalan-article',
+  Bill = 'bill',
+  People = 'people',
+}
+
 const searchSuggestionSchema = z.object({
+  type: z.nativeEnum(SearchSuggestionType),
   value: z.string(),
+  objectID: z.string(),
 })
 
 export type SearchSuggestionInput = z.input<typeof searchSuggestionSchema>

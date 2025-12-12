@@ -68,7 +68,7 @@ const DesktopSearchResultList = ({
   clickAwayClassNameWhiteList,
   onClose,
 }: DesktopSearchResultProps) => {
-  const { handleNavigateSearchPage } = useSearch()
+  const { handleNavigateSuggestionObject } = useSearch()
   const { t } = useTranslationClient('search')
 
   return (
@@ -86,7 +86,7 @@ const DesktopSearchResultList = ({
               <Box
                 key={suggestion.value}
                 onClick={() => {
-                  handleNavigateSearchPage(suggestion.value)
+                  handleNavigateSuggestionObject(suggestion)
                   onClose?.()
                 }}
                 sx={{
