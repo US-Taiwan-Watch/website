@@ -3,6 +3,7 @@ import {
   NotificationIcon,
   PasswordIcon,
   SettingIcon,
+  NoteStackIcon,
 } from '@/common/styles/assets/Icons'
 import { useMemo } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -28,7 +29,7 @@ export default function useAccountNavItems() {
       {
         label: t('navItem.taiwanRecord', { ns: 'account' }),
         href: resolveRouteUrl({ name: RouteName.AccountTaiwanRecord }),
-        icon: <BookmarkIcon sx={{ width: 24, height: 24 }} />,
+        icon: <NoteStackIcon sx={{ width: 24, height: 24 }} />,
       },
       {
         label: t('navItem.setting', { ns: 'account' }),
