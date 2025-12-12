@@ -39,6 +39,7 @@ export const QUERY_SEARCH = gql`
           sponsor {
             ...BillSponsor
           }
+          congressGovUrl
         }
         highlights
       }
@@ -49,6 +50,9 @@ export const QUERY_SEARCH = gql`
           categories {
             ...CategoriesArticle
           }
+          excerpt
+          releaseTime
+          title
         }
         highlights
       }
@@ -59,6 +63,9 @@ export const QUERY_SEARCH = gql`
           categories {
             ...CategoriesKetagalan
           }
+          excerpt
+          releaseTime
+          title
         }
         highlights
       }
