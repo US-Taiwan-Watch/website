@@ -3,8 +3,10 @@ import MissionContent from '@/modules/About/Mission/components/MissionContent'
 import MissionHighlightSection from '@/modules/About/Mission/components/MissionHighlightSection'
 import { Box } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
-import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
-import { Metadata } from 'next/types'
+import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 type AboutMissionPageProps = {
   params: {
@@ -12,16 +14,15 @@ type AboutMissionPageProps = {
   }
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: AboutMissionPageProps): Promise<Metadata> {
-  const { lang } = params
-  const { t } = await getTranslationServer(lang, 'seo_about_mission')
-
-  return {
-    title: t('meta.title', { ns: 'seo_about_mission' }),
-    description: t('meta.description', { ns: 'seo_about_mission' }),
-  }
+}: AboutMissionPageProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({ name: RouteName.AboutMission }),
+    namespace: 'seo_about_mission',
+  })
 }
 
 export default function AboutMissionPage({ params }: AboutMissionPageProps) {

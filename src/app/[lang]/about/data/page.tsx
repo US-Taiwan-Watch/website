@@ -2,8 +2,10 @@ import { UstwAboutLayout } from '@/modules/About/components/AboutLayout'
 import { Box } from '@mui/material'
 import { Language } from '@/common/lib/i18n/types'
 import DataContent from '@/modules/About/Data/components/DataContent'
-import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
 import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 type AboutDataPageProps = {
   params: {
@@ -11,16 +13,15 @@ type AboutDataPageProps = {
   }
 }
 
-export async function generateMetadata({
+export const generateMetadata = async ({
   params,
-}: AboutDataPageProps): Promise<Metadata> {
-  const { lang } = params
-  const { t } = await getTranslationServer(lang, 'seo_about_data')
-
-  return {
-    title: t('meta.title', { ns: 'seo_about_data' }),
-    description: t('meta.description', { ns: 'seo_about_data' }),
-  }
+}: AboutDataPageProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({ name: RouteName.AboutData }),
+    namespace: 'seo_about_data',
+  })
 }
 
 export default function AboutDataPage({ params }: AboutDataPageProps) {

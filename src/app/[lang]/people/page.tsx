@@ -3,11 +3,26 @@ import { Language } from '@/common/lib/i18n/types'
 import PeopleListSection from '@/modules/People/components/PeopleLanding/PeopleListSection'
 import PopularPeopleSection from '@/modules/People/components/PeopleLanding/PopularPeopleSection'
 import { Stack } from '@mui/material'
+import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 type PeoplePageProps = {
   params: {
     lang: Language
   }
+}
+
+export const generateMetadata = async ({
+  params,
+}: PeoplePageProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({ name: RouteName.People }),
+    namespace: 'seo_people',
+  })
 }
 
 export default async function People({ params }: PeoplePageProps) {

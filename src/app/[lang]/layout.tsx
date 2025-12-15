@@ -19,21 +19,32 @@ import { GoogleTagManager } from '@next/third-parties/google'
 import { config } from '@/config'
 import GoogleAnalyticsConsentScript from '@/common/lib/googleAnalytics/GoogleAnalyticsConsentScript'
 import CookieConsentBanner from '@/common/components/elements/CookieConsentBanner'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
-export const metadata: Metadata = {
-  title: 'USTW',
-  description: 'US Taiwan Watch',
+type RootLayoutProps = Readonly<{
+  children: React.ReactNode
+  params: {
+    lang: Language
+  }
+}>
+
+export const generateMetadata = async ({
+  params,
+}: RootLayoutProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  return generateCommonMetadata({
+    lang: params.lang,
+    pathname: resolveRouteUrl({ name: RouteName.Home }),
+    namespace: 'seo_common',
+  })
 }
 
 export default async function RootLayout({
   children,
   params,
-}: Readonly<{
-  children: React.ReactNode
-  params: {
-    lang: Language
-  }
-}>) {
+}: RootLayoutProps) {
   // 設定 API 語言
   apiConfig.setLang(params.lang)
 

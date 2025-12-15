@@ -160,7 +160,7 @@ export default function BillList() {
     <Stack gap={5}>
       <UHStack gap={2} alignItems="flex-start">
         <Typography variant="h3">
-          {t('filterPage.title', {
+          {t('billList.title', {
             ns: 'bill',
           })}
         </Typography>

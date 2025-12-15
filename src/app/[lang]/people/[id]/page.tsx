@@ -5,11 +5,42 @@ import TaiwanRecordSection from '@/modules/People/components/PeopleTracker/Taiwa
 import { Language } from '@/common/lib/i18n/types'
 import { notFound } from 'next/navigation'
 import ServerPeopleApi from '@/modules/People/api/ServerPeopleApi'
+import { Metadata } from 'next'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 interface PeopleTrackerProps {
   params: {
     id: string
     lang: Language
+  }
+}
+
+export const generateMetadata = async ({
+  params,
+}: PeopleTrackerProps): Promise<Metadata> => {
+  const { resolveRouteUrl } = getURouterServer()
+  const people = await ServerPeopleApi.getPeople({ id: params.id })
+  const peopleName = people?.name ?? ''
+  const peopleDescription = people?.description
+
+  return {
+    ...(await generateCommonMetadata({
+      lang: params.lang,
+      pathname: resolveRouteUrl({
+        name: RouteName.PeopleDetail,
+        params: { peopleId: params.id },
+      }),
+      namespace: 'seo_people_detail',
+      titleVariables: {
+        peopleName,
+      },
+      descriptionVariables: {
+        peopleName,
+      },
+    })),
+    ...(peopleDescription && { description: peopleDescription }),
   }
 }
 
