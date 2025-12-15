@@ -23,7 +23,7 @@ export const generateMetadata = async ({
     articleType: ArticleType.Ketagalan,
   })
   const articleTitle = article?.title ?? ''
-  const articleDescription = article?.description ?? ''
+  const articleDescription = article?.description
 
   return {
     ...(await generateCommonMetadata({
@@ -40,7 +40,7 @@ export const generateMetadata = async ({
         articleTitle,
       },
     })),
-    description: articleDescription,
+    ...(articleDescription && { description: articleDescription }),
   }
 }
 

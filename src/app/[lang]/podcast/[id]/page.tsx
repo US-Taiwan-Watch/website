@@ -20,13 +20,13 @@ export const generateMetadata = async ({
 }: PodcastPageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
   let episodeTitle = ''
-  let episodeDescription = ''
+  let episodeDescription
   const podcastId = config.SOUNDON_PODCAST_ID
   if (podcastId) {
     const episode = await getEpisode({ podcastId, episodeId: params.id })
     if (episode) {
       episodeTitle = episode.title ?? ''
-      episodeDescription = episode.description ?? ''
+      episodeDescription = episode.description
     }
   }
   return {
@@ -41,7 +41,7 @@ export const generateMetadata = async ({
         episodeTitle,
       },
     })),
-    description: episodeDescription,
+    ...(episodeDescription && { description: episodeDescription }),
   }
 }
 

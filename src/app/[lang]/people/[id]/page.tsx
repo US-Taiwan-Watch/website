@@ -23,7 +23,7 @@ export const generateMetadata = async ({
   const { resolveRouteUrl } = getURouterServer()
   const people = await ServerPeopleApi.getPeople({ id: params.id })
   const peopleName = people?.name ?? ''
-  const peopleDescription = people?.description ?? ''
+  const peopleDescription = people?.description
 
   return {
     ...(await generateCommonMetadata({
@@ -40,7 +40,7 @@ export const generateMetadata = async ({
         peopleName,
       },
     })),
-    description: peopleDescription,
+    ...(peopleDescription && { description: peopleDescription }),
   }
 }
 

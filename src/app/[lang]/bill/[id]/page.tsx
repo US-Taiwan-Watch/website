@@ -23,7 +23,7 @@ export const generateMetadata = async ({
   const { resolveRouteUrl } = getURouterServer()
   const bill = await ServerBillApi.getBill({ id: params.id })
   const billTitle = bill?.title ?? ''
-  const billDescription = bill?.summary ?? ''
+  const billDescription = bill?.summary
 
   return {
     ...(await generateCommonMetadata({
@@ -40,7 +40,7 @@ export const generateMetadata = async ({
         billTitle,
       },
     })),
-    description: billDescription,
+    ...(billDescription && { description: billDescription }),
   }
 }
 
