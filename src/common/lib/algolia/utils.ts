@@ -3,13 +3,14 @@ import {
   SearchSuggestionType,
   SearchSuggestionUtils,
 } from '@/modules/Search/business/SearchSuggestion'
-import { type HighlightResult } from 'algoliasearch'
+import { type HighlightResultOption } from 'algoliasearch'
 import {
   Bill_I18n as BillI18n,
   People_I18n as PeopleI18n,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
+import Dompurify from 'isomorphic-dompurify'
 
 /**
  * Utility type: 移除 __typename 欄位
@@ -68,9 +69,9 @@ export type Hit =
       objectID: string
       title: string
       _highlightResult: {
-        excerpt: HighlightResult
-        title: HighlightResult
-        type: HighlightResult
+        excerpt: HighlightResultOption
+        title: HighlightResultOption
+        type: HighlightResultOption
       }
     }
   | {
@@ -79,9 +80,9 @@ export type Hit =
       objectID: string
       title: string
       _highlightResult: {
-        excerpt: HighlightResult
-        title: HighlightResult
-        type: HighlightResult
+        excerpt: HighlightResultOption
+        title: HighlightResultOption
+        type: HighlightResultOption
       }
     }
   | {
@@ -89,10 +90,9 @@ export type Hit =
       i18n: AlgoliaBillI18n
       objectID: string
       _highlightResult: {
-        title: HighlightResult
         i18n: {
           [K in keyof AlgoliaBillI18n]: {
-            [L in keyof AlgoliaBillI18n[K]]: HighlightResult
+            [L in keyof AlgoliaBillI18n[K]]: HighlightResultOption
           }
         }
       }
@@ -102,14 +102,65 @@ export type Hit =
       i18n: AlgoliaPeopleI18n
       objectID: string
       _highlightResult: {
-        title: HighlightResult
         i18n: {
           [K in keyof AlgoliaPeopleI18n]: {
-            [L in keyof AlgoliaPeopleI18n[K]]: HighlightResult
+            [L in keyof AlgoliaPeopleI18n[K]]: HighlightResultOption
           }
         }
       }
     }
+
+export const sortSearchHitsCompareFnGenerator = (language: Language) => {
+  return (a: Hit, b: Hit) => {
+    const apiLang = CommonUtils.parseAPII18nKey(language)
+
+    // Helper function to get title highlight result
+    const getTitleHighlight = (hit: Hit): HighlightResultOption => {
+      if (hit.type === 'ustw-article' || hit.type === 'ketagalan-article') {
+        return hit._highlightResult.title
+      }
+      if (hit.type === 'bill') {
+        return hit._highlightResult.i18n[apiLang].title
+      }
+      // hit.type === 'people'
+      return hit._highlightResult.i18n[apiLang].displayName
+    }
+
+    // Helper function to get content highlight result
+    const getContentHighlight = (hit: Hit): HighlightResultOption => {
+      if (hit.type === 'ustw-article' || hit.type === 'ketagalan-article') {
+        return hit._highlightResult.excerpt
+      }
+      if (hit.type === 'bill') {
+        return hit._highlightResult.i18n[apiLang].summary
+      }
+      // hit.type === 'people'
+      return hit._highlightResult.i18n[apiLang].bio
+    }
+
+    // Helper function to calculate priority (lower is better)
+    const getPriority = (hit: Hit): number => {
+      const titleHighlight = getTitleHighlight(hit)
+      const contentHighlight = getContentHighlight(hit)
+
+      // Priority 1: title matchLevel = full
+      if (titleHighlight.matchLevel === 'full') return 1
+      // Priority 2: title matchLevel = partial
+      if (titleHighlight.matchLevel === 'partial') return 2
+      // Priority 3: content matchLevel = full
+      if (contentHighlight.matchLevel === 'full') return 3
+      // Priority 4: content matchLevel = partial
+      if (contentHighlight.matchLevel === 'partial') return 4
+      // No match or other matchLevel
+      return 5
+    }
+
+    const priorityA = getPriority(a)
+    const priorityB = getPriority(b)
+
+    return priorityA - priorityB
+  }
+}
 
 /**
  * 將 Algolia hit 轉換成 SearchSuggestion 格式
@@ -121,7 +172,7 @@ export const parseSearchSuggestionFromHit = (
   if (hit.type === 'ustw-article') {
     return SearchSuggestionUtils.parse({
       type: SearchSuggestionType.UstwArticle,
-      value: hit.title,
+      value: Dompurify.sanitize(hit._highlightResult.title.value),
       objectID: hit.objectID,
     })
   }
@@ -129,7 +180,7 @@ export const parseSearchSuggestionFromHit = (
   if (hit.type === 'ketagalan-article') {
     return SearchSuggestionUtils.parse({
       type: SearchSuggestionType.KetagalanArticle,
-      value: hit.title,
+      value: Dompurify.sanitize(hit._highlightResult.title.value),
       objectID: hit.objectID,
     })
   }
@@ -138,7 +189,7 @@ export const parseSearchSuggestionFromHit = (
     const apiLang = CommonUtils.parseAPII18nKey(language)
     return SearchSuggestionUtils.parse({
       type: SearchSuggestionType.Bill,
-      value: hit.i18n[apiLang].title,
+      value: Dompurify.sanitize(hit._highlightResult.i18n[apiLang].title.value),
       objectID: hit.objectID,
     })
   }
@@ -147,7 +198,9 @@ export const parseSearchSuggestionFromHit = (
     const apiLang = CommonUtils.parseAPII18nKey(language)
     return SearchSuggestionUtils.parse({
       type: SearchSuggestionType.People,
-      value: hit.i18n[apiLang].displayName,
+      value: Dompurify.sanitize(
+        hit._highlightResult.i18n[apiLang].displayName.value
+      ),
       objectID: hit.objectID,
     })
   }

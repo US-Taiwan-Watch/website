@@ -1,10 +1,10 @@
-import { Box, Icon, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import { SearchSuggestion } from '@/modules/Search/business/SearchSuggestion'
 import { styled } from '@/common/lib/mui/theme'
-import { SearchIcon } from '@/common/styles/assets/Icons'
 import UPopper from '@/common/components/elements/UPopper'
-import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useSearch from '@/modules/Search/hooks/useSearch'
+import NoResultPlaceholder from '@/modules/Search/components/NoResultPlaceholder'
+import ResultList from '@/modules/Search/components/ResultList'
 
 interface SearchResultListProps {
   className?: string
@@ -12,6 +12,8 @@ interface SearchResultListProps {
   anchorEl: HTMLElement | null
   inputAnchorEl: HTMLElement | null
   onClose?: () => void
+  showLoadMore?: boolean
+  onClickLoadMore?: () => void
 }
 
 const StyledPopper = styled(UPopper)(() => ({
@@ -32,47 +34,18 @@ const StyledResultContainer = styled(Box)(({ theme }) => ({
   margin: 'auto',
   padding: `${theme.spacing(2)} ${theme.spacing(2)}
    ${theme.spacing(1)} ${theme.spacing(4)}`,
-  maxHeight: '300px',
-  overflowY: 'auto',
-  '& a': {
-    textDecoration: 'none',
-  },
-}))
-
-const StyledResultItem = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(1),
-  borderBottom: `1px solid ${theme.color.grey[400]}`,
-  '& .MuiTypography-root': {
-    textDecoration: 'none',
-    color: theme.color.searchPageSearchBar.resultItemText,
-  },
-}))
-
-const StyledIcon = styled(Icon)(({ theme }) => ({
-  color: theme.color.grey[600],
-}))
-
-const StyledNoResultContainer = styled(Box)(({ theme }) => ({
-  padding: theme.spacing(8),
-  '& .no-result-title': {
-    fontWeight: 600,
-    fontSize: '1.75rem',
-  },
-  '& .no-result-subtitle': {
-    color: theme.color.searchPageSearchBar.noResultSubtitle,
-    fontSize: '1rem',
-  },
 }))
 
 const SearchResultList = ({
   suggestions,
+  showLoadMore,
+  onClickLoadMore,
   className,
   anchorEl,
   inputAnchorEl,
   onClose,
 }: SearchResultListProps) => {
   const { handleNavigateSearchPage } = useSearch()
-  const { t } = useTranslationClient('search')
 
   return (
     <StyledPopper
@@ -85,39 +58,20 @@ const SearchResultList = ({
           width={inputAnchorEl?.getBoundingClientRect().width}
         >
           {suggestions.length > 0 ? (
-            suggestions.map((suggestion) => (
-              <Box
-                key={suggestion.value}
-                onClick={() => {
-                  handleNavigateSearchPage(suggestion.value)
-                  onClose?.()
-                }}
-                sx={{
-                  cursor: 'pointer',
-                }}
-              >
-                <StyledResultItem display="flex" gap={1}>
-                  <StyledIcon fontSize="small">
-                    <SearchIcon />
-                  </StyledIcon>
-                  <Typography>{suggestion.value}</Typography>
-                </StyledResultItem>
-              </Box>
-            ))
+            <ResultList
+              sx={{
+                maxHeight: '300px',
+              }}
+              suggestions={suggestions}
+              onClick={(suggestion) => {
+                handleNavigateSearchPage(suggestion.value)
+                onClose?.()
+              }}
+              showLoadMore={showLoadMore}
+              onClickLoadMore={onClickLoadMore}
+            />
           ) : (
-            <StyledNoResultContainer
-              display="flex"
-              justifyContent="center"
-              alignItems="center"
-              flexDirection="column"
-            >
-              <Typography className="no-result-title">
-                {t('suggestion.noResult.title', { ns: 'search' })}
-              </Typography>
-              <Typography className="no-result-subtitle">
-                {t('suggestion.noResult.subtitle', { ns: 'search' })}
-              </Typography>
-            </StyledNoResultContainer>
+            <NoResultPlaceholder />
           )}
         </StyledResultContainer>
       </StyledContainer>

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   SearchSuggestion,
   SearchSuggestionType,
@@ -15,6 +15,7 @@ import { algoliaClient, ALGOLIA_INDEX_NAME } from '@/common/lib/algolia/client'
 import {
   type Hit,
   parseSearchSuggestionFromHit,
+  sortSearchHitsCompareFnGenerator,
 } from '@/common/lib/algolia/utils'
 import { Language } from '@/common/lib/i18n/types'
 
@@ -47,7 +48,12 @@ export default function useSearch() {
           },
         })
 
+        const sortCompareFn = sortSearchHitsCompareFnGenerator(lang)
+
         const suggestions = hits
+          .sort((a, b) =>
+            sortCompareFn(a as unknown as Hit, b as unknown as Hit)
+          )
           .map((hit) =>
             parseSearchSuggestionFromHit(lang, hit as unknown as Hit)
           )
@@ -147,6 +153,10 @@ export default function useSearch() {
     [resolveRouteUrl, router]
   )
 
+  const showLoadMore = useMemo(() => {
+    return searchSuggestions.length >= HITS_PER_PAGE
+  }, [searchSuggestions])
+
   return {
     searchQuery,
     handleSearchQueryChange: debounce(handleSearchQueryChange, 1000),
@@ -154,5 +164,6 @@ export default function useSearch() {
     handleSearchSuggestions,
     handleNavigateSearchPage,
     handleNavigateSuggestionObject,
+    showLoadMore,
   }
 }
