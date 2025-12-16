@@ -57,6 +57,7 @@ const DesktopSearchBar = ({
     handleSearchQueryChange,
     searchSuggestions,
     handleNavigateSearchPage,
+    showLoadMore,
   } = useSearch()
 
   return (
@@ -111,6 +112,10 @@ const DesktopSearchBar = ({
             inputAnchorEl={inputRef.current}
             clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
             onClose={onClose}
+            showLoadMore={showLoadMore}
+            onClickLoadMore={() => {
+              handleNavigateSearchPage(searchQuery)
+            }}
           />
         </>
       )}

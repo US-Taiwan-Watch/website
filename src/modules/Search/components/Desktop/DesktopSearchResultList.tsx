@@ -13,6 +13,8 @@ interface DesktopSearchResultProps {
   inputAnchorEl: HTMLElement | null
   clickAwayClassNameWhiteList?: string[]
   onClose?: () => void
+  showLoadMore?: boolean
+  onClickLoadMore?: () => void
 }
 
 const StyledContainer = styled(Box)(({ theme }) => ({
@@ -28,11 +30,6 @@ const StyledResultContainer = styled(Box)(({ theme }) => ({
   margin: 'auto',
   padding: `${theme.spacing(2)} ${theme.spacing(2)}
    ${theme.spacing(1)} ${theme.spacing(4)}`,
-  maxHeight: '300px',
-  overflowY: 'auto',
-  '& a': {
-    textDecoration: 'none',
-  },
 }))
 
 const DesktopSearchResultList = ({
@@ -42,6 +39,8 @@ const DesktopSearchResultList = ({
   inputAnchorEl,
   clickAwayClassNameWhiteList,
   onClose,
+  showLoadMore,
+  onClickLoadMore,
 }: DesktopSearchResultProps) => {
   const { handleNavigateSuggestionObject } = useSearch()
 
@@ -57,11 +56,16 @@ const DesktopSearchResultList = ({
         >
           {suggestions.length > 0 ? (
             <ResultList
+              sx={{
+                maxHeight: '300px',
+              }}
               suggestions={suggestions}
               onClick={(suggestion) => {
                 handleNavigateSuggestionObject(suggestion)
                 onClose?.()
               }}
+              showLoadMore={showLoadMore}
+              onClickLoadMore={onClickLoadMore}
             />
           ) : (
             <NoResultPlaceholder />

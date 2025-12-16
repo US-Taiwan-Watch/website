@@ -12,6 +12,8 @@ interface SearchResultListProps {
   anchorEl: HTMLElement | null
   inputAnchorEl: HTMLElement | null
   onClose?: () => void
+  showLoadMore?: boolean
+  onClickLoadMore?: () => void
 }
 
 const StyledPopper = styled(UPopper)(() => ({
@@ -32,15 +34,12 @@ const StyledResultContainer = styled(Box)(({ theme }) => ({
   margin: 'auto',
   padding: `${theme.spacing(2)} ${theme.spacing(2)}
    ${theme.spacing(1)} ${theme.spacing(4)}`,
-  maxHeight: '300px',
-  overflowY: 'auto',
-  '& a': {
-    textDecoration: 'none',
-  },
 }))
 
 const SearchResultList = ({
   suggestions,
+  showLoadMore,
+  onClickLoadMore,
   className,
   anchorEl,
   inputAnchorEl,
@@ -60,11 +59,16 @@ const SearchResultList = ({
         >
           {suggestions.length > 0 ? (
             <ResultList
+              sx={{
+                maxHeight: '300px',
+              }}
               suggestions={suggestions}
               onClick={(suggestion) => {
                 handleNavigateSearchPage(suggestion.value)
                 onClose?.()
               }}
+              showLoadMore={showLoadMore}
+              onClickLoadMore={onClickLoadMore}
             />
           ) : (
             <NoResultPlaceholder />

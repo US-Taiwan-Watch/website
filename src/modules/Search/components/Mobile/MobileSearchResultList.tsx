@@ -9,6 +9,8 @@ interface MobileSearchResultProps {
   className?: string
   suggestions: Array<SearchSuggestion>
   onClose?: () => void
+  showLoadMore?: boolean
+  onClickLoadMore?: () => void
 }
 
 const StyledContainer = styled(Box)(() => ({
@@ -19,17 +21,14 @@ const StyledContainer = styled(Box)(() => ({
 const StyledResultContainer = styled(Box)(({ theme }) => ({
   width: '100%',
   padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-  maxHeight: '300px',
-  overflowY: 'auto',
-  '& a': {
-    textDecoration: 'none',
-  },
 }))
 
 const MobileSearchResultList = ({
   suggestions,
   className,
   onClose,
+  showLoadMore,
+  onClickLoadMore,
 }: MobileSearchResultProps) => {
   const { handleNavigateSuggestionObject } = useSearch()
 
@@ -38,11 +37,16 @@ const MobileSearchResultList = ({
       <StyledResultContainer>
         {suggestions.length > 0 ? (
           <ResultList
+            sx={{
+              maxHeight: '300px',
+            }}
             suggestions={suggestions}
             onClick={(suggestion) => {
               handleNavigateSuggestionObject(suggestion)
               onClose?.()
             }}
+            showLoadMore={showLoadMore}
+            onClickLoadMore={onClickLoadMore}
           />
         ) : (
           <NoResultPlaceholder />

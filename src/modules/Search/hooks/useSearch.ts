@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import {
   SearchSuggestion,
   SearchSuggestionType,
@@ -153,6 +153,10 @@ export default function useSearch() {
     [resolveRouteUrl, router]
   )
 
+  const showLoadMore = useMemo(() => {
+    return searchSuggestions.length >= HITS_PER_PAGE
+  }, [searchSuggestions])
+
   return {
     searchQuery,
     handleSearchQueryChange: debounce(handleSearchQueryChange, 1000),
@@ -160,5 +164,6 @@ export default function useSearch() {
     handleSearchSuggestions,
     handleNavigateSearchPage,
     handleNavigateSuggestionObject,
+    showLoadMore,
   }
 }
