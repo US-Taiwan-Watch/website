@@ -13,8 +13,7 @@ import { useToast } from '@/common/providers/ToastProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 export default function useAccountSetting() {
-  const { account, updateAccountSetting, updateName, updateEmail } =
-    useAccount()
+  const { account, updateName, updateEmail } = useAccount()
   const { toast } = useToast()
   const { t } = useTranslationClient('account')
 
@@ -46,15 +45,12 @@ export default function useAccountSetting() {
           await updateEmail(value.email)
         }
 
-        // 更新其他設定（頭像等）
-        updateAccountSetting(value)
-
         toast('success', t('setting.success.msg', { ns: 'account' }))
       } catch {
         toast('error', t('setting.error.msg', { ns: 'account' }))
       }
     },
-    [updateAccountSetting, updateName, updateEmail, account, toast, t]
+    [updateName, updateEmail, account, toast, t]
   )
 
   return { form, handleReset, handleSubmit, defaultAccountSettingInput }
