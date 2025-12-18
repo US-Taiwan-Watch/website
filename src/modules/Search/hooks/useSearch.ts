@@ -25,6 +25,7 @@ export default function useSearch() {
   const { resolveRouteUrl } = useURouterClient()
   const [searchQuery, setSearchQuery] = useState('')
   const page = useRef(0)
+  const pages = useRef(1)
 
   const handleSearchSuggestions = useCallback(
     async (query: string) => {
@@ -39,7 +40,7 @@ export default function useSearch() {
       })
 
       try {
-        const { hits } = await algoliaClient.searchSingleIndex({
+        const { hits, nbPages } = await algoliaClient.searchSingleIndex({
           indexName: ALGOLIA_INDEX_NAME,
           searchParams: {
             query,
@@ -48,6 +49,7 @@ export default function useSearch() {
             attributesToRetrieve: ['*'],
           },
         })
+        pages.current = nbPages ?? 1
 
         const suggestions = hits
           // .sort((a, b) =>
@@ -58,7 +60,7 @@ export default function useSearch() {
           )
           .filter((suggestion) => !isNull(suggestion))
 
-        setSearchSuggestions(suggestions)
+        setSearchSuggestions((prev) => [...prev, ...suggestions])
       } catch (error) {
         console.error('Algolia search error:', error)
         setSearchSuggestions([])
@@ -70,6 +72,8 @@ export default function useSearch() {
   const handleSearchQueryChange = useCallback(
     (value: string) => {
       page.current = 0
+      pages.current = 1
+      setSearchSuggestions([])
       setSearchQuery(value)
       handleSearchSuggestions(value)
     },
@@ -77,6 +81,9 @@ export default function useSearch() {
   )
 
   const handleLoadMore = useCallback(() => {
+    if (page.current + 1 >= pages.current) {
+      return
+    }
     page.current += 1
     handleSearchSuggestions(searchQuery)
   }, [handleSearchSuggestions, searchQuery])

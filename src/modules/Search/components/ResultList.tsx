@@ -2,6 +2,7 @@ import { SearchSuggestion } from '@/modules/Search/business/SearchSuggestion'
 import { Box, Typography, Icon, SxProps } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
 import { SearchIcon } from '@/common/styles/assets/Icons'
+import { useEffect, useRef } from 'react'
 
 const StyledSearchSuggestionTitle = styled(Typography)(({ theme }) => ({
   '& em': {
@@ -30,7 +31,41 @@ type ResultListProps = {
   onLoadMore?: () => void
 }
 
-const ResultList = ({ sx, suggestions, onClick }: ResultListProps) => {
+const ResultList = ({
+  sx,
+  suggestions,
+  onClick,
+  onLoadMore,
+}: ResultListProps) => {
+  const sentinelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!onLoadMore) return
+
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        if (entry.isIntersecting) {
+          onLoadMore()
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.1,
+      }
+    )
+
+    observer.observe(sentinel)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [onLoadMore])
+
   return (
     <Box
       sx={{
@@ -59,6 +94,7 @@ const ResultList = ({ sx, suggestions, onClick }: ResultListProps) => {
           </StyledResultItem>
         </Box>
       ))}
+      <Box ref={sentinelRef} sx={{ height: '1px' }} />
     </Box>
   )
 }
