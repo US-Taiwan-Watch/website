@@ -33,7 +33,7 @@ const SearchPageSearchBar = () => {
     handleSearchQueryChange,
     searchSuggestions,
     handleNavigateSearchPage,
-    showLoadMore,
+    handleLoadMore,
   } = useSearch()
 
   const handleResultListClose = useCallback(() => {
@@ -87,10 +87,7 @@ const SearchPageSearchBar = () => {
             anchorEl={boxRef.current}
             inputAnchorEl={inputRef.current}
             onClose={handleResultListClose}
-            showLoadMore={showLoadMore}
-            onClickLoadMore={() => {
-              handleNavigateSearchPage(searchQuery)
-            }}
+            onLoadMore={handleLoadMore}
           />
         </>
       )}

@@ -1,7 +1,7 @@
 'use client'
 
 import UHStack from '@/common/components/atoms/UHStack'
-import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
+import ULoadMoreButton from '@/common/components/atoms/ULoadMoreButton'
 import UPagination from '@/common/components/atoms/UPagination'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ArticlePostCards, {
@@ -26,7 +26,7 @@ const ArticleSearchCategorySection = ({
     isArticlesLoading,
     category,
     articles,
-    isInfiniteScroll,
+    shouldAppendData,
     totalPages,
     page,
     handlePageChange,
@@ -111,8 +111,8 @@ const ArticleSearchCategorySection = ({
           <ArticlePostCards articles={articles} showCategory={false} />
 
           {/** Infinite Scroll (Mobile) */}
-          {isInfiniteScroll && (
-            <UInfiniteScrollButton
+          {shouldAppendData && (
+            <ULoadMoreButton
               loading={isArticlesLoading}
               onLoadMore={() => handlePageChange(page + 1)}
               hasMore={page < totalPages}
@@ -120,7 +120,7 @@ const ArticleSearchCategorySection = ({
           )}
 
           {/** Pagination (Desktop) */}
-          {!isInfiniteScroll && !isArticlesLoading && totalPages > 1 && (
+          {!shouldAppendData && !isArticlesLoading && totalPages > 1 && (
             <UPagination
               count={totalPages}
               page={page}

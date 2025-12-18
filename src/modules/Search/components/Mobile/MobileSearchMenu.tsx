@@ -52,7 +52,7 @@ const MobileSearchMenu = ({
     handleSearchQueryChange,
     searchSuggestions,
     handleNavigateSearchPage,
-    showLoadMore,
+    handleLoadMore,
   } = useSearch()
 
   return (
@@ -94,10 +94,7 @@ const MobileSearchMenu = ({
             <MobileSearchResultList
               suggestions={searchSuggestions}
               onClose={onClose}
-              showLoadMore={showLoadMore}
-              onClickLoadMore={() => {
-                handleNavigateSearchPage(searchQuery)
-              }}
+              onLoadMore={handleLoadMore}
             />
           )}
         </Stack>

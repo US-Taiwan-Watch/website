@@ -9,8 +9,7 @@ interface MobileSearchResultProps {
   className?: string
   suggestions: Array<SearchSuggestion>
   onClose?: () => void
-  showLoadMore?: boolean
-  onClickLoadMore?: () => void
+  onLoadMore?: () => void
 }
 
 const StyledContainer = styled(Box)(() => ({
@@ -27,8 +26,7 @@ const MobileSearchResultList = ({
   suggestions,
   className,
   onClose,
-  showLoadMore,
-  onClickLoadMore,
+  onLoadMore,
 }: MobileSearchResultProps) => {
   const { handleNavigateSuggestionObject } = useSearch()
 
@@ -45,8 +43,7 @@ const MobileSearchResultList = ({
               handleNavigateSuggestionObject(suggestion)
               onClose?.()
             }}
-            showLoadMore={showLoadMore}
-            onClickLoadMore={onClickLoadMore}
+            onLoadMore={onLoadMore}
           />
         ) : (
           <NoResultPlaceholder />

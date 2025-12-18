@@ -12,8 +12,7 @@ interface SearchResultListProps {
   anchorEl: HTMLElement | null
   inputAnchorEl: HTMLElement | null
   onClose?: () => void
-  showLoadMore?: boolean
-  onClickLoadMore?: () => void
+  onLoadMore?: () => void
 }
 
 const StyledPopper = styled(UPopper)(() => ({
@@ -38,8 +37,7 @@ const StyledResultContainer = styled(Box)(({ theme }) => ({
 
 const SearchResultList = ({
   suggestions,
-  showLoadMore,
-  onClickLoadMore,
+  onLoadMore,
   className,
   anchorEl,
   inputAnchorEl,
@@ -67,8 +65,7 @@ const SearchResultList = ({
                 handleNavigateSearchPage(suggestion.value)
                 onClose?.()
               }}
-              showLoadMore={showLoadMore}
-              onClickLoadMore={onClickLoadMore}
+              onLoadMore={onLoadMore}
             />
           ) : (
             <NoResultPlaceholder />

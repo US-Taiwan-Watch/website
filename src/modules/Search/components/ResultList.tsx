@@ -1,10 +1,13 @@
 import { SearchSuggestion } from '@/modules/Search/business/SearchSuggestion'
-import { Box, Typography, Icon, SxProps } from '@mui/material'
+import { Box, Icon, SxProps } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
 import { SearchIcon } from '@/common/styles/assets/Icons'
-import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { useEffect, useRef } from 'react'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
-const StyledSearchSuggestionTitle = styled(Typography)(({ theme }) => ({
+const MAX_LINE_OF_SEARCH_ITEM_TITLE = 2
+
+const StyledSearchSuggestionTitle = styled(UHeightLimitedText)(({ theme }) => ({
   '& em': {
     backgroundColor: theme.palette.primary.main,
   },
@@ -28,18 +31,44 @@ type ResultListProps = {
   sx?: SxProps
   suggestions: Array<SearchSuggestion>
   onClick?: (suggestion: SearchSuggestion) => void
-  showLoadMore?: boolean
-  onClickLoadMore?: () => void
+  onLoadMore?: () => void
 }
 
 const ResultList = ({
   sx,
   suggestions,
   onClick,
-  showLoadMore,
-  onClickLoadMore,
+  onLoadMore,
 }: ResultListProps) => {
-  const { t } = useTranslationClient('search')
+  const sentinelRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!onLoadMore) return
+
+    const sentinel = sentinelRef.current
+    if (!sentinel) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries
+        if (entry.isIntersecting) {
+          onLoadMore()
+        }
+      },
+      {
+        root: null,
+        rootMargin: '100px',
+        threshold: 0.1,
+      }
+    )
+
+    observer.observe(sentinel)
+
+    return () => {
+      observer.disconnect()
+    }
+  }, [onLoadMore])
+
   return (
     <Box
       sx={{
@@ -48,6 +77,9 @@ const ResultList = ({
           textDecoration: 'none',
         },
         ...sx,
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
       }}
     >
       {suggestions.map((suggestion) => (
@@ -63,26 +95,13 @@ const ResultList = ({
               <SearchIcon />
             </StyledIcon>
             <StyledSearchSuggestionTitle
+              maxLine={MAX_LINE_OF_SEARCH_ITEM_TITLE}
               dangerouslySetInnerHTML={{ __html: suggestion.value }}
             />
           </StyledResultItem>
         </Box>
       ))}
-      {showLoadMore && (
-        <StyledResultItem
-          display="flex"
-          onClick={onClickLoadMore}
-          sx={{
-            cursor: 'pointer',
-          }}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography>
-            {t('suggestion.result.loadMore', { ns: 'search' })}
-          </Typography>
-        </StyledResultItem>
-      )}
+      <Box ref={sentinelRef} sx={{ height: '1px' }} />
     </Box>
   )
 }

@@ -35,7 +35,7 @@ import { PeopleCategory } from '@/modules/People/business/PeopleCategory'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UHStack from '@/common/components/atoms/UHStack'
 import { Typography } from '@mui/material'
-import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
+import ULoadMoreButton from '@/common/components/atoms/ULoadMoreButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
@@ -128,7 +128,7 @@ const PeopleListSection = () => {
   }, [data?.PeoplesFilter?.totalPages, setTotalPages])
 
   // 處理資料
-  const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
+  const shouldAppendData = useMemo(() => isMobile, [isMobile])
   const [peoples, setPeoples] = useState<People[]>([])
 
   useEffect(() => {
@@ -138,7 +138,7 @@ const PeopleListSection = () => {
       .filter((people) => !isNull(people))
       .map((people) => PeopleUtils.parse(lang, people))
 
-    if (isInfiniteScroll) {
+    if (shouldAppendData) {
       setPeoples((prev) => [
         ...(data?.PeoplesFilter?.page === 1 ? [] : prev),
         ...newPeoples,
@@ -149,7 +149,7 @@ const PeopleListSection = () => {
   }, [
     data?.PeoplesFilter?.docs,
     data?.PeoplesFilter?.page,
-    isInfiniteScroll,
+    shouldAppendData,
     lang,
   ])
 
@@ -273,8 +273,8 @@ const PeopleListSection = () => {
         </Box>
 
         {/** Infinite Scroll (Mobile) */}
-        {isInfiniteScroll && (
-          <UInfiniteScrollButton
+        {shouldAppendData && (
+          <ULoadMoreButton
             loading={loading}
             onLoadMore={() => handlePageChange(page + 1)}
             hasMore={page < totalPages}
@@ -282,7 +282,7 @@ const PeopleListSection = () => {
         )}
 
         {/** Pagination (Desktop) */}
-        {!isInfiniteScroll && !loading && totalPages > 1 && (
+        {!shouldAppendData && !loading && totalPages > 1 && (
           <UPagination
             count={totalPages}
             page={page}
