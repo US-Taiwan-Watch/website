@@ -52,9 +52,6 @@ export default function useSearch() {
         pages.current = nbPages ?? 1
 
         const suggestions = hits
-          // .sort((a, b) =>
-          //   sortCompareFn(a as unknown as Hit, b as unknown as Hit)
-          // )
           .map((hit) =>
             parseSearchSuggestionFromHit(lang, hit as unknown as Hit)
           )
