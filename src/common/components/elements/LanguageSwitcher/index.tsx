@@ -51,7 +51,6 @@ export const LanguageSwitcher = memo(function LanguageSwitcher() {
                   minWidth: 'fit-content',
                 }}
               >
-                {/** TODO: i18n 語言 */}
                 {t(`language.${l.replace('-', '')}`, { ns: 'common' })}
               </StyledButton>
               {index !== I18N_SUPPORTED_LANGUAGE.length - 1 && (

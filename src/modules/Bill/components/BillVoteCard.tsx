@@ -11,6 +11,7 @@ import { PeopleVote } from '@/modules/People/business/PeopleVote'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import { useMemo } from 'react'
 import { CongressUtils } from '@/common/business/Congress'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 interface VoteStatusCardProps {
   vote: PeopleVote
@@ -19,6 +20,18 @@ interface VoteStatusCardProps {
 
 const VoteStatusCard = function ({ vote, active }: VoteStatusCardProps) {
   const theme = useTheme<USTWTheme>()
+  const { t } = useTranslationClient('bill')
+
+  const stanceText = useMemo(() => {
+    if (vote.stance === 'ayes') return t('card.vote.stance.ayes')
+    if (vote.stance === 'noes') return t('card.vote.stance.noes')
+    return t('card.vote.stance.not_voting')
+  }, [vote.stance, t])
+
+  const statusText = useMemo(() => {
+    if (vote.vote?.status === 'passed') return t('card.vote.status.passed')
+    return t('card.vote.status.failed')
+  }, [vote.vote?.status, t])
 
   return (
     <Stack
@@ -40,20 +53,14 @@ const VoteStatusCard = function ({ vote, active }: VoteStatusCardProps) {
         fontSize={12}
         textTransform={'capitalize'}
       >
-        {/** TODO: i18n */}
-        {vote.stance === 'ayes'
-          ? 'Yea'
-          : vote.stance === 'noes'
-            ? 'Nay'
-            : 'Not Voting'}
+        {stanceText}
       </Typography>
       <Typography
         variant="subtitleL"
         fontWeight={600}
         textTransform={'capitalize'}
       >
-        {/** TODO: i18n */}
-        {vote.vote?.status === 'passed' ? 'Passed' : 'Failed'}
+        {statusText}
       </Typography>
     </Stack>
   )

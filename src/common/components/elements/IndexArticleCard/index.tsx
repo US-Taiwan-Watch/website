@@ -55,8 +55,7 @@ const UHeightLimitedTextWithSelectable =
 const UButtonWithSelectable =
   withSelectable<ComponentProps<typeof UButton>>(UButton)
 
-// TODO: 確認類型
-interface IndexArticleCardProps {
+type IndexArticleCardProps = {
   article: Article
 }
 

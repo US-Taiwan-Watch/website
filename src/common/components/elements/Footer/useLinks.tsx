@@ -21,7 +21,6 @@ export default function useLinks() {
   const { t } = useTranslationClient('footer')
   const { socialLinkItems } = useSocialLinks()
 
-  // TODO: 這邊的資料都連到內部頁面
   const subLinkItems: Array<SubLinkItem> = useMemo(
     () => [
       {

@@ -1,6 +1,3 @@
-/**
- * TODO: TBD 需要與 Party 的 enum 同步？
- */
 export enum BillPartyEnum {
   Democratic = 'democratic',
   Republican = 'republican',

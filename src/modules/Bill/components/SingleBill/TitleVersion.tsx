@@ -23,8 +23,7 @@ type Props = {
 }
 
 /**
- * 標題版本
- * TODO: 設計稿上是標題版本，但 phase1 改為導向到國會網站
+ * 標題版本，連結到國會網站
  */
 export default function TitleVersion({ bill }: Props) {
   const { isMobile } = useResponsive()

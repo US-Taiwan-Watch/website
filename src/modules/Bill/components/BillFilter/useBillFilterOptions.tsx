@@ -178,7 +178,6 @@ export default function useBillFilterOptions() {
     [currentCongressNumber]
   )
 
-  // TODO: autocomplete sponsors
   const { data: sponsorsData } = useQuery<
     BillFilterSponsorsQuery,
     BillFilterSponsorsQueryVariables

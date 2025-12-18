@@ -158,8 +158,6 @@ export default class ServerBillApi {
    * 取得熱門提案的法案
    * @param limit 限制數量
    * @returns 熱門提案的法案列表
-   *
-   * TODO: 目前還沒定義Popularity, 先跟Latest Bill拿一樣的
    */
   static async getPopularBills({ limit = 10 }: { limit?: number }) {
     const { data: popularBillsData } = await query<
@@ -168,6 +166,7 @@ export default class ServerBillApi {
     >({
       query: QUERY_BILLS,
       variables: {
+        // TODO: 目前還沒定義Popularity, 先跟Latest Bill拿一樣的
         sort: '-introducedAt.datetime',
         limit,
       },

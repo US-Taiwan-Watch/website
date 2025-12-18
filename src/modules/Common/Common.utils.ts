@@ -6,7 +6,6 @@ import { z } from 'zod'
 export default class CommonUtils {
   /**
    * 把前端語言轉換成 API 語言
-   * TODO: 後續前端語言 key 可以改成與 API 一致
    * @param lang
    * @returns
    */

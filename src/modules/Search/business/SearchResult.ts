@@ -120,7 +120,6 @@ const searchResultSchema = z.discriminatedUnion('type', [
       description: z.string(),
     }),
   }),
-  // TODO: Podcast, Ensure the response type
 ])
 
 export type SearchResultInput = z.input<typeof searchResultSchema>
@@ -163,7 +162,6 @@ const searchResultsSchema = z.object({
       )
     ),
   }),
-  // TODO: Podcast, Ensure the response type
 })
 
 export type SearchResultsInput = z.input<typeof searchResultsSchema>
@@ -351,11 +349,6 @@ export class SearchResultsUtils {
         (results.ketagalanArticle?.count ?? 0)) /
         SearchResultsUtils.PAGE_SIZE
     )
-  }
-
-  static sort(results: Array<SearchResult>): Array<SearchResult> {
-    // TODO: Ensure the sorting logic
-    return results
   }
 
   /**

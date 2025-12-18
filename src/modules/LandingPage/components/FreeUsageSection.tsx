@@ -9,6 +9,9 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import Image from 'next/image'
 import { Trans } from 'react-i18next'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
+import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 
 const StyledHighlightText = styled('span')(({ theme }) => ({
   color: theme.color.orange[900],
@@ -19,6 +22,14 @@ const StyledImage = styled(Image)(() => ({}))
 const FreeUsageSection = () => {
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('home')
+  const { resolveRouteUrl } = useURouterClient()
+  const { login } = useUAuth()
+
+  const handleJoinTodayClick = () => {
+    login({
+      returnTo: resolveRouteUrl({ name: RouteName.Account }),
+    })
+  }
 
   return (
     <LandingSectionWrapper
@@ -44,7 +55,6 @@ const FreeUsageSection = () => {
           />
         </Typography>
         <Box>
-          {/* TODO: 等之後有 Create Account 頁面，要連過去 */}
           <UButton
             variant="contained"
             color="info"
@@ -58,6 +68,7 @@ const FreeUsageSection = () => {
                 }}
               />
             }
+            onClick={handleJoinTodayClick}
           >
             {t('section.freeUsage.cta.joinToday', { ns: 'home' })}
           </UButton>

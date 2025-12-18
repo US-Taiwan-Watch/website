@@ -68,7 +68,6 @@ const CommitteeRow = function CommitteeRow({
   )
 }
 
-// TODO: 確認資料來源
 interface CommitteeProps {
   committees: People['committees']
 }

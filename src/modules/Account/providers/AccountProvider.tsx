@@ -63,7 +63,6 @@ import { useUser } from '@auth0/nextjs-auth0'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import { AccountSettingOutput } from '@/modules/Account/Setting/business/AccountSetting'
 import { AccountNotificationSettingOutput } from '@/modules/Account/Notification/business/AccountNotification'
 
 type AccountProviderContext = {
@@ -81,7 +80,6 @@ type AccountProviderContext = {
   bookmarkArticle: (article: Article) => void
   unbookmarkArticle: (article: Article) => void
   checkIfArticleIsBookmarked: (article: Article) => boolean
-  updateAccountSetting: (setting: AccountSettingOutput) => void
   updatePassword: (password: string) => Promise<void>
   updateName: (name: string) => Promise<void>
   updateEmail: (email: string) => Promise<void>
@@ -105,7 +103,6 @@ const AccountContext = createContext<AccountProviderContext>({
   bookmarkArticle: () => {},
   unbookmarkArticle: () => {},
   checkIfArticleIsBookmarked: () => false,
-  updateAccountSetting: () => {},
   updatePassword: async () => {},
   updateName: async () => {},
   updateEmail: async () => {},
@@ -536,17 +533,6 @@ export default function AccountProvider({
     [bookmarkedUstwArticlesSet, bookmarkedKetagalanArticlesSet]
   )
 
-  const updateAccountSetting = useCallback(
-    async (setting: AccountSettingOutput) => {
-      // TODO: Implement update account setting
-      console.log('updateAccountSetting', setting)
-
-      // refetch me
-      await fetchMe()
-    },
-    [fetchMe]
-  )
-
   /**
    * 更新密碼
    * @param password - 新密碼
@@ -680,7 +666,6 @@ export default function AccountProvider({
         bookmarkArticle,
         unbookmarkArticle,
         checkIfArticleIsBookmarked,
-        updateAccountSetting,
         updatePassword,
         updateName,
         updateEmail,
