@@ -74,6 +74,9 @@ const ResultList = ({
           textDecoration: 'none',
         },
         ...sx,
+        '&::-webkit-scrollbar': {
+          display: 'none',
+        },
       }}
     >
       {suggestions.map((suggestion) => (
