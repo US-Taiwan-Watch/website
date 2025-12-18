@@ -110,58 +110,6 @@ export type Hit =
       }
     }
 
-export const sortSearchHitsCompareFnGenerator = (language: Language) => {
-  return (a: Hit, b: Hit) => {
-    const apiLang = CommonUtils.parseAPII18nKey(language)
-
-    // Helper function to get title highlight result
-    const getTitleHighlight = (hit: Hit): HighlightResultOption => {
-      if (hit.type === 'ustw-article' || hit.type === 'ketagalan-article') {
-        return hit._highlightResult.title
-      }
-      if (hit.type === 'bill') {
-        return hit._highlightResult.i18n[apiLang].title
-      }
-      // hit.type === 'people'
-      return hit._highlightResult.i18n[apiLang].displayName
-    }
-
-    // Helper function to get content highlight result
-    const getContentHighlight = (hit: Hit): HighlightResultOption => {
-      if (hit.type === 'ustw-article' || hit.type === 'ketagalan-article') {
-        return hit._highlightResult.excerpt
-      }
-      if (hit.type === 'bill') {
-        return hit._highlightResult.i18n[apiLang].summary
-      }
-      // hit.type === 'people'
-      return hit._highlightResult.i18n[apiLang].bio
-    }
-
-    // Helper function to calculate priority (lower is better)
-    const getPriority = (hit: Hit): number => {
-      const titleHighlight = getTitleHighlight(hit)
-      const contentHighlight = getContentHighlight(hit)
-
-      // Priority 1: title matchLevel = full
-      if (titleHighlight.matchLevel === 'full') return 1
-      // Priority 2: title matchLevel = partial
-      if (titleHighlight.matchLevel === 'partial') return 2
-      // Priority 3: content matchLevel = full
-      if (contentHighlight.matchLevel === 'full') return 3
-      // Priority 4: content matchLevel = partial
-      if (contentHighlight.matchLevel === 'partial') return 4
-      // No match or other matchLevel
-      return 5
-    }
-
-    const priorityA = getPriority(a)
-    const priorityB = getPriority(b)
-
-    return priorityA - priorityB
-  }
-}
-
 /**
  * 將 Algolia hit 轉換成 SearchSuggestion 格式
  */

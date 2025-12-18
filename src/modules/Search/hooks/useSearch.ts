@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useRef, useState } from 'react'
 import {
   SearchSuggestion,
   SearchSuggestionType,
@@ -15,7 +15,6 @@ import { algoliaClient, ALGOLIA_INDEX_NAME } from '@/common/lib/algolia/client'
 import {
   type Hit,
   parseSearchSuggestionFromHit,
-  sortSearchHitsCompareFnGenerator,
 } from '@/common/lib/algolia/utils'
 import { Language } from '@/common/lib/i18n/types'
 
@@ -25,6 +24,7 @@ export default function useSearch() {
   const { lang } = useParams<{ lang: Language }>()
   const { resolveRouteUrl } = useURouterClient()
   const [searchQuery, setSearchQuery] = useState('')
+  const page = useRef(0)
 
   const handleSearchSuggestions = useCallback(
     async (query: string) => {
@@ -43,17 +43,16 @@ export default function useSearch() {
           indexName: ALGOLIA_INDEX_NAME,
           searchParams: {
             query,
+            page: page.current,
             hitsPerPage: HITS_PER_PAGE,
             attributesToRetrieve: ['*'],
           },
         })
 
-        const sortCompareFn = sortSearchHitsCompareFnGenerator(lang)
-
         const suggestions = hits
-          .sort((a, b) =>
-            sortCompareFn(a as unknown as Hit, b as unknown as Hit)
-          )
+          // .sort((a, b) =>
+          //   sortCompareFn(a as unknown as Hit, b as unknown as Hit)
+          // )
           .map((hit) =>
             parseSearchSuggestionFromHit(lang, hit as unknown as Hit)
           )
@@ -70,12 +69,17 @@ export default function useSearch() {
 
   const handleSearchQueryChange = useCallback(
     (value: string) => {
+      page.current = 0
       setSearchQuery(value)
-
       handleSearchSuggestions(value)
     },
     [handleSearchSuggestions]
   )
+
+  const handleLoadMore = useCallback(() => {
+    page.current += 1
+    handleSearchSuggestions(searchQuery)
+  }, [handleSearchSuggestions, searchQuery])
 
   const [searchSuggestions, setSearchSuggestions] = useState<
     Array<SearchSuggestion>
@@ -164,6 +168,7 @@ export default function useSearch() {
     handleSearchSuggestions,
     handleNavigateSearchPage,
     handleNavigateSuggestionObject,
+    handleLoadMore,
     showLoadMore,
   }
 }
