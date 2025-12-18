@@ -2,7 +2,6 @@ import { SearchSuggestion } from '@/modules/Search/business/SearchSuggestion'
 import { Box, Typography, Icon, SxProps } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
 import { SearchIcon } from '@/common/styles/assets/Icons'
-import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledSearchSuggestionTitle = styled(Typography)(({ theme }) => ({
   '& em': {
@@ -28,18 +27,10 @@ type ResultListProps = {
   sx?: SxProps
   suggestions: Array<SearchSuggestion>
   onClick?: (suggestion: SearchSuggestion) => void
-  showLoadMore?: boolean
-  onClickLoadMore?: () => void
+  onLoadMore?: () => void
 }
 
-const ResultList = ({
-  sx,
-  suggestions,
-  onClick,
-  showLoadMore,
-  onClickLoadMore,
-}: ResultListProps) => {
-  const { t } = useTranslationClient('search')
+const ResultList = ({ sx, suggestions, onClick }: ResultListProps) => {
   return (
     <Box
       sx={{
@@ -68,21 +59,6 @@ const ResultList = ({
           </StyledResultItem>
         </Box>
       ))}
-      {showLoadMore && (
-        <StyledResultItem
-          display="flex"
-          onClick={onClickLoadMore}
-          sx={{
-            cursor: 'pointer',
-          }}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Typography>
-            {t('suggestion.result.loadMore', { ns: 'search' })}
-          </Typography>
-        </StyledResultItem>
-      )}
     </Box>
   )
 }

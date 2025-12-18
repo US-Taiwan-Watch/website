@@ -13,8 +13,7 @@ interface DesktopSearchResultProps {
   inputAnchorEl: HTMLElement | null
   clickAwayClassNameWhiteList?: string[]
   onClose?: () => void
-  showLoadMore?: boolean
-  onClickLoadMore?: () => void
+  onLoadMore?: () => void
 }
 
 const StyledContainer = styled(Box)(({ theme }) => ({
@@ -39,8 +38,7 @@ const DesktopSearchResultList = ({
   inputAnchorEl,
   clickAwayClassNameWhiteList,
   onClose,
-  showLoadMore,
-  onClickLoadMore,
+  onLoadMore,
 }: DesktopSearchResultProps) => {
   const { handleNavigateSuggestionObject } = useSearch()
 
@@ -64,8 +62,7 @@ const DesktopSearchResultList = ({
                 handleNavigateSuggestionObject(suggestion)
                 onClose?.()
               }}
-              showLoadMore={showLoadMore}
-              onClickLoadMore={onClickLoadMore}
+              onLoadMore={onLoadMore}
             />
           ) : (
             <NoResultPlaceholder />
