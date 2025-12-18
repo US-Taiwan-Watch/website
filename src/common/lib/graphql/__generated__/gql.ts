@@ -90,6 +90,7 @@ const documents = {
     "\n  mutation SubmitTaiwanRecord($data: mutationSubmitTaiwanRecordInput!) {\n    submitTaiwanRecord(data: $data) {\n      id\n    }\n  }\n": types.SubmitTaiwanRecordDocument,
     "\n  mutation WithdrawTaiwanRecord($id: String!) {\n    withdrawTaiwanRecord(id: $id) {\n      id\n    }\n  }\n": types.WithdrawTaiwanRecordDocument,
     "\n  mutation ModifyTaiwanRecord(\n    $id: String!\n    $data: mutationModifyTaiwanRecordInput!\n    $resubmitForReview: Boolean\n  ) {\n    modifyTaiwanRecord(\n      id: $id\n      data: $data\n      resubmitForReview: $resubmitForReview\n    ) {\n      id\n    }\n  }\n": types.ModifyTaiwanRecordDocument,
+    "\n  query QueryPeoplePublishedTaiwanRecords($peopleId: JSON!) {\n    TaiwanRecords(\n      where: { people: { equals: $peopleId }, status: { equals: published } }\n    ) {\n      docs {\n        ...TaiwanRecord\n      }\n    }\n  }\n\n  \n": types.QueryPeoplePublishedTaiwanRecordsDocument,
 };
 
 /**
@@ -410,6 +411,10 @@ export function gql(source: "\n  mutation WithdrawTaiwanRecord($id: String!) {\n
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  mutation ModifyTaiwanRecord(\n    $id: String!\n    $data: mutationModifyTaiwanRecordInput!\n    $resubmitForReview: Boolean\n  ) {\n    modifyTaiwanRecord(\n      id: $id\n      data: $data\n      resubmitForReview: $resubmitForReview\n    ) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation ModifyTaiwanRecord(\n    $id: String!\n    $data: mutationModifyTaiwanRecordInput!\n    $resubmitForReview: Boolean\n  ) {\n    modifyTaiwanRecord(\n      id: $id\n      data: $data\n      resubmitForReview: $resubmitForReview\n    ) {\n      id\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query QueryPeoplePublishedTaiwanRecords($peopleId: JSON!) {\n    TaiwanRecords(\n      where: { people: { equals: $peopleId }, status: { equals: published } }\n    ) {\n      docs {\n        ...TaiwanRecord\n      }\n    }\n  }\n\n  \n"): (typeof documents)["\n  query QueryPeoplePublishedTaiwanRecords($peopleId: JSON!) {\n    TaiwanRecords(\n      where: { people: { equals: $peopleId }, status: { equals: published } }\n    ) {\n      docs {\n        ...TaiwanRecord\n      }\n    }\n  }\n\n  \n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

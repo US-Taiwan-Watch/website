@@ -108,15 +108,6 @@ const AccountTaiwanRecordStatusTabs = memo(
                 taiwanRecord.status === TaiwanRecordStatus.InReview
             ).length ?? 0,
         },
-        {
-          label: t('taiwanRecord.status.deleted', { ns: 'account' }),
-          value: TaiwanRecordStatus.Deleted,
-          count:
-            accountTaiwanRecordList.filter(
-              (taiwanRecord) =>
-                taiwanRecord.status === TaiwanRecordStatus.Deleted
-            ).length ?? 0,
-        },
       ]
     }, [t, accountTaiwanRecordList])
 
