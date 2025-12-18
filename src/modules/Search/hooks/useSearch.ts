@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   SearchSuggestion,
   SearchSuggestionType,
@@ -18,38 +18,61 @@ import {
 } from '@/common/lib/algolia/utils'
 import { Language } from '@/common/lib/i18n/types'
 
-const HITS_PER_PAGE = 20
+const HITS_PER_PAGE_OF_ALGOLIA = 20
+const DEBOUNCE_SEARCH_DELAY = 1000
 
 export default function useSearch() {
   const { lang } = useParams<{ lang: Language }>()
   const { resolveRouteUrl } = useURouterClient()
   const [searchQuery, setSearchQuery] = useState('')
-  const page = useRef(0)
-  const pages = useRef(1)
+  const [page, setPage] = useState(0)
+  const [totalPages, setTotalPages] = useState(1)
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<Error | null>(null)
+  const abortControllerRef = useRef<AbortController | null>(null)
+  const currentQueryRef = useRef<string>('')
 
   const handleSearchSuggestions = useCallback(
-    async (query: string) => {
+    async (query: string, pageNum: number, isNewSearch: boolean = false) => {
       if (!query) {
         setSearchSuggestions([])
+        setIsLoading(false)
         return
       }
 
-      /** 記錄 GA 搜尋建議事件 */
-      googleAnalyticsSearchSuggestionEvent({
-        searchTerm: query,
-      })
+      // Cancel previous request
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort()
+      }
+      abortControllerRef.current = new AbortController()
+
+      // Record GA event only for new search
+      if (isNewSearch) {
+        googleAnalyticsSearchSuggestionEvent({
+          searchTerm: query,
+        })
+      }
+
+      setIsLoading(true)
+      setError(null)
 
       try {
         const { hits, nbPages } = await algoliaClient.searchSingleIndex({
           indexName: ALGOLIA_INDEX_NAME,
           searchParams: {
             query,
-            page: page.current,
-            hitsPerPage: HITS_PER_PAGE,
+            page: pageNum,
+            hitsPerPage: HITS_PER_PAGE_OF_ALGOLIA,
             attributesToRetrieve: ['*'],
           },
         })
-        pages.current = nbPages ?? 1
+
+        // Avoid race condition
+        if (query !== currentQueryRef.current) {
+          return
+        }
+
+        setTotalPages(nbPages ?? 1)
 
         const suggestions = hits
           .map((hit) =>
@@ -57,37 +80,77 @@ export default function useSearch() {
           )
           .filter((suggestion) => !isNull(suggestion))
 
-        setSearchSuggestions((prev) => [...prev, ...suggestions])
+        setSearchSuggestions((prev) =>
+          isNewSearch ? suggestions : [...prev, ...suggestions]
+        )
       } catch (error) {
+        // Ignore abort error
+        if (error instanceof Error && error.name === 'AbortError') {
+          return
+        }
         console.error('Algolia search error:', error)
-        setSearchSuggestions([])
+        setError(error instanceof Error ? error : new Error('Unknown error'))
+        if (isNewSearch) {
+          setSearchSuggestions([])
+        }
+      } finally {
+        setIsLoading(false)
       }
     },
     [lang]
   )
 
+  const debouncedSearchRef = useRef(
+    debounce((query: string, searchFn: typeof handleSearchSuggestions) => {
+      currentQueryRef.current = query
+      searchFn(query, 0, true)
+    }, DEBOUNCE_SEARCH_DELAY)
+  )
+
   const handleSearchQueryChange = useCallback(
     (value: string) => {
-      page.current = 0
-      pages.current = 1
-      setSearchSuggestions([])
+      setPage(0)
+      setTotalPages(1)
       setSearchQuery(value)
-      handleSearchSuggestions(value)
+
+      if (!value) {
+        setSearchSuggestions([])
+        setIsLoading(false)
+        currentQueryRef.current = ''
+        return
+      }
+
+      debouncedSearchRef.current(value, handleSearchSuggestions)
     },
     [handleSearchSuggestions]
   )
 
   const handleLoadMore = useCallback(() => {
-    if (page.current + 1 >= pages.current) {
+    if (isLoading || page + 1 >= totalPages) {
       return
     }
-    page.current += 1
-    handleSearchSuggestions(searchQuery)
-  }, [handleSearchSuggestions, searchQuery])
+
+    const nextPage = page + 1
+    setPage(nextPage)
+    handleSearchSuggestions(searchQuery, nextPage, false)
+  }, [handleSearchSuggestions, isLoading, page, searchQuery, totalPages])
 
   const [searchSuggestions, setSearchSuggestions] = useState<
     Array<SearchSuggestion>
   >([])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    const debouncedSearch = debouncedSearchRef.current
+    const abortController = abortControllerRef.current
+
+    return () => {
+      if (abortController) {
+        abortController.abort()
+      }
+      debouncedSearch.cancel()
+    }
+  }, [])
 
   const router = useRouter()
   const handleNavigateSearchPage = useCallback(
@@ -161,13 +224,18 @@ export default function useSearch() {
     [resolveRouteUrl, router]
   )
 
+  const hasMore = page + 1 < totalPages
+
   return {
     searchQuery,
-    handleSearchQueryChange: debounce(handleSearchQueryChange, 1000),
+    handleSearchQueryChange,
     searchSuggestions,
     handleSearchSuggestions,
     handleNavigateSearchPage,
     handleNavigateSuggestionObject,
     handleLoadMore,
+    isLoading,
+    error,
+    hasMore,
   }
 }
