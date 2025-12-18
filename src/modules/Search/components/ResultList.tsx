@@ -1,10 +1,13 @@
 import { SearchSuggestion } from '@/modules/Search/business/SearchSuggestion'
-import { Box, Typography, Icon, SxProps } from '@mui/material'
+import { Box, Icon, SxProps } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import { useEffect, useRef } from 'react'
+import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 
-const StyledSearchSuggestionTitle = styled(Typography)(({ theme }) => ({
+const MAX_LINE_OF_SEARCH_ITEM_TITLE = 2
+
+const StyledSearchSuggestionTitle = styled(UHeightLimitedText)(({ theme }) => ({
   '& em': {
     backgroundColor: theme.palette.primary.main,
   },
@@ -92,6 +95,7 @@ const ResultList = ({
               <SearchIcon />
             </StyledIcon>
             <StyledSearchSuggestionTitle
+              maxLine={MAX_LINE_OF_SEARCH_ITEM_TITLE}
               dangerouslySetInnerHTML={{ __html: suggestion.value }}
             />
           </StyledResultItem>
