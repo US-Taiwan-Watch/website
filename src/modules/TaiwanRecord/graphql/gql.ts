@@ -67,3 +67,17 @@ export const MUTATION_MODIFY_TAIWAN_RECORD = gql`
     }
   }
 `
+
+export const QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS = gql`
+  query QueryPeoplePublishedTaiwanRecords($peopleId: JSON!) {
+    TaiwanRecords(
+      where: { people: { equals: $peopleId }, status: { equals: published } }
+    ) {
+      docs {
+        ...TaiwanRecord
+      }
+    }
+  }
+
+  ${TAIWAN_RECORD_FRAGMENT}
+`

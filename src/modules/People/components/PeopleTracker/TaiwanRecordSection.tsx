@@ -11,7 +11,14 @@ import Stack from '@mui/material/Stack'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
-import { useState } from 'react'
+import { useState, useMemo } from 'react'
+import { useQuery } from '@apollo/client'
+import { QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS } from '@/modules/TaiwanRecord/graphql/gql'
+import type {
+  QueryPeoplePublishedTaiwanRecordsQuery,
+  QueryPeoplePublishedTaiwanRecordsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { TaiwanRecordUtils } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 
 interface TaiwanRecordSectionProps {
   people: People
@@ -23,6 +30,23 @@ export default function TaiwanRecordSection({
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient(['people'])
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
+
+  const { data } = useQuery<
+    QueryPeoplePublishedTaiwanRecordsQuery,
+    QueryPeoplePublishedTaiwanRecordsQueryVariables
+  >(QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS, {
+    variables: {
+      peopleId: people.id,
+    },
+    skip: !people.id,
+  })
+
+  const records = useMemo(() => {
+    const docs = data?.TaiwanRecords?.docs ?? []
+    return docs
+      .filter((doc) => doc !== null)
+      .map((doc) => TaiwanRecordUtils.parse(doc))
+  }, [data])
 
   return (
     <LandingSectionWrapper backgroundColor={theme.color.neutral[200]}>
@@ -42,7 +66,7 @@ export default function TaiwanRecordSection({
             </UButton>
           )}
         />
-        <TaiwanRecordList records={people.taiwanRecords} />
+        <TaiwanRecordList records={records} />
       </Stack>
       {people.id && (
         <TaiwanRecordDialog
