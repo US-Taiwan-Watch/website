@@ -201,8 +201,6 @@ const PeopleListSection = () => {
     })
   }, [paginationVariables, filterVariables, getPeoples])
 
-  // TODO: loading skeleton
-
   return (
     <LandingSectionWrapper
       backgroundColor={theme.color.neutral[200]}
