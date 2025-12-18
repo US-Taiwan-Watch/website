@@ -34,7 +34,7 @@ import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
-import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
+import ULoadMoreButton from '@/common/components/atoms/ULoadMoreButton'
 
 /** 每頁呈現的卡片數量 */
 const ARTICLE_POST_COUNT = 9
@@ -118,7 +118,7 @@ const ArticlePostSection = ({
   }, [articlesData, setTotalPages])
 
   // 處理資料
-  const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
+  const shouldAppendData = useMemo(() => isMobile, [isMobile])
   const [articles, setArticles] = useState<Article[]>(defaultArticles ?? [])
 
   useEffect(() => {
@@ -128,7 +128,7 @@ const ArticlePostSection = ({
       .filter((article) => !isNull(article))
       .map((article) => ArticleUtils.parse(lang, article, articleType))
 
-    if (isInfiniteScroll) {
+    if (shouldAppendData) {
       setArticles((prev) => [
         ...(articlesData?.page === 1 ? [] : prev),
         ...newArticles,
@@ -136,7 +136,7 @@ const ArticlePostSection = ({
     } else {
       setArticles(newArticles)
     }
-  }, [articleType, articlesData, isInfiniteScroll, lang])
+  }, [articleType, articlesData, shouldAppendData, lang])
 
   useEffect(() => {
     if (articleType === ArticleType.Ketagalan) {
@@ -200,8 +200,8 @@ const ArticlePostSection = ({
             <ArticlePostCards articles={articles} />
 
             {/** Infinite Scroll (Mobile) */}
-            {isInfiniteScroll && (
-              <UInfiniteScrollButton
+            {shouldAppendData && (
+              <ULoadMoreButton
                 loading={loading}
                 onLoadMore={() => handlePageChange(page + 1)}
                 hasMore={page < totalPages}
@@ -209,7 +209,7 @@ const ArticlePostSection = ({
             )}
 
             {/** Pagination (Desktop) */}
-            {!isInfiniteScroll && !loading && totalPages > 1 && (
+            {!shouldAppendData && !loading && totalPages > 1 && (
               <UPagination
                 count={totalPages}
                 page={page}

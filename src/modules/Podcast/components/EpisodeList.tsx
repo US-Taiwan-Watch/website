@@ -3,7 +3,7 @@
 import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
-import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
+import ULoadMoreButton from '@/common/components/atoms/ULoadMoreButton'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import PodcastUtils, {
   Podcast,
@@ -38,20 +38,21 @@ export default function EpisodeList({
     totalPages,
   })
 
-  const isInfiniteScroll = useMemo(
+  // 處理資料
+  const shouldAppendData = useMemo(
     () => isMobile || isTablet,
     [isMobile, isTablet]
   )
 
   const episodes = useMemo(() => {
-    if (isInfiniteScroll) {
+    if (shouldAppendData) {
       return podcastEpisodes.slice(0, page * EPISODE_COUNT_PER_PAGE)
     }
     return podcastEpisodes.slice(
       Math.max(0, page - 1) * EPISODE_COUNT_PER_PAGE,
       page * EPISODE_COUNT_PER_PAGE
     )
-  }, [podcastEpisodes, page, isInfiniteScroll])
+  }, [podcastEpisodes, page, shouldAppendData])
 
   return (
     <Stack
@@ -69,9 +70,9 @@ export default function EpisodeList({
       ))}
 
       {/** Infinite Scroll (Mobile) */}
-      {isInfiniteScroll && (
+      {shouldAppendData && (
         <Box width="100%" px={1} mt={2}>
-          <UInfiniteScrollButton
+          <ULoadMoreButton
             onLoadMore={() => handlePageChange(page + 1)}
             hasMore={page < totalPages}
           />
@@ -79,7 +80,7 @@ export default function EpisodeList({
       )}
 
       {/** Pagination (Desktop) */}
-      {!isInfiniteScroll && totalPages > 1 && (
+      {!shouldAppendData && totalPages > 1 && (
         <UPagination
           count={totalPages}
           page={page}

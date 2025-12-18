@@ -105,7 +105,7 @@ export default function useArticleSearch(
   }, [articlesData, setTotalPages])
 
   // 處理資料
-  const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
+  const shouldAppendData = useMemo(() => isMobile, [isMobile])
   const [articles, setArticles] = useState<Article[]>([])
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function useArticleSearch(
       .filter((article) => !isNull(article))
       .map((article) => ArticleUtils.parse(lang, article, articleType))
 
-    if (isInfiniteScroll) {
+    if (shouldAppendData) {
       setArticles((prev) => [
         ...(articlesData?.page === 1 ? [] : prev),
         ...newArticles,
@@ -123,7 +123,7 @@ export default function useArticleSearch(
     } else {
       setArticles(newArticles)
     }
-  }, [articleType, articlesData, isInfiniteScroll, lang])
+  }, [articleType, articlesData, shouldAppendData, lang])
 
   useEffect(() => {
     if (articleType === ArticleType.Ketagalan) {
@@ -156,7 +156,7 @@ export default function useArticleSearch(
     page,
     totalDocs: articlesData?.totalDocs ?? 0,
     handlePageChange,
-    isInfiniteScroll,
+    shouldAppendData,
     resetArticles,
   }
 }

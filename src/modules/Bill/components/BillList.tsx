@@ -1,7 +1,7 @@
 'use client'
 
 import UHStack from '@/common/components/atoms/UHStack'
-import UInfiniteScrollButton from '@/common/components/atoms/UInfiniteScrollButton'
+import ULoadMoreButton from '@/common/components/atoms/ULoadMoreButton'
 import UPagination, {
   usePagination,
 } from '@/common/components/atoms/UPagination'
@@ -97,7 +97,7 @@ export default function BillList() {
   }, [data?.BillsFilter?.totalPages, setTotalPages])
 
   // 處理資料
-  const isInfiniteScroll = useMemo(() => isMobile, [isMobile])
+  const shouldAppendData = useMemo(() => isMobile, [isMobile])
   const [bills, setBills] = useState<Bill[]>([])
 
   useEffect(() => {
@@ -107,7 +107,7 @@ export default function BillList() {
       .filter((bill) => !isNull(bill))
       .map((bill) => BillUtils.parse(lang, bill))
 
-    if (isInfiniteScroll) {
+    if (shouldAppendData) {
       setBills((prev) => [
         ...(data?.BillsFilter?.page === 1 ? [] : prev),
         ...newBills,
@@ -115,7 +115,7 @@ export default function BillList() {
     } else {
       setBills(newBills)
     }
-  }, [data?.BillsFilter?.docs, data?.BillsFilter?.page, isInfiniteScroll, lang])
+  }, [data?.BillsFilter?.docs, data?.BillsFilter?.page, shouldAppendData, lang])
 
   const onFilterSubmit = useCallback(
     (filter: BillFilterOutput) => {
@@ -198,8 +198,8 @@ export default function BillList() {
         </Stack>
 
         {/** Infinite Scroll (Mobile) */}
-        {isInfiniteScroll && bills.length > 0 && (
-          <UInfiniteScrollButton
+        {shouldAppendData && bills.length > 0 && (
+          <ULoadMoreButton
             loading={loading}
             onLoadMore={() => handlePageChange(page + 1)}
             hasMore={page < totalPages}
@@ -207,7 +207,7 @@ export default function BillList() {
         )}
 
         {/** Pagination (Desktop) */}
-        {!isInfiniteScroll &&
+        {!shouldAppendData &&
           !loading &&
           totalPages > 1 &&
           bills.length > 0 && (

@@ -2,7 +2,7 @@ import { memo } from 'react'
 import UButton from '@/common/components/atoms/UButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
-const UInfiniteScrollButton = memo(function UInfiniteScrollButton({
+const ULoadMoreButton = memo(function ULoadMoreButton({
   loading,
   onLoadMore,
   hasMore,
@@ -28,4 +28,4 @@ const UInfiniteScrollButton = memo(function UInfiniteScrollButton({
   )
 })
 
-export default UInfiniteScrollButton
+export default ULoadMoreButton
