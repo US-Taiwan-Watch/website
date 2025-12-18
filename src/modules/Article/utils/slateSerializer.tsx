@@ -6,7 +6,6 @@ import {
   Bill as ApiBill,
 } from '@/common/lib/graphql/__generated__/graphql'
 import HyperLinkTooltip from '@/modules/Article/components/ArticlePost/Content/HyperLinkTooltip'
-import Link from 'next/link'
 import { payloadSlateToHtmlConfig, slateToHtml } from '@slate-serializers/html'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import { Language } from '@/common/lib/i18n/types'
@@ -108,16 +107,12 @@ const h6 = (children: ReactNode) => (
 const quote = (children: ReactNode) => <blockquote>{children}</blockquote>
 const link = (lang: Language, node: LinkElement) => {
   if (!node.doc) return null
-  if (node.linkType === 'internal') {
-    return (
-      <HyperLinkTooltip
-        text={node.children?.[0]?.text ?? ''}
-        hyperLinkTooltipCardProps={getHyperLinkTooltipCardProps(lang, node.doc)}
-      />
-    )
-  }
-  // TODO: 後端回傳 link
-  return <Link href={''}>{node.children?.[0]?.text ?? ''}</Link>
+  return (
+    <HyperLinkTooltip
+      text={node.children?.[0]?.text ?? ''}
+      hyperLinkTooltipCardProps={getHyperLinkTooltipCardProps(lang, node.doc)}
+    />
+  )
 }
 // Slate Text 格式的渲染
 const text = (html: string) => (

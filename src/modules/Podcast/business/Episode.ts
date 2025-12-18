@@ -57,7 +57,6 @@ export default class EpisodeUtils {
   /**
    * 取得所有單集 Podcast 來源
    * @returns 所有單集 Podcast 來源
-   * TODO: 確認單集連結來源
    */
   static getSources(): Array<EpisodeSource> {
     return [

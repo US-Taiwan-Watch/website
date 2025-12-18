@@ -14,7 +14,7 @@ import { ChamberEnum } from '@/common/enums/Chamber'
 import { CongressUtils } from '@/common/business/Congress'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
-// TODO: 從 API 拿資料
+// TODO: 討論是否改為動態資料源
 const PARLIAMENT_CHART_DATA_MOCK_HOUSE = Object.entries(
   CongressUtils.getHouseCongressMembers()
 ).map(
@@ -25,7 +25,7 @@ const PARLIAMENT_CHART_DATA_MOCK_HOUSE = Object.entries(
     }) as ParliamentChartData
 )
 
-// TODO: 從 API 拿資料
+// TODO: 討論是否改為動態資料源
 const PARLIAMENT_CHART_DATA_MOCK_SENATE = Object.entries(
   CongressUtils.getSenateCongressMembers()
 ).map(

@@ -46,7 +46,6 @@ const PublicationRow = function PublicationRow({
   )
 }
 
-// TODO: 確認資料來源
 interface PublicationProps {
   /**
    * 出版品

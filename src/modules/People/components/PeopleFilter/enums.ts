@@ -6,9 +6,6 @@ export enum PeopleCategoryEnum {
   Other = 'Other',
 }
 
-/**
- * TODO: TBD 需要與 Party 的 enum 同步？
- */
 export enum PeoplePartyEnum {
   Democratic = 'democratic',
   Republican = 'republican',

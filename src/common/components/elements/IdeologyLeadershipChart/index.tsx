@@ -88,7 +88,6 @@ const IdeologyLeadershipChart = function IdeologyLeadershipChart({
                 {
                   x: Number(item.ideology),
                   y: Number(item.leadership),
-                  // TODO: Sen. John Cornyn
                   name: item.name,
                   // @ts-expect-error Highcharts 實際可以把 metadata 塞進去
                   item,

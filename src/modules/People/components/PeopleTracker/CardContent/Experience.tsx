@@ -19,34 +19,58 @@ import { DateUtils } from '@/modules/Common/business/Date'
  * @returns 時間文字
  */
 const useExperienceTime = function (experience: People['experience'][number]) {
-  // TODO: i18n
+  const { t } = useTranslationClient(['people'])
+
   const durationText = useMemo(() => {
     const duration = PeopleUtils.calculateExperienceDuration(experience)
-    let text = ''
-    if (duration.year > 0) {
-      text += `${duration.year} yr${duration.year > 1 ? 's' : ''} `
-    }
-    if (duration.month > 0) {
-      text += `${duration.month} mo${duration.month > 1 ? 's' : ''}`
-    }
-    return text
-  }, [experience])
+    const parts = []
 
-  // TODO: i18n
+    if (duration.year > 0) {
+      parts.push(
+        t('page.card.experience.duration.year', {
+          ns: 'people',
+          count: duration.year,
+        })
+      )
+    }
+
+    if (duration.month > 0) {
+      parts.push(
+        t('page.card.experience.duration.month', {
+          ns: 'people',
+          count: duration.month,
+        })
+      )
+    }
+
+    return parts.join(' ')
+  }, [experience, t])
+
   const timeText = useMemo(() => {
     const start = DateUtils.parseLocal(experience.start)
     const end = DateUtils.parseLocal(experience.end)
     if (!start || !end) return ''
 
+    const startText = start.format(PeopleUtils.ExperienceTimeFormat)
+
     // 現在進行中
     if (!experience.end) {
-      return `${start.format(PeopleUtils.ExperienceTimeFormat)} ~ Present`
+      return t('page.card.experience.timeRange.ongoing', {
+        ns: 'people',
+        start: startText,
+      })
     } else if (experience.experience) {
       return durationText
     } else {
-      return `${start.format(PeopleUtils.ExperienceTimeFormat)} ~ ${end.format(PeopleUtils.ExperienceTimeFormat)} • ${durationText}`
+      const endText = end.format(PeopleUtils.ExperienceTimeFormat)
+      return t('page.card.experience.timeRange.complete', {
+        ns: 'people',
+        start: startText,
+        end: endText,
+        duration: durationText,
+      })
     }
-  }, [experience, durationText])
+  }, [experience, durationText, t])
 
   return { timeText, durationText }
 }

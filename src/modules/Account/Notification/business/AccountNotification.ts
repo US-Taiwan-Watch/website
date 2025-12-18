@@ -1,17 +1,6 @@
 import { Account } from '@/modules/Account/business/Account'
 import { z } from '@/common/lib/zod'
 
-// TODO: Notification API 待定
-export const accountNotificationSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  content: z.string(),
-  url: z.string(),
-  createdAt: z.string(),
-})
-
-export type AccountNotification = z.infer<typeof accountNotificationSchema>
-
 export const accountNotificationSettingSchema = z.object({
   subscribedPeopleUpdate: z.boolean(),
   subscribedBillUpdate: z.boolean(),

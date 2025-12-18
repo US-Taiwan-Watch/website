@@ -82,7 +82,6 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
       <UContentCard
         withHeader
         headerProps={{
-          // TODO: i18n
           title: t('card.sources.title', { ns: 'taiwan_record' }),
           action: (
             <UIconButton

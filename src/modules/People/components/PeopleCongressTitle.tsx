@@ -31,12 +31,17 @@ const PeopleCongressTitle = function PeopleCongressTitle({
       !congressExperienceRange.latestCongress
     )
       return null
-    const start = congressExperienceRange.earliestCongress
-    const end = congressExperienceRange.latestCongress
+    const start = t('card.congress.ordinal', {
+      ns: 'people',
+      count: congressExperienceRange.earliestCongress,
+    })
+    const end = t('card.congress.ordinal', {
+      ns: 'people',
+      count: congressExperienceRange.latestCongress,
+    })
 
-    // TODO: i18n
-    return [`${start}th`, `${end}th`].join(' - ')
-  }, [congressExperienceRange])
+    return `${start} - ${end}`
+  }, [congressExperienceRange, t])
 
   const yearRangeText = useMemo(() => {
     if (!congressExperienceRange.earliestCongressYear) return null
@@ -53,8 +58,11 @@ const PeopleCongressTitle = function PeopleCongressTitle({
 
   return (
     <Typography variant="bodyS" fontWeight={600}>
-      {/** TODO i18n */}
-      {[congressRangeText, `(${yearRangeText})`].join(' ')}
+      {t('card.congress.titleFormat', {
+        ns: 'people',
+        congressRange: congressRangeText,
+        yearRange: yearRangeText,
+      })}
     </Typography>
   )
 }

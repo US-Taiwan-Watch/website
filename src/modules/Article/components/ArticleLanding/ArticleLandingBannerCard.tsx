@@ -44,8 +44,7 @@ const StyledLeftSection = styled(Stack)(({ theme }) => ({
 }))
 const StyledLeftSectionWithSelectable = withSelectable(StyledLeftSection)
 
-// TODO: 確認類型
-interface ArticleLandingBannerCardProps {
+type ArticleLandingBannerCardProps = {
   article: Article
 }
 
