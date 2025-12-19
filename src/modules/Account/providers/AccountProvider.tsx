@@ -172,6 +172,10 @@ export default function AccountProvider({
           token: apolloClient.defaultContext.token,
         },
       })
+    } catch (error) {
+      console.error('Failed to fetch token or user data:', error)
+      // Clear token on error to prevent stale token usage
+      apolloClient.defaultContext.token = undefined
     } finally {
       setIsAccountLoading(false)
     }
@@ -550,11 +554,15 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error('GraphQL errors in updatePassword:', response.errors)
           throw new Error('Failed to update password')
         }
 
         // refetch me
         await fetchMe()
+      } catch (error) {
+        console.error('Failed to update password:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
@@ -579,11 +587,15 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error('GraphQL errors in updateName:', response.errors)
           throw new Error('Failed to update name')
         }
 
         // refetch me
         await fetchMe()
+      } catch (error) {
+        console.error('Failed to update name:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
@@ -608,11 +620,15 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error('GraphQL errors in updateEmail:', response.errors)
           throw new Error('Failed to update email')
         }
 
         // refetch me
         await fetchMe()
+      } catch (error) {
+        console.error('Failed to update email:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
@@ -637,11 +653,18 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error(
+            'GraphQL errors in updateNotificationSetting:',
+            response.errors
+          )
           throw new Error('Failed to update notification setting')
         }
 
         // refetch me
         await fetchMe()
+      } catch (error) {
+        console.error('Failed to update notification setting:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
