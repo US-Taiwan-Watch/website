@@ -28,14 +28,15 @@ export default function TrendCard() {
   const { categoryOptions, error: filterError } = useBillFilterOptions()
   const [selectedCategory, setSelectedCategory] = useState('')
 
-  const { data, error: trendError } = useQuery<BillTrendByCategoryQuery>(
-    QUERY_BILL_TREND_BY_CATEGORY,
-    {
-      variables: {
-        ...(selectedCategory.length > 0 && { category: selectedCategory }),
-      },
-    }
-  )
+  const {
+    data,
+    loading: trendLoading,
+    error: trendError,
+  } = useQuery<BillTrendByCategoryQuery>(QUERY_BILL_TREND_BY_CATEGORY, {
+    variables: {
+      ...(selectedCategory.length > 0 && { category: selectedCategory }),
+    },
+  })
 
   if (filterError) {
     console.error('Filter options error in TrendCard:', filterError)
@@ -93,33 +94,77 @@ export default function TrendCard() {
           sm: 1.5,
         }}
       >
-        <UHStack justifyContent="space-between">
-          <Stack spacing={1}>
-            <Typography variant="menu" color={theme.color.grey[2200]}>
-              {t('landing.card.trend.total', { ns: 'bill' })}
+        {trendError ? (
+          <Box
+            sx={{
+              textAlign: 'center',
+              py: 4,
+              color: 'error.main',
+            }}
+          >
+            <Typography variant="body2" color="error">
+              {t('landing.card.trend.error', {
+                ns: 'bill',
+                defaultValue: 'Failed to load trend data',
+              })}
             </Typography>
-            <Typography variant="h4">{totalCount}</Typography>
-          </Stack>
-
-          <Box>
-            <USelect
-              value={selectedCategory}
-              onChange={(e) => setSelectedCategory(String(e.target.value))}
-            >
-              <MenuItem value="">
-                {t('landing.card.trend.option.all', { ns: 'bill' })}
-              </MenuItem>
-              {categoryOptions.map((option) => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))}
-            </USelect>
           </Box>
-        </UHStack>
-        <Box width="100%">
-          <TrendBarCharts data={chartData} onBarClick={onBarClick} />
-        </Box>
+        ) : trendLoading ? (
+          <Box
+            sx={{
+              textAlign: 'center',
+              py: 4,
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              {t('loading', { ns: 'common', defaultValue: 'Loading...' })}
+            </Typography>
+          </Box>
+        ) : chartData.length === 0 ? (
+          <Box
+            sx={{
+              textAlign: 'center',
+              py: 4,
+            }}
+          >
+            <Typography variant="body2" color="text.secondary">
+              {t('landing.card.trend.noData', {
+                ns: 'bill',
+                defaultValue: 'No trend data available',
+              })}
+            </Typography>
+          </Box>
+        ) : (
+          <>
+            <UHStack justifyContent="space-between">
+              <Stack spacing={1}>
+                <Typography variant="menu" color={theme.color.grey[2200]}>
+                  {t('landing.card.trend.total', { ns: 'bill' })}
+                </Typography>
+                <Typography variant="h4">{totalCount}</Typography>
+              </Stack>
+
+              <Box>
+                <USelect
+                  value={selectedCategory}
+                  onChange={(e) => setSelectedCategory(String(e.target.value))}
+                >
+                  <MenuItem value="">
+                    {t('landing.card.trend.option.all', { ns: 'bill' })}
+                  </MenuItem>
+                  {categoryOptions.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                      {option.label}
+                    </MenuItem>
+                  ))}
+                </USelect>
+              </Box>
+            </UHStack>
+            <Box width="100%">
+              <TrendBarCharts data={chartData} onBarClick={onBarClick} />
+            </Box>
+          </>
+        )}
       </Stack>
     </UContentCard>
   )
