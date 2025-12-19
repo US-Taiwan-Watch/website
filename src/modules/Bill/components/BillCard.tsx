@@ -193,7 +193,7 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
           </>
 
           {/** Latest Action & Description */}
-          {showLatestActionDescription && (
+          {showLatestActionDescription && latestAction && (
             <>
               <Divider sx={{ my: 2 }} />
               <Stack gap={1.5}>

@@ -51,9 +51,8 @@ export const BillCardCarousel = memo(function BillCardCarousel({
         }}
       >
         <Typography variant="body1" color="text.secondary">
-          {t('carousel.empty', {
+          {t('page.section.carousel.empty', {
             ns: 'bill',
-            defaultValue: 'No bills available',
           })}
         </Typography>
       </Box>
@@ -124,9 +123,8 @@ export const ScrollableBillCards = memo(function ScrollableBillCards({
         }}
       >
         <Typography variant="body1" color="text.secondary">
-          {t('carousel.empty', {
+          {t('page.section.carousel.empty', {
             ns: 'bill',
-            defaultValue: 'No bills available',
           })}
         </Typography>
       </Box>
