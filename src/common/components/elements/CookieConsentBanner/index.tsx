@@ -38,7 +38,6 @@ export default function CookieConsentBanner() {
     }
 
     // 如果之前點選過 cookie 同意聲明，則根據之前點選的結果，更新 cookie 同意聲明
-    // 直接更新 GA，不調用會觸發 state 更新的函數，避免額外的 re-render
     if (consent === CookieConsentValue.Granted) {
       googleAnalyticsUpdateConsent(CookieConsentValue.Granted)
     } else if (consent === CookieConsentValue.Denied) {

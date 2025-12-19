@@ -150,7 +150,8 @@ const MUI_COMPONENT_MAP = {
  */
 export const serializeSlateNode = (
   lang: Language,
-  node: Descendant
+  node: Descendant,
+  errorMessage?: string
 ): ReactNode => {
   try {
     if (Text.isText(node)) {
@@ -170,11 +171,14 @@ export const serializeSlateNode = (
       return MUI_COMPONENT_MAP.link(lang, node as LinkElement)
     }
 
-    const children = node.children.map((n) => serializeSlateNode(lang, n))
+    const children = node.children.map((n) =>
+      serializeSlateNode(lang, n, errorMessage)
+    )
     return MUI_COMPONENT_MAP[type](children)
   } catch (error) {
     console.error('Failed to serialize slate node:', error, node)
+    if (!errorMessage) return null
     // Return a fallback paragraph to prevent complete rendering failure
-    return <Typography color="error">Content rendering error</Typography>
+    return <Typography color="error">{errorMessage}</Typography>
   }
 }

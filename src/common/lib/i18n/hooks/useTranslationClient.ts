@@ -46,7 +46,6 @@ export default function useTranslationClient(
 
   const lang = options?.lng ?? paramLang
 
-  // 總是調用所有 hooks，在 effect 內部做條件判斷
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (!lang || ret.i18n.resolvedLanguage === lang) return

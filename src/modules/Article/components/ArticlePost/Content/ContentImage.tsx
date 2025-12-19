@@ -1,3 +1,4 @@
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Box, Stack, StackProps, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
@@ -13,6 +14,7 @@ const ContentImage = function ContentImage({
   caption,
   ...props
 }: ContentImageProps) {
+  const { t } = useTranslationClient('common')
   const theme = useTheme<USTWTheme>()
   const [imageError, setImageError] = useState(false)
 
@@ -39,7 +41,7 @@ const ContentImage = function ContentImage({
               color: '#666',
             }}
           >
-            Image unavailable
+            {t('msg.error.image.unavailable')}
           </Typography>
         </Box>
         {caption && (
