@@ -42,22 +42,26 @@ const getHyperLinkTooltipCardProps = (
   lang: Language,
   doc: LinkDoc
 ): HyperLinkTooltipCardProps => {
-  if (doc.relationTo === 'bills') {
-    const bill = BillUtils.parse(lang, doc.value)
-    return {
-      title: bill.title ?? '',
-      description: bill.summary ?? '',
-      link: BillUtils.getLink(bill.id),
+  try {
+    if (doc.relationTo === 'bills') {
+      const bill = BillUtils.parse(lang, doc.value)
+      return {
+        title: bill.title ?? '',
+        description: bill.summary ?? '',
+        link: BillUtils.getLink(bill.id),
+      }
     }
-  }
 
-  if (doc.relationTo === 'articles') {
-    const article = ArticleUtils.parse(lang, doc.value, ArticleType.Article)
-    return {
-      title: article.title ?? '',
-      description: article.description ?? '',
-      link: ArticleUtils.getLink(ArticleType.Article, article.id) ?? '',
+    if (doc.relationTo === 'articles') {
+      const article = ArticleUtils.parse(lang, doc.value, ArticleType.Article)
+      return {
+        title: article.title ?? '',
+        description: article.description ?? '',
+        link: ArticleUtils.getLink(ArticleType.Article, article.id) ?? '',
+      }
     }
+  } catch (error) {
+    console.error('Failed to parse hyperlink tooltip data:', error, doc)
   }
 
   return {
@@ -148,23 +152,29 @@ export const serializeSlateNode = (
   lang: Language,
   node: Descendant
 ): ReactNode => {
-  if (Text.isText(node)) {
-    const html = slateToHtml([node], {
-      ...payloadSlateToHtmlConfig,
-      convertLineBreakToBr: true,
-    })
-    return MUI_COMPONENT_MAP.text(html)
-  }
+  try {
+    if (Text.isText(node)) {
+      const html = slateToHtml([node], {
+        ...payloadSlateToHtmlConfig,
+        convertLineBreakToBr: true,
+      })
+      return MUI_COMPONENT_MAP.text(html)
+    }
 
-  const type = ((node as CustomElement).type || 'paragraph') as Exclude<
-    CustomElementType,
-    'text'
-  >
-  // Link handler
-  if (type === 'link') {
-    return MUI_COMPONENT_MAP.link(lang, node as LinkElement)
-  }
+    const type = ((node as CustomElement).type || 'paragraph') as Exclude<
+      CustomElementType,
+      'text'
+    >
+    // Link handler
+    if (type === 'link') {
+      return MUI_COMPONENT_MAP.link(lang, node as LinkElement)
+    }
 
-  const children = node.children.map((n) => serializeSlateNode(lang, n))
-  return MUI_COMPONENT_MAP[type](children)
+    const children = node.children.map((n) => serializeSlateNode(lang, n))
+    return MUI_COMPONENT_MAP[type](children)
+  } catch (error) {
+    console.error('Failed to serialize slate node:', error, node)
+    // Return a fallback paragraph to prevent complete rendering failure
+    return <Typography color="error">Content rendering error</Typography>
+  }
 }
