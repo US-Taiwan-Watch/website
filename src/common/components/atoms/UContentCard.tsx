@@ -152,8 +152,8 @@ const UContentCard = function UContentCard({
 
   const action = useMemo(() => {
     if (headerProps?.headerIconAction === 'modal') {
-      if (headerProps?.action) {
-        return cloneElement(headerProps.action as React.ReactElement, {
+      if (headerProps?.action && React.isValidElement(headerProps.action)) {
+        return cloneElement(headerProps.action, {
           onClick: handleActionClick,
         })
       } else {
