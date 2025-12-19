@@ -10,15 +10,24 @@ export default function useClipboard() {
    * @param url - 複製的 URL，預設為當前頁面 URL
    * @returns 複製結果
    */
-  const copyUrl = (url?: string) => {
-    if (!navigator.clipboard) return
+  const copyUrl = async (url?: string) => {
+    if (!navigator.clipboard) {
+      toast('error', 'Clipboard not supported in this browser')
+      return
+    }
 
     // TODO: make it more robust, maybe router utils to handle all routes composition
     const urlWithoutSearchParams = url ?? window.location.href
-    navigator.clipboard.writeText(urlWithoutSearchParams)
-    setIsCopied(true)
 
-    toast('success', 'Copied')
+    try {
+      await navigator.clipboard.writeText(urlWithoutSearchParams)
+      setIsCopied(true)
+      toast('success', 'Copied')
+    } catch (error) {
+      console.error('Failed to copy to clipboard:', error)
+      toast('error', 'Failed to copy')
+      setIsCopied(false)
+    }
   }
 
   return { isCopied, copyUrl }
