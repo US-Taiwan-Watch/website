@@ -179,7 +179,7 @@ export default function AccountProvider({
     } finally {
       setIsAccountLoading(false)
     }
-  }, [user, isAuth0Loading, apolloClient.defaultContext, getMe])
+  }, [user, isAuth0Loading, apolloClient, getMe])
 
   useEffect(() => {
     if (isAuth0Loading) return
@@ -206,7 +206,7 @@ export default function AccountProvider({
     if (user) return
     setAccount(null)
     apolloClient.defaultContext.token = null
-  }, [isAuth0Loading, user, setAccount, apolloClient.defaultContext, data])
+  }, [isAuth0Loading, user, setAccount, apolloClient])
 
   const [isMutating, setIsMutating] = useState(false)
   const { t } = useTranslationClient(['bill', 'people', 'article', 'common'])
