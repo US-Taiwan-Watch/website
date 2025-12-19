@@ -4,16 +4,26 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { AccountSubscribe } from '@/modules/Account/Subscribe/business/AccountSubscribe'
-import { Box, Stack } from '@mui/material'
-import { memo, useEffect } from 'react'
+import {
+  AccountSubscribe,
+  AccountSubscribeType,
+} from '@/modules/Account/Subscribe/business/AccountSubscribe'
+import { Box, CircularProgress, Stack } from '@mui/material'
+import { memo, useEffect, useMemo } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import Link from 'next/link'
 import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
-import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import AccountUtils from '@/modules/Account/business/Account'
+import { useQuery } from '@apollo/client'
+import { QUERY_ME_SUBSCRIBES } from '@/modules/Account/graphql/gql'
+import {
+  QueryMeSubscribesQuery,
+  QueryMeSubscribesQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 type AccountSubscribeListItemProps = {
   accountSubscribe: AccountSubscribe
@@ -93,17 +103,105 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
 })
 
 const AccountSubscribeList = memo(function AccountSubscribeList() {
-  const { account } = useAccount()
-  const setAccountSubscribeList =
-    useAccountSubscribeStore.use.setAccountSubscribeList()
-  useEffect(() => {
-    if (!account) return
-    setAccountSubscribeList(AccountUtils.getAccountSubscribeList(account))
-  }, [account, setAccountSubscribeList])
+  const { lang } = useParams<{ lang: Language }>()
+  const { data, loading } = useQuery<
+    QueryMeSubscribesQuery,
+    QueryMeSubscribesQueryVariables
+  >(QUERY_ME_SUBSCRIBES, {
+    fetchPolicy: 'cache-and-network',
+  })
 
-  const filteredAccountSubscribeList =
-    useAccountSubscribeStore.use.filteredAccountSubscribeList()
+  const setSubscribeBills = useAccountSubscribeStore.use.setSubscribeBills()
+  const subscribeBills = useAccountSubscribeStore.use.subscribeBills()
+  const setSubscribePeoples = useAccountSubscribeStore.use.setSubscribePeoples()
+  const subscribePeoples = useAccountSubscribeStore.use.subscribePeoples()
+  const setBookmarkUstwArticles =
+    useAccountSubscribeStore.use.setBookmarkUstwArticles()
+  const bookmarkUstwArticles =
+    useAccountSubscribeStore.use.bookmarkUstwArticles()
+  const setBookmarkKetagalanArticles =
+    useAccountSubscribeStore.use.setBookmarkKetagalanArticles()
+  const bookmarkKetagalanArticles =
+    useAccountSubscribeStore.use.bookmarkKetagalanArticles()
+
+  useEffect(() => {
+    if (!data?.Me) return
+
+    const subscribeBills = AccountUtils.parseSubscribeBills(
+      lang,
+      data.Me.subscribeBills
+    )
+    const subscribePeoples = AccountUtils.parseSubscribePeoples(
+      lang,
+      data.Me.subscribePeoples
+    )
+    const bookmarkUstwArticles = AccountUtils.parseBookmarkUstwArticles(
+      lang,
+      data.Me.bookmarkUstwArticles
+    )
+    const bookmarkKetagalanArticles =
+      AccountUtils.parseBookmarkKetagalanArticles(
+        lang,
+        data.Me.bookmarkKetagalanArticles
+      )
+
+    setSubscribeBills(subscribeBills)
+    setSubscribePeoples(subscribePeoples)
+    setBookmarkUstwArticles(bookmarkUstwArticles)
+    setBookmarkKetagalanArticles(bookmarkKetagalanArticles)
+  }, [
+    data,
+    lang,
+    setSubscribeBills,
+    setSubscribePeoples,
+    setBookmarkUstwArticles,
+    setBookmarkKetagalanArticles,
+  ])
+
+  const currentAccountSubscribeType =
+    useAccountSubscribeStore.use.currentAccountSubscribeType()
+  const filteredAccountSubscribeList = useMemo(() => {
+    // TODO: 討論是否要排序
+    if (!currentAccountSubscribeType)
+      return [
+        ...subscribeBills,
+        ...subscribePeoples,
+        ...bookmarkUstwArticles,
+        ...bookmarkKetagalanArticles,
+      ]
+
+    switch (currentAccountSubscribeType) {
+      case AccountSubscribeType.Bill:
+        return subscribeBills
+      case AccountSubscribeType.People:
+        return subscribePeoples
+      case AccountSubscribeType.UstwArticle:
+        return bookmarkUstwArticles
+      case AccountSubscribeType.KetagalanArticle:
+        return bookmarkKetagalanArticles
+    }
+  }, [
+    subscribeBills,
+    subscribePeoples,
+    bookmarkUstwArticles,
+    bookmarkKetagalanArticles,
+    currentAccountSubscribeType,
+  ])
+
   const { isCompactView } = useAccountLayout()
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="200px"
+      >
+        <CircularProgress color="info" />
+      </Box>
+    )
+  }
 
   if (isCompactView) {
     return (

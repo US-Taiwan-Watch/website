@@ -1,9 +1,6 @@
 import { Member } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
-import {
-  accountNotificationSchema,
-  accountNotificationSettingSchema,
-} from '@/modules/Account/Notification/business/AccountNotification'
+import { accountNotificationSettingSchema } from '@/modules/Account/Notification/business/AccountNotification'
 import AccountSubscribeUtils, {
   accountSubscribeSchema,
   AccountSubscribeType,
@@ -34,7 +31,6 @@ const accountSchema = z.object({
   subscribePeoples: z.array(accountSubscribeSchema),
   bookmarkUstwArticles: z.array(accountSubscribeSchema),
   bookmarkKetagalanArticles: z.array(accountSubscribeSchema),
-  notifications: z.array(accountNotificationSchema),
   notificationSetting: accountNotificationSettingSchema,
   submittedTaiwanRecords: z.array(taiwanRecordSchema),
   picture: z.string().optional(),
@@ -69,22 +65,16 @@ export default class AccountUtils {
         lang,
         me.bookmarkKetagalanArticles
       ),
-      notifications: [],
       notificationSetting: {
-        subscribedPeopleUpdate:
-          me.notificationSetting?.subscribedPeopleUpdate ?? false,
-        subscribedBillUpdate:
-          me.notificationSetting?.subscribedBillUpdate ?? false,
-        billRelease: me.notificationSetting?.billRelease ?? false,
-        podcastRelease: me.notificationSetting?.podcastRelease ?? false,
-        ustwArticleRelease: me.notificationSetting?.ustwArticleRelease ?? false,
-        ketagalanArticleRelease:
-          me.notificationSetting?.ketagalanArticleRelease ?? false,
-        newsletter: me.notificationSetting?.newsletter ?? false,
+        subscribedPeopleUpdate: false,
+        subscribedBillUpdate: false,
+        billRelease: false,
+        podcastRelease: false,
+        ustwArticleRelease: false,
+        ketagalanArticleRelease: false,
+        newsletter: false,
       },
-      submittedTaiwanRecords: AccountUtils.parseSubmittedTaiwanRecords(
-        me.submittedTaiwanRecords
-      ),
+      submittedTaiwanRecords: [],
       picture: user.picture,
       connection: AccountUtils.parseConnection(me.providerId),
     })
@@ -196,14 +186,5 @@ export default class AccountUtils {
         return TaiwanRecordUtils.parse(submittedTaiwanRecord)
       })
       .filter((record) => !isNull(record))
-  }
-
-  static getAccountSubscribeList(account: Account) {
-    return [
-      ...account.subscribeBills,
-      ...account.subscribePeoples,
-      ...account.bookmarkUstwArticles,
-      ...account.bookmarkKetagalanArticles,
-    ]
   }
 }

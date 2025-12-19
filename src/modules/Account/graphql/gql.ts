@@ -5,6 +5,7 @@ import {
   FULL_KETAGALAN_ARTICLE_FRAGMENT,
   FULL_USTW_ARTICLE_FRAGMENT,
 } from '@/modules/Article/graphql/gql'
+import { TAIWAN_RECORD_FRAGMENT } from '@/modules/TaiwanRecord/graphql/gql'
 
 export const QUERY_ME = gql`
   query Me {
@@ -12,61 +13,38 @@ export const QUERY_ME = gql`
       fullName
       email
       subscribeBills {
-        ...FullBill
+        id
+        congress
+        congressGovUrl
+        number
+        type
       }
       subscribePeoples {
-        ...FullPeople
+        id
+        gender
       }
       bookmarkUstwArticles {
-        ...FullUstwArticle
+        id
+        categories {
+          id
+        }
+        excerpt
+        releaseTime
+        title
       }
       bookmarkKetagalanArticles {
-        ...FullKetagalanArticle
-      }
-      notificationSetting {
-        subscribedBillUpdate
-        podcastRelease
-        ustwArticleRelease
-        ketagalanArticleRelease
-        newsletter
-        subscribedPeopleUpdate
-        billRelease
+        id
+        categories {
+          id
+        }
+        excerpt
+        releaseTime
+        title
       }
       provider
       providerId
-      submittedTaiwanRecords {
-        id
-        title
-        description
-        photos {
-          photo {
-            url
-          }
-        }
-        sources {
-          link
-        }
-        status
-        createdAt
-        author {
-          id
-          fullName
-          provider
-          providerId
-          email
-        }
-        people {
-          id
-          gender
-        }
-      }
     }
   }
-
-  ${FULL_BILL_FRAGMENT}
-  ${FULL_PEOPLE_FRAGMENT}
-  ${FULL_USTW_ARTICLE_FRAGMENT}
-  ${FULL_KETAGALAN_ARTICLE_FRAGMENT}
 `
 
 export const MUTATION_SUBSCRIBE_BILL = gql`
@@ -163,6 +141,69 @@ export const MUTATION_UPDATE_MY_NOTIFICATION_SETTING = gql`
   ) {
     updateMyNotificationSetting(notificationSetting: $notificationSetting) {
       id
+    }
+  }
+`
+
+export const QUERY_ME_SUBMITTED_TAIWAN_RECORDS = gql`
+  query QueryMeSubmittedTaiwanRecords {
+    Me {
+      submittedTaiwanRecords {
+        ...TaiwanRecord
+      }
+    }
+  }
+
+  ${TAIWAN_RECORD_FRAGMENT}
+`
+
+export const QUERY_ME_SUBSCRIBES = gql`
+  query QueryMeSubscribes {
+    Me {
+      subscribeBills {
+        ...FullBill
+      }
+      subscribePeoples {
+        ...FullPeople
+      }
+      bookmarkUstwArticles {
+        ...FullUstwArticle
+      }
+      bookmarkKetagalanArticles {
+        ...FullKetagalanArticle
+      }
+    }
+  }
+
+  ${FULL_BILL_FRAGMENT}
+  ${FULL_PEOPLE_FRAGMENT}
+  ${FULL_USTW_ARTICLE_FRAGMENT}
+  ${FULL_KETAGALAN_ARTICLE_FRAGMENT}
+`
+
+export const QUERY_ME_NOTIFICATION_SETTING = gql`
+  query QueryMeNotificationSetting {
+    Me {
+      notificationSetting {
+        subscribedBillUpdate
+        podcastRelease
+        ustwArticleRelease
+        ketagalanArticleRelease
+        newsletter
+        subscribedPeopleUpdate
+        billRelease
+      }
+    }
+  }
+`
+
+export const QUERY_ME_BASIC_INFO = gql`
+  query QueryMeBasicInfo {
+    Me {
+      fullName
+      email
+      provider
+      providerId
     }
   }
 `

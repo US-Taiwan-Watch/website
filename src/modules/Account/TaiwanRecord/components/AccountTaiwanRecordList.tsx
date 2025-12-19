@@ -4,16 +4,22 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { Box, Stack } from '@mui/material'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { Box, CircularProgress, Stack } from '@mui/material'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
-import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import {
   TaiwanRecord,
   TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
+import { useQuery } from '@apollo/client'
+import { QUERY_ME_SUBMITTED_TAIWAN_RECORDS } from '@/modules/Account/graphql/gql'
+import AccountUtils from '@/modules/Account/business/Account'
+import {
+  QueryMeSubmittedTaiwanRecordsQuery,
+  QueryMeSubmittedTaiwanRecordsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
 
 type AccountTaiwanRecordListItemProps = {
   taiwanRecord: TaiwanRecord
@@ -76,16 +82,35 @@ const AccountTaiwanRecordListItem = memo(function AccountTaiwanRecordListItem({
 })
 
 const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
-  const { account, fetchMe } = useAccount()
+  const { data, loading, refetch } = useQuery<
+    QueryMeSubmittedTaiwanRecordsQuery,
+    QueryMeSubmittedTaiwanRecordsQueryVariables
+  >(QUERY_ME_SUBMITTED_TAIWAN_RECORDS, {
+    fetchPolicy: 'cache-and-network',
+  })
   const setAccountTaiwanRecordList =
     useAccountTaiwanRecordStore.use.setAccountTaiwanRecordList()
-  useEffect(() => {
-    if (!account) return
-    setAccountTaiwanRecordList(account.submittedTaiwanRecords)
-  }, [account, setAccountTaiwanRecordList])
+  const accountTaiwanRecordList =
+    useAccountTaiwanRecordStore.use.accountTaiwanRecordList()
 
-  const filteredAccountTaiwanRecordList =
-    useAccountTaiwanRecordStore.use.filteredAccountTaiwanRecordList()
+  useEffect(() => {
+    if (!data?.Me?.submittedTaiwanRecords) return
+    const parsedRecords = AccountUtils.parseSubmittedTaiwanRecords(
+      data.Me.submittedTaiwanRecords
+    )
+    setAccountTaiwanRecordList(parsedRecords)
+  }, [data, setAccountTaiwanRecordList])
+
+  const currentAccountTaiwanRecordStatus =
+    useAccountTaiwanRecordStore.use.currentAccountTaiwanRecordStatus()
+  const filteredAccountTaiwanRecordList = useMemo(() => {
+    if (currentAccountTaiwanRecordStatus === null) {
+      return accountTaiwanRecordList
+    }
+    return accountTaiwanRecordList.filter(
+      (item) => item.status === currentAccountTaiwanRecordStatus
+    )
+  }, [accountTaiwanRecordList, currentAccountTaiwanRecordStatus])
   const { isCompactView } = useAccountLayout()
 
   const [taiwanRecordForDialog, setTaiwanRecordForDialog] =
@@ -105,8 +130,21 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
     /**
      * 重新獲取使用者資料
      */
-    fetchMe()
-  }, [fetchMe])
+    refetch()
+  }, [refetch])
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="200px"
+      >
+        <CircularProgress color="info" />
+      </Box>
+    )
+  }
 
   if (isCompactView) {
     return (

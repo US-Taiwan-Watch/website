@@ -33,8 +33,21 @@ const AccountFormItem = ({
 const AccountSettingForm = () => {
   const { t } = useTranslationClient('account')
   const { isMutating } = useAccount()
-  const { form, handleSubmit } = useAccountSetting()
+  const { form, handleSubmit, loading } = useAccountSetting()
   const { isCompactView } = useAccountLayout()
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="200px"
+      >
+        <CircularProgress color="info" />
+      </Box>
+    )
+  }
 
   return (
     <Box

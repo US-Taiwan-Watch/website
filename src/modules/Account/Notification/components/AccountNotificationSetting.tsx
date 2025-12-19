@@ -43,7 +43,11 @@ const AccountFormItem = ({
 
 const AccountNotificationSetting = memo(function AccountNotificationSetting() {
   const { t } = useTranslationClient('account')
-  const { form, handleSubmit: submitForm } = useAccountNotificationSetting()
+  const {
+    form,
+    handleSubmit: submitForm,
+    loading,
+  } = useAccountNotificationSetting()
   const { isMutating } = useAccount()
   const { isCompactView } = useAccountLayout()
 
@@ -53,6 +57,19 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
     },
     [submitForm]
   )
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="200px"
+      >
+        <CircularProgress color="info" />
+      </Box>
+    )
+  }
 
   return (
     <Box
