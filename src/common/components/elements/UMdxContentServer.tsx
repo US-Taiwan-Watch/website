@@ -17,11 +17,22 @@ export default async function GMdxContentServer({
   source,
   components,
 }: GMdxContentServerProps) {
-  const code = String(await compile(source, { outputFormat: 'function-body' }))
-  const { default: MDXContent } = await run(code, {
-    ...runtime,
-    baseUrl: import.meta.url,
-  })
+  try {
+    const code = String(
+      await compile(source, { outputFormat: 'function-body' })
+    )
+    const { default: MDXContent } = await run(code, {
+      ...runtime,
+      baseUrl: import.meta.url,
+    })
 
-  return <MDXContent components={components} />
+    return <MDXContent components={components} />
+  } catch (error) {
+    console.error('MDX rendering failed:', error)
+    return (
+      <div style={{ padding: '1rem', color: '#d32f2f' }}>
+        Failed to render content. Please check the MDX syntax.
+      </div>
+    )
+  }
 }
