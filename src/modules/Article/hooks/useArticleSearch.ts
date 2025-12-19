@@ -111,17 +111,22 @@ export default function useArticleSearch(
   useEffect(() => {
     if (!articlesData?.docs) return
 
-    const newArticles = articlesData.docs
-      .filter((article) => !isNull(article))
-      .map((article) => ArticleUtils.parse(lang, article, articleType))
+    try {
+      const newArticles = articlesData.docs
+        .filter((article) => !isNull(article))
+        .map((article) => ArticleUtils.parse(lang, article, articleType))
 
-    if (shouldAppendData) {
-      setArticles((prev) => [
-        ...(articlesData?.page === 1 ? [] : prev),
-        ...newArticles,
-      ])
-    } else {
-      setArticles(newArticles)
+      if (shouldAppendData) {
+        setArticles((prev) => [
+          ...(articlesData?.page === 1 ? [] : prev),
+          ...newArticles,
+        ])
+      } else {
+        setArticles(newArticles)
+      }
+    } catch (error) {
+      console.error('Failed to parse articles in useArticleSearch:', error)
+      // Keep previous articles on error, don't clear the state
     }
   }, [articleType, articlesData, shouldAppendData, lang])
 
