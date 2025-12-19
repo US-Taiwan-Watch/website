@@ -7,6 +7,7 @@ import {
   InMemoryCache,
 } from '@apollo/experimental-nextjs-app-support'
 import { setContext } from '@apollo/client/link/context'
+import { onError } from '@apollo/client/link/error'
 import type React from 'react'
 import { config } from '@/config'
 
@@ -35,11 +36,28 @@ function makeClient() {
     }
   })
 
+  // 創建錯誤處理 link
+  const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
+    if (graphQLErrors) {
+      graphQLErrors.forEach(({ message, locations, path }) => {
+        console.error(
+          `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(locations)}, Path: ${path}`
+        )
+      })
+    }
+
+    if (networkError) {
+      console.error(`[Network error]: ${networkError.message}`, {
+        operation: operation.operationName,
+      })
+    }
+  })
+
   // use the `ApolloClient` from "@apollo/experimental-nextjs-app-support"
   return new ApolloClient({
     // use the `InMemoryCache` from "@apollo/experimental-nextjs-app-support"
     cache: new InMemoryCache(),
-    link: authLink.concat(httpLink),
+    link: authLink.concat(errorLink).concat(httpLink),
     devtools: {
       enabled: config.NODE_ENV === 'development',
     },
