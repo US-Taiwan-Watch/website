@@ -46,26 +46,25 @@ export default function useTranslationClient(
 
   const lang = options?.lng ?? paramLang
 
-  // Server side
-  if (runsOnServerSide && lang && ret.i18n.resolvedLanguage !== lang) {
-    ret.i18n.changeLanguage(lang)
-    return ret
-  }
-
-  // Client side
-
-  // eslint-disable-next-line react-hooks/rules-of-hooks
+  // 總是調用所有 hooks，在 effect 內部做條件判斷
   useEffect(() => {
+    if (typeof window === 'undefined') return
     if (!lang || ret.i18n.resolvedLanguage === lang) return
     ret.i18n.changeLanguage(lang)
   }, [lang, ret.i18n])
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
+    if (typeof window === 'undefined') return
     const cookies = new Cookies()
+    if (!lang) return
     if (cookies.get(CookiesKey.I18n) === lang) return
     cookies.set(CookiesKey.I18n, lang, { path: '/' })
   }, [lang])
+
+  // Server side: 直接更改語言
+  if (runsOnServerSide && lang && ret.i18n.resolvedLanguage !== lang) {
+    ret.i18n.changeLanguage(lang)
+  }
 
   return ret
 }
