@@ -10,6 +10,7 @@ import {
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
+import { Box, Typography } from '@mui/material'
 
 type Props = {
   data: ParliamentChartData[]
@@ -102,6 +103,26 @@ const CosponsorChart = ({ data }: Props) => {
     }),
     [amount, data, hoveredParty, partyColor, setHoveredParty]
   )
+
+  // Handle empty or invalid data
+  if (!data || data.length === 0) {
+    return (
+      <Box
+        sx={{
+          textAlign: 'center',
+          py: 4,
+          height: 160,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          No cosponsor data available
+        </Typography>
+      </Box>
+    )
+  }
 
   return (
     <>
