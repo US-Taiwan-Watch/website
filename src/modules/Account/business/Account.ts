@@ -52,34 +52,26 @@ export default class AccountUtils {
       familyName: user.family_name ?? '',
       fullName: me.fullName ?? '',
       email: me.email ?? '',
-      subscribeBills: AccountUtils.parseSubscribeBills(lang, me.subscribeBills),
-      subscribePeoples: AccountUtils.parseSubscribePeoples(
-        lang,
+      subscribeBills: AccountUtils.parseSubscribeBillIds(me.subscribeBills),
+      subscribePeoples: AccountUtils.parseSubscribePeopleIds(
         me.subscribePeoples
       ),
-      bookmarkUstwArticles: AccountUtils.parseBookmarkUstwArticles(
-        lang,
+      bookmarkUstwArticles: AccountUtils.parseBookmarkUstwArticleIds(
         me.bookmarkUstwArticles
       ),
-      bookmarkKetagalanArticles: AccountUtils.parseBookmarkKetagalanArticles(
-        lang,
+      bookmarkKetagalanArticles: AccountUtils.parseBookmarkKetagalanArticleIds(
         me.bookmarkKetagalanArticles
       ),
       notificationSetting: {
-        subscribedPeopleUpdate:
-          me.notificationSetting?.subscribedPeopleUpdate ?? false,
-        subscribedBillUpdate:
-          me.notificationSetting?.subscribedBillUpdate ?? false,
-        billRelease: me.notificationSetting?.billRelease ?? false,
-        podcastRelease: me.notificationSetting?.podcastRelease ?? false,
-        ustwArticleRelease: me.notificationSetting?.ustwArticleRelease ?? false,
-        ketagalanArticleRelease:
-          me.notificationSetting?.ketagalanArticleRelease ?? false,
-        newsletter: me.notificationSetting?.newsletter ?? false,
+        subscribedPeopleUpdate: false,
+        subscribedBillUpdate: false,
+        billRelease: false,
+        podcastRelease: false,
+        ustwArticleRelease: false,
+        ketagalanArticleRelease: false,
+        newsletter: false,
       },
-      submittedTaiwanRecords: AccountUtils.parseSubmittedTaiwanRecords(
-        me.submittedTaiwanRecords
-      ),
+      submittedTaiwanRecords: [],
       picture: user.picture,
       connection: AccountUtils.parseConnection(me.providerId),
     })
@@ -97,6 +89,21 @@ export default class AccountUtils {
     return undefined
   }
 
+  static parseSubscribeBillIds(subscribeBills: Member['subscribeBills']) {
+    if (!subscribeBills) return []
+    return subscribeBills
+      .map((subscribeBill) => {
+        if (!subscribeBill?.id) return null
+        return AccountSubscribeUtils.parse({
+          id: subscribeBill.id,
+          type: AccountSubscribeType.Bill,
+          title: '',
+          url: '',
+        })
+      })
+      .filter((subscribe) => !isNull(subscribe))
+  }
+
   static parseSubscribeBills(
     lang: Language,
     subscribeBills: Member['subscribeBills']
@@ -111,6 +118,21 @@ export default class AccountUtils {
           type: AccountSubscribeType.Bill,
           title: bill.title ?? '',
           url: BillUtils.getLink(bill.id),
+        })
+      })
+      .filter((subscribe) => !isNull(subscribe))
+  }
+
+  static parseSubscribePeopleIds(subscribePeoples: Member['subscribePeoples']) {
+    if (!subscribePeoples) return []
+    return subscribePeoples
+      .map((subscribePeople) => {
+        if (!subscribePeople?.id) return null
+        return AccountSubscribeUtils.parse({
+          id: subscribePeople.id,
+          type: AccountSubscribeType.People,
+          title: '',
+          url: '',
         })
       })
       .filter((subscribe) => !isNull(subscribe))
@@ -135,6 +157,23 @@ export default class AccountUtils {
       .filter((subscribe) => !isNull(subscribe))
   }
 
+  static parseBookmarkUstwArticleIds(
+    bookmarkUstwArticles: Member['bookmarkUstwArticles']
+  ) {
+    if (!bookmarkUstwArticles) return []
+    return bookmarkUstwArticles
+      .map((subscribeArticle) => {
+        if (!subscribeArticle?.id) return null
+        return AccountSubscribeUtils.parse({
+          id: subscribeArticle.id,
+          type: AccountSubscribeType.UstwArticle,
+          title: '',
+          url: '',
+        })
+      })
+      .filter((subscribe) => !isNull(subscribe))
+  }
+
   static parseBookmarkUstwArticles(
     lang: Language,
     bookmarkUstwArticles: Member['bookmarkUstwArticles']
@@ -153,6 +192,23 @@ export default class AccountUtils {
           type: AccountSubscribeType.UstwArticle,
           title: article.title ?? '',
           url: ArticleUtils.getLink(ArticleType.Article, article.id),
+        })
+      })
+      .filter((subscribe) => !isNull(subscribe))
+  }
+
+  static parseBookmarkKetagalanArticleIds(
+    bookmarkKetagalanArticles: Member['bookmarkKetagalanArticles']
+  ) {
+    if (!bookmarkKetagalanArticles) return []
+    return bookmarkKetagalanArticles
+      .map((subscribeArticle) => {
+        if (!subscribeArticle?.id) return null
+        return AccountSubscribeUtils.parse({
+          id: subscribeArticle.id,
+          type: AccountSubscribeType.KetagalanArticle,
+          title: '',
+          url: '',
         })
       })
       .filter((subscribe) => !isNull(subscribe))

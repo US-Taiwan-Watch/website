@@ -12,8 +12,15 @@ import Link from 'next/link'
 import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
-import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import AccountUtils from '@/modules/Account/business/Account'
+import { useQuery } from '@apollo/client'
+import { QUERY_ME_SUBSCRIBES } from '@/modules/Account/graphql/gql'
+import {
+  QueryMeSubscribesQuery,
+  QueryMeSubscribesQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 type AccountSubscribeListItemProps = {
   accountSubscribe: AccountSubscribe
@@ -93,13 +100,45 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
 })
 
 const AccountSubscribeList = memo(function AccountSubscribeList() {
-  const { account } = useAccount()
+  const { lang } = useParams<{ lang: Language }>()
+  const { data } = useQuery<
+    QueryMeSubscribesQuery,
+    QueryMeSubscribesQueryVariables
+  >(QUERY_ME_SUBSCRIBES, {
+    fetchPolicy: 'cache-and-network',
+  })
+
   const setAccountSubscribeList =
     useAccountSubscribeStore.use.setAccountSubscribeList()
+
   useEffect(() => {
-    if (!account) return
-    setAccountSubscribeList(AccountUtils.getAccountSubscribeList(account))
-  }, [account, setAccountSubscribeList])
+    if (!data?.Me) return
+
+    const subscribeBills = AccountUtils.parseSubscribeBills(
+      lang,
+      data.Me.subscribeBills
+    )
+    const subscribePeoples = AccountUtils.parseSubscribePeoples(
+      lang,
+      data.Me.subscribePeoples
+    )
+    const bookmarkUstwArticles = AccountUtils.parseBookmarkUstwArticles(
+      lang,
+      data.Me.bookmarkUstwArticles
+    )
+    const bookmarkKetagalanArticles =
+      AccountUtils.parseBookmarkKetagalanArticles(
+        lang,
+        data.Me.bookmarkKetagalanArticles
+      )
+
+    setAccountSubscribeList([
+      ...subscribeBills,
+      ...subscribePeoples,
+      ...bookmarkUstwArticles,
+      ...bookmarkKetagalanArticles,
+    ])
+  }, [data, lang, setAccountSubscribeList])
 
   const filteredAccountSubscribeList =
     useAccountSubscribeStore.use.filteredAccountSubscribeList()
