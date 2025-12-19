@@ -98,7 +98,7 @@ export default function TrendBarCharts({
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          No trend data available
+          {t('landing.card.trend.noData', { ns: 'bill' })}
         </Typography>
       </Box>
     )

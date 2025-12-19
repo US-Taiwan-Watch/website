@@ -11,6 +11,7 @@ import { USTWTheme } from '@/common/lib/mui/theme'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
 import { CongressUtils } from '@/common/business/Congress'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 if (typeof window !== 'undefined') {
   itemSeries(Highcharts)
@@ -31,6 +32,7 @@ type Props = {
 
 // example: https://codesandbox.io/p/sandbox/highcharts-react-demo-forked-rlflfn?file=%2Fdemo.jsx%3A23%2C1
 export default function ParliamentChart({ data }: Props) {
+  const { t } = useTranslationClient('bill')
   const { isMobile, isTablet } = useResponsive()
   const currentCongressNumber = useMemo(
     () => CongressUtils.getCurrentCongressNumber(),
@@ -149,7 +151,9 @@ export default function ParliamentChart({ data }: Props) {
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          No parliament data available
+          {t('landing.card.parliament.noData', {
+            ns: 'bill',
+          })}
         </Typography>
       </Box>
     )

@@ -16,7 +16,7 @@ export default function BillListError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  const { t } = useTranslationClient('bill')
+  const { t } = useTranslationClient(['bill', 'common'])
   const { resolveRouteUrl } = useURouterClient()
 
   useEffect(() => {
@@ -34,16 +34,13 @@ export default function BillListError({
       >
         <Stack gap={1.5}>
           <Typography variant="h3">
-            {t('error.title', {
-              ns: 'bill',
-              defaultValue: 'Something went wrong',
+            {t('msg.error.pageError.title', {
+              ns: 'common',
             })}
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            {t('error.description', {
-              ns: 'bill',
-              defaultValue:
-                'We encountered an error while loading the bill list. Please try again.',
+            {t('msg.error.pageError.description', {
+              ns: 'common',
             })}
           </Typography>
         </Stack>
@@ -54,14 +51,11 @@ export default function BillListError({
             color="primary"
             size="large"
           >
-            {t('error.retry', { ns: 'bill', defaultValue: 'Try again' })}
+            {t('msg.error.pageError.retry', { ns: 'common' })}
           </UButton>
           <Link href={resolveRouteUrl({ name: RouteName.Bill })}>
             <UButton variant="outlined" color="primary" size="large">
-              {t('error.goToBillHome', {
-                ns: 'bill',
-                defaultValue: 'Go to Bill Home',
-              })}
+              {t('billList.error.goToBillHome', { ns: 'bill' })}
             </UButton>
           </Link>
         </Stack>

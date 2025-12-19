@@ -11,12 +11,14 @@ import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
 import { Box, Typography } from '@mui/material'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type Props = {
   data: ParliamentChartData[]
 }
 
 const CosponsorChart = ({ data }: Props) => {
+  const { t } = useTranslationClient('bill')
   const { partyColor } = usePartyColor()
   const [hoveredParty, setHoveredParty] = useState<Party | null>(null)
 
@@ -118,7 +120,9 @@ const CosponsorChart = ({ data }: Props) => {
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          No cosponsor data available
+          {t('page.card.cosponsors.noData', {
+            ns: 'bill',
+          })}
         </Typography>
       </Box>
     )

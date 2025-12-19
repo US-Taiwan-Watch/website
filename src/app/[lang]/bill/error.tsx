@@ -13,7 +13,7 @@ export default function BillError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
-  const { t } = useTranslationClient('bill')
+  const { t } = useTranslationClient(['bill', 'common'])
 
   useEffect(() => {
     console.error('Bill page error:', error)
@@ -30,16 +30,13 @@ export default function BillError({
       >
         <Stack gap={1.5}>
           <Typography variant="h3">
-            {t('error.title', {
-              ns: 'bill',
-              defaultValue: 'Something went wrong',
+            {t('msg.error.pageError.title', {
+              ns: 'common',
             })}
           </Typography>
           <Typography variant="body1" color="text.secondary">
-            {t('error.description', {
-              ns: 'bill',
-              defaultValue:
-                'We encountered an error while loading this page. Please try again.',
+            {t('msg.error.pageError.description', {
+              ns: 'common',
             })}
           </Typography>
         </Stack>
@@ -49,7 +46,7 @@ export default function BillError({
           color="primary"
           size="large"
         >
-          {t('error.retry', { ns: 'bill', defaultValue: 'Try again' })}
+          {t('msg.error.pageError.retry', { ns: 'common' })}
         </UButton>
       </Stack>
     </UContainer>
