@@ -80,7 +80,8 @@ export default function useAccountNotificationSetting() {
           'success',
           t('notificationSetting.success.msg', { ns: 'account' })
         )
-      } catch {
+      } catch (error) {
+        console.error('Failed to update notification settings:', error)
         toast('error', t('notificationSetting.error.msg', { ns: 'account' }))
       }
     },
