@@ -19,7 +19,7 @@ import {
 } from '@/common/styles/assets/Icons'
 import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
-import { memo, ReactNode, useMemo, useState, useEffect } from 'react'
+import { memo, ReactNode, useMemo } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import { Party } from '@/common/enums/Party'
@@ -99,24 +99,17 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
   const { t } = useTranslationClient('bill')
   const theme = useTheme<USTWTheme>()
   const { partyColor } = usePartyColor()
-  const [introducedDate, setIntroducedDate] = useState('')
-  const [latestActionDate, setLatestActionDate] = useState('')
-  const latestAction = useMemo(() => {
-    const latestAction = BillUtils.getLatestAction(bill)
-    return latestAction
-  }, [bill])
+  const latestAction = useMemo(() => BillUtils.getLatestAction(bill), [bill])
 
-  useEffect(() => {
-    setIntroducedDate(
-      DateUtils.formatDc(bill.introducedAt, INTRODUCED_DATE_FORMAT)
-    )
-  }, [bill])
+  const introducedDate = useMemo(() => {
+    if (!bill.introducedAt) return ''
+    return DateUtils.formatDc(bill.introducedAt, INTRODUCED_DATE_FORMAT)
+  }, [bill.introducedAt])
 
-  useEffect(() => {
-    setLatestActionDate(
-      DateUtils.formatDc(bill.latestActionAt, ACTION_DATE_FORMAT)
-    )
-  }, [bill])
+  const latestActionDate = useMemo(() => {
+    if (!bill.latestActionAt) return ''
+    return DateUtils.formatDc(bill.latestActionAt, ACTION_DATE_FORMAT)
+  }, [bill.latestActionAt])
 
   return (
     <Grid2 container spacing={2}>
@@ -244,7 +237,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
               {latestActionDate}
             </Typography>
             <UHeightLimitedText maxLine={3} variant="buttonXS">
-              {latestAction.description}
+              {latestAction?.description ?? ''}
             </UHeightLimitedText>
           </Stack>
         </StyledCardContainer>
@@ -255,12 +248,10 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
 
 const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
   const theme = useTheme<USTWTheme>()
-  const latestAction = BillUtils.getLatestAction(bill)
-  const [latestActionDate, setLatestActionDate] = useState('')
-  useEffect(() => {
-    setLatestActionDate(
-      DateUtils.formatDc(latestAction.date, ACTION_DATE_FORMAT)
-    )
+  const latestAction = useMemo(() => BillUtils.getLatestAction(bill), [bill])
+  const latestActionDate = useMemo(() => {
+    if (!latestAction?.date) return ''
+    return DateUtils.formatDc(latestAction.date, ACTION_DATE_FORMAT)
   }, [latestAction])
 
   return (
@@ -280,7 +271,7 @@ const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
           {latestActionDate}
         </Typography>
         <UHeightLimitedText maxLine={3} variant="body" fontWeight={300}>
-          {latestAction.description}
+          {latestAction?.description ?? ''}
         </UHeightLimitedText>
       </Stack>
     </Stack>

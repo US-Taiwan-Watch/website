@@ -198,16 +198,13 @@ export class BillUtils {
 
   /**
    * Get the latest action of the bill
-   * @returns The latest action
+   * @returns The latest action or null if no actions exist
    */
   static getLatestAction(bill: Bill) {
-    return (
-      bill.actionsOverview[bill.actionsOverview.length - 1] ?? {
-        description: undefined,
-        date: undefined,
-        chamber: undefined,
-      }
-    )
+    if (!bill.actionsOverview || bill.actionsOverview.length === 0) {
+      return null
+    }
+    return bill.actionsOverview[bill.actionsOverview.length - 1] ?? null
   }
 
   /**

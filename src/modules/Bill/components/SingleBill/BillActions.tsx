@@ -7,7 +7,7 @@ import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import CardExpandIcon from '@/modules/Bill/components/SingleBill/CardExpandIcon'
 import ActionsFilterContent from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilterContent'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import DrawerFilter from '@/modules/Bill/components/SingleBill/ActionsFilter/DrawerFilter'
@@ -35,11 +35,11 @@ export default function BillActions({ bill }: Props) {
     [bill, selectedActionsType]
   )
 
-  const [latestActionDate, setLatestActionDate] = useState('')
-  useEffect(() => {
-    const latestAction = BillUtils.getLatestAction(bill)
-    setLatestActionDate(DateUtils.formatDc(latestAction.date, DATE_FORMAT))
-  }, [bill])
+  const latestAction = useMemo(() => BillUtils.getLatestAction(bill), [bill])
+  const latestActionDate = useMemo(() => {
+    if (!latestAction?.date) return ''
+    return DateUtils.formatDc(latestAction.date, DATE_FORMAT)
+  }, [latestAction])
 
   return (
     <>
@@ -78,7 +78,7 @@ export default function BillActions({ bill }: Props) {
             {latestActionDate}
           </Typography>
           <UHeightLimitedText maxLine={4} variant="body">
-            {BillUtils.getLatestAction(bill)?.description}
+            {latestAction?.description ?? ''}
           </UHeightLimitedText>
         </Stack>
       </UContentCard>

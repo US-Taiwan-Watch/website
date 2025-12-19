@@ -14,7 +14,7 @@ import {
   Typography,
   useTheme,
 } from '@mui/material'
-import { useEffect, useState, useMemo } from 'react'
+import { useMemo } from 'react'
 import UCategoryTag from '@/common/components/atoms/UCategoryTag'
 import UCardInfo from '@/common/components/atoms/UCardInfo'
 import Link from 'next/link'
@@ -73,9 +73,9 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
 
   const isHorizontal = useMemo(() => mode === 'horizontal', [mode])
   const latestAction = BillUtils.getLatestAction(bill)
-  const [latestActionDate, setLatestActionDate] = useState('')
-  useEffect(() => {
-    setLatestActionDate(DateUtils.formatDc(latestAction.date, DATE_FORMAT))
+  const latestActionDate = useMemo(() => {
+    if (!latestAction?.date) return ''
+    return DateUtils.formatDc(latestAction.date, DATE_FORMAT)
   }, [latestAction])
 
   return (
