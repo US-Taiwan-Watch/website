@@ -157,7 +157,12 @@ export const parseSearchSuggestionFromHit = (
     }
 
     return null
-  } catch {
+  } catch (error) {
+    console.error('Failed to parse search suggestion from Algolia hit:', {
+      error,
+      hit,
+      hitType: hit?.type,
+    })
     return null
   }
 }
