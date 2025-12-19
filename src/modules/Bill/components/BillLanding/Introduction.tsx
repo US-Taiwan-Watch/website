@@ -4,7 +4,7 @@ import { CongressUtils } from '@/common/business/Congress'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
 import { useQuery } from '@apollo/client'
-import { Stack, Typography, useTheme } from '@mui/material'
+import { Stack, Typography, useTheme, Skeleton } from '@mui/material'
 import Link from 'next/link'
 import { CurrentCongressBillCountQuery } from '@/common/lib/graphql/__generated__/graphql'
 import { QUERY_CURRENT_CONGRESS_BILL_COUNT } from '@/modules/Bill/graphql/gql'
@@ -73,7 +73,7 @@ export default function Introduction() {
 
   const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
 
-  const { data, error } = useQuery<CurrentCongressBillCountQuery>(
+  const { data, loading, error } = useQuery<CurrentCongressBillCountQuery>(
     QUERY_CURRENT_CONGRESS_BILL_COUNT,
     {
       variables: {
@@ -88,6 +88,30 @@ export default function Introduction() {
 
   const billCount = data?.Bills?.totalDocs ?? 0
 
+  // Render bill count card or loading/error state
+  const renderBillCountCard = () => {
+    if (loading) {
+      return (
+        <StyledBillTotalCountCard>
+          <Skeleton variant="text" width={80} height={20} />
+          <Skeleton variant="text" width={60} height={36} />
+        </StyledBillTotalCountCard>
+      )
+    }
+
+    if (error) {
+      // Show the card without count on error (graceful degradation)
+      return null
+    }
+
+    return (
+      <BillTotalCountLink
+        billCount={billCount}
+        currentCongressNumber={currentCongressNumber}
+      />
+    )
+  }
+
   if (isMobile) {
     return (
       <Stack spacing={4}>
@@ -100,10 +124,7 @@ export default function Introduction() {
           <Typography variant="h3" fontWeight={600}>
             {t('landing.title', { ns: 'bill' })}
           </Typography>
-          <BillTotalCountLink
-            billCount={billCount}
-            currentCongressNumber={currentCongressNumber}
-          />
+          {renderBillCountCard()}
         </UHStack>
 
         <Typography variant="bodyM">
@@ -128,10 +149,7 @@ export default function Introduction() {
         </Typography>
       </Stack>
 
-      <BillTotalCountLink
-        billCount={billCount}
-        currentCongressNumber={currentCongressNumber}
-      />
+      {renderBillCountCard()}
     </UHStack>
   )
 }
