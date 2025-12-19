@@ -22,6 +22,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import {
@@ -127,6 +128,16 @@ export default function AccountProvider({
   const { user, isLoading: isAuth0Loading } = useUser()
   const [account, setAccount] = useState<Account | null>(null)
   const [isAccountLoading, setIsAccountLoading] = useState(true)
+  const isMountedRef = useRef(true)
+
+  // Track mounted state to prevent race conditions
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
+
   const subscribedBillsSet = useMemo(() => {
     if (!account) return new Set<string>()
     return new Set(account.subscribeBills.map((bill) => bill.id))
@@ -158,12 +169,16 @@ export default function AccountProvider({
     if (isAuth0Loading) return
     // After Auth0 is cheched, if user is not authenticated, set account loading to false and return
     if (!user) {
-      setIsAccountLoading(false)
+      if (isMountedRef.current) {
+        setIsAccountLoading(false)
+      }
       return
     }
 
     try {
-      setIsAccountLoading(true)
+      if (isMountedRef.current) {
+        setIsAccountLoading(true)
+      }
       apolloClient.defaultContext.token = await fetch('/api/auth/token')
         .then((res) => res.json())
         .then((data) => data.idToken)
@@ -177,7 +192,9 @@ export default function AccountProvider({
       // Clear token on error to prevent stale token usage
       apolloClient.defaultContext.token = undefined
     } finally {
-      setIsAccountLoading(false)
+      if (isMountedRef.current) {
+        setIsAccountLoading(false)
+      }
     }
   }, [user, isAuth0Loading, apolloClient, getMe])
 
@@ -194,7 +211,9 @@ export default function AccountProvider({
     if (!data || !user || !data.Me) return
 
     const account = AccountUtils.parseMeAndAuth0User(lang, data.Me, user)
-    setAccount(account)
+    if (isMountedRef.current) {
+      setAccount(account)
+    }
   }, [user, data, setAccount, lang])
 
   /**
@@ -204,7 +223,9 @@ export default function AccountProvider({
     if (isAuth0Loading) return
     // After Auth0 is cheched, if user is authenticated, return
     if (user) return
-    setAccount(null)
+    if (isMountedRef.current) {
+      setAccount(null)
+    }
     apolloClient.defaultContext.token = null
   }, [isAuth0Loading, user, setAccount, apolloClient])
 
