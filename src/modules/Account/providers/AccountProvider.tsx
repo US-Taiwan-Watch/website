@@ -299,7 +299,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after subscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -331,7 +338,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after unsubscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -375,7 +389,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after subscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -406,7 +427,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after unsubscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -457,7 +485,14 @@ export default function AccountProvider({
         )
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after bookmarking:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -505,7 +540,14 @@ export default function AccountProvider({
         )
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after unbookmarking:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -559,7 +601,14 @@ export default function AccountProvider({
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating password:',
+            fetchError
+          )
+        }
       } catch (error) {
         console.error('Failed to update password:', error)
         throw error
@@ -592,7 +641,14 @@ export default function AccountProvider({
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating name:',
+            fetchError
+          )
+        }
       } catch (error) {
         console.error('Failed to update name:', error)
         throw error
@@ -625,7 +681,14 @@ export default function AccountProvider({
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating email:',
+            fetchError
+          )
+        }
       } catch (error) {
         console.error('Failed to update email:', error)
         throw error
@@ -661,7 +724,14 @@ export default function AccountProvider({
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating notification setting:',
+            fetchError
+          )
+        }
       } catch (error) {
         console.error('Failed to update notification setting:', error)
         throw error
