@@ -29,13 +29,22 @@ const SubscribeButton = memo(function SubscribeButton({
   }, [checkIfBillIsSubscribed, bill])
 
   const handleSubscribeClick = useCallback(async () => {
-    if (isSubscribed) {
-      setIsSubscribed(false)
-      await unsubscribeBill(bill)
-      return
+    const originalState = isSubscribed
+
+    try {
+      if (isSubscribed) {
+        setIsSubscribed(false)
+        await unsubscribeBill(bill)
+      } else {
+        setIsSubscribed(true)
+        await subscribeBill(bill)
+      }
+    } catch (error) {
+      // Rollback to original state on error
+      setIsSubscribed(originalState)
+      console.error('Subscribe/Unsubscribe operation failed:', error)
+      // The AccountProvider already shows toast messages for errors
     }
-    setIsSubscribed(true)
-    await subscribeBill(bill)
   }, [isSubscribed, unsubscribeBill, subscribeBill, bill])
 
   if (isMobile) {
