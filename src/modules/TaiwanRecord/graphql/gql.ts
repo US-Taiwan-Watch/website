@@ -29,6 +29,7 @@ export const TAIWAN_RECORD_FRAGMENT = gql`
     createdAt
     updatedAt
     people {
+      id
       gender
     }
   }
@@ -74,6 +75,18 @@ export const QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS = gql`
       where: { people: { equals: $peopleId }, status: { equals: published } }
     ) {
       docs {
+        ...TaiwanRecord
+      }
+    }
+  }
+
+  ${TAIWAN_RECORD_FRAGMENT}
+`
+
+export const QUERY_ME_SUBMITTED_TAIWAN_RECORDS = gql`
+  query QueryMeSubmittedTaiwanRecords {
+    Me {
+      submittedTaiwanRecords {
         ...TaiwanRecord
       }
     }

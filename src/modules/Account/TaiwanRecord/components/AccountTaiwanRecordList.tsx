@@ -8,12 +8,18 @@ import { Box, Stack } from '@mui/material'
 import { memo, useCallback, useEffect, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
-import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import {
   TaiwanRecord,
   TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
+import { useQuery } from '@apollo/client'
+import { QUERY_ME_SUBMITTED_TAIWAN_RECORDS } from '@/modules/TaiwanRecord/graphql/gql'
+import AccountUtils from '@/modules/Account/business/Account'
+import {
+  QueryMeSubmittedTaiwanRecordsQuery,
+  QueryMeSubmittedTaiwanRecordsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
 
 type AccountTaiwanRecordListItemProps = {
   taiwanRecord: TaiwanRecord
@@ -76,13 +82,22 @@ const AccountTaiwanRecordListItem = memo(function AccountTaiwanRecordListItem({
 })
 
 const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
-  const { account, fetchMe } = useAccount()
+  const { data, refetch } = useQuery<
+    QueryMeSubmittedTaiwanRecordsQuery,
+    QueryMeSubmittedTaiwanRecordsQueryVariables
+  >(QUERY_ME_SUBMITTED_TAIWAN_RECORDS, {
+    fetchPolicy: 'cache-and-network',
+  })
   const setAccountTaiwanRecordList =
     useAccountTaiwanRecordStore.use.setAccountTaiwanRecordList()
+
   useEffect(() => {
-    if (!account) return
-    setAccountTaiwanRecordList(account.submittedTaiwanRecords)
-  }, [account, setAccountTaiwanRecordList])
+    if (!data?.Me?.submittedTaiwanRecords) return
+    const parsedRecords = AccountUtils.parseSubmittedTaiwanRecords(
+      data.Me.submittedTaiwanRecords
+    )
+    setAccountTaiwanRecordList(parsedRecords)
+  }, [data, setAccountTaiwanRecordList])
 
   const filteredAccountTaiwanRecordList =
     useAccountTaiwanRecordStore.use.filteredAccountTaiwanRecordList()
@@ -105,8 +120,8 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
     /**
      * 重新獲取使用者資料
      */
-    fetchMe()
-  }, [fetchMe])
+    refetch()
+  }, [refetch])
 
   if (isCompactView) {
     return (

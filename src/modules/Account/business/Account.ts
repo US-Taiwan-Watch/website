@@ -1,9 +1,6 @@
 import { Member } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
-import {
-  accountNotificationSchema,
-  accountNotificationSettingSchema,
-} from '@/modules/Account/Notification/business/AccountNotification'
+import { accountNotificationSettingSchema } from '@/modules/Account/Notification/business/AccountNotification'
 import AccountSubscribeUtils, {
   accountSubscribeSchema,
   AccountSubscribeType,
@@ -34,7 +31,6 @@ const accountSchema = z.object({
   subscribePeoples: z.array(accountSubscribeSchema),
   bookmarkUstwArticles: z.array(accountSubscribeSchema),
   bookmarkKetagalanArticles: z.array(accountSubscribeSchema),
-  notifications: z.array(accountNotificationSchema),
   notificationSetting: accountNotificationSettingSchema,
   submittedTaiwanRecords: z.array(taiwanRecordSchema),
   picture: z.string().optional(),
@@ -69,7 +65,6 @@ export default class AccountUtils {
         lang,
         me.bookmarkKetagalanArticles
       ),
-      notifications: [],
       notificationSetting: {
         subscribedPeopleUpdate:
           me.notificationSetting?.subscribedPeopleUpdate ?? false,
