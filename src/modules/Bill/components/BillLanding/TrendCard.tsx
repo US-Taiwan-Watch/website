@@ -25,10 +25,10 @@ export default function TrendCard() {
   const theme = useTheme<USTWTheme>()
   const router = useRouter()
   const { resolveRouteUrl } = useURouterClient()
-  const { categoryOptions } = useBillFilterOptions()
+  const { categoryOptions, error: filterError } = useBillFilterOptions()
   const [selectedCategory, setSelectedCategory] = useState('')
 
-  const { data } = useQuery<BillTrendByCategoryQuery>(
+  const { data, error: trendError } = useQuery<BillTrendByCategoryQuery>(
     QUERY_BILL_TREND_BY_CATEGORY,
     {
       variables: {
@@ -36,6 +36,14 @@ export default function TrendCard() {
       },
     }
   )
+
+  if (filterError) {
+    console.error('Filter options error in TrendCard:', filterError)
+  }
+
+  if (trendError) {
+    console.error('Trend data error in TrendCard:', trendError)
+  }
   const chartData = useMemo<TrendBarChartData[]>(() => {
     return (
       data?.BillTrendByCategory?.filter(

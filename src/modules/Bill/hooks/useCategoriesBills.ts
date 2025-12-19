@@ -9,15 +9,21 @@ import { BillCategoryUtils } from '@/modules/Bill/business/BillCategory'
 import { isNull } from 'lodash-es'
 
 export default function useCategoriesBills(lang: Language) {
-  const { data } = useQuery<
+  const { data, loading, error } = useQuery<
     CategoriesBillsQuery,
     CategoriesBillsQueryVariables
   >(QUERY_CATEGORIES_BILLS)
+
+  if (error) {
+    console.error('Failed to fetch categories bills:', error)
+  }
 
   return {
     categoriesBills:
       data?.CategoriesBills?.docs
         ?.filter((doc) => !isNull(doc))
         .map((category) => BillCategoryUtils.parse(lang, category)) ?? [],
+    loading,
+    error,
   }
 }

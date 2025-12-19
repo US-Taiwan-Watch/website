@@ -73,7 +73,7 @@ export default function Introduction() {
 
   const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
 
-  const { data } = useQuery<CurrentCongressBillCountQuery>(
+  const { data, error } = useQuery<CurrentCongressBillCountQuery>(
     QUERY_CURRENT_CONGRESS_BILL_COUNT,
     {
       variables: {
@@ -81,6 +81,10 @@ export default function Introduction() {
       },
     }
   )
+
+  if (error) {
+    console.error('Failed to fetch current congress bill count:', error)
+  }
 
   const billCount = data?.Bills?.totalDocs ?? 0
 
