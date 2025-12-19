@@ -75,6 +75,12 @@ const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
     useAccountSubscribeStore.use.currentAccountSubscribeType()
   const setCurrentAccountSubscribeType =
     useAccountSubscribeStore.use.setCurrentAccountSubscribeType()
+  const subscribeBills = useAccountSubscribeStore.use.subscribeBills()
+  const subscribePeoples = useAccountSubscribeStore.use.subscribePeoples()
+  const bookmarkUstwArticles =
+    useAccountSubscribeStore.use.bookmarkUstwArticles()
+  const bookmarkKetagalanArticles =
+    useAccountSubscribeStore.use.bookmarkKetagalanArticles()
   const { t } = useTranslationClient('account')
   const { isCompactView } = useAccountLayout()
 
@@ -83,25 +89,32 @@ const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
       {
         label: t('subscribe.type.bill', { ns: 'account' }),
         value: AccountSubscribeType.Bill,
-        count: account?.subscribeBills.length ?? 0,
+        count: subscribeBills.length ?? 0,
       },
       {
         label: t('subscribe.type.ustwArticle', { ns: 'account' }),
         value: AccountSubscribeType.UstwArticle,
-        count: account?.bookmarkUstwArticles.length ?? 0,
+        count: bookmarkUstwArticles.length ?? 0,
       },
       {
         label: t('subscribe.type.ketagalanArticle', { ns: 'account' }),
         value: AccountSubscribeType.KetagalanArticle,
-        count: account?.bookmarkKetagalanArticles.length ?? 0,
+        count: bookmarkKetagalanArticles.length ?? 0,
       },
       {
         label: t('subscribe.type.people', { ns: 'account' }),
         value: AccountSubscribeType.People,
-        count: account?.subscribePeoples.length ?? 0,
+        count: subscribePeoples.length ?? 0,
       },
     ]
-  }, [t, account])
+  }, [
+    t,
+    account,
+    subscribeBills,
+    subscribePeoples,
+    bookmarkUstwArticles,
+    bookmarkKetagalanArticles,
+  ])
 
   return (
     <TabsWrapper>

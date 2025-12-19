@@ -9,51 +9,58 @@ import { devtools } from 'zustand/middleware'
 
 type State = {
   currentAccountSubscribeType: AccountSubscribeType | null
-  accountSubscribeList: AccountSubscribe[]
-  filteredAccountSubscribeList: AccountSubscribe[]
+  subscribeBills: AccountSubscribe[]
+  subscribePeoples: AccountSubscribe[]
+  bookmarkUstwArticles: AccountSubscribe[]
+  bookmarkKetagalanArticles: AccountSubscribe[]
 }
 
 type Action = {
   setCurrentAccountSubscribeType: (type: AccountSubscribeType | null) => void
-  setAccountSubscribeList: (list: AccountSubscribe[]) => void
+  setSubscribeBills: (list: AccountSubscribe[]) => void
+  setSubscribePeoples: (list: AccountSubscribe[]) => void
+  setBookmarkUstwArticles: (list: AccountSubscribe[]) => void
+  setBookmarkKetagalanArticles: (list: AccountSubscribe[]) => void
 }
 
 const initialState: State = {
   currentAccountSubscribeType: null,
-  accountSubscribeList: [],
-  filteredAccountSubscribeList: [],
+  subscribeBills: [],
+  subscribePeoples: [],
+  bookmarkUstwArticles: [],
+  bookmarkKetagalanArticles: [],
 }
 
 const useAccountSubscribeStore = createSelectors(
   create<State & Action>()(
     immer(
       devtools(
-        (set, get) => ({
+        (set) => ({
           ...initialState,
           setCurrentAccountSubscribeType: (type) =>
-            set((state) => {
-              const accountSubscribeList = get().accountSubscribeList
-
-              if (type === null) {
-                return {
-                  ...state,
-                  currentAccountSubscribeType: null,
-                  filteredAccountSubscribeList: accountSubscribeList,
-                }
-              }
-
-              return {
-                ...state,
-                currentAccountSubscribeType: type,
-                filteredAccountSubscribeList: accountSubscribeList.filter(
-                  (item) => item.type === type
-                ),
-              }
-            }),
-          setAccountSubscribeList: (list) =>
-            set(() => ({
-              accountSubscribeList: list,
-              filteredAccountSubscribeList: list,
+            set((state) => ({
+              ...state,
+              currentAccountSubscribeType: type,
+            })),
+          setSubscribeBills: (list) =>
+            set((state) => ({
+              ...state,
+              subscribeBills: list,
+            })),
+          setSubscribePeoples: (list) =>
+            set((state) => ({
+              ...state,
+              subscribePeoples: list,
+            })),
+          setBookmarkUstwArticles: (list) =>
+            set((state) => ({
+              ...state,
+              bookmarkUstwArticles: list,
+            })),
+          setBookmarkKetagalanArticles: (list) =>
+            set((state) => ({
+              ...state,
+              bookmarkKetagalanArticles: list,
             })),
         }),
         {

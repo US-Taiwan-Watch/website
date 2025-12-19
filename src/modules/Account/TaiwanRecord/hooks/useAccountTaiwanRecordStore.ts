@@ -10,7 +10,6 @@ import {
 type State = {
   currentAccountTaiwanRecordStatus: TaiwanRecordStatus | null
   accountTaiwanRecordList: TaiwanRecord[]
-  filteredAccountTaiwanRecordList: TaiwanRecord[]
 }
 
 type Action = {
@@ -23,39 +22,24 @@ type Action = {
 const initialState: State = {
   currentAccountTaiwanRecordStatus: null,
   accountTaiwanRecordList: [],
-  filteredAccountTaiwanRecordList: [],
 }
 
 const useAccountTaiwanRecordStore = createSelectors(
   create<State & Action>()(
     immer(
       devtools(
-        (set, get) => ({
+        (set) => ({
           ...initialState,
           setCurrentAccountTaiwanRecordStatus: (status) =>
             set((state) => {
-              const accountTaiwanRecordList = get().accountTaiwanRecordList
-
-              if (status === null) {
-                return {
-                  ...state,
-                  currentAccountTaiwanRecordType: null,
-                  filteredAccountTaiwanRecordList: accountTaiwanRecordList,
-                }
-              }
-
               return {
                 ...state,
                 currentAccountTaiwanRecordStatus: status,
-                filteredAccountTaiwanRecordList: accountTaiwanRecordList.filter(
-                  (item) => item.status === status
-                ),
               }
             }),
           setAccountTaiwanRecordList: (list) =>
             set(() => ({
               accountTaiwanRecordList: list,
-              filteredAccountTaiwanRecordList: list,
             })),
         }),
         {

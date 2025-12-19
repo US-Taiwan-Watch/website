@@ -5,7 +5,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { Box, CircularProgress, Stack } from '@mui/material'
-import { memo, useCallback, useEffect, useState } from 'react'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
 import {
@@ -90,6 +90,8 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
   })
   const setAccountTaiwanRecordList =
     useAccountTaiwanRecordStore.use.setAccountTaiwanRecordList()
+  const accountTaiwanRecordList =
+    useAccountTaiwanRecordStore.use.accountTaiwanRecordList()
 
   useEffect(() => {
     if (!data?.Me?.submittedTaiwanRecords) return
@@ -99,8 +101,16 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
     setAccountTaiwanRecordList(parsedRecords)
   }, [data, setAccountTaiwanRecordList])
 
-  const filteredAccountTaiwanRecordList =
-    useAccountTaiwanRecordStore.use.filteredAccountTaiwanRecordList()
+  const currentAccountTaiwanRecordStatus =
+    useAccountTaiwanRecordStore.use.currentAccountTaiwanRecordStatus()
+  const filteredAccountTaiwanRecordList = useMemo(() => {
+    if (currentAccountTaiwanRecordStatus === null) {
+      return accountTaiwanRecordList
+    }
+    return accountTaiwanRecordList.filter(
+      (item) => item.status === currentAccountTaiwanRecordStatus
+    )
+  }, [accountTaiwanRecordList, currentAccountTaiwanRecordStatus])
   const { isCompactView } = useAccountLayout()
 
   const [taiwanRecordForDialog, setTaiwanRecordForDialog] =

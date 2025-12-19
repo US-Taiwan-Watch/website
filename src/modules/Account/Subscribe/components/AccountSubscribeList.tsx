@@ -4,9 +4,12 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { AccountSubscribe } from '@/modules/Account/Subscribe/business/AccountSubscribe'
+import {
+  AccountSubscribe,
+  AccountSubscribeType,
+} from '@/modules/Account/Subscribe/business/AccountSubscribe'
 import { Box, CircularProgress, Stack } from '@mui/material'
-import { memo, useEffect } from 'react'
+import { memo, useEffect, useMemo } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import Link from 'next/link'
 import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
@@ -108,8 +111,18 @@ const AccountSubscribeList = memo(function AccountSubscribeList() {
     fetchPolicy: 'cache-and-network',
   })
 
-  const setAccountSubscribeList =
-    useAccountSubscribeStore.use.setAccountSubscribeList()
+  const setSubscribeBills = useAccountSubscribeStore.use.setSubscribeBills()
+  const subscribeBills = useAccountSubscribeStore.use.subscribeBills()
+  const setSubscribePeoples = useAccountSubscribeStore.use.setSubscribePeoples()
+  const subscribePeoples = useAccountSubscribeStore.use.subscribePeoples()
+  const setBookmarkUstwArticles =
+    useAccountSubscribeStore.use.setBookmarkUstwArticles()
+  const bookmarkUstwArticles =
+    useAccountSubscribeStore.use.bookmarkUstwArticles()
+  const setBookmarkKetagalanArticles =
+    useAccountSubscribeStore.use.setBookmarkKetagalanArticles()
+  const bookmarkKetagalanArticles =
+    useAccountSubscribeStore.use.bookmarkKetagalanArticles()
 
   useEffect(() => {
     if (!data?.Me) return
@@ -132,16 +145,49 @@ const AccountSubscribeList = memo(function AccountSubscribeList() {
         data.Me.bookmarkKetagalanArticles
       )
 
-    setAccountSubscribeList([
-      ...subscribeBills,
-      ...subscribePeoples,
-      ...bookmarkUstwArticles,
-      ...bookmarkKetagalanArticles,
-    ])
-  }, [data, lang, setAccountSubscribeList])
+    setSubscribeBills(subscribeBills)
+    setSubscribePeoples(subscribePeoples)
+    setBookmarkUstwArticles(bookmarkUstwArticles)
+    setBookmarkKetagalanArticles(bookmarkKetagalanArticles)
+  }, [
+    data,
+    lang,
+    setSubscribeBills,
+    setSubscribePeoples,
+    setBookmarkUstwArticles,
+    setBookmarkKetagalanArticles,
+  ])
 
-  const filteredAccountSubscribeList =
-    useAccountSubscribeStore.use.filteredAccountSubscribeList()
+  const currentAccountSubscribeType =
+    useAccountSubscribeStore.use.currentAccountSubscribeType()
+  const filteredAccountSubscribeList = useMemo(() => {
+    // TODO: 討論是否要排序
+    if (!currentAccountSubscribeType)
+      return [
+        ...subscribeBills,
+        ...subscribePeoples,
+        ...bookmarkUstwArticles,
+        ...bookmarkKetagalanArticles,
+      ]
+
+    switch (currentAccountSubscribeType) {
+      case AccountSubscribeType.Bill:
+        return subscribeBills
+      case AccountSubscribeType.People:
+        return subscribePeoples
+      case AccountSubscribeType.UstwArticle:
+        return bookmarkUstwArticles
+      case AccountSubscribeType.KetagalanArticle:
+        return bookmarkKetagalanArticles
+    }
+  }, [
+    subscribeBills,
+    subscribePeoples,
+    bookmarkUstwArticles,
+    bookmarkKetagalanArticles,
+    currentAccountSubscribeType,
+  ])
+
   const { isCompactView } = useAccountLayout()
 
   if (loading) {
