@@ -117,41 +117,47 @@ export const parseSearchSuggestionFromHit = (
   language: Language,
   hit: Hit
 ): SearchSuggestion | null => {
-  if (hit.type === 'ustw-article') {
-    return SearchSuggestionUtils.parse({
-      type: SearchSuggestionType.UstwArticle,
-      value: Dompurify.sanitize(hit._highlightResult.title.value),
-      objectID: hit.objectID,
-    })
-  }
+  try {
+    if (hit.type === 'ustw-article') {
+      return SearchSuggestionUtils.parse({
+        type: SearchSuggestionType.UstwArticle,
+        value: Dompurify.sanitize(hit._highlightResult.title.value),
+        objectID: hit.objectID,
+      })
+    }
 
-  if (hit.type === 'ketagalan-article') {
-    return SearchSuggestionUtils.parse({
-      type: SearchSuggestionType.KetagalanArticle,
-      value: Dompurify.sanitize(hit._highlightResult.title.value),
-      objectID: hit.objectID,
-    })
-  }
+    if (hit.type === 'ketagalan-article') {
+      return SearchSuggestionUtils.parse({
+        type: SearchSuggestionType.KetagalanArticle,
+        value: Dompurify.sanitize(hit._highlightResult.title.value),
+        objectID: hit.objectID,
+      })
+    }
 
-  if (hit.type === 'bill') {
-    const apiLang = CommonUtils.parseAPII18nKey(language)
-    return SearchSuggestionUtils.parse({
-      type: SearchSuggestionType.Bill,
-      value: Dompurify.sanitize(hit._highlightResult.i18n[apiLang].title.value),
-      objectID: hit.objectID,
-    })
-  }
+    if (hit.type === 'bill') {
+      const apiLang = CommonUtils.parseAPII18nKey(language)
+      return SearchSuggestionUtils.parse({
+        type: SearchSuggestionType.Bill,
+        value: Dompurify.sanitize(
+          hit._highlightResult.i18n[apiLang].title.value
+        ),
+        objectID: hit.objectID,
+      })
+    }
 
-  if (hit.type === 'people') {
-    const apiLang = CommonUtils.parseAPII18nKey(language)
-    return SearchSuggestionUtils.parse({
-      type: SearchSuggestionType.People,
-      value: Dompurify.sanitize(
-        hit._highlightResult.i18n[apiLang].displayName.value
-      ),
-      objectID: hit.objectID,
-    })
-  }
+    if (hit.type === 'people') {
+      const apiLang = CommonUtils.parseAPII18nKey(language)
+      return SearchSuggestionUtils.parse({
+        type: SearchSuggestionType.People,
+        value: Dompurify.sanitize(
+          hit._highlightResult.i18n[apiLang].displayName.value
+        ),
+        objectID: hit.objectID,
+      })
+    }
 
-  return null
+    return null
+  } catch {
+    return null
+  }
 }
