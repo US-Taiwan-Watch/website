@@ -5,7 +5,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { AccountSubscribe } from '@/modules/Account/Subscribe/business/AccountSubscribe'
-import { Box, Stack } from '@mui/material'
+import { Box, CircularProgress, Stack } from '@mui/material'
 import { memo, useEffect } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import Link from 'next/link'
@@ -101,7 +101,7 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
 
 const AccountSubscribeList = memo(function AccountSubscribeList() {
   const { lang } = useParams<{ lang: Language }>()
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     QueryMeSubscribesQuery,
     QueryMeSubscribesQueryVariables
   >(QUERY_ME_SUBSCRIBES, {
@@ -143,6 +143,19 @@ const AccountSubscribeList = memo(function AccountSubscribeList() {
   const filteredAccountSubscribeList =
     useAccountSubscribeStore.use.filteredAccountSubscribeList()
   const { isCompactView } = useAccountLayout()
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="200px"
+      >
+        <CircularProgress color="info" />
+      </Box>
+    )
+  }
 
   if (isCompactView) {
     return (

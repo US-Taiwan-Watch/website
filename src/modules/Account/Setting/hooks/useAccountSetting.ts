@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import {
   AccountSettingInput,
   AccountSettingOutput,
@@ -22,7 +22,7 @@ export default function useAccountSetting() {
   const { toast } = useToast()
   const { t } = useTranslationClient('account')
 
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     QueryMeBasicInfoQuery,
     QueryMeBasicInfoQueryVariables
   >(QUERY_ME_BASIC_INFO, {
@@ -52,6 +52,11 @@ export default function useAccountSetting() {
     form.reset(defaultAccountSettingInput)
   }, [form, defaultAccountSettingInput])
 
+  // 表單預設值變化時，更新表單，保持最新狀態
+  useEffect(() => {
+    form.reset(defaultAccountSettingInput)
+  }, [form, defaultAccountSettingInput])
+
   const handleSubmit = useCallback(
     async (value: AccountSettingOutput) => {
       try {
@@ -73,5 +78,11 @@ export default function useAccountSetting() {
     [updateName, updateEmail, data, toast, t]
   )
 
-  return { form, handleReset, handleSubmit, defaultAccountSettingInput }
+  return {
+    form,
+    handleReset,
+    handleSubmit,
+    defaultAccountSettingInput,
+    loading,
+  }
 }

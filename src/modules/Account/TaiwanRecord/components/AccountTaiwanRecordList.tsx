@@ -4,7 +4,7 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { Box, Stack } from '@mui/material'
+import { Box, CircularProgress, Stack } from '@mui/material'
 import { memo, useCallback, useEffect, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
@@ -82,7 +82,7 @@ const AccountTaiwanRecordListItem = memo(function AccountTaiwanRecordListItem({
 })
 
 const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
-  const { data, refetch } = useQuery<
+  const { data, loading, refetch } = useQuery<
     QueryMeSubmittedTaiwanRecordsQuery,
     QueryMeSubmittedTaiwanRecordsQueryVariables
   >(QUERY_ME_SUBMITTED_TAIWAN_RECORDS, {
@@ -122,6 +122,19 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
      */
     refetch()
   }, [refetch])
+
+  if (loading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="200px"
+      >
+        <CircularProgress color="info" />
+      </Box>
+    )
+  }
 
   if (isCompactView) {
     return (

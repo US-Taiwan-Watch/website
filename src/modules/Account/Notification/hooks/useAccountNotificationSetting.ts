@@ -22,7 +22,7 @@ export default function useAccountNotificationSetting() {
   const { toast } = useToast()
   const { t } = useTranslationClient('account')
 
-  const { data } = useQuery<
+  const { data, loading } = useQuery<
     QueryMeNotificationSettingQuery,
     QueryMeNotificationSettingQueryVariables
   >(QUERY_ME_NOTIFICATION_SETTING, {
@@ -87,5 +87,11 @@ export default function useAccountNotificationSetting() {
     [updateNotificationSetting, toast, t]
   )
 
-  return { form, handleReset, handleSubmit, defaultAccountSettingInput }
+  return {
+    form,
+    handleReset,
+    handleSubmit,
+    defaultAccountSettingInput,
+    loading,
+  }
 }
