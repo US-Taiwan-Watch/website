@@ -129,10 +129,16 @@ const ArticlePostSection = ({
       .map((article) => ArticleUtils.parse(lang, article, articleType))
 
     if (shouldAppendData) {
-      setArticles((prev) => [
-        ...(articlesData?.page === 1 ? [] : prev),
-        ...newArticles,
-      ])
+      setArticles((prev) => {
+        const existingIds = new Set(prev.map((article) => article.id))
+        const deduplicatedNewArticles = newArticles.filter(
+          (article) => !existingIds.has(article.id)
+        )
+        return [
+          ...(articlesData?.page === 1 ? [] : prev),
+          ...deduplicatedNewArticles,
+        ]
+      })
     } else {
       setArticles(newArticles)
     }
