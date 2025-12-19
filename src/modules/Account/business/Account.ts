@@ -52,14 +52,17 @@ export default class AccountUtils {
       familyName: user.family_name ?? '',
       fullName: me.fullName ?? '',
       email: me.email ?? '',
-      subscribeBills: AccountUtils.parseSubscribeBillIds(me.subscribeBills),
-      subscribePeoples: AccountUtils.parseSubscribePeopleIds(
+      subscribeBills: AccountUtils.parseSubscribeBills(lang, me.subscribeBills),
+      subscribePeoples: AccountUtils.parseSubscribePeoples(
+        lang,
         me.subscribePeoples
       ),
-      bookmarkUstwArticles: AccountUtils.parseBookmarkUstwArticleIds(
+      bookmarkUstwArticles: AccountUtils.parseBookmarkUstwArticles(
+        lang,
         me.bookmarkUstwArticles
       ),
-      bookmarkKetagalanArticles: AccountUtils.parseBookmarkKetagalanArticleIds(
+      bookmarkKetagalanArticles: AccountUtils.parseBookmarkKetagalanArticles(
+        lang,
         me.bookmarkKetagalanArticles
       ),
       notificationSetting: {
@@ -89,21 +92,6 @@ export default class AccountUtils {
     return undefined
   }
 
-  static parseSubscribeBillIds(subscribeBills: Member['subscribeBills']) {
-    if (!subscribeBills) return []
-    return subscribeBills
-      .map((subscribeBill) => {
-        if (!subscribeBill?.id) return null
-        return AccountSubscribeUtils.parse({
-          id: subscribeBill.id,
-          type: AccountSubscribeType.Bill,
-          title: '',
-          url: '',
-        })
-      })
-      .filter((subscribe) => !isNull(subscribe))
-  }
-
   static parseSubscribeBills(
     lang: Language,
     subscribeBills: Member['subscribeBills']
@@ -118,21 +106,6 @@ export default class AccountUtils {
           type: AccountSubscribeType.Bill,
           title: bill.title ?? '',
           url: BillUtils.getLink(bill.id),
-        })
-      })
-      .filter((subscribe) => !isNull(subscribe))
-  }
-
-  static parseSubscribePeopleIds(subscribePeoples: Member['subscribePeoples']) {
-    if (!subscribePeoples) return []
-    return subscribePeoples
-      .map((subscribePeople) => {
-        if (!subscribePeople?.id) return null
-        return AccountSubscribeUtils.parse({
-          id: subscribePeople.id,
-          type: AccountSubscribeType.People,
-          title: '',
-          url: '',
         })
       })
       .filter((subscribe) => !isNull(subscribe))
@@ -157,23 +130,6 @@ export default class AccountUtils {
       .filter((subscribe) => !isNull(subscribe))
   }
 
-  static parseBookmarkUstwArticleIds(
-    bookmarkUstwArticles: Member['bookmarkUstwArticles']
-  ) {
-    if (!bookmarkUstwArticles) return []
-    return bookmarkUstwArticles
-      .map((subscribeArticle) => {
-        if (!subscribeArticle?.id) return null
-        return AccountSubscribeUtils.parse({
-          id: subscribeArticle.id,
-          type: AccountSubscribeType.UstwArticle,
-          title: '',
-          url: '',
-        })
-      })
-      .filter((subscribe) => !isNull(subscribe))
-  }
-
   static parseBookmarkUstwArticles(
     lang: Language,
     bookmarkUstwArticles: Member['bookmarkUstwArticles']
@@ -192,23 +148,6 @@ export default class AccountUtils {
           type: AccountSubscribeType.UstwArticle,
           title: article.title ?? '',
           url: ArticleUtils.getLink(ArticleType.Article, article.id),
-        })
-      })
-      .filter((subscribe) => !isNull(subscribe))
-  }
-
-  static parseBookmarkKetagalanArticleIds(
-    bookmarkKetagalanArticles: Member['bookmarkKetagalanArticles']
-  ) {
-    if (!bookmarkKetagalanArticles) return []
-    return bookmarkKetagalanArticles
-      .map((subscribeArticle) => {
-        if (!subscribeArticle?.id) return null
-        return AccountSubscribeUtils.parse({
-          id: subscribeArticle.id,
-          type: AccountSubscribeType.KetagalanArticle,
-          title: '',
-          url: '',
         })
       })
       .filter((subscribe) => !isNull(subscribe))
@@ -247,14 +186,5 @@ export default class AccountUtils {
         return TaiwanRecordUtils.parse(submittedTaiwanRecord)
       })
       .filter((record) => !isNull(record))
-  }
-
-  static getAccountSubscribeList(account: Account) {
-    return [
-      ...account.subscribeBills,
-      ...account.subscribePeoples,
-      ...account.bookmarkUstwArticles,
-      ...account.bookmarkKetagalanArticles,
-    ]
   }
 }
