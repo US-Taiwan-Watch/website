@@ -1,7 +1,9 @@
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useToast } from '@/common/providers/ToastProvider'
 import { useState } from 'react'
 
 export default function useClipboard() {
+  const { t } = useTranslationClient('common')
   const { toast } = useToast()
   const [isCopied, setIsCopied] = useState(false)
 
@@ -12,7 +14,7 @@ export default function useClipboard() {
    */
   const copyUrl = async (url?: string) => {
     if (!navigator.clipboard) {
-      toast('error', 'Clipboard not supported in this browser')
+      toast('error', t('msg.error.copy.unsupported', { ns: 'common' }))
       return
     }
 
@@ -22,10 +24,10 @@ export default function useClipboard() {
     try {
       await navigator.clipboard.writeText(urlWithoutSearchParams)
       setIsCopied(true)
-      toast('success', 'Copied')
+      toast('success', t('msg.success.copied', { ns: 'common' }))
     } catch (error) {
       console.error('Failed to copy to clipboard:', error)
-      toast('error', 'Failed to copy')
+      toast('error', t('msg.error.copy.error', { ns: 'common' }))
       setIsCopied(false)
     }
   }

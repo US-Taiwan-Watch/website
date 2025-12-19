@@ -153,9 +153,12 @@ const UContentCard = function UContentCard({
   const action = useMemo(() => {
     if (headerProps?.headerIconAction === 'modal') {
       if (headerProps?.action && React.isValidElement(headerProps.action)) {
-        return cloneElement(headerProps.action, {
-          onClick: handleActionClick,
-        })
+        return cloneElement(
+          headerProps.action as React.ReactElement<{ onClick?: () => void }>,
+          {
+            onClick: handleActionClick,
+          }
+        )
       } else {
         return (
           <UHStack gap={1.75}>
