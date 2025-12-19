@@ -1,4 +1,4 @@
-import { memo, useState, useEffect, useCallback } from 'react'
+import { memo, useState, useCallback, useMemo, useEffect } from 'react'
 import UButton from '@/common/components/atoms/UButton'
 import { BookmarkFilledIcon, BookmarkIcon } from '@/common/styles/assets/Icons'
 import { Bill } from '@/modules/Bill/business/Bill'
@@ -23,10 +23,18 @@ const SubscribeButton = memo(function SubscribeButton({
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient('bill')
 
-  const [isSubscribed, setIsSubscribed] = useState(false)
+  // Use useMemo to compute subscription state and reduce unnecessary updates
+  const isSubscribedFromAccount = useMemo(
+    () => checkIfBillIsSubscribed(bill),
+    [checkIfBillIsSubscribed, bill]
+  )
+
+  const [isSubscribed, setIsSubscribed] = useState(isSubscribedFromAccount)
+
+  // Sync with account state when it changes
   useEffect(() => {
-    setIsSubscribed(checkIfBillIsSubscribed(bill))
-  }, [checkIfBillIsSubscribed, bill])
+    setIsSubscribed(isSubscribedFromAccount)
+  }, [isSubscribedFromAccount])
 
   const handleSubscribeClick = useCallback(async () => {
     const originalState = isSubscribed
