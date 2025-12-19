@@ -56,15 +56,19 @@ export default function ArticleStoreProvider({
     []
   )
 
-  const [getArticleLandingTags, { data: articleLandingTagsData }] =
-    useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
-      variables: landingTagsVariables,
-    })
+  const [
+    getArticleLandingTags,
+    { data: articleLandingTagsData, error: articleLandingTagsError },
+  ] = useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
+    variables: landingTagsVariables,
+  })
 
-  const [getKetagalanLandingTags, { data: ketagalanLandingTagsData }] =
-    useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
-      variables: landingTagsVariables,
-    })
+  const [
+    getKetagalanLandingTags,
+    { data: ketagalanLandingTagsData, error: ketagalanLandingTagsError },
+  ] = useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
+    variables: landingTagsVariables,
+  })
 
   const landingTagsData = useMemo(() => {
     if (articleType === ArticleType.Ketagalan) {
@@ -93,22 +97,41 @@ export default function ArticleStoreProvider({
   ])
 
   useEffect(() => {
+    if (articleType === ArticleType.Ketagalan && ketagalanLandingTagsError) {
+      console.error(
+        'Failed to fetch ketagalan landing tags:',
+        ketagalanLandingTagsError
+      )
+    }
+    if (articleType === ArticleType.Article && articleLandingTagsError) {
+      console.error(
+        'Failed to fetch article landing tags:',
+        articleLandingTagsError
+      )
+    }
+  }, [articleType, articleLandingTagsError, ketagalanLandingTagsError])
+
+  useEffect(() => {
     if (!landingTagsData) return
 
-    if (articleType === ArticleType.Ketagalan) {
-      setKetagalanLandingTags(
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        setKetagalanLandingTags(
+          (landingTagsData?.Tags?.docs ?? [])
+            .filter((tag) => !isNull(tag))
+            .map((tag) => TagUtils.parse(lang, tag))
+        )
+        return
+      }
+
+      setArticleLandingTags(
         (landingTagsData?.Tags?.docs ?? [])
           .filter((tag) => !isNull(tag))
           .map((tag) => TagUtils.parse(lang, tag))
       )
-      return
+    } catch (error) {
+      console.error('Failed to parse landing tags:', error)
     }
-
-    setArticleLandingTags(
-      (landingTagsData?.Tags?.docs ?? [])
-        .filter((tag) => !isNull(tag))
-        .map((tag) => TagUtils.parse(lang, tag))
-    )
   }, [
     landingTagsData,
     setArticleLandingTags,
@@ -120,20 +143,22 @@ export default function ArticleStoreProvider({
   const highlightedArticlesCategoriesVariables =
     useMemo<CategoriesArticlesQueryVariables>(() => ({}), [])
 
-  const [getHighlightedCategories, { data: categoriesArticlesQueryData }] =
-    useLazyQuery<CategoriesArticlesQuery, CategoriesArticlesQueryVariables>(
-      QUERY_CATEGORIES_ARTICLES,
-      {
-        variables: highlightedArticlesCategoriesVariables,
-      }
-    )
+  const [
+    getHighlightedCategories,
+    { data: categoriesArticlesQueryData, error: categoriesArticlesError },
+  ] = useLazyQuery<CategoriesArticlesQuery, CategoriesArticlesQueryVariables>(
+    QUERY_CATEGORIES_ARTICLES,
+    {
+      variables: highlightedArticlesCategoriesVariables,
+    }
+  )
 
   const highlightedKetagalanCategoriesVariables =
     useMemo<CategoriesKetagalansQueryVariables>(() => ({}), [])
 
   const [
     getKetagalanHighlightedCategories,
-    { data: categoriesKetagalansQueryData },
+    { data: categoriesKetagalansQueryData, error: categoriesKetagalansError },
   ] = useLazyQuery<
     CategoriesKetagalansQuery,
     CategoriesKetagalansQueryVariables
@@ -169,22 +194,41 @@ export default function ArticleStoreProvider({
   ])
 
   useEffect(() => {
+    if (articleType === ArticleType.Ketagalan && categoriesKetagalansError) {
+      console.error(
+        'Failed to fetch ketagalan categories:',
+        categoriesKetagalansError
+      )
+    }
+    if (articleType === ArticleType.Article && categoriesArticlesError) {
+      console.error(
+        'Failed to fetch article categories:',
+        categoriesArticlesError
+      )
+    }
+  }, [articleType, categoriesArticlesError, categoriesKetagalansError])
+
+  useEffect(() => {
     if (!highlightedCategoriesData) return
 
-    if (articleType === ArticleType.Ketagalan) {
-      setKetagalanHighlightedCategories(
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        setKetagalanHighlightedCategories(
+          (highlightedCategoriesData.docs ?? [])
+            .filter((category) => !isNull(category))
+            .map((category) => ArticleCategoryUtils.parse(lang, category))
+        )
+        return
+      }
+
+      setArticleHighlightedCategories(
         (highlightedCategoriesData.docs ?? [])
           .filter((category) => !isNull(category))
           .map((category) => ArticleCategoryUtils.parse(lang, category))
       )
-      return
+    } catch (error) {
+      console.error('Failed to parse highlighted categories:', error)
     }
-
-    setArticleHighlightedCategories(
-      (highlightedCategoriesData.docs ?? [])
-        .filter((category) => !isNull(category))
-        .map((category) => ArticleCategoryUtils.parse(lang, category))
-    )
   }, [
     highlightedCategoriesData,
     setArticleHighlightedCategories,
