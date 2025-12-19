@@ -66,7 +66,7 @@ export type Bill = z.infer<typeof billSchema>
 
 export class BillUtils {
   static parse(lang: Language, dto: ApiBill) {
-    return billSchema.parse({
+    const result = billSchema.safeParse({
       id: dto.id ?? undefined,
       type: dto.type
         ? z.nativeEnum(BillTypeEnum).safeParse(dto.type).data
@@ -135,6 +135,13 @@ export class BillUtils {
       summary: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.summary ?? '',
       congressGovUrl: dto.congressGovUrl ?? '',
     })
+
+    if (!result.success) {
+      console.error('Bill data validation failed:', result.error, dto)
+      throw new Error(`Invalid bill data structure: ${result.error.message}`)
+    }
+
+    return result.data
   }
 
   /**
