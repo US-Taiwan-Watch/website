@@ -36,23 +36,28 @@ export default class ServerBillApi {
    * @returns 首頁精選法案列表
    */
   static async getHomeFeaturedBills({ limit = 10 }: { limit?: number }) {
-    const { data } = await query<BillsQuery, BillsQueryVariables>({
-      query: QUERY_BILLS,
-      variables: {
-        limit,
-        where: {
-          isFeatured: {
-            equals: true,
+    try {
+      const { data } = await query<BillsQuery, BillsQueryVariables>({
+        query: QUERY_BILLS,
+        variables: {
+          limit,
+          where: {
+            isFeatured: {
+              equals: true,
+            },
           },
         },
-      },
-    })
+      })
 
-    return (
-      data?.Bills?.docs
-        ?.filter((bill) => !isNull(bill))
-        .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
-    )
+      return (
+        data?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch home featured bills:', error)
+      return []
+    }
   }
 
   /**
@@ -61,20 +66,27 @@ export default class ServerBillApi {
    * @returns 熱門標籤列表
    */
   static async getPopularTags({ limit = 10 }: { limit?: number }) {
-    const { data } = await query<BillTopTagsQuery, BillTopTagsQueryVariables>({
-      query: QUERY_BILL_TOP_TAGS,
-      variables: {
-        limit,
-      },
-    })
-    return (
-      data?.BillTopTags?.filter(
-        (tag) => !isNull(tag) && !isNull(tag.tag) && !isUndefined(tag.tag)
-      ).map((tag) => ({
-        billCount: tag!.billCount ?? 0,
-        tag: TagUtils.parse(apiConfig.lang, tag!.tag!),
-      })) ?? []
-    )
+    try {
+      const { data } = await query<BillTopTagsQuery, BillTopTagsQueryVariables>(
+        {
+          query: QUERY_BILL_TOP_TAGS,
+          variables: {
+            limit,
+          },
+        }
+      )
+      return (
+        data?.BillTopTags?.filter(
+          (tag) => !isNull(tag) && !isNull(tag.tag) && !isUndefined(tag.tag)
+        ).map((tag) => ({
+          billCount: tag!.billCount ?? 0,
+          tag: TagUtils.parse(apiConfig.lang, tag!.tag!),
+        })) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch popular tags:', error)
+      return []
+    }
   }
 
   /**
@@ -83,24 +95,30 @@ export default class ServerBillApi {
    * @returns 提案法案最多的前 5 名議員列表
    */
   static async getTopSponsors({ limit = 10 }: { limit?: number }) {
-    const { data: sponsorsData } = await query<
-      BillTopSponsorsQuery,
-      BillTopSponsorsQueryVariables
-    >({
-      query: QUERY_BILL_TOP_SPONSORS,
-      variables: { limit },
-    })
+    try {
+      const { data: sponsorsData } = await query<
+        BillTopSponsorsQuery,
+        BillTopSponsorsQueryVariables
+      >({
+        query: QUERY_BILL_TOP_SPONSORS,
+        variables: { limit },
+      })
 
-    return (
-      sponsorsData?.BillTopSponsors?.filter((doc) => !isNull(doc))
-        ?.filter(
-          (sponsor) => !isNull(sponsor?.people) && !isUndefined(sponsor?.people)
-        )
-        .map(({ people, billCount }) => ({
-          people: PeopleUtils.parse(apiConfig.lang, people!),
-          billCount: billCount ?? 0,
-        })) ?? []
-    )
+      return (
+        sponsorsData?.BillTopSponsors?.filter((doc) => !isNull(doc))
+          ?.filter(
+            (sponsor) =>
+              !isNull(sponsor?.people) && !isUndefined(sponsor?.people)
+          )
+          .map(({ people, billCount }) => ({
+            people: PeopleUtils.parse(apiConfig.lang, people!),
+            billCount: billCount ?? 0,
+          })) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch top sponsors:', error)
+      return []
+    }
   }
 
   /**
@@ -109,25 +127,30 @@ export default class ServerBillApi {
    * @returns 共同提案最多的前 5 名議員列表
    */
   static async getTopCosponsors({ limit = 10 }: { limit?: number }) {
-    const { data: cosponsorsData } = await query<
-      BillTopCosponsorsQuery,
-      BillTopCosponsorsQueryVariables
-    >({
-      query: QUERY_BILL_TOP_COSPONSORS,
-      variables: { limit },
-    })
+    try {
+      const { data: cosponsorsData } = await query<
+        BillTopCosponsorsQuery,
+        BillTopCosponsorsQueryVariables
+      >({
+        query: QUERY_BILL_TOP_COSPONSORS,
+        variables: { limit },
+      })
 
-    return (
-      cosponsorsData?.BillTopCosponsors?.filter((doc) => !isNull(doc))
-        ?.filter(
-          (cosponsor) =>
-            !isNull(cosponsor?.people) && !isUndefined(cosponsor?.people)
-        )
-        .map(({ people, billCount }) => ({
-          people: PeopleUtils.parse(apiConfig.lang, people!),
-          billCount: billCount ?? 0,
-        })) ?? []
-    )
+      return (
+        cosponsorsData?.BillTopCosponsors?.filter((doc) => !isNull(doc))
+          ?.filter(
+            (cosponsor) =>
+              !isNull(cosponsor?.people) && !isUndefined(cosponsor?.people)
+          )
+          .map(({ people, billCount }) => ({
+            people: PeopleUtils.parse(apiConfig.lang, people!),
+            billCount: billCount ?? 0,
+          })) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch top cosponsors:', error)
+      return []
+    }
   }
 
   /**
@@ -136,22 +159,27 @@ export default class ServerBillApi {
    * @returns 最新提案的法案列表
    */
   static async getLatestBills({ limit = 10 }: { limit?: number }) {
-    const { data: latestBillsData } = await query<
-      BillsQuery,
-      BillsQueryVariables
-    >({
-      query: QUERY_BILLS,
-      variables: {
-        sort: '-introducedAt.datetime',
-        limit,
-      },
-    })
+    try {
+      const { data: latestBillsData } = await query<
+        BillsQuery,
+        BillsQueryVariables
+      >({
+        query: QUERY_BILLS,
+        variables: {
+          sort: '-introducedAt.datetime',
+          limit,
+        },
+      })
 
-    return (
-      latestBillsData?.Bills?.docs
-        ?.filter((bill) => !isNull(bill))
-        .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
-    )
+      return (
+        latestBillsData?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch latest bills:', error)
+      return []
+    }
   }
 
   /**
@@ -160,22 +188,27 @@ export default class ServerBillApi {
    * @returns 熱門提案的法案列表
    */
   static async getPopularBills({ limit = 10 }: { limit?: number }) {
-    const { data: popularBillsData } = await query<
-      BillsQuery,
-      BillsQueryVariables
-    >({
-      query: QUERY_BILLS,
-      variables: {
-        // TODO: 目前還沒定義Popularity, 先跟Latest Bill拿一樣的
-        sort: '-introducedAt.datetime',
-        limit,
-      },
-    })
-    return (
-      popularBillsData?.Bills?.docs
-        ?.filter((bill) => !isNull(bill))
-        .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
-    )
+    try {
+      const { data: popularBillsData } = await query<
+        BillsQuery,
+        BillsQueryVariables
+      >({
+        query: QUERY_BILLS,
+        variables: {
+          // TODO: 目前還沒定義Popularity, 先跟Latest Bill拿一樣的
+          sort: '-introducedAt.datetime',
+          limit,
+        },
+      })
+      return (
+        popularBillsData?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch popular bills:', error)
+      return []
+    }
   }
 
   /**
@@ -184,14 +217,19 @@ export default class ServerBillApi {
    * @returns 提案法案
    */
   static async getBill({ id }: { id: string }) {
-    const { data } = await query<BillQuery, BillQueryVariables>({
-      query: QUERY_BILL,
-      variables: { id },
-    })
+    try {
+      const { data } = await query<BillQuery, BillQueryVariables>({
+        query: QUERY_BILL,
+        variables: { id },
+      })
 
-    if (!data?.Bill) return null
+      if (!data?.Bill) return null
 
-    return BillUtils.parse(apiConfig.lang, data.Bill)
+      return BillUtils.parse(apiConfig.lang, data.Bill)
+    } catch (error) {
+      console.error('Failed to fetch bill:', error)
+      return null
+    }
   }
 
   /**
@@ -200,15 +238,20 @@ export default class ServerBillApi {
    * @returns 提案法案的相關法案列表
    */
   static async getRelatedBills({ id }: { id: string }) {
-    const { data } = await query<BillQuery, BillQueryVariables>({
-      query: QUERY_BILL,
-      variables: { id },
-    })
+    try {
+      const { data } = await query<BillQuery, BillQueryVariables>({
+        query: QUERY_BILL,
+        variables: { id },
+      })
 
-    return (
-      data.Bill?.relatedBills
-        ?.filter((bill) => !isNull(bill))
-        .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
-    )
+      return (
+        data.Bill?.relatedBills
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch related bills:', error)
+      return []
+    }
   }
 }
