@@ -86,10 +86,14 @@ export default function BillList() {
     Omit<BillsFilterQueryVariables, 'limit' | 'page'>
   >({})
 
-  const [getBills, { data, loading }] = useLazyQuery<
+  const [getBills, { data, loading, error }] = useLazyQuery<
     BillsFilterQuery,
     BillsFilterQueryVariables
   >(QUERY_BILL_FILTER)
+
+  if (error) {
+    console.error('Failed to fetch bills:', error)
+  }
 
   useEffect(() => {
     if (!isNumber(data?.BillsFilter?.totalPages)) return
@@ -103,17 +107,22 @@ export default function BillList() {
   useEffect(() => {
     if (!data?.BillsFilter?.docs) return
 
-    const newBills = data.BillsFilter.docs
-      .filter((bill) => !isNull(bill))
-      .map((bill) => BillUtils.parse(lang, bill))
+    try {
+      const newBills = data.BillsFilter.docs
+        .filter((bill) => !isNull(bill))
+        .map((bill) => BillUtils.parse(lang, bill))
 
-    if (shouldAppendData) {
-      setBills((prev) => [
-        ...(data?.BillsFilter?.page === 1 ? [] : prev),
-        ...newBills,
-      ])
-    } else {
-      setBills(newBills)
+      if (shouldAppendData) {
+        setBills((prev) => [
+          ...(data?.BillsFilter?.page === 1 ? [] : prev),
+          ...newBills,
+        ])
+      } else {
+        setBills(newBills)
+      }
+    } catch (error) {
+      console.error('Failed to parse bills in BillList:', error)
+      // Keep previous bills on error, don't clear the state
     }
   }, [data?.BillsFilter?.docs, data?.BillsFilter?.page, shouldAppendData, lang])
 
