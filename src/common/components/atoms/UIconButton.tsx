@@ -137,7 +137,7 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
       '&:hover': {
         backgroundColor: getHoveredBackgroundColor(theme, color),
       },
-      svg: {
+      '& .MuiSvgIcon-root': {
         ...getIconSize(size),
       },
       ...getButtonSize(size),
@@ -149,7 +149,7 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
       '&:hover': {
         backgroundColor: getHoveredBackgroundColor(theme, color),
       },
-      svg: {
+      '& .MuiSvgIcon-root': {
         ...getIconSize(size),
       },
       ...getButtonSize(size),
@@ -164,7 +164,7 @@ const UIconButton = styled(IconButton)<UIconButtonProps>(
         },
       }),
       borderRadius: theme.shape.borderRadius,
-      svg: {
+      '& .MuiSvgIcon-root': {
         ...getIconSize(size),
       },
       ...getButtonSize(size),

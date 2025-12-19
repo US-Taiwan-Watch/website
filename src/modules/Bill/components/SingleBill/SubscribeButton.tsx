@@ -6,6 +6,7 @@ import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import { CircularProgress } from '@mui/material'
 
 type SubscribeButtonProps = {
   bill: Bill
@@ -19,6 +20,7 @@ const SubscribeButton = memo(function SubscribeButton({
     unsubscribeBill,
     isMutating,
     checkIfBillIsSubscribed,
+    isAccountLoading,
   } = useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient('bill')
@@ -62,9 +64,15 @@ const SubscribeButton = memo(function SubscribeButton({
         color="primary"
         size="xs"
         onClick={handleSubscribeClick}
-        disabled={isMutating}
+        disabled={isMutating || isAccountLoading}
       >
-        {isSubscribed ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+        {isAccountLoading ? (
+          <CircularProgress color="info" size={16} />
+        ) : isSubscribed ? (
+          <BookmarkFilledIcon />
+        ) : (
+          <BookmarkIcon />
+        )}
       </UIconButton>
     )
   }
@@ -75,14 +83,16 @@ const SubscribeButton = memo(function SubscribeButton({
       color="primary"
       rounded
       startIcon={
-        isSubscribed ? (
+        isAccountLoading ? (
+          <CircularProgress color="inherit" size={16} />
+        ) : isSubscribed ? (
           <BookmarkFilledIcon sx={{ width: 24, height: 24 }} />
         ) : (
           <BookmarkIcon sx={{ width: 24, height: 24 }} />
         )
       }
       onClick={handleSubscribeClick}
-      disabled={isMutating}
+      disabled={isMutating || isAccountLoading}
     >
       {t(isSubscribed ? 'page.subscribed.btn' : 'page.subscribe.btn', {
         ns: 'bill',
