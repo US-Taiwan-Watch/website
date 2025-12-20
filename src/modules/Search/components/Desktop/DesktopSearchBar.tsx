@@ -5,9 +5,12 @@ import { styled } from '@/common/lib/mui/theme'
 import { SearchIcon } from '@/common/styles/assets/Icons'
 import { Box, Icon, Input } from '@mui/material'
 import useSearch from '@/modules/Search/hooks/useSearch'
-import DesktopSearchResultList from '@/modules/Search/components/Desktop/DesktopSearchResultList'
-import { useRef } from 'react'
+import DesktopSearchResultList, {
+  SEARCH_RESULT_LIST_CLASS,
+} from '@/modules/Search/components/Desktop/DesktopSearchResultList'
+import { useRef, useMemo } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import UClickAwayListener from '@/common/components/elements/UClickAwayListener'
 
 interface DesktopSearchBarProps {
   className?: string
@@ -60,57 +63,66 @@ const DesktopSearchBar = ({
     handleLoadMore,
   } = useSearch()
 
+  const mergedClickAwayClassNameWhiteList = useMemo(
+    () => [...(clickAwayClassNameWhiteList || []), SEARCH_RESULT_LIST_CLASS],
+    [clickAwayClassNameWhiteList]
+  )
+
   return (
     <Box display="flex" flexDirection="column" width="100%">
-      <StyledContainer
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        gap={2}
+      <UClickAwayListener
+        clickAwayClassNameWhiteList={mergedClickAwayClassNameWhiteList}
+        onClickAway={onClose}
       >
-        <StyledInput
-          ref={inputRef}
-          disableUnderline
-          fullWidth
-          startAdornment={
-            <StyledIcon fontSize="small">
-              <SearchIcon />
-            </StyledIcon>
-          }
-          onChange={(e) => handleSearchQueryChange(e.target.value.trim())}
-          onCompositionStart={() => {
-            isComposingRef.current = true
-          }}
-          onCompositionEnd={() => {
-            isComposingRef.current = false
-          }}
-          autoFocus
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !isComposingRef.current) {
+        <StyledContainer
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          gap={2}
+        >
+          <StyledInput
+            ref={inputRef}
+            disableUnderline
+            fullWidth
+            startAdornment={
+              <StyledIcon fontSize="small">
+                <SearchIcon />
+              </StyledIcon>
+            }
+            onChange={(e) => handleSearchQueryChange(e.target.value.trim())}
+            onCompositionStart={() => {
+              isComposingRef.current = true
+            }}
+            onCompositionEnd={() => {
+              isComposingRef.current = false
+            }}
+            autoFocus
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !isComposingRef.current) {
+                handleNavigateSearchPage(searchQuery)
+                onClose?.()
+              }
+            }}
+          />
+          <StyledButton
+            variant="contained"
+            rounded
+            onClick={() => {
               handleNavigateSearchPage(searchQuery)
               onClose?.()
-            }
-          }}
-        />
-        <StyledButton
-          variant="contained"
-          rounded
-          onClick={() => {
-            handleNavigateSearchPage(searchQuery)
-            onClose?.()
-          }}
-          disabled={!searchQuery}
-        >
-          {t('submit.btn.title', { ns: 'search' })}
-        </StyledButton>
-      </StyledContainer>
+            }}
+            disabled={!searchQuery}
+          >
+            {t('submit.btn.title', { ns: 'search' })}
+          </StyledButton>
+        </StyledContainer>
+      </UClickAwayListener>
       {searchSuggestions.length > 0 && (
         <>
           <DesktopSearchResultList
             suggestions={searchSuggestions}
             headerAnchorEl={resultParentEl}
             inputAnchorEl={inputRef.current}
-            clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
             onClose={onClose}
             onLoadMore={handleLoadMore}
           />

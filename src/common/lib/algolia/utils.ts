@@ -111,6 +111,37 @@ export type Hit =
     }
 
 /**
+ * 根據特定欄位的 matchLevel 決定應該使用哪個語言
+ * 優先順序：full > partial > fallback
+ */
+const getBestMatchedLanguage = <
+  T extends Record<string, Record<string, HighlightResultOption>>,
+>(
+  highlightI18n: T,
+  fieldName: string,
+  fallbackLanguage: Language
+): keyof T => {
+  // 首先找 matchLevel 是 'full' 的語言
+  for (const lang of Object.keys(highlightI18n)) {
+    const field = highlightI18n[lang][fieldName]
+    if (field?.matchLevel === 'full') {
+      return lang as keyof T
+    }
+  }
+
+  // 如果沒有 'full'，再找 matchLevel 是 'partial' 的語言
+  for (const lang of Object.keys(highlightI18n)) {
+    const field = highlightI18n[lang][fieldName]
+    if (field?.matchLevel === 'partial') {
+      return lang as keyof T
+    }
+  }
+
+  // 最後返回 fallback 語言
+  return CommonUtils.parseAPII18nKey(fallbackLanguage) as keyof T
+}
+
+/**
  * 將 Algolia hit 轉換成 SearchSuggestion 格式
  */
 export const parseSearchSuggestionFromHit = (
@@ -135,22 +166,30 @@ export const parseSearchSuggestionFromHit = (
     }
 
     if (hit.type === 'bill') {
-      const apiLang = CommonUtils.parseAPII18nKey(language)
+      const bestLang = getBestMatchedLanguage(
+        hit._highlightResult.i18n,
+        'title',
+        language
+      )
       return SearchSuggestionUtils.parse({
         type: SearchSuggestionType.Bill,
         value: Dompurify.sanitize(
-          hit._highlightResult.i18n[apiLang].title.value
+          hit._highlightResult.i18n[bestLang].title.value
         ),
         objectID: hit.objectID,
       })
     }
 
     if (hit.type === 'people') {
-      const apiLang = CommonUtils.parseAPII18nKey(language)
+      const bestLang = getBestMatchedLanguage(
+        hit._highlightResult.i18n,
+        'displayName',
+        language
+      )
       return SearchSuggestionUtils.parse({
         type: SearchSuggestionType.People,
         value: Dompurify.sanitize(
-          hit._highlightResult.i18n[apiLang].displayName.value
+          hit._highlightResult.i18n[bestLang].displayName.value
         ),
         objectID: hit.objectID,
       })

@@ -114,6 +114,7 @@ export default function useSearch() {
       setSearchQuery(value)
 
       if (!value) {
+        debouncedSearchRef.current.cancel()
         setSearchSuggestions([])
         setIsLoading(false)
         currentQueryRef.current = ''
