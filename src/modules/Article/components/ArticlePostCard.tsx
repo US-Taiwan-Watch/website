@@ -61,6 +61,9 @@ const ArticlePostCard = ({
               xs: forceCard ? 'auto' : '100px',
               sm: 'auto',
             },
+            backgroundColor: article.thumbnailImage
+              ? 'transparent'
+              : theme.color.neutral[100],
           }}
           display="flex"
           alignItems="center"
@@ -69,7 +72,7 @@ const ArticlePostCard = ({
           borderRadius={theme.shape.borderRadius}
         >
           {/** Image */}
-          {article.thumbnailImage && (
+          {article.thumbnailImage ? (
             <StyledImage
               src={article.thumbnailImage.src}
               alt={article.thumbnailImage.caption || article.title || ''}
@@ -80,6 +83,17 @@ const ArticlePostCard = ({
                 objectFit: 'cover',
                 minWidth: '100%',
                 minHeight: '100%',
+              }}
+            />
+          ) : (
+            <Box
+              sx={{
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: `linear-gradient(135deg, ${theme.color.neutral[100]} 0%, ${theme.color.neutral[200]} 100%)`,
               }}
             />
           )}
