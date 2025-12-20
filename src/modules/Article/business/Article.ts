@@ -63,7 +63,7 @@ export class ArticleUtils {
     dto: Partial<ApiUstwArticle | ApiKetagalanArticle>,
     articleType: ArticleType
   ) {
-    return articleSchema.parse({
+    const result = articleSchema.safeParse({
       type: articleType,
       id: dto.id ?? undefined,
       title: dto.title,
@@ -92,6 +92,13 @@ export class ArticleUtils {
       content: dto.content,
       episodeId: dto.podcast ?? undefined,
     })
+
+    if (!result.success) {
+      console.error('Article data validation failed:', result.error, dto)
+      throw new Error(`Invalid article data structure: ${result.error.message}`)
+    }
+
+    return result.data
   }
 
   static getLinkRoute(articleType: ArticleType) {

@@ -6,5 +6,11 @@ import { CommonMdxComponents } from '@/modules/About/utils/mdxComponents'
 export default async function MissionContent({ lang }: { lang: Language }) {
   const source = await getMarkdownAssetFile('Mission', lang)
 
-  return <GMdxContentServer source={source} components={CommonMdxComponents} />
+  return (
+    <GMdxContentServer
+      source={source}
+      components={CommonMdxComponents}
+      lang={lang}
+    />
+  )
 }

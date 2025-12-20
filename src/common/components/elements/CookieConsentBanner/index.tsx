@@ -30,18 +30,21 @@ export default function CookieConsentBanner() {
 
   useEffect(() => {
     const consent = localStorage.getItem(CookiesKey.CookieConsent)
+
     // 如果之前沒有點選過 cookie 同意聲明，則顯示同意聲明
     if (!consent) {
       setIsVisible(true)
+      return
     }
+
     // 如果之前點選過 cookie 同意聲明，則根據之前點選的結果，更新 cookie 同意聲明
     if (consent === CookieConsentValue.Granted) {
-      handleAccept()
+      googleAnalyticsUpdateConsent(CookieConsentValue.Granted)
+    } else if (consent === CookieConsentValue.Denied) {
+      googleAnalyticsUpdateConsent(CookieConsentValue.Denied)
     }
-    if (consent === CookieConsentValue.Denied) {
-      handleDeny()
-    }
-  }, [handleAccept, handleDeny])
+    setIsVisible(false)
+  }, []) // 空依賴項，只在 mount 時執行
 
   if (!isVisible) return null
 

@@ -5,7 +5,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Article, ArticleUtils } from '@/modules/Article/business/Article'
 import ArticlePostTag from '@/modules/Article/components/ArticlePost/ArticlePostTag'
-import { Stack, Typography, useTheme } from '@mui/material'
+import { CircularProgress, Stack, Typography, useTheme } from '@mui/material'
 import { useCallback, useEffect, useState } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import {
@@ -32,6 +32,7 @@ const ArticlePostHeader = function ArticlePostHeader({
     unbookmarkArticle,
     isMutating,
     checkIfArticleIsBookmarked,
+    isAccountLoading,
   } = useAccount()
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient(['article'])
@@ -55,7 +56,11 @@ const ArticlePostHeader = function ArticlePostHeader({
 
   const [formattedDate, setFormattedDate] = useState('')
   useEffect(() => {
-    setFormattedDate(DateUtils.formatLocal(date, DATE_FORMAT))
+    if (date) {
+      setFormattedDate(DateUtils.formatLocal(date, DATE_FORMAT))
+    } else {
+      setFormattedDate('')
+    }
   }, [date])
 
   return (
@@ -108,9 +113,15 @@ const ArticlePostHeader = function ArticlePostHeader({
               color="black"
               size="xs"
               onClick={handleBookmarkClick}
-              disabled={isMutating}
+              disabled={isMutating || isAccountLoading}
             >
-              {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+              {isAccountLoading ? (
+                <CircularProgress color="inherit" size={16} />
+              ) : isBookmarked ? (
+                <BookmarkFilledIcon />
+              ) : (
+                <BookmarkIcon />
+              )}
             </UIconButton>
           </UHStack>
         )}

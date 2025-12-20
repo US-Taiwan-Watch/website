@@ -10,5 +10,11 @@ export default async function UserAgreementPrivacyPolicyContent({
 }) {
   const source = await getMarkdownAssetFile('UserAgreementPrivacyPolicy', lang)
 
-  return <GMdxContentServer source={source} components={CommonMdxComponents} />
+  return (
+    <GMdxContentServer
+      source={source}
+      components={CommonMdxComponents}
+      lang={lang}
+    />
+  )
 }

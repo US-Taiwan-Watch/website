@@ -36,7 +36,8 @@ export default function useAccountChangePassword() {
         setTimeout(() => {
           logout()
         }, 3000)
-      } catch {
+      } catch (error) {
+        console.error('Failed to change password:', error)
         toast('error', t('changePassword.error.msg', { ns: 'account' }))
       }
     },

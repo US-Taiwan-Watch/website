@@ -22,7 +22,14 @@ import { useLazyQuery } from '@apollo/client'
 import { Stack, Typography } from '@mui/material'
 import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
-import { useCallback, useMemo, useEffect, useState, useRef } from 'react'
+import {
+  useCallback,
+  useMemo,
+  useEffect,
+  useState,
+  useRef,
+  useReducer,
+} from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 
@@ -42,6 +49,51 @@ const BillCardsSkeleton = () => {
 
 /** 法案列表呈現數量 */
 const BILL_LIST_COUNT = 10
+
+// State management using reducer for clarity
+type BillListState = {
+  bills: Bill[]
+  totalPages: number
+}
+
+type BillListAction =
+  | {
+      type: 'SET_DATA'
+      payload: {
+        bills: Bill[]
+        totalPages: number
+        currentPage: number
+        shouldAppend: boolean
+      }
+    }
+  | { type: 'RESET' }
+  | { type: 'CLEAR_BILLS' }
+
+function billListReducer(
+  state: BillListState,
+  action: BillListAction
+): BillListState {
+  switch (action.type) {
+    case 'SET_DATA': {
+      const { bills, totalPages, currentPage, shouldAppend } = action.payload
+
+      return {
+        totalPages,
+        bills: shouldAppend
+          ? currentPage === 1
+            ? bills
+            : [...state.bills, ...bills]
+          : bills,
+      }
+    }
+    case 'RESET':
+      return { bills: [], totalPages: 0 }
+    case 'CLEAR_BILLS':
+      return { ...state, bills: [] }
+    default:
+      return state
+  }
+}
 
 export default function BillList() {
   const { isMobile } = useResponsive()
@@ -72,7 +124,14 @@ export default function BillList() {
     })
   }, [params])
 
-  const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
+  // Use reducer for clearer state management
+  const [state, dispatch] = useReducer(billListReducer, {
+    bills: [],
+    totalPages: 0,
+  })
+  const { bills, totalPages } = state
+
+  const { page, handlePageChange } = usePagination()
 
   const paginationVariables = useMemo<
     Pick<BillsFilterQueryVariables, 'limit' | 'page'>
@@ -86,36 +145,44 @@ export default function BillList() {
     Omit<BillsFilterQueryVariables, 'limit' | 'page'>
   >({})
 
-  const [getBills, { data, loading }] = useLazyQuery<
+  const [getBills, { data, loading, error }] = useLazyQuery<
     BillsFilterQuery,
     BillsFilterQueryVariables
   >(QUERY_BILL_FILTER)
 
-  useEffect(() => {
-    if (!isNumber(data?.BillsFilter?.totalPages)) return
-    setTotalPages(data.BillsFilter.totalPages)
-  }, [data?.BillsFilter?.totalPages, setTotalPages])
+  if (error) {
+    console.error('Failed to fetch bills:', error)
+  }
 
-  // 處理資料
+  // Handle data updates with reducer
   const shouldAppendData = useMemo(() => isMobile, [isMobile])
-  const [bills, setBills] = useState<Bill[]>([])
 
   useEffect(() => {
     if (!data?.BillsFilter?.docs) return
 
-    const newBills = data.BillsFilter.docs
-      .filter((bill) => !isNull(bill))
-      .map((bill) => BillUtils.parse(lang, bill))
+    try {
+      const newBills = data.BillsFilter.docs
+        .filter((bill) => !isNull(bill))
+        .map((bill) => BillUtils.parse(lang, bill))
 
-    if (shouldAppendData) {
-      setBills((prev) => [
-        ...(data?.BillsFilter?.page === 1 ? [] : prev),
-        ...newBills,
-      ])
-    } else {
-      setBills(newBills)
+      const currentTotalPages = isNumber(data.BillsFilter.totalPages)
+        ? data.BillsFilter.totalPages
+        : totalPages
+
+      dispatch({
+        type: 'SET_DATA',
+        payload: {
+          bills: newBills,
+          totalPages: currentTotalPages,
+          currentPage: data.BillsFilter.page ?? page,
+          shouldAppend: shouldAppendData,
+        },
+      })
+    } catch (error) {
+      console.error('Failed to parse bills in BillList:', error)
+      // Keep previous bills on error by not dispatching
     }
-  }, [data?.BillsFilter?.docs, data?.BillsFilter?.page, shouldAppendData, lang])
+  }, [data, lang, shouldAppendData, totalPages, page])
 
   const onFilterSubmit = useCallback(
     (filter: BillFilterOutput) => {
@@ -215,7 +282,7 @@ export default function BillList() {
               count={totalPages}
               page={page}
               onChange={(_, page) => {
-                setBills([])
+                dispatch({ type: 'CLEAR_BILLS' })
                 handlePageChange(page)
               }}
             />

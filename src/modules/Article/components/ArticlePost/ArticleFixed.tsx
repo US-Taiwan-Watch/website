@@ -8,7 +8,7 @@ import {
   BookmarkIcon,
   OutlinedShareIcon,
 } from '@/common/styles/assets/Icons'
-import { useTheme } from '@mui/material'
+import { CircularProgress, useTheme } from '@mui/material'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
@@ -29,6 +29,7 @@ const ArticleFixed = memo(function ArticleFixed({
     unbookmarkArticle,
     isMutating,
     checkIfArticleIsBookmarked,
+    isAccountLoading,
   } = useAccount()
   const [isBookmarked, setIsBookmarked] = useState(false)
   useEffect(() => {
@@ -84,9 +85,15 @@ const ArticleFixed = memo(function ArticleFixed({
             },
           }}
           onClick={handleBookmarkClick}
-          disabled={isMutating}
+          disabled={isMutating || isAccountLoading}
         >
-          {isBookmarked ? <BookmarkFilledIcon /> : <BookmarkIcon />}
+          {isAccountLoading ? (
+            <CircularProgress color="inherit" size={16} />
+          ) : isBookmarked ? (
+            <BookmarkFilledIcon />
+          ) : (
+            <BookmarkIcon />
+          )}
         </UIconButton>
         <UIconButton
           variant="rounded"

@@ -33,6 +33,7 @@ export default function Error() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          py: 2,
         }}
       >
         <Stack

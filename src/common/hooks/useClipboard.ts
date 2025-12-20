@@ -1,7 +1,9 @@
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { useToast } from '@/common/providers/ToastProvider'
 import { useState } from 'react'
 
 export default function useClipboard() {
+  const { t } = useTranslationClient('common')
   const { toast } = useToast()
   const [isCopied, setIsCopied] = useState(false)
 
@@ -10,15 +12,24 @@ export default function useClipboard() {
    * @param url - 複製的 URL，預設為當前頁面 URL
    * @returns 複製結果
    */
-  const copyUrl = (url?: string) => {
-    if (!navigator.clipboard) return
+  const copyUrl = async (url?: string) => {
+    if (!navigator.clipboard) {
+      toast('error', t('msg.error.copy.unsupported', { ns: 'common' }))
+      return
+    }
 
     // TODO: make it more robust, maybe router utils to handle all routes composition
     const urlWithoutSearchParams = url ?? window.location.href
-    navigator.clipboard.writeText(urlWithoutSearchParams)
-    setIsCopied(true)
 
-    toast('success', 'Copied')
+    try {
+      await navigator.clipboard.writeText(urlWithoutSearchParams)
+      setIsCopied(true)
+      toast('success', t('msg.success.copied', { ns: 'common' }))
+    } catch (error) {
+      console.error('Failed to copy to clipboard:', error)
+      toast('error', t('msg.error.copy.error', { ns: 'common' }))
+      setIsCopied(false)
+    }
   }
 
   return { isCopied, copyUrl }

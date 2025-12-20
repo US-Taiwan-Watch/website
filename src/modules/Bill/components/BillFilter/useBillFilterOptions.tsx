@@ -31,7 +31,18 @@ export default function useBillFilterOptions() {
   const { t } = useTranslationClient(['bill', 'common'])
   const { lang } = useParams<{ lang: Language }>()
 
-  const { categoriesBills } = useCategoriesBills(lang)
+  const {
+    categoriesBills,
+    loading: categoriesLoading,
+    error: categoriesError,
+  } = useCategoriesBills(lang)
+
+  if (categoriesError) {
+    console.error(
+      'Categories fetch error in useBillFilterOptions:',
+      categoriesError
+    )
+  }
 
   const categoryOptions = useMemo<BillFilterOption<string>[]>(
     () =>
@@ -178,10 +189,20 @@ export default function useBillFilterOptions() {
     [currentCongressNumber]
   )
 
-  const { data: sponsorsData } = useQuery<
-    BillFilterSponsorsQuery,
-    BillFilterSponsorsQueryVariables
-  >(QUERY_BILL_FILTER_SPONSORS)
+  const {
+    data: sponsorsData,
+    loading: sponsorsLoading,
+    error: sponsorsError,
+  } = useQuery<BillFilterSponsorsQuery, BillFilterSponsorsQueryVariables>(
+    QUERY_BILL_FILTER_SPONSORS
+  )
+
+  if (sponsorsError) {
+    console.error(
+      'Sponsors fetch error in useBillFilterOptions:',
+      sponsorsError
+    )
+  }
 
   const sponsorsOptions = useMemo<BillFilterOption<string>[]>(() => {
     if (!sponsorsData?.Peoples) return []
@@ -233,5 +254,7 @@ export default function useBillFilterOptions() {
     cosponsorsOptions,
     sorterOptions,
     tagOptions,
+    loading: categoriesLoading || sponsorsLoading,
+    error: categoriesError || sponsorsError,
   }
 }

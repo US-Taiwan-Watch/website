@@ -1,6 +1,8 @@
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Box, Stack, StackProps, Typography, useTheme } from '@mui/material'
 import Image from 'next/image'
+import { useState } from 'react'
 
 interface ContentImageProps extends StackProps {
   image: string
@@ -12,7 +14,47 @@ const ContentImage = function ContentImage({
   caption,
   ...props
 }: ContentImageProps) {
+  const { t } = useTranslationClient('common')
   const theme = useTheme<USTWTheme>()
+  const [imageError, setImageError] = useState(false)
+
+  if (imageError || !image) {
+    return (
+      <Stack spacing={2} {...props}>
+        <Box
+          sx={{
+            background: '#f0f0f0',
+            paddingBottom: '56.25%',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            position: 'relative',
+            width: '100%',
+          }}
+        >
+          <Typography
+            sx={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              color: '#666',
+            }}
+          >
+            {t('msg.error.image.unavailable')}
+          </Typography>
+        </Box>
+        {caption && (
+          <Typography
+            variant="bodyS"
+            sx={{ color: theme.color.article.postContentImageCaption }}
+          >
+            {caption}
+          </Typography>
+        )}
+      </Stack>
+    )
+  }
 
   return (
     <Stack spacing={2} {...props}>
@@ -22,8 +64,9 @@ const ContentImage = function ContentImage({
         <Image
           src={image}
           alt={caption ?? ''}
-          layout="fill"
-          objectFit="cover"
+          fill
+          style={{ objectFit: 'cover' }}
+          onError={() => setImageError(true)}
         />
       </Box>
       {caption && (

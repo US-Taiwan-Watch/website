@@ -9,6 +9,7 @@ import {
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import { useMemo } from 'react'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledContent = styled(Stack)(({ theme }) => ({
   '& h1': {
@@ -63,10 +64,14 @@ interface ArticlePostContentProps {
 const ArticlePostContent = function ArticlePostContent({
   content,
 }: ArticlePostContentProps) {
+  const { t } = useTranslationClient('article')
   const { lang } = useParams<{ lang: Language }>()
   const nodes = useMemo(
-    () => content.map((node) => serializeSlateNode(lang, node)),
-    [content, lang]
+    () =>
+      content.map((node) =>
+        serializeSlateNode(lang, node, t('msg.error.content.unavailable'))
+      ),
+    [content, lang, t]
   )
 
   return (

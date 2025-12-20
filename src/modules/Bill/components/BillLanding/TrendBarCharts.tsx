@@ -1,7 +1,7 @@
 'use client'
 
 import { USTWTheme } from '@/common/lib/mui/theme'
-import { useTheme, Slider, Box } from '@mui/material'
+import { useTheme, Slider, Box, Typography } from '@mui/material'
 import {
   axisClasses,
   BarPlot,
@@ -65,15 +65,14 @@ export default function TrendBarCharts({
     }
   }
 
-  const filteredData = useMemo(
-    () =>
-      data.filter(
-        (item) =>
-          item.congress >= debouncedCongressRange[0] &&
-          item.congress <= debouncedCongressRange[1]
-      ),
-    [data, debouncedCongressRange]
-  )
+  const filteredData = useMemo(() => {
+    if (!data || data.length === 0) return []
+    return data.filter(
+      (item) =>
+        item.congress >= debouncedCongressRange[0] &&
+        item.congress <= debouncedCongressRange[1]
+    )
+  }, [data, debouncedCongressRange])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -84,6 +83,26 @@ export default function TrendBarCharts({
       clearTimeout(timer)
     }
   }, [congressRange])
+
+  // Handle empty or invalid data
+  if (!data || data.length === 0 || filteredData.length === 0) {
+    return (
+      <Box
+        sx={{
+          textAlign: 'center',
+          py: 4,
+          height: 300,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          {t('landing.card.trend.noData', { ns: 'bill' })}
+        </Typography>
+      </Box>
+    )
+  }
 
   return (
     <>

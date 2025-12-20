@@ -6,11 +6,12 @@ import HighchartsReact from 'highcharts-react-official'
 import itemSeries from 'highcharts/modules/item-series'
 import { useMemo, useState } from 'react'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
-import { useTheme } from '@mui/material'
+import { Box, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import ChartLegend from '@/modules/Bill/components/ChartLegend'
 import { CongressUtils } from '@/common/business/Congress'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 if (typeof window !== 'undefined') {
   itemSeries(Highcharts)
@@ -31,6 +32,7 @@ type Props = {
 
 // example: https://codesandbox.io/p/sandbox/highcharts-react-demo-forked-rlflfn?file=%2Fdemo.jsx%3A23%2C1
 export default function ParliamentChart({ data }: Props) {
+  const { t } = useTranslationClient('bill')
   const { isMobile, isTablet } = useResponsive()
   const currentCongressNumber = useMemo(
     () => CongressUtils.getCurrentCongressNumber(),
@@ -40,6 +42,7 @@ export default function ParliamentChart({ data }: Props) {
   const theme = useTheme<USTWTheme>()
 
   const sortedData = useMemo(() => {
+    if (!data || data.length === 0) return []
     return data.sort((a, b) => b.count - a.count)
   }, [data])
 
@@ -133,6 +136,28 @@ export default function ParliamentChart({ data }: Props) {
     subtitle,
     theme.color.common.black,
   ])
+
+  // Handle empty or invalid data
+  if (!data || data.length === 0) {
+    return (
+      <Box
+        sx={{
+          textAlign: 'center',
+          py: 4,
+          height: isMobile ? 200 : isTablet ? 250 : 400,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          {t('landing.card.parliament.noData', {
+            ns: 'bill',
+          })}
+        </Typography>
+      </Box>
+    )
+  }
 
   return (
     <>

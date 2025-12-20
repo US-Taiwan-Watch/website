@@ -71,7 +71,8 @@ export default function useAccountSetting() {
         }
 
         toast('success', t('setting.success.msg', { ns: 'account' }))
-      } catch {
+      } catch (error) {
+        console.error('Failed to update account settings:', error)
         toast('error', t('setting.error.msg', { ns: 'account' }))
       }
     },

@@ -36,42 +36,48 @@ export default class ServerArticleApi {
     limit?: number
     articleType: ArticleType
   }) {
-    if (articleType === ArticleType.Ketagalan) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          KetagalanArticlesQuery,
+          KetagalanArticlesQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLES,
+          variables: {
+            limit,
+          },
+        })
+
+        return (
+          data?.KetagalanArticles?.docs
+            ?.filter((article) => !isNull(article))
+            .map((article) =>
+              ArticleUtils.parse(apiConfig.lang, article, articleType)
+            ) ?? []
+        )
+      }
+
       const { data } = await query<
-        KetagalanArticlesQuery,
-        KetagalanArticlesQueryVariables
+        UstwArticlesQuery,
+        UstwArticlesQueryVariables
       >({
-        query: QUERY_KETAGALAN_ARTICLES,
+        query: QUERY_USTW_ARTICLES,
         variables: {
           limit,
         },
       })
 
       return (
-        data?.KetagalanArticles?.docs
+        data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
           .map((article) =>
             ArticleUtils.parse(apiConfig.lang, article, articleType)
           ) ?? []
       )
+    } catch (error) {
+      console.error('Failed to fetch home featured articles:', error)
+      return []
     }
-
-    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      {
-        query: QUERY_USTW_ARTICLES,
-        variables: {
-          limit,
-        },
-      }
-    )
-
-    return (
-      data?.UstwArticles?.docs
-        ?.filter((article) => !isNull(article))
-        .map((article) =>
-          ArticleUtils.parse(apiConfig.lang, article, articleType)
-        ) ?? []
-    )
   }
 
   /**
@@ -85,43 +91,49 @@ export default class ServerArticleApi {
     limit?: number
     articleType: ArticleType
   }) {
-    if (articleType === ArticleType.Ketagalan) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          KetagalanArticlesQuery,
+          KetagalanArticlesQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLES,
+          variables: {
+            limit,
+            sort: '-releaseTime',
+          },
+        })
+
+        return (
+          data?.KetagalanArticles?.docs
+            ?.filter((article) => !isNull(article))
+            .map((article) =>
+              ArticleUtils.parse(apiConfig.lang, article, articleType)
+            ) ?? []
+        )
+      }
+
       const { data } = await query<
-        KetagalanArticlesQuery,
-        KetagalanArticlesQueryVariables
+        UstwArticlesQuery,
+        UstwArticlesQueryVariables
       >({
-        query: QUERY_KETAGALAN_ARTICLES,
+        query: QUERY_USTW_ARTICLES,
         variables: {
           limit,
-          sort: '-releaseTime',
         },
       })
 
       return (
-        data?.KetagalanArticles?.docs
+        data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
           .map((article) =>
             ArticleUtils.parse(apiConfig.lang, article, articleType)
           ) ?? []
       )
+    } catch (error) {
+      console.error('Failed to fetch home articles:', error)
+      return []
     }
-
-    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      {
-        query: QUERY_USTW_ARTICLES,
-        variables: {
-          limit,
-        },
-      }
-    )
-
-    return (
-      data?.UstwArticles?.docs
-        ?.filter((article) => !isNull(article))
-        .map((article) =>
-          ArticleUtils.parse(apiConfig.lang, article, articleType)
-        ) ?? []
-    )
   }
 
   /**
@@ -136,12 +148,37 @@ export default class ServerArticleApi {
     limit?: number
     articleType: ArticleType
   }) {
-    if (articleType === ArticleType.Ketagalan) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          KetagalanArticlesQuery,
+          KetagalanArticlesQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLES,
+          variables: {
+            limit,
+            where: {
+              isFeatured: {
+                equals: true,
+              },
+            },
+          },
+        })
+
+        return (
+          data?.KetagalanArticles?.docs
+            ?.filter((article) => !isNull(article))
+            .map((article) =>
+              ArticleUtils.parse(apiConfig.lang, article, articleType)
+            ) ?? []
+        )
+      }
+
       const { data } = await query<
-        KetagalanArticlesQuery,
-        KetagalanArticlesQueryVariables
+        UstwArticlesQuery,
+        UstwArticlesQueryVariables
       >({
-        query: QUERY_KETAGALAN_ARTICLES,
+        query: QUERY_USTW_ARTICLES,
         variables: {
           limit,
           where: {
@@ -153,35 +190,16 @@ export default class ServerArticleApi {
       })
 
       return (
-        data?.KetagalanArticles?.docs
+        data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
           .map((article) =>
             ArticleUtils.parse(apiConfig.lang, article, articleType)
           ) ?? []
       )
+    } catch (error) {
+      console.error('Failed to fetch landing articles:', error)
+      return []
     }
-
-    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      {
-        query: QUERY_USTW_ARTICLES,
-        variables: {
-          limit,
-          where: {
-            isFeatured: {
-              equals: true,
-            },
-          },
-        },
-      }
-    )
-
-    return (
-      data?.UstwArticles?.docs
-        ?.filter((article) => !isNull(article))
-        .map((article) =>
-          ArticleUtils.parse(apiConfig.lang, article, articleType)
-        ) ?? []
-    )
   }
 
   /**
@@ -202,12 +220,34 @@ export default class ServerArticleApi {
     where?: UstwArticlesQueryVariables['where']
     articleType: ArticleType
   }) {
-    if (articleType === ArticleType.Ketagalan) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          KetagalanArticlesQuery,
+          KetagalanArticlesQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLES,
+          variables: {
+            page,
+            limit,
+            where,
+          },
+        })
+
+        return (
+          data?.KetagalanArticles?.docs
+            ?.filter((article) => !isNull(article))
+            .map((article) =>
+              ArticleUtils.parse(apiConfig.lang, article, articleType)
+            ) ?? []
+        )
+      }
+
       const { data } = await query<
-        KetagalanArticlesQuery,
-        KetagalanArticlesQueryVariables
+        UstwArticlesQuery,
+        UstwArticlesQueryVariables
       >({
-        query: QUERY_KETAGALAN_ARTICLES,
+        query: QUERY_USTW_ARTICLES,
         variables: {
           page,
           limit,
@@ -216,32 +256,16 @@ export default class ServerArticleApi {
       })
 
       return (
-        data?.KetagalanArticles?.docs
+        data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
           .map((article) =>
             ArticleUtils.parse(apiConfig.lang, article, articleType)
           ) ?? []
       )
+    } catch (error) {
+      console.error('Failed to fetch articles:', error)
+      return []
     }
-
-    const { data } = await query<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      {
-        query: QUERY_USTW_ARTICLES,
-        variables: {
-          page,
-          limit,
-          where,
-        },
-      }
-    )
-
-    return (
-      data?.UstwArticles?.docs
-        ?.filter((article) => !isNull(article))
-        .map((article) =>
-          ArticleUtils.parse(apiConfig.lang, article, articleType)
-        ) ?? []
-    )
   }
 
   /**
@@ -256,32 +280,39 @@ export default class ServerArticleApi {
     id: string
     articleType: ArticleType
   }) {
-    if (articleType === ArticleType.Ketagalan) {
-      const { data } = await query<
-        KetagalanArticleQuery,
-        KetagalanArticleQueryVariables
-      >({
-        query: QUERY_KETAGALAN_ARTICLE,
-        variables: { id },
-      })
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          KetagalanArticleQuery,
+          KetagalanArticleQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLE,
+          variables: { id },
+        })
 
-      if (!data?.KetagalanArticle) return null
+        if (!data?.KetagalanArticle) return null
 
-      return ArticleUtils.parse(
-        apiConfig.lang,
-        data.KetagalanArticle,
-        articleType
+        return ArticleUtils.parse(
+          apiConfig.lang,
+          data.KetagalanArticle,
+          articleType
+        )
+      }
+
+      const { data } = await query<UstwArticleQuery, UstwArticleQueryVariables>(
+        {
+          query: QUERY_USTW_ARTICLE,
+          variables: { id },
+        }
       )
+
+      if (!data?.UstwArticle) return null
+
+      return ArticleUtils.parse(apiConfig.lang, data.UstwArticle, articleType)
+    } catch (error) {
+      console.error('Failed to fetch article:', error)
+      return null
     }
-
-    const { data } = await query<UstwArticleQuery, UstwArticleQueryVariables>({
-      query: QUERY_USTW_ARTICLE,
-      variables: { id },
-    })
-
-    if (!data?.UstwArticle) return null
-
-    return ArticleUtils.parse(apiConfig.lang, data.UstwArticle, articleType)
   }
 
   /**
@@ -296,12 +327,38 @@ export default class ServerArticleApi {
     id: string
     articleType: ArticleType
   }) {
-    if (articleType === ArticleType.Ketagalan) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data: relatedData } = await query<
+          KetagalanArticlesQuery,
+          KetagalanArticlesQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLES,
+          variables: {
+            limit: 3,
+            where: {
+              id: {
+                not_equals: id,
+              },
+            },
+            sort: '-releaseTime',
+          },
+        })
+
+        return (
+          relatedData?.KetagalanArticles?.docs
+            ?.filter((article) => !isNull(article))
+            .map((article) =>
+              ArticleUtils.parse(apiConfig.lang, article, articleType)
+            ) ?? []
+        )
+      }
+
       const { data: relatedData } = await query<
-        KetagalanArticlesQuery,
-        KetagalanArticlesQueryVariables
+        UstwArticlesQuery,
+        UstwArticlesQueryVariables
       >({
-        query: QUERY_KETAGALAN_ARTICLES,
+        query: QUERY_USTW_ARTICLES,
         variables: {
           limit: 3,
           where: {
@@ -314,36 +371,15 @@ export default class ServerArticleApi {
       })
 
       return (
-        relatedData?.KetagalanArticles?.docs
+        relatedData?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
           .map((article) =>
             ArticleUtils.parse(apiConfig.lang, article, articleType)
           ) ?? []
       )
+    } catch (error) {
+      console.error('Failed to fetch related articles:', error)
+      return []
     }
-
-    const { data: relatedData } = await query<
-      UstwArticlesQuery,
-      UstwArticlesQueryVariables
-    >({
-      query: QUERY_USTW_ARTICLES,
-      variables: {
-        limit: 3,
-        where: {
-          id: {
-            not_equals: id,
-          },
-        },
-        sort: '-releaseTime',
-      },
-    })
-
-    return (
-      relatedData?.UstwArticles?.docs
-        ?.filter((article) => !isNull(article))
-        .map((article) =>
-          ArticleUtils.parse(apiConfig.lang, article, articleType)
-        ) ?? []
-    )
   }
 }

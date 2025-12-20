@@ -12,16 +12,32 @@ import { config } from '@/config'
  */
 export function useEpisode(episodeId: string) {
   const [episode, setEpisode] = useState<Episode | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
 
   const fetchEpisode = useCallback(async () => {
     const podcastId = config.SOUNDON_PODCAST_ID
-    if (!podcastId) return
+    if (!podcastId) {
+      setIsLoading(false)
+      return
+    }
 
-    const episode = await getEpisode({
-      podcastId,
-      episodeId,
-    })
-    setEpisode(episode)
+    try {
+      setIsLoading(true)
+      setError(null)
+      const episode = await getEpisode({
+        podcastId,
+        episodeId,
+      })
+      setEpisode(episode)
+    } catch (err) {
+      const error =
+        err instanceof Error ? err : new Error('Failed to fetch episode')
+      setError(error)
+      console.error('Failed to fetch episode:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }, [episodeId])
 
   useEffect(() => {
@@ -30,5 +46,7 @@ export function useEpisode(episodeId: string) {
 
   return {
     episode,
+    isLoading,
+    error,
   }
 }

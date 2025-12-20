@@ -22,6 +22,7 @@ import {
   useContext,
   useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react'
 import {
@@ -127,6 +128,16 @@ export default function AccountProvider({
   const { user, isLoading: isAuth0Loading } = useUser()
   const [account, setAccount] = useState<Account | null>(null)
   const [isAccountLoading, setIsAccountLoading] = useState(true)
+  const isMountedRef = useRef(true)
+
+  // Track mounted state to prevent race conditions
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => {
+      isMountedRef.current = false
+    }
+  }, [])
+
   const subscribedBillsSet = useMemo(() => {
     if (!account) return new Set<string>()
     return new Set(account.subscribeBills.map((bill) => bill.id))
@@ -158,12 +169,16 @@ export default function AccountProvider({
     if (isAuth0Loading) return
     // After Auth0 is cheched, if user is not authenticated, set account loading to false and return
     if (!user) {
-      setIsAccountLoading(false)
+      if (isMountedRef.current) {
+        setIsAccountLoading(false)
+      }
       return
     }
 
     try {
-      setIsAccountLoading(true)
+      if (isMountedRef.current) {
+        setIsAccountLoading(true)
+      }
       apolloClient.defaultContext.token = await fetch('/api/auth/token')
         .then((res) => res.json())
         .then((data) => data.idToken)
@@ -172,10 +187,16 @@ export default function AccountProvider({
           token: apolloClient.defaultContext.token,
         },
       })
+    } catch (error) {
+      console.error('Failed to fetch token or user data:', error)
+      // Clear token on error to prevent stale token usage
+      apolloClient.defaultContext.token = undefined
     } finally {
-      setIsAccountLoading(false)
+      if (isMountedRef.current) {
+        setIsAccountLoading(false)
+      }
     }
-  }, [user, isAuth0Loading, apolloClient.defaultContext, getMe])
+  }, [user, isAuth0Loading, apolloClient, getMe])
 
   useEffect(() => {
     if (isAuth0Loading) return
@@ -190,7 +211,9 @@ export default function AccountProvider({
     if (!data || !user || !data.Me) return
 
     const account = AccountUtils.parseMeAndAuth0User(lang, data.Me, user)
-    setAccount(account)
+    if (isMountedRef.current) {
+      setAccount(account)
+    }
   }, [user, data, setAccount, lang])
 
   /**
@@ -200,9 +223,11 @@ export default function AccountProvider({
     if (isAuth0Loading) return
     // After Auth0 is cheched, if user is authenticated, return
     if (user) return
-    setAccount(null)
+    if (isMountedRef.current) {
+      setAccount(null)
+    }
     apolloClient.defaultContext.token = null
-  }, [isAuth0Loading, user, setAccount, apolloClient.defaultContext, data])
+  }, [isAuth0Loading, user, setAccount, apolloClient])
 
   const [isMutating, setIsMutating] = useState(false)
   const { t } = useTranslationClient(['bill', 'people', 'article', 'common'])
@@ -295,7 +320,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after subscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -327,7 +359,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after unsubscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -371,7 +410,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after subscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -402,7 +448,14 @@ export default function AccountProvider({
         setIsMutating(false)
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after unsubscribing:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -453,7 +506,14 @@ export default function AccountProvider({
         )
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after bookmarking:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -501,7 +561,14 @@ export default function AccountProvider({
         )
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after unbookmarking:',
+            fetchError
+          )
+        }
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
@@ -550,11 +617,22 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error('GraphQL errors in updatePassword:', response.errors)
           throw new Error('Failed to update password')
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating password:',
+            fetchError
+          )
+        }
+      } catch (error) {
+        console.error('Failed to update password:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
@@ -579,11 +657,22 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error('GraphQL errors in updateName:', response.errors)
           throw new Error('Failed to update name')
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating name:',
+            fetchError
+          )
+        }
+      } catch (error) {
+        console.error('Failed to update name:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
@@ -608,11 +697,22 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error('GraphQL errors in updateEmail:', response.errors)
           throw new Error('Failed to update email')
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating email:',
+            fetchError
+          )
+        }
+      } catch (error) {
+        console.error('Failed to update email:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
@@ -637,11 +737,25 @@ export default function AccountProvider({
         })
 
         if (response.errors) {
+          console.error(
+            'GraphQL errors in updateNotificationSetting:',
+            response.errors
+          )
           throw new Error('Failed to update notification setting')
         }
 
         // refetch me
-        await fetchMe()
+        try {
+          await fetchMe()
+        } catch (fetchError) {
+          console.error(
+            'Failed to refetch user data after updating notification setting:',
+            fetchError
+          )
+        }
+      } catch (error) {
+        console.error('Failed to update notification setting:', error)
+        throw error
       } finally {
         setIsMutating(false)
       }
