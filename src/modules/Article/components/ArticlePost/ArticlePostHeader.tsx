@@ -56,7 +56,11 @@ const ArticlePostHeader = function ArticlePostHeader({
 
   const [formattedDate, setFormattedDate] = useState('')
   useEffect(() => {
-    setFormattedDate(DateUtils.formatLocal(date, DATE_FORMAT))
+    if (date) {
+      setFormattedDate(DateUtils.formatLocal(date, DATE_FORMAT))
+    } else {
+      setFormattedDate('')
+    }
   }, [date])
 
   return (
