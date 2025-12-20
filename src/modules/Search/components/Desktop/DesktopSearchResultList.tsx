@@ -6,12 +6,12 @@ import useSearch from '@/modules/Search/hooks/useSearch'
 import NoResultPlaceholder from '@/modules/Search/components/NoResultPlaceholder'
 import ResultList from '@/modules/Search/components/ResultList'
 
+export const SEARCH_RESULT_LIST_CLASS = 'desktop-search-result-list'
+
 interface DesktopSearchResultProps {
-  className?: string
   suggestions: Array<SearchSuggestion>
   headerAnchorEl: HTMLElement | null
   inputAnchorEl: HTMLElement | null
-  clickAwayClassNameWhiteList?: string[]
   onClose?: () => void
   onLoadMore?: () => void
 }
@@ -33,22 +33,16 @@ const StyledResultContainer = styled(Box)(({ theme }) => ({
 
 const DesktopSearchResultList = ({
   suggestions,
-  className,
   headerAnchorEl,
   inputAnchorEl,
-  clickAwayClassNameWhiteList,
   onClose,
   onLoadMore,
 }: DesktopSearchResultProps) => {
   const { handleNavigateSuggestionObject } = useSearch()
 
   return (
-    <HeaderPopper
-      anchorEl={headerAnchorEl}
-      clickAwayClassNameWhiteList={clickAwayClassNameWhiteList}
-      onClose={onClose}
-    >
-      <StyledContainer className={className}>
+    <HeaderPopper anchorEl={headerAnchorEl}>
+      <StyledContainer className={SEARCH_RESULT_LIST_CLASS}>
         <StyledResultContainer
           width={inputAnchorEl?.getBoundingClientRect().width}
         >
