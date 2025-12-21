@@ -162,6 +162,16 @@ export const QUERY_USTW_ARTICLE_METADATA = gql`
   }
 `
 
+export const QUERY_USTW_ARTICLE_IDS = gql`
+  query UstwArticleIds {
+    UstwArticles {
+      docs {
+        id
+      }
+    }
+  }
+`
+
 // ----- Ketagalan -----
 
 export const CATEGORIES_KETAGALAN_FRAGMENT = gql`
@@ -326,6 +336,16 @@ export const QUERY_KETAGALAN_ARTICLE_METADATA = gql`
       title
       subtitle
       excerpt
+    }
+  }
+`
+
+export const QUERY_KETAGALAN_ARTICLE_IDS = gql`
+  query KetagalanArticleIds {
+    KetagalanArticles {
+      docs {
+        id
+      }
     }
   }
 `

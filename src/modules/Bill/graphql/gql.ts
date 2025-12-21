@@ -459,3 +459,13 @@ export const QUERY_BILL_FILTER = gql`
   ${TAG_FRAGMENT}
   ${BILL_SPONSOR_FRAGMENT}
 `
+
+export const QUERY_BILL_IDS = gql`
+  query BillIds {
+    Bills {
+      docs {
+        id
+      }
+    }
+  }
+`

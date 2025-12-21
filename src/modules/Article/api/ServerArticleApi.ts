@@ -7,6 +7,10 @@ import {
   KetagalanArticleQueryVariables,
   KetagalanArticlesQuery,
   KetagalanArticlesQueryVariables,
+  KetagalanArticleIdsQuery,
+  UstwArticleIdsQuery,
+  UstwArticleIdsQueryVariables,
+  KetagalanArticleIdsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { query } from '@/common/lib/graphql/ServerApolloClient'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
@@ -15,6 +19,8 @@ import {
   QUERY_USTW_ARTICLES,
   QUERY_KETAGALAN_ARTICLE,
   QUERY_KETAGALAN_ARTICLES,
+  QUERY_KETAGALAN_ARTICLE_IDS,
+  QUERY_USTW_ARTICLE_IDS,
 } from '@/modules/Article/graphql/gql'
 import apiConfig from '@/modules/Common/api/ApiConfig'
 import { isNull } from 'lodash-es'
@@ -25,6 +31,48 @@ import { isNull } from 'lodash-es'
  * @description Article 的 RSC 端 API 實作
  */
 export default class ServerArticleApi {
+  /**
+   * 取得文章 IDs
+   */
+  static async getArticleIds({ articleType }: { articleType: ArticleType }) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          KetagalanArticleIdsQuery,
+          KetagalanArticleIdsQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLE_IDS,
+        })
+
+        return (
+          data?.KetagalanArticles?.docs
+            ?.filter((article) => !isNull(article))
+            .map((article) =>
+              ArticleUtils.parse(apiConfig.lang, article, articleType)
+            ) ?? []
+        )
+      }
+
+      const { data } = await query<
+        UstwArticleIdsQuery,
+        UstwArticleIdsQueryVariables
+      >({
+        query: QUERY_USTW_ARTICLE_IDS,
+      })
+
+      return (
+        data?.UstwArticles?.docs
+          ?.filter((article) => !isNull(article))
+          .map((article) =>
+            ArticleUtils.parse(apiConfig.lang, article, articleType)
+          ) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch article:', error)
+      return null
+    }
+  }
+
   /**
    * 取得首頁精選文章
    * @returns 首頁精選文章列表

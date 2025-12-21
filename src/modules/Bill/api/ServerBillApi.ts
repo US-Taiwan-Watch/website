@@ -9,6 +9,8 @@ import {
   BillTopSponsorsQueryVariables,
   BillTopTagsQuery,
   BillTopTagsQueryVariables,
+  BillIdsQuery,
+  BillIdsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { isUndefined, isNull } from 'lodash-es'
 import { query } from '@/common/lib/graphql/ServerApolloClient'
@@ -18,6 +20,7 @@ import {
   QUERY_BILL_TOP_SPONSORS,
   QUERY_BILL_TOP_TAGS,
   QUERY_BILLS,
+  QUERY_BILL_IDS,
 } from '@/modules/Bill/graphql/gql'
 import apiConfig from '@/modules/Common/api/ApiConfig'
 import TagUtils from '@/modules/Common/business/Tag'
@@ -251,6 +254,28 @@ export default class ServerBillApi {
       )
     } catch (error) {
       console.error('Failed to fetch related bills:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得法案 IDs
+   * @returns 法案 IDs 列表
+   */
+  static async getBillIds() {
+    try {
+      const { data } = await query<BillIdsQuery, BillIdsQueryVariables>({
+        query: QUERY_BILL_IDS,
+      })
+
+      return (
+        data?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => bill!.id)
+          .filter((id) => !isNull(id) && !isUndefined(id)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch bill IDs:', error)
       return []
     }
   }
