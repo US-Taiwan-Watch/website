@@ -543,3 +543,14 @@ export const QUERY_CATEGORIES_PEOPLE = gql`
     }
   }
 `
+
+export const QUERY_PEOPLE_IDS = gql`
+  query PeopleIds {
+    Peoples {
+      docs {
+        id
+        updatedAt
+      }
+    }
+  }
+`

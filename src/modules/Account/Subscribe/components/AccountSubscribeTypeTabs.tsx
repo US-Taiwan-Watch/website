@@ -6,7 +6,6 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import UHStack from '@/common/components/atoms/UHStack'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
-import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { AccountSubscribeType } from '@/modules/Account/Subscribe/business/AccountSubscribe'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
 import { Box } from '@mui/material'
@@ -70,7 +69,6 @@ const TabsWrapper = ({ children }: { children: React.ReactNode }) => {
 }
 
 const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
-  const { account } = useAccount()
   const currentAccountSubscribeType =
     useAccountSubscribeStore.use.currentAccountSubscribeType()
   const setCurrentAccountSubscribeType =
@@ -109,7 +107,6 @@ const AccountSubscribeTypeTabs = memo(function AccountSubscribeTypeTabs() {
     ]
   }, [
     t,
-    account,
     subscribeBills,
     subscribePeoples,
     bookmarkUstwArticles,

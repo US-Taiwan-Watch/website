@@ -7,6 +7,14 @@ import {
   KetagalanArticleQueryVariables,
   KetagalanArticlesQuery,
   KetagalanArticlesQueryVariables,
+  KetagalanArticleIdsQuery,
+  UstwArticleIdsQuery,
+  UstwArticleIdsQueryVariables,
+  KetagalanArticleIdsQueryVariables,
+  CategoriesArticlesQuery,
+  CategoriesArticlesQueryVariables,
+  CategoriesKetagalansQuery,
+  CategoriesKetagalansQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { query } from '@/common/lib/graphql/ServerApolloClient'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
@@ -15,9 +23,13 @@ import {
   QUERY_USTW_ARTICLES,
   QUERY_KETAGALAN_ARTICLE,
   QUERY_KETAGALAN_ARTICLES,
+  QUERY_KETAGALAN_ARTICLE_IDS,
+  QUERY_USTW_ARTICLE_IDS,
+  QUERY_CATEGORIES_ARTICLES,
+  QUERY_CATEGORIES_KETAGALANS,
 } from '@/modules/Article/graphql/gql'
 import apiConfig from '@/modules/Common/api/ApiConfig'
-import { isNull } from 'lodash-es'
+import { isNull, isUndefined } from 'lodash-es'
 
 /**
  * Article API
@@ -25,6 +37,57 @@ import { isNull } from 'lodash-es'
  * @description Article 的 RSC 端 API 實作
  */
 export default class ServerArticleApi {
+  /**
+   * 取得文章 IDs 和更新時間
+   * @returns 文章 IDs 和 updatedAt 列表
+   */
+  static async getArticleIds({
+    articleType,
+  }: {
+    articleType: ArticleType
+  }): Promise<{ id: string; updatedAt: string }[]> {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          KetagalanArticleIdsQuery,
+          KetagalanArticleIdsQueryVariables
+        >({
+          query: QUERY_KETAGALAN_ARTICLE_IDS,
+        })
+
+        return (
+          (data?.KetagalanArticles?.docs
+            ?.filter((article) => !isNull(article))
+            .filter(
+              (article) => !isNull(article.id) && !isUndefined(article.id)
+            ) as { id: string; updatedAt: string }[]) ?? []
+        )
+      }
+
+      const { data } = await query<
+        UstwArticleIdsQuery,
+        UstwArticleIdsQueryVariables
+      >({
+        query: QUERY_USTW_ARTICLE_IDS,
+      })
+
+      return (
+        (data?.UstwArticles?.docs
+          ?.filter((article) => !isNull(article))
+          .map((article) => ({
+            id: article!.id,
+            updatedAt: article!.updatedAt,
+          }))
+          .filter(
+            (article) => !isNull(article.id) && !isUndefined(article.id)
+          ) as { id: string; updatedAt: string }[]) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch article:', error)
+      return []
+    }
+  }
+
   /**
    * 取得首頁精選文章
    * @returns 首頁精選文章列表
@@ -379,6 +442,48 @@ export default class ServerArticleApi {
       )
     } catch (error) {
       console.error('Failed to fetch related articles:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得文章分類 IDs
+   * @param articleType 文章類型
+   * @returns 分類 IDs 列表
+   */
+  static async getCategoryIds({ articleType }: { articleType: ArticleType }) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          CategoriesKetagalansQuery,
+          CategoriesKetagalansQueryVariables
+        >({
+          query: QUERY_CATEGORIES_KETAGALANS,
+        })
+
+        return (
+          data?.CategoriesKetagalans?.docs
+            ?.filter((category) => !isNull(category))
+            .map((category) => category!.id)
+            .filter((id) => !isNull(id) && !isUndefined(id)) ?? []
+        )
+      }
+
+      const { data } = await query<
+        CategoriesArticlesQuery,
+        CategoriesArticlesQueryVariables
+      >({
+        query: QUERY_CATEGORIES_ARTICLES,
+      })
+
+      return (
+        data?.CategoriesArticles?.docs
+          ?.filter((category) => !isNull(category))
+          .map((category) => category!.id)
+          .filter((id) => !isNull(id) && !isUndefined(id)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch category IDs:', error)
       return []
     }
   }
