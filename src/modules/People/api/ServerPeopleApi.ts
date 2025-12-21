@@ -64,21 +64,25 @@ export default class ServerPeopleApi {
    * 取得人物 IDs 和更新時間
    * @returns 人物 IDs 和 updatedAt 列表
    */
-  static async getPeopleIds() {
+  static async getPeopleIds(): Promise<{ id: string; updatedAt: string }[]> {
     try {
       const { data } = await query<PeopleIdsQuery, PeopleIdsQueryVariables>({
         query: QUERY_PEOPLE_IDS,
       })
 
       return (
-        data?.Peoples?.docs
+        (data?.Peoples?.docs
           ?.filter((people) => !isNull(people))
           .map((people) => ({
             id: people!.id,
             updatedAt: people!.updatedAt,
           }))
-          .filter((people) => !isNull(people.id) && !isUndefined(people.id)) ??
-        []
+          .filter(
+            (people) => !isNull(people.id) && !isUndefined(people.id)
+          ) as {
+          id: string
+          updatedAt: string
+        }[]) ?? []
       )
     } catch (error) {
       console.error('Failed to fetch people IDs:', error)
