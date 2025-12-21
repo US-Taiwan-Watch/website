@@ -16,6 +16,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     .map((article) => article.id)
     .filter((id) => !isNullish(id))
 
+  const categoryIds =
+    (await ServerArticleApi.getCategoryIds({
+      articleType: ArticleType.Ketagalan,
+    })) ?? []
+
   const PAGES = [
     RouteName.KetagalanMedia,
     RouteName.KetagalanAboutProjects,
@@ -27,6 +32,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...PAGES.flatMap((page) =>
       generatePageLinks(resolveRouteUrl({ name: page }))
     ),
+    ...categoryIds
+      .map((categoryId) =>
+        resolveRouteUrl({
+          name: RouteName.KetagalanMediaCategory,
+          params: {
+            categoryId,
+          },
+        })
+      )
+      .flatMap((page) => generatePageLinks(page)),
     ...articleIds
       .map((articleId) =>
         resolveRouteUrl({

@@ -10,6 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   return [
     ...generatePageLinks(resolveRouteUrl({ name: RouteName.Bill })),
+    ...generatePageLinks(resolveRouteUrl({ name: RouteName.BillList })),
     ...billIds
       .map((billId) =>
         resolveRouteUrl({

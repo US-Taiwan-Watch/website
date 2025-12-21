@@ -11,6 +11,10 @@ import {
   UstwArticleIdsQuery,
   UstwArticleIdsQueryVariables,
   KetagalanArticleIdsQueryVariables,
+  CategoriesArticlesQuery,
+  CategoriesArticlesQueryVariables,
+  CategoriesKetagalansQuery,
+  CategoriesKetagalansQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { query } from '@/common/lib/graphql/ServerApolloClient'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
@@ -21,9 +25,11 @@ import {
   QUERY_KETAGALAN_ARTICLES,
   QUERY_KETAGALAN_ARTICLE_IDS,
   QUERY_USTW_ARTICLE_IDS,
+  QUERY_CATEGORIES_ARTICLES,
+  QUERY_CATEGORIES_KETAGALANS,
 } from '@/modules/Article/graphql/gql'
 import apiConfig from '@/modules/Common/api/ApiConfig'
-import { isNull } from 'lodash-es'
+import { isNull, isUndefined } from 'lodash-es'
 
 /**
  * Article API
@@ -427,6 +433,48 @@ export default class ServerArticleApi {
       )
     } catch (error) {
       console.error('Failed to fetch related articles:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得文章分類 IDs
+   * @param articleType 文章類型
+   * @returns 分類 IDs 列表
+   */
+  static async getCategoryIds({ articleType }: { articleType: ArticleType }) {
+    try {
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await query<
+          CategoriesKetagalansQuery,
+          CategoriesKetagalansQueryVariables
+        >({
+          query: QUERY_CATEGORIES_KETAGALANS,
+        })
+
+        return (
+          data?.CategoriesKetagalans?.docs
+            ?.filter((category) => !isNull(category))
+            .map((category) => category!.id)
+            .filter((id) => !isNull(id) && !isUndefined(id)) ?? []
+        )
+      }
+
+      const { data } = await query<
+        CategoriesArticlesQuery,
+        CategoriesArticlesQueryVariables
+      >({
+        query: QUERY_CATEGORIES_ARTICLES,
+      })
+
+      return (
+        data?.CategoriesArticles?.docs
+          ?.filter((category) => !isNull(category))
+          .map((category) => category!.id)
+          .filter((id) => !isNull(id) && !isUndefined(id)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch category IDs:', error)
       return []
     }
   }

@@ -15,8 +15,24 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   )
     .map((article) => article.id)
     .filter((id) => !isNullish(id))
+
+  const categoryIds =
+    (await ServerArticleApi.getCategoryIds({
+      articleType: ArticleType.Article,
+    })) ?? []
+
   return [
     ...generatePageLinks(resolveRouteUrl({ name: RouteName.Article })),
+    ...categoryIds
+      .map((categoryId) =>
+        resolveRouteUrl({
+          name: RouteName.ArticleCategory,
+          params: {
+            categoryId,
+          },
+        })
+      )
+      .flatMap((page) => generatePageLinks(page)),
     ...articleIds
       .map((articleId) =>
         resolveRouteUrl({
