@@ -69,7 +69,7 @@ export default class ServerArticleApi {
       )
     } catch (error) {
       console.error('Failed to fetch article:', error)
-      return null
+      return []
     }
   }
 
