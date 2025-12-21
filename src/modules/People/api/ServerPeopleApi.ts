@@ -61,8 +61,8 @@ export default class ServerPeopleApi {
   }
 
   /**
-   * 取得人物 IDs
-   * @returns 人物 IDs 列表
+   * 取得人物 IDs 和更新時間
+   * @returns 人物 IDs 和 updatedAt 列表
    */
   static async getPeopleIds() {
     try {
@@ -73,8 +73,12 @@ export default class ServerPeopleApi {
       return (
         data?.Peoples?.docs
           ?.filter((people) => !isNull(people))
-          .map((people) => people!.id)
-          .filter((id) => !isNull(id) && !isUndefined(id)) ?? []
+          .map((people) => ({
+            id: people!.id,
+            updatedAt: people!.updatedAt,
+          }))
+          .filter((people) => !isNull(people.id) && !isUndefined(people.id)) ??
+        []
       )
     } catch (error) {
       console.error('Failed to fetch people IDs:', error)

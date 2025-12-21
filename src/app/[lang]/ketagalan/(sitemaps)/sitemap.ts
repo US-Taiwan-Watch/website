@@ -3,18 +3,14 @@ import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 import { ArticleType } from '@/modules/Article/business/Article'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { RouteName } from '@/common/lib/router/routes'
-import { isNullish } from '@apollo/client/cache/inmemory/helpers'
 import { generatePageLinks } from '@/common/utils/sitemap.utils'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { resolveRouteUrl } = getURouterServer()
-  const articleIds = (
-    await ServerArticleApi.getArticleIds({
+  const articles =
+    (await ServerArticleApi.getArticleIds({
       articleType: ArticleType.Ketagalan,
-    })
-  )
-    .map((article) => article.id)
-    .filter((id) => !isNullish(id))
+    })) ?? []
 
   const categoryIds =
     (await ServerArticleApi.getCategoryIds({
@@ -32,8 +28,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...PAGES.flatMap((page) =>
       generatePageLinks(resolveRouteUrl({ name: page }))
     ),
-    ...categoryIds
-      .map((categoryId) =>
+    ...categoryIds.flatMap((categoryId) =>
+      generatePageLinks(
         resolveRouteUrl({
           name: RouteName.KetagalanMediaCategory,
           params: {
@@ -41,16 +37,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           },
         })
       )
-      .flatMap((page) => generatePageLinks(page)),
-    ...articleIds
-      .map((articleId) =>
+    ),
+    ...articles.flatMap((article) =>
+      generatePageLinks(
         resolveRouteUrl({
           name: RouteName.KetagalanMediaDetail,
           params: {
-            articleId,
+            articleId: article.id,
           },
-        })
+        }),
+        article.updatedAt
       )
-      .flatMap((page) => generatePageLinks(page)),
+    ),
   ]
 }

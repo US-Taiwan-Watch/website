@@ -549,6 +549,7 @@ export const QUERY_PEOPLE_IDS = gql`
     Peoples {
       docs {
         id
+        updatedAt
       }
     }
   }

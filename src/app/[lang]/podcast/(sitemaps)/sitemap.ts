@@ -10,7 +10,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const podcastId = config.SOUNDON_PODCAST_ID
 
   const episodes = podcastId ? await getEpisodes({ podcastId }) : []
-  const episodeIds = episodes.map((episode) => episode.id)
 
   const PAGES = [
     RouteName.PodcastWatchHere,
@@ -22,15 +21,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...PAGES.flatMap((page) =>
       generatePageLinks(resolveRouteUrl({ name: page }))
     ),
-    ...episodeIds
-      .map((episodeId) =>
+    ...episodes.flatMap((episode) =>
+      generatePageLinks(
         resolveRouteUrl({
           name: RouteName.PodcastDetail,
           params: {
-            episodeId,
+            episodeId: episode.id!,
           },
-        })
+        }),
+        episode.updatedAt
       )
-      .flatMap((page) => generatePageLinks(page)),
+    ),
   ]
 }

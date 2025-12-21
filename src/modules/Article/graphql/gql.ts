@@ -167,6 +167,7 @@ export const QUERY_USTW_ARTICLE_IDS = gql`
     UstwArticles {
       docs {
         id
+        updatedAt
       }
     }
   }
@@ -345,6 +346,7 @@ export const QUERY_KETAGALAN_ARTICLE_IDS = gql`
     KetagalanArticles {
       docs {
         id
+        updatedAt
       }
     }
   }

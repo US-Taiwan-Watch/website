@@ -465,6 +465,7 @@ export const QUERY_BILL_IDS = gql`
     Bills {
       docs {
         id
+        updatedAt
       }
     }
   }

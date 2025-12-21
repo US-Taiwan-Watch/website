@@ -6,20 +6,21 @@ import { generatePageLinks } from '@/common/utils/sitemap.utils'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { resolveRouteUrl } = getURouterServer()
-  const billIds = (await ServerBillApi.getBillIds()) ?? []
+  const bills = (await ServerBillApi.getBillIds()) ?? []
 
   return [
     ...generatePageLinks(resolveRouteUrl({ name: RouteName.Bill })),
     ...generatePageLinks(resolveRouteUrl({ name: RouteName.BillList })),
-    ...billIds
-      .map((billId) =>
+    ...bills.flatMap((bill) =>
+      generatePageLinks(
         resolveRouteUrl({
           name: RouteName.BillDetail,
           params: {
-            billId,
+            billId: bill.id,
           },
-        })
+        }),
+        bill.updatedAt
       )
-      .flatMap((page) => generatePageLinks(page)),
+    ),
   ]
 }

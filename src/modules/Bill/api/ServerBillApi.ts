@@ -259,20 +259,26 @@ export default class ServerBillApi {
   }
 
   /**
-   * 取得法案 IDs
-   * @returns 法案 IDs 列表
+   * 取得法案 IDs 和更新時間
+   * @returns 法案 IDs 和 updatedAt 列表
    */
-  static async getBillIds() {
+  static async getBillIds(): Promise<{ id: string; updatedAt: string }[]> {
     try {
       const { data } = await query<BillIdsQuery, BillIdsQueryVariables>({
         query: QUERY_BILL_IDS,
       })
 
       return (
-        data?.Bills?.docs
+        (data?.Bills?.docs
           ?.filter((bill) => !isNull(bill))
-          .map((bill) => bill!.id)
-          .filter((id) => !isNull(id) && !isUndefined(id)) ?? []
+          .map((bill) => ({
+            id: bill!.id,
+            updatedAt: bill!.updatedAt,
+          }))
+          .filter((bill) => !isNull(bill.id) && !isUndefined(bill.id)) as {
+          id: string
+          updatedAt: string
+        }[]) ?? []
       )
     } catch (error) {
       console.error('Failed to fetch bill IDs:', error)

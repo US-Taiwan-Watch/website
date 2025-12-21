@@ -38,9 +38,14 @@ import { isNull, isUndefined } from 'lodash-es'
  */
 export default class ServerArticleApi {
   /**
-   * 取得文章 IDs
+   * 取得文章 IDs 和更新時間
+   * @returns 文章 IDs 和 updatedAt 列表
    */
-  static async getArticleIds({ articleType }: { articleType: ArticleType }) {
+  static async getArticleIds({
+    articleType,
+  }: {
+    articleType: ArticleType
+  }): Promise<{ id: string; updatedAt: string }[]> {
     try {
       if (articleType === ArticleType.Ketagalan) {
         const { data } = await query<
@@ -51,11 +56,11 @@ export default class ServerArticleApi {
         })
 
         return (
-          data?.KetagalanArticles?.docs
+          (data?.KetagalanArticles?.docs
             ?.filter((article) => !isNull(article))
-            .map((article) =>
-              ArticleUtils.parse(apiConfig.lang, article, articleType)
-            ) ?? []
+            .filter(
+              (article) => !isNull(article.id) && !isUndefined(article.id)
+            ) as { id: string; updatedAt: string }[]) ?? []
         )
       }
 
@@ -67,11 +72,15 @@ export default class ServerArticleApi {
       })
 
       return (
-        data?.UstwArticles?.docs
+        (data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
-          .map((article) =>
-            ArticleUtils.parse(apiConfig.lang, article, articleType)
-          ) ?? []
+          .map((article) => ({
+            id: article!.id,
+            updatedAt: article!.updatedAt,
+          }))
+          .filter(
+            (article) => !isNull(article.id) && !isUndefined(article.id)
+          ) as { id: string; updatedAt: string }[]) ?? []
       )
     } catch (error) {
       console.error('Failed to fetch article:', error)

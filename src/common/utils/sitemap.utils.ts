@@ -8,6 +8,7 @@ export const generateSitemapIndexLink = (url: string) =>
 /**
  * Generate a page link for sitemap
  * @param path - The path of the page, starts with `/`
+ * @param lastModified - Optional last modified date from database (updatedAt)
  * @returns The page link
  *
  * @example
@@ -39,7 +40,10 @@ export const generateSitemapIndexLink = (url: string) =>
  * //   },
  * // }
  */
-export const generatePageLinks = (path: string): MetadataRoute.Sitemap => {
+export const generatePageLinks = (
+  path: string,
+  lastModified?: string | Date
+): MetadataRoute.Sitemap => {
   const baseURL = config.WEB_BASE_URL
   const pathWithoutFirstSlash = path.startsWith('/') ? path.slice(1) : path
 
@@ -49,7 +53,7 @@ export const generatePageLinks = (path: string): MetadataRoute.Sitemap => {
         [lang, pathWithoutFirstSlash].filter(Boolean).join('/'),
         baseURL
       ).toString(),
-      lastModified: new Date(),
+      lastModified: lastModified ? new Date(lastModified) : new Date(),
       changeFrequency: 'monthly',
       priority: 0.7,
       alternates: {
