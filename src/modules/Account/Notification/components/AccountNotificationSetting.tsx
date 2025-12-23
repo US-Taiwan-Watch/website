@@ -17,26 +17,23 @@ import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 
 const AccountFormItem = ({
   label,
-  direction = 'column',
   children,
 }: {
   label: string
-  direction?: 'column' | 'row'
   children: React.ReactNode
 }) => {
   return (
     <Stack
-      direction={direction}
+      direction="row"
       gap={1}
       sx={{
-        alignItems: direction === 'row' ? 'center' : 'flex-start',
-        justifyContent: direction === 'row' ? 'space-between' : 'initial',
+        alignItems: 'center',
       }}
     >
+      {children}
       <Typography variant="body1" fontWeight={600}>
         {label}
       </Typography>
-      {children}
     </Stack>
   )
 }
@@ -88,7 +85,6 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
         label={t('notificationSetting.billRelease.label', {
           ns: 'account',
         })}
-        direction="row"
       >
         <Controller
           control={form.control}
@@ -109,7 +105,6 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
         label={t('notificationSetting.ustwArticleRelease.label', {
           ns: 'account',
         })}
-        direction="row"
       >
         <Controller
           control={form.control}
@@ -130,7 +125,6 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
         label={t('notificationSetting.ketagalanArticleRelease.label', {
           ns: 'account',
         })}
-        direction="row"
       >
         <Controller
           control={form.control}
@@ -151,7 +145,6 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
         label={t('notificationSetting.podcastRelease.label', {
           ns: 'account',
         })}
-        direction="row"
       >
         <Controller
           control={form.control}
@@ -172,7 +165,6 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
         label={t('notificationSetting.subscribedBillUpdate.label', {
           ns: 'account',
         })}
-        direction="row"
       >
         <Controller
           control={form.control}
@@ -193,7 +185,6 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
         label={t('notificationSetting.subscribedPeopleUpdate.label', {
           ns: 'account',
         })}
-        direction="row"
       >
         <Controller
           control={form.control}
@@ -215,7 +206,6 @@ const AccountNotificationSetting = memo(function AccountNotificationSetting() {
         label={t('notificationSetting.newsletter.label', {
           ns: 'account',
         })}
-        direction="row"
       >
         <Controller
           control={form.control}

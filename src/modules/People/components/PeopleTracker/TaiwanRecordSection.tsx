@@ -11,7 +11,7 @@ import Stack from '@mui/material/Stack'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { useQuery } from '@apollo/client'
 import { QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS } from '@/modules/TaiwanRecord/graphql/gql'
 import type {
@@ -19,6 +19,10 @@ import type {
   QueryPeoplePublishedTaiwanRecordsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { TaiwanRecordUtils } from '@/modules/TaiwanRecord/business/TaiwanRecord'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import { RouteName } from '@/common/lib/router/routes'
 
 interface TaiwanRecordSectionProps {
   people: People
@@ -48,6 +52,27 @@ export default function TaiwanRecordSection({
       .map((doc) => TaiwanRecordUtils.parse(doc))
   }, [data])
 
+  const { resolveRouteUrl } = useURouterClient()
+  const { login } = useUAuth()
+  const { isAccountLoading, account } = useAccount()
+  const handleSubmitTaiwanRecordClick = useCallback(() => {
+    if (isAccountLoading) return
+
+    if (!account) {
+      login({
+        returnTo: people.id
+          ? resolveRouteUrl({
+              name: RouteName.PeopleDetail,
+              params: { peopleId: people.id },
+            })
+          : resolveRouteUrl({ name: RouteName.Home }),
+      })
+      return
+    }
+
+    setIsCreateDialogOpen(true)
+  }, [isAccountLoading, account, login, resolveRouteUrl, people.id])
+
   return (
     <LandingSectionWrapper backgroundColor={theme.color.neutral[200]}>
       <Stack gap={theme.spacing(7.5)}>
@@ -60,7 +85,7 @@ export default function TaiwanRecordSection({
               rounded
               size="medium"
               startIcon={<AddIcon />}
-              onClick={() => setIsCreateDialogOpen(true)}
+              onClick={handleSubmitTaiwanRecordClick}
             >
               {t('page.section.taiwanRecord.submit.btn', { ns: 'people' })}
             </UButton>

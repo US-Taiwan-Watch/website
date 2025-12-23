@@ -35,10 +35,13 @@ export default function UAuthProvider({
   const login = useCallback(
     (options?: { returnTo?: string }) => {
       router.push(
-        resolveRouteUrl({
-          name: RouteName.AuthLogin,
-          query: { returnTo: options?.returnTo ?? null },
-        })
+        resolveRouteUrl(
+          {
+            name: RouteName.AuthLogin,
+            query: { returnTo: options?.returnTo ?? null },
+          },
+          { preserveLanguage: false }
+        )
       )
     },
     [router, resolveRouteUrl]
