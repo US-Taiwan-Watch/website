@@ -60,7 +60,10 @@ export default function resolveRouteUrlHelper(
   }
   return concatPathAndQuery(
     { url, query },
-    { returnAbsoluteUrl: options?.returnAbsoluteUrl }
+    {
+      returnAbsoluteUrl: options?.returnAbsoluteUrl,
+      language: options?.language,
+    }
   )
 }
 

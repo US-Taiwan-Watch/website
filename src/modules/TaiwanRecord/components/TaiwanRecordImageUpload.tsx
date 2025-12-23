@@ -182,6 +182,7 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload({
                   }}
                   style={{ display: 'none' }}
                   id="image-upload-input"
+                  disabled={!canAddMore}
                 />
                 <label htmlFor="image-upload-input" style={{ width: '100%' }}>
                   <Button

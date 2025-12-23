@@ -191,7 +191,10 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
                 render={({ field, fieldState: { error } }) => (
                   <Box>
                     <Typography variant="body2" fontWeight={600} mb={1}>
-                      {t('form.title.label', { ns: 'taiwan_record' })}
+                      {t('form.title.label', { ns: 'taiwan_record' })}{' '}
+                      <Box component="span" color="error.main">
+                        *
+                      </Box>
                     </Typography>
                     <TextField
                       {...field}
@@ -224,7 +227,10 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
                 render={({ field, fieldState: { error } }) => (
                   <Box>
                     <Typography variant="body2" fontWeight={600} mb={1}>
-                      {t('form.content.label', { ns: 'taiwan_record' })}
+                      {t('form.content.label', { ns: 'taiwan_record' })}{' '}
+                      <Box component="span" color="error.main">
+                        *
+                      </Box>
                     </Typography>
                     <TextField
                       {...field}
