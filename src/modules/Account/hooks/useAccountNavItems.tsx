@@ -7,17 +7,17 @@ import {
 } from '@/common/styles/assets/Icons'
 import { useMemo } from 'react'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import useAccountPathname from '@/modules/Account/hooks/useAccountPathname'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { Connection } from '@/modules/Account/business/Account'
+import { usePathname } from 'next/navigation'
 
 export default function useAccountNavItems() {
   const { account } = useAccount()
   const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('account')
-  const { pathnameWithoutLang } = useAccountPathname()
+  const pathname = usePathname()
 
   const navItems = useMemo(
     () => [
@@ -55,8 +55,8 @@ export default function useAccountNavItems() {
   )
 
   const currentNavItem = useMemo(() => {
-    return navItems.find((item) => item.href === pathnameWithoutLang)
-  }, [navItems, pathnameWithoutLang])
+    return navItems.find((item) => item.href === pathname)
+  }, [navItems, pathname])
 
   return { navItems, currentNavItem }
 }
