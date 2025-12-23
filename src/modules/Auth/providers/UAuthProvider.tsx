@@ -48,7 +48,12 @@ export default function UAuthProvider({
   )
 
   const logout = useCallback(() => {
-    router.push(resolveRouteUrl({ name: RouteName.AuthLogout }))
+    router.push(
+      resolveRouteUrl(
+        { name: RouteName.AuthLogout },
+        { preserveLanguage: false }
+      )
+    )
   }, [router, resolveRouteUrl])
 
   return (
