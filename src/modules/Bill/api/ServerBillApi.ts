@@ -256,7 +256,7 @@ export default class ServerBillApi {
       return BillUtils.parse(lang, data.Bill)
     } catch (error) {
       console.error('Failed to fetch bill:', error)
-      return null
+      throw error
     }
   }
 

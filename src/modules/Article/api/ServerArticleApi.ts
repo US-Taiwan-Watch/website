@@ -383,7 +383,7 @@ export default class ServerArticleApi {
       return ArticleUtils.parse(lang, data.UstwArticle, articleType)
     } catch (error) {
       console.error('Failed to fetch article:', error)
-      return null
+      throw error
     }
   }
 
