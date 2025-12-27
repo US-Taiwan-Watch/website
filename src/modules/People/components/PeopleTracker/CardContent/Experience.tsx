@@ -12,6 +12,8 @@ import UContentCard from '@/common/components/atoms/UContentCard'
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { DateUtils } from '@/modules/Common/business/Date'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 /**
  * 計算經歷的時間
@@ -234,6 +236,8 @@ interface ExperienceProps {
  */
 const Experience = function Experience({ experience }: ExperienceProps) {
   const { t } = useTranslationClient(['people'])
+  const { lang } = useParams<{ lang: Language }>()
+  DateUtils.setDayjsLocale(lang)
 
   return (
     <UContentCard

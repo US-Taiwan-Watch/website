@@ -1,12 +1,34 @@
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
+import 'dayjs/locale/zh-tw'
+import 'dayjs/locale/en'
+import { Language } from '@/common/lib/i18n/types'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
 export class DateUtils {
   static DcTimezone = 'America/New_York'
+
+  /**
+   * 獲取 dayjs 語系
+   */
+  static getDayjsLocale(lang: Language) {
+    switch (lang) {
+      case 'zh-TW':
+        return 'zh-tw'
+      default:
+        return 'en'
+    }
+  }
+
+  /**
+   * 設定 dayjs 語系
+   */
+  static setDayjsLocale(lang: Language) {
+    dayjs.locale(this.getDayjsLocale(lang))
+  }
 
   /**
    * 解析本地時間，如果解析失敗，則返回 null
