@@ -41,6 +41,8 @@ export default class ServerPeopleApi {
       },
     })
 
+    console.log(data?.Peoples?.docs?.map((d) => d?.i18n?.zh?.displayName))
+
     return (
       data?.Peoples?.docs
         ?.filter((people) => !isNull(people))
