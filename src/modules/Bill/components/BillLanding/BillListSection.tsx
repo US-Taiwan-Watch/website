@@ -10,8 +10,6 @@ import {
 } from '@/modules/Bill/components/BillCards'
 import { Stack } from '@mui/material'
 import { BillSorterEnum } from '@/modules/Bill/components/BillFilter/enums'
-import { CongressUtils } from '@/common/business/Congress'
-import { useMemo } from 'react'
 import { Bill } from '@/modules/Bill/business/Bill'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
@@ -31,10 +29,6 @@ const BillListSection = ({
   const { resolveRouteUrl } = useURouterClient()
   const { t } = useTranslationClient('bill')
   const { isMobile } = useResponsive()
-  const currentCongressNumber = useMemo(
-    () => CongressUtils.getCurrentCongressNumber(),
-    []
-  )
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -62,7 +56,6 @@ const BillListSection = ({
           link={resolveRouteUrl({
             name: RouteName.BillList,
             query: {
-              congress: currentCongressNumber,
               sorter: BillSorterEnum.LatestAction,
             },
           })}
