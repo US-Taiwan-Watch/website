@@ -175,22 +175,27 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
           )}
 
           {/** Sponsor */}
-          <>
-            <Divider
-              sx={{
-                mt: 3,
-                mb: 2,
-              }}
-            />
-            <UHStack px={1} gap={1.5} alignItems="center">
-              {bill.sponsor?.party && (
-                <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
-              )}
-              <Typography variant="subtitleS" fontWeight={700}>
-                {bill.sponsor?.name}
-              </Typography>
-            </UHStack>
-          </>
+          {bill.sponsor && (
+            <>
+              <Divider
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                }}
+              />
+              <UHStack px={1} gap={1.5} alignItems="center">
+                {bill.sponsor?.party && (
+                  <UPoliticalPartyIcon
+                    party={bill.sponsor.party}
+                    size="small"
+                  />
+                )}
+                <Typography variant="subtitleS" fontWeight={700}>
+                  {bill.sponsor?.name}
+                </Typography>
+              </UHStack>
+            </>
+          )}
 
           {/** Latest Action & Description */}
           {showLatestActionDescription && latestAction && (
