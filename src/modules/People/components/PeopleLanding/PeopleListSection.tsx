@@ -102,7 +102,7 @@ const PeopleListSection = () => {
       officialArea: params.get('officialArea'),
     })
   }, [params])
-  const { totalPages, setTotalPages, page, handlePageChange, resetPage } =
+  const { totalPages, setTotalPages, page, handlePageChange, resetPagination } =
     usePagination()
 
   const paginationVariables = useMemo<
@@ -158,7 +158,7 @@ const PeopleListSection = () => {
       filter: PeopleFilterOutput,
       categoriesPeopleMap: Record<PeopleCategoryEnum, PeopleCategory>
     ) => {
-      resetPage()
+      resetPagination()
 
       setFilterVariables(
         PeoplesFilterUtils.transformFilterToQueryVariables(
@@ -180,7 +180,7 @@ const PeopleListSection = () => {
         }
       )
     },
-    [router, resetPage, resolveRouteUrl]
+    [router, resetPagination, resolveRouteUrl]
   )
 
   useEffect(() => {
