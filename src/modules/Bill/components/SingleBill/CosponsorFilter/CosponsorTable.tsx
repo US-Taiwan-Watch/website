@@ -50,7 +50,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
   }, [])
 
   return (
-    <TableContainer sx={{ maxHeight: '90%' }}>
+    <TableContainer>
       <Table stickyHeader>
         <TableHead>
           <TableRow>

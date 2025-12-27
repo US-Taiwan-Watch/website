@@ -1,6 +1,6 @@
 'use client'
 
-import { Grid2 } from '@mui/material'
+import { Grid2, useTheme } from '@mui/material'
 import CosponsorFilter, {
   FilterCategory,
   FilterOption,
@@ -10,6 +10,7 @@ import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorFilter
 import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import CosponsorList from '@/modules/Bill/components/SingleBill/CosponsorFilter/CosponsorList'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
 type CosponsorFilterContentProps = {
   cosponsors: BillCosponsor[]
@@ -29,6 +30,7 @@ export default function CosponsorFilterContent({
   clearAll,
   filterCategories,
 }: CosponsorFilterContentProps) {
+  const theme = useTheme<USTWTheme>()
   const { isMobile } = useResponsive()
 
   if (isMobile) {
@@ -36,15 +38,16 @@ export default function CosponsorFilterContent({
   }
 
   return (
-    /* NOTE: 鎖一個固定高度，避免 filter 改變導致畫面跳動 */
-    <Grid2 container mt={2} spacing={2} height="500px">
-      <Grid2 size={3} pl={1} pt="3px">
-        <CosponsorFilter
-          selectedOptionList={selectedOptionList}
-          onSelectOption={handleSelectOption}
-          clearAll={clearAll}
-          categories={filterCategories}
-        />
+    <Grid2 container pt={2} spacing={2} maxHeight="50dvh">
+      <Grid2 size={3}>
+        <div style={{ position: 'sticky', top: theme.spacing(2) }}>
+          <CosponsorFilter
+            selectedOptionList={selectedOptionList}
+            onSelectOption={handleSelectOption}
+            clearAll={clearAll}
+            categories={filterCategories}
+          />
+        </div>
       </Grid2>
       <Grid2 size={9}>
         <CosponsorTable cosponsors={cosponsors} />
