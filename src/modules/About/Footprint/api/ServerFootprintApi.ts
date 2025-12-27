@@ -11,7 +11,7 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { FootprintUtils } from '@/modules/About/Footprint/business/Footprint'
 import { isNull } from 'lodash-es'
-import apiConfig from '@/modules/Common/api/ApiConfig'
+import { Language } from '@/common/lib/i18n/types'
 
 /**
  * Footprint API
@@ -19,7 +19,7 @@ import apiConfig from '@/modules/Common/api/ApiConfig'
  * @description Footprint 的 RSC 端 API 實作
  */
 export default class ServerFootprintApi {
-  static async getUstwFootprints() {
+  static async getUstwFootprints(lang: Language) {
     const { data } = await query<
       UstwFootprintsQuery,
       UstwFootprintsQueryVariables
@@ -30,12 +30,11 @@ export default class ServerFootprintApi {
     return (
       data?.UstwFootprints?.docs
         ?.filter((footprint) => !isNull(footprint))
-        .map((footprint) => FootprintUtils.parse(apiConfig.lang, footprint)) ??
-      []
+        .map((footprint) => FootprintUtils.parse(lang, footprint)) ?? []
     )
   }
 
-  static async getKetagalanFootprints() {
+  static async getKetagalanFootprints(lang: Language) {
     const { data } = await query<
       KetagalanFootprintsQuery,
       KetagalanFootprintsQueryVariables
@@ -46,9 +45,8 @@ export default class ServerFootprintApi {
     return (
       data?.KetagalanFootprints?.docs
         ?.filter((footprint) => !isNull(footprint))
-        .map((footprint) =>
-          FootprintUtils.parseKetagalan(apiConfig.lang, footprint)
-        ) ?? []
+        .map((footprint) => FootprintUtils.parseKetagalan(lang, footprint)) ??
+      []
     )
   }
 }

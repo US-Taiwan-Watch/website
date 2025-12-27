@@ -39,13 +39,16 @@ export const generateMetadata = async ({
   })
 }
 
-export default async function Article() {
-  const landingBannerArticles = await ServerArticleApi.getLandingArticles({
-    limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
-    articleType: ArticleType.Article,
-  })
+export default async function Article({ params }: ArticlePageProps) {
+  const landingBannerArticles = await ServerArticleApi.getLandingArticles(
+    params.lang,
+    {
+      limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
+      articleType: ArticleType.Article,
+    }
+  )
 
-  const articles = await ServerArticleApi.getArticles({
+  const articles = await ServerArticleApi.getArticles(params.lang, {
     limit: ARTICLE_POST_COUNT,
     articleType: ArticleType.Article,
   })

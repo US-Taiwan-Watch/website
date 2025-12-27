@@ -15,7 +15,7 @@ interface ArticlePostLayoutProps {
 export async function generateMetadata({
   params,
 }: ArticlePostLayoutProps): Promise<Metadata> {
-  const article = await ServerArticleApi.getArticle({
+  const article = await ServerArticleApi.getArticle(params.lang, {
     id: params.id,
     articleType: ArticleType.Article,
   })

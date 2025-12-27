@@ -22,10 +22,10 @@ import {
   QUERY_BILLS,
   QUERY_BILL_IDS,
 } from '@/modules/Bill/graphql/gql'
-import apiConfig from '@/modules/Common/api/ApiConfig'
 import TagUtils from '@/modules/Common/business/Tag'
 import { PeopleUtils } from '@/modules/People/business/People'
 import { BillUtils } from '@/modules/Bill/business/Bill'
+import { Language } from '@/common/lib/i18n/types'
 
 /**
  * Bill API
@@ -35,10 +35,14 @@ import { BillUtils } from '@/modules/Bill/business/Bill'
 export default class ServerBillApi {
   /**
    * 取得首頁精選法案
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 首頁精選法案列表
    */
-  static async getHomeFeaturedBills({ limit = 10 }: { limit?: number }) {
+  static async getHomeFeaturedBills(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
     try {
       const { data } = await query<BillsQuery, BillsQueryVariables>({
         query: QUERY_BILLS,
@@ -55,7 +59,7 @@ export default class ServerBillApi {
       return (
         data?.Bills?.docs
           ?.filter((bill) => !isNull(bill))
-          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
       )
     } catch (error) {
       console.error('Failed to fetch home featured bills:', error)
@@ -65,10 +69,14 @@ export default class ServerBillApi {
 
   /**
    * 取得熱門標籤
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 熱門標籤列表
    */
-  static async getPopularTags({ limit = 10 }: { limit?: number }) {
+  static async getPopularTags(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
     try {
       const { data } = await query<BillTopTagsQuery, BillTopTagsQueryVariables>(
         {
@@ -83,7 +91,7 @@ export default class ServerBillApi {
           (tag) => !isNull(tag) && !isNull(tag.tag) && !isUndefined(tag.tag)
         ).map((tag) => ({
           billCount: tag!.billCount ?? 0,
-          tag: TagUtils.parse(apiConfig.lang, tag!.tag!),
+          tag: TagUtils.parse(lang, tag!.tag!),
         })) ?? []
       )
     } catch (error) {
@@ -94,10 +102,14 @@ export default class ServerBillApi {
 
   /**
    * 取得提案法案最多的前 5 名議員
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 提案法案最多的前 5 名議員列表
    */
-  static async getTopSponsors({ limit = 10 }: { limit?: number }) {
+  static async getTopSponsors(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
     try {
       const { data: sponsorsData } = await query<
         BillTopSponsorsQuery,
@@ -114,7 +126,7 @@ export default class ServerBillApi {
               !isNull(sponsor?.people) && !isUndefined(sponsor?.people)
           )
           .map(({ people, billCount }) => ({
-            people: PeopleUtils.parse(apiConfig.lang, people!),
+            people: PeopleUtils.parse(lang, people!),
             billCount: billCount ?? 0,
           })) ?? []
       )
@@ -126,10 +138,14 @@ export default class ServerBillApi {
 
   /**
    * 取得共同提案最多的前 5 名議員
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 共同提案最多的前 5 名議員列表
    */
-  static async getTopCosponsors({ limit = 10 }: { limit?: number }) {
+  static async getTopCosponsors(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
     try {
       const { data: cosponsorsData } = await query<
         BillTopCosponsorsQuery,
@@ -146,7 +162,7 @@ export default class ServerBillApi {
               !isNull(cosponsor?.people) && !isUndefined(cosponsor?.people)
           )
           .map(({ people, billCount }) => ({
-            people: PeopleUtils.parse(apiConfig.lang, people!),
+            people: PeopleUtils.parse(lang, people!),
             billCount: billCount ?? 0,
           })) ?? []
       )
@@ -158,10 +174,14 @@ export default class ServerBillApi {
 
   /**
    * 取得最新提案的法案
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 最新提案的法案列表
    */
-  static async getLatestBills({ limit = 10 }: { limit?: number }) {
+  static async getLatestBills(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
     try {
       const { data: latestBillsData } = await query<
         BillsQuery,
@@ -177,7 +197,7 @@ export default class ServerBillApi {
       return (
         latestBillsData?.Bills?.docs
           ?.filter((bill) => !isNull(bill))
-          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
       )
     } catch (error) {
       console.error('Failed to fetch latest bills:', error)
@@ -187,10 +207,14 @@ export default class ServerBillApi {
 
   /**
    * 取得熱門提案的法案
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 熱門提案的法案列表
    */
-  static async getPopularBills({ limit = 10 }: { limit?: number }) {
+  static async getPopularBills(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
     try {
       const { data: popularBillsData } = await query<
         BillsQuery,
@@ -206,7 +230,7 @@ export default class ServerBillApi {
       return (
         popularBillsData?.Bills?.docs
           ?.filter((bill) => !isNull(bill))
-          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
       )
     } catch (error) {
       console.error('Failed to fetch popular bills:', error)
@@ -216,10 +240,11 @@ export default class ServerBillApi {
 
   /**
    * 取得提案法案
+   * @param lang 語言
    * @param id 提案法案ID
    * @returns 提案法案
    */
-  static async getBill({ id }: { id: string }) {
+  static async getBill(lang: Language, { id }: { id: string }) {
     try {
       const { data } = await query<BillQuery, BillQueryVariables>({
         query: QUERY_BILL,
@@ -228,7 +253,7 @@ export default class ServerBillApi {
 
       if (!data?.Bill) return null
 
-      return BillUtils.parse(apiConfig.lang, data.Bill)
+      return BillUtils.parse(lang, data.Bill)
     } catch (error) {
       console.error('Failed to fetch bill:', error)
       return null
@@ -237,10 +262,11 @@ export default class ServerBillApi {
 
   /**
    * 取得提案法案的相關法案
+   * @param lang 語言
    * @param id 提案法案ID
    * @returns 提案法案的相關法案列表
    */
-  static async getRelatedBills({ id }: { id: string }) {
+  static async getRelatedBills(lang: Language, { id }: { id: string }) {
     try {
       const { data } = await query<BillQuery, BillQueryVariables>({
         query: QUERY_BILL,
@@ -250,7 +276,7 @@ export default class ServerBillApi {
       return (
         data.Bill?.relatedBills
           ?.filter((bill) => !isNull(bill))
-          .map((bill) => BillUtils.parse(apiConfig.lang, bill)) ?? []
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
       )
     } catch (error) {
       console.error('Failed to fetch related bills:', error)

@@ -30,7 +30,7 @@ export default async function KetagalanAboutFootprintsPage({
 }: KetagalanAboutFootprintsPageProps) {
   const { lang } = params
 
-  const footprints = await ServerFootprintApi.getKetagalanFootprints()
+  const footprints = await ServerFootprintApi.getKetagalanFootprints(lang)
 
   return (
     <KetagalanAboutLayout

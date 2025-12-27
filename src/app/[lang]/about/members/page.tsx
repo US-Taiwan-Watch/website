@@ -31,7 +31,7 @@ export default async function AboutMembersPage({
 }: AboutMembersPageProps) {
   const { lang } = params
 
-  const members = await ServerMemberApi.getUstwMembers()
+  const members = await ServerMemberApi.getUstwMembers(lang)
   const memberGroups = MemberUtils.parseMemberGroup(members)
 
   return (

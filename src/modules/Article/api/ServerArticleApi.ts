@@ -28,8 +28,8 @@ import {
   QUERY_CATEGORIES_ARTICLES,
   QUERY_CATEGORIES_KETAGALANS,
 } from '@/modules/Article/graphql/gql'
-import apiConfig from '@/modules/Common/api/ApiConfig'
 import { isNull, isUndefined } from 'lodash-es'
+import { Language } from '@/common/lib/i18n/types'
 
 /**
  * Article API
@@ -39,6 +39,7 @@ import { isNull, isUndefined } from 'lodash-es'
 export default class ServerArticleApi {
   /**
    * 取得文章 IDs 和更新時間
+   * @param articleType 文章類型
    * @returns 文章 IDs 和 updatedAt 列表
    */
   static async getArticleIds({
@@ -90,15 +91,19 @@ export default class ServerArticleApi {
 
   /**
    * 取得首頁精選文章
+   * @param lang 語言
    * @returns 首頁精選文章列表
    */
-  static async getHomeFeaturedArticles({
-    limit = 3,
-    articleType,
-  }: {
-    limit?: number
-    articleType: ArticleType
-  }) {
+  static async getHomeFeaturedArticles(
+    lang: Language,
+    {
+      limit = 3,
+      articleType,
+    }: {
+      limit?: number
+      articleType: ArticleType
+    }
+  ) {
     try {
       if (articleType === ArticleType.Ketagalan) {
         const { data } = await query<
@@ -114,9 +119,8 @@ export default class ServerArticleApi {
         return (
           data?.KetagalanArticles?.docs
             ?.filter((article) => !isNull(article))
-            .map((article) =>
-              ArticleUtils.parse(apiConfig.lang, article, articleType)
-            ) ?? []
+            .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+          []
         )
       }
 
@@ -133,9 +137,8 @@ export default class ServerArticleApi {
       return (
         data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
-          .map((article) =>
-            ArticleUtils.parse(apiConfig.lang, article, articleType)
-          ) ?? []
+          .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+        []
       )
     } catch (error) {
       console.error('Failed to fetch home featured articles:', error)
@@ -145,15 +148,19 @@ export default class ServerArticleApi {
 
   /**
    * 取得首頁文章
+   * @param lang 語言
    * @returns 首頁文章列表
    */
-  static async getHomeArticles({
-    limit = 3,
-    articleType,
-  }: {
-    limit?: number
-    articleType: ArticleType
-  }) {
+  static async getHomeArticles(
+    lang: Language,
+    {
+      limit = 3,
+      articleType,
+    }: {
+      limit?: number
+      articleType: ArticleType
+    }
+  ) {
     try {
       if (articleType === ArticleType.Ketagalan) {
         const { data } = await query<
@@ -170,9 +177,8 @@ export default class ServerArticleApi {
         return (
           data?.KetagalanArticles?.docs
             ?.filter((article) => !isNull(article))
-            .map((article) =>
-              ArticleUtils.parse(apiConfig.lang, article, articleType)
-            ) ?? []
+            .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+          []
         )
       }
 
@@ -189,9 +195,8 @@ export default class ServerArticleApi {
       return (
         data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
-          .map((article) =>
-            ArticleUtils.parse(apiConfig.lang, article, articleType)
-          ) ?? []
+          .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+        []
       )
     } catch (error) {
       console.error('Failed to fetch home articles:', error)
@@ -201,16 +206,20 @@ export default class ServerArticleApi {
 
   /**
    * 取得文章首頁文章
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 首頁文章列表
    */
-  static async getLandingArticles({
-    limit = 4,
-    articleType,
-  }: {
-    limit?: number
-    articleType: ArticleType
-  }) {
+  static async getLandingArticles(
+    lang: Language,
+    {
+      limit = 4,
+      articleType,
+    }: {
+      limit?: number
+      articleType: ArticleType
+    }
+  ) {
     try {
       if (articleType === ArticleType.Ketagalan) {
         const { data } = await query<
@@ -231,9 +240,8 @@ export default class ServerArticleApi {
         return (
           data?.KetagalanArticles?.docs
             ?.filter((article) => !isNull(article))
-            .map((article) =>
-              ArticleUtils.parse(apiConfig.lang, article, articleType)
-            ) ?? []
+            .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+          []
         )
       }
 
@@ -255,9 +263,8 @@ export default class ServerArticleApi {
       return (
         data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
-          .map((article) =>
-            ArticleUtils.parse(apiConfig.lang, article, articleType)
-          ) ?? []
+          .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+        []
       )
     } catch (error) {
       console.error('Failed to fetch landing articles:', error)
@@ -267,22 +274,26 @@ export default class ServerArticleApi {
 
   /**
    * 取得文章列表
+   * @param lang 語言
    * @param limit 限制數量
    * @param page 頁碼
    * @param where 條件
    * @returns 文章列表
    */
-  static async getArticles({
-    limit = 9,
-    page = 1,
-    where,
-    articleType,
-  }: {
-    limit?: UstwArticlesQueryVariables['limit']
-    page?: UstwArticlesQueryVariables['page']
-    where?: UstwArticlesQueryVariables['where']
-    articleType: ArticleType
-  }) {
+  static async getArticles(
+    lang: Language,
+    {
+      limit = 9,
+      page = 1,
+      where,
+      articleType,
+    }: {
+      limit?: UstwArticlesQueryVariables['limit']
+      page?: UstwArticlesQueryVariables['page']
+      where?: UstwArticlesQueryVariables['where']
+      articleType: ArticleType
+    }
+  ) {
     try {
       if (articleType === ArticleType.Ketagalan) {
         const { data } = await query<
@@ -300,9 +311,8 @@ export default class ServerArticleApi {
         return (
           data?.KetagalanArticles?.docs
             ?.filter((article) => !isNull(article))
-            .map((article) =>
-              ArticleUtils.parse(apiConfig.lang, article, articleType)
-            ) ?? []
+            .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+          []
         )
       }
 
@@ -321,9 +331,8 @@ export default class ServerArticleApi {
       return (
         data?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
-          .map((article) =>
-            ArticleUtils.parse(apiConfig.lang, article, articleType)
-          ) ?? []
+          .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+        []
       )
     } catch (error) {
       console.error('Failed to fetch articles:', error)
@@ -333,16 +342,20 @@ export default class ServerArticleApi {
 
   /**
    * 取得文章
+   * @param lang 語言
    * @param id 文章ID
    * @returns 文章
    */
-  static async getArticle({
-    id,
-    articleType,
-  }: {
-    id: string
-    articleType: ArticleType
-  }) {
+  static async getArticle(
+    lang: Language,
+    {
+      id,
+      articleType,
+    }: {
+      id: string
+      articleType: ArticleType
+    }
+  ) {
     try {
       if (articleType === ArticleType.Ketagalan) {
         const { data } = await query<
@@ -355,11 +368,7 @@ export default class ServerArticleApi {
 
         if (!data?.KetagalanArticle) return null
 
-        return ArticleUtils.parse(
-          apiConfig.lang,
-          data.KetagalanArticle,
-          articleType
-        )
+        return ArticleUtils.parse(lang, data.KetagalanArticle, articleType)
       }
 
       const { data } = await query<UstwArticleQuery, UstwArticleQueryVariables>(
@@ -371,7 +380,7 @@ export default class ServerArticleApi {
 
       if (!data?.UstwArticle) return null
 
-      return ArticleUtils.parse(apiConfig.lang, data.UstwArticle, articleType)
+      return ArticleUtils.parse(lang, data.UstwArticle, articleType)
     } catch (error) {
       console.error('Failed to fetch article:', error)
       return null
@@ -380,16 +389,20 @@ export default class ServerArticleApi {
 
   /**
    * 取得相關文章
+   * @param lang 語言
    * @param id 文章ID
    * @returns 相關文章列表
    */
-  static async getRelatedArticles({
-    id,
-    articleType,
-  }: {
-    id: string
-    articleType: ArticleType
-  }) {
+  static async getRelatedArticles(
+    lang: Language,
+    {
+      id,
+      articleType,
+    }: {
+      id: string
+      articleType: ArticleType
+    }
+  ) {
     try {
       if (articleType === ArticleType.Ketagalan) {
         const { data: relatedData } = await query<
@@ -411,9 +424,8 @@ export default class ServerArticleApi {
         return (
           relatedData?.KetagalanArticles?.docs
             ?.filter((article) => !isNull(article))
-            .map((article) =>
-              ArticleUtils.parse(apiConfig.lang, article, articleType)
-            ) ?? []
+            .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+          []
         )
       }
 
@@ -436,9 +448,8 @@ export default class ServerArticleApi {
       return (
         relatedData?.UstwArticles?.docs
           ?.filter((article) => !isNull(article))
-          .map((article) =>
-            ArticleUtils.parse(apiConfig.lang, article, articleType)
-          ) ?? []
+          .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
+        []
       )
     } catch (error) {
       console.error('Failed to fetch related articles:', error)

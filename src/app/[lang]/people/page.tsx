@@ -38,7 +38,10 @@ export default async function People({ params }: PeoplePageProps) {
       }}
     >
       {/** Popular People Section */}
-      <PopularPeopleSection title={t('landing.section.popularPeople.title')} />
+      <PopularPeopleSection
+        lang={params.lang}
+        title={t('landing.section.popularPeople.title')}
+      />
       {/** People List Section */}
       <PeopleListSection />
     </Stack>

@@ -8,7 +8,6 @@ import Footer from '@/common/components/elements/Footer'
 import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
 import ToastProvider from '@/common/providers/ToastProvider'
 import Stack from '@mui/material/Stack'
-import apiConfig from '@/modules/Common/api/ApiConfig'
 import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
 import { ResponsiveProvider } from '@/common/lib/responsive/ResponsiveProvider'
 import I18nProvider from '@/common/lib/i18n/provider/I18nProvider'
@@ -45,9 +44,6 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
-  // 設定 API 語言
-  apiConfig.setLang(params.lang)
-
   const { isMobile, isTablet } = await getServerDevice()
 
   return (

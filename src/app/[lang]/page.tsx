@@ -35,20 +35,23 @@ export const generateMetadata = async ({
 export default async function Home({ params }: HomeProps) {
   const { t } = await getTranslationServer(params.lang, 'home')
 
-  const articles = await ServerArticleApi.getHomeArticles({
+  const articles = await ServerArticleApi.getHomeArticles(params.lang, {
     limit: 3,
     articleType: ArticleType.Article,
   })
 
-  const ketagalanArticles = await ServerArticleApi.getHomeArticles({
-    limit: 3,
-    articleType: ArticleType.Ketagalan,
-  })
+  const ketagalanArticles = await ServerArticleApi.getHomeArticles(
+    params.lang,
+    {
+      limit: 3,
+      articleType: ArticleType.Ketagalan,
+    }
+  )
 
   return (
     <Stack alignContent="center" justifyContent="center">
-      <IndexArticleCarousel />
-      <BillSection title={t('section.bills.title')} />
+      <IndexArticleCarousel lang={params.lang} />
+      <BillSection lang={params.lang} title={t('section.bills.title')} />
       <ArticleSection
         articleType={ArticleType.Article}
         defaultArticles={articles}

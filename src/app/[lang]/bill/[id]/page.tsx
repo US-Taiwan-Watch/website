@@ -21,7 +21,7 @@ export const generateMetadata = async ({
   params,
 }: BillPageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
-  const bill = await ServerBillApi.getBill({ id: params.id })
+  const bill = await ServerBillApi.getBill(params.lang, { id: params.id })
   const billTitle = bill?.title ?? ''
   const billDescription = bill?.summary
 
@@ -45,11 +45,13 @@ export const generateMetadata = async ({
 }
 
 export default async function Bill({ params }: BillPageProps) {
-  const bill = await ServerBillApi.getBill({ id: params.id })
+  const bill = await ServerBillApi.getBill(params.lang, { id: params.id })
 
   if (!bill) return notFound()
 
-  const relatedBills = await ServerBillApi.getRelatedBills({ id: params.id })
+  const relatedBills = await ServerBillApi.getRelatedBills(params.lang, {
+    id: params.id,
+  })
 
   return (
     <Stack

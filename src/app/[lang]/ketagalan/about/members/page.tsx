@@ -31,7 +31,7 @@ export default async function KetagalanAboutMembersPage({
 }: KetagalanAboutMembersPageProps) {
   const { lang } = params
 
-  const members = await ServerMemberApi.getKetagalanMembers()
+  const members = await ServerMemberApi.getKetagalanMembers(lang)
   const memberGroups = MemberUtils.parseMemberGroup(members)
 
   return (
