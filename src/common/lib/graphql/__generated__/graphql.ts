@@ -177,7 +177,7 @@ export enum BillUpdate_Sponsor_Party_MutationInput {
 export enum BillUpdate_StatusTracker_CurrentStep_MutationInput {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -194,7 +194,7 @@ export enum BillUpdate_StatusTracker_CurrentStep_MutationInput {
 export enum BillUpdate_StatusTracker_FutureSteps_MutationInput {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -211,7 +211,7 @@ export enum BillUpdate_StatusTracker_FutureSteps_MutationInput {
 export enum BillUpdate_StatusTracker_PassedSteps_MutationInput {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -463,7 +463,7 @@ export type Bill_StatusTracker = {
 export enum Bill_StatusTracker_CurrentStep {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -480,7 +480,7 @@ export enum Bill_StatusTracker_CurrentStep {
 export enum Bill_StatusTracker_CurrentStep_MutationInput {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -497,7 +497,7 @@ export enum Bill_StatusTracker_CurrentStep_MutationInput {
 export enum Bill_StatusTracker_FutureSteps {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -514,7 +514,7 @@ export enum Bill_StatusTracker_FutureSteps {
 export enum Bill_StatusTracker_FutureSteps_MutationInput {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -531,7 +531,7 @@ export enum Bill_StatusTracker_FutureSteps_MutationInput {
 export enum Bill_StatusTracker_PassedSteps {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -548,7 +548,7 @@ export enum Bill_StatusTracker_PassedSteps {
 export enum Bill_StatusTracker_PassedSteps_MutationInput {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -950,7 +950,7 @@ export type Bill_Sponsor__People_Operator = {
 export enum Bill_StatusTracker__CurrentStep_Input {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -975,7 +975,7 @@ export type Bill_StatusTracker__CurrentStep_Operator = {
 export enum Bill_StatusTracker__FutureSteps_Input {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',
@@ -1001,7 +1001,7 @@ export type Bill_StatusTracker__FutureSteps_Operator = {
 export enum Bill_StatusTracker__PassedSteps_Input {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',

@@ -1298,7 +1298,7 @@ enum Bill_StatusTracker_currentStep {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -1315,7 +1315,7 @@ enum Bill_StatusTracker_passedSteps {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -1332,7 +1332,7 @@ enum Bill_StatusTracker_futureSteps {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -6734,7 +6734,7 @@ enum Bill_statusTracker__currentStep_Input {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -6759,7 +6759,7 @@ enum Bill_statusTracker__passedSteps_Input {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -6785,7 +6785,7 @@ enum Bill_statusTracker__futureSteps_Input {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -45004,7 +45004,7 @@ enum Bill_StatusTracker_currentStep_MutationInput {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -45021,7 +45021,7 @@ enum Bill_StatusTracker_passedSteps_MutationInput {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -45038,7 +45038,7 @@ enum Bill_StatusTracker_futureSteps_MutationInput {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -45220,7 +45220,7 @@ enum BillUpdate_StatusTracker_currentStep_MutationInput {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -45237,7 +45237,7 @@ enum BillUpdate_StatusTracker_passedSteps_MutationInput {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse
@@ -45254,7 +45254,7 @@ enum BillUpdate_StatusTracker_futureSteps_MutationInput {
   passedHouse
   passedSenate
   toPresident
-  becomeLaw
+  becameLaw
   failedHouse
   failedSenate
   agreedToInHouse

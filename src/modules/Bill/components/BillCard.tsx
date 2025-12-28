@@ -191,7 +191,7 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
                   />
                 )}
                 <Typography variant="subtitleS" fontWeight={700}>
-                  {bill.sponsor?.name}
+                  {bill.sponsor?.people?.name}
                 </Typography>
               </UHStack>
             </>

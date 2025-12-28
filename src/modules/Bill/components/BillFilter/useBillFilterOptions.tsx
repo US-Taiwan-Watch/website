@@ -131,8 +131,8 @@ export default function useBillFilterOptions() {
         label: t('filter.status.toPresident.value', { ns: 'bill' }),
       },
       {
-        value: BillStatusEnum.BecomeLaw,
-        label: t('filter.status.becomeLaw.value', { ns: 'bill' }),
+        value: BillStatusEnum.BecameLaw,
+        label: t('filter.status.becameLaw.value', { ns: 'bill' }),
       },
       {
         value: BillStatusEnum.FailedHouse,

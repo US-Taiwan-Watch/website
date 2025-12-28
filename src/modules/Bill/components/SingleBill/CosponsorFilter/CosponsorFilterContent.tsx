@@ -7,7 +7,7 @@ import CosponsorFilter, {
 } from '@/modules/Bill/components/SingleBill/CosponsorFilter/CosponsorFilter'
 import { SelectedOption } from '@/modules/Bill/components/SingleBill/CosponsorFilter/useCosponsorFilter'
 import CosponsorTable from '@/modules/Bill/components/SingleBill/CosponsorFilter/CosponsorTable'
-import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
+import { BillCosponsor } from '@/modules/Bill/business/BillCosponsor'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import CosponsorList from '@/modules/Bill/components/SingleBill/CosponsorFilter/CosponsorList'
 import { USTWTheme } from '@/common/lib/mui/theme'

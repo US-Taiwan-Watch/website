@@ -18,7 +18,7 @@ export enum BillTypeEnum {
 export enum BillStatusEnum {
   AgreedToInHouse = 'agreedToInHouse',
   AgreedToInSenate = 'agreedToInSenate',
-  BecomeLaw = 'becomeLaw',
+  BecameLaw = 'becameLaw',
   FailedHouse = 'failedHouse',
   FailedSenate = 'failedSenate',
   FailedToPassOverVeto = 'failedToPassOverVeto',

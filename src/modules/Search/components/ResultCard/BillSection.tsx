@@ -69,7 +69,7 @@ const BillSection = ({ result }: BillSectionProps) => {
             />
           )}
           <Typography variant="subtitleS" fontWeight={700}>
-            {result.value.sponsor?.name}
+            {result.value.sponsor?.people?.name}
           </Typography>
         </UHStack>
         <UTagList

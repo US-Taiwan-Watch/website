@@ -1,6 +1,6 @@
 import UHStack from '@/common/components/atoms/UHStack'
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
-import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
+import { BillCosponsor } from '@/modules/Bill/business/BillCosponsor'
 import { Divider } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'

@@ -132,7 +132,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
             title={t('card.item.sponsor.title', { ns: 'bill' })}
           />
           <UHStack gap={2}>
-            {bill.sponsor?.image && (
+            {bill.sponsor?.people?.image && (
               <StyledImageContainer
                 sx={{
                   border: `2px solid`,
@@ -141,8 +141,8 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
                 }}
               >
                 <StyledImage
-                  src={bill.sponsor.image}
-                  alt={bill.sponsor.name ?? ''}
+                  src={bill.sponsor.people.image}
+                  alt={bill.sponsor.people.name ?? ''}
                   fill
                 />
                 {bill.sponsor.party && (
@@ -163,7 +163,9 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
               </StyledImageContainer>
             )}
             <Stack>
-              <Typography variant="articleH4">{bill.sponsor?.name}</Typography>
+              <Typography variant="articleH4">
+                {bill.sponsor?.people?.name}
+              </Typography>
               <Typography
                 variant="buttonXS"
                 fontWeight={600}
@@ -262,7 +264,7 @@ const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
           <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
         )}
         <Typography variant="subtitleS" fontWeight={700}>
-          {bill.sponsor?.name}
+          {bill.sponsor?.people?.name}
         </Typography>
       </UHStack>
       <Divider sx={{ my: 2, borderWidth: 1 }} />
