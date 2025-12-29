@@ -148,14 +148,22 @@ export class BillUtils {
   }
 
   /**
-   * 解析所有法案狀態
+   * 解析所有法案狀態時間軸資料
    * @param bill
    * @returns
    */
-  static getAllBillStatuses(bill: Bill): BillStatusEnum[] {
+  static getBillStatusTimelineData(
+    bill: Bill
+  ): Array<{ status: BillStatusEnum; isFuture: boolean }> {
     return [
-      ...(bill.statusTracker?.passedStatus ?? []),
-      ...(bill.statusTracker?.futureStatus ?? []),
+      ...(bill.statusTracker?.passedStatus ?? []).map((status) => ({
+        status,
+        isFuture: false,
+      })),
+      ...(bill.statusTracker?.futureStatus ?? []).map((status) => ({
+        status,
+        isFuture: true,
+      })),
     ]
   }
 
@@ -208,10 +216,18 @@ export class BillUtils {
   }
 
   /**
-   * Get the index of the bill status
+   * Get the current status of the bill
+   * @returns The current status of the bill
+   */
+  static getCurrentStatus(bill: Bill) {
+    return bill.statusTracker?.currentStatus
+  }
+
+  /**
+   * Get the current index of the bill status
    * @returns The index of the bill status
    */
-  static getStatusIndex(bill: Bill) {
+  static getCurrentStatusIndex(bill: Bill) {
     if (!bill.statusTracker?.passedStatus?.length) {
       return 0
     }

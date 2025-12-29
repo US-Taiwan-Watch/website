@@ -18,7 +18,7 @@ type Props = {
 }
 
 const CosponsorChart = ({ data }: Props) => {
-  const { t } = useTranslationClient('bill')
+  const { t } = useTranslationClient(['bill', 'common'])
   const { partyColor } = usePartyColor()
   const [hoveredParty, setHoveredParty] = useState<Party | null>(null)
 
@@ -53,6 +53,13 @@ const CosponsorChart = ({ data }: Props) => {
           fontSize: '42px',
         },
       },
+      tooltip: {
+        formatter: function () {
+          const partyKey = (this.point.name as string).toLowerCase()
+          const translatedParty = t(`party.${partyKey}`, { ns: 'common' })
+          return `<b>${translatedParty}</b>: ${this.y}`
+        },
+      },
       plotOptions: {
         pie: {
           dataLabels: {
@@ -78,7 +85,9 @@ const CosponsorChart = ({ data }: Props) => {
       series: [
         {
           type: 'pie',
-          name: 'Cosponsors',
+          name: t('page.card.cosponsors.title', {
+            ns: 'bill',
+          }),
           innerSize: '80%',
           keys: ['name', 'y', 'color', 'opacity'],
           data: data.map((item) => [
@@ -103,7 +112,7 @@ const CosponsorChart = ({ data }: Props) => {
         enabled: false,
       },
     }),
-    [amount, data, hoveredParty, partyColor, setHoveredParty]
+    [amount, data, hoveredParty, partyColor, setHoveredParty, t]
   )
 
   // Handle empty or invalid data
