@@ -1,26 +1,4 @@
-import { Language } from '@/common/lib/i18n/types'
-
 /**
- * API 設定
- *
- * @description RSC 端 API 設定
+ * @deprecated This file is deprecated and will be removed.
+ * Language should be passed directly to API methods instead of using a singleton.
  */
-export class ApiConfig {
-  /**
-   * Api 語言，
-   * @default en-US
-   */
-  lang: Language = 'en-US'
-
-  /**
-   * 設定 API 語言
-   * @param lang 語言
-   */
-  setLang(lang: Language) {
-    this.lang = lang
-  }
-}
-
-const apiConfig = new ApiConfig()
-
-export default apiConfig

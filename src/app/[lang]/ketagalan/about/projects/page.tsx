@@ -29,7 +29,7 @@ export default async function KetagalanAboutProjectsPage({
   params,
 }: KetagalanAboutProjectsPageProps) {
   const { lang } = params
-  const projects = await ServerProjectApi.getKetagalanProjects()
+  const projects = await ServerProjectApi.getKetagalanProjects(lang)
 
   return (
     <KetagalanAboutLayout

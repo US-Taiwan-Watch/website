@@ -22,6 +22,9 @@ import { PeopleUtils } from '@/modules/People/business/People'
 import useTags from '@/modules/Common/hooks/useTags'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
+/** Infinite pagination limit: 2^31 - 1 */
+const INFINITE_PAGINATION_LIMIT = 2147483647
+
 export type BillFilterOption<T> = {
   value: T
   label: string
@@ -128,8 +131,8 @@ export default function useBillFilterOptions() {
         label: t('filter.status.toPresident.value', { ns: 'bill' }),
       },
       {
-        value: BillStatusEnum.BecomeLaw,
-        label: t('filter.status.becomeLaw.value', { ns: 'bill' }),
+        value: BillStatusEnum.BecameLaw,
+        label: t('filter.status.becameLaw.value', { ns: 'bill' }),
       },
       {
         value: BillStatusEnum.FailedHouse,
@@ -194,7 +197,12 @@ export default function useBillFilterOptions() {
     loading: sponsorsLoading,
     error: sponsorsError,
   } = useQuery<BillFilterSponsorsQuery, BillFilterSponsorsQueryVariables>(
-    QUERY_BILL_FILTER_SPONSORS
+    QUERY_BILL_FILTER_SPONSORS,
+    {
+      variables: {
+        limit: INFINITE_PAGINATION_LIMIT,
+      },
+    }
   )
 
   if (sponsorsError) {

@@ -4,14 +4,21 @@ import { Box, Container } from '@mui/material'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 import ClientCarousel from '@/common/components/elements/IndexArticleCarousel/ClientCarousel'
 import { ArticleType } from '@/modules/Article/business/Article'
+import { Language } from '@/common/lib/i18n/types'
 
 /**
  * 首頁文章輪播車的限制數量
  */
 const INDEX_ARTICLE_CAROUSEL_LIMIT = 3
 
-export default async function IndexArticleCarousel() {
-  const articles = await ServerArticleApi.getHomeFeaturedArticles({
+type IndexArticleCarouselProps = {
+  lang: Language
+}
+
+export default async function IndexArticleCarousel({
+  lang,
+}: IndexArticleCarouselProps) {
+  const articles = await ServerArticleApi.getHomeFeaturedArticles(lang, {
     limit: INDEX_ARTICLE_CAROUSEL_LIMIT,
     articleType: ArticleType.Article,
   })

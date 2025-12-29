@@ -15,7 +15,7 @@ import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import UHStack from '@/common/components/atoms/UHStack'
 import CommonUtils from '@/modules/Common/Common.utils'
 import Link from 'next/link'
-import { BillCosponsor } from '@/modules/People/business/BillCosponsor'
+import { BillCosponsor } from '@/modules/Bill/business/BillCosponsor'
 import { PeopleUtils } from '@/modules/People/business/People'
 import { useCallback } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'
@@ -50,7 +50,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
   }, [])
 
   return (
-    <TableContainer sx={{ maxHeight: '90%' }}>
+    <TableContainer>
       <Table stickyHeader>
         <TableHead>
           <TableRow>

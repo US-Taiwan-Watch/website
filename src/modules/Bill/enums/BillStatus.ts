@@ -1,7 +1,7 @@
 export enum BillStatusEnum {
   AGREED_TO_IN_HOUSE = 'agreedToInHouse',
   AGREED_TO_IN_SENATE = 'agreedToInSenate',
-  BECOME_LAW = 'becomeLaw',
+  BECOME_LAW = 'becameLaw',
   FAILED_HOUSE = 'failedHouse',
   FAILED_SENATE = 'failedSenate',
   FAILED_TO_PASS_OVER_VETO = 'failedToPassOverVeto',

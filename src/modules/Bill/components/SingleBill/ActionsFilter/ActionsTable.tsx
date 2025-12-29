@@ -81,7 +81,7 @@ export default function ActionsTable({
   }, [])
 
   return (
-    <TableContainer sx={{ maxHeight: '90%' }}>
+    <TableContainer>
       <Table stickyHeader>
         <TableHead>
           <TableRow>

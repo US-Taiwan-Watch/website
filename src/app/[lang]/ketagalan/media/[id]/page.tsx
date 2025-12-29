@@ -18,7 +18,7 @@ export const generateMetadata = async ({
   params,
 }: ArticlePageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
-  const article = await ServerArticleApi.getArticle({
+  const article = await ServerArticleApi.getArticle(params.lang, {
     id: params.id,
     articleType: ArticleType.Ketagalan,
   })
@@ -45,17 +45,20 @@ export const generateMetadata = async ({
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const article = await ServerArticleApi.getArticle({
+  const article = await ServerArticleApi.getArticle(params.lang, {
     id: params.id,
     articleType: ArticleType.Ketagalan,
   })
 
   if (!article) notFound()
 
-  const relatedArticles = await ServerArticleApi.getRelatedArticles({
-    id: params.id,
-    articleType: ArticleType.Ketagalan,
-  })
+  const relatedArticles = await ServerArticleApi.getRelatedArticles(
+    params.lang,
+    {
+      id: params.id,
+      articleType: ArticleType.Ketagalan,
+    }
+  )
 
   return (
     <ArticlePost

@@ -30,7 +30,7 @@ export default async function AboutProjectsPage({
 }: AboutProjectsPageProps) {
   const { lang } = params
 
-  const projects = await ServerProjectApi.getUstwProjects()
+  const projects = await ServerProjectApi.getUstwProjects(lang)
 
   return (
     <UstwAboutLayout lang={lang} currentPathname={'/about/projects'}>

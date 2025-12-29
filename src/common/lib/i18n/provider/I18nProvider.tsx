@@ -3,6 +3,9 @@
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { setZodI18n } from '@/common/lib/zod'
 import React, { useEffect } from 'react'
+import { DateUtils } from '@/modules/Common/business/Date'
+import { Language } from '@/common/lib/i18n/types'
+import { useParams } from 'next/navigation'
 
 export default function I18nProvider({
   children,
@@ -17,6 +20,9 @@ export default function I18nProvider({
   useEffect(() => {
     setZodI18n({ t })
   }, [t, i18n.resolvedLanguage])
+
+  const { lang } = useParams<{ lang: Language }>()
+  DateUtils.setDayjsLocale(lang)
 
   return <>{children}</>
 }

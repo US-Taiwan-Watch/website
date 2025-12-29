@@ -45,14 +45,16 @@ export default function Sponsor({ bill }: Props) {
       }}
     >
       <UHStack pt={2} spacing={3}>
-        {bill.sponsor?.image && (
+        {bill.sponsor?.people?.image && (
           <Link
-            href={bill.sponsor ? PeopleUtils.getLink(bill.sponsor.id) : '#'}
+            href={
+              bill.sponsor ? PeopleUtils.getLink(bill.sponsor.people.id) : '#'
+            }
           >
             <StyledImageContainer>
               <StyledImage
-                src={bill.sponsor.image}
-                alt={bill.sponsor.name ?? ''}
+                src={bill.sponsor?.people?.image}
+                alt={bill.sponsor?.people?.name ?? ''}
                 fill
               />
             </StyledImageContainer>
@@ -62,11 +64,17 @@ export default function Sponsor({ bill }: Props) {
         <Stack justifyContent="space-between">
           <Stack spacing={1}>
             <Link
-              href={bill.sponsor ? PeopleUtils.getLink(bill.sponsor.id) : '#'}
+              href={
+                bill.sponsor ? PeopleUtils.getLink(bill.sponsor.people.id) : '#'
+              }
             >
-              <Typography variant="articleH3">{bill.sponsor?.name}</Typography>
+              <Typography variant="articleH3">
+                {bill.sponsor?.people?.name}
+              </Typography>
             </Link>
-            <Typography variant="body">{bill.sponsor?.position}</Typography>
+            <Typography variant="body">
+              {bill.sponsor?.people?.position}
+            </Typography>
           </Stack>
 
           <UHStack gap={1.5} alignItems="center">

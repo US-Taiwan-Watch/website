@@ -64,12 +64,13 @@ export default function BillTracker({ bill }: Props) {
           }}
         >
           <UTimeline
-            data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-              title: t(`status.${status}.label`, {
+            data={BillUtils.getBillStatusTimelineData(bill).map((data) => ({
+              title: t(`status.${data.status}.label`, {
                 ns: 'bill',
               }),
+              isFuture: data.isFuture,
             }))}
-            activeIndex={BillUtils.getStatusIndex(bill)}
+            activeIndex={BillUtils.getCurrentStatusIndex(bill)}
             itemMinHeight={50}
             variant="secondary"
             isHorizontal={isMobile}

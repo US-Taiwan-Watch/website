@@ -22,14 +22,7 @@ import { useLazyQuery } from '@apollo/client'
 import { Stack, Typography } from '@mui/material'
 import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
-import {
-  useCallback,
-  useMemo,
-  useEffect,
-  useState,
-  useRef,
-  useReducer,
-} from 'react'
+import { useCallback, useMemo, useEffect, useState, useRef } from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 
@@ -50,51 +43,6 @@ const BillCardsSkeleton = () => {
 /** 法案列表呈現數量 */
 const BILL_LIST_COUNT = 10
 
-// State management using reducer for clarity
-type BillListState = {
-  bills: Bill[]
-  totalPages: number
-}
-
-type BillListAction =
-  | {
-      type: 'SET_DATA'
-      payload: {
-        bills: Bill[]
-        totalPages: number
-        currentPage: number
-        shouldAppend: boolean
-      }
-    }
-  | { type: 'RESET' }
-  | { type: 'CLEAR_BILLS' }
-
-function billListReducer(
-  state: BillListState,
-  action: BillListAction
-): BillListState {
-  switch (action.type) {
-    case 'SET_DATA': {
-      const { bills, totalPages, currentPage, shouldAppend } = action.payload
-
-      return {
-        totalPages,
-        bills: shouldAppend
-          ? currentPage === 1
-            ? bills
-            : [...state.bills, ...bills]
-          : bills,
-      }
-    }
-    case 'RESET':
-      return { bills: [], totalPages: 0 }
-    case 'CLEAR_BILLS':
-      return { ...state, bills: [] }
-    default:
-      return state
-  }
-}
-
 export default function BillList() {
   const { isMobile } = useResponsive()
   const { t } = useTranslationClient('bill')
@@ -107,7 +55,7 @@ export default function BillList() {
    * 避免 `router.replace` 後，
    * `searchParams` 的值會變動，
    * 導致 `filterInitValues` 的值會變動，
-   * 進而導致 `Maxinum update depth exceeded` 的錯誤
+   * 進而導致 `Maximum update depth exceeded` 的錯誤
    */
   const existedFilterInitValues = useRef<BillFilterOutput | null>(null)
   const filterInitValues = useMemo<BillFilterOutput>(() => {
@@ -125,13 +73,10 @@ export default function BillList() {
   }, [params])
 
   // Use reducer for clearer state management
-  const [state, dispatch] = useReducer(billListReducer, {
-    bills: [],
-    totalPages: 0,
-  })
-  const { bills, totalPages } = state
+  const [bills, setBills] = useState<Bill[]>([])
 
-  const { page, handlePageChange } = usePagination()
+  const { totalPages, setTotalPages, page, handlePageChange, resetPagination } =
+    usePagination()
 
   const paginationVariables = useMemo<
     Pick<BillsFilterQueryVariables, 'limit' | 'page'>
@@ -145,14 +90,10 @@ export default function BillList() {
     Omit<BillsFilterQueryVariables, 'limit' | 'page'>
   >({})
 
-  const [getBills, { data, loading, error }] = useLazyQuery<
+  const [getBills, { data, loading }] = useLazyQuery<
     BillsFilterQuery,
     BillsFilterQueryVariables
   >(QUERY_BILL_FILTER)
-
-  if (error) {
-    console.error('Failed to fetch bills:', error)
-  }
 
   // Handle data updates with reducer
   const shouldAppendData = useMemo(() => isMobile, [isMobile])
@@ -169,23 +110,23 @@ export default function BillList() {
         ? data.BillsFilter.totalPages
         : totalPages
 
-      dispatch({
-        type: 'SET_DATA',
-        payload: {
-          bills: newBills,
-          totalPages: currentTotalPages,
-          currentPage: data.BillsFilter.page ?? page,
-          shouldAppend: shouldAppendData,
-        },
+      setBills((prevBills) => {
+        if (shouldAppendData) {
+          return [...prevBills, ...newBills]
+        } else {
+          return newBills
+        }
       })
+      setTotalPages(currentTotalPages)
     } catch (error) {
       console.error('Failed to parse bills in BillList:', error)
-      // Keep previous bills on error by not dispatching
     }
-  }, [data, lang, shouldAppendData, totalPages, page])
+  }, [data, lang, shouldAppendData, totalPages, setTotalPages])
 
   const onFilterSubmit = useCallback(
     (filter: BillFilterOutput) => {
+      resetPagination()
+
       setFilterVariables(
         BillsFilterUtils.transformFilterToQueryVariables(filter)
       )
@@ -203,7 +144,7 @@ export default function BillList() {
         }
       )
     },
-    [router, resolveRouteUrl]
+    [router, resolveRouteUrl, resetPagination]
   )
 
   useEffect(() => {
@@ -251,7 +192,7 @@ export default function BillList() {
         )}
 
         <Stack width="100%" gap={2}>
-          {loading && !bills.length ? (
+          {loading ? (
             <BillCardsSkeleton />
           ) : (
             bills.map((bill, index) => (
@@ -274,19 +215,15 @@ export default function BillList() {
         )}
 
         {/** Pagination (Desktop) */}
-        {!shouldAppendData &&
-          !loading &&
-          totalPages > 1 &&
-          bills.length > 0 && (
-            <UPagination
-              count={totalPages}
-              page={page}
-              onChange={(_, page) => {
-                dispatch({ type: 'CLEAR_BILLS' })
-                handlePageChange(page)
-              }}
-            />
-          )}
+        {!shouldAppendData && totalPages > 1 && (
+          <UPagination
+            count={totalPages}
+            page={page}
+            onChange={(_, page) => {
+              handlePageChange(page)
+            }}
+          />
+        )}
       </Stack>
     </Stack>
   )

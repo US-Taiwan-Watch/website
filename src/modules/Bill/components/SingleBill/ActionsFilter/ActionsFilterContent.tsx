@@ -1,6 +1,6 @@
 'use client'
 
-import { Grid2 } from '@mui/material'
+import { Grid2, useTheme } from '@mui/material'
 import ActionsTable from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsTable'
 import { BillAction } from '@/modules/Bill/business/Bill'
 import ActionsFilter, {
@@ -8,6 +8,7 @@ import ActionsFilter, {
 } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import ActionsList from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsList'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
 type ActionsFilterContentProps = {
   actions: BillAction[]
@@ -20,6 +21,7 @@ export default function ActionsFilterContent({
   selectedActionsType,
   onSelectActionsType,
 }: ActionsFilterContentProps) {
+  const theme = useTheme<USTWTheme>()
   const { isMobile } = useResponsive()
 
   if (isMobile) {
@@ -27,12 +29,14 @@ export default function ActionsFilterContent({
   }
 
   return (
-    <Grid2 container mt={2} spacing={2} height="500px">
-      <Grid2 size={2} pl={1} pt="3px">
-        <ActionsFilter
-          selectedActionsType={selectedActionsType}
-          onSelectActionsType={onSelectActionsType}
-        />
+    <Grid2 container pt={2} spacing={2} maxHeight="50dvh">
+      <Grid2 size={2}>
+        <div style={{ position: 'sticky', top: theme.spacing(2) }}>
+          <ActionsFilter
+            selectedActionsType={selectedActionsType}
+            onSelectActionsType={onSelectActionsType}
+          />
+        </div>
       </Grid2>
       <Grid2 size={10}>
         <ActionsTable actions={actions} actionsType={selectedActionsType} />

@@ -8,7 +8,6 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 
 import { query } from '@/common/lib/graphql/ServerApolloClient'
-import apiConfig from '@/modules/Common/api/ApiConfig'
 import { PeopleUtils } from '@/modules/People/business/People'
 import {
   QUERY_PEOPLE,
@@ -16,6 +15,7 @@ import {
   QUERY_PEOPLE_IDS,
 } from '@/modules/People/graphql/gql'
 import { isNull, isUndefined } from 'lodash-es'
+import { Language } from '@/common/lib/i18n/types'
 
 /**
  * People API
@@ -25,10 +25,14 @@ import { isNull, isUndefined } from 'lodash-es'
 export default class ServerPeopleApi {
   /**
    * 取得熱門人物
+   * @param lang 語言
    * @param limit 限制數量
    * @returns 熱門人物列表
    */
-  static async getPopularPeople({ limit = 10 }: { limit?: number }) {
+  static async getPopularPeople(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
     const { data } = await query<PeoplesQuery, PeoplesQueryVariables>({
       query: QUERY_PEOPLES,
       variables: {
@@ -40,16 +44,17 @@ export default class ServerPeopleApi {
     return (
       data?.Peoples?.docs
         ?.filter((people) => !isNull(people))
-        .map((people) => PeopleUtils.parse(apiConfig.lang, people)) ?? []
+        .map((people) => PeopleUtils.parse(lang, people)) ?? []
     )
   }
 
   /**
    * 取得人物
+   * @param lang 語言
    * @param id 人物ID
    * @returns 人物
    */
-  static async getPeople({ id }: { id: string }) {
+  static async getPeople(lang: Language, { id }: { id: string }) {
     const { data } = await query<PeopleQuery, PeopleQueryVariables>({
       query: QUERY_PEOPLE,
       variables: { id },
@@ -57,7 +62,7 @@ export default class ServerPeopleApi {
 
     if (!data?.People) return null
 
-    return PeopleUtils.parse(apiConfig.lang, data.People)
+    return PeopleUtils.parse(lang, data.People)
   }
 
   /**

@@ -36,12 +36,14 @@ type UTimelineItemProps = {
   isLast: boolean
   isActiveDot: boolean
   isActiveConnector: boolean
+  isFuture: boolean
   minHeight?: number
 }>
 
 export type UTimelineData = Array<{
   title: string
   subtitle?: string
+  isFuture?: boolean
 }>
 
 type UTimelineProps = {
@@ -116,12 +118,13 @@ function HorizontalTimeline({
         pr: data.length > 1 ? '12px' : '0px',
       }}
     >
-      {data.map((_, index) => {
+      {data.map((item, index) => {
         const isActiveDot = index === activeIndex
+        const isFuture = item.isFuture ?? false
 
         return (
           <Tooltip key={index} title={data[index].title} arrow>
-            <Step>
+            <Step disabled={isFuture}>
               <StepLabel
                 StepIconComponent={() => (
                   <Box

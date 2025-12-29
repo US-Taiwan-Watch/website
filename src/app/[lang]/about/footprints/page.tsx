@@ -30,7 +30,7 @@ export default async function AboutFootprintsPage({
 }: AboutFootprintsPageProps) {
   const { lang } = params
 
-  const footprints = await ServerFootprintApi.getUstwFootprints()
+  const footprints = await ServerFootprintApi.getUstwFootprints(lang)
 
   return (
     <UstwAboutLayout lang={lang} currentPathname={'/about/footprints'}>

@@ -10,8 +10,8 @@ import {
   KetagalanProjectsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { isNull } from 'lodash-es'
-import apiConfig from '@/modules/Common/api/ApiConfig'
 import { ProjectUtils } from '@/modules/About/Project/business/Project'
+import { Language } from '@/common/lib/i18n/types'
 
 /**
  * Project API
@@ -19,7 +19,7 @@ import { ProjectUtils } from '@/modules/About/Project/business/Project'
  * @description Project 的 RSC 端 API 實作
  */
 export default class ServerProjectApi {
-  static async getUstwProjects() {
+  static async getUstwProjects(lang: Language) {
     const { data } = await query<UstwProjectsQuery, UstwProjectsQueryVariables>(
       {
         query: QUERY_USTW_PROJECTS,
@@ -29,11 +29,11 @@ export default class ServerProjectApi {
     return (
       data?.UstwProjects?.docs
         ?.filter((project) => !isNull(project))
-        .map((project) => ProjectUtils.parse(apiConfig.lang, project)) ?? []
+        .map((project) => ProjectUtils.parse(lang, project)) ?? []
     )
   }
 
-  static async getKetagalanProjects() {
+  static async getKetagalanProjects(lang: Language) {
     const { data } = await query<
       KetagalanProjectsQuery,
       KetagalanProjectsQueryVariables
@@ -44,9 +44,7 @@ export default class ServerProjectApi {
     return (
       data?.KetagalanProjects?.docs
         ?.filter((project) => !isNull(project))
-        .map((project) =>
-          ProjectUtils.parseKetagalan(apiConfig.lang, project)
-        ) ?? []
+        .map((project) => ProjectUtils.parseKetagalan(lang, project)) ?? []
     )
   }
 }

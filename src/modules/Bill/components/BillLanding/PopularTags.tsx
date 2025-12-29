@@ -18,7 +18,7 @@ type PopularTagsProps = {
 export default async function PopularTags({ lang }: PopularTagsProps) {
   const { t } = await getTranslationServer(lang, 'bill')
   const { resolveRouteUrl } = getURouterServer()
-  const topTags = await ServerBillApi.getPopularTags({
+  const topTags = await ServerBillApi.getPopularTags(lang, {
     limit: POPULAR_TAGS_COUNT,
   })
 

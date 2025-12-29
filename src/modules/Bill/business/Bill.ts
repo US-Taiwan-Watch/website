@@ -9,11 +9,14 @@ import TagUtils, { tagSchema } from '@/modules/Common/business/Tag'
 import { BillTypeEnum } from '@/modules/Bill/components/BillFilter/enums'
 import { z } from 'zod'
 import { ChamberEnum } from '@/common/enums/Chamber'
-import { peopleSchema, PeopleUtils } from '@/modules/People/business/People'
+import {
+  billSponsorSchema,
+  BillSponsorUtils,
+} from '@/modules/Bill/business/BillSponsor'
 import {
   billCosponsorSchema,
   BillCosponsorUtils,
-} from '@/modules/People/business/BillCosponsor'
+} from '@/modules/Bill/business/BillCosponsor'
 import { DateUtils } from '@/modules/Common/business/Date'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { RouteName } from '@/common/lib/router/routes'
@@ -40,7 +43,7 @@ export const billSchema = z.object({
   id: z.string().optional(),
   type: z.nativeEnum(BillTypeEnum).optional(),
   title: z.string().optional(),
-  sponsor: peopleSchema.optional(),
+  sponsor: billSponsorSchema.optional(),
   cosponsors: z.array(billCosponsorSchema),
   categories: z.array(z.string()),
   tags: z.array(tagSchema),
@@ -72,8 +75,8 @@ export class BillUtils {
         ? z.nativeEnum(BillTypeEnum).safeParse(dto.type).data
         : undefined,
       title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? undefined,
-      sponsor: dto.sponsor?.people
-        ? PeopleUtils.parse(lang, dto.sponsor.people)
+      sponsor: dto.sponsor
+        ? BillSponsorUtils.parse(lang, dto.sponsor)
         : undefined,
       cosponsors:
         dto.cosponsors
@@ -145,14 +148,22 @@ export class BillUtils {
   }
 
   /**
-   * 解析所有法案狀態
+   * 解析所有法案狀態時間軸資料
    * @param bill
    * @returns
    */
-  static getAllBillStatuses(bill: Bill): BillStatusEnum[] {
+  static getBillStatusTimelineData(
+    bill: Bill
+  ): Array<{ status: BillStatusEnum; isFuture: boolean }> {
     return [
-      ...(bill.statusTracker?.passedStatus ?? []),
-      ...(bill.statusTracker?.futureStatus ?? []),
+      ...(bill.statusTracker?.passedStatus ?? []).map((status) => ({
+        status,
+        isFuture: false,
+      })),
+      ...(bill.statusTracker?.futureStatus ?? []).map((status) => ({
+        status,
+        isFuture: true,
+      })),
     ]
   }
 
@@ -166,10 +177,7 @@ export class BillUtils {
 
     const parliamentMap = bill.cosponsors.reduce<Record<Party, number>>(
       (acc, curr) => {
-        const people = curr.people
-        if (!people) return acc
-
-        const party = people.party
+        const party = curr.party
         if (!party) return acc
 
         acc[party] += 1
@@ -208,10 +216,18 @@ export class BillUtils {
   }
 
   /**
-   * Get the index of the bill status
+   * Get the current status of the bill
+   * @returns The current status of the bill
+   */
+  static getCurrentStatus(bill: Bill) {
+    return bill.statusTracker?.currentStatus
+  }
+
+  /**
+   * Get the current index of the bill status
    * @returns The index of the bill status
    */
-  static getStatusIndex(bill: Bill) {
+  static getCurrentStatusIndex(bill: Bill) {
     if (!bill.statusTracker?.passedStatus?.length) {
       return 0
     }

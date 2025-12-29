@@ -78,6 +78,8 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
     return DateUtils.formatDc(latestAction.date, DATE_FORMAT)
   }, [latestAction])
 
+  const currentStatus = BillUtils.getCurrentStatus(bill)
+
   return (
     <StyledCardContainer
       height="100%"
@@ -140,18 +142,13 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
                       }
                     )}
                   </Typography>
-                  <UCardInfo
-                    content={t(
-                      `status.${
-                        BillUtils.getAllBillStatuses(bill)[
-                          BillUtils.getStatusIndex(bill)
-                        ]
-                      }.label`,
-                      {
+                  {currentStatus && (
+                    <UCardInfo
+                      content={t(`status.${currentStatus}.label`, {
                         ns: 'bill',
-                      }
-                    )}
-                  />
+                      })}
+                    />
+                  )}
                 </UHStack>
               )}
               <Box
@@ -161,12 +158,15 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
                 }}
               >
                 <UTimeline
-                  data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-                    title: t(`status.${status}.label`, {
-                      ns: 'bill',
-                    }),
-                  }))}
-                  activeIndex={BillUtils.getStatusIndex(bill)}
+                  data={BillUtils.getBillStatusTimelineData(bill).map(
+                    (data) => ({
+                      title: t(`status.${data.status}.label`, {
+                        ns: 'bill',
+                      }),
+                      isFuture: data.isFuture,
+                    })
+                  )}
+                  activeIndex={BillUtils.getCurrentStatusIndex(bill)}
                   isHorizontal
                   variant="secondary"
                 />
@@ -175,22 +175,27 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
           )}
 
           {/** Sponsor */}
-          <>
-            <Divider
-              sx={{
-                mt: 3,
-                mb: 2,
-              }}
-            />
-            <UHStack px={1} gap={1.5} alignItems="center">
-              {bill.sponsor?.party && (
-                <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
-              )}
-              <Typography variant="subtitleS" fontWeight={700}>
-                {bill.sponsor?.name}
-              </Typography>
-            </UHStack>
-          </>
+          {bill.sponsor && (
+            <>
+              <Divider
+                sx={{
+                  mt: 3,
+                  mb: 2,
+                }}
+              />
+              <UHStack px={1} gap={1.5} alignItems="center">
+                {bill.sponsor?.party && (
+                  <UPoliticalPartyIcon
+                    party={bill.sponsor.party}
+                    size="small"
+                  />
+                )}
+                <Typography variant="subtitleS" fontWeight={700}>
+                  {bill.sponsor?.people?.name}
+                </Typography>
+              </UHStack>
+            </>
+          )}
 
           {/** Latest Action & Description */}
           {showLatestActionDescription && latestAction && (
@@ -215,30 +220,26 @@ export default function BillCard({ mode, bill, visibilities }: BillCardProps) {
           <StyledTimelineContainer>
             <UTimeline
               itemMinHeight={50}
-              data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-                title: t(`status.${status}.label`, {
+              data={BillUtils.getBillStatusTimelineData(bill).map((data) => ({
+                title: t(`status.${data.status}.label`, {
                   ns: 'bill',
                 }),
+                isFuture: data.isFuture,
               }))}
-              activeIndex={BillUtils.getStatusIndex(bill)}
+              activeIndex={BillUtils.getCurrentStatusIndex(bill)}
               variant="secondary"
             />
             <Box>
-              <UCardInfo
-                content={t(
-                  `status.${
-                    BillUtils.getAllBillStatuses(bill)[
-                      BillUtils.getStatusIndex(bill)
-                    ]
-                  }.label`,
-                  {
+              {currentStatus && (
+                <UCardInfo
+                  content={t(`status.${currentStatus}.label`, {
                     ns: 'bill',
-                  }
-                )}
-                iconProps={{
-                  sx: { color: theme.color.neutral[300] },
-                }}
-              />
+                  })}
+                  iconProps={{
+                    sx: { color: theme.color.neutral[300] },
+                  }}
+                />
+              )}
             </Box>
           </StyledTimelineContainer>
         )}

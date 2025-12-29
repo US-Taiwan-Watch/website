@@ -40,6 +40,8 @@ export default function LeftSection({ bill }: Props) {
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('bill')
 
+  const currentStatus = BillUtils.getCurrentStatus(bill)
+
   return (
     <Stack justifyContent="space-between" height="100%">
       <Stack>
@@ -107,22 +109,22 @@ export default function LeftSection({ bill }: Props) {
               }
             )}
           </Typography>
-          <UCardInfo
-            content={t(
-              `status.${BillUtils.getAllBillStatuses(bill)[BillUtils.getStatusIndex(bill)]}.label`,
-              {
+          {currentStatus && (
+            <UCardInfo
+              content={t(`status.${currentStatus}.label`, {
                 ns: 'bill',
-              }
-            )}
-          />
+              })}
+            />
+          )}
         </UHStack>
         <UTimeline
-          data={BillUtils.getAllBillStatuses(bill).map((status) => ({
-            title: t(`status.${status}.label`, {
+          data={BillUtils.getBillStatusTimelineData(bill).map((data) => ({
+            title: t(`status.${data.status}.label`, {
               ns: 'bill',
             }),
+            isFuture: data.isFuture,
           }))}
-          activeIndex={BillUtils.getStatusIndex(bill)}
+          activeIndex={BillUtils.getCurrentStatusIndex(bill)}
           isHorizontal
         />
       </StackWithSelectable>

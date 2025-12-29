@@ -21,7 +21,7 @@ export const generateMetadata = async ({
   params,
 }: PeopleTrackerProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
-  const people = await ServerPeopleApi.getPeople({ id: params.id })
+  const people = await ServerPeopleApi.getPeople(params.lang, { id: params.id })
   const peopleName = people?.name ?? ''
   const peopleDescription = people?.description
 
@@ -45,7 +45,7 @@ export const generateMetadata = async ({
 }
 
 export default async function PeopleTracker({ params }: PeopleTrackerProps) {
-  const people = await ServerPeopleApi.getPeople({ id: params.id })
+  const people = await ServerPeopleApi.getPeople(params.lang, { id: params.id })
 
   if (!people) notFound()
 

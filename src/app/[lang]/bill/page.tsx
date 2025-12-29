@@ -37,10 +37,10 @@ export const generateMetadata = async ({
 
 export default async function Bill({ params }: BillPageProps) {
   const { lang } = params
-  const latestBills = await ServerBillApi.getLatestBills({
+  const latestBills = await ServerBillApi.getLatestBills(lang, {
     limit: LATEST_BILLS_COUNT,
   })
-  const popularBills = await ServerBillApi.getPopularBills({
+  const popularBills = await ServerBillApi.getPopularBills(lang, {
     limit: POPULAR_BILLS_COUNT,
   })
 

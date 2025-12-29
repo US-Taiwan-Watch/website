@@ -9,7 +9,6 @@ import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
 import usePartyColor from '@/common/lib/Party/usePartyColor'
 import Link from 'next/link'
-import { CongressUtils } from '@/common/business/Congress'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useURouterClient from '@/common/lib/router/useURouterClient'
@@ -73,7 +72,6 @@ export default function SponsorCard({
 }: SponsorCardProps) {
   const { t } = useTranslationClient('bill')
   const { resolveRouteUrl } = useURouterClient()
-  const currentCongressNumber = CongressUtils.getCurrentCongressNumber()
 
   return (
     <UContentCard
@@ -100,7 +98,6 @@ export default function SponsorCard({
             href={resolveRouteUrl({
               name: RouteName.BillList,
               query: {
-                congress: currentCongressNumber,
                 ...(isCosponsor
                   ? { cosponsor: people.id ?? null }
                   : { sponsor: people.id ?? null }),
