@@ -69,6 +69,7 @@ export default function CosponsorTable({ cosponsors }: Props) {
         <TableBody>
           {cosponsors.map((cosponsor, index) => {
             const people = cosponsor.people
+            const party = cosponsor.party
 
             return (
               <TableRow
@@ -84,11 +85,11 @@ export default function CosponsorTable({ cosponsors }: Props) {
                 </TableCell>
                 <TableCell align="left">
                   <UHStack spacing={1} alignItems="center">
-                    {people?.party && (
-                      <UPoliticalPartyIcon party={people.party} size="small" />
+                    {party && (
+                      <UPoliticalPartyIcon party={party} size="small" />
                     )}
                     <StyledBodyText textTransform="capitalize">
-                      {people?.party ? people.party.toLowerCase() : EMPTY_CELL}
+                      {party ? party.toLowerCase() : EMPTY_CELL}
                     </StyledBodyText>
                   </UHStack>
                 </TableCell>

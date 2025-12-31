@@ -44,8 +44,8 @@ const CosponsorList = memo(function CosponsorList({
               </Typography>
             </Stack>
             <UHStack gap={0.5} alignItems="center">
-              {cosponsor?.people?.party && (
-                <UPoliticalPartyIcon party={cosponsor.people.party} size="xs" />
+              {cosponsor?.party && (
+                <UPoliticalPartyIcon party={cosponsor.party} size="xs" />
               )}
               <Typography
                 variant="bodyS"
@@ -54,7 +54,7 @@ const CosponsorList = memo(function CosponsorList({
                   textTransform: 'capitalize',
                 }}
               >
-                {cosponsor.people.party}
+                {cosponsor.party}
               </Typography>
             </UHStack>
           </Stack>

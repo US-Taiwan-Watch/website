@@ -31,7 +31,7 @@ export const createFilterCategories = (bill: Bill): FilterCategory[] => {
   const constituencyCountMap: Map<string, number> = new Map()
 
   bill.cosponsors?.forEach((cosponsor) => {
-    const party = cosponsor.people?.party ?? Party.INDEPENDENT
+    const party = cosponsor.party ?? Party.INDEPENDENT
     const count = partyCountMap.get(party) ?? 0
     partyCountMap.set(party, count + 1)
 
