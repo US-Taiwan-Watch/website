@@ -26,10 +26,10 @@ export default function BillCosponsors({ bill }: Props) {
   const filterCategories = useMemo(() => createFilterCategories(bill), [bill])
 
   const cosponsors = useMemo<BillCosponsor[]>(() => {
-    return bill.cosponsors.filter(({ people, constituency }) => {
+    return bill.cosponsors.filter(({ constituency, party }) => {
       const partyMatch =
-        selectedOptionList.party.length && people?.party
-          ? selectedOptionList.party.includes(people.party)
+        selectedOptionList.party.length && party
+          ? selectedOptionList.party.includes(party)
           : true
 
       const constituencyMatch = selectedOptionList.constituency.length
