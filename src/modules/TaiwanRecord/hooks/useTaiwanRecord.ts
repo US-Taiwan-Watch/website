@@ -33,7 +33,7 @@ export default function useTaiwanRecord() {
         const uploadedImageIds: string[] = []
         if (images) {
           const uploadedImages = await Promise.allSettled(
-            images.map((image) => uploadImage(image))
+            images.map((image) => uploadImage(image.url))
           )
           uploadedImageIds.push(
             ...uploadedImages
@@ -95,10 +95,10 @@ export default function useTaiwanRecord() {
     async (value: TaiwanRecordUpdateOutput) => {
       // Filter by started with `data:`
       const newImages = value.images.filter((image) =>
-        image.startsWith('data:')
+        image.url.startsWith('data:')
       )
       const existingImages = value.images.filter(
-        (image) => !image.startsWith('data:')
+        (image) => !image.url.startsWith('data:')
       )
       const uploadedImageIds = await handleUploadImages(newImages)
       await gqlUpdateTaiwanRecord({
@@ -114,7 +114,7 @@ export default function useTaiwanRecord() {
             })),
             photos: [
               ...existingImages.map((image) => ({
-                photo: image,
+                photo: image.id,
               })),
               ...uploadedImageIds.map((imageId) => ({
                 photo: imageId,
