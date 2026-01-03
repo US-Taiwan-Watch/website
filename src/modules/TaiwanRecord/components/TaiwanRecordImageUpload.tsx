@@ -7,6 +7,7 @@ import {
   TaiwanRecordCreateInput,
   TaiwanRecordUpdateInput,
   MAX_IMAGE_COUNT,
+  TaiwanRecord,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import UIconButton from '@/common/components/atoms/UIconButton'
@@ -14,19 +15,19 @@ import { useTheme } from '@mui/material/styles'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import Image from 'next/image'
 
-type PriviewImageProps = {
+type PreviewImageProps = {
   image: string
   index: number
   onRemove: () => void
   isReadOnly?: boolean
 }
 
-const PriviewImage = memo(function PriviewImage({
+const PreviewImage = memo(function PreviewImage({
   image,
   index,
   onRemove,
   isReadOnly = false,
-}: PriviewImageProps) {
+}: PreviewImageProps) {
   const theme = useTheme<USTWTheme>()
   const [showRemoveButton, setShowRemoveButton] = useState(false)
 
@@ -124,7 +125,7 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload({
   }, [])
 
   const getRemovedFilteredImages = useCallback(
-    (currentImages: string[], index: number) => {
+    (currentImages: TaiwanRecord['images'], index: number) => {
       return currentImages.filter((_, i) => i !== index)
     },
     []
@@ -173,7 +174,10 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload({
                       ...(field.value || []),
                       ...uploadedImages
                         .filter((image) => image.status === 'fulfilled')
-                        .map((image) => image.value),
+                        .map((image) => ({
+                          id: image.value,
+                          url: image.value,
+                        })),
                     ]
                     // 限制最多張數
                     field.onChange(
@@ -218,9 +222,9 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload({
                   }}
                 >
                   {field.value.map((image, index) => (
-                    <PriviewImage
+                    <PreviewImage
                       key={index}
-                      image={image}
+                      image={image.url}
                       index={index}
                       isReadOnly={isReadOnly}
                       onRemove={() => {

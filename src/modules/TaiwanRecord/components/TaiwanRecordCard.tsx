@@ -74,7 +74,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
               .map((image, index) => (
                 <Box key={index} position="relative" flex={1} height={285}>
                   <StyledImage
-                    src={image}
+                    src={image.url}
                     alt={`Taiwan Record Image ${index} from ${taiwanRecord.title}`}
                     width={285}
                     height={285}

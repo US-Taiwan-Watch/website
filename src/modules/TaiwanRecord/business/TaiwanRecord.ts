@@ -18,7 +18,14 @@ export const taiwanRecordSchema = z.object({
   id: z.string(),
   title: z.string().min(1),
   content: z.string().min(1),
-  images: z.array(z.string()).max(MAX_IMAGE_COUNT),
+  images: z
+    .array(
+      z.object({
+        id: z.string(),
+        url: z.string().url(),
+      })
+    )
+    .max(MAX_IMAGE_COUNT),
   createdAt: z.string().datetime(),
   author: z.string(),
   sources: z.array(z.string().url()),
@@ -73,7 +80,12 @@ export class TaiwanRecordUtils {
       title: dto.title ?? '',
       content: dto.description ?? '',
       images:
-        dto.photos?.map((photo) => photo.photo?.url).filter(isString) ?? [],
+        dto.photos
+          ?.map((photo) => ({
+            id: photo.id,
+            url: photo.photo?.url ?? '',
+          }))
+          .filter((photo) => isString(photo.id) && isString(photo.url)) ?? [],
       sources: dto.sources?.map((source) => source.link).filter(isString) ?? [],
       status: dto.status,
       createdAt: dto.createdAt ?? '',

@@ -20,7 +20,7 @@ const StyledBillTotalCountCard = styled(Stack)(({ theme }) => ({
     minWidth: '100px',
   },
   [theme.breakpoints.up('sm')]: {
-    padding: theme.spacing(3, 4),
+    padding: theme.spacing(2.5, 3.75),
     minWidth: '160px',
   },
   justifyContent: 'center',
@@ -49,7 +49,10 @@ const BillTotalCountLink = memo(function BillTotalCountLink({
     >
       <StyledBillTotalCountCard>
         <Typography
-          fontSize={10}
+          fontSize={{
+            xs: 10,
+            md: 14,
+          }}
           fontWeight={600}
           color={theme.color.grey[2100]}
           mb={1}
@@ -59,7 +62,13 @@ const BillTotalCountLink = memo(function BillTotalCountLink({
             congressNo: currentCongressNumber,
           })}
         </Typography>
-        <Typography fontSize={26} fontWeight={600}>
+        <Typography
+          fontSize={{
+            xs: 26,
+            md: 55,
+          }}
+          fontWeight={600}
+        >
           {billCount}
         </Typography>
       </StyledBillTotalCountCard>
