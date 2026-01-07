@@ -10,7 +10,7 @@ import {
   PeopleVotesQuery,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { QUERY_PEOPLE_VOTES } from '@/modules/People/graphql/gql'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { isNull } from 'lodash-es'
 import { PeopleVoteUtils } from '@/modules/People/business/PeopleVote'
 import { useParams } from 'next/navigation'

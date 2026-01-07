@@ -2,7 +2,7 @@ import {
   CategoriesPeopleQuery,
   CategoriesPeopleQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { Language } from '@/common/lib/i18n/types'
 import { isNull } from 'lodash-es'
 import { QUERY_CATEGORIES_PEOPLE } from '@/modules/People/graphql/gql'

@@ -20,7 +20,7 @@ import {
   MUTATION_SUBMIT_TAIWAN_RECORD,
   MUTATION_WITHDRAW_TAIWAN_RECORD,
 } from '@/modules/TaiwanRecord/graphql/gql'
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react'
 import { useCallback } from 'react'
 
 export default function useTaiwanRecord() {

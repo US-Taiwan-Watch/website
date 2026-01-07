@@ -274,7 +274,7 @@ export default class ServerBillApi {
       })
 
       return (
-        data.Bill?.relatedBills
+        data?.Bill?.relatedBills
           ?.filter((bill) => !isNull(bill))
           .map((bill) => BillUtils.parse(lang, bill)) ?? []
       )

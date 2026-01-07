@@ -3,7 +3,7 @@
 import { CongressUtils } from '@/common/business/Congress'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { Stack, Typography, useTheme, Skeleton } from '@mui/material'
 import Link from 'next/link'
 import { CurrentCongressBillCountQuery } from '@/common/lib/graphql/__generated__/graphql'

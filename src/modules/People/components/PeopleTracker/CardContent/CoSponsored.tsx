@@ -7,7 +7,7 @@ import { Box } from '@mui/material'
 import { People } from '@/modules/People/business/People'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import {
   PeopleCosponsorBillsQuery,
   PeopleCosponsorBillsQueryVariables,

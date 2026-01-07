@@ -11,7 +11,7 @@ import { useParams } from 'next/navigation'
 import { useMemo } from 'react'
 import useCategoriesBills from '@/modules/Bill/hooks/useCategoriesBills'
 import { CongressUtils } from '@/common/business/Congress'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { QUERY_BILL_FILTER_SPONSORS } from '@/modules/Bill/graphql/gql'
 import {
   BillFilterSponsorsQuery,

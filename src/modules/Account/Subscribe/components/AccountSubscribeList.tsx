@@ -16,7 +16,7 @@ import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
 import AccountUtils from '@/modules/Account/business/Account'
-import { useQuery, useLazyQuery } from '@apollo/client'
+import { useQuery, useLazyQuery } from '@apollo/client/react'
 import { QUERY_ME_SUBSCRIBES } from '@/modules/Account/graphql/gql'
 import {
   BillQuery,
@@ -55,57 +55,64 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
   const { isCompactView } = useAccountLayout()
   const { unsubscribeBill, unsubscribePeople, unbookmarkArticle } = useAccount()
 
-  const [getBill] = useLazyQuery<BillQuery, BillQueryVariables>(QUERY_BILL, {
-    variables: {
-      id: accountSubscribe.id,
-    },
-  })
+  const [getBill] = useLazyQuery<BillQuery, BillQueryVariables>(QUERY_BILL)
   const [getPeople] = useLazyQuery<PeopleQuery, PeopleQueryVariables>(
-    QUERY_PEOPLE,
-    {
-      variables: {
-        id: accountSubscribe.id,
-      },
-    }
+    QUERY_PEOPLE
   )
   const [getUstwArticle] = useLazyQuery<
     UstwArticleQuery,
     UstwArticleQueryVariables
-  >(QUERY_USTW_ARTICLE, {
-    variables: {
-      id: accountSubscribe.id,
-    },
-  })
+  >(QUERY_USTW_ARTICLE)
   const [getKetagalanArticle] = useLazyQuery<
     KetagalanArticleQuery,
     KetagalanArticleQueryVariables
-  >(QUERY_KETAGALAN_ARTICLE, {
-    variables: {
-      id: accountSubscribe.id,
-    },
-  })
+  >(QUERY_KETAGALAN_ARTICLE)
 
   const { toast } = useToast()
   const handleUnsubscribe = useCallback(async () => {
     try {
       const lang = i18n.language as Language
       if (accountSubscribe.type === AccountSubscribeType.Bill) {
-        const data = (await getBill()).data?.Bill
+        const data = (
+          await getBill({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.Bill
         if (!data) throw new Error('Bill not found')
         const bill = BillUtils.parse(lang, data)
         unsubscribeBill(bill)
       } else if (accountSubscribe.type === AccountSubscribeType.People) {
-        const data = (await getPeople()).data?.People
+        const data = (
+          await getPeople({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.People
         if (!data) throw new Error('People not found')
         unsubscribePeople(PeopleUtils.parse(lang, data))
       } else if (accountSubscribe.type === AccountSubscribeType.UstwArticle) {
-        const data = (await getUstwArticle()).data?.UstwArticle
+        const data = (
+          await getUstwArticle({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.UstwArticle
         if (!data) throw new Error('UstwArticle not found')
         unbookmarkArticle(ArticleUtils.parse(lang, data, ArticleType.Article))
       } else if (
         accountSubscribe.type === AccountSubscribeType.KetagalanArticle
       ) {
-        const data = (await getKetagalanArticle()).data?.KetagalanArticle
+        const data = (
+          await getKetagalanArticle({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.KetagalanArticle
         if (!data) throw new Error('KetagalanArticle not found')
         unbookmarkArticle(ArticleUtils.parse(lang, data, ArticleType.Ketagalan))
       }

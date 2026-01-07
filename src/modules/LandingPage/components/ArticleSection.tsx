@@ -30,8 +30,8 @@ import {
   KetagalanArticlesQuery,
   KetagalanArticlesQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import { isNull } from 'lodash-es'
-import { useLazyQuery } from '@apollo/client'
+import { isNull, isUndefined } from 'lodash-es'
+import { useLazyQuery } from '@apollo/client/react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -82,20 +82,14 @@ const ArticleSection = ({
 
   const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
     useLazyQuery<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      QUERY_USTW_ARTICLES,
-      {
-        variables: queryVariables,
-      }
+      QUERY_USTW_ARTICLES
     )
 
   const [
     getKetagalanArticles,
     { loading: isKetagalanArticlesLoading, data: ketagalanQueryData },
   ] = useLazyQuery<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>(
-    QUERY_KETAGALAN_ARTICLES,
-    {
-      variables: queryVariables,
-    }
+    QUERY_KETAGALAN_ARTICLES
   )
 
   useEffect(() => {
@@ -130,7 +124,7 @@ const ArticleSection = ({
   const articles = useMemo(() => {
     return (
       articlesData?.docs
-        ?.filter((article) => !isNull(article))
+        ?.filter((article) => !isNull(article) && !isUndefined(article))
         .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
       defaultArticles ??
       []

@@ -1,4 +1,4 @@
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { usePagination } from '@/common/components/atoms/UPagination'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import {

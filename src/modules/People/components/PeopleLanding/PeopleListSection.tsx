@@ -19,7 +19,7 @@ import {
   PeoplesFilterQuery,
   PeoplesFilterQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { QUERY_PEOPLE_FILTER } from '@/modules/People/graphql/gql'
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import { isEqual, isNull, isNumber } from 'lodash-es'

@@ -10,7 +10,7 @@ import {
   PeopleSponsorBillsQuery,
   PeopleSponsorBillsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { QUERY_PEOPLE_SPONSOR_BILLS } from '@/modules/People/graphql/gql'
 import { isNull } from 'lodash-es'
 import { BillUtils } from '@/modules/Bill/business/Bill'

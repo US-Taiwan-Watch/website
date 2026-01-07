@@ -1,6 +1,10 @@
 'use client'
 
-import { useApolloClient, useLazyQuery, useMutation } from '@apollo/client'
+import {
+  useApolloClient,
+  useLazyQuery,
+  useMutation,
+} from '@apollo/client/react'
 import {
   MUTATION_BOOKMARK_USTW_ARTICLE,
   MUTATION_BOOKMARK_KETAGALAN_ARTICLE,
@@ -623,8 +627,8 @@ export default function AccountProvider({
           variables: { password },
         })
 
-        if (response.errors) {
-          console.error('GraphQL errors in updatePassword:', response.errors)
+        if (response.error) {
+          console.error('GraphQL error in updatePassword:', response.error)
           throw new Error('Failed to update password')
         }
 
@@ -661,8 +665,8 @@ export default function AccountProvider({
           variables: { name },
         })
 
-        if (response.errors) {
-          console.error('GraphQL errors in updateName:', response.errors)
+        if (response.error) {
+          console.error('GraphQL error in updateName:', response.error)
           throw new Error('Failed to update name')
         }
 
@@ -699,8 +703,8 @@ export default function AccountProvider({
           variables: { email },
         })
 
-        if (response.errors) {
-          console.error('GraphQL errors in updateEmail:', response.errors)
+        if (response.error) {
+          console.error('GraphQL error in updateEmail:', response.error)
           throw new Error('Failed to update email')
         }
 
@@ -737,10 +741,10 @@ export default function AccountProvider({
           variables: { notificationSetting: setting },
         })
 
-        if (response.errors) {
+        if (response.error) {
           console.error(
-            'GraphQL errors in updateNotificationSetting:',
-            response.errors
+            'GraphQL error in updateNotificationSetting:',
+            response.error
           )
           throw new Error('Failed to update notification setting')
         }
@@ -774,8 +778,8 @@ export default function AccountProvider({
     try {
       const response = await gqlDeleteMe()
 
-      if (response.errors) {
-        console.error('GraphQL errors in deleteMe:', response.errors)
+      if (response.error) {
+        console.error('GraphQL error in deleteMe:', response.error)
         throw new Error('Failed to delete account')
       }
 
