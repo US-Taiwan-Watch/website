@@ -114,9 +114,11 @@ export default function useTaiwanRecord() {
             })),
             photos: [
               ...existingImages.map((image) => ({
+                id: image.id,
                 photo: image.id,
               })),
               ...uploadedImageIds.map((imageId) => ({
+                id: imageId,
                 photo: imageId,
               })),
             ],

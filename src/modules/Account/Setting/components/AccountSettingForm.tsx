@@ -6,6 +6,7 @@ import { Controller } from 'react-hook-form'
 import type React from 'react'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
+import { Connection } from '@/modules/Account/business/Account'
 
 const AccountFormItem = ({
   label,
@@ -32,7 +33,7 @@ const AccountFormItem = ({
 
 const AccountSettingForm = () => {
   const { t } = useTranslationClient('account')
-  const { isMutating } = useAccount()
+  const { account, isMutating } = useAccount()
   const { form, handleSubmit, loading } = useAccountSetting()
   const { isCompactView } = useAccountLayout()
 
@@ -82,26 +83,28 @@ const AccountSettingForm = () => {
           )}
         />
       </AccountFormItem>
-      <AccountFormItem label={t('setting.email.label', { ns: 'account' })}>
-        <Controller
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <TextField
-              {...field}
-              fullWidth
-              type="email"
-              error={Boolean(form.formState.errors.email)}
-              helperText={form.formState.errors.email?.message}
-              margin="normal"
-              color="info"
-              sx={{
-                my: 0,
-              }}
-            />
-          )}
-        />
-      </AccountFormItem>
+      {account?.connection === Connection['User-Password'] && (
+        <AccountFormItem label={t('setting.email.label', { ns: 'account' })}>
+          <Controller
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <TextField
+                {...field}
+                fullWidth
+                type="email"
+                error={Boolean(form.formState.errors.email)}
+                helperText={form.formState.errors.email?.message}
+                margin="normal"
+                color="info"
+                sx={{
+                  my: 0,
+                }}
+              />
+            )}
+          />
+        </AccountFormItem>
+      )}
 
       <Box display="flex" alignItems="center" justifyContent="center">
         <UButton

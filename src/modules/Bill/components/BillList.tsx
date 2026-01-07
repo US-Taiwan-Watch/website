@@ -166,7 +166,7 @@ export default function BillList() {
 
   return (
     <Stack gap={5}>
-      <UHStack gap={2} alignItems="flex-start">
+      <UHStack gap={2} alignItems="flex-start" justifyContent="space-between">
         <Typography variant="h3">
           {t('billList.title', {
             ns: 'bill',
@@ -175,6 +175,7 @@ export default function BillList() {
         {isMobile && (
           <BillFilter
             onSubmit={(filter) => {
+              setBills([])
               onFilterSubmit(filter)
             }}
             initialValues={filterInitValues}
@@ -185,6 +186,7 @@ export default function BillList() {
         {!isMobile && (
           <BillFilter
             onSubmit={(filter) => {
+              setBills([])
               onFilterSubmit(filter)
             }}
             initialValues={filterInitValues}

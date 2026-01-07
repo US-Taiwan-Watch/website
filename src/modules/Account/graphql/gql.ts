@@ -43,6 +43,7 @@ export const QUERY_ME = gql`
       }
       provider
       providerId
+      createdAt
     }
   }
 `
@@ -204,6 +205,14 @@ export const QUERY_ME_BASIC_INFO = gql`
       email
       provider
       providerId
+    }
+  }
+`
+
+export const MUTATION_DELETE_ME = gql`
+  mutation DeleteMe {
+    deleteMe {
+      id
     }
   }
 `

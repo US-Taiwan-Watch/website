@@ -45,7 +45,15 @@ const CommitteeRow = function CommitteeRow({
         },
       }}
     >
-      <Typography variant="bodyM" fontWeight={700}>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: '14px',
+            md: '18px',
+          },
+          fontWeight: 700,
+        }}
+      >
         {committee.name}
       </Typography>
       <ul
@@ -58,7 +66,15 @@ const CommitteeRow = function CommitteeRow({
         {committee.subcommittees &&
           committee.subcommittees.map((subcommittee, index) => (
             <StyledDescriptionListItem key={index}>
-              <Typography variant="bodyS" fontWeight={500}>
+              <Typography
+                sx={{
+                  fontSize: {
+                    xs: '12px',
+                    md: '15px',
+                  },
+                  fontWeight: 500,
+                }}
+              >
                 {subcommittee.name}
               </Typography>
             </StyledDescriptionListItem>

@@ -15,6 +15,7 @@ import {
   MUTATION_UNSUBSCRIBE_PEOPLE,
   MUTATION_UNBOOKMARK_USTW_ARTICLE,
   MUTATION_UNBOOKMARK_KETAGALAN_ARTICLE,
+  MUTATION_DELETE_ME,
 } from '@/modules/Account/graphql/gql'
 import {
   createContext,
@@ -52,6 +53,8 @@ import {
   UnbookmarkUstwArticleMutationVariables,
   UnbookmarkKetagalanArticleMutation,
   UnbookmarkKetagalanArticleMutationVariables,
+  DeleteMeMutation,
+  DeleteMeMutationVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import AccountUtils, { Account } from '@/modules/Account/business/Account'
 import type React from 'react'
@@ -87,6 +90,7 @@ type AccountProviderContext = {
   updateNotificationSetting: (
     setting: AccountNotificationSettingOutput
   ) => Promise<void>
+  deleteMe: () => Promise<void>
 }
 
 const AccountContext = createContext<AccountProviderContext>({
@@ -108,6 +112,7 @@ const AccountContext = createContext<AccountProviderContext>({
   updateName: async () => {},
   updateEmail: async () => {},
   updateNotificationSetting: async () => {},
+  deleteMe: async () => {},
 })
 
 export const useAccount = () => {
@@ -124,7 +129,7 @@ export default function AccountProvider({
   children: React.ReactNode
 }) {
   const { lang } = useParams<{ lang: Language }>()
-  const { login } = useUAuth()
+  const { login, logout } = useUAuth()
   const { user, isLoading: isAuth0Loading } = useUser()
   const [account, setAccount] = useState<Account | null>(null)
   const [isAccountLoading, setIsAccountLoading] = useState(true)
@@ -281,8 +286,12 @@ export default function AccountProvider({
     UpdateMyNotificationSettingMutation,
     UpdateMyNotificationSettingMutationVariables
   >(MUTATION_UPDATE_MY_NOTIFICATION_SETTING)
+  const [gqlDeleteMe] = useMutation<
+    DeleteMeMutation,
+    DeleteMeMutationVariables
+  >(MUTATION_DELETE_ME)
 
-  const loginOnceSubscribe = useCallback(() => {
+  const redirectToLogin = useCallback(() => {
     setTimeout(() => {
       login({
         returnTo: window.location.pathname + window.location.search,
@@ -295,10 +304,10 @@ export default function AccountProvider({
    */
   const preMutate = useCallback(() => {
     if (!user) {
-      loginOnceSubscribe()
+      redirectToLogin()
       throw new Error(t('subscribe.login.msg', { ns: 'common' }))
     }
-  }, [t, user, loginOnceSubscribe])
+  }, [t, user, redirectToLogin])
 
   /**
    * 訂閱 bill
@@ -606,9 +615,7 @@ export default function AccountProvider({
    */
   const updatePassword = useCallback(
     async (password: string) => {
-      if (!user) {
-        throw new Error('User not authenticated')
-      }
+      preMutate()
 
       setIsMutating(true)
       try {
@@ -637,7 +644,7 @@ export default function AccountProvider({
         setIsMutating(false)
       }
     },
-    [user, gqlUpdateMyPassword, fetchMe]
+    [gqlUpdateMyPassword, fetchMe, preMutate]
   )
 
   /**
@@ -646,9 +653,7 @@ export default function AccountProvider({
    */
   const updateName = useCallback(
     async (name: string) => {
-      if (!user) {
-        throw new Error('User not authenticated')
-      }
+      preMutate()
 
       setIsMutating(true)
       try {
@@ -677,7 +682,7 @@ export default function AccountProvider({
         setIsMutating(false)
       }
     },
-    [user, gqlUpdateMyName, fetchMe]
+    [gqlUpdateMyName, fetchMe, preMutate]
   )
 
   /**
@@ -686,9 +691,7 @@ export default function AccountProvider({
    */
   const updateEmail = useCallback(
     async (email: string) => {
-      if (!user) {
-        throw new Error('User not authenticated')
-      }
+      preMutate()
 
       setIsMutating(true)
       try {
@@ -717,7 +720,7 @@ export default function AccountProvider({
         setIsMutating(false)
       }
     },
-    [user, gqlUpdateMyEmail, fetchMe]
+    [gqlUpdateMyEmail, fetchMe, preMutate]
   )
 
   /**
@@ -726,9 +729,7 @@ export default function AccountProvider({
    */
   const updateNotificationSetting = useCallback(
     async (setting: AccountNotificationSettingOutput) => {
-      if (!user) {
-        throw new Error('User not authenticated')
-      }
+      preMutate()
 
       setIsMutating(true)
       try {
@@ -760,8 +761,33 @@ export default function AccountProvider({
         setIsMutating(false)
       }
     },
-    [user, gqlUpdateMyNotificationSetting, fetchMe]
+    [gqlUpdateMyNotificationSetting, fetchMe, preMutate]
   )
+
+  /**
+   * 刪除帳戶
+   */
+  const deleteMe = useCallback(async () => {
+    preMutate()
+
+    setIsMutating(true)
+    try {
+      const response = await gqlDeleteMe()
+
+      if (response.errors) {
+        console.error('GraphQL errors in deleteMe:', response.errors)
+        throw new Error('Failed to delete account')
+      }
+
+      // Logout
+      logout()
+    } catch (error) {
+      console.error('Failed to delete account:', error)
+      throw error
+    } finally {
+      setIsMutating(false)
+    }
+  }, [gqlDeleteMe, preMutate, logout])
 
   return (
     <AccountContext.Provider
@@ -784,6 +810,7 @@ export default function AccountProvider({
         updateName,
         updateEmail,
         updateNotificationSetting,
+        deleteMe,
       }}
     >
       {children}

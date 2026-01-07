@@ -1,7 +1,6 @@
 'use client'
 
 import NumberCard from '@/modules/People/components/PeopleTracker/CardContent/NumberCard'
-import BillCard from '@/modules/Bill/components/BillCard'
 import { Person2Icon } from '@/common/styles/assets/Icons'
 import { Box } from '@mui/material'
 import { People } from '@/modules/People/business/People'
@@ -16,6 +15,7 @@ import { QUERY_PEOPLE_SPONSOR_BILLS } from '@/modules/People/graphql/gql'
 import { isNull } from 'lodash-es'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import IndexBillCard from '@/modules/Bill/components/IndexBillCard'
 
 interface SponsoredProps {
   people: People
@@ -49,15 +49,15 @@ const Sponsored = function ({ people }: SponsoredProps) {
         iconColor: 'primary',
       }}
     >
-      {sponsorBills.map((bill, index) => (
+      {sponsorBills.concat(sponsorBills).map((bill, index) => (
         <Box
           key={index}
           sx={{
-            marginLeft: '8px',
-            marginRight: '8px',
+            py: 2,
+            overflowX: 'hidden',
           }}
         >
-          <BillCard mode="horizontal" bill={bill} />
+          <IndexBillCard timelineVariant="secondary" bill={bill} />
         </Box>
       ))}
     </NumberCard>

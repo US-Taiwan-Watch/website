@@ -8,6 +8,8 @@ import useModal from '@/common/hooks/useModal'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import CloseIcon from '@mui/icons-material/Close'
 import { UCardHeaderProps } from '@/common/components/atoms/UCardHeader'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import UContentCardDrawer from '@/common/components/atoms/UContentCardDrawer'
 
 const StyledArrowOutwardIcon = styled(ArrowOutwardIcon)(({ theme }) => ({
   color: theme.color.grey[400],
@@ -27,8 +29,42 @@ const NumberCard = function ({
   number,
   headerProps,
 }: NumberCardProps) {
+  const { isMobile } = useResponsive()
   const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
   const theme = useTheme<USTWTheme>()
+
+  const modalComponent = (
+    <UContentCard
+      withHeader={true}
+      headerProps={{
+        ...headerProps,
+        action: (
+          <UIconButton
+            variant="rounded"
+            color="inherit"
+            size="small"
+            onClick={handleCloseModal}
+          >
+            <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+          </UIconButton>
+        ),
+      }}
+      sx={{
+        padding: 0,
+        border: 'none',
+        borderRadius: 0,
+      }}
+      contentProps={{
+        sx: {
+          '& > *:not(:last-child)': {
+            borderBottom: `1px solid ${theme.color.neutral[100]}`,
+          },
+        },
+      }}
+    >
+      {children}
+    </UContentCard>
+  )
 
   return (
     <>
@@ -101,42 +137,19 @@ const NumberCard = function ({
           </UIconButton>
         </Stack>
       </UContentCard>
-      <UContentCardDialog
-        open={isModalOpen}
-        onClose={handleCloseModal}
-        maxWidth="lg"
-      >
-        <UContentCard
-          withHeader={true}
-          headerProps={{
-            ...headerProps,
-            action: (
-              <UIconButton
-                variant="rounded"
-                color="inherit"
-                size="small"
-                onClick={handleCloseModal}
-              >
-                <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-              </UIconButton>
-            ),
-          }}
-          sx={{
-            padding: 0,
-            border: 'none',
-            borderRadius: 0,
-          }}
-          contentProps={{
-            sx: {
-              '& > *:not(:last-child)': {
-                borderBottom: `1px solid ${theme.color.neutral[100]}`,
-              },
-            },
-          }}
+      {isMobile ? (
+        <UContentCardDrawer open={isModalOpen} onClose={handleCloseModal}>
+          {modalComponent}
+        </UContentCardDrawer>
+      ) : (
+        <UContentCardDialog
+          open={isModalOpen}
+          onClose={handleCloseModal}
+          maxWidth="lg"
         >
-          {children}
-        </UContentCard>
-      </UContentCardDialog>
+          {modalComponent}
+        </UContentCardDialog>
+      )}
     </>
   )
 }

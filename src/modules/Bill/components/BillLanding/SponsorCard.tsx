@@ -39,7 +39,9 @@ function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
   return (
     <StyledSponsorRowContainer>
       <Stack>
-        <Typography variant="articleH5">{people.name}</Typography>
+        <Typography variant="articleH5" fontWeight={700}>
+          {people.name}
+        </Typography>
         <UHStack gap="6px" alignItems="center">
           <CircleIcon
             sx={{

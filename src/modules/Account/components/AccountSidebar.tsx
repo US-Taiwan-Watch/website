@@ -6,11 +6,12 @@ import Link from 'next/link'
 import useAccountNavItems from '@/modules/Account/hooks/useAccountNavItems'
 import { LogoutIcon } from '@/common/styles/assets/Icons'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
+import UAlertDialog from '@/common/components/elements/UAlertDialog'
 
 const JOIN_DATE_FORMAT = 'YYYY/MM/DD'
 
@@ -99,16 +100,26 @@ export default function AccountSidebar() {
   const { t } = useTranslationClient('account')
   const { navItems, currentNavItem } = useAccountNavItems()
   const { isCompactView } = useAccountLayout()
-  const [joinDate, setJoinDate] = useState('')
-  useEffect(() => {
-    setJoinDate(DateUtils.formatLocal(undefined, JOIN_DATE_FORMAT))
-  }, [])
-
   const { logout } = useUAuth()
-  const { account } = useAccount()
+  const { account, deleteMe } = useAccount()
   const handleLogout = useCallback(() => {
     logout()
   }, [logout])
+
+  const [openDeleteAccountDialog, setOpenDeleteAccountDialog] = useState(false)
+  const handleDeleteAccount = useCallback(() => {
+    // Popup confirmation dialog
+    setOpenDeleteAccountDialog(true)
+  }, [])
+
+  const handleConfirmDeleteAccount = useCallback(() => {
+    deleteMe()
+    setOpenDeleteAccountDialog(false)
+  }, [deleteMe])
+
+  const handleCancelDeleteAccount = useCallback(() => {
+    setOpenDeleteAccountDialog(false)
+  }, [])
 
   if (!account) return null
 
@@ -158,7 +169,7 @@ export default function AccountSidebar() {
           >
             {t('account.joinDate', {
               ns: 'account',
-              date: joinDate,
+              date: DateUtils.formatLocal(account.createdAt, JOIN_DATE_FORMAT),
               interpolation: { escapeValue: false },
             })}
           </Typography>
@@ -218,10 +229,18 @@ export default function AccountSidebar() {
           </NavItemBase>
         </NavList>
 
-        <DeleteAccount>
+        <DeleteAccount onClick={handleDeleteAccount}>
           <Typography>{t('deleteAccount.btn', { ns: 'account' })}</Typography>
         </DeleteAccount>
       </NavContainer>
+
+      <UAlertDialog
+        title={t('deleteAccount.dialog.title', { ns: 'account' })}
+        description={t('deleteAccount.dialog.description', { ns: 'account' })}
+        open={openDeleteAccountDialog}
+        onClose={handleCancelDeleteAccount}
+        onConfirm={handleConfirmDeleteAccount}
+      />
     </SidebarContainer>
   )
 }

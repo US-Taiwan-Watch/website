@@ -35,6 +35,7 @@ const accountSchema = z.object({
   submittedTaiwanRecords: z.array(taiwanRecordSchema),
   picture: z.string().optional(),
   connection: z.nativeEnum(Connection).optional(),
+  createdAt: z.string().datetime().optional(),
 })
 
 export type AccountInput = z.input<typeof accountSchema>
@@ -77,6 +78,7 @@ export default class AccountUtils {
       submittedTaiwanRecords: [],
       picture: user.picture,
       connection: AccountUtils.parseConnection(me.providerId),
+      createdAt: me.createdAt,
     })
   }
 

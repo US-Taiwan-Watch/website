@@ -102,13 +102,20 @@ const ExperienceTimelineItem = function ExperienceTimelineItem({
         {!isLast && <TimelineConnector />}
       </TimelineSeparator>
       <TimelineContent>
-        <Typography variant="bodyM" fontWeight={700}>
+        <Typography
+          sx={{
+            fontSize: '14px',
+            fontWeight: 700,
+          }}
+        >
           {experience.title}
         </Typography>
         <Typography
-          variant="bodyS"
-          sx={{ color: theme.color.neutral[500] }}
-          fontWeight={400}
+          sx={{
+            color: theme.color.neutral[500],
+            fontSize: '12px',
+            fontWeight: 400,
+          }}
         >
           {timeText}
         </Typography>
@@ -187,18 +194,39 @@ const ExperienceRow = function ExperienceRow({
         },
       }}
     >
-      <Typography variant="bodyM" fontWeight={700}>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: '14px',
+            md: '17px',
+          },
+          fontWeight: 700,
+        }}
+      >
         {experience.title}
       </Typography>
       {experience.subtitle && (
-        <Typography variant="bodyS" fontWeight={500}>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: '12px',
+              md: '15px',
+            },
+            fontWeight: 500,
+          }}
+        >
           {experience.subtitle}
         </Typography>
       )}
       <Typography
-        variant="bodyS"
-        sx={{ color: theme.color.neutral[500] }}
-        fontWeight={400}
+        sx={{
+          color: theme.color.neutral[500],
+          fontSize: {
+            xs: '12px',
+            md: '15px',
+          },
+          fontWeight: 400,
+        }}
       >
         {timeText}
       </Typography>
@@ -206,9 +234,14 @@ const ExperienceRow = function ExperienceRow({
         experience.descriptions.map((description, index) => (
           <Typography
             key={index}
-            variant="bodyS"
-            fontWeight={500}
-            sx={{ color: theme.color.neutral[500] }}
+            sx={{
+              color: theme.color.neutral[500],
+              fontSize: {
+                xs: '12px',
+                md: '15px',
+              },
+              fontWeight: 500,
+            }}
           >
             {description}
           </Typography>

@@ -30,15 +30,40 @@ const PublicationRow = function PublicationRow({
         },
       }}
     >
-      <Typography variant="bodyM" fontWeight={700}>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: '14px',
+            md: '18px',
+          },
+          fontWeight: 700,
+        }}
+      >
         {publication.title}
       </Typography>
       {simplified ? (
-        <UHeightLimitedText variant="bodyS" fontWeight={500} maxLine={3}>
+        <UHeightLimitedText
+          sx={{
+            fontSize: {
+              xs: '12px',
+              md: '16px',
+            },
+            fontWeight: 400,
+          }}
+          maxLine={3}
+        >
           {publication.abstract}
         </UHeightLimitedText>
       ) : (
-        <Typography variant="bodyS" fontWeight={500}>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: '12px',
+              md: '16px',
+            },
+            fontWeight: 400,
+          }}
+        >
           {publication.abstract}
         </Typography>
       )}

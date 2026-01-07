@@ -6,41 +6,21 @@ import {
   AccountSettingInput,
   AccountSettingOutput,
   accountSettingSchema,
+  getDefaultAccountSettingInput,
 } from '@/modules/Account/Setting/business/AccountSetting'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { useToast } from '@/common/providers/ToastProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { useQuery } from '@apollo/client'
-import { QUERY_ME_BASIC_INFO } from '@/modules/Account/graphql/gql'
-import {
-  QueryMeBasicInfoQuery,
-  QueryMeBasicInfoQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
+import { Connection } from '@/modules/Account/business/Account'
 
 export default function useAccountSetting() {
-  const { updateName, updateEmail } = useAccount()
+  const { isAccountLoading, account, updateName, updateEmail } = useAccount()
   const { toast } = useToast()
   const { t } = useTranslationClient('account')
 
-  const { data, loading } = useQuery<
-    QueryMeBasicInfoQuery,
-    QueryMeBasicInfoQueryVariables
-  >(QUERY_ME_BASIC_INFO, {
-    fetchPolicy: 'cache-and-network',
-  })
-
   const defaultAccountSettingInput = useMemo<AccountSettingInput>(() => {
-    if (!data?.Me)
-      return {
-        fullName: '',
-        email: '',
-      }
-
-    return {
-      fullName: data.Me.fullName ?? '',
-      email: data.Me.email ?? '',
-    }
-  }, [data])
+    return getDefaultAccountSettingInput(account)
+  }, [account])
 
   const form = useForm<AccountSettingInput>({
     resolver: zodResolver(accountSettingSchema),
@@ -61,12 +41,16 @@ export default function useAccountSetting() {
     async (value: AccountSettingOutput) => {
       try {
         // 更新姓名
-        if (value.fullName !== data?.Me?.fullName) {
+        if (value.fullName !== defaultAccountSettingInput.fullName) {
           await updateName(value.fullName)
         }
 
         // 更新電子郵件
-        if (value.email !== data?.Me?.email) {
+        if (
+          account?.connection === Connection['User-Password'] &&
+          value.email &&
+          value.email !== defaultAccountSettingInput.email
+        ) {
           await updateEmail(value.email)
         }
 
@@ -76,7 +60,15 @@ export default function useAccountSetting() {
         toast('error', t('setting.error.msg', { ns: 'account' }))
       }
     },
-    [updateName, updateEmail, data, toast, t]
+    [
+      defaultAccountSettingInput.fullName,
+      defaultAccountSettingInput.email,
+      account?.connection,
+      toast,
+      t,
+      updateName,
+      updateEmail,
+    ]
   )
 
   return {
@@ -84,6 +76,6 @@ export default function useAccountSetting() {
     handleReset,
     handleSubmit,
     defaultAccountSettingInput,
-    loading,
+    loading: isAccountLoading,
   }
 }
