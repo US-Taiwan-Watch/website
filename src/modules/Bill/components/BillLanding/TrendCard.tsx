@@ -7,7 +7,7 @@ import UHStack from '@/common/components/atoms/UHStack'
 import TrendBarCharts, {
   TrendBarChartData,
 } from '@/modules/Bill/components/BillLanding/TrendBarCharts'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
@@ -75,15 +75,14 @@ export default function TrendCard() {
   }
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'tooltip',
+    <UContentCardWithModal
+      header={{
         title: t('landing.card.trend.title', { ns: 'bill' }),
         icon: <TrendIcon />,
         iconColor: 'primary',
+        actionType: 'tooltip',
       }}
-      tooltipProps={{
+      tooltip={{
         content: t('landing.card.trend.tooltip', { ns: 'bill' }),
       }}
     >
@@ -166,6 +165,6 @@ export default function TrendCard() {
           </>
         )}
       </Stack>
-    </UContentCard>
+    </UContentCardWithModal>
   )
 }

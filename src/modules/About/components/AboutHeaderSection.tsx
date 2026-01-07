@@ -97,6 +97,7 @@ const AboutHeaderTabs = ({
                   xs: 0.5,
                   lg: 1,
                 },
+                width: 'max-content',
               }}
             >
               {tab.label}

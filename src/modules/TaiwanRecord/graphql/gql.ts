@@ -70,13 +70,25 @@ export const MUTATION_MODIFY_TAIWAN_RECORD = gql`
 `
 
 export const QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS = gql`
-  query QueryPeoplePublishedTaiwanRecords($peopleId: JSON!) {
+  query QueryPeoplePublishedTaiwanRecords(
+    $peopleId: JSON!
+    $limit: Int
+    $page: Int
+    $sort: String
+  ) {
     TaiwanRecords(
       where: { people: { equals: $peopleId }, status: { equals: published } }
+      limit: $limit
+      page: $page
+      sort: $sort
     ) {
       docs {
         ...TaiwanRecord
       }
+      totalPages
+      totalDocs
+      page
+      hasNextPage
     }
   }
 

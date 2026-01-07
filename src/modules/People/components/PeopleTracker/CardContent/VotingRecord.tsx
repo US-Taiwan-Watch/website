@@ -46,14 +46,8 @@ const VotingRecord = function ({ people }: VotingRecordProps) {
         iconColor: 'primary',
       }}
     >
-      {votes?.map((vote, index) => (
-        <Box
-          key={index}
-          sx={{
-            marginLeft: '8px',
-            marginRight: '8px',
-          }}
-        >
+      {votes.map((vote, index) => (
+        <Box key={index}>
           {vote.vote?.bill && vote.stance && vote.vote.status && (
             <BillVoteCard vote={vote} />
           )}

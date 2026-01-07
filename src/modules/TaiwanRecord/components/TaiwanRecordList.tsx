@@ -1,45 +1,79 @@
+'use client'
+
 import UPagination from '@/common/components/atoms/UPagination'
+import ULoadMoreButton from '@/common/components/atoms/ULoadMoreButton'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import TaiwanRecordCard from '@/modules/TaiwanRecord/components/TaiwanRecordCard'
+import TaiwanRecordCardSkeleton from '@/modules/TaiwanRecord/components/TaiwanRecordCardSkeleton'
+import useTaiwanRecordList from '@/modules/TaiwanRecord/hooks/useTaiwanRecordList'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
-import {
-  TaiwanRecord,
-  TaiwanRecordUtils,
-} from '@/modules/TaiwanRecord/business/TaiwanRecord'
+import { memo } from 'react'
 
 interface TaiwanRecordListProps {
-  records: TaiwanRecord[]
+  /** People ID to fetch records for */
+  peopleId: string
 }
 
-const TaiwanRecordList = ({ records }: TaiwanRecordListProps) => {
+const TaiwanRecordCardsSkeleton = memo(function TaiwanRecordCardsSkeleton() {
+  return (
+    <>
+      {Array.from({ length: 3 }).map((_, index) => (
+        <TaiwanRecordCardSkeleton key={index} />
+      ))}
+    </>
+  )
+})
+
+const TaiwanRecordList = ({ peopleId }: TaiwanRecordListProps) => {
   const theme = useTheme<USTWTheme>()
 
+  const {
+    records,
+    loading,
+    totalPages,
+    page,
+    handlePageChange,
+    shouldAppendData,
+    hasMore,
+  } = useTaiwanRecordList({ peopleId })
+
   return (
-    <Stack gap={theme.spacing(7.5)}>
+    <Stack gap={theme.spacing(7.5)} width="100%">
       <Stack gap={theme.spacing(1.5)}>
-        {records
-          .filter((record) => TaiwanRecordUtils.isPublished(record))
-          .map((item) => (
-            <div key={item.id}>
-              <TaiwanRecordCard taiwanRecord={item} />
-            </div>
-          ))}
+        {loading && records.length === 0 ? (
+          <TaiwanRecordCardsSkeleton />
+        ) : (
+          records.map((record) => (
+            <TaiwanRecordCard key={record.id} taiwanRecord={record} />
+          ))
+        )}
       </Stack>
-      {
-        // FIXME: 因為是 mock data，所以先固定 5 筆，之後改動態 api 取得
-        records.length > 5 && (
-          <UPagination
-            sx={{
-              margin: '0 auto',
-            }}
-            count={10}
-            page={1}
-          />
-        )
-      }
+
+      {/* Infinite Scroll (Mobile) */}
+      {shouldAppendData && records.length > 0 && (
+        <ULoadMoreButton
+          loading={loading}
+          onLoadMore={() => handlePageChange(page + 1)}
+          hasMore={hasMore}
+        />
+      )}
+
+      {/* Pagination (Desktop) */}
+      {!shouldAppendData && totalPages > 1 && (
+        <UPagination
+          sx={{
+            margin: '0 auto',
+          }}
+          count={totalPages}
+          page={page}
+          onChange={(_, newPage) => {
+            handlePageChange(newPage)
+          }}
+        />
+      )}
     </Stack>
   )
 }
 
-export default TaiwanRecordList
+export default memo(TaiwanRecordList)

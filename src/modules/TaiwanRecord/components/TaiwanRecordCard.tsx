@@ -6,6 +6,7 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import { ExpandMoreIcon } from '@/common/styles/assets/Icons'
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import TaiwanRecordImageGallery from './TaiwanRecordImageGallery'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
@@ -16,22 +17,25 @@ import UHStack from '@/common/components/atoms/UHStack'
 import Image from 'next/image'
 import TaiwanRecordSources from '@/modules/TaiwanRecord/components/TaiwanRecordSources'
 import { DateUtils } from '@/modules/Common/business/Date'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 const StyledImage = styled(Image)(() => ({}))
 
 const DATE_FORMAT = 'MMM DD, YYYY'
-const MAX_IMAGE_TO_SHOW = 4
 
 interface TaiwanRecordCardProps {
   taiwanRecord: TaiwanRecord
 }
 
 const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
+  const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
   const [isContentExpanded, setIsContentExpanded] = useState(false)
   const handleExpandContentChange = useCallback(() => {
     setIsContentExpanded((prev) => !prev)
   }, [])
+
+  const MAX_IMAGE_TO_SHOW = isMobile ? 1 : 4
 
   /**
    * 計算剩餘圖片數量
@@ -39,7 +43,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
   const imageCountLeft = useMemo(() => {
     if (!taiwanRecord.images) return 0
     return Math.max(0, taiwanRecord.images.length - MAX_IMAGE_TO_SHOW)
-  }, [taiwanRecord])
+  }, [taiwanRecord, MAX_IMAGE_TO_SHOW])
 
   const [dateAndAuthor, setDateAndAuthor] = useState('')
   useEffect(() => {
@@ -47,6 +51,14 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
 
     setDateAndAuthor(`${createdAt} | ${taiwanRecord.author}`)
   }, [taiwanRecord])
+
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  const handleOpenGallery = useCallback(() => {
+    setIsGalleryOpen(true)
+  }, [])
+  const handleCloseGallery = useCallback(() => {
+    setIsGalleryOpen(false)
+  }, [])
 
   return (
     <UAccordion defaultExpanded>
@@ -99,6 +111,7 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
                       alignItems="center"
                       justifyContent="center"
                       zIndex={10}
+                      onClick={handleOpenGallery}
                       sx={{
                         cursor: 'pointer',
                       }}
@@ -136,6 +149,17 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
           </Stack>
         </Stack>
       </AccordionDetails>
+      <TaiwanRecordImageGallery
+        open={isGalleryOpen}
+        images={
+          taiwanRecord.images?.map((img, idx) => ({
+            url: img.url,
+            alt: `Taiwan Record Image ${idx + 1} from ${taiwanRecord.title}`,
+          })) || []
+        }
+        onClose={handleCloseGallery}
+        title={taiwanRecord.title}
+      />
     </UAccordion>
   )
 }

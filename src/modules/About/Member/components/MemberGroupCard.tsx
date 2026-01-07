@@ -16,6 +16,7 @@ export default function MemberGroupCard({ memberGroup }: MemberGroupCardProps) {
 
   return (
     <Stack
+      width="100%"
       px={{
         xs: 2,
         md: 4,

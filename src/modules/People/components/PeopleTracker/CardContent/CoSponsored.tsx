@@ -50,13 +50,7 @@ const CoSponsored = function ({ people }: CoSponsoredProps) {
       }}
     >
       {cosponsorBills.map((bill, index) => (
-        <Box
-          key={index}
-          sx={{
-            marginLeft: '8px',
-            marginRight: '8px',
-          }}
-        >
+        <Box key={index}>
           <BillCard mode="horizontal" bill={bill} />
         </Box>
       ))}

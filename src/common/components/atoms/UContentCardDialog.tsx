@@ -1,6 +1,7 @@
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import { Box, Card, Dialog, useTheme, type DialogProps } from '@mui/material'
+import { Dialog, useTheme, type DialogProps } from '@mui/material'
 import { memo } from 'react'
+import type React from 'react'
 
 const StyledDialog = styled(Dialog)(() => ({
   '& .MuiCardContent-root': {
@@ -9,7 +10,14 @@ const StyledDialog = styled(Dialog)(() => ({
   },
 }))
 
-const UContentCardDialog = function UContentCardDialog(props: DialogProps) {
+export interface UContentCardDialogProps extends DialogProps {
+  children?: React.ReactNode
+}
+
+const UContentCardDialog = function UContentCardDialog({
+  children,
+  ...props
+}: UContentCardDialogProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -19,25 +27,12 @@ const UContentCardDialog = function UContentCardDialog(props: DialogProps) {
         sx: {
           width: '100%',
           borderRadius: theme.shape.borderRadius,
+          bgcolor: 'background.paper',
+          boxShadow: 'none',
         },
       }}
     >
-      <Box
-        sx={{
-          bgcolor: 'background.paper',
-        }}
-      >
-        <Card
-          sx={{
-            padding: 2,
-            '& .MuiCardContent-root:last-child': {
-              padding: 0,
-            },
-          }}
-        >
-          {props.children}
-        </Card>
-      </Box>
+      {children}
     </StyledDialog>
   )
 }

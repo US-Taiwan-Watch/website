@@ -8,7 +8,7 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { DateUtils } from '@/modules/Common/business/Date'
@@ -187,10 +187,10 @@ const ExperienceRow = function ExperienceRow({
   return (
     <Stack
       className="experience-row"
-      padding={1}
       sx={{
         '&:not(:last-child)': {
           borderBottom: `1px solid ${theme.color.grey[1900]}`,
+          pb: 2,
         },
       }}
     >
@@ -269,13 +269,12 @@ const Experience = function Experience({ experience }: ExperienceProps) {
   const { t } = useTranslationClient(['people'])
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'modal',
+    <UContentCardWithModal
+      header={{
         title: t('page.card.experience.title', { ns: 'people' }),
         icon: <BriefcaseIcon />,
         iconColor: 'primary',
+        actionType: 'modal',
       }}
       overflowHidden
       noContentPlaceholder={
@@ -284,10 +283,12 @@ const Experience = function Experience({ experience }: ExperienceProps) {
         </Typography>
       }
     >
-      {experience.map((exp, index) => (
-        <ExperienceRow key={index} experience={exp} />
-      ))}
-    </UContentCard>
+      <Stack gap={2}>
+        {experience.map((exp, index) => (
+          <ExperienceRow key={index} experience={exp} />
+        ))}
+      </Stack>
+    </UContentCardWithModal>
   )
 }
 

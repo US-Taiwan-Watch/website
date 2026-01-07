@@ -4,6 +4,8 @@ import UCategoryTag, {
   UCategoryTagProps,
 } from '@/common/components/atoms/UCategoryTag'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardHeader from '@/common/components/atoms/UContentCardHeader'
+import UContentCardContent from '@/common/components/atoms/UContentCardContent'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UHStack from '@/common/components/atoms/UHStack'
 import UIconButton from '@/common/components/atoms/UIconButton'
@@ -91,10 +93,16 @@ export default function UTagList({
       {isModalOpen && (
         <UContentCardDialog open={isModalOpen} onClose={handleCloseModal}>
           <UContentCard
-            withHeader={true}
-            headerProps={{
-              title: 'Tags',
-              action: (
+            sx={{
+              padding: 0,
+              border: 'none',
+              borderRadius: 0,
+            }}
+          >
+            <UContentCardHeader
+              variant="dialog"
+              title="Tags"
+              action={
                 <UIconButton
                   variant="rounded"
                   color="inherit"
@@ -103,29 +111,23 @@ export default function UTagList({
                 >
                   <CloseIcon sx={{ color: theme.color.neutral[500] }} />
                 </UIconButton>
-              ),
-            }}
-            sx={{
-              padding: 0,
-              border: 'none',
-              borderRadius: 0,
-            }}
-          >
-            <UHStack
-              gap={1}
-              pt={3}
-              pb={2}
-              flexWrap="wrap"
-              sx={{
-                '.category-tag': {
-                  maxWidth: 'unset',
-                },
-              }}
-            >
-              {tags.map((tag, index) => (
-                <Fragment key={index}>{tag}</Fragment>
-              ))}
-            </UHStack>
+              }
+            />
+            <UContentCardContent variant="dialog">
+              <UHStack
+                gap={1}
+                flexWrap="wrap"
+                sx={{
+                  '.category-tag': {
+                    maxWidth: 'unset',
+                  },
+                }}
+              >
+                {tags.map((tag, index) => (
+                  <Fragment key={index}>{tag}</Fragment>
+                ))}
+              </UHStack>
+            </UContentCardContent>
           </UContentCard>
         </UContentCardDialog>
       )}

@@ -13,6 +13,7 @@ import {
 import {
   TaiwanRecordCreateOutput,
   TaiwanRecordUpdateOutput,
+  TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import {
   MUTATION_MODIFY_TAIWAN_RECORD,
@@ -118,7 +119,7 @@ export default function useTaiwanRecord() {
                 photo: image.id,
               })),
               ...uploadedImageIds.map((imageId) => ({
-                id: imageId,
+                id: TaiwanRecordUtils.generateRandomPhotoId(),
                 photo: imageId,
               })),
             ],

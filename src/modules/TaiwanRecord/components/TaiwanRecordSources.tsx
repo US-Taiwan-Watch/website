@@ -1,4 +1,6 @@
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardHeader from '@/common/components/atoms/UContentCardHeader'
+import UContentCardContent from '@/common/components/atoms/UContentCardContent'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import Avatar from '@mui/material/Avatar'
 import AvatarGroup from '@mui/material/AvatarGroup'
@@ -80,10 +82,16 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
       title={t('card.sources.title', { ns: 'taiwan_record' })}
     >
       <UContentCard
-        withHeader
-        headerProps={{
-          title: t('card.sources.title', { ns: 'taiwan_record' }),
-          action: (
+        sx={{
+          padding: 0,
+          border: 'none',
+          borderRadius: 0,
+        }}
+      >
+        <UContentCardHeader
+          variant="dialog"
+          title={t('card.sources.title', { ns: 'taiwan_record' })}
+          action={
             <UIconButton
               variant="rounded"
               color="inherit"
@@ -92,60 +100,56 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
             >
               <CloseIcon sx={{ color: theme.color.neutral[500] }} />
             </UIconButton>
-          ),
-        }}
-        sx={{
-          padding: 0,
-          border: 'none',
-          borderRadius: 0,
-        }}
-      >
-        <Stack
-          sx={{
-            margin: `${theme.spacing(1)} 0`,
-          }}
-        >
-          {sourceMetadatas.map((m, index) => (
-            <Fragment key={m.link}>
-              <Link href={m.link} target="_blank" rel="noopener noreferrer">
-                <Stack
-                  sx={{
-                    px: 1.5,
-                    py: 1,
-                    borderRadius: theme.shape.borderRadius / 2,
-                    '&:hover': {
-                      backgroundColor: theme.color.grey[100],
-                    },
-                  }}
-                >
-                  <UHStack gap={1} alignItems="center">
-                    <Avatar src={m.favicon} sx={{ width: 16, height: 16 }}>
-                      <LinkIcon sx={{ width: 12, height: 12 }} />
-                    </Avatar>
-                    <Typography variant="body2">{m.siteName}</Typography>
-                  </UHStack>
-                  <Typography fontWeight={500}>{m.title}</Typography>
-                  <UHeightLimitedText
-                    maxLine={2}
+          }
+        />
+        <UContentCardContent variant="dialog">
+          <Stack
+            sx={{
+              margin: `${theme.spacing(1)} 0`,
+            }}
+          >
+            {sourceMetadatas.map((m, index) => (
+              <Fragment key={m.link}>
+                <Link href={m.link} target="_blank" rel="noopener noreferrer">
+                  <Stack
                     sx={{
-                      color: theme.color.grey[1000],
+                      px: 1.5,
+                      py: 1,
+                      borderRadius: theme.shape.borderRadius / 2,
+                      '&:hover': {
+                        backgroundColor: theme.color.grey[100],
+                      },
                     }}
                   >
-                    {m.description}
-                  </UHeightLimitedText>
-                </Stack>
-              </Link>
-              {index !== sourceMetadatas.length - 1 && (
-                <Divider
-                  sx={{
-                    borderColor: theme.color.neutral[200],
-                    my: 1,
-                  }}
-                />
-              )}
-            </Fragment>
-          ))}
-        </Stack>
+                    <UHStack gap={1} alignItems="center">
+                      <Avatar src={m.favicon} sx={{ width: 16, height: 16 }}>
+                        <LinkIcon sx={{ width: 12, height: 12 }} />
+                      </Avatar>
+                      <Typography variant="body2">{m.siteName}</Typography>
+                    </UHStack>
+                    <Typography fontWeight={500}>{m.title}</Typography>
+                    <UHeightLimitedText
+                      maxLine={2}
+                      sx={{
+                        color: theme.color.grey[1000],
+                      }}
+                    >
+                      {m.description}
+                    </UHeightLimitedText>
+                  </Stack>
+                </Link>
+                {index !== sourceMetadatas.length - 1 && (
+                  <Divider
+                    sx={{
+                      borderColor: theme.color.neutral[200],
+                      my: 1,
+                    }}
+                  />
+                )}
+              </Fragment>
+            ))}
+          </Stack>
+        </UContentCardContent>
       </UContentCard>
     </UContentCardDialog>
   )

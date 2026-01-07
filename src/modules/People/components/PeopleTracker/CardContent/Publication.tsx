@@ -1,7 +1,7 @@
 import { DocumentIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -24,9 +24,12 @@ const PublicationRow = function PublicationRow({
     <Stack
       className="publication-row"
       sx={{
-        padding: theme.spacing(2, 1),
         '&:not(:last-child)': {
           borderBottom: `1px solid ${theme.color.grey[1900]}`,
+          pb: {
+            xs: '15px',
+            md: 3,
+          },
         },
       }}
     >
@@ -87,22 +90,30 @@ const Publication = function Publication({ publications }: PublicationProps) {
   const { t } = useTranslationClient(['people'])
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'modal',
+    <UContentCardWithModal
+      header={{
         title: t('page.card.publication.title', { ns: 'people' }),
         icon: <DocumentIcon />,
         iconColor: 'primary',
+        actionType: 'modal',
       }}
-      popupProps={{
-        popupContent: publications?.map((publication, index) => (
-          <PublicationRow
-            key={index}
-            publication={publication}
-            simplified={false}
-          />
-        )),
+      modal={{
+        content: (
+          <Stack
+            gap={{
+              xs: '15px',
+              md: 3,
+            }}
+          >
+            {publications?.map((publication, index) => (
+              <PublicationRow
+                key={index}
+                publication={publication}
+                simplified={false}
+              />
+            ))}
+          </Stack>
+        ),
       }}
       overflowHidden
       noContentPlaceholder={
@@ -111,14 +122,21 @@ const Publication = function Publication({ publications }: PublicationProps) {
         </Typography>
       }
     >
-      {publications?.map((publication, index) => (
-        <PublicationRow
-          key={index}
-          publication={publication}
-          simplified={true}
-        />
-      ))}
-    </UContentCard>
+      <Stack
+        gap={{
+          xs: '15px',
+          md: 3,
+        }}
+      >
+        {publications?.map((publication, index) => (
+          <PublicationRow
+            key={index}
+            publication={publication}
+            simplified={true}
+          />
+        ))}
+      </Stack>
+    </UContentCardWithModal>
   )
 }
 

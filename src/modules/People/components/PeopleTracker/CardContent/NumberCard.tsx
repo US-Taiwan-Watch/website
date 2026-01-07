@@ -3,11 +3,14 @@ import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Stack, Typography, useTheme } from '@mui/material'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardHeader, {
+  UContentCardHeaderProps,
+} from '@/common/components/atoms/UContentCardHeader'
+import UContentCardContent from '@/common/components/atoms/UContentCardContent'
 import type React from 'react'
-import useModal from '@/common/hooks/useModal'
+import useContentCardModal from '@/common/hooks/useContentCardModal'
 import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import CloseIcon from '@mui/icons-material/Close'
-import { UCardHeaderProps } from '@/common/components/atoms/UCardHeader'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UContentCardDrawer from '@/common/components/atoms/UContentCardDrawer'
 
@@ -20,7 +23,7 @@ interface NumberCardProps {
   title: string
   number: number
   /** header 的 props */
-  headerProps?: UCardHeaderProps
+  headerProps?: UContentCardHeaderProps
 }
 
 const NumberCard = function ({
@@ -30,39 +33,46 @@ const NumberCard = function ({
   headerProps,
 }: NumberCardProps) {
   const { isMobile } = useResponsive()
-  const { isModalOpen, handleOpenModal, handleCloseModal } = useModal()
+  const { isOpen, open, close } = useContentCardModal()
   const theme = useTheme<USTWTheme>()
 
   const modalComponent = (
     <UContentCard
-      withHeader={true}
-      headerProps={{
-        ...headerProps,
-        action: (
-          <UIconButton
-            variant="rounded"
-            color="inherit"
-            size="small"
-            onClick={handleCloseModal}
-          >
-            <CloseIcon sx={{ color: theme.color.neutral[500] }} />
-          </UIconButton>
-        ),
-      }}
       sx={{
         padding: 0,
         border: 'none',
         borderRadius: 0,
       }}
-      contentProps={{
-        sx: {
+    >
+      <UContentCardHeader
+        variant={isMobile ? 'drawer' : 'dialog'}
+        {...headerProps}
+        action={
+          <UIconButton
+            variant="rounded"
+            color="inherit"
+            size="small"
+            onClick={close}
+          >
+            <CloseIcon sx={{ color: theme.color.neutral[500] }} />
+          </UIconButton>
+        }
+      />
+      <UContentCardContent
+        variant={isMobile ? 'drawer' : 'dialog'}
+        sx={{
           '& > *:not(:last-child)': {
             borderBottom: `1px solid ${theme.color.neutral[100]}`,
           },
-        },
-      }}
-    >
-      {children}
+          ...(isMobile && { bgcolor: 'neutral.100' }),
+          gap: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          overflowX: 'hidden !important',
+        }}
+      >
+        {children}
+      </UContentCardContent>
     </UContentCard>
   )
 
@@ -122,31 +132,29 @@ const NumberCard = function ({
           >
             {number}
           </Typography>
-          <UIconButton
-            variant="rounded"
-            size="small"
-            color="inherit"
-            onClick={handleOpenModal}
-            sx={{
-              position: 'absolute',
-              bottom: 0,
-              right: 0,
-            }}
-          >
-            <StyledArrowOutwardIcon />
-          </UIconButton>
+          {number > 0 && (
+            <UIconButton
+              variant="rounded"
+              size="small"
+              color="inherit"
+              onClick={open}
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
+              }}
+            >
+              <StyledArrowOutwardIcon />
+            </UIconButton>
+          )}
         </Stack>
       </UContentCard>
       {isMobile ? (
-        <UContentCardDrawer open={isModalOpen} onClose={handleCloseModal}>
+        <UContentCardDrawer open={isOpen} onClose={close}>
           {modalComponent}
         </UContentCardDrawer>
       ) : (
-        <UContentCardDialog
-          open={isModalOpen}
-          onClose={handleCloseModal}
-          maxWidth="lg"
-        >
+        <UContentCardDialog open={isOpen} onClose={close} maxWidth="lg">
           {modalComponent}
         </UContentCardDialog>
       )}

@@ -15,7 +15,7 @@ import { QUERY_PEOPLE_SPONSOR_BILLS } from '@/modules/People/graphql/gql'
 import { isNull } from 'lodash-es'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import IndexBillCard from '@/modules/Bill/components/IndexBillCard'
+import BillCardContent from '@/modules/People/components/PeopleTracker/CardContent/BillBardContent'
 
 interface SponsoredProps {
   people: People
@@ -49,15 +49,9 @@ const Sponsored = function ({ people }: SponsoredProps) {
         iconColor: 'primary',
       }}
     >
-      {sponsorBills.concat(sponsorBills).map((bill, index) => (
-        <Box
-          key={index}
-          sx={{
-            py: 2,
-            overflowX: 'hidden',
-          }}
-        >
-          <IndexBillCard timelineVariant="secondary" bill={bill} />
+      {sponsorBills.map((bill, index) => (
+        <Box key={index}>
+          <BillCardContent bill={bill} />
         </Box>
       ))}
     </NumberCard>

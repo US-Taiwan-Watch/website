@@ -1,6 +1,6 @@
 'use client'
 
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import { ActionsIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography } from '@mui/material'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
@@ -9,7 +9,6 @@ import CardExpandIcon from '@/modules/Bill/components/SingleBill/CardExpandIcon'
 import ActionsFilterContent from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilterContent'
 import { useState, useMemo } from 'react'
 import { ActionsType } from '@/modules/Bill/components/SingleBill/ActionsFilter/ActionsFilter'
-import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import DrawerFilter from '@/modules/Bill/components/SingleBill/ActionsFilter/DrawerFilter'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { DateUtils } from '@/modules/Common/business/Date'
@@ -21,7 +20,6 @@ type Props = {
 }
 
 export default function BillActions({ bill }: Props) {
-  const { isMobile } = useResponsive()
   const { t } = useTranslationClient('bill')
   const [selectedActionsType, setSelectedActionsType] = useState<ActionsType>(
     ActionsType.ACTIONS_OVERVIEW
@@ -42,46 +40,41 @@ export default function BillActions({ bill }: Props) {
   }, [latestAction])
 
   return (
-    <>
-      <UContentCard
-        withHeader
-        headerProps={{
-          headerIconAction: 'modal',
-          title: t('page.card.actions.title', {
-            ns: 'bill',
-          }),
-          icon: <ActionsIcon />,
-          iconColor: 'primary',
-          actionIcon: <CardExpandIcon />,
-        }}
-        popupProps={{
-          popupContent: (
-            <ActionsFilterContent
-              actions={actions}
-              selectedActionsType={selectedActionsType}
-              onSelectActionsType={setSelectedActionsType}
-            />
-          ),
-          popupDialogMaxWidth: 'lg',
-          ...(isMobile && {
-            popupSubAction: (
-              <DrawerFilter
-                selectedActionsType={selectedActionsType}
-                onSelectActionsType={setSelectedActionsType}
-              />
-            ),
-          }),
-        }}
-      >
-        <Stack pt={2}>
-          <Typography variant="buttonXS" mb={2}>
-            {latestActionDate}
-          </Typography>
-          <UHeightLimitedText maxLine={4} variant="body">
-            {latestAction?.description ?? ''}
-          </UHeightLimitedText>
-        </Stack>
-      </UContentCard>
-    </>
+    <UContentCardWithModal
+      header={{
+        title: t('page.card.actions.title', {
+          ns: 'bill',
+        }),
+        icon: <ActionsIcon />,
+        iconColor: 'primary',
+        actionType: 'modal',
+        actionIcon: <CardExpandIcon />,
+      }}
+      modal={{
+        content: (
+          <ActionsFilterContent
+            actions={actions}
+            selectedActionsType={selectedActionsType}
+            onSelectActionsType={setSelectedActionsType}
+          />
+        ),
+        maxWidth: 'lg',
+        drawerSubAction: (
+          <DrawerFilter
+            selectedActionsType={selectedActionsType}
+            onSelectActionsType={setSelectedActionsType}
+          />
+        ),
+      }}
+    >
+      <Stack pt={2}>
+        <Typography variant="buttonXS" mb={2}>
+          {latestActionDate}
+        </Typography>
+        <UHeightLimitedText maxLine={4} variant="body">
+          {latestAction?.description ?? ''}
+        </UHeightLimitedText>
+      </Stack>
+    </UContentCardWithModal>
   )
 }
