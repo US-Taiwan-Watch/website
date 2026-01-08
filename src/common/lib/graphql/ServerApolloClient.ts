@@ -1,5 +1,6 @@
 import { config } from '@/config'
 import {
+  ApolloLink,
   CombinedGraphQLErrors,
   CombinedProtocolErrors,
   HttpLink,
@@ -11,7 +12,7 @@ import {
 } from '@apollo/client-integration-nextjs'
 import { ErrorLink } from '@apollo/client/link/error'
 
-export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
+export const { getClient, PreloadQuery } = registerApolloClient(() => {
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
     uri: config.GRAPHQL_API_URL,
@@ -41,8 +42,16 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
     }
   })
 
+  // 創建 Request Log
+  const requestLink = new ApolloLink((operation, forward) => {
+    const { variables } = operation
+    console.log(`[GraphQL request]: ${operation.operationName}`)
+    console.log(`[Variables]: ${JSON.stringify(variables)}`)
+    return forward(operation)
+  })
+
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: errorLink.concat(httpLink),
+    link: ApolloLink.from([errorLink, requestLink, httpLink]),
   })
 })
