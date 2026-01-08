@@ -11,14 +11,7 @@ import Stack from '@mui/material/Stack'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
-import { useState, useMemo, useCallback } from 'react'
-import { useQuery } from '@apollo/client'
-import { QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS } from '@/modules/TaiwanRecord/graphql/gql'
-import type {
-  QueryPeoplePublishedTaiwanRecordsQuery,
-  QueryPeoplePublishedTaiwanRecordsQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { TaiwanRecordUtils } from '@/modules/TaiwanRecord/business/TaiwanRecord'
+import { useState, useCallback } from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { useUAuth } from '@/modules/Auth/providers/UAuthProvider'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
@@ -35,26 +28,10 @@ export default function TaiwanRecordSection({
   const { t } = useTranslationClient(['people'])
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false)
 
-  const { data } = useQuery<
-    QueryPeoplePublishedTaiwanRecordsQuery,
-    QueryPeoplePublishedTaiwanRecordsQueryVariables
-  >(QUERY_PEOPLE_PUBLISHED_TAIWAN_RECORDS, {
-    variables: {
-      peopleId: people.id,
-    },
-    skip: !people.id,
-  })
-
-  const records = useMemo(() => {
-    const docs = data?.TaiwanRecords?.docs ?? []
-    return docs
-      .filter((doc) => doc !== null)
-      .map((doc) => TaiwanRecordUtils.parse(doc))
-  }, [data])
-
   const { resolveRouteUrl } = useURouterClient()
   const { login } = useUAuth()
   const { isAccountLoading, account } = useAccount()
+
   const handleSubmitTaiwanRecordClick = useCallback(() => {
     if (isAccountLoading) return
 
@@ -91,7 +68,7 @@ export default function TaiwanRecordSection({
             </UButton>
           )}
         />
-        <TaiwanRecordList records={records} />
+        {people.id && <TaiwanRecordList peopleId={people.id} />}
       </Stack>
       {people.id && (
         <TaiwanRecordDialog

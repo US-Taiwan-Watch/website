@@ -1,13 +1,17 @@
 'use client'
 
-import { HttpLink } from '@apollo/client'
+import {
+  CombinedGraphQLErrors,
+  CombinedProtocolErrors,
+  HttpLink,
+} from '@apollo/client'
 import {
   ApolloNextAppProvider,
   ApolloClient,
   InMemoryCache,
-} from '@apollo/experimental-nextjs-app-support'
-import { setContext } from '@apollo/client/link/context'
-import { onError } from '@apollo/client/link/error'
+} from '@apollo/client-integration-nextjs'
+import { SetContextLink } from '@apollo/client/link/context'
+import { ErrorLink } from '@apollo/client/link/error'
 import type React from 'react'
 import { config } from '@/config'
 
@@ -26,7 +30,7 @@ function makeClient() {
   })
 
   // 創建一個 auth link 來處理 token
-  const authLink = setContext(async (_, { headers, token }) => {
+  const authLink = new SetContextLink(async ({ headers, token }) => {
     // 返回新的 headers
     return {
       headers: {
@@ -37,19 +41,23 @@ function makeClient() {
   })
 
   // 創建錯誤處理 link
-  const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
-    if (graphQLErrors) {
-      graphQLErrors.forEach(({ message, locations, path }) => {
-        console.error(
-          `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(locations)}, Path: ${path}`
+  const errorLink = new ErrorLink(({ error }) => {
+    if (CombinedGraphQLErrors.is(error)) {
+      error.errors.forEach(({ message, locations, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         )
-      })
-    }
-
-    if (networkError) {
-      console.error(`[Network error]: ${networkError.message}`, {
-        operation: operation.operationName,
-      })
+      )
+    } else if (CombinedProtocolErrors.is(error)) {
+      error.errors.forEach(({ message, extensions }) =>
+        console.log(
+          `[Protocol error]: Message: ${message}, Extensions: ${JSON.stringify(
+            extensions
+          )}`
+        )
+      )
+    } else {
+      console.error(`[Network error]: ${error}`)
     }
   })
 

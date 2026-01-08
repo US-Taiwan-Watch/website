@@ -13,13 +13,14 @@ import {
 import {
   TaiwanRecordCreateOutput,
   TaiwanRecordUpdateOutput,
+  TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import {
   MUTATION_MODIFY_TAIWAN_RECORD,
   MUTATION_SUBMIT_TAIWAN_RECORD,
   MUTATION_WITHDRAW_TAIWAN_RECORD,
 } from '@/modules/TaiwanRecord/graphql/gql'
-import { useMutation } from '@apollo/client'
+import { useMutation } from '@apollo/client/react'
 import { useCallback } from 'react'
 
 export default function useTaiwanRecord() {
@@ -114,9 +115,11 @@ export default function useTaiwanRecord() {
             })),
             photos: [
               ...existingImages.map((image) => ({
+                id: image.id,
                 photo: image.id,
               })),
               ...uploadedImageIds.map((imageId) => ({
+                id: TaiwanRecordUtils.generateRandomPhotoId(),
                 photo: imageId,
               })),
             ],

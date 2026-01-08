@@ -10,7 +10,7 @@ import {
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { useToast } from '@/common/providers/ToastProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { QUERY_ME_NOTIFICATION_SETTING } from '@/modules/Account/graphql/gql'
 import {
   QueryMeNotificationSettingQuery,

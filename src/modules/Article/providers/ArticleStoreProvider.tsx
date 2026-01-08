@@ -13,7 +13,7 @@ import {
   TagsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { QUERY_TAGS } from '@/modules/Common/graphql/gql'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { isNull } from 'lodash-es'
 import {
   QUERY_CATEGORIES_ARTICLES,
@@ -59,16 +59,12 @@ export default function ArticleStoreProvider({
   const [
     getArticleLandingTags,
     { data: articleLandingTagsData, error: articleLandingTagsError },
-  ] = useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
-    variables: landingTagsVariables,
-  })
+  ] = useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS)
 
   const [
     getKetagalanLandingTags,
     { data: ketagalanLandingTagsData, error: ketagalanLandingTagsError },
-  ] = useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS, {
-    variables: landingTagsVariables,
-  })
+  ] = useLazyQuery<TagsQuery, TagsQueryVariables>(QUERY_TAGS)
 
   const landingTagsData = useMemo(() => {
     if (articleType === ArticleType.Ketagalan) {
@@ -147,10 +143,7 @@ export default function ArticleStoreProvider({
     getHighlightedCategories,
     { data: categoriesArticlesQueryData, error: categoriesArticlesError },
   ] = useLazyQuery<CategoriesArticlesQuery, CategoriesArticlesQueryVariables>(
-    QUERY_CATEGORIES_ARTICLES,
-    {
-      variables: highlightedArticlesCategoriesVariables,
-    }
+    QUERY_CATEGORIES_ARTICLES
   )
 
   const highlightedKetagalanCategoriesVariables =
@@ -162,9 +155,7 @@ export default function ArticleStoreProvider({
   ] = useLazyQuery<
     CategoriesKetagalansQuery,
     CategoriesKetagalansQueryVariables
-  >(QUERY_CATEGORIES_KETAGALANS, {
-    variables: highlightedKetagalanCategoriesVariables,
-  })
+  >(QUERY_CATEGORIES_KETAGALANS)
 
   const highlightedCategoriesData = useMemo(() => {
     if (articleType === ArticleType.Ketagalan) {

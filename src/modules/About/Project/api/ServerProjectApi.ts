@@ -1,4 +1,4 @@
-import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import {
   QUERY_KETAGALAN_PROJECTS,
   QUERY_USTW_PROJECTS,
@@ -20,11 +20,13 @@ import { Language } from '@/common/lib/i18n/types'
  */
 export default class ServerProjectApi {
   static async getUstwProjects(lang: Language) {
-    const { data } = await query<UstwProjectsQuery, UstwProjectsQueryVariables>(
-      {
-        query: QUERY_USTW_PROJECTS,
-      }
-    )
+    const client = getClient()
+    const { data } = await client.query<
+      UstwProjectsQuery,
+      UstwProjectsQueryVariables
+    >({
+      query: QUERY_USTW_PROJECTS,
+    })
 
     return (
       data?.UstwProjects?.docs
@@ -34,7 +36,8 @@ export default class ServerProjectApi {
   }
 
   static async getKetagalanProjects(lang: Language) {
-    const { data } = await query<
+    const client = getClient()
+    const { data } = await client.query<
       KetagalanProjectsQuery,
       KetagalanProjectsQueryVariables
     >({

@@ -5,6 +5,8 @@ import CosponsorFilter, {
   FilterOption,
 } from '@/modules/Bill/components/SingleBill/CosponsorFilter/CosponsorFilter'
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardHeader from '@/common/components/atoms/UContentCardHeader'
+import UContentCardContent from '@/common/components/atoms/UContentCardContent'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import { FilterIcon, CloseIcon } from '@/common/styles/assets/Icons'
 import { SelectedOption } from '@/modules/Bill/components/SingleBill/CosponsorFilter/useCosponsorFilter'
@@ -49,19 +51,24 @@ const DrawerFilter = memo(function DrawerFilter({
         onClose={handleCloseModal}
         sx={{
           zIndex: 1500,
-        }}
-        cardProps={{
-          sx: {
+          '& .MuiPaper-root': {
             backgroundColor: theme.color.neutral[100],
           },
         }}
       >
         <UContentCard
-          withHeader
-          headerProps={{
-            title: 'Filter',
-            icon: <FilterIcon />,
-            action: (
+          sx={{
+            padding: 0,
+            border: 'none',
+            borderRadius: 0,
+            backgroundColor: theme.color.neutral[100],
+          }}
+        >
+          <UContentCardHeader
+            variant="drawer"
+            title="Filter"
+            icon={<FilterIcon />}
+            action={
               <UIconButton
                 variant="rounded"
                 color="inherit"
@@ -70,27 +77,19 @@ const DrawerFilter = memo(function DrawerFilter({
               >
                 <CloseIcon sx={{ color: theme.color.common.black }} />
               </UIconButton>
-            ),
-            sx: {
+            }
+            sx={{
               borderBottom: `1px solid ${theme.color.neutral[300]}`,
-            },
-          }}
-          popupProps={{
-            isPopup: true,
-          }}
-          sx={{
-            padding: `0 !important`,
-            border: 'none',
-            borderRadius: 0,
-            backgroundColor: theme.color.neutral[100],
-          }}
-        >
-          <CosponsorFilter
-            selectedOptionList={selectedOptionList}
-            onSelectOption={handleSelectOption}
-            clearAll={clearAll}
-            categories={filterCategories}
+            }}
           />
+          <UContentCardContent variant="drawer">
+            <CosponsorFilter
+              selectedOptionList={selectedOptionList}
+              onSelectOption={handleSelectOption}
+              clearAll={clearAll}
+              categories={filterCategories}
+            />
+          </UContentCardContent>
         </UContentCard>
       </UContentCardDrawer>
     </>

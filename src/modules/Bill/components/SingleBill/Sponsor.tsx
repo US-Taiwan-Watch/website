@@ -1,6 +1,8 @@
 'use client'
 
 import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardHeader from '@/common/components/atoms/UContentCardHeader'
+import UContentCardContent from '@/common/components/atoms/UContentCardContent'
 import { SponsorIcon } from '@/common/styles/assets/Icons'
 import { Box, Stack, Typography } from '@mui/material'
 import { styled } from '@/common/lib/mui/theme'
@@ -34,65 +36,67 @@ export default function Sponsor({ bill }: Props) {
   const { t } = useTranslationClient('bill')
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        title: t('page.card.sponsors.title', {
+    <UContentCard>
+      <UContentCardHeader
+        title={t('page.card.sponsors.title', {
           ns: 'bill',
-        }),
-        icon: <SponsorIcon />,
-        iconColor: 'primary',
-      }}
-    >
-      <UHStack pt={2} spacing={3}>
-        {bill.sponsor?.people?.image && (
-          <Link
-            href={
-              bill.sponsor ? PeopleUtils.getLink(bill.sponsor.people.id) : '#'
-            }
-          >
-            <StyledImageContainer>
-              <StyledImage
-                src={bill.sponsor?.people?.image}
-                alt={bill.sponsor?.people?.name ?? ''}
-                fill
-              />
-            </StyledImageContainer>
-          </Link>
-        )}
-
-        <Stack justifyContent="space-between">
-          <Stack spacing={1}>
+        })}
+        icon={<SponsorIcon />}
+        iconColor="primary"
+      />
+      <UContentCardContent>
+        <UHStack pt={2} spacing={3}>
+          {bill.sponsor?.people?.image && (
             <Link
               href={
                 bill.sponsor ? PeopleUtils.getLink(bill.sponsor.people.id) : '#'
               }
             >
-              <Typography variant="articleH3">
-                {bill.sponsor?.people?.name}
-              </Typography>
+              <StyledImageContainer>
+                <StyledImage
+                  src={bill.sponsor?.people?.image}
+                  alt={bill.sponsor?.people?.name ?? ''}
+                  fill
+                />
+              </StyledImageContainer>
             </Link>
-            <Typography variant="body">
-              {bill.sponsor?.people?.position}
-            </Typography>
-          </Stack>
+          )}
 
-          <UHStack gap={1.5} alignItems="center">
-            {bill.sponsor?.party && (
-              <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
-            )}
-            <Typography
-              variant="buttonXS"
-              fontWeight={700}
-              textTransform="capitalize"
-            >
-              {t(`party.${bill.sponsor?.party?.toLowerCase()}`, {
-                ns: 'common',
-              })}
-            </Typography>
-          </UHStack>
-        </Stack>
-      </UHStack>
+          <Stack justifyContent="space-between">
+            <Stack spacing={1}>
+              <Link
+                href={
+                  bill.sponsor
+                    ? PeopleUtils.getLink(bill.sponsor.people.id)
+                    : '#'
+                }
+              >
+                <Typography variant="articleH3">
+                  {bill.sponsor?.people?.name}
+                </Typography>
+              </Link>
+              <Typography variant="body">
+                {bill.sponsor?.people?.position}
+              </Typography>
+            </Stack>
+
+            <UHStack gap={1.5} alignItems="center">
+              {bill.sponsor?.party && (
+                <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
+              )}
+              <Typography
+                variant="buttonXS"
+                fontWeight={700}
+                textTransform="capitalize"
+              >
+                {t(`party.${bill.sponsor?.party?.toLowerCase()}`, {
+                  ns: 'common',
+                })}
+              </Typography>
+            </UHStack>
+          </Stack>
+        </UHStack>
+      </UContentCardContent>
     </UContentCard>
   )
 }

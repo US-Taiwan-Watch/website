@@ -18,7 +18,7 @@ import {
   QUERY_KETAGALAN_ARTICLES,
 } from '@/modules/Article/graphql/gql'
 import { isEmpty, isNull, isNumber } from 'lodash-es'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { usePagination } from '@/common/components/atoms/UPagination'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
@@ -67,20 +67,14 @@ export default function useArticleSearch(
 
   const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
     useLazyQuery<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      QUERY_USTW_ARTICLES,
-      {
-        variables: queryVariables,
-      }
+      QUERY_USTW_ARTICLES
     )
 
   const [
     getKetagalanArticles,
     { loading: isKetagalanArticlesLoading, data: ketagalanQueryData },
   ] = useLazyQuery<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>(
-    QUERY_KETAGALAN_ARTICLES,
-    {
-      variables: queryVariables,
-    }
+    QUERY_KETAGALAN_ARTICLES
   )
 
   const articlesData = useMemo(() => {

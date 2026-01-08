@@ -8,7 +8,7 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineDot from '@mui/lab/TimelineDot'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { DateUtils } from '@/modules/Common/business/Date'
@@ -102,13 +102,20 @@ const ExperienceTimelineItem = function ExperienceTimelineItem({
         {!isLast && <TimelineConnector />}
       </TimelineSeparator>
       <TimelineContent>
-        <Typography variant="bodyM" fontWeight={700}>
+        <Typography
+          sx={{
+            fontSize: '14px',
+            fontWeight: 700,
+          }}
+        >
           {experience.title}
         </Typography>
         <Typography
-          variant="bodyS"
-          sx={{ color: theme.color.neutral[500] }}
-          fontWeight={400}
+          sx={{
+            color: theme.color.neutral[500],
+            fontSize: '12px',
+            fontWeight: 400,
+          }}
         >
           {timeText}
         </Typography>
@@ -180,25 +187,46 @@ const ExperienceRow = function ExperienceRow({
   return (
     <Stack
       className="experience-row"
-      padding={1}
       sx={{
         '&:not(:last-child)': {
           borderBottom: `1px solid ${theme.color.grey[1900]}`,
+          pb: 2,
         },
       }}
     >
-      <Typography variant="bodyM" fontWeight={700}>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: '14px',
+            md: '17px',
+          },
+          fontWeight: 700,
+        }}
+      >
         {experience.title}
       </Typography>
       {experience.subtitle && (
-        <Typography variant="bodyS" fontWeight={500}>
+        <Typography
+          sx={{
+            fontSize: {
+              xs: '12px',
+              md: '15px',
+            },
+            fontWeight: 500,
+          }}
+        >
           {experience.subtitle}
         </Typography>
       )}
       <Typography
-        variant="bodyS"
-        sx={{ color: theme.color.neutral[500] }}
-        fontWeight={400}
+        sx={{
+          color: theme.color.neutral[500],
+          fontSize: {
+            xs: '12px',
+            md: '15px',
+          },
+          fontWeight: 400,
+        }}
       >
         {timeText}
       </Typography>
@@ -206,9 +234,14 @@ const ExperienceRow = function ExperienceRow({
         experience.descriptions.map((description, index) => (
           <Typography
             key={index}
-            variant="bodyS"
-            fontWeight={500}
-            sx={{ color: theme.color.neutral[500] }}
+            sx={{
+              color: theme.color.neutral[500],
+              fontSize: {
+                xs: '12px',
+                md: '15px',
+              },
+              fontWeight: 500,
+            }}
           >
             {description}
           </Typography>
@@ -236,13 +269,12 @@ const Experience = function Experience({ experience }: ExperienceProps) {
   const { t } = useTranslationClient(['people'])
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'modal',
+    <UContentCardWithModal
+      header={{
         title: t('page.card.experience.title', { ns: 'people' }),
         icon: <BriefcaseIcon />,
         iconColor: 'primary',
+        actionType: 'modal',
       }}
       overflowHidden
       noContentPlaceholder={
@@ -251,10 +283,12 @@ const Experience = function Experience({ experience }: ExperienceProps) {
         </Typography>
       }
     >
-      {experience.map((exp, index) => (
-        <ExperienceRow key={index} experience={exp} />
-      ))}
-    </UContentCard>
+      <Stack gap={2}>
+        {experience.map((exp, index) => (
+          <ExperienceRow key={index} experience={exp} />
+        ))}
+      </Stack>
+    </UContentCardWithModal>
   )
 }
 

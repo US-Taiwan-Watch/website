@@ -1,6 +1,6 @@
 'use client'
 
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import { TrackerIcon } from '@/common/styles/assets/Icons'
 import { Box, Stack, Typography } from '@mui/material'
 import UTimeline from '@/common/components/atoms/UTimeline'
@@ -18,23 +18,22 @@ export default function BillTracker({ bill }: Props) {
   const { t } = useTranslationClient('bill')
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'tooltip',
+    <UContentCardWithModal
+      header={{
         title: t('page.card.tracker.title', {
           ns: 'bill',
         }),
         icon: <TrackerIcon />,
         iconColor: 'primary',
+        actionType: 'tooltip',
       }}
-      tooltipProps={{
+      tooltip={{
         content: t('page.card.tracker.tooltip', {
           ns: 'bill',
         }),
       }}
-      contentProps={{
-        sx: {
+      sx={{
+        '& .MuiCardContent-root': {
           overflowX: 'hidden',
         },
       }}
@@ -77,6 +76,6 @@ export default function BillTracker({ bill }: Props) {
           />
         </Box>
       </Stack>
-    </UContentCard>
+    </UContentCardWithModal>
   )
 }

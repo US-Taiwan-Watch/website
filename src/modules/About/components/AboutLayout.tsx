@@ -33,6 +33,10 @@ export default function AboutLayout({
     <UContainer sx={containerSx}>
       <Stack
         sx={{
+          width: {
+            xs: '100%',
+            sm: 'auto',
+          },
           maxWidth: {
             xs: '100%',
             sm: '700px',

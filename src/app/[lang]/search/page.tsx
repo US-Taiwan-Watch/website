@@ -1,6 +1,6 @@
 'use client'
 
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { useCallback, useEffect, useState, useMemo } from 'react'
 import {
   SearchResultType,

@@ -44320,6 +44320,7 @@ type Mutation {
   updateMyNotificationSetting(
     notificationSetting: mutationMember_NotificationSettingInput
   ): Member
+  deleteMe: Member
   submitTaiwanRecord(data: mutationSubmitTaiwanRecordInput!): TaiwanRecord
   modifyTaiwanRecord(
     id: String!

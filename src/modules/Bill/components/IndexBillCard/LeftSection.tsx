@@ -2,7 +2,9 @@
 
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import UHStack from '@/common/components/atoms/UHStack'
-import UTimeline from '@/common/components/atoms/UTimeline'
+import UTimeline, {
+  UTimelineItemProps,
+} from '@/common/components/atoms/UTimeline'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import { Stack, Typography, useTheme } from '@mui/material'
@@ -32,10 +34,14 @@ const UHeightLimitedTextWithSelectable =
 const StackWithSelectable = withSelectable<ComponentProps<typeof Stack>>(Stack)
 
 type Props = {
+  timelineVariant?: UTimelineItemProps['variant']
   bill: Bill
 }
 
-export default function LeftSection({ bill }: Props) {
+export default function LeftSection({
+  timelineVariant = 'primary',
+  bill,
+}: Props) {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('bill')
@@ -75,8 +81,13 @@ export default function LeftSection({ bill }: Props) {
         <Link href={BillUtils.getLink(bill.id)}>
           <UHeightLimitedTextWithSelectable
             maxLine={4}
-            variant="h6"
-            fontWeight={700}
+            sx={{
+              fontSize: {
+                xs: '18px',
+                sm: '30px',
+              },
+              fontWeight: 700,
+            }}
           >
             {bill.title}
           </UHeightLimitedTextWithSelectable>
@@ -118,6 +129,7 @@ export default function LeftSection({ bill }: Props) {
           )}
         </UHStack>
         <UTimeline
+          variant={timelineVariant}
           data={BillUtils.getBillStatusTimelineData(bill).map((data) => ({
             title: t(`status.${data.status}.label`, {
               ns: 'bill',

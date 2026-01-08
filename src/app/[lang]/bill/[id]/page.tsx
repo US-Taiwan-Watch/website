@@ -10,11 +10,23 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 
+export const dynamic = 'force-static'
+
+export const revalidate = 86400
+
 interface BillPageProps {
   params: {
     lang: Language
     id: string
   }
+}
+
+export const generateStaticParams = async ({ params }: BillPageProps) => {
+  const billIds = await ServerBillApi.getBillIds()
+  return billIds.map((bill) => ({
+    id: bill.id,
+    lang: params.lang,
+  }))
 }
 
 export const generateMetadata = async ({

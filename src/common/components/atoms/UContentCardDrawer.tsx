@@ -1,13 +1,7 @@
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import {
-  Box,
-  Card,
-  CardProps,
-  Drawer,
-  useTheme,
-  type DrawerProps,
-} from '@mui/material'
+import { Drawer, useTheme, type DrawerProps } from '@mui/material'
 import { memo } from 'react'
+import type React from 'react'
 
 const StyledDrawer = styled(Drawer)(() => ({
   '& .MuiCardContent-root': {
@@ -16,15 +10,14 @@ const StyledDrawer = styled(Drawer)(() => ({
   },
 }))
 
-type UContentCardDrawerProps = DrawerProps & {
-  cardProps?: {
-    sx?: CardProps['sx']
-  }
+export interface UContentCardDrawerProps extends DrawerProps {
+  children?: React.ReactNode
 }
 
-const UContentCardDrawer = function UContentCardDrawer(
-  props: UContentCardDrawerProps
-) {
+const UContentCardDrawer = function UContentCardDrawer({
+  children,
+  ...props
+}: UContentCardDrawerProps) {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -36,26 +29,12 @@ const UContentCardDrawer = function UContentCardDrawer(
           width: '100%',
           borderTopLeftRadius: theme.spacing(theme.shape.borderRadius / 2),
           borderTopRightRadius: theme.spacing(theme.shape.borderRadius / 2),
+          bgcolor: 'background.paper',
+          boxShadow: 'none',
         },
       }}
     >
-      <Box
-        sx={{
-          bgcolor: 'background.paper',
-        }}
-      >
-        <Card
-          sx={{
-            padding: 2,
-            '& .MuiCardContent-root:last-child': {
-              padding: 0,
-            },
-            ...props.cardProps?.sx,
-          }}
-        >
-          {props.children}
-        </Card>
-      </Box>
+      {children}
     </StyledDrawer>
   )
 }

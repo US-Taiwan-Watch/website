@@ -7,13 +7,13 @@ import UHStack from '@/common/components/atoms/UHStack'
 import TrendBarCharts, {
   TrendBarChartData,
 } from '@/modules/Bill/components/BillLanding/TrendBarCharts'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import useBillFilterOptions from '@/modules/Bill/components/BillFilter/useBillFilterOptions'
 import USelect from '@/common/components/atoms/USelect'
 import { useMemo, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { BillTrendByCategoryQuery } from '@/common/lib/graphql/__generated__/graphql'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { QUERY_BILL_TREND_BY_CATEGORY } from '@/modules/Bill/graphql/gql'
 import { isNull, isUndefined } from 'lodash-es'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -75,15 +75,14 @@ export default function TrendCard() {
   }
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'tooltip',
+    <UContentCardWithModal
+      header={{
         title: t('landing.card.trend.title', { ns: 'bill' }),
         icon: <TrendIcon />,
         iconColor: 'primary',
+        actionType: 'tooltip',
       }}
-      tooltipProps={{
+      tooltip={{
         content: t('landing.card.trend.tooltip', { ns: 'bill' }),
       }}
     >
@@ -166,6 +165,6 @@ export default function TrendCard() {
           </>
         )}
       </Stack>
-    </UContentCard>
+    </UContentCardWithModal>
   )
 }

@@ -3,7 +3,7 @@
 import { CongressIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import ParliamentChart, {
   ParliamentChartData,
 } from '@/modules/Bill/components/BillLanding/ParliamentChart'
@@ -51,17 +51,16 @@ export default function CongressCard() {
   }, [selectedChamber])
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'tooltip',
+    <UContentCardWithModal
+      header={{
         title: t('landing.card.congressionalDistribution.title', {
           ns: 'bill',
         }),
         icon: <CongressIcon />,
         iconColor: 'primary',
+        actionType: 'tooltip',
       }}
-      tooltipProps={{
+      tooltip={{
         content: t('landing.card.congressionalDistribution.tooltip', {
           ns: 'bill',
         }),
@@ -99,6 +98,6 @@ export default function CongressCard() {
           ))}
         </UHStack>
       </Stack>
-    </UContentCard>
+    </UContentCardWithModal>
   )
 }

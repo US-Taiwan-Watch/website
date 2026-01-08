@@ -3,7 +3,7 @@ import {
   CategoriesBillsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { QUERY_CATEGORIES_BILLS } from '@/modules/Bill/graphql/gql'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { Language } from '@/common/lib/i18n/types'
 import { BillCategoryUtils } from '@/modules/Bill/business/BillCategory'
 import { isNull } from 'lodash-es'

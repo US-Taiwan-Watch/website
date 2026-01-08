@@ -21,6 +21,7 @@ import CookieConsentBanner from '@/common/components/elements/CookieConsentBanne
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
+import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
 
 type RootLayoutProps = Readonly<{
   children: React.ReactNode
@@ -28,6 +29,10 @@ type RootLayoutProps = Readonly<{
     lang: Language
   }
 }>
+
+export const generateStaticParams = async () => {
+  return I18N_SUPPORTED_LANGUAGE.map((lang) => ({ lang }))
+}
 
 export const generateMetadata = async ({
   params,

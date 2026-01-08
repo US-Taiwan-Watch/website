@@ -13,7 +13,7 @@ import {
   TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import TaiwanRecordDialog from '@/modules/TaiwanRecord/components/TaiwanRecordDialog'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { QUERY_ME_SUBMITTED_TAIWAN_RECORDS } from '@/modules/Account/graphql/gql'
 import AccountUtils from '@/modules/Account/business/Account'
 import {

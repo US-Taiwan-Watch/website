@@ -28,7 +28,7 @@ import { useMemo } from 'react'
 const TIMELINE_DOT_MARGIN_PX = 15.5
 const TIMELINE_DOT_WIDTH_PX = 12
 
-type UTimelineItemProps = {
+export type UTimelineItemProps = {
   title: string
   variant?: 'primary' | 'secondary'
 } & Partial<{

@@ -68,8 +68,11 @@ export default function Filter({
               backgroundColor: theme.color.purple[100],
               borderTopLeftRadius: '30px',
               borderTopRightRadius: '30px',
+              width: '100vw',
+              maxWidth: '100%',
             },
           }}
+          disableScrollLock
         >
           <Stack gap={2}>
             <UHStack alignItems="center" gap={0.5}>

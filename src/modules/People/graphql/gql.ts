@@ -348,6 +348,17 @@ export const QUERY_PEOPLE_SPONSOR_BILLS = gql`
           passedSteps
           futureSteps
         }
+        sponsor {
+          people {
+            gender
+            id
+            i18n {
+              ...PeopleI18n
+            }
+            currentParty
+          }
+          party
+        }
         popularityRank
         title
         summary
@@ -361,6 +372,7 @@ export const QUERY_PEOPLE_SPONSOR_BILLS = gql`
   ${BILL_I18N_FRAGMENT}
   ${CATEGORIES_BILL_FRAGMENT}
   ${TAG_FRAGMENT}
+  ${PEOPLE_I18N_FRAGMENT}
 `
 
 export const QUERY_PEOPLE_COSPONSOR_BILLS = gql`

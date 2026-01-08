@@ -1,4 +1,4 @@
-import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import {
   QUERY_KETAGALAN_FOOTPRINTS,
   QUERY_USTW_FOOTPRINTS,
@@ -20,7 +20,8 @@ import { Language } from '@/common/lib/i18n/types'
  */
 export default class ServerFootprintApi {
   static async getUstwFootprints(lang: Language) {
-    const { data } = await query<
+    const client = getClient()
+    const { data } = await client.query<
       UstwFootprintsQuery,
       UstwFootprintsQueryVariables
     >({
@@ -35,7 +36,8 @@ export default class ServerFootprintApi {
   }
 
   static async getKetagalanFootprints(lang: Language) {
-    const { data } = await query<
+    const client = getClient()
+    const { data } = await client.query<
       KetagalanFootprintsQuery,
       KetagalanFootprintsQueryVariables
     >({

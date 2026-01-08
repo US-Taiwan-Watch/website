@@ -12,23 +12,75 @@ import {
 import Link from 'next/link'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
+import {
+  Article,
+  ArticleType,
+  ArticleUtils,
+} from '@/modules/Article/business/Article'
+import { People, PeopleUtils } from '@/modules/People/business/People'
+
+export type HyperLinkValue =
+  | {
+      type: 'bill'
+      value: Bill
+    }
+  | {
+      type: 'article'
+      value: Article
+    }
+  | {
+      type: 'people'
+      value: People
+    }
 
 export interface HyperLinkTooltipCardProps {
   HeaderComponent?: ReactNode
-  title: string
-  description: string
-  link: string
+  value: HyperLinkValue
 }
 const HyperLinkTooltipCard = function HyperLinkTooltipCard({
   HeaderComponent,
-  title,
-  description,
-  link,
+  value,
 }: HyperLinkTooltipCardProps) {
+  const { t } = useTranslationClient()
   const { isHoverable } = useResponsive()
   const theme = useTheme<USTWTheme>()
+
+  const title = useMemo(() => {
+    switch (value.type) {
+      case 'bill':
+        return value.value.title
+      case 'article':
+        return value.value.title
+      case 'people':
+        return value.value.name
+    }
+  }, [value])
+
+  const description = useMemo(() => {
+    switch (value.type) {
+      case 'bill':
+        return value.value.summary
+      case 'article':
+        return value.value.description
+      case 'people':
+        return value.value.description
+    }
+  }, [value])
+
+  const link = useMemo(() => {
+    switch (value.type) {
+      case 'bill':
+        return BillUtils.getLink(value.value.id)
+      case 'article':
+        return ArticleUtils.getLink(ArticleType.Article, value.value.id)
+      case 'people':
+        return PeopleUtils.getLink(value.value.id)
+    }
+  }, [value])
 
   return (
     <Card
@@ -70,7 +122,7 @@ const HyperLinkTooltipCard = function HyperLinkTooltipCard({
               }}
               endIcon={<ArrowForwardIcon />}
             >
-              Learn More
+              {t('cta.learnMore', { ns: 'common' })}
             </Button>
           </Link>
         </Stack>

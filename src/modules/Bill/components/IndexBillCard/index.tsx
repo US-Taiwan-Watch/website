@@ -6,6 +6,7 @@ import { Grid2, Stack } from '@mui/material'
 import LeftSection from '@/modules/Bill/components/IndexBillCard/LeftSection'
 import RightSection from '@/modules/Bill/components/IndexBillCard/RightSection'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import { UTimelineItemProps } from '@/common/components/atoms/UTimeline'
 
 const StyledCardContainer = styled(Stack)(({ theme }) => ({
   width: '100%',
@@ -23,10 +24,11 @@ const StyledCardContainer = styled(Stack)(({ theme }) => ({
 }))
 
 type Props = {
+  timelineVariant?: UTimelineItemProps['variant']
   bill: Bill
 }
 
-export default function IndexBillCard({ bill }: Props) {
+export default function IndexBillCard({ timelineVariant, bill }: Props) {
   const { isMobile } = useResponsive()
 
   return (
@@ -43,7 +45,7 @@ export default function IndexBillCard({ bill }: Props) {
             sm: 6,
           }}
         >
-          <LeftSection bill={bill} />
+          <LeftSection timelineVariant={timelineVariant} bill={bill} />
         </Grid2>
         <Grid2
           size={{

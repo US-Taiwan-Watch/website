@@ -1,6 +1,6 @@
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import {
   TagsQuery,
   TagsQueryVariables,

@@ -3,7 +3,7 @@
 import { SponsorIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import UHStack from '@/common/components/atoms/UHStack'
 import CircleIcon from '@mui/icons-material/Circle'
 import { Party } from '@/common/enums/Party'
@@ -39,7 +39,9 @@ function SponsorRow({ data: { people, billCount } }: SponsorRowProps) {
   return (
     <StyledSponsorRowContainer>
       <Stack>
-        <Typography variant="articleH5">{people.name}</Typography>
+        <Typography variant="articleH5" fontWeight={700}>
+          {people.name}
+        </Typography>
         <UHStack gap="6px" alignItems="center">
           <CircleIcon
             sx={{
@@ -74,21 +76,24 @@ export default function SponsorCard({
   const { resolveRouteUrl } = useURouterClient()
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'tooltip',
+    <UContentCardWithModal
+      header={{
         title: isCosponsor
           ? t('landing.card.topCosponsors.title', { ns: 'bill' })
           : t('landing.card.topSponsors.title', { ns: 'bill' }),
         icon: <SponsorIcon />,
         iconColor: 'primary',
-        sx: { borderBottom: 0 },
+        actionType: 'tooltip',
       }}
-      tooltipProps={{
+      tooltip={{
         content: isCosponsor
           ? t('landing.card.topCosponsors.tooltip', { ns: 'bill' })
           : t('landing.card.topSponsors.tooltip', { ns: 'bill' }),
+      }}
+      sx={{
+        '& .MuiCardHeader-root': {
+          borderBottom: 0,
+        },
       }}
     >
       <Stack spacing={1} pt={2}>
@@ -108,6 +113,6 @@ export default function SponsorCard({
           </Link>
         ))}
       </Stack>
-    </UContentCard>
+    </UContentCardWithModal>
   )
 }

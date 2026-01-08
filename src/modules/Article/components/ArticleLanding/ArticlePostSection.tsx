@@ -24,7 +24,7 @@ import {
   QUERY_KETAGALAN_ARTICLES,
 } from '@/modules/Article/graphql/gql'
 import useArticleStore from '@/modules/Article/store/useArticleStore'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
 import { isNull, isNumber } from 'lodash-es'
@@ -80,20 +80,14 @@ const ArticlePostSection = ({
 
   const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
     useLazyQuery<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      QUERY_USTW_ARTICLES,
-      {
-        variables: queryVariables,
-      }
+      QUERY_USTW_ARTICLES
     )
 
   const [
     getKetagalanArticles,
     { loading: isKetagalanArticlesLoading, data: ketagalanQueryData },
   ] = useLazyQuery<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>(
-    QUERY_KETAGALAN_ARTICLES,
-    {
-      variables: queryVariables,
-    }
+    QUERY_KETAGALAN_ARTICLES
   )
 
   const articlesData = useMemo(() => {

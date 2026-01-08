@@ -7,6 +7,10 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 
+export const dynamic = 'force-static'
+
+export const revalidate = 86400
+
 type AboutUserAgreementPrivacyPolicyPageProps = {
   params: {
     lang: Language

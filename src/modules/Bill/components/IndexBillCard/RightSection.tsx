@@ -3,7 +3,6 @@
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import { Bill, BillUtils } from '@/modules/Bill/business/Bill'
 import {
-  Box,
   Divider,
   Grid2,
   Stack,
@@ -17,18 +16,17 @@ import {
   NoteIcon,
   SponsorIcon,
 } from '@/common/styles/assets/Icons'
-import Image from 'next/image'
 import UHStack from '@/common/components/atoms/UHStack'
 import { memo, ReactNode, useMemo } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
-import usePartyColor from '@/common/lib/Party/usePartyColor'
-import { Party } from '@/common/enums/Party'
+
 import UPoliticalPartyIcon from '@/common/components/atoms/UPoliticalPartyIcon'
 import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { DateUtils } from '@/modules/Common/business/Date'
+import { PeopleAvatarWithPartyBadge } from '@/modules/People/components/PeopleAvatarWithPartyBadge'
 
 const Grid2WithSelectable = withSelectable<ComponentProps<typeof Grid2>>(Grid2)
 
@@ -50,28 +48,6 @@ const StyledIconContainer = styled(Stack)(({ theme }) => ({
     width: '20px',
     height: '20px',
   },
-}))
-
-const StyledImageContainer = styled(Box)(({ theme }) => ({
-  position: 'relative',
-  width: '50px',
-  height: '50px',
-  borderRadius: '50%',
-  marginRight: theme.spacing(3),
-}))
-
-const StyledImage = styled(Image)(() => ({
-  width: '100%',
-  height: '100%',
-  borderRadius: '50%',
-  objectFit: 'cover',
-}))
-
-const StyledPartyIconContainer = styled(Box)(() => ({
-  position: 'absolute',
-  bottom: -4,
-  right: -5,
-  zIndex: 1,
 }))
 
 function CardIconTitle({
@@ -96,9 +72,8 @@ function CardIconTitle({
 }
 
 const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
-  const { t } = useTranslationClient('bill')
+  const { t } = useTranslationClient(['bill', 'common'])
   const theme = useTheme<USTWTheme>()
-  const { partyColor } = usePartyColor()
   const latestAction = useMemo(() => BillUtils.getLatestAction(bill), [bill])
 
   const introducedDate = useMemo(() => {
@@ -110,6 +85,8 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
     if (!bill.latestActionAt) return ''
     return DateUtils.formatDc(bill.latestActionAt, ACTION_DATE_FORMAT)
   }, [bill.latestActionAt])
+
+  if (!bill.sponsor?.party) return null
 
   return (
     <Grid2 container spacing={2}>
@@ -132,35 +109,11 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
             title={t('card.item.sponsor.title', { ns: 'bill' })}
           />
           <UHStack gap={2}>
-            {bill.sponsor?.people?.image && (
-              <StyledImageContainer
-                sx={{
-                  border: `2px solid`,
-                  borderColor:
-                    partyColor[bill.sponsor.party ?? Party.INDEPENDENT],
-                }}
-              >
-                <StyledImage
-                  src={bill.sponsor.people.image}
-                  alt={bill.sponsor.people.name ?? ''}
-                  fill
-                />
-                {bill.sponsor.party && (
-                  <StyledPartyIconContainer>
-                    <UPoliticalPartyIcon
-                      size="small"
-                      party={bill.sponsor.party}
-                      sx={{
-                        width: '18px',
-                        height: '18px',
-                      }}
-                      customFontStyle={{
-                        fontSize: '12px',
-                      }}
-                    />
-                  </StyledPartyIconContainer>
-                )}
-              </StyledImageContainer>
+            {bill.sponsor?.people && bill.sponsor?.party && (
+              <PeopleAvatarWithPartyBadge
+                party={bill.sponsor.party}
+                people={bill.sponsor.people}
+              />
             )}
             <Stack>
               <Typography variant="articleH4">
@@ -171,7 +124,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
                 fontWeight={600}
                 textTransform="capitalize"
               >
-                {bill.sponsor?.party?.toLowerCase()}
+                {t(`party.${bill.sponsor.party}`, { ns: 'common' })}
               </Typography>
             </Stack>
           </UHStack>
@@ -194,7 +147,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
             icon={<NoteIcon />}
             title={t('card.item.cosponsors.title', { ns: 'bill' })}
           />
-          <Typography variant="subtitleS" fontWeight={700}>
+          <Typography variant="articleH3">
             {BillUtils.getCosponsorsCount(bill)}
           </Typography>
         </StyledCardContainer>
@@ -216,9 +169,7 @@ const DesktopSection = memo(function DesktopSection({ bill }: { bill: Bill }) {
             icon={<CalenderIcon />}
             title={t('card.item.introduced.title', { ns: 'bill' })}
           />
-          <Typography variant="subtitleS" fontWeight={700}>
-            {introducedDate}
-          </Typography>
+          <Typography variant="articleH3">{introducedDate}</Typography>
         </StyledCardContainer>
       </Grid2WithSelectable>
 
@@ -258,15 +209,19 @@ const MobileSection = memo(function MobileSection({ bill }: { bill: Bill }) {
 
   return (
     <Stack>
-      <Divider sx={{ my: 2, borderWidth: 1 }} />
-      <UHStack px={1} gap={1.5} alignItems="center">
-        {bill.sponsor?.party && (
-          <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
-        )}
-        <Typography variant="subtitleS" fontWeight={700}>
-          {bill.sponsor?.people?.name}
-        </Typography>
-      </UHStack>
+      {bill.sponsor && (
+        <>
+          <Divider sx={{ my: 2, borderWidth: 1 }} />
+          <UHStack px={1} gap={1.5} alignItems="center">
+            {bill.sponsor.party && (
+              <UPoliticalPartyIcon party={bill.sponsor.party} size="small" />
+            )}
+            <Typography variant="subtitleS" fontWeight={700}>
+              {bill.sponsor.people?.name}
+            </Typography>
+          </UHStack>
+        </>
+      )}
       <Divider sx={{ my: 2, borderWidth: 1 }} />
       <Stack gap={1.5}>
         <Typography variant="buttonS" color={theme.color.grey[400]}>

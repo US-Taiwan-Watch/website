@@ -18,7 +18,7 @@ import BillCard, { BillCardSkeleton } from '@/modules/Bill/components/BillCard'
 import BillFilter from '@/modules/Bill/components/BillFilter'
 import { BillFilterOutput } from '@/modules/Bill/components/BillFilter/schema'
 import { QUERY_BILL_FILTER } from '@/modules/Bill/graphql/gql'
-import { useLazyQuery } from '@apollo/client'
+import { useLazyQuery } from '@apollo/client/react'
 import { Stack, Typography } from '@mui/material'
 import { isEqual, isNull, isNumber } from 'lodash-es'
 import { useParams, useSearchParams, useRouter } from 'next/navigation'
@@ -166,7 +166,7 @@ export default function BillList() {
 
   return (
     <Stack gap={5}>
-      <UHStack gap={2} alignItems="flex-start">
+      <UHStack gap={2} alignItems="flex-start" justifyContent="space-between">
         <Typography variant="h3">
           {t('billList.title', {
             ns: 'bill',
@@ -175,6 +175,7 @@ export default function BillList() {
         {isMobile && (
           <BillFilter
             onSubmit={(filter) => {
+              setBills([])
               onFilterSubmit(filter)
             }}
             initialValues={filterInitValues}
@@ -185,6 +186,7 @@ export default function BillList() {
         {!isMobile && (
           <BillFilter
             onSubmit={(filter) => {
+              setBills([])
               onFilterSubmit(filter)
             }}
             initialValues={filterInitValues}

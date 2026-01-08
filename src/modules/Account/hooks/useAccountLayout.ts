@@ -1,6 +1,5 @@
-import { usePathname, useParams } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useMemo } from 'react'
-import { Language } from '@/common/lib/i18n/types'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 import { USTWTheme } from '@/common/lib/mui/theme'
@@ -11,13 +10,8 @@ import { useMediaQuery } from '@mui/material'
  * @returns
  */
 export default function useAccountLayout() {
-  const { lang } = useParams<{ lang: Language }>()
   const { resolveRouteUrl } = useURouterClient()
   const pathname = usePathname()
-  const pathnameWithoutLang = useMemo(() => {
-    const regex = new RegExp(`^/${lang}`)
-    return pathname.replace(regex, '')
-  }, [lang, pathname])
 
   const isCompactView = useMediaQuery((theme: USTWTheme) =>
     theme.breakpoints.down('md')
@@ -35,10 +29,10 @@ export default function useAccountLayout() {
         resolveRouteUrl({ name: RouteName.AccountSetting }),
         resolveRouteUrl({ name: RouteName.AccountPassword }),
         resolveRouteUrl({ name: RouteName.AccountNotification }),
-      ].includes(pathnameWithoutLang)
+      ].includes(pathname)
     }
     return true
-  }, [isCompactView, pathnameWithoutLang, resolveRouteUrl])
+  }, [isCompactView, pathname, resolveRouteUrl])
 
   /**
    * 是否顯示內容
@@ -46,12 +40,10 @@ export default function useAccountLayout() {
    */
   const withContent = useMemo(() => {
     if (isCompactView) {
-      return (
-        pathnameWithoutLang !== resolveRouteUrl({ name: RouteName.Account })
-      )
+      return pathname !== resolveRouteUrl({ name: RouteName.Account })
     }
     return true
-  }, [isCompactView, pathnameWithoutLang, resolveRouteUrl])
+  }, [isCompactView, pathname, resolveRouteUrl])
 
   /**
    * 背景顏色
@@ -59,18 +51,18 @@ export default function useAccountLayout() {
   const backgroundColor = useMemo(() => {
     if (
       isCompactView &&
-      pathnameWithoutLang === resolveRouteUrl({ name: RouteName.Account })
+      pathname === resolveRouteUrl({ name: RouteName.Account })
     )
       return '#F3F3F3'
     if (isCompactView) return '#E0E0E0'
     return '#C0C5C8'
-  }, [isCompactView, pathnameWithoutLang, resolveRouteUrl])
+  }, [isCompactView, pathname, resolveRouteUrl])
 
   return {
     withSidebar,
     withContent,
     backgroundColor,
-    pathnameWithoutLang,
+    pathname,
     isCompactView,
   }
 }

@@ -3,13 +3,12 @@
 import { PeopleIcon } from '@/common/styles/assets/Icons'
 import { Stack, Typography, useTheme } from '@mui/material'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
-import UContentCard from '@/common/components/atoms/UContentCard'
+import UContentCardWithModal from '@/common/components/atoms/UContentCardWithModal'
 import { People } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledDescriptionListItem = styled('li')(({ theme }) => ({
   position: 'relative',
-  paddingLeft: theme.spacing(3),
   '&::before': {
     content: '""',
     position: 'absolute',
@@ -39,13 +38,21 @@ const CommitteeRow = function CommitteeRow({
     <Stack
       className="committee-row"
       sx={{
-        padding: theme.spacing(2, 1),
         '&:not(:last-child)': {
           borderBottom: `1px solid ${theme.color.grey[1900]}`,
+          pb: 2,
         },
       }}
     >
-      <Typography variant="bodyM" fontWeight={700}>
+      <Typography
+        sx={{
+          fontSize: {
+            xs: '14px',
+            md: '18px',
+          },
+          fontWeight: 700,
+        }}
+      >
         {committee.name}
       </Typography>
       <ul
@@ -58,7 +65,15 @@ const CommitteeRow = function CommitteeRow({
         {committee.subcommittees &&
           committee.subcommittees.map((subcommittee, index) => (
             <StyledDescriptionListItem key={index}>
-              <Typography variant="bodyS" fontWeight={500}>
+              <Typography
+                sx={{
+                  fontSize: {
+                    xs: '12px',
+                    md: '15px',
+                  },
+                  fontWeight: 500,
+                }}
+              >
                 {subcommittee.name}
               </Typography>
             </StyledDescriptionListItem>
@@ -76,30 +91,26 @@ const Committee = function Committee({ committees }: CommitteeProps) {
   const { t } = useTranslationClient(['people'])
 
   return (
-    <UContentCard
-      withHeader
-      headerProps={{
-        headerIconAction: 'modal',
+    <UContentCardWithModal
+      header={{
         title: t('page.card.committee.title', { ns: 'people' }),
         icon: <PeopleIcon />,
         iconColor: 'secondary',
+        actionType: 'modal',
       }}
       overflowHidden
-      popupProps={{
-        popupContent: committees.map((committee, index) => (
-          <CommitteeRow key={index} committee={committee} />
-        )),
-      }}
       noContentPlaceholder={
         <Typography variant="subtitleXL" fontWeight={400}>
           {t('page.card.committee.placeholder', { ns: 'people' })}
         </Typography>
       }
     >
-      {committees?.map((committee, index) => (
-        <CommitteeRow key={index} committee={committee} />
-      )) ?? []}
-    </UContentCard>
+      <Stack gap={2}>
+        {committees?.map((committee, index) => (
+          <CommitteeRow key={index} committee={committee} />
+        )) ?? []}
+      </Stack>
+    </UContentCardWithModal>
   )
 }
 

@@ -104,4 +104,14 @@ export class TaiwanRecordUtils {
       record.status === TaiwanRecordStatus.Deleted
     )
   }
+
+  /**
+   * 生成隨機的 photo id
+   */
+  static generateRandomPhotoId() {
+    // random mongo id（24 位十六進位字串）
+    return Array.from({ length: 24 }, () =>
+      Math.floor(Math.random() * 16).toString(16)
+    ).join('')
+  }
 }

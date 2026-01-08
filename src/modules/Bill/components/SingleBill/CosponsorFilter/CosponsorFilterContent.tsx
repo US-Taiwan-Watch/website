@@ -38,7 +38,7 @@ export default function CosponsorFilterContent({
   }
 
   return (
-    <Grid2 container pt={2} spacing={2} maxHeight="50dvh">
+    <Grid2 container spacing={2} maxHeight="50dvh">
       <Grid2 size={3}>
         <div style={{ position: 'sticky', top: theme.spacing(2) }}>
           <CosponsorFilter

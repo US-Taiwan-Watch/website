@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography'
 import {
   UstwArticle as ApiUstwArticle,
   Bill as ApiBill,
+  People as ApiPeople,
 } from '@/common/lib/graphql/__generated__/graphql'
 import HyperLinkTooltip from '@/modules/Article/components/ArticlePost/Content/HyperLinkTooltip'
 import { payloadSlateToHtmlConfig, slateToHtml } from '@slate-serializers/html'
@@ -11,6 +12,8 @@ import { BillUtils } from '@/modules/Bill/business/Bill'
 import { Language } from '@/common/lib/i18n/types'
 import { HyperLinkTooltipCardProps } from '@/common/components/elements/HyperLinkTooltipCard'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
+import { PeopleUtils } from '@/modules/People/business/People'
+import { PeopleAvatarWithPartyBadge } from '@/modules/People/components/PeopleAvatarWithPartyBadge'
 
 // 定義客製化 Slate element type
 type CustomElementType =
@@ -38,37 +41,58 @@ export type LinkDoc =
       relationTo: 'articles'
       value: ApiUstwArticle
     }
+  | {
+      relationTo: 'peoples'
+      value: ApiPeople
+    }
 const getHyperLinkTooltipCardProps = (
   lang: Language,
   doc: LinkDoc
-): HyperLinkTooltipCardProps => {
+): HyperLinkTooltipCardProps | null => {
   try {
     if (doc.relationTo === 'bills') {
       const bill = BillUtils.parse(lang, doc.value)
       return {
-        title: bill.title ?? '',
-        description: bill.summary ?? '',
-        link: BillUtils.getLink(bill.id),
+        value: {
+          type: 'bill',
+          value: bill,
+        },
       }
     }
 
     if (doc.relationTo === 'articles') {
       const article = ArticleUtils.parse(lang, doc.value, ArticleType.Article)
       return {
-        title: article.title ?? '',
-        description: article.description ?? '',
-        link: ArticleUtils.getLink(ArticleType.Article, article.id) ?? '',
+        value: {
+          type: 'article',
+          value: article,
+        },
+      }
+    }
+
+    if (doc.relationTo === 'peoples') {
+      const people = PeopleUtils.parse(lang, doc.value)
+      return {
+        value: {
+          type: 'people',
+          value: people,
+        },
+        ...(people.party && {
+          HeaderComponent: (
+            <PeopleAvatarWithPartyBadge
+              party={people.party}
+              people={people}
+              size="large"
+            />
+          ),
+        }),
       }
     }
   } catch (error) {
     console.error('Failed to parse hyperlink tooltip data:', error, doc)
   }
 
-  return {
-    title: '',
-    description: '',
-    link: '',
-  }
+  return null
 }
 type LinkElement = {
   children: BaseText[]
@@ -111,10 +135,14 @@ const h6 = (children: ReactNode) => (
 const quote = (children: ReactNode) => <blockquote>{children}</blockquote>
 const link = (lang: Language, node: LinkElement) => {
   if (!node.doc) return null
+  const text = node.children?.[0]?.text
+  if (!text) return null
+  const hyperLinkTooltipCardProps = getHyperLinkTooltipCardProps(lang, node.doc)
+  if (!hyperLinkTooltipCardProps) return null
   return (
     <HyperLinkTooltip
-      text={node.children?.[0]?.text ?? ''}
-      hyperLinkTooltipCardProps={getHyperLinkTooltipCardProps(lang, node.doc)}
+      text={text}
+      hyperLinkTooltipCardProps={hyperLinkTooltipCardProps}
     />
   )
 }

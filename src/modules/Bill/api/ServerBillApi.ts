@@ -13,7 +13,7 @@ import {
   BillIdsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { isUndefined, isNull } from 'lodash-es'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import {
   QUERY_BILL,
   QUERY_BILL_TOP_COSPONSORS,
@@ -44,7 +44,8 @@ export default class ServerBillApi {
     { limit = 10 }: { limit?: number }
   ) {
     try {
-      const { data } = await query<BillsQuery, BillsQueryVariables>({
+      const client = getClient()
+      const { data } = await client.query<BillsQuery, BillsQueryVariables>({
         query: QUERY_BILLS,
         variables: {
           limit,
@@ -78,14 +79,16 @@ export default class ServerBillApi {
     { limit = 10 }: { limit?: number }
   ) {
     try {
-      const { data } = await query<BillTopTagsQuery, BillTopTagsQueryVariables>(
-        {
-          query: QUERY_BILL_TOP_TAGS,
-          variables: {
-            limit,
-          },
-        }
-      )
+      const client = getClient()
+      const { data } = await client.query<
+        BillTopTagsQuery,
+        BillTopTagsQueryVariables
+      >({
+        query: QUERY_BILL_TOP_TAGS,
+        variables: {
+          limit,
+        },
+      })
       return (
         data?.BillTopTags?.filter(
           (tag) => !isNull(tag) && !isNull(tag.tag) && !isUndefined(tag.tag)
@@ -111,7 +114,8 @@ export default class ServerBillApi {
     { limit = 10 }: { limit?: number }
   ) {
     try {
-      const { data: sponsorsData } = await query<
+      const client = getClient()
+      const { data: sponsorsData } = await client.query<
         BillTopSponsorsQuery,
         BillTopSponsorsQueryVariables
       >({
@@ -147,7 +151,8 @@ export default class ServerBillApi {
     { limit = 10 }: { limit?: number }
   ) {
     try {
-      const { data: cosponsorsData } = await query<
+      const client = getClient()
+      const { data: cosponsorsData } = await client.query<
         BillTopCosponsorsQuery,
         BillTopCosponsorsQueryVariables
       >({
@@ -183,7 +188,8 @@ export default class ServerBillApi {
     { limit = 10 }: { limit?: number }
   ) {
     try {
-      const { data: latestBillsData } = await query<
+      const client = getClient()
+      const { data: latestBillsData } = await client.query<
         BillsQuery,
         BillsQueryVariables
       >({
@@ -216,7 +222,8 @@ export default class ServerBillApi {
     { limit = 10 }: { limit?: number }
   ) {
     try {
-      const { data: popularBillsData } = await query<
+      const client = getClient()
+      const { data: popularBillsData } = await client.query<
         BillsQuery,
         BillsQueryVariables
       >({
@@ -246,7 +253,8 @@ export default class ServerBillApi {
    */
   static async getBill(lang: Language, { id }: { id: string }) {
     try {
-      const { data } = await query<BillQuery, BillQueryVariables>({
+      const client = getClient()
+      const { data } = await client.query<BillQuery, BillQueryVariables>({
         query: QUERY_BILL,
         variables: { id },
       })
@@ -268,13 +276,14 @@ export default class ServerBillApi {
    */
   static async getRelatedBills(lang: Language, { id }: { id: string }) {
     try {
-      const { data } = await query<BillQuery, BillQueryVariables>({
+      const client = getClient()
+      const { data } = await client.query<BillQuery, BillQueryVariables>({
         query: QUERY_BILL,
         variables: { id },
       })
 
       return (
-        data.Bill?.relatedBills
+        data?.Bill?.relatedBills
           ?.filter((bill) => !isNull(bill))
           .map((bill) => BillUtils.parse(lang, bill)) ?? []
       )
@@ -290,7 +299,8 @@ export default class ServerBillApi {
    */
   static async getBillIds(): Promise<{ id: string; updatedAt: string }[]> {
     try {
-      const { data } = await query<BillIdsQuery, BillIdsQueryVariables>({
+      const client = getClient()
+      const { data } = await client.query<BillIdsQuery, BillIdsQueryVariables>({
         query: QUERY_BILL_IDS,
       })
 

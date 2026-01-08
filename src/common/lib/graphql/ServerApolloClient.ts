@@ -1,13 +1,18 @@
 import { config } from '@/config'
-import { HttpLink } from '@apollo/client'
+import {
+  ApolloLink,
+  CombinedGraphQLErrors,
+  CombinedProtocolErrors,
+  HttpLink,
+} from '@apollo/client'
 import {
   registerApolloClient,
   ApolloClient,
   InMemoryCache,
-} from '@apollo/experimental-nextjs-app-support'
-import { onError } from '@apollo/client/link/error'
+} from '@apollo/client-integration-nextjs'
+import { ErrorLink } from '@apollo/client/link/error'
 
-export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
+export const { getClient, PreloadQuery } = registerApolloClient(() => {
   const httpLink = new HttpLink({
     // this needs to be an absolute url, as relative urls cannot be used in SSR
     uri: config.GRAPHQL_API_URL,
@@ -17,24 +22,36 @@ export const { getClient, query, PreloadQuery } = registerApolloClient(() => {
   })
 
   // 創建錯誤處理 link
-  const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
-    if (graphQLErrors) {
-      graphQLErrors.forEach(({ message, locations, path }) => {
-        console.error(
-          `[GraphQL error]: Message: ${message}, Location: ${JSON.stringify(locations)}, Path: ${path}`
+  const errorLink = new ErrorLink(({ error }) => {
+    if (CombinedGraphQLErrors.is(error)) {
+      error.errors.forEach(({ message, locations, path }) =>
+        console.log(
+          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
         )
-      })
+      )
+    } else if (CombinedProtocolErrors.is(error)) {
+      error.errors.forEach(({ message, extensions }) =>
+        console.log(
+          `[Protocol error]: Message: ${message}, Extensions: ${JSON.stringify(
+            extensions
+          )}`
+        )
+      )
+    } else {
+      console.error(`[Network error]: ${error}`)
     }
+  })
 
-    if (networkError) {
-      console.error(`[Network error]: ${networkError.message}`, {
-        operation: operation.operationName,
-      })
-    }
+  // 創建 Request Log
+  const requestLink = new ApolloLink((operation, forward) => {
+    const { variables } = operation
+    console.log(`[GraphQL request]: ${operation.operationName}`)
+    console.log(`[Variables]: ${JSON.stringify(variables)}`)
+    return forward(operation)
   })
 
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: errorLink.concat(httpLink),
+    link: ApolloLink.from([errorLink, requestLink, httpLink]),
   })
 })

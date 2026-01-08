@@ -9,21 +9,40 @@ import {
   AccountSubscribeType,
 } from '@/modules/Account/Subscribe/business/AccountSubscribe'
 import { Box, CircularProgress, Stack } from '@mui/material'
-import { memo, useEffect, useMemo } from 'react'
+import { memo, useCallback, useEffect, useMemo } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import Link from 'next/link'
 import { CloseIcon, ExternalLinkIcon } from '@/common/styles/assets/Icons'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import useAccountSubscribeStore from '@/modules/Account/Subscribe/hooks/useAccountSubscribeStore'
 import AccountUtils from '@/modules/Account/business/Account'
-import { useQuery } from '@apollo/client'
+import { useQuery, useLazyQuery } from '@apollo/client/react'
 import { QUERY_ME_SUBSCRIBES } from '@/modules/Account/graphql/gql'
 import {
+  BillQuery,
+  BillQueryVariables,
+  KetagalanArticleQuery,
+  KetagalanArticleQueryVariables,
+  PeopleQuery,
+  PeopleQueryVariables,
   QueryMeSubscribesQuery,
   QueryMeSubscribesQueryVariables,
+  UstwArticleQuery,
+  UstwArticleQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import { QUERY_BILL } from '@/modules/Bill/graphql/gql'
+import { QUERY_PEOPLE } from '@/modules/People/graphql/gql'
+import {
+  QUERY_KETAGALAN_ARTICLE,
+  QUERY_USTW_ARTICLE,
+} from '@/modules/Article/graphql/gql'
+import { BillUtils } from '@/modules/Bill/business/Bill'
+import { PeopleUtils } from '@/modules/People/business/People'
+import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
+import { useToast } from '@/common/providers/ToastProvider'
 
 type AccountSubscribeListItemProps = {
   accountSubscribe: AccountSubscribe
@@ -32,8 +51,100 @@ type AccountSubscribeListItemProps = {
 const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
   accountSubscribe,
 }: AccountSubscribeListItemProps) {
-  const { t } = useTranslationClient('account')
+  const { t, i18n } = useTranslationClient('account')
   const { isCompactView } = useAccountLayout()
+  const { unsubscribeBill, unsubscribePeople, unbookmarkArticle } = useAccount()
+
+  const [getBill] = useLazyQuery<BillQuery, BillQueryVariables>(QUERY_BILL)
+  const [getPeople] = useLazyQuery<PeopleQuery, PeopleQueryVariables>(
+    QUERY_PEOPLE
+  )
+  const [getUstwArticle] = useLazyQuery<
+    UstwArticleQuery,
+    UstwArticleQueryVariables
+  >(QUERY_USTW_ARTICLE)
+  const [getKetagalanArticle] = useLazyQuery<
+    KetagalanArticleQuery,
+    KetagalanArticleQueryVariables
+  >(QUERY_KETAGALAN_ARTICLE)
+
+  const { toast } = useToast()
+  const handleUnsubscribe = useCallback(async () => {
+    try {
+      const lang = i18n.language as Language
+      if (accountSubscribe.type === AccountSubscribeType.Bill) {
+        const data = (
+          await getBill({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.Bill
+        if (!data) throw new Error('Bill not found')
+        const bill = BillUtils.parse(lang, data)
+        unsubscribeBill(bill)
+      } else if (accountSubscribe.type === AccountSubscribeType.People) {
+        const data = (
+          await getPeople({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.People
+        if (!data) throw new Error('People not found')
+        unsubscribePeople(PeopleUtils.parse(lang, data))
+      } else if (accountSubscribe.type === AccountSubscribeType.UstwArticle) {
+        const data = (
+          await getUstwArticle({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.UstwArticle
+        if (!data) throw new Error('UstwArticle not found')
+        unbookmarkArticle(ArticleUtils.parse(lang, data, ArticleType.Article))
+      } else if (
+        accountSubscribe.type === AccountSubscribeType.KetagalanArticle
+      ) {
+        const data = (
+          await getKetagalanArticle({
+            variables: {
+              id: accountSubscribe.id,
+            },
+          })
+        ).data?.KetagalanArticle
+        if (!data) throw new Error('KetagalanArticle not found')
+        unbookmarkArticle(ArticleUtils.parse(lang, data, ArticleType.Ketagalan))
+      }
+      toast(
+        'success',
+        t('unsubscribe.msg.success', {
+          ns: 'account',
+          title: accountSubscribe.title,
+        })
+      )
+    } catch {
+      toast(
+        'error',
+        t('unsubscribe.msg.error', {
+          ns: 'account',
+          title: accountSubscribe.title,
+        })
+      )
+    }
+  }, [
+    i18n,
+    accountSubscribe,
+    unsubscribeBill,
+    unsubscribePeople,
+    unbookmarkArticle,
+    getBill,
+    getPeople,
+    getUstwArticle,
+    getKetagalanArticle,
+    toast,
+    t,
+  ])
 
   return (
     <UHStack
@@ -88,7 +199,12 @@ const AccountSubscribeListItem = memo(function AccountSubscribeListItem({
             />
           </UIconButton>
         </Link>
-        <UIconButton variant="text" color="info" size="xs">
+        <UIconButton
+          variant="text"
+          color="info"
+          size="xs"
+          onClick={handleUnsubscribe}
+        >
           <CloseIcon
             sx={{
               width: 14,

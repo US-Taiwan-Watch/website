@@ -10,7 +10,7 @@ import {
   PeopleVotesQuery,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { QUERY_PEOPLE_VOTES } from '@/modules/People/graphql/gql'
-import { useQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client/react'
 import { isNull } from 'lodash-es'
 import { PeopleVoteUtils } from '@/modules/People/business/PeopleVote'
 import { useParams } from 'next/navigation'
@@ -46,14 +46,8 @@ const VotingRecord = function ({ people }: VotingRecordProps) {
         iconColor: 'primary',
       }}
     >
-      {votes?.map((vote, index) => (
-        <Box
-          key={index}
-          sx={{
-            marginLeft: '8px',
-            marginRight: '8px',
-          }}
-        >
+      {votes.map((vote, index) => (
+        <Box key={index}>
           {vote.vote?.bill && vote.stance && vote.vote.status && (
             <BillVoteCard vote={vote} />
           )}
