@@ -8,6 +8,10 @@ import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import ServerFootprintApi from '@/modules/About/Footprint/api/ServerFootprintApi'
 
+export const dynamic = 'force-static'
+
+export const revalidate = 86400
+
 type KetagalanAboutFootprintsPageProps = {
   params: {
     lang: Language

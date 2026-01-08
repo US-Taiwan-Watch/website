@@ -16,7 +16,7 @@ import {
   CategoriesKetagalansQuery,
   CategoriesKetagalansQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
-import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
 import {
   QUERY_USTW_ARTICLE,
@@ -48,8 +48,9 @@ export default class ServerArticleApi {
     articleType: ArticleType
   }): Promise<{ id: string; updatedAt: string }[]> {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data } = await query<
+        const { data } = await client.query<
           KetagalanArticleIdsQuery,
           KetagalanArticleIdsQueryVariables
         >({
@@ -65,7 +66,7 @@ export default class ServerArticleApi {
         )
       }
 
-      const { data } = await query<
+      const { data } = await client.query<
         UstwArticleIdsQuery,
         UstwArticleIdsQueryVariables
       >({
@@ -105,8 +106,9 @@ export default class ServerArticleApi {
     }
   ) {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data } = await query<
+        const { data } = await client.query<
           KetagalanArticlesQuery,
           KetagalanArticlesQueryVariables
         >({
@@ -124,7 +126,7 @@ export default class ServerArticleApi {
         )
       }
 
-      const { data } = await query<
+      const { data } = await client.query<
         UstwArticlesQuery,
         UstwArticlesQueryVariables
       >({
@@ -162,8 +164,9 @@ export default class ServerArticleApi {
     }
   ) {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data } = await query<
+        const { data } = await client.query<
           KetagalanArticlesQuery,
           KetagalanArticlesQueryVariables
         >({
@@ -182,7 +185,7 @@ export default class ServerArticleApi {
         )
       }
 
-      const { data } = await query<
+      const { data } = await client.query<
         UstwArticlesQuery,
         UstwArticlesQueryVariables
       >({
@@ -221,8 +224,9 @@ export default class ServerArticleApi {
     }
   ) {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data } = await query<
+        const { data } = await client.query<
           KetagalanArticlesQuery,
           KetagalanArticlesQueryVariables
         >({
@@ -245,7 +249,7 @@ export default class ServerArticleApi {
         )
       }
 
-      const { data } = await query<
+      const { data } = await client.query<
         UstwArticlesQuery,
         UstwArticlesQueryVariables
       >({
@@ -295,8 +299,9 @@ export default class ServerArticleApi {
     }
   ) {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data } = await query<
+        const { data } = await client.query<
           KetagalanArticlesQuery,
           KetagalanArticlesQueryVariables
         >({
@@ -316,7 +321,7 @@ export default class ServerArticleApi {
         )
       }
 
-      const { data } = await query<
+      const { data } = await client.query<
         UstwArticlesQuery,
         UstwArticlesQueryVariables
       >({
@@ -357,8 +362,9 @@ export default class ServerArticleApi {
     }
   ) {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data } = await query<
+        const { data } = await client.query<
           KetagalanArticleQuery,
           KetagalanArticleQueryVariables
         >({
@@ -371,12 +377,13 @@ export default class ServerArticleApi {
         return ArticleUtils.parse(lang, data.KetagalanArticle, articleType)
       }
 
-      const { data } = await query<UstwArticleQuery, UstwArticleQueryVariables>(
-        {
-          query: QUERY_USTW_ARTICLE,
-          variables: { id },
-        }
-      )
+      const { data } = await client.query<
+        UstwArticleQuery,
+        UstwArticleQueryVariables
+      >({
+        query: QUERY_USTW_ARTICLE,
+        variables: { id },
+      })
 
       if (!data?.UstwArticle) return null
 
@@ -404,8 +411,9 @@ export default class ServerArticleApi {
     }
   ) {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data: relatedData } = await query<
+        const { data: relatedData } = await client.query<
           KetagalanArticlesQuery,
           KetagalanArticlesQueryVariables
         >({
@@ -429,7 +437,7 @@ export default class ServerArticleApi {
         )
       }
 
-      const { data: relatedData } = await query<
+      const { data: relatedData } = await client.query<
         UstwArticlesQuery,
         UstwArticlesQueryVariables
       >({
@@ -464,8 +472,9 @@ export default class ServerArticleApi {
    */
   static async getCategoryIds({ articleType }: { articleType: ArticleType }) {
     try {
+      const client = getClient()
       if (articleType === ArticleType.Ketagalan) {
-        const { data } = await query<
+        const { data } = await client.query<
           CategoriesKetagalansQuery,
           CategoriesKetagalansQueryVariables
         >({
@@ -480,7 +489,7 @@ export default class ServerArticleApi {
         )
       }
 
-      const { data } = await query<
+      const { data } = await client.query<
         CategoriesArticlesQuery,
         CategoriesArticlesQueryVariables
       >({

@@ -7,7 +7,7 @@ import {
   PeopleIdsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 
-import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import { PeopleUtils } from '@/modules/People/business/People'
 import {
   QUERY_PEOPLE,
@@ -33,7 +33,8 @@ export default class ServerPeopleApi {
     lang: Language,
     { limit = 10 }: { limit?: number }
   ) {
-    const { data } = await query<PeoplesQuery, PeoplesQueryVariables>({
+    const client = getClient()
+    const { data } = await client.query<PeoplesQuery, PeoplesQueryVariables>({
       query: QUERY_PEOPLES,
       variables: {
         limit,
@@ -55,7 +56,8 @@ export default class ServerPeopleApi {
    * @returns 人物
    */
   static async getPeople(lang: Language, { id }: { id: string }) {
-    const { data } = await query<PeopleQuery, PeopleQueryVariables>({
+    const client = getClient()
+    const { data } = await client.query<PeopleQuery, PeopleQueryVariables>({
       query: QUERY_PEOPLE,
       variables: { id },
     })
@@ -71,7 +73,11 @@ export default class ServerPeopleApi {
    */
   static async getPeopleIds(): Promise<{ id: string; updatedAt: string }[]> {
     try {
-      const { data } = await query<PeopleIdsQuery, PeopleIdsQueryVariables>({
+      const client = getClient()
+      const { data } = await client.query<
+        PeopleIdsQuery,
+        PeopleIdsQueryVariables
+      >({
         query: QUERY_PEOPLE_IDS,
       })
 

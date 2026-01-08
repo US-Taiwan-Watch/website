@@ -1,4 +1,4 @@
-import { query } from '@/common/lib/graphql/ServerApolloClient'
+import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import {
   QUERY_KETAGALAN_MEMBERS,
   QUERY_USTW_MEMBERS,
@@ -20,7 +20,11 @@ import { Language } from '@/common/lib/i18n/types'
  */
 export default class ServerMemberApi {
   static async getUstwMembers(lang: Language) {
-    const { data } = await query<UstwMembersQuery, UstwMembersQueryVariables>({
+    const client = getClient()
+    const { data } = await client.query<
+      UstwMembersQuery,
+      UstwMembersQueryVariables
+    >({
       query: QUERY_USTW_MEMBERS,
     })
 
@@ -32,7 +36,8 @@ export default class ServerMemberApi {
   }
 
   static async getKetagalanMembers(lang: Language) {
-    const { data } = await query<
+    const client = getClient()
+    const { data } = await client.query<
       KetagalanMembersQuery,
       KetagalanMembersQueryVariables
     >({
