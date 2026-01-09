@@ -32,8 +32,8 @@ const BillTag = function BillTag({ value }: BillTagProps) {
       justifyContent="center"
       className="category-tag"
     >
-      <StyledHashTag>#</StyledHashTag>
-      <StyledPeopleTagText>{value}</StyledPeopleTagText>
+      <StyledHashTag variant="bodyS">#</StyledHashTag>
+      <StyledPeopleTagText variant="bodyS">{value}</StyledPeopleTagText>
     </StyledPeopleTagContainer>
   )
 }

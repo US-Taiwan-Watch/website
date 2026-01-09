@@ -17,6 +17,7 @@ export const TAIWAN_RECORD_FRAGMENT = gql`
     photos {
       id
       photo {
+        id
         alt
         url
       }

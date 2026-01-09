@@ -32,8 +32,8 @@ const PeopleTag = function PeopleTag({ value }: PeopleTagProps) {
       justifyContent="center"
       className="category-tag"
     >
-      <StyledHashTag>#</StyledHashTag>
-      <StyledPeopleTagText>{value}</StyledPeopleTagText>
+      <StyledHashTag variant="bodyS">#</StyledHashTag>
+      <StyledPeopleTagText variant="bodyS">{value}</StyledPeopleTagText>
     </StyledPeopleTagContainer>
   )
 }
