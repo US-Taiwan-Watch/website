@@ -172,6 +172,20 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
               />
             </Box>
           ))}
+          {taiwanRecordForDialog && (
+            <TaiwanRecordDialog
+              mode={
+                TaiwanRecordUtils.isReadonly(taiwanRecordForDialog)
+                  ? 'view'
+                  : 'update'
+              }
+              peopleId={taiwanRecordForDialog.peopleId}
+              taiwanRecord={taiwanRecordForDialog}
+              open={isTaiwanRecordDialogOpen}
+              onClose={handleTaiwanRecordDialogClose}
+              onSubmitTaiwanRecord={onSubmit}
+            />
+          )}
         </Stack>
       </UFullWidthBackgroundBox>
     )

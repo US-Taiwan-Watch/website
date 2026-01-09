@@ -21,6 +21,7 @@ import Divider from '@mui/material/Divider'
 import { getLinkPreview } from 'link-preview-js'
 import { LinkIcon } from '@/common/styles/assets/Icons'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { TaiwanRecord } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 
 type SourceMetadata = {
   /** 連結 */
@@ -158,7 +159,7 @@ const SourcesDialog = memo(function SourcesDialog(props: SourcesDialogProps) {
 const MAX_FAVICON_AVATAR_COUNT = 4
 
 interface TaiwanRecordSourcesProps {
-  sources: string[]
+  sources: TaiwanRecord['sources']
 }
 
 const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
@@ -169,7 +170,9 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
 
   useEffect(() => {
     const fetchSourceMetadatas = async () => {
-      const sourceMetadatas = await Promise.all(sources.map(getMetadata))
+      const sourceMetadatas = await Promise.all(
+        sources.map((s) => getMetadata(s.url))
+      )
       setSourceMetadatas(sourceMetadatas)
     }
     fetchSourceMetadatas()
@@ -214,7 +217,7 @@ const TaiwanRecordSources = ({ sources }: TaiwanRecordSourcesProps) => {
                 height: 16,
               }}
               key={index}
-              alt={new URL(sources[index]).hostname}
+              alt={new URL(sources[index].url).hostname}
               src={m.favicon}
             >
               <LinkIcon sx={{ width: 12, height: 12 }} />

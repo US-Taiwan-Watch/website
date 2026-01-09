@@ -73,7 +73,7 @@ export default function useTaiwanRecord() {
             description: value.content,
             people: peopleId,
             sources: value.sources.map((source) => ({
-              link: source,
+              link: source.url,
             })),
             photos: uploadedImageIds.map((imageId) => ({
               photo: imageId,
@@ -94,13 +94,14 @@ export default function useTaiwanRecord() {
    */
   const handleUpdateTaiwanRecord = useCallback(
     async (value: TaiwanRecordUpdateOutput) => {
-      // Filter by started with `data:`
+      // Filter images by started with `data:`
       const newImages = value.images.filter((image) =>
         image.url.startsWith('data:')
       )
       const existingImages = value.images.filter(
         (image) => !image.url.startsWith('data:')
       )
+
       const uploadedImageIds = await handleUploadImages(newImages)
       await gqlUpdateTaiwanRecord({
         variables: {
@@ -111,7 +112,8 @@ export default function useTaiwanRecord() {
             description: value.content,
             people: value.peopleId,
             sources: value.sources.map((source) => ({
-              link: source,
+              id: source.id,
+              link: source.url,
             })),
             photos: [
               ...existingImages.map((image) => ({
@@ -119,7 +121,7 @@ export default function useTaiwanRecord() {
                 photo: image.id,
               })),
               ...uploadedImageIds.map((imageId) => ({
-                id: TaiwanRecordUtils.generateRandomPhotoId(),
+                id: TaiwanRecordUtils.generateRandomMongoDBId(),
                 photo: imageId,
               })),
             ],
