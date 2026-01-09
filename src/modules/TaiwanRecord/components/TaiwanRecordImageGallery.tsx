@@ -11,12 +11,11 @@ import {
 import { useTheme } from '@mui/material/styles'
 import { styled, USTWTheme } from '@/common/lib/mui/theme'
 import Image from 'next/image'
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
-import TaiwanRecordImageLightbox, {
-  TaiwanRecordImage,
-} from '@/modules/TaiwanRecord/components/TaiwanRecordImageLightbox'
 import ZoomInIcon from '@mui/icons-material/ZoomIn'
+import { useImageLightbox } from '@/common/components/elements/ImageLightbox/ImageLightboxProvider'
+import { ImageLightboxImage } from '@/common/components/elements/ImageLightbox'
 
 const StyledDialog = styled(Dialog)(({ theme }: { theme: USTWTheme }) => ({
   '& .MuiBackdrop-root': {
@@ -123,7 +122,7 @@ const ThumbnailOverlay = styled(Box)(() => ({
 
 interface TaiwanRecordImageGalleryProps {
   open: boolean
-  images: TaiwanRecordImage[]
+  images: ImageLightboxImage[]
   onClose: () => void
   title?: string
 }
@@ -135,20 +134,10 @@ const TaiwanRecordImageGallery = ({
   title,
 }: TaiwanRecordImageGalleryProps) => {
   const theme = useTheme<USTWTheme>()
-  const [isLightboxOpen, setIsLightboxOpen] = useState(false)
-  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const { show } = useImageLightbox()
 
   const handleThumbnailClick = useCallback((index: number) => {
-    setCurrentImageIndex(index)
-    setIsLightboxOpen(true)
-  }, [])
-
-  const handleLightboxClose = useCallback(() => {
-    setIsLightboxOpen(false)
-  }, [])
-
-  const handleLightboxNavigate = useCallback((index: number) => {
-    setCurrentImageIndex(index)
+    show(images, index)
   }, [])
 
   return (
@@ -203,15 +192,6 @@ const TaiwanRecordImageGallery = ({
           )}
         </DialogContent>
       </StyledDialog>
-
-      {/* Lightbox for full-size viewing */}
-      <TaiwanRecordImageLightbox
-        open={isLightboxOpen}
-        images={images}
-        currentIndex={currentImageIndex}
-        onClose={handleLightboxClose}
-        onNavigate={handleLightboxNavigate}
-      />
     </>
   )
 }

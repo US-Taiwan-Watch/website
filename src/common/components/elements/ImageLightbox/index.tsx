@@ -86,26 +86,26 @@ const ImageCounter = styled(Box)(({ theme }: { theme: USTWTheme }) => ({
   userSelect: 'none',
 }))
 
-export interface TaiwanRecordImage {
+export interface ImageLightboxImage {
   url: string
   alt?: string
 }
 
-interface TaiwanRecordImageLightboxProps {
+interface ImageLightboxProps {
   open: boolean
-  images: TaiwanRecordImage[]
+  images: ImageLightboxImage[]
   currentIndex: number
   onClose: () => void
   onNavigate: (index: number) => void
 }
 
-const TaiwanRecordImageLightbox = ({
+const ImageLightbox = ({
   open,
   images,
   currentIndex,
   onClose,
   onNavigate,
-}: TaiwanRecordImageLightboxProps) => {
+}: ImageLightboxProps) => {
   const handlePrevious = useCallback(() => {
     if (currentIndex > 0) {
       onNavigate(currentIndex - 1)
@@ -231,4 +231,4 @@ const TaiwanRecordImageLightbox = ({
   )
 }
 
-export default memo(TaiwanRecordImageLightbox)
+export default memo(ImageLightbox)
