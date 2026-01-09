@@ -25,28 +25,21 @@ const StyledDialog = styled(Dialog)(() => ({
 
 const NavigationButton = styled(IconButton)(
   ({ theme }: { theme: USTWTheme }) => ({
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
     backgroundColor: 'rgba(255, 255, 255, 0.12)',
     backdropFilter: 'blur(12px)',
     color: theme.color.common.white,
-    width: 56,
-    height: 56,
     border: '1px solid rgba(255, 255, 255, 0.18)',
     transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
     '&:hover': {
       backgroundColor: 'rgba(255, 255, 255, 0.20)',
       borderColor: 'rgba(255, 255, 255, 0.3)',
-      transform: 'translateY(-50%) scale(1.05)',
-    },
-    '&:active': {
-      transform: 'translateY(-50%) scale(0.98)',
     },
     '&.Mui-disabled': {
       opacity: 0.3,
       color: theme.color.common.white,
     },
+    width: 32,
+    height: 32,
   })
 )
 
@@ -69,11 +62,17 @@ const CloseButton = styled(IconButton)(({ theme }: { theme: USTWTheme }) => ({
   },
 }))
 
-const ImageCounter = styled(Box)(({ theme }: { theme: USTWTheme }) => ({
+const ImageCounterNavigation = styled(Box)({
   position: 'absolute',
   bottom: 24,
   left: '50%',
   transform: 'translateX(-50%)',
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+})
+
+const ImageCounter = styled(Box)(({ theme }: { theme: USTWTheme }) => ({
   backgroundColor: 'rgba(0, 0, 0, 0.6)',
   backdropFilter: 'blur(12px)',
   color: theme.color.common.white,
@@ -197,34 +196,43 @@ const ImageLightbox = ({
           />
         </Box>
 
-        {/* Navigation Buttons */}
+        {/** Image Counter and Navigation */}
         {images.length > 1 && (
-          <>
+          <ImageCounterNavigation>
             <NavigationButton
               onClick={handlePrevious}
               disabled={currentIndex === 0}
               aria-label="Previous image"
-              sx={{ left: { xs: 8, sm: 16 } }}
             >
-              <ChevronLeftIcon fontSize="large" />
+              <ChevronLeftIcon
+                sx={{
+                  fontSize: {
+                    xs: '18px',
+                    lg: '24px',
+                  },
+                }}
+              />
             </NavigationButton>
+
+            <ImageCounter>
+              {currentIndex + 1} / {images.length}
+            </ImageCounter>
 
             <NavigationButton
               onClick={handleNext}
               disabled={currentIndex === images.length - 1}
               aria-label="Next image"
-              sx={{ right: { xs: 8, sm: 16 } }}
             >
-              <ChevronRightIcon fontSize="large" />
+              <ChevronRightIcon
+                sx={{
+                  fontSize: {
+                    xs: '18px',
+                    lg: '24px',
+                  },
+                }}
+              />
             </NavigationButton>
-          </>
-        )}
-
-        {/* Image Counter */}
-        {images.length > 1 && (
-          <ImageCounter>
-            {currentIndex + 1} / {images.length}
-          </ImageCounter>
+          </ImageCounterNavigation>
         )}
       </Box>
     </StyledDialog>
