@@ -9,16 +9,20 @@ import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledDescriptionListItem = styled('li')(({ theme }) => ({
   position: 'relative',
+  paddingLeft: theme.spacing(3),
   '&::before': {
     content: '""',
     position: 'absolute',
-    top: `${(theme.typography.bodyS.fontSize as number) / 2}px`,
     left: theme.spacing(1.5),
     transform: 'translate(-50%, 50%)',
     width: 4,
     height: 4,
     borderRadius: '100%',
     backgroundColor: theme.color.common.black,
+    top: '6px',
+    [theme.breakpoints.up('lg')]: {
+      top: '8px',
+    },
   },
 }))
 

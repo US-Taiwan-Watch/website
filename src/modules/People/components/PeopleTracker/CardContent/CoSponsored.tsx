@@ -2,7 +2,6 @@
 
 import { PeopleJoinIcon } from '@/common/styles/assets/Icons'
 import NumberCard from '@/modules/People/components/PeopleTracker/CardContent/NumberCard'
-import BillCard from '@/modules/Bill/components/BillCard'
 import { Box } from '@mui/material'
 import { People } from '@/modules/People/business/People'
 import { useParams } from 'next/navigation'
@@ -16,6 +15,7 @@ import { QUERY_PEOPLE_COSPONSOR_BILLS } from '@/modules/People/graphql/gql'
 import { isNull } from 'lodash-es'
 import { BillUtils } from '@/modules/Bill/business/Bill'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import BillCardContent from '@/modules/People/components/PeopleTracker/CardContent/BillBardContent'
 
 interface CoSponsoredProps {
   people: People
@@ -51,7 +51,7 @@ const CoSponsored = function ({ people }: CoSponsoredProps) {
     >
       {cosponsorBills.map((bill, index) => (
         <Box key={index}>
-          <BillCard mode="horizontal" bill={bill} />
+          <BillCardContent bill={bill} />
         </Box>
       ))}
     </NumberCard>
