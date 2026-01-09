@@ -22,6 +22,7 @@ export const taiwanRecordSchema = z.object({
     .array(
       z.object({
         id: z.string(),
+        photoId: z.string(),
         url: z.string().url(),
       })
     )
@@ -88,6 +89,7 @@ export class TaiwanRecordUtils {
         dto.photos
           ?.map((photo) => ({
             id: photo.id,
+            photoId: photo.photo?.id,
             url: photo.photo?.url,
           }))
           .filter((photo) => isString(photo.id) && isString(photo.url)) ?? [],

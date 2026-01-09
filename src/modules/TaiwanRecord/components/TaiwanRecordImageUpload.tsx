@@ -177,6 +177,7 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload({
                         .filter((image) => image.status === 'fulfilled')
                         .map((image) => ({
                           id: TaiwanRecordUtils.generateRandomMongoDBId(),
+                          photoId: TaiwanRecordUtils.generateRandomMongoDBId(),
                           url: image.value,
                         })),
                     ]

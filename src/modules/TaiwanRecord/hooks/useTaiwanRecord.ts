@@ -118,7 +118,7 @@ export default function useTaiwanRecord() {
             photos: [
               ...existingImages.map((image) => ({
                 id: image.id,
-                photo: image.id,
+                photo: image.photoId,
               })),
               ...uploadedImageIds.map((imageId) => ({
                 id: TaiwanRecordUtils.generateRandomMongoDBId(),
