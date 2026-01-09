@@ -28,7 +28,12 @@ export const taiwanRecordSchema = z.object({
     .max(MAX_IMAGE_COUNT),
   createdAt: z.string().datetime(),
   author: z.string(),
-  sources: z.array(z.string().url()),
+  sources: z.array(
+    z.object({
+      id: z.string(),
+      url: z.string().url(),
+    })
+  ),
   status: z.nativeEnum(TaiwanRecordStatus),
   peopleId: z.string(),
 })
@@ -83,10 +88,17 @@ export class TaiwanRecordUtils {
         dto.photos
           ?.map((photo) => ({
             id: photo.id,
-            url: photo.photo?.url ?? '',
+            url: photo.photo?.url,
           }))
           .filter((photo) => isString(photo.id) && isString(photo.url)) ?? [],
-      sources: dto.sources?.map((source) => source.link).filter(isString) ?? [],
+      sources:
+        dto.sources
+          ?.map((source) => ({
+            id: source.id,
+            url: source.link,
+          }))
+          .filter((source) => isString(source.id) && isString(source.url)) ??
+        [],
       status: dto.status,
       createdAt: dto.createdAt ?? '',
       author: dto.author?.fullName ?? '',
@@ -108,7 +120,7 @@ export class TaiwanRecordUtils {
   /**
    * 生成隨機的 photo id
    */
-  static generateRandomPhotoId() {
+  static generateRandomMongoDBId() {
     // random mongo id（24 位十六進位字串）
     return Array.from({ length: 24 }, () =>
       Math.floor(Math.random() * 16).toString(16)

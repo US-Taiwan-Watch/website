@@ -4,8 +4,10 @@ import { Box, Button, Chip, Stack, TextField, Typography } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import LinkIcon from '@mui/icons-material/Link'
 import {
+  TaiwanRecord,
   TaiwanRecordCreateInput,
   TaiwanRecordUpdateInput,
+  TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { z } from 'zod'
@@ -39,17 +41,20 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
       return
     }
 
-    if (sources?.includes(inputUrl)) {
+    if (sources?.map((source) => source.url)?.includes(inputUrl)) {
       setUrlError(t('form.sources.error.duplicate', { ns: 'taiwan_record' }))
       return
     }
 
     setInputUrl('')
-    return inputUrl
+    return {
+      id: TaiwanRecordUtils.generateRandomMongoDBId(),
+      url: inputUrl,
+    }
   }, [inputUrl, t, sources])
 
   const handleRemoveSource = useCallback(
-    (currentSources: string[], index: number) => {
+    (currentSources: TaiwanRecord['sources'], index: number) => {
       setUrlError('')
       return currentSources.filter((_, i) => i !== index)
     },
@@ -125,7 +130,7 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
                     <Chip
                       key={index}
                       icon={<LinkIcon />}
-                      label={source}
+                      label={source.url}
                       onDelete={
                         isReadOnly
                           ? undefined

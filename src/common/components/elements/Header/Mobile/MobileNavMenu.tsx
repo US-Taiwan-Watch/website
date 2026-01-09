@@ -218,6 +218,7 @@ const MobileNavMenu = ({
               xs: 'space-between',
               sm: 'flex-end',
             }}
+            flexWrap="wrap"
           >
             {socialLinkItems.map((item, index) => (
               <Link

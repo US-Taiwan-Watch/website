@@ -18,6 +18,7 @@ import Image from 'next/image'
 import TaiwanRecordSources from '@/modules/TaiwanRecord/components/TaiwanRecordSources'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import { useImageLightbox } from '@/common/components/elements/ImageLightbox/ImageLightboxProvider'
 
 const StyledImage = styled(Image)(() => ({}))
 
@@ -28,6 +29,7 @@ interface TaiwanRecordCardProps {
 }
 
 const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
+  const { show } = useImageLightbox()
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
   const [isContentExpanded, setIsContentExpanded] = useState(false)
@@ -97,7 +99,9 @@ const TaiwanRecordCard = ({ taiwanRecord }: TaiwanRecordCardProps) => {
                         // 如果只有一張圖片，則寬度設為 50%
                         sm: taiwanRecord.images?.length === 1 ? '50%' : '100%',
                       },
+                      cursor: 'pointer',
                     }}
+                    onClick={() => show(taiwanRecord.images, index)}
                   />
                   {/** Overlay，在最後一張圖顯示剩餘圖片數量 */}
                   {index === MAX_IMAGE_TO_SHOW - 1 && imageCountLeft > 0 && (

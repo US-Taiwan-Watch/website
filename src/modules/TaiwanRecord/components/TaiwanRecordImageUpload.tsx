@@ -8,6 +8,7 @@ import {
   TaiwanRecordUpdateInput,
   MAX_IMAGE_COUNT,
   TaiwanRecord,
+  TaiwanRecordUtils,
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import UIconButton from '@/common/components/atoms/UIconButton'
@@ -175,7 +176,7 @@ const TaiwanRecordImageUpload = memo(function TaiwanRecordImageUpload({
                       ...uploadedImages
                         .filter((image) => image.status === 'fulfilled')
                         .map((image) => ({
-                          id: image.value,
+                          id: TaiwanRecordUtils.generateRandomMongoDBId(),
                           url: image.value,
                         })),
                     ]

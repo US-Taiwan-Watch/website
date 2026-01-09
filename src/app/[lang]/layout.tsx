@@ -22,6 +22,7 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
+import ImageLightboxProvider from '@/common/components/elements/ImageLightbox/ImageLightboxProvider'
 
 type RootLayoutProps = Readonly<{
   children: React.ReactNode
@@ -66,22 +67,24 @@ export default async function RootLayout({
           <ThemeProvider lang={params.lang}>
             <I18nProvider>
               <ResponsiveProvider defaultValue={{ isMobile, isTablet }}>
-                <Auth0Provider>
-                  <UAuthProvider>
-                    <ClientApolloProvider>
-                      <AccountProvider>
-                        <Stack minHeight="100dvh">
-                          <Header />
-                          <ToastProvider>
-                            <Stack flexGrow={1}>{children}</Stack>
-                            <CookieConsentBanner />
-                          </ToastProvider>
-                          <Footer />
-                        </Stack>
-                      </AccountProvider>
-                    </ClientApolloProvider>
-                  </UAuthProvider>
-                </Auth0Provider>
+                <ImageLightboxProvider>
+                  <Auth0Provider>
+                    <UAuthProvider>
+                      <ClientApolloProvider>
+                        <AccountProvider>
+                          <Stack minHeight="100dvh">
+                            <Header />
+                            <ToastProvider>
+                              <Stack flexGrow={1}>{children}</Stack>
+                              <CookieConsentBanner />
+                            </ToastProvider>
+                            <Footer />
+                          </Stack>
+                        </AccountProvider>
+                      </ClientApolloProvider>
+                    </UAuthProvider>
+                  </Auth0Provider>
+                </ImageLightboxProvider>
               </ResponsiveProvider>
             </I18nProvider>
           </ThemeProvider>
