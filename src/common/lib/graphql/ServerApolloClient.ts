@@ -18,7 +18,7 @@ export const { getClient, PreloadQuery } = registerApolloClient(() => {
     uri: config.GRAPHQL_API_URL,
     // you can disable result caching here if you want to
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
-    // fetchOptions: { cache: "no-store" },
+    fetchOptions: { cache: 'no-store' },
   })
 
   // 創建錯誤處理 link
@@ -42,16 +42,16 @@ export const { getClient, PreloadQuery } = registerApolloClient(() => {
     }
   })
 
-  // 創建 Request Log
-  const requestLink = new ApolloLink((operation, forward) => {
-    const { variables } = operation
-    console.log(`[GraphQL request]: ${operation.operationName}`)
-    console.log(`[Variables]: ${JSON.stringify(variables)}`)
-    return forward(operation)
-  })
+  // 創建 Request Log，測試用，需要時 uncomment
+  // const requestLink = new ApolloLink((operation, forward) => {
+  //   const { variables } = operation
+  //   console.log(`[GraphQL request]: ${operation.operationName}`)
+  //   console.log(`[Variables]: ${JSON.stringify(variables)}`)
+  //   return forward(operation)
+  // })
 
   return new ApolloClient({
     cache: new InMemoryCache(),
-    link: ApolloLink.from([errorLink, requestLink, httpLink]),
+    link: ApolloLink.from([errorLink, httpLink]),
   })
 })
