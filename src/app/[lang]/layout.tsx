@@ -8,7 +8,6 @@ import Footer from '@/common/components/elements/Footer'
 import { ClientApolloProvider } from '@/common/lib/graphql/ClientApolloProvider'
 import ToastProvider from '@/common/providers/ToastProvider'
 import Stack from '@mui/material/Stack'
-import { getServerDevice } from '@/common/lib/responsive/getServerDevice'
 import { ResponsiveProvider } from '@/common/lib/responsive/ResponsiveProvider'
 import I18nProvider from '@/common/lib/i18n/provider/I18nProvider'
 import UAuthProvider from '@/modules/Auth/providers/UAuthProvider'
@@ -31,6 +30,8 @@ type RootLayoutProps = Readonly<{
   }
 }>
 
+export const dynamicParams = false
+
 export const generateStaticParams = async () => {
   return I18N_SUPPORTED_LANGUAGE.map((lang) => ({ lang }))
 }
@@ -50,8 +51,6 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
-  const { isMobile, isTablet } = await getServerDevice()
-
   return (
     <html lang={params.lang}>
       {config.GOOGLE_TAG_MANAGER_ID && (
@@ -66,7 +65,7 @@ export default async function RootLayout({
         <AppRouterCacheProvider>
           <ThemeProvider lang={params.lang}>
             <I18nProvider>
-              <ResponsiveProvider defaultValue={{ isMobile, isTablet }}>
+              <ResponsiveProvider>
                 <ImageLightboxProvider>
                   <Auth0Provider>
                     <UAuthProvider>

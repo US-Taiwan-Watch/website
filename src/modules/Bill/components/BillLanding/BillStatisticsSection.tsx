@@ -24,13 +24,14 @@ type BillStatisticsSectionProps = {
 export default async function BillStatisticsSection({
   lang,
 }: BillStatisticsSectionProps) {
-  const sponsors = await ServerBillApi.getTopSponsors(lang, {
-    limit: TOP_SPONSORS_LIMIT,
-  })
-
-  const cosponsors = await ServerBillApi.getTopCosponsors(lang, {
-    limit: TOP_COSPONSORS_LIMIT,
-  })
+  const [sponsors, cosponsors] = await Promise.all([
+    ServerBillApi.getTopSponsors(lang, {
+      limit: TOP_SPONSORS_LIMIT,
+    }),
+    ServerBillApi.getTopCosponsors(lang, {
+      limit: TOP_COSPONSORS_LIMIT,
+    }),
+  ])
 
   return (
     <Stack

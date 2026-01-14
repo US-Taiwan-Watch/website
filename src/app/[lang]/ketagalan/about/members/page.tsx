@@ -9,10 +9,6 @@ import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import ServerMemberApi from '@/modules/About/Member/api/ServerMemberApi'
 
-export const dynamic = 'force-static'
-
-export const revalidate = 86400
-
 type KetagalanAboutMembersPageProps = {
   params: {
     lang: Language

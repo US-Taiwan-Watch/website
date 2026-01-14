@@ -9,10 +9,6 @@ import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { Language } from '@/common/lib/i18n/types'
 
-export const dynamic = 'force-static'
-
-export const revalidate = 86400
-
 type WatchInfoPodcastPageProps = {
   params: {
     lang: Language

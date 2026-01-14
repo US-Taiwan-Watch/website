@@ -136,9 +136,12 @@ const TaiwanRecordImageGallery = ({
   const theme = useTheme<USTWTheme>()
   const { show } = useImageLightbox()
 
-  const handleThumbnailClick = useCallback((index: number) => {
-    show(images, index)
-  }, [])
+  const handleThumbnailClick = useCallback(
+    (index: number) => {
+      show(images, index)
+    },
+    [show, images]
+  )
 
   return (
     <>

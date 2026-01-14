@@ -8,10 +8,6 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 
-export const dynamic = 'force-static'
-
-export const revalidate = 86400
-
 const RELATED_ARTICLES_COUNT = 3
 
 type ArticlePageProps = {
@@ -56,20 +52,18 @@ export const generateMetadata = async ({
 }
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
-  const article = await ServerArticleApi.getArticle(params.lang, {
-    id: params.id,
-    articleType: ArticleType.Ketagalan,
-  })
-
-  if (!article) notFound()
-
-  const relatedArticles = await ServerArticleApi.getRelatedArticles(
-    params.lang,
-    {
+  const [article, relatedArticles] = await Promise.all([
+    ServerArticleApi.getArticle(params.lang, {
       id: params.id,
       articleType: ArticleType.Ketagalan,
-    }
-  )
+    }),
+    ServerArticleApi.getRelatedArticles(params.lang, {
+      id: params.id,
+      articleType: ArticleType.Ketagalan,
+    }),
+  ])
+
+  if (!article) notFound()
 
   return (
     <ArticlePost
