@@ -10,10 +10,6 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 
-export const dynamic = 'force-static'
-
-export const revalidate = 86400
-
 interface BillPageProps {
   params: {
     lang: Language
@@ -57,13 +53,14 @@ export const generateMetadata = async ({
 }
 
 export default async function Bill({ params }: BillPageProps) {
-  const bill = await ServerBillApi.getBill(params.lang, { id: params.id })
+  const [bill, relatedBills] = await Promise.all([
+    ServerBillApi.getBill(params.lang, { id: params.id }),
+    ServerBillApi.getRelatedBills(params.lang, {
+      id: params.id,
+    }),
+  ])
 
   if (!bill) return notFound()
-
-  const relatedBills = await ServerBillApi.getRelatedBills(params.lang, {
-    id: params.id,
-  })
 
   return (
     <Stack

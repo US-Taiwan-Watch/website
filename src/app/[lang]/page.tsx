@@ -14,10 +14,8 @@ import { Metadata } from 'next'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
-
-export const dynamic = 'force-static'
-
-export const revalidate = 86400
+import { config } from '@/config'
+import { getEpisodes } from '@/modules/Podcast/api/soundon'
 
 type HomeProps = {
   params: {
@@ -38,19 +36,19 @@ export const generateMetadata = async ({
 
 export default async function Home({ params }: HomeProps) {
   const { t } = await getTranslationServer(params.lang, 'home')
+  const podcastId = config.SOUNDON_PODCAST_ID
 
-  const articles = await ServerArticleApi.getHomeArticles(params.lang, {
-    limit: 3,
-    articleType: ArticleType.Article,
-  })
-
-  const ketagalanArticles = await ServerArticleApi.getHomeArticles(
-    params.lang,
-    {
+  const [articles, ketagalanArticles, episodes] = await Promise.all([
+    ServerArticleApi.getHomeArticles(params.lang, {
+      limit: 3,
+      articleType: ArticleType.Article,
+    }),
+    ServerArticleApi.getHomeArticles(params.lang, {
       limit: 3,
       articleType: ArticleType.Ketagalan,
-    }
-  )
+    }),
+    podcastId ? getEpisodes({ podcastId }) : Promise.resolve([]),
+  ])
 
   return (
     <Stack alignContent="center" justifyContent="center">
@@ -77,7 +75,12 @@ export default async function Home({ params }: HomeProps) {
             defaultArticles={ketagalanArticles}
           />
         </ThemeProvider>
-        <PodcastSection title={t('section.podcasts.title')} />
+        {episodes.length > 0 && (
+          <PodcastSection
+            title={t('section.podcasts.title')}
+            episodes={episodes}
+          />
+        )}
         <FreeUsageSection />
       </Stack>
     </Stack>

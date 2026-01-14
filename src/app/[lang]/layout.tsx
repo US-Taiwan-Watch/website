@@ -31,6 +31,8 @@ type RootLayoutProps = Readonly<{
   }
 }>
 
+export const dynamicParams = false
+
 export const generateStaticParams = async () => {
   return I18N_SUPPORTED_LANGUAGE.map((lang) => ({ lang }))
 }

@@ -7,14 +7,15 @@ import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constan
 import IndexPodcastCards, {
   ScrollableIndexPodcastCards,
 } from '@/modules/Podcast/components/IndexPodcastCards'
-import PodcastFetcherProvider from '@/modules/Podcast/providers/PodcastFetcherProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
+import { Episode } from '@/modules/Podcast/business/Episode'
 
 type PodcastSectionProps = {
   title: string
+  episodes: Episode[]
 }
 
-const PodcastSection = ({ title }: PodcastSectionProps) => {
+const PodcastSection = ({ title, episodes }: PodcastSectionProps) => {
   const { isMobile } = useResponsive()
 
   return (
@@ -23,14 +24,13 @@ const PodcastSection = ({ title }: PodcastSectionProps) => {
         paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
       }}
     >
-      <PodcastFetcherProvider />
       <SectionTitleWithLink title={title} />
       {isMobile ? (
         <FullWidthScrollableListWrapper>
-          <ScrollableIndexPodcastCards />
+          <ScrollableIndexPodcastCards episodes={episodes} />
         </FullWidthScrollableListWrapper>
       ) : (
-        <IndexPodcastCards />
+        <IndexPodcastCards episodes={episodes} />
       )}
     </LandingSectionWrapper>
   )

@@ -8,10 +8,6 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 
-export const dynamic = 'force-static'
-
-export const revalidate = 86400
-
 /**
  * 最新法案數量
  */
@@ -41,12 +37,14 @@ export const generateMetadata = async ({
 
 export default async function Bill({ params }: BillPageProps) {
   const { lang } = params
-  const latestBills = await ServerBillApi.getLatestBills(lang, {
-    limit: LATEST_BILLS_COUNT,
-  })
-  const popularBills = await ServerBillApi.getPopularBills(lang, {
-    limit: POPULAR_BILLS_COUNT,
-  })
+  const [latestBills, popularBills] = await Promise.all([
+    ServerBillApi.getLatestBills(lang, {
+      limit: LATEST_BILLS_COUNT,
+    }),
+    ServerBillApi.getPopularBills(lang, {
+      limit: POPULAR_BILLS_COUNT,
+    }),
+  ])
 
   return (
     <Stack

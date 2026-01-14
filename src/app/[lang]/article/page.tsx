@@ -12,10 +12,6 @@ import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { Language } from '@/common/lib/i18n/types'
 
-export const dynamic = 'force-static'
-
-export const revalidate = 86400
-
 /**
  * 首頁橫幅卡片數量
  */
@@ -44,18 +40,16 @@ export const generateMetadata = async ({
 }
 
 export default async function Article({ params }: ArticlePageProps) {
-  const landingBannerArticles = await ServerArticleApi.getLandingArticles(
-    params.lang,
-    {
+  const [landingBannerArticles, articles] = await Promise.all([
+    ServerArticleApi.getLandingArticles(params.lang, {
       limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
       articleType: ArticleType.Article,
-    }
-  )
-
-  const articles = await ServerArticleApi.getArticles(params.lang, {
-    limit: ARTICLE_POST_COUNT,
-    articleType: ArticleType.Article,
-  })
+    }),
+    ServerArticleApi.getArticles(params.lang, {
+      limit: ARTICLE_POST_COUNT,
+      articleType: ArticleType.Article,
+    }),
+  ])
 
   return (
     <UContainer>

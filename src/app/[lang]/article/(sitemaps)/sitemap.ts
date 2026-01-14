@@ -7,14 +7,14 @@ import { generatePageLinks } from '@/common/utils/sitemap.utils'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { resolveRouteUrl } = getURouterServer()
-  const articles = await ServerArticleApi.getArticleIds({
-    articleType: ArticleType.Article,
-  })
-
-  const categoryIds =
-    (await ServerArticleApi.getCategoryIds({
+  const [articles, categoryIds] = await Promise.all([
+    ServerArticleApi.getArticleIds({
       articleType: ArticleType.Article,
-    })) ?? []
+    }),
+    ServerArticleApi.getCategoryIds({
+      articleType: ArticleType.Article,
+    }),
+  ])
 
   return [
     ...generatePageLinks(resolveRouteUrl({ name: RouteName.Article })),

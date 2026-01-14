@@ -20,7 +20,6 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import withSelectable from '@/common/hooks/withSelectable'
 import { type ComponentProps } from 'react'
 import { Episode } from '@/modules/Podcast/business/Episode'
-import usePodcastStore from '@/modules/Podcast/store/usePodcastStore'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
@@ -186,7 +185,11 @@ const IndexPodcastCard = memo(function IndexPodcastCard({
 
 export default IndexPodcastCard
 
-export const WatchHerePodcastCard = () => {
+type PodcastCardProps = {
+  episodes: Episode[]
+}
+
+export const WatchHerePodcastCard = ({ episodes }: PodcastCardProps) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
@@ -198,7 +201,6 @@ export const WatchHerePodcastCard = () => {
       }),
     [t]
   )
-  const episodes = usePodcastStore.use.episodes()
   return (
     <IndexPodcastCard
       podcast={podcast}
@@ -211,7 +213,7 @@ export const WatchHerePodcastCard = () => {
     />
   )
 }
-export const WatchInfoPodcastCard = () => {
+export const WatchInfoPodcastCard = ({ episodes }: PodcastCardProps) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
@@ -223,7 +225,6 @@ export const WatchInfoPodcastCard = () => {
       }),
     [t]
   )
-  const episodes = usePodcastStore.use.episodes()
   return (
     <IndexPodcastCard
       podcast={podcast}
@@ -236,7 +237,7 @@ export const WatchInfoPodcastCard = () => {
     />
   )
 }
-export const WatchBookClubPodcastCard = () => {
+export const WatchBookClubPodcastCard = ({ episodes }: PodcastCardProps) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
@@ -248,7 +249,6 @@ export const WatchBookClubPodcastCard = () => {
       }),
     [t]
   )
-  const episodes = usePodcastStore.use.episodes()
   return (
     <IndexPodcastCard
       podcast={podcast}
