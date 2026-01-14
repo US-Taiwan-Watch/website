@@ -3,6 +3,11 @@ import bundleAnalyzer from '@next/bundle-analyzer'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  experimental: {
+    // 允許在沒有 Suspense boundary 的情況下使用 useSearchParams
+    // 這些元件會在客戶端渲染時正確運作
+    missingSuspenseWithCSRBailout: false,
+  },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

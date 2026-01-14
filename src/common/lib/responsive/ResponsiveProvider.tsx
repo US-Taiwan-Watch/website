@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  createContext,
-  type ReactNode,
-  useContext,
-  useEffect,
-  useState,
-} from 'react'
+import { createContext, type ReactNode, useContext } from 'react'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
@@ -33,18 +27,9 @@ export const useResponsive = () => {
 
 interface ResponsiveProviderProps {
   children: ReactNode
-  /**
-   * 來自 Server Device 的預設值
-   */
-  defaultValue?: ResponsiveProviderContext
 }
 
-export const ResponsiveProvider = ({
-  children,
-  defaultValue = { isMobile: false, isTablet: false, isHoverable: true },
-}: ResponsiveProviderProps) => {
-  const [responsiveProviderContext, setResponsiveProviderContext] =
-    useState(defaultValue)
+export const ResponsiveProvider = ({ children }: ResponsiveProviderProps) => {
   const isMobile = useMediaQuery((theme: USTWTheme) =>
     theme.breakpoints.down('sm')
   )
@@ -53,12 +38,8 @@ export const ResponsiveProvider = ({
   )
   const isHoverable = useMediaQuery('(hover: hover)')
 
-  useEffect(() => {
-    setResponsiveProviderContext({ isMobile, isTablet, isHoverable })
-  }, [isMobile, isTablet, isHoverable])
-
   return (
-    <ResponsiveContext.Provider value={responsiveProviderContext}>
+    <ResponsiveContext.Provider value={{ isMobile, isTablet, isHoverable }}>
       {children}
     </ResponsiveContext.Provider>
   )

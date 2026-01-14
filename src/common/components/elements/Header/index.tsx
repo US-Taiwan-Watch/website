@@ -2,12 +2,11 @@
 
 import DesktopHeader from '@/common/components/elements/Header/Desktop/DesktopHeader'
 import MobileHeader from '@/common/components/elements/Header/Mobile/MobileHeader'
-import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
-import { useMemo } from 'react'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import { useParams } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import { useRouteDetect } from '@/modules/Article/hooks/useRouteDetect'
+import Box from '@mui/material/Box'
 
 export type HeaderProps = {
   containerClassName?: string
@@ -19,19 +18,18 @@ export type HeaderProps = {
 const Header = (props: HeaderProps) => {
   const { lang } = useParams<{ lang: Language }>()
   const { isKetagalan } = useRouteDetect()
-  const { isMobile, isTablet } = useResponsive()
-
-  const header = useMemo(() => {
-    if (isMobile || isTablet) {
-      return <MobileHeader {...props} />
-    }
-
-    return <DesktopHeader {...props} />
-  }, [isMobile, isTablet, props])
 
   return (
     <ThemeProvider mode={isKetagalan ? 'ketagalan' : 'light'} lang={lang}>
-      {header}
+      {/* Mobile & Tablet Header - Hidden on Desktop */}
+      <Box sx={{ display: { xs: 'block', md: 'none' } }}>
+        <MobileHeader {...props} />
+      </Box>
+
+      {/* Desktop Header - Hidden on Mobile & Tablet */}
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <DesktopHeader {...props} />
+      </Box>
     </ThemeProvider>
   )
 }
