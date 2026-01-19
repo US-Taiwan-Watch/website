@@ -63,6 +63,7 @@ export class ArticleUtils {
     dto: Partial<ApiUstwArticle | ApiKetagalanArticle>,
     articleType: ArticleType
   ) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     const result = articleSchema.safeParse({
       type: articleType,
       id: dto.id ?? undefined,
@@ -73,7 +74,8 @@ export class ArticleUtils {
       ),
       date: dto.createdAt,
       tags: dto.tags?.map((tag) => ({
-        label: tag.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+        label:
+          tag.i18n?.[apiLang]?.name || tag.i18n?.[fallbackLang]?.name || '',
       })),
       resources: dto.sources?.map((source) => ({
         title: source.text ?? '',

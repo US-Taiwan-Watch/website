@@ -14,9 +14,10 @@ export type PeopleCategory = z.infer<typeof peopleCategorySchema>
 
 export class PeopleCategoryUtils {
   static parse(lang: Language, dto: CategoriesPerson) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return peopleCategorySchema.parse({
       id: dto.id ?? undefined,
-      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? undefined,
+      name: dto.i18n?.[apiLang]?.name || dto.i18n?.[fallbackLang]?.name || '',
       /**
        * 透過 `type` 與前端的 `PeopleCategoryEnum` 對應
        * @see {@link PeopleCategoryEnum}

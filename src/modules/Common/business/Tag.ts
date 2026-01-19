@@ -12,9 +12,10 @@ export type Tag = z.infer<typeof tagSchema>
 
 export default class TagUtils {
   static parse(lang: Language, dto: ApiTag) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return tagSchema.parse({
       id: dto.id ?? undefined,
-      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? undefined,
+      name: dto.i18n?.[apiLang]?.name || dto.i18n?.[fallbackLang]?.name || '',
     })
   }
 }

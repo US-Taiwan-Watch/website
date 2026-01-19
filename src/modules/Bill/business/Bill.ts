@@ -1,5 +1,5 @@
 import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
-import { isArray, isNull, isString, isUndefined } from 'lodash-es'
+import { isArray, isNull, isUndefined } from 'lodash-es'
 import { Bill as ApiBill } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import CommonUtils from '@/modules/Common/Common.utils'
@@ -69,12 +69,14 @@ export type Bill = z.infer<typeof billSchema>
 
 export class BillUtils {
   static parse(lang: Language, dto: ApiBill) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     const result = billSchema.safeParse({
       id: dto.id ?? undefined,
       type: dto.type
         ? z.nativeEnum(BillTypeEnum).safeParse(dto.type).data
         : undefined,
-      title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? undefined,
+      title:
+        dto.i18n?.[apiLang]?.title || dto.i18n?.[fallbackLang]?.title || '',
       sponsor: dto.sponsor
         ? BillSponsorUtils.parse(lang, dto.sponsor)
         : undefined,
@@ -88,9 +90,11 @@ export class BillUtils {
         dto.categories
           ?.map(
             (category) =>
-              category.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name
+              category.i18n?.[apiLang]?.name ||
+              category.i18n?.[fallbackLang]?.name ||
+              ''
           )
-          .filter((name) => isString(name)) ?? [],
+          .filter((name) => !!name) ?? [],
       tags:
         dto.tags
           ?.map((tag) => TagUtils.parse(lang, tag))
@@ -107,7 +111,8 @@ export class BillUtils {
       congressNumber: dto.congress,
       actionsOverview:
         (
-          dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.actionsOverview as
+          (dto.i18n?.[apiLang]?.actionsOverview ||
+            dto.i18n?.[fallbackLang]?.actionsOverview) as
             | BillActionOverviewDto[]
             | undefined
         )
@@ -120,7 +125,8 @@ export class BillUtils {
           ) ?? [],
       actionsAll:
         (
-          dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.actionsAll as
+          (dto.i18n?.[apiLang]?.actionsAll ||
+            dto.i18n?.[fallbackLang]?.actionsAll) as
             | BillActionAllDto[]
             | undefined
         )
@@ -135,7 +141,8 @@ export class BillUtils {
       introducedAt: dto.introducedAt?.datetime,
       latestActionAt: dto.latestActionTime,
       number: dto.number,
-      summary: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.summary ?? '',
+      summary:
+        dto.i18n?.[apiLang]?.summary || dto.i18n?.[fallbackLang]?.summary || '',
       congressGovUrl: dto.congressGovUrl ?? '',
     })
 

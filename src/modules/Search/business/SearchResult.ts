@@ -188,8 +188,9 @@ export class SearchResultsUtils {
           return null
         }
 
+        const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
         const matchedHighlight =
-          highlight.i18n[CommonUtils.parseAPII18nKey(lang)]
+          highlight.i18n[apiLang] ?? highlight.i18n[fallbackLang]
 
         return {
           type: SearchResultType.People,
@@ -224,8 +225,9 @@ export class SearchResultsUtils {
           return null
         }
 
+        const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
         const matchedHighlight =
-          highlight.i18n[CommonUtils.parseAPII18nKey(lang)]
+          highlight.i18n[apiLang] ?? highlight.i18n[fallbackLang]
 
         return {
           type: SearchResultType.Bill,

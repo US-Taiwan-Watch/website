@@ -12,9 +12,10 @@ export type BillCategory = z.infer<typeof billCategorySchema>
 
 export class BillCategoryUtils {
   static parse(lang: Language, dto: CategoriesBill) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return billCategorySchema.parse({
       id: dto.id ?? undefined,
-      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? undefined,
+      name: dto.i18n?.[apiLang]?.name || dto.i18n?.[fallbackLang]?.name || '',
     })
   }
 }
