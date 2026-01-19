@@ -6,7 +6,6 @@ import { useTheme } from '@mui/material/styles'
 import { USTWTheme, styled } from '@/common/lib/mui/theme'
 import UButton from '@/common/components/atoms/UButton'
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward'
-import Image from 'next/image'
 import { Trans } from 'react-i18next'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useURouterClient from '@/common/lib/router/useURouterClient'
@@ -17,9 +16,21 @@ const StyledHighlightText = styled('span')(({ theme }) => ({
   color: theme.color.orange[900],
 }))
 
-const StyledImage = styled(Image)(() => ({}))
+const StyledImage = styled('div')(({ theme }) => ({
+  width: '100%',
+  height: '300px',
+  borderRadius: '20px',
+  backgroundImage: 'url(/assets/follow-us-mobile.png)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  [theme.breakpoints.up('md')]: {
+    backgroundImage: 'url(/assets/follow-us-desktop.png)',
+    height: '450px',
+  },
+}))
 
-const FreeUsageSection = () => {
+const FollowUsSection = () => {
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('home')
   const { resolveRouteUrl } = useURouterClient()
@@ -46,7 +57,7 @@ const FreeUsageSection = () => {
           }}
         >
           <Trans
-            i18nKey="section.freeUsage.slogan"
+            i18nKey="section.followUs.slogan"
             t={t}
             ns="home"
             components={{
@@ -70,7 +81,7 @@ const FreeUsageSection = () => {
             }
             onClick={handleJoinTodayClick}
           >
-            {t('section.freeUsage.cta.joinToday', { ns: 'home' })}
+            {t('section.followUs.cta.joinToday', { ns: 'home' })}
           </UButton>
         </Box>
       </Stack>
@@ -83,10 +94,6 @@ const FreeUsageSection = () => {
         }}
       >
         <StyledImage
-          src="/assets/free-usage-section.png"
-          alt="Free Usage Section"
-          width={1340}
-          height={464}
           sx={{
             width: '100%',
             height: '100%',
@@ -99,4 +106,4 @@ const FreeUsageSection = () => {
   )
 }
 
-export default FreeUsageSection
+export default FollowUsSection
