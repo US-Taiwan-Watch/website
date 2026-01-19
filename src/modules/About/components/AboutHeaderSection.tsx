@@ -5,7 +5,6 @@ import UHStack from '@/common/components/atoms/UHStack'
 import { Stack, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import { USTWTheme } from '@/common/lib/mui/theme'
-import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import type React from 'react'
@@ -17,6 +16,7 @@ export type AboutHeaderTab = {
 }
 
 type AboutHeaderSectionProps = {
+  title: string
   currentPathname: string
   tabs: AboutHeaderTab[]
 }
@@ -53,7 +53,7 @@ const AboutHeaderTabsWrapper = ({
 const AboutHeaderTabs = ({
   currentPathname,
   tabs,
-}: AboutHeaderSectionProps) => {
+}: Omit<AboutHeaderSectionProps, 'title'>) => {
   const theme = useTheme<USTWTheme>()
 
   return (
@@ -110,11 +110,10 @@ const AboutHeaderTabs = ({
 }
 
 export default function AboutHeaderSection({
+  title,
   currentPathname,
   tabs,
 }: AboutHeaderSectionProps) {
-  const { t } = useTranslationClient('about')
-
   return (
     <Stack
       gap={{
@@ -138,7 +137,7 @@ export default function AboutHeaderSection({
           fontWeight: 600,
         }}
       >
-        {t('title', { ns: 'about' })}
+        {title}
       </Typography>
       <AboutHeaderTabs currentPathname={currentPathname} tabs={tabs} />
     </Stack>

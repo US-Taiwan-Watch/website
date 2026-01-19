@@ -33,6 +33,7 @@ export default function NotFound() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          py: 6,
         }}
       >
         <Stack
