@@ -79,12 +79,13 @@ export default function useNavItems() {
           },
         ],
       },
-      {
-        id: 'events',
-        type: 'link',
-        title: t('navItem.events.title', { ns: 'header' }),
-        href: resolveRouteUrl({ name: RouteName.Home }),
-      },
+      // TODO: 目前先隱藏 `Events`
+      // {
+      //   id: 'events',
+      //   type: 'link',
+      //   title: t('navItem.events.title', { ns: 'header' }),
+      //   href: resolveRouteUrl({ name: RouteName.Home }),
+      // },
       {
         id: 'about',
         type: 'list',

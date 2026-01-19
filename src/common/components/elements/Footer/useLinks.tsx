@@ -52,21 +52,23 @@ export default function useLinks() {
             title: t('navItem.ustw.data.title', { ns: 'footer' }),
             url: resolveRouteUrl({ name: RouteName.AboutData }),
           },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.faq.title', { ns: 'footer' }),
-            url: '#faq',
-          },
+          // TODO: 目前先隱藏 `FAQ`
+          // {
+          //   type: 'subLink',
+          //   title: t('navItem.ustw.faq.title', { ns: 'footer' }),
+          //   url: '#faq',
+          // },
           {
             type: 'subLink',
             title: t('navItem.ustw.articles.title', { ns: 'footer' }),
             url: resolveRouteUrl({ name: RouteName.Article }),
           },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.events.title', { ns: 'footer' }),
-            url: '#events',
-          },
+          // TODO: 目前先隱藏 `Events`
+          // {
+          //   type: 'subLink',
+          //   title: t('navItem.ustw.events.title', { ns: 'footer' }),
+          //   url: '#events',
+          // },
         ],
       },
       {
