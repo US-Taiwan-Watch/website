@@ -1,6 +1,6 @@
 import { Language } from '@/common/lib/i18n/types'
 import { config } from '@/config'
-import { getEpisode, getEpisodes } from '@/modules/Podcast/api/soundon'
+import { getEpisode } from '@/modules/Podcast/api/soundon'
 import { notFound } from 'next/navigation'
 import EpisodePost from '@/modules/Podcast/components/EpisodePost'
 import { Metadata } from 'next'
@@ -13,12 +13,6 @@ type PodcastPageProps = {
     id: string
     lang: Language
   }
-}
-
-export const generateStaticParams = async ({ params }: PodcastPageProps) => {
-  const podcastId = config.SOUNDON_PODCAST_ID
-  const episodes = podcastId ? await getEpisodes({ podcastId }) : []
-  return episodes.map((episode) => ({ id: episode.id, lang: params.lang }))
 }
 
 export const generateMetadata = async ({

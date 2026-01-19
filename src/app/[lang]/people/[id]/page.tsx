@@ -17,11 +17,6 @@ interface PeopleTrackerProps {
   }
 }
 
-export const generateStaticParams = async ({ params }: PeopleTrackerProps) => {
-  const peopleIds = await ServerPeopleApi.getPeopleIds()
-  return peopleIds.map((people) => ({ id: people.id, lang: params.lang }))
-}
-
 export const generateMetadata = async ({
   params,
 }: PeopleTrackerProps): Promise<Metadata> => {

@@ -14,13 +14,6 @@ type ArticlePageProps = {
   params: { lang: Language; id: string }
 }
 
-export const generateStaticParams = async ({ params }: ArticlePageProps) => {
-  const articles = await ServerArticleApi.getArticleIds({
-    articleType: ArticleType.Article,
-  })
-  return articles.map((article) => ({ id: article.id, lang: params.lang }))
-}
-
 export const generateMetadata = async ({
   params,
 }: ArticlePageProps): Promise<Metadata> => {

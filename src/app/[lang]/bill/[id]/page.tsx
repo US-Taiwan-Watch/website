@@ -17,14 +17,6 @@ interface BillPageProps {
   }
 }
 
-export const generateStaticParams = async ({ params }: BillPageProps) => {
-  const billIds = await ServerBillApi.getBillIds()
-  return billIds.map((bill) => ({
-    id: bill.id,
-    lang: params.lang,
-  }))
-}
-
 export const generateMetadata = async ({
   params,
 }: BillPageProps): Promise<Metadata> => {
