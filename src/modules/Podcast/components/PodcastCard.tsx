@@ -5,7 +5,7 @@ import PodcastUtils, {
   Podcast,
   PodcastType,
 } from '@/modules/Podcast/business/Podcast'
-import { Box, Divider, Stack, Typography } from '@mui/material'
+import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import type React from 'react'
 import { memo, useMemo } from 'react'
 import PodcastSourceIcon from '@/modules/Podcast/components/PodcastSourceIcon'
@@ -14,6 +14,7 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Image from 'next/image'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
 interface PodcastCardProps {
   className?: string
@@ -24,6 +25,7 @@ const PodcastCard = memo(function PodcastCard({
   className,
   podcast,
 }: PodcastCardProps) {
+  const theme = useTheme<USTWTheme>()
   const { isMobile, isTablet } = useResponsive()
 
   return (
@@ -33,8 +35,15 @@ const PodcastCard = memo(function PodcastCard({
       width="100%"
       borderRadius="30px"
       sx={{
-        backgroundColor:
-          podcast.type === PodcastType.WATCH_HERE ? 'orange.900' : 'indigo.700',
+        '&.WATCH_HERE': {
+          backgroundColor: theme.color.orange[900],
+        },
+        '&.WATCH_INFO': {
+          backgroundColor: theme.color.indigo[700],
+        },
+        '&.WATCH_BOOK_CLUB': {
+          backgroundColor: theme.color.orange[900],
+        },
         color: 'common.white',
       }}
     >
