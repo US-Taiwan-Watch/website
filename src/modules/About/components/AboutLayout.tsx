@@ -91,6 +91,10 @@ export const UstwAboutLayout = async (
       path: resolveRouteUrl({ name: RouteName.AboutFootprints }),
     },
     {
+      label: t('tabs.data', { ns: 'about' }),
+      path: resolveRouteUrl({ name: RouteName.AboutData }),
+    },
+    {
       label: t('tabs.newsroom', { ns: 'about' }),
       path: resolveRouteUrl({ name: RouteName.AboutNewsroom }),
     },

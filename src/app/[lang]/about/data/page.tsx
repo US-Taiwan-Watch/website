@@ -30,11 +30,7 @@ export default function AboutDataPage({ params }: AboutDataPageProps) {
   const { lang } = params
 
   return (
-    <UstwAboutLayout
-      lang={lang}
-      withHeaderSection={false}
-      currentPathname={'/about/data'}
-    >
+    <UstwAboutLayout lang={lang} currentPathname={'/about/data'}>
       <Box>
         <DataContent lang={lang} />
       </Box>

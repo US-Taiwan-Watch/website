@@ -98,6 +98,18 @@ export default function useNavItems() {
             href: resolveRouteUrl({ name: RouteName.AboutMission }),
           },
           {
+            id: 'about-projects',
+            type: 'link',
+            title: t('navItem.about.projects.title', { ns: 'header' }),
+            href: resolveRouteUrl({ name: RouteName.AboutProjects }),
+          },
+          {
+            id: 'about-members',
+            type: 'link',
+            title: t('navItem.about.members.title', { ns: 'header' }),
+            href: resolveRouteUrl({ name: RouteName.AboutMembers }),
+          },
+          {
             id: 'about-footprints',
             type: 'link',
             title: t('navItem.about.footprints.title', { ns: 'header' }),
