@@ -33,7 +33,7 @@ export class FootprintUtils {
         dto.i18n?.[apiLang]?.source || dto.i18n?.[fallbackLang]?.source || '',
       link: dto.link,
       type: dto.type,
-      releaseDate: dto.createdAt,
+      releaseDate: dto.publishTime,
     })
   }
 
@@ -47,7 +47,7 @@ export class FootprintUtils {
         dto.i18n?.[apiLang]?.source || dto.i18n?.[fallbackLang]?.source || '',
       link: dto.link,
       type: dto.type,
-      releaseDate: dto.createdAt,
+      releaseDate: dto.publishTime,
     })
   }
 }

@@ -21,6 +21,7 @@ export const QUERY_USTW_FOOTPRINTS = gql`
         source
         updatedAt
         createdAt
+        publishTime
       }
     }
   }
@@ -47,6 +48,7 @@ export const QUERY_KETAGALAN_FOOTPRINTS = gql`
         source
         updatedAt
         createdAt
+        publishTime
       }
     }
   }
