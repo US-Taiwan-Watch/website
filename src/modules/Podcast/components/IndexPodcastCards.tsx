@@ -6,9 +6,9 @@ import UHStack from '@/common/components/atoms/UHStack'
 import Carousel from '@/common/components/elements/Carousel'
 import { Episode } from '@/modules/Podcast/business/Episode'
 import {
-  WatchBookClubPodcastCard,
-  WatchHerePodcastCard,
-  WatchInfoPodcastCard,
+  BookClubPodcastCard,
+  NowYouKnowPodcastCard,
+  SpiceUpPodcastCard,
 } from '@/modules/Podcast/components/IndexPodcastCard'
 import { Box } from '@mui/material'
 import { styled } from '@mui/material/styles'
@@ -40,9 +40,9 @@ const IndexPodcastCards = ({ episodes }: IndexPodcastCardsProps) => {
             centerPadding: '0px',
           }}
         >
-          <WatchHerePodcastCard episodes={episodes} />
-          <WatchInfoPodcastCard episodes={episodes} />
-          <WatchBookClubPodcastCard episodes={episodes} />
+          <SpiceUpPodcastCard episodes={episodes} />
+          <NowYouKnowPodcastCard episodes={episodes} />
+          <BookClubPodcastCard episodes={episodes} />
         </Carousel>
       </UContainer>
     </StyledUFullWidthBackgroundBox>
@@ -57,9 +57,9 @@ export const ScrollableIndexPodcastCards = ({
   return (
     <Box overflow="auto" py={2} px={2}>
       <UHStack gap={2} width="max-content">
-        <WatchHerePodcastCard episodes={episodes} />
-        <WatchInfoPodcastCard episodes={episodes} />
-        <WatchBookClubPodcastCard episodes={episodes} />
+        <SpiceUpPodcastCard episodes={episodes} />
+        <NowYouKnowPodcastCard episodes={episodes} />
+        <BookClubPodcastCard episodes={episodes} />
       </UHStack>
     </Box>
   )

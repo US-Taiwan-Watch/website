@@ -89,18 +89,18 @@ export default function useLinks() {
         subLinks: [
           {
             type: 'subLink',
-            title: t('navItem.podcasts.watchHere.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.PodcastWatchHere }),
+            title: t('navItem.podcasts.spiceUp.title', { ns: 'footer' }),
+            url: resolveRouteUrl({ name: RouteName.PodcastSpiceUp }),
           },
           {
             type: 'subLink',
-            title: t('navItem.podcasts.watchInfo.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.PodcastWatchInfo }),
+            title: t('navItem.podcasts.nowYouKnow.title', { ns: 'footer' }),
+            url: resolveRouteUrl({ name: RouteName.PodcastNowYouKnow }),
           },
           {
             type: 'subLink',
-            title: t('navItem.podcasts.watchBookClub.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.PodcastWatchBookClub }),
+            title: t('navItem.podcasts.bookClub.title', { ns: 'footer' }),
+            url: resolveRouteUrl({ name: RouteName.PodcastBookClub }),
           },
         ],
       },
