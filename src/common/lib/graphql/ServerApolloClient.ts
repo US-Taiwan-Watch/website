@@ -18,7 +18,7 @@ export const { getClient, PreloadQuery } = registerApolloClient(() => {
     uri: config.GRAPHQL_API_URL,
     // you can disable result caching here if you want to
     // (this does not work if you are rendering your page with `export const dynamic = "force-static"`)
-    fetchOptions: { cache: 'no-store' },
+    // fetchOptions: { cache: 'no-store' },
   })
 
   // 創建錯誤處理 link

@@ -1,6 +1,6 @@
 'use client'
 
-import { useParams, usePathname, useSearchParams } from 'next/navigation'
+import { useParams, usePathname } from 'next/navigation'
 import { Language } from '@/common/lib/i18n/types'
 import { useCallback } from 'react'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -9,7 +9,6 @@ import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { config } from '@/config'
 
 export default function useLanguageSwitcher() {
-  const searchParams = useSearchParams()
   const pathname = usePathname()
   const { lang } = useParams<{
     lang: Language
@@ -41,11 +40,12 @@ export default function useLanguageSwitcher() {
       pathParts[1] = lang
       const newPath = pathParts.join('/')
       // 組合新的 URL
+      const searchParams = new URLSearchParams(window.location.search)
       const newUrl = `${config.WEB_BASE_URL}${newPath}${searchParams.toString() ? '?' + searchParams.toString() : ''}`
 
       replaceUrl(newUrl)
     },
-    [pathname, searchParams, i18n, replaceUrl]
+    [pathname, i18n, replaceUrl]
   )
 
   return {

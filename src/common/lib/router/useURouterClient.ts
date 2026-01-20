@@ -1,7 +1,6 @@
 'use client'
 
 import { URoute } from '@/common/lib/router/routes'
-import { useSearchParams } from 'next/navigation'
 import { useCallback } from 'react'
 import resolveRouteUrlHelper, {
   concatPathAndQuery,
@@ -30,11 +29,9 @@ type ResolveRouteUrlOptions = ResolveRouteUrlHelperOptions & {
 
 /**
  * 只能用於 client component 的 router 操作
- * 由於 `useSearchParams` 是 client component 的 hook
  */
 export default function useURouterClient() {
   const { i18n } = useTranslationClient()
-  const searchParams = useSearchParams()
 
   /**
    * 將 Route Object 轉換成路徑字串
@@ -56,9 +53,9 @@ export default function useURouterClient() {
       const query = {
         ...(preserveSearchParams &&
           Object.fromEntries(
-            Array.from(searchParams.entries()).filter(
-              ([key]) => !blackListSearchParams.includes(key)
-            )
+            Array.from(
+              new URLSearchParams(window.location.search).entries()
+            ).filter(([key]) => !blackListSearchParams.includes(key))
           )),
         ...(route.query ?? {}),
       }
@@ -74,7 +71,7 @@ export default function useURouterClient() {
 
       return url
     },
-    [searchParams, i18n.language]
+    [i18n.language]
   )
 
   return { resolveRouteUrl, concatPathAndQuery }
