@@ -1085,6 +1085,7 @@ enum People_Experiences_Positions_state {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 enum People_Experiences_Positions_party {
@@ -1419,6 +1420,7 @@ enum Bill_Cosponsors_constituency {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 enum Bill_Cosponsors_party {
@@ -3620,6 +3622,7 @@ enum People_experiences__positions__state_Input {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 input People_experiences__positions__district_operator {
@@ -6891,6 +6894,7 @@ enum Bill_cosponsors__constituency_Input {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 input Bill_cosponsors__party_operator {
@@ -13210,6 +13214,7 @@ type UstwFootprint {
   id: String
   i18n: UstwFootprint_I18n
   type: UstwFootprint_type!
+  publishTime: DateTime!
   link: String
   title: String
   source: String
@@ -13257,6 +13262,7 @@ input UstwFootprint_where {
   i18n__zh__title: UstwFootprint_i18n__zh__title_operator
   i18n__zh__source: UstwFootprint_i18n__zh__source_operator
   type: UstwFootprint_type_operator
+  publishTime: UstwFootprint_publishTime_operator
   link: UstwFootprint_link_operator
   title: UstwFootprint_title_operator
   source: UstwFootprint_source_operator
@@ -13318,6 +13324,16 @@ input UstwFootprint_type_operator {
 enum UstwFootprint_type_Input {
   video
   article
+}
+
+input UstwFootprint_publishTime_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
 }
 
 input UstwFootprint_link_operator {
@@ -13392,6 +13408,7 @@ input UstwFootprint_where_and {
   i18n__zh__title: UstwFootprint_i18n__zh__title_operator
   i18n__zh__source: UstwFootprint_i18n__zh__source_operator
   type: UstwFootprint_type_operator
+  publishTime: UstwFootprint_publishTime_operator
   link: UstwFootprint_link_operator
   title: UstwFootprint_title_operator
   source: UstwFootprint_source_operator
@@ -13408,6 +13425,7 @@ input UstwFootprint_where_or {
   i18n__zh__title: UstwFootprint_i18n__zh__title_operator
   i18n__zh__source: UstwFootprint_i18n__zh__source_operator
   type: UstwFootprint_type_operator
+  publishTime: UstwFootprint_publishTime_operator
   link: UstwFootprint_link_operator
   title: UstwFootprint_title_operator
   source: UstwFootprint_source_operator
@@ -13433,6 +13451,7 @@ type ustw_footprintsDocAccess {
 type UstwFootprintsDocAccessFields {
   i18n: UstwFootprintsDocAccessFields_i18n
   type: UstwFootprintsDocAccessFields_type
+  publishTime: UstwFootprintsDocAccessFields_publishTime
   link: UstwFootprintsDocAccessFields_link
   title: UstwFootprintsDocAccessFields_title
   source: UstwFootprintsDocAccessFields_source
@@ -13639,6 +13658,29 @@ type UstwFootprintsDocAccessFields_type_Update {
 }
 
 type UstwFootprintsDocAccessFields_type_Delete {
+  permission: Boolean!
+}
+
+type UstwFootprintsDocAccessFields_publishTime {
+  create: UstwFootprintsDocAccessFields_publishTime_Create
+  read: UstwFootprintsDocAccessFields_publishTime_Read
+  update: UstwFootprintsDocAccessFields_publishTime_Update
+  delete: UstwFootprintsDocAccessFields_publishTime_Delete
+}
+
+type UstwFootprintsDocAccessFields_publishTime_Create {
+  permission: Boolean!
+}
+
+type UstwFootprintsDocAccessFields_publishTime_Read {
+  permission: Boolean!
+}
+
+type UstwFootprintsDocAccessFields_publishTime_Update {
+  permission: Boolean!
+}
+
+type UstwFootprintsDocAccessFields_publishTime_Delete {
   permission: Boolean!
 }
 
@@ -16847,6 +16889,7 @@ type KetagalanFootprint {
   id: String
   i18n: KetagalanFootprint_I18n
   type: KetagalanFootprint_type!
+  publishTime: DateTime!
   link: String
   title: String
   source: String
@@ -16894,6 +16937,7 @@ input KetagalanFootprint_where {
   i18n__zh__title: KetagalanFootprint_i18n__zh__title_operator
   i18n__zh__source: KetagalanFootprint_i18n__zh__source_operator
   type: KetagalanFootprint_type_operator
+  publishTime: KetagalanFootprint_publishTime_operator
   link: KetagalanFootprint_link_operator
   title: KetagalanFootprint_title_operator
   source: KetagalanFootprint_source_operator
@@ -16955,6 +16999,16 @@ input KetagalanFootprint_type_operator {
 enum KetagalanFootprint_type_Input {
   video
   article
+}
+
+input KetagalanFootprint_publishTime_operator {
+  equals: DateTime
+  not_equals: DateTime
+  greater_than_equal: DateTime
+  greater_than: DateTime
+  less_than_equal: DateTime
+  less_than: DateTime
+  like: DateTime
 }
 
 input KetagalanFootprint_link_operator {
@@ -17029,6 +17083,7 @@ input KetagalanFootprint_where_and {
   i18n__zh__title: KetagalanFootprint_i18n__zh__title_operator
   i18n__zh__source: KetagalanFootprint_i18n__zh__source_operator
   type: KetagalanFootprint_type_operator
+  publishTime: KetagalanFootprint_publishTime_operator
   link: KetagalanFootprint_link_operator
   title: KetagalanFootprint_title_operator
   source: KetagalanFootprint_source_operator
@@ -17045,6 +17100,7 @@ input KetagalanFootprint_where_or {
   i18n__zh__title: KetagalanFootprint_i18n__zh__title_operator
   i18n__zh__source: KetagalanFootprint_i18n__zh__source_operator
   type: KetagalanFootprint_type_operator
+  publishTime: KetagalanFootprint_publishTime_operator
   link: KetagalanFootprint_link_operator
   title: KetagalanFootprint_title_operator
   source: KetagalanFootprint_source_operator
@@ -17070,6 +17126,7 @@ type ketagalan_footprintsDocAccess {
 type KetagalanFootprintsDocAccessFields {
   i18n: KetagalanFootprintsDocAccessFields_i18n
   type: KetagalanFootprintsDocAccessFields_type
+  publishTime: KetagalanFootprintsDocAccessFields_publishTime
   link: KetagalanFootprintsDocAccessFields_link
   title: KetagalanFootprintsDocAccessFields_title
   source: KetagalanFootprintsDocAccessFields_source
@@ -17276,6 +17333,29 @@ type KetagalanFootprintsDocAccessFields_type_Update {
 }
 
 type KetagalanFootprintsDocAccessFields_type_Delete {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsDocAccessFields_publishTime {
+  create: KetagalanFootprintsDocAccessFields_publishTime_Create
+  read: KetagalanFootprintsDocAccessFields_publishTime_Read
+  update: KetagalanFootprintsDocAccessFields_publishTime_Update
+  delete: KetagalanFootprintsDocAccessFields_publishTime_Delete
+}
+
+type KetagalanFootprintsDocAccessFields_publishTime_Create {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsDocAccessFields_publishTime_Read {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsDocAccessFields_publishTime_Update {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsDocAccessFields_publishTime_Delete {
   permission: Boolean!
 }
 
@@ -34565,6 +34645,7 @@ type ustw_footprintsAccess {
 type UstwFootprintsFields {
   i18n: UstwFootprintsFields_i18n
   type: UstwFootprintsFields_type
+  publishTime: UstwFootprintsFields_publishTime
   link: UstwFootprintsFields_link
   title: UstwFootprintsFields_title
   source: UstwFootprintsFields_source
@@ -34771,6 +34852,29 @@ type UstwFootprintsFields_type_Update {
 }
 
 type UstwFootprintsFields_type_Delete {
+  permission: Boolean!
+}
+
+type UstwFootprintsFields_publishTime {
+  create: UstwFootprintsFields_publishTime_Create
+  read: UstwFootprintsFields_publishTime_Read
+  update: UstwFootprintsFields_publishTime_Update
+  delete: UstwFootprintsFields_publishTime_Delete
+}
+
+type UstwFootprintsFields_publishTime_Create {
+  permission: Boolean!
+}
+
+type UstwFootprintsFields_publishTime_Read {
+  permission: Boolean!
+}
+
+type UstwFootprintsFields_publishTime_Update {
+  permission: Boolean!
+}
+
+type UstwFootprintsFields_publishTime_Delete {
   permission: Boolean!
 }
 
@@ -36228,6 +36332,7 @@ type ketagalan_footprintsAccess {
 type KetagalanFootprintsFields {
   i18n: KetagalanFootprintsFields_i18n
   type: KetagalanFootprintsFields_type
+  publishTime: KetagalanFootprintsFields_publishTime
   link: KetagalanFootprintsFields_link
   title: KetagalanFootprintsFields_title
   source: KetagalanFootprintsFields_source
@@ -36434,6 +36539,29 @@ type KetagalanFootprintsFields_type_Update {
 }
 
 type KetagalanFootprintsFields_type_Delete {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsFields_publishTime {
+  create: KetagalanFootprintsFields_publishTime_Create
+  read: KetagalanFootprintsFields_publishTime_Read
+  update: KetagalanFootprintsFields_publishTime_Update
+  delete: KetagalanFootprintsFields_publishTime_Delete
+}
+
+type KetagalanFootprintsFields_publishTime_Create {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsFields_publishTime_Read {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsFields_publishTime_Update {
+  permission: Boolean!
+}
+
+type KetagalanFootprintsFields_publishTime_Delete {
   permission: Boolean!
 }
 
@@ -44545,6 +44673,7 @@ enum People_Experiences_Positions_state_MutationInput {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 enum People_Experiences_Positions_party_MutationInput {
@@ -44845,6 +44974,7 @@ enum PeopleUpdate_Experiences_Positions_state_MutationInput {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 enum PeopleUpdate_Experiences_Positions_party_MutationInput {
@@ -45126,6 +45256,7 @@ enum Bill_Cosponsors_constituency_MutationInput {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 enum Bill_Cosponsors_party_MutationInput {
@@ -45342,6 +45473,7 @@ enum BillUpdate_Cosponsors_constituency_MutationInput {
   guam
   virginIslands
   americanSamoa
+  northernMarianaIslands
 }
 
 enum BillUpdate_Cosponsors_party_MutationInput {
@@ -45739,6 +45871,7 @@ enum UstwMemberUpdate_type_MutationInput {
 input mutationUstwFootprintInput {
   i18n: mutationUstwFootprint_I18nInput
   type: UstwFootprint_type_MutationInput!
+  publishTime: String!
   link: String
   title: String
   source: String
@@ -45769,6 +45902,7 @@ enum UstwFootprint_type_MutationInput {
 input mutationUstwFootprintUpdateInput {
   i18n: mutationUstwFootprintUpdate_I18nInput
   type: UstwFootprintUpdate_type_MutationInput
+  publishTime: String
   link: String
   title: String
   source: String
@@ -45977,6 +46111,7 @@ enum KetagalanMemberUpdate_type_MutationInput {
 input mutationKetagalanFootprintInput {
   i18n: mutationKetagalanFootprint_I18nInput
   type: KetagalanFootprint_type_MutationInput!
+  publishTime: String!
   link: String
   title: String
   source: String
@@ -46007,6 +46142,7 @@ enum KetagalanFootprint_type_MutationInput {
 input mutationKetagalanFootprintUpdateInput {
   i18n: mutationKetagalanFootprintUpdate_I18nInput
   type: KetagalanFootprintUpdate_type_MutationInput
+  publishTime: String
   link: String
   title: String
   source: String

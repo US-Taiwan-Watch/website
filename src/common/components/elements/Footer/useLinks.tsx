@@ -29,44 +29,26 @@ export default function useLinks() {
         subLinks: [
           {
             type: 'subLink',
-            title: t('navItem.ustw.mission.title', { ns: 'footer' }),
+            title: t('navItem.ustw.about.title', { ns: 'footer' }),
             url: resolveRouteUrl({ name: RouteName.AboutMission }),
           },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.footprints.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.AboutFootprints }),
-          },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.member.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.AboutMembers }),
-          },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.newsroom.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.AboutNewsroom }),
-          },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.data.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.AboutData }),
-          },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.faq.title', { ns: 'footer' }),
-            url: '#faq',
-          },
+          // TODO: 目前先隱藏 `FAQ`
+          // {
+          //   type: 'subLink',
+          //   title: t('navItem.ustw.faq.title', { ns: 'footer' }),
+          //   url: '#faq',
+          // },
           {
             type: 'subLink',
             title: t('navItem.ustw.articles.title', { ns: 'footer' }),
             url: resolveRouteUrl({ name: RouteName.Article }),
           },
-          {
-            type: 'subLink',
-            title: t('navItem.ustw.events.title', { ns: 'footer' }),
-            url: '#events',
-          },
+          // TODO: 目前先隱藏 `Events`
+          // {
+          //   type: 'subLink',
+          //   title: t('navItem.ustw.events.title', { ns: 'footer' }),
+          //   url: '#events',
+          // },
         ],
       },
       {
@@ -107,18 +89,18 @@ export default function useLinks() {
         subLinks: [
           {
             type: 'subLink',
-            title: t('navItem.podcasts.watchHere.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.PodcastWatchHere }),
+            title: t('navItem.podcasts.spiceUp.title', { ns: 'footer' }),
+            url: resolveRouteUrl({ name: RouteName.PodcastSpiceUp }),
           },
           {
             type: 'subLink',
-            title: t('navItem.podcasts.watchInfo.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.PodcastWatchInfo }),
+            title: t('navItem.podcasts.nowYouKnow.title', { ns: 'footer' }),
+            url: resolveRouteUrl({ name: RouteName.PodcastNowYouKnow }),
           },
           {
             type: 'subLink',
-            title: t('navItem.podcasts.watchBookClub.title', { ns: 'footer' }),
-            url: resolveRouteUrl({ name: RouteName.PodcastWatchBookClub }),
+            title: t('navItem.podcasts.bookClub.title', { ns: 'footer' }),
+            url: resolveRouteUrl({ name: RouteName.PodcastBookClub }),
           },
         ],
       },

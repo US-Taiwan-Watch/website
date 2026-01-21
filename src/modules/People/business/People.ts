@@ -122,13 +122,16 @@ export type People = z.infer<typeof peopleSchema>
 
 export class PeopleUtils {
   static parse(lang: Language, dto: ApiPeople) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return peopleSchema.parse({
       id: dto.id ?? undefined,
       name:
-        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.displayName ?? undefined,
+        dto.i18n?.[apiLang]?.displayName ||
+        dto.i18n?.[fallbackLang]?.displayName ||
+        undefined,
       image: dto.photo?.url,
       description:
-        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio ?? undefined,
+        dto.i18n?.[apiLang]?.bio || dto.i18n?.[fallbackLang]?.bio || '',
       party: CommonUtils.parseAPIParty(dto?.currentParty),
       position: PeopleUtils.parseCurrentPosition(dto.experiences),
       positions: PeopleUtils.parsePositions(dto.experiences),
@@ -146,7 +149,7 @@ export class PeopleUtils {
           abstract: publication.abstract ?? undefined,
           link: publication.link ?? undefined,
         })) ?? [],
-      bioByAI: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.bio ?? '',
+      bioByAI: dto.i18n?.[apiLang]?.bio || dto.i18n?.[fallbackLang]?.bio || '',
       committees:
         dto.congressionalData?.committees?.map((committee) => ({
           id: committee.id ?? undefined,

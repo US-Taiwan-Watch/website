@@ -38,7 +38,7 @@ const KetagalanAboutMenu = () => {
         }),
       },
       {
-        name: 'Members',
+        name: t('navItem.about.members.title', { ns: 'header' }),
         href: resolveRouteUrl({
           name: RouteName.KetagalanAboutMembers,
         }),

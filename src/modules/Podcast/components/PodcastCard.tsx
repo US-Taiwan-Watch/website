@@ -5,7 +5,7 @@ import PodcastUtils, {
   Podcast,
   PodcastType,
 } from '@/modules/Podcast/business/Podcast'
-import { Box, Divider, Stack, Typography } from '@mui/material'
+import { Box, Divider, Stack, Typography, useTheme } from '@mui/material'
 import type React from 'react'
 import { memo, useMemo } from 'react'
 import PodcastSourceIcon from '@/modules/Podcast/components/PodcastSourceIcon'
@@ -14,6 +14,7 @@ import UIconButton from '@/common/components/atoms/UIconButton'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Image from 'next/image'
+import { USTWTheme } from '@/common/lib/mui/theme'
 
 interface PodcastCardProps {
   className?: string
@@ -24,7 +25,8 @@ const PodcastCard = memo(function PodcastCard({
   className,
   podcast,
 }: PodcastCardProps) {
-  const { isMobile, isTablet } = useResponsive()
+  const theme = useTheme<USTWTheme>()
+  const { isMobile } = useResponsive()
 
   return (
     <Box
@@ -33,22 +35,29 @@ const PodcastCard = memo(function PodcastCard({
       width="100%"
       borderRadius="30px"
       sx={{
-        backgroundColor:
-          podcast.type === PodcastType.WATCH_HERE ? 'orange.900' : 'indigo.700',
+        '&.SPICE_UP': {
+          backgroundColor: theme.color.orange[900],
+        },
+        '&.NOW_YOU_KNOW': {
+          backgroundColor: theme.color.indigo[700],
+        },
+        '&.BOOK_CLUB': {
+          backgroundColor: theme.color.orange[900],
+        },
         color: 'common.white',
       }}
     >
       <Stack
         direction={{
           xs: 'column',
-          md: 'row',
+          sm: 'row',
         }}
         gap={{
           xs: 1.5,
-          md: 5,
+          sm: 0,
         }}
       >
-        {(isMobile || isTablet) && (
+        {isMobile && (
           <Image
             src={podcast.bannerImg}
             alt={podcast.title}
@@ -63,35 +72,30 @@ const PodcastCard = memo(function PodcastCard({
           />
         )}
         <Stack
+          flex={1}
+          minWidth={0}
           height="100%"
           direction="column"
           justifyContent="space-between"
           gap={2}
           p={{
-            xs: 1.5,
-            md: 2.5,
+            xs: 0,
+            sm: 2.5,
           }}
-          pr={{
+          px={{
             xs: 1.5,
-            md: 4,
           }}
         >
           <Stack
             gap={{
               xs: 1.25,
-              lg: 2.5,
-            }}
-            maxWidth={{
-              xs: '100%',
-              md: '456px',
+              sm: 2.5,
             }}
           >
             <Typography variant="h3" fontWeight={500}>
               {podcast.title}
             </Typography>
-            {(isMobile || isTablet) && (
-              <Divider sx={{ borderColor: '#FFFFFF4D' }} />
-            )}
+            {isMobile && <Divider sx={{ borderColor: '#FFFFFF4D' }} />}
             <Typography>{podcast.description}</Typography>
           </Stack>
           <Stack direction="row" spacing={2}>
@@ -105,7 +109,7 @@ const PodcastCard = memo(function PodcastCard({
                 <UIconButton
                   variant="contained"
                   color="black"
-                  size={isMobile || isTablet ? 'xs' : 'small'}
+                  size={isMobile ? 'xs' : 'small'}
                   sx={{
                     backgroundColor: 'common.black',
                     color: 'common.white',
@@ -118,21 +122,17 @@ const PodcastCard = memo(function PodcastCard({
             ))}
           </Stack>
         </Stack>
-        {!isMobile && !isTablet && (
-          <Box flex={1}>
-            <Image
-              src={podcast.bannerImg}
-              alt={podcast.title}
-              width={500}
-              height={420}
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                borderRadius: '20px',
-              }}
-            />
-          </Box>
+        {!isMobile && (
+          <Image
+            src={podcast.bannerImg}
+            alt={podcast.title}
+            width={300}
+            height={300}
+            style={{
+              maxWidth: '300px',
+              borderRadius: '20px',
+            }}
+          />
         )}
       </Stack>
     </Box>
@@ -141,45 +141,66 @@ const PodcastCard = memo(function PodcastCard({
 
 export default PodcastCard
 
-export const WatchHerePodcastCard = () => {
+export const SpiceUpPodcastCard = () => {
+  const { isMobile } = useResponsive()
   const { t } = useTranslationClient('podcast')
+  const imageUrl = useMemo(() => {
+    if (isMobile) {
+      return '/assets/podcast/podcast_banner_SPICE_UP.png'
+    }
+    return '/assets/podcast/podcast_banner_SPICE_UP_square.png'
+  }, [isMobile])
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_HERE,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_HERE.png',
-        title: t('asset.watchHere.title', { ns: 'podcast' }),
-        description: t('asset.watchHere.description', { ns: 'podcast' }),
+        type: PodcastType.SPICE_UP,
+        bannerImg: imageUrl,
+        title: t('asset.spiceUp.title', { ns: 'podcast' }),
+        description: t('asset.spiceUp.description', { ns: 'podcast' }),
       }),
-    [t]
+    [t, imageUrl]
   )
   return <PodcastCard podcast={podcast} />
 }
-export const WatchInfoPodcastCard = () => {
+export const NowYouKnowPodcastCard = () => {
+  const { isMobile } = useResponsive()
   const { t } = useTranslationClient('podcast')
+  const imageUrl = useMemo(() => {
+    if (isMobile) {
+      return '/assets/podcast/podcast_banner_NOW_YOU_KNOW.png'
+    }
+    return '/assets/podcast/podcast_banner_NOW_YOU_KNOW_square.png'
+  }, [isMobile])
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_INFO,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_INFO.png',
-        title: t('asset.watchInfo.title', { ns: 'podcast' }),
-        description: t('asset.watchInfo.description', { ns: 'podcast' }),
+        type: PodcastType.NOW_YOU_KNOW,
+        bannerImg: imageUrl,
+        title: t('asset.nowYouKnow.title', { ns: 'podcast' }),
+        description: t('asset.nowYouKnow.description', { ns: 'podcast' }),
       }),
-    [t]
+    [t, imageUrl]
   )
   return <PodcastCard podcast={podcast} />
 }
-export const WatchBookClubPodcastCard = () => {
+export const BookClubPodcastCard = () => {
+  const { isMobile } = useResponsive()
   const { t } = useTranslationClient('podcast')
+  const imageUrl = useMemo(() => {
+    if (isMobile) {
+      return '/assets/podcast/podcast_banner_BOOK_CLUB.png'
+    }
+    return '/assets/podcast/podcast_banner_BOOK_CLUB_square.png'
+  }, [isMobile])
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_BOOK_CLUB,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_BOOK_CLUB.png',
-        title: t('asset.watchBookClub.title', { ns: 'podcast' }),
-        description: t('asset.watchBookClub.description', { ns: 'podcast' }),
+        type: PodcastType.BOOK_CLUB,
+        bannerImg: imageUrl,
+        title: t('asset.bookClub.title', { ns: 'podcast' }),
+        description: t('asset.bookClub.description', { ns: 'podcast' }),
       }),
-    [t]
+    [t, imageUrl]
   )
   return <PodcastCard podcast={podcast} />
 }

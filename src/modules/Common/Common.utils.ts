@@ -3,21 +3,31 @@ import { Maybe } from '@/common/lib/graphql/__generated__/graphql'
 import { Language } from '@/common/lib/i18n/types'
 import { z } from 'zod'
 
+type ApiI18nKey = 'en' | 'zh'
+
 export default class CommonUtils {
   /**
-   * 把前端語言轉換成 API 語言
+   * 把前端語言轉換成 API 語言，若 API 對應語言沒有直，則 fallback 到另一個語言
+   * @description 目前後端僅有兩種語言，未來若有三種以上語言需要特別設計 fallback 機制
    * @param lang
    * @returns
    */
-  static parseAPII18nKey(lang: Language) {
+  static parseApiI18nKey(lang: Language): [ApiI18nKey, ApiI18nKey] {
+    let apiLang: ApiI18nKey
     switch (lang) {
       case 'en-US':
-        return 'en'
+        apiLang = 'en'
+        break
       case 'zh-TW':
-        return 'zh'
+        apiLang = 'zh'
+        break
       default:
-        return 'en'
+        apiLang = 'en'
     }
+
+    const fallbackLang = apiLang === 'en' ? 'zh' : 'en'
+
+    return [apiLang, fallbackLang]
   }
 
   /**

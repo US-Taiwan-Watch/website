@@ -7,6 +7,7 @@ import { Metadata } from 'next'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
+import { Suspense } from 'react'
 
 type PeoplePageProps = {
   params: {
@@ -43,7 +44,9 @@ export default async function People({ params }: PeoplePageProps) {
         title={t('landing.section.popularPeople.title')}
       />
       {/** People List Section */}
-      <PeopleListSection />
+      <Suspense>
+        <PeopleListSection />
+      </Suspense>
     </Stack>
   )
 }

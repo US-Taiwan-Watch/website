@@ -12,9 +12,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const episodes = podcastId ? await getEpisodes({ podcastId }) : []
 
   const PAGES = [
-    RouteName.PodcastWatchHere,
-    RouteName.PodcastWatchInfo,
-    RouteName.PodcastWatchBookClub,
+    RouteName.PodcastSpiceUp,
+    RouteName.PodcastNowYouKnow,
+    RouteName.PodcastBookClub,
   ] as const
 
   return [

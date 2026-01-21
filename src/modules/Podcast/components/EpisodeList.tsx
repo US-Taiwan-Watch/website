@@ -93,7 +93,7 @@ export default function EpisodeList({
   )
 }
 
-export const WatchHereEpisodeList = ({
+export const SpiceUpEpisodeList = ({
   episodes,
 }: {
   episodes: Array<Episode>
@@ -102,17 +102,17 @@ export const WatchHereEpisodeList = ({
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_HERE,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_HERE.png',
-        title: t('asset.watchHere.title', { ns: 'podcast' }),
-        description: t('asset.watchHere.description', { ns: 'podcast' }),
+        type: PodcastType.SPICE_UP,
+        bannerImg: '/assets/podcast/podcast_banner_SPICE_UP.png',
+        title: t('asset.spiceUp.title', { ns: 'podcast' }),
+        description: t('asset.spiceUp.description', { ns: 'podcast' }),
       }),
     [t]
   )
   return <EpisodeList podcast={podcast} episodes={episodes} />
 }
 
-export const WatchInfoEpisodeList = ({
+export const NowYouKnowEpisodeList = ({
   episodes,
 }: {
   episodes: Array<Episode>
@@ -121,17 +121,17 @@ export const WatchInfoEpisodeList = ({
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_INFO,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_INFO.png',
-        title: t('asset.watchInfo.title', { ns: 'podcast' }),
-        description: t('asset.watchInfo.description', { ns: 'podcast' }),
+        type: PodcastType.NOW_YOU_KNOW,
+        bannerImg: '/assets/podcast/podcast_banner_NOW_YOU_KNOW.png',
+        title: t('asset.nowYouKnow.title', { ns: 'podcast' }),
+        description: t('asset.nowYouKnow.description', { ns: 'podcast' }),
       }),
     [t]
   )
   return <EpisodeList podcast={podcast} episodes={episodes} />
 }
 
-export const WatchBookClubEpisodeList = ({
+export const BookClubEpisodeList = ({
   episodes,
 }: {
   episodes: Array<Episode>
@@ -140,10 +140,10 @@ export const WatchBookClubEpisodeList = ({
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_BOOK_CLUB,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_BOOK_CLUB.png',
-        title: t('asset.watchBookClub.title', { ns: 'podcast' }),
-        description: t('asset.watchBookClub.description', { ns: 'podcast' }),
+        type: PodcastType.BOOK_CLUB,
+        bannerImg: '/assets/podcast/podcast_banner_BOOK_CLUB.png',
+        title: t('asset.bookClub.title', { ns: 'podcast' }),
+        description: t('asset.bookClub.description', { ns: 'podcast' }),
       }),
     [t]
   )

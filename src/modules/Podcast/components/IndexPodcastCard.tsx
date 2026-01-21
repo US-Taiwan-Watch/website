@@ -24,13 +24,13 @@ import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 const StyledIndexPodcastCardBox = styled(Box)(({ theme }) => ({
-  '&.WATCH_HERE': {
+  '&.SPICE_UP': {
     backgroundColor: theme.color.orange[900],
   },
-  '&.WATCH_INFO': {
+  '&.NOW_YOU_KNOW': {
     backgroundColor: theme.color.indigo[700],
   },
-  '&.WATCH_BOOK_CLUB': {
+  '&.BOOK_CLUB': {
     backgroundColor: theme.color.orange[900],
   },
   color: theme.color.common.white,
@@ -189,15 +189,15 @@ type PodcastCardProps = {
   episodes: Episode[]
 }
 
-export const WatchHerePodcastCard = ({ episodes }: PodcastCardProps) => {
+export const SpiceUpPodcastCard = ({ episodes }: PodcastCardProps) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_HERE,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_HERE.png',
-        title: t('asset.watchHere.title', { ns: 'podcast' }),
-        description: t('asset.watchHere.description', { ns: 'podcast' }),
+        type: PodcastType.SPICE_UP,
+        bannerImg: '/assets/podcast/podcast_banner_SPICE_UP.png',
+        title: t('asset.spiceUp.title', { ns: 'podcast' }),
+        description: t('asset.spiceUp.description', { ns: 'podcast' }),
       }),
     [t]
   )
@@ -213,15 +213,15 @@ export const WatchHerePodcastCard = ({ episodes }: PodcastCardProps) => {
     />
   )
 }
-export const WatchInfoPodcastCard = ({ episodes }: PodcastCardProps) => {
+export const NowYouKnowPodcastCard = ({ episodes }: PodcastCardProps) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_INFO,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_INFO.png',
-        title: t('asset.watchInfo.title', { ns: 'podcast' }),
-        description: t('asset.watchInfo.description', { ns: 'podcast' }),
+        type: PodcastType.NOW_YOU_KNOW,
+        bannerImg: '/assets/podcast/podcast_banner_NOW_YOU_KNOW.png',
+        title: t('asset.nowYouKnow.title', { ns: 'podcast' }),
+        description: t('asset.nowYouKnow.description', { ns: 'podcast' }),
       }),
     [t]
   )
@@ -237,15 +237,15 @@ export const WatchInfoPodcastCard = ({ episodes }: PodcastCardProps) => {
     />
   )
 }
-export const WatchBookClubPodcastCard = ({ episodes }: PodcastCardProps) => {
+export const BookClubPodcastCard = ({ episodes }: PodcastCardProps) => {
   const { t } = useTranslationClient('podcast')
   const podcast = useMemo<Podcast>(
     () =>
       PodcastUtils.parse({
-        type: PodcastType.WATCH_BOOK_CLUB,
-        bannerImg: '/assets/podcast/podcast_banner_WATCH_BOOK_CLUB.png',
-        title: t('asset.watchBookClub.title', { ns: 'podcast' }),
-        description: t('asset.watchBookClub.description', { ns: 'podcast' }),
+        type: PodcastType.BOOK_CLUB,
+        bannerImg: '/assets/podcast/podcast_banner_BOOK_CLUB.png',
+        title: t('asset.bookClub.title', { ns: 'podcast' }),
+        description: t('asset.bookClub.description', { ns: 'podcast' }),
       }),
     [t]
   )

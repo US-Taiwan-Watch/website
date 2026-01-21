@@ -138,7 +138,8 @@ const getBestMatchedLanguage = <
   }
 
   // 最後返回 fallback 語言
-  return CommonUtils.parseAPII18nKey(fallbackLanguage) as keyof T
+  const [apiLang] = CommonUtils.parseApiI18nKey(fallbackLanguage)
+  return apiLang as keyof T
 }
 
 /**

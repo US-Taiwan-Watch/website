@@ -28,9 +28,10 @@ export class ArticleCategoryUtils {
    * CategoriesArticle -> ArticleCategory
    */
   static parse(lang: Language, dto: CategoriesArticle | CategoriesKetagalan) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return articleCategorySchema.parse({
       id: dto.id ?? undefined,
-      label: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? undefined,
+      label: dto.i18n?.[apiLang]?.name || dto.i18n?.[fallbackLang]?.name || '',
     })
   }
 }

@@ -62,29 +62,30 @@ export default function useNavItems() {
           {
             id: 'podcasts-1',
             type: 'link',
-            title: t('navItem.podcasts.watchHere.title', { ns: 'header' }),
-            href: resolveRouteUrl({ name: RouteName.PodcastWatchHere }),
+            title: t('navItem.podcasts.spiceUp.title', { ns: 'header' }),
+            href: resolveRouteUrl({ name: RouteName.PodcastSpiceUp }),
           },
           {
             id: 'podcasts-2',
             type: 'link',
-            title: t('navItem.podcasts.watchInfo.title', { ns: 'header' }),
-            href: resolveRouteUrl({ name: RouteName.PodcastWatchInfo }),
+            title: t('navItem.podcasts.nowYouKnow.title', { ns: 'header' }),
+            href: resolveRouteUrl({ name: RouteName.PodcastNowYouKnow }),
           },
           {
             id: 'podcasts-3',
             type: 'link',
-            title: t('navItem.podcasts.watchBookClub.title', { ns: 'header' }),
-            href: resolveRouteUrl({ name: RouteName.PodcastWatchBookClub }),
+            title: t('navItem.podcasts.bookClub.title', { ns: 'header' }),
+            href: resolveRouteUrl({ name: RouteName.PodcastBookClub }),
           },
         ],
       },
-      {
-        id: 'events',
-        type: 'link',
-        title: t('navItem.events.title', { ns: 'header' }),
-        href: resolveRouteUrl({ name: RouteName.Home }),
-      },
+      // TODO: 目前先隱藏 `Events`
+      // {
+      //   id: 'events',
+      //   type: 'link',
+      //   title: t('navItem.events.title', { ns: 'header' }),
+      //   href: resolveRouteUrl({ name: RouteName.Home }),
+      // },
       {
         id: 'about',
         type: 'list',
@@ -95,6 +96,18 @@ export default function useNavItems() {
             type: 'link',
             title: t('navItem.about.mission.title', { ns: 'header' }),
             href: resolveRouteUrl({ name: RouteName.AboutMission }),
+          },
+          {
+            id: 'about-projects',
+            type: 'link',
+            title: t('navItem.about.projects.title', { ns: 'header' }),
+            href: resolveRouteUrl({ name: RouteName.AboutProjects }),
+          },
+          {
+            id: 'about-members',
+            type: 'link',
+            title: t('navItem.about.members.title', { ns: 'header' }),
+            href: resolveRouteUrl({ name: RouteName.AboutMembers }),
           },
           {
             id: 'about-footprints',

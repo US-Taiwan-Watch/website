@@ -24,24 +24,30 @@ export type Footprint = z.infer<typeof footprintSchema>
 
 export class FootprintUtils {
   static parse(lang: Language, dto: ApiUstwFootprint) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return footprintSchema.parse({
       id: dto.id,
-      title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? '',
-      source: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.source ?? '',
+      title:
+        dto.i18n?.[apiLang]?.title || dto.i18n?.[fallbackLang]?.title || '',
+      source:
+        dto.i18n?.[apiLang]?.source || dto.i18n?.[fallbackLang]?.source || '',
       link: dto.link,
       type: dto.type,
-      releaseDate: dto.createdAt,
+      releaseDate: dto.publishTime,
     })
   }
 
   static parseKetagalan(lang: Language, dto: ApiKetagalanFootprint) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return footprintSchema.parse({
       id: dto.id,
-      title: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.title ?? '',
-      source: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.source ?? '',
+      title:
+        dto.i18n?.[apiLang]?.title || dto.i18n?.[fallbackLang]?.title || '',
+      source:
+        dto.i18n?.[apiLang]?.source || dto.i18n?.[fallbackLang]?.source || '',
       link: dto.link,
       type: dto.type,
-      releaseDate: dto.createdAt,
+      releaseDate: dto.publishTime,
     })
   }
 }

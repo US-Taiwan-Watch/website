@@ -22,6 +22,7 @@ import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
 import ImageLightboxProvider from '@/common/components/elements/ImageLightbox/ImageLightboxProvider'
+import { redirect } from 'next/navigation'
 
 type RootLayoutProps = Readonly<{
   children: React.ReactNode
@@ -29,8 +30,6 @@ type RootLayoutProps = Readonly<{
     lang: Language
   }
 }>
-
-export const dynamicParams = false
 
 export const generateStaticParams = async () => {
   return I18N_SUPPORTED_LANGUAGE.map((lang) => ({ lang }))
@@ -51,6 +50,12 @@ export default async function RootLayout({
   children,
   params,
 }: RootLayoutProps) {
+  const { resolveRouteUrl } = getURouterServer()
+  // 排除不支援的語言，避免 injection attack
+  if (!I18N_SUPPORTED_LANGUAGE.includes(params.lang)) {
+    redirect(resolveRouteUrl({ name: RouteName.NotFound }))
+  }
+
   return (
     <html lang={params.lang}>
       {config.GOOGLE_TAG_MANAGER_ID && (

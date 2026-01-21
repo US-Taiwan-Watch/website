@@ -16,9 +16,9 @@ interface PodcastSource {
 }
 
 export enum PodcastType {
-  WATCH_HERE = 'WATCH_HERE', // 觀測站底加辣
-  WATCH_INFO = 'WATCH_INFO', // 觀測站予你知
-  WATCH_BOOK_CLUB = 'WATCH_BOOK_CLUB', // 觀測站讀書會
+  SPICE_UP = 'SPICE_UP', // 觀測站底加辣
+  NOW_YOU_KNOW = 'NOW_YOU_KNOW', // 觀測站予你知
+  BOOK_CLUB = 'BOOK_CLUB', // 觀測站讀書會
 }
 
 /**
@@ -76,7 +76,7 @@ export default class PodcastUtils {
     limit?: number
   ): Array<Episode> {
     if (!podcast.type) return []
-    const regex = PodcastUtils.watchEpisodeTitleRegexMap[podcast.type]
+    const regex = PodcastUtils.episodeTitleRegexMap[podcast.type]
     return episodes
       .filter((episode) => episode.title && regex.test(episode.title))
       .sort((a, b) => {
@@ -92,32 +92,32 @@ export default class PodcastUtils {
   /**
    * Episode Title 不包含「觀測站予你知」和「觀測站讀書會」
    */
-  static watchHereEpisodeTitleRegex = /(?!.*觀測站予你知|觀測站讀書會)/
+  static spiceUpEpisodeTitleRegex = /(?!.*觀測站予你知|觀測站讀書會)/
   /**
    * Episode Title 有包含「觀測站予你知」
    */
-  static watchInfoEpisodeTitleRegex = /觀測站予你知/
+  static nowYouKnowEpisodeTitleRegex = /觀測站予你知/
   /**
    * Episode Title 有包含「觀測站讀書會」
    */
-  static watchBookClubEpisodeTitleRegex = /觀測站讀書會/
+  static bookClubEpisodeTitleRegex = /觀測站讀書會/
 
-  static watchEpisodeTitleRegexMap: Record<PodcastType, RegExp> = {
-    [PodcastType.WATCH_HERE]: PodcastUtils.watchHereEpisodeTitleRegex,
-    [PodcastType.WATCH_INFO]: PodcastUtils.watchInfoEpisodeTitleRegex,
-    [PodcastType.WATCH_BOOK_CLUB]: PodcastUtils.watchBookClubEpisodeTitleRegex,
+  static episodeTitleRegexMap: Record<PodcastType, RegExp> = {
+    [PodcastType.SPICE_UP]: PodcastUtils.spiceUpEpisodeTitleRegex,
+    [PodcastType.NOW_YOU_KNOW]: PodcastUtils.nowYouKnowEpisodeTitleRegex,
+    [PodcastType.BOOK_CLUB]: PodcastUtils.bookClubEpisodeTitleRegex,
   }
 
   /** Podcast pages */
   static getPodcastPageLink(type: PodcastType) {
     const { resolveRouteUrl } = getURouterServer()
     switch (type) {
-      case PodcastType.WATCH_HERE:
-        return resolveRouteUrl({ name: RouteName.PodcastWatchHere })
-      case PodcastType.WATCH_INFO:
-        return resolveRouteUrl({ name: RouteName.PodcastWatchInfo })
-      case PodcastType.WATCH_BOOK_CLUB:
-        return resolveRouteUrl({ name: RouteName.PodcastWatchBookClub })
+      case PodcastType.SPICE_UP:
+        return resolveRouteUrl({ name: RouteName.PodcastSpiceUp })
+      case PodcastType.NOW_YOU_KNOW:
+        return resolveRouteUrl({ name: RouteName.PodcastNowYouKnow })
+      case PodcastType.BOOK_CLUB:
+        return resolveRouteUrl({ name: RouteName.PodcastBookClub })
       default:
         return ''
     }

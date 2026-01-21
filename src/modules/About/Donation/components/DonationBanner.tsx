@@ -4,9 +4,20 @@ import UContainer from '@/common/components/atoms/UContainer'
 import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgroundBox'
 import { styled } from '@/common/lib/mui/theme'
 import { Box } from '@mui/material'
-import Image from 'next/image'
 
-const StyledImage = styled(Image)(() => ({}))
+const StyledImage = styled('div')(({ theme }) => ({
+  width: '100%',
+  height: '300px',
+  borderRadius: '20px',
+  backgroundImage: 'url(/assets/follow-us-mobile.png)',
+  backgroundSize: 'cover',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
+  [theme.breakpoints.up('lg')]: {
+    backgroundImage: 'url(/assets/follow-us-desktop.png)',
+    height: '430px',
+  },
+}))
 
 export default function DonationBanner() {
   return (
@@ -18,18 +29,7 @@ export default function DonationBanner() {
             md: 2,
           }}
         >
-          <StyledImage
-            src="/assets/free-usage-section.png"
-            alt="Free Usage Section"
-            width={1340}
-            height={464}
-            sx={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              borderRadius: '20px',
-            }}
-          />
+          <StyledImage />
         </Box>
       </UContainer>
     </UFullWidthBackgroundBox>

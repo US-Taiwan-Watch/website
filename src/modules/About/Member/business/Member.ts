@@ -29,22 +29,28 @@ export type MemberGroup = z.infer<typeof memberGroupSchema>
 
 export class MemberUtils {
   static parseMember(lang: Language, dto: ApiUstwMember) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return memberSchema.parse({
       id: dto.id,
-      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+      name: dto.i18n?.[apiLang]?.name || dto.i18n?.[fallbackLang]?.name || '',
       description:
-        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.description ?? '',
+        dto.i18n?.[apiLang]?.description ||
+        dto.i18n?.[fallbackLang]?.description ||
+        '',
       image: dto.photo?.url ?? '',
       type: dto.type,
     })
   }
 
   static parseKetagalanMember(lang: Language, dto: ApiKetagalanMember) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return memberSchema.parse({
       id: dto.id,
-      name: dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.name ?? '',
+      name: dto.i18n?.[apiLang]?.name || dto.i18n?.[fallbackLang]?.name || '',
       description:
-        dto.i18n?.[CommonUtils.parseAPII18nKey(lang)]?.description ?? '',
+        dto.i18n?.[apiLang]?.description ||
+        dto.i18n?.[fallbackLang]?.description ||
+        '',
       image: dto.photo?.url ?? '',
       type: dto.type,
     })

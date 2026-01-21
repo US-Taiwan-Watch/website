@@ -42,9 +42,9 @@ export enum RouteName {
   KetagalanAboutMembers = 'ketagalan_about_members',
   KetagalanAboutFootprints = 'ketagalan_about_footprints',
   /** Podcast */
-  PodcastWatchHere = 'podcast_watch_here',
-  PodcastWatchInfo = 'podcast_watch_info',
-  PodcastWatchBookClub = 'podcast_watch_book_club',
+  PodcastSpiceUp = 'podcast_spice_up',
+  PodcastNowYouKnow = 'podcast_now_you_know',
+  PodcastBookClub = 'podcast_book_club',
   PodcastDetail = 'podcast_detail',
   /** Account */
   Account = 'account',
@@ -182,9 +182,9 @@ export const ROUTE_PATH_MAP: {
   [RouteName.KetagalanAboutMembers]: () => '/ketagalan/about/members',
   [RouteName.KetagalanAboutFootprints]: () => '/ketagalan/about/footprints',
   /** Podcast */
-  [RouteName.PodcastWatchHere]: () => '/podcast/category/watch-here',
-  [RouteName.PodcastWatchInfo]: () => '/podcast/category/watch-info',
-  [RouteName.PodcastWatchBookClub]: () => '/podcast/category/watch-book-club',
+  [RouteName.PodcastSpiceUp]: () => '/podcast/category/spice-up',
+  [RouteName.PodcastNowYouKnow]: () => '/podcast/category/now-you-know',
+  [RouteName.PodcastBookClub]: () => '/podcast/category/book-club',
   [RouteName.PodcastDetail]: (params) => `/podcast/${params.episodeId}`,
   /** Account */
   [RouteName.Account]: () => '/account',

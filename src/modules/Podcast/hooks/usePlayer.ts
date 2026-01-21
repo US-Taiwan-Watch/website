@@ -43,6 +43,7 @@ export default function usePlayer({
           memoizedOnPauseCallback?.()
         },
         onstop: () => setPlaying(false),
+        preload: 'metadata',
       })
     }
 

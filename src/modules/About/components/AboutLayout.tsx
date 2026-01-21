@@ -19,6 +19,7 @@ type AboutLayoutProps = {
   withHeaderSection?: boolean
   currentPathname: string
   children: React.ReactNode
+  title: string
   tabs: AboutHeaderTab[]
 }
 
@@ -27,6 +28,7 @@ export default function AboutLayout({
   withHeaderSection = true,
   currentPathname,
   children,
+  title,
   tabs,
 }: AboutLayoutProps) {
   return (
@@ -58,7 +60,11 @@ export default function AboutLayout({
         }}
       >
         {withHeaderSection && (
-          <AboutHeaderSection currentPathname={currentPathname} tabs={tabs} />
+          <AboutHeaderSection
+            title={title}
+            currentPathname={currentPathname}
+            tabs={tabs}
+          />
         )}
         {children}
       </Stack>
@@ -67,7 +73,7 @@ export default function AboutLayout({
 }
 
 export const UstwAboutLayout = async (
-  props: Omit<AboutLayoutProps, 'tabs'>
+  props: Omit<AboutLayoutProps, 'tabs' | 'title'>
 ) => {
   const { lang, children } = props
 
@@ -91,20 +97,28 @@ export const UstwAboutLayout = async (
       path: resolveRouteUrl({ name: RouteName.AboutFootprints }),
     },
     {
+      label: t('tabs.data', { ns: 'about' }),
+      path: resolveRouteUrl({ name: RouteName.AboutData }),
+    },
+    {
       label: t('tabs.newsroom', { ns: 'about' }),
       path: resolveRouteUrl({ name: RouteName.AboutNewsroom }),
     },
   ]
 
   return (
-    <AboutLayout tabs={tabs} {...props}>
+    <AboutLayout
+      title={t('ustw.title', { ns: 'about' })}
+      tabs={tabs}
+      {...props}
+    >
       {children}
     </AboutLayout>
   )
 }
 
 export const KetagalanAboutLayout = async (
-  props: Omit<AboutLayoutProps, 'tabs'>
+  props: Omit<AboutLayoutProps, 'tabs' | 'title'>
 ) => {
   const { lang, children } = props
 
@@ -126,7 +140,11 @@ export const KetagalanAboutLayout = async (
   ]
 
   return (
-    <AboutLayout tabs={tabs} {...props}>
+    <AboutLayout
+      title={t('ketagalan.title', { ns: 'about' })}
+      tabs={tabs}
+      {...props}
+    >
       {children}
     </AboutLayout>
   )

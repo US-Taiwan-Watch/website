@@ -1,7 +1,7 @@
 import { config } from '@/config'
 import { getEpisodes } from '@/modules/Podcast/api/soundon'
-import { WatchInfoEpisodeList } from '@/modules/Podcast/components/EpisodeList'
-import { WatchInfoPodcastCard } from '@/modules/Podcast/components/PodcastCard'
+import { SpiceUpEpisodeList } from '@/modules/Podcast/components/EpisodeList'
+import { SpiceUpPodcastCard } from '@/modules/Podcast/components/PodcastCard'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import getURouterServer from '@/common/lib/router/getURouterServer'
@@ -9,7 +9,7 @@ import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { Language } from '@/common/lib/i18n/types'
 
-type WatchInfoPodcastPageProps = {
+type SpiceUpPodcastPageProps = {
   params: {
     lang: Language
   }
@@ -17,16 +17,16 @@ type WatchInfoPodcastPageProps = {
 
 export const generateMetadata = async ({
   params,
-}: WatchInfoPodcastPageProps): Promise<Metadata> => {
+}: SpiceUpPodcastPageProps): Promise<Metadata> => {
   const { resolveRouteUrl } = getURouterServer()
   return generateCommonMetadata({
     lang: params.lang,
-    pathname: resolveRouteUrl({ name: RouteName.PodcastWatchInfo }),
-    namespace: 'seo_podcast_watch_info',
+    pathname: resolveRouteUrl({ name: RouteName.PodcastSpiceUp }),
+    namespace: 'seo_podcast_spice_up',
   })
 }
 
-export default async function WatchInfoPodcastPage() {
+export default async function SpiceUpPodcastPage() {
   const podcastId = config.SOUNDON_PODCAST_ID
   if (!podcastId) {
     notFound()
@@ -34,8 +34,8 @@ export default async function WatchInfoPodcastPage() {
   const episodes = await getEpisodes({ podcastId })
   return (
     <>
-      <WatchInfoPodcastCard />
-      <WatchInfoEpisodeList episodes={episodes} />
+      <SpiceUpPodcastCard />
+      <SpiceUpEpisodeList episodes={episodes} />
     </>
   )
 }

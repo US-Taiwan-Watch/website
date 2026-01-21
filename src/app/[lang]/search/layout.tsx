@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import UContainer from '@/common/components/atoms/UContainer'
@@ -22,7 +22,9 @@ export default function SearchLayout({ children, params }: SearchLayoutProps) {
         },
       }}
     >
-      <UContainer>{children}</UContainer>
+      <UContainer>
+        <Suspense>{children}</Suspense>
+      </UContainer>
     </ThemeProvider>
   )
 }
