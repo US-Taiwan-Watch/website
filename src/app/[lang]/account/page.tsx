@@ -14,7 +14,7 @@ export default function AccountPage() {
 
   useEffect(() => {
     if (!isCompactView) {
-      router.push(resolveRouteUrl({ name: RouteName.AccountSubscribe }))
+      router.replace(resolveRouteUrl({ name: RouteName.AccountSubscribe }))
     }
   }, [isCompactView, router, resolveRouteUrl])
 
