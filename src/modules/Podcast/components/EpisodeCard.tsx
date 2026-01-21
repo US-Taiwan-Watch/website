@@ -82,14 +82,6 @@ const StyledSlider = styled(Slider)(({ theme }) => ({
   },
 }))
 
-const StyledLinkIconButton = styled(UIconButton)(() => ({
-  padding: 0,
-  '& svg': {
-    width: '12px',
-    height: '12px',
-  },
-}))
-
 interface EpisodeCardProps extends GeneralEpisodeCardProps {
   className?: string
 }
@@ -182,21 +174,20 @@ const EpisodeCard = memo(
                 >
                   <ForwardIcon />
                 </UIconButton>
-                <Link
-                  href={EpisodeUtils.getLink(episode.id)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <StyledLinkIconButton
+                <Link href={EpisodeUtils.getLink(episode.id)} target="_blank">
+                  <UIconButton
                     variant="rounded"
                     color="default"
-                    size="small"
+                    size={'small'}
                     sx={{
+                      p: 0,
+                      width: 'auto',
+                      height: 'auto',
                       color: '#00000080',
                     }}
                   >
                     <NorthEastIcon />
-                  </StyledLinkIconButton>
+                  </UIconButton>
                 </Link>
               </UHStack>
               <UIconButton
@@ -409,21 +400,20 @@ const EpisodeCard = memo(
                   alignItems="flex-start"
                   justifyContent="end"
                 >
-                  <Link
-                    href={EpisodeUtils.getLink(episode.id)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <StyledLinkIconButton
+                  <Link href={EpisodeUtils.getLink(episode.id)} target="_blank">
+                    <UIconButton
                       variant="rounded"
                       color="default"
-                      size="small"
+                      size={'medium'}
                       sx={{
-                        color: 'grey.400',
+                        p: 0,
+                        width: 'auto',
+                        height: 'auto',
+                        color: '#00000080',
                       }}
                     >
                       <NorthEastIcon />
-                    </StyledLinkIconButton>
+                    </UIconButton>
                   </Link>
                 </Grid>
               )}
