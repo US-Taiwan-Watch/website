@@ -4,7 +4,6 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { Language } from '@/common/lib/i18n/types'
-import { Suspense } from 'react'
 
 type BillListPageProps = {
   params: {
@@ -24,9 +23,5 @@ export const generateMetadata = async ({
 }
 
 export default function BillListPage() {
-  return (
-    <Suspense>
-      <BillList />
-    </Suspense>
-  )
+  return <BillList />
 }

@@ -4,6 +4,8 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import UContainer from '@/common/components/atoms/UContainer'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'Bill',
   description: 'Bill',

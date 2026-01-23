@@ -40,8 +40,6 @@ import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 
-export const dynamic = 'force-dynamic'
-
 const PeopleCardsSkeleton = () => {
   return (
     <Grid container spacing={2}>

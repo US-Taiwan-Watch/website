@@ -25,8 +25,6 @@ import ResultCard, {
 import SearchPageSearchBar from '@/modules/Search/components/SearchPageSearchBar'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
-export const dynamic = 'force-dynamic'
-
 const SearchPageSkeleton = () => {
   return (
     <Stack gap={2} py={2}>

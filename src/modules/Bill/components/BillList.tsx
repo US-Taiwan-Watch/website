@@ -26,8 +26,6 @@ import { useCallback, useMemo, useEffect, useState, useRef } from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
 
-export const dynamic = 'force-dynamic'
-
 const BillCardsSkeleton = () => {
   const { isMobile } = useResponsive()
   return (

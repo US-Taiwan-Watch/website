@@ -1,6 +1,5 @@
 import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
 import { Language } from '@/common/lib/i18n/types'
-import PeopleListSection from '@/modules/People/components/PeopleLanding/PeopleListSection'
 import PopularPeopleSection from '@/modules/People/components/PeopleLanding/PopularPeopleSection'
 import { Stack } from '@mui/material'
 import { Metadata } from 'next'
@@ -8,6 +7,12 @@ import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { Suspense } from 'react'
+import dynamic from 'next/dynamic'
+
+const PeopleListSection = dynamic(
+  () => import('@/modules/People/components/PeopleLanding/PeopleListSection'),
+  { ssr: false }
+)
 
 type PeoplePageProps = {
   params: {
