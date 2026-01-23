@@ -37,20 +37,16 @@ export default function AboutLayout({
         sx={{
           width: {
             xs: '100%',
-            sm: 'auto',
-          },
-          maxWidth: {
-            xs: '100%',
-            sm: '700px',
+            lg: '700px',
           },
           margin: '0 auto',
           px: {
             xs: 1,
-            sm: 0,
+            lg: 0,
           },
           py: {
             xs: 2.75,
-            sm: 5,
+            lg: 5,
           },
           gap: {
             xs: 2,
