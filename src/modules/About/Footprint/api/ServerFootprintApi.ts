@@ -1,4 +1,5 @@
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { FetchOptions } from '@/common/lib/graphql/revalidate'
 import {
   QUERY_KETAGALAN_FOOTPRINTS,
   QUERY_USTW_FOOTPRINTS,
@@ -26,6 +27,7 @@ export default class ServerFootprintApi {
       UstwFootprintsQueryVariables
     >({
       query: QUERY_USTW_FOOTPRINTS,
+      context: FetchOptions.static,
     })
 
     return (
@@ -42,6 +44,7 @@ export default class ServerFootprintApi {
       KetagalanFootprintsQueryVariables
     >({
       query: QUERY_KETAGALAN_FOOTPRINTS,
+      context: FetchOptions.static,
     })
 
     return (

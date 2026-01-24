@@ -1,4 +1,5 @@
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { FetchOptions } from '@/common/lib/graphql/revalidate'
 import {
   QUERY_KETAGALAN_PROJECTS,
   QUERY_USTW_PROJECTS,
@@ -26,6 +27,7 @@ export default class ServerProjectApi {
       UstwProjectsQueryVariables
     >({
       query: QUERY_USTW_PROJECTS,
+      context: FetchOptions.static,
     })
 
     return (
@@ -42,6 +44,7 @@ export default class ServerProjectApi {
       KetagalanProjectsQueryVariables
     >({
       query: QUERY_KETAGALAN_PROJECTS,
+      context: FetchOptions.static,
     })
 
     return (

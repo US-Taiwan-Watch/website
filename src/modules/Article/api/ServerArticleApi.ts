@@ -17,6 +17,7 @@ import {
   CategoriesKetagalansQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { FetchOptions } from '@/common/lib/graphql/revalidate'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
 import {
   QUERY_USTW_ARTICLE,
@@ -55,6 +56,7 @@ export default class ServerArticleApi {
           KetagalanArticleIdsQueryVariables
         >({
           query: QUERY_KETAGALAN_ARTICLE_IDS,
+          context: FetchOptions.stable,
         })
 
         return (
@@ -71,6 +73,7 @@ export default class ServerArticleApi {
         UstwArticleIdsQueryVariables
       >({
         query: QUERY_USTW_ARTICLE_IDS,
+        context: FetchOptions.stable,
       })
 
       return (
@@ -116,6 +119,7 @@ export default class ServerArticleApi {
           variables: {
             limit,
           },
+          context: FetchOptions.realTime,
         })
 
         return (
@@ -134,6 +138,7 @@ export default class ServerArticleApi {
         variables: {
           limit,
         },
+        context: FetchOptions.realTime,
       })
 
       return (
@@ -175,6 +180,7 @@ export default class ServerArticleApi {
             limit,
             sort: '-releaseTime',
           },
+          context: FetchOptions.realTime,
         })
 
         return (
@@ -193,6 +199,7 @@ export default class ServerArticleApi {
         variables: {
           limit,
         },
+        context: FetchOptions.realTime,
       })
 
       return (
@@ -239,6 +246,7 @@ export default class ServerArticleApi {
               },
             },
           },
+          context: FetchOptions.realTime,
         })
 
         return (
@@ -262,6 +270,7 @@ export default class ServerArticleApi {
             },
           },
         },
+        context: FetchOptions.realTime,
       })
 
       return (
@@ -311,6 +320,7 @@ export default class ServerArticleApi {
             limit,
             where,
           },
+          context: FetchOptions.realTime,
         })
 
         return (
@@ -331,6 +341,7 @@ export default class ServerArticleApi {
           limit,
           where,
         },
+        context: FetchOptions.realTime,
       })
 
       return (
@@ -370,6 +381,7 @@ export default class ServerArticleApi {
         >({
           query: QUERY_KETAGALAN_ARTICLE,
           variables: { id },
+          context: FetchOptions.dynamic,
         })
 
         if (!data?.KetagalanArticle) return null
@@ -383,6 +395,7 @@ export default class ServerArticleApi {
       >({
         query: QUERY_USTW_ARTICLE,
         variables: { id },
+        context: FetchOptions.dynamic,
       })
 
       if (!data?.UstwArticle) return null
@@ -427,6 +440,7 @@ export default class ServerArticleApi {
             },
             sort: '-releaseTime',
           },
+          context: FetchOptions.dynamic,
         })
 
         return (
@@ -451,6 +465,7 @@ export default class ServerArticleApi {
           },
           sort: '-releaseTime',
         },
+        context: FetchOptions.dynamic,
       })
 
       return (
@@ -479,6 +494,7 @@ export default class ServerArticleApi {
           CategoriesKetagalansQueryVariables
         >({
           query: QUERY_CATEGORIES_KETAGALANS,
+          context: FetchOptions.stable,
         })
 
         return (
@@ -494,6 +510,7 @@ export default class ServerArticleApi {
         CategoriesArticlesQueryVariables
       >({
         query: QUERY_CATEGORIES_ARTICLES,
+        context: FetchOptions.stable,
       })
 
       return (
