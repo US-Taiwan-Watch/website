@@ -7,7 +7,7 @@ import BillSection from '@/modules/LandingPage/components/BillSection'
 import { SECTION_OVERLAP_PX } from '@/modules/LandingPage/constants'
 import { Language } from '@/common/lib/i18n/types'
 import getTranslationServer from '@/common/lib/i18n/hooks/getTranslationServer'
-import { ArticleType } from '@/modules/Article/business/Article'
+import { Article, ArticleType } from '@/modules/Article/business/Article'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 import { Metadata } from 'next'
@@ -16,6 +16,51 @@ import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
 import { config } from '@/config'
 import { getEpisodes } from '@/modules/Podcast/api/soundon'
+import { Tag } from '@/modules/Common/business/Tag'
+
+/**
+ * Prefetch tags and mapping between tags and articles for article section
+ * @param lang
+ * @param articleType
+ * @returns
+ */
+const getLandingTagsAndTagArticleMap = async (
+  lang: Language,
+  articleType: ArticleType
+) => {
+  const tags = await ServerArticleApi.getLandingArticleTags(lang)
+  const tagArticleMap = await Promise.all(
+    tags.map((tag) => {
+      return new Promise<{
+        tag: Tag
+        articles: Article[]
+      }>((resolve) => {
+        ServerArticleApi.getArticles(lang, {
+          articleType,
+          limit: 3,
+          sort: '-releaseTime',
+          where: {
+            tags: {
+              equals: tag.id,
+            },
+          },
+        }).then((articles) => {
+          resolve({ tag, articles })
+        })
+      })
+    })
+  )
+  return [
+    tags,
+    tagArticleMap.reduce(
+      (acc, tagArticles) => {
+        acc[tagArticles.tag.id] = tagArticles.articles
+        return acc
+      },
+      {} as Record<string, Article[]>
+    ),
+  ] as const
+}
 
 type HomeProps = {
   params: {
@@ -38,7 +83,13 @@ export default async function Home({ params }: HomeProps) {
   const { t } = await getTranslationServer(params.lang, 'home')
   const podcastId = config.SOUNDON_PODCAST_ID
 
-  const [articles, ketagalanArticles, episodes] = await Promise.all([
+  const [
+    articles,
+    ketagalanArticles,
+    episodes,
+    [landingTags, landingTagsAndTagArticleMap],
+    [ketagalanTags, ketagalanTagsAndTagArticleMap],
+  ] = await Promise.all([
     ServerArticleApi.getHomeArticles(params.lang, {
       limit: 3,
       articleType: ArticleType.Article,
@@ -48,6 +99,8 @@ export default async function Home({ params }: HomeProps) {
       articleType: ArticleType.Ketagalan,
     }),
     podcastId ? getEpisodes({ podcastId }) : Promise.resolve([]),
+    getLandingTagsAndTagArticleMap(params.lang, ArticleType.Article),
+    getLandingTagsAndTagArticleMap(params.lang, ArticleType.Ketagalan),
   ])
 
   return (
@@ -57,6 +110,8 @@ export default async function Home({ params }: HomeProps) {
       <ArticleSection
         articleType={ArticleType.Article}
         defaultArticles={articles}
+        tags={landingTags}
+        tagArticleMap={landingTagsAndTagArticleMap}
       />
       <Stack
         sx={{
@@ -73,6 +128,8 @@ export default async function Home({ params }: HomeProps) {
           <ArticleSection
             articleType={ArticleType.Ketagalan}
             defaultArticles={ketagalanArticles}
+            tags={ketagalanTags}
+            tagArticleMap={ketagalanTagsAndTagArticleMap}
           />
         </ThemeProvider>
         {episodes.length > 0 && (

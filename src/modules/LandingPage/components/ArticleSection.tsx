@@ -6,32 +6,11 @@ import UCategoryChip from '@/common/components/atoms/UCategoryChip'
 import LandingSectionWrapper from '@/common/components/elements/Landing/LandingSectionWrapper'
 import { SectionTitleWithLink } from '@/common/components/elements/Landing/SectionTitle'
 import { OVERLAPPED_SECTION_PADDING_BOTTOM } from '@/modules/LandingPage/constants'
-import useArticleStore from '@/modules/Article/store/useArticleStore'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import ArticlePostCards, {
   ScrollableArticlePostCards,
-  ArticlePostCardsSkeleton,
 } from '@/modules/Article/components/ArticlePostCards'
-import { useParams } from 'next/navigation'
-import { Language } from '@/common/lib/i18n/types'
-import ArticleStoreProvider from '@/modules/Article/providers/ArticleStoreProvider'
-import {
-  ArticleUtils,
-  ArticleType,
-  Article,
-} from '@/modules/Article/business/Article'
-import {
-  QUERY_USTW_ARTICLES,
-  QUERY_KETAGALAN_ARTICLES,
-} from '@/modules/Article/graphql/gql'
-import {
-  UstwArticlesQueryVariables,
-  UstwArticlesQuery,
-  KetagalanArticlesQuery,
-  KetagalanArticlesQueryVariables,
-} from '@/common/lib/graphql/__generated__/graphql'
-import { isNull, isUndefined } from 'lodash-es'
-import { useLazyQuery } from '@apollo/client/react'
+import { ArticleType, Article } from '@/modules/Article/business/Article'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import FullWidthScrollableListWrapper from '@/modules/LandingPage/components/FullWidthScrollableListWrapper'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
@@ -39,101 +18,36 @@ import UKetagalanLogo from '@/common/components/atoms/UKetagalanLogo'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import useURouterClient from '@/common/lib/router/useURouterClient'
 import { RouteName } from '@/common/lib/router/routes'
+import { Tag } from '@/modules/Common/business/Tag'
 
 type ArticleSectionProps = {
   articleType: ArticleType
-  defaultArticles?: Article[]
+  defaultArticles: Article[]
+  tags: Tag[]
+  tagArticleMap: Record<string, Article[]>
 }
 
 const ArticleSection = ({
   articleType,
   defaultArticles,
+  tags,
+  tagArticleMap,
 }: ArticleSectionProps) => {
   const { resolveRouteUrl } = useURouterClient()
   const theme = useTheme<USTWTheme>()
   const { t } = useTranslationClient('home')
   const { isMobile } = useResponsive()
-  const { lang } = useParams<{ lang: Language }>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
-  const articleLandingTags = useArticleStore.use.articleLandingTags()
-  const ketagalanLandingTags = useArticleStore.use.ketagalanLandingTags()
-  const landingTags = useMemo(() => {
-    if (articleType === ArticleType.Ketagalan) {
-      return ketagalanLandingTags
-    }
-
-    return articleLandingTags
-  }, [articleType, articleLandingTags, ketagalanLandingTags])
-
-  const queryVariables = useMemo<UstwArticlesQueryVariables>(
-    () => ({
-      limit: 3,
-      sort: '-releaseTime',
-      where: {
-        ...(activeTagId && {
-          tags: {
-            equals: activeTagId ?? '',
-          },
-        }),
-      },
-    }),
-    [activeTagId]
-  )
-
-  const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
-    useLazyQuery<UstwArticlesQuery, UstwArticlesQueryVariables>(
-      QUERY_USTW_ARTICLES
-    )
-
-  const [
-    getKetagalanArticles,
-    { loading: isKetagalanArticlesLoading, data: ketagalanQueryData },
-  ] = useLazyQuery<KetagalanArticlesQuery, KetagalanArticlesQueryVariables>(
-    QUERY_KETAGALAN_ARTICLES
-  )
-
-  useEffect(() => {
-    if (articleType === ArticleType.Ketagalan) {
-      getKetagalanArticles({
-        variables: queryVariables,
-      })
-      return
-    }
-
-    getArticles({
-      variables: queryVariables,
-    })
-  }, [getKetagalanArticles, queryVariables, articleType, getArticles])
-
-  const articlesData = useMemo(() => {
-    if (articleType === ArticleType.Ketagalan) {
-      return ketagalanQueryData?.KetagalanArticles
-    }
-
-    return articlesQueryData?.UstwArticles
-  }, [articleType, ketagalanQueryData, articlesQueryData])
-
-  const loading = useMemo(() => {
-    if (articleType === ArticleType.Ketagalan) {
-      return isKetagalanArticlesLoading
-    }
-
-    return isArticlesLoading
-  }, [articleType, isKetagalanArticlesLoading, isArticlesLoading])
-
   const articles = useMemo(() => {
-    return (
-      articlesData?.docs
-        ?.filter((article) => !isNull(article) && !isUndefined(article))
-        .map((article) => ArticleUtils.parse(lang, article, articleType)) ??
-      defaultArticles ??
-      []
-    )
-  }, [articlesData, lang, articleType, defaultArticles])
+    if (activeTagId) {
+      return tagArticleMap[activeTagId] ?? []
+    }
+
+    return defaultArticles
+  }, [activeTagId, tagArticleMap, defaultArticles])
 
   return (
     <>
-      <ArticleStoreProvider articleType={articleType} />
       <LandingSectionWrapper
         contentWrapperSx={{
           paddingBottom: `${OVERLAPPED_SECTION_PADDING_BOTTOM}px`,
@@ -159,7 +73,7 @@ const ArticleSection = ({
         />
         <Stack gap={5}>
           <UHStack gap={2}>
-            {landingTags.map((tag) => (
+            {tags.map((tag) => (
               <UCategoryChip
                 key={tag.id}
                 label={tag.name}
@@ -177,15 +91,9 @@ const ArticleSection = ({
 
           {/** Posts */}
           {isMobile ? (
-            loading ? (
-              <ArticlePostCardsSkeleton count={1} forceCard />
-            ) : (
-              <FullWidthScrollableListWrapper>
-                <ScrollableArticlePostCards articles={articles} forceCard />
-              </FullWidthScrollableListWrapper>
-            )
-          ) : loading ? (
-            <ArticlePostCardsSkeleton count={3} forceCard />
+            <FullWidthScrollableListWrapper>
+              <ScrollableArticlePostCards articles={articles} forceCard />
+            </FullWidthScrollableListWrapper>
           ) : (
             <ArticlePostCards articles={articles} forceCard />
           )}

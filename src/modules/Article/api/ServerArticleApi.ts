@@ -15,6 +15,8 @@ import {
   CategoriesArticlesQueryVariables,
   CategoriesKetagalansQuery,
   CategoriesKetagalansQueryVariables,
+  TagsQuery,
+  TagsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
@@ -30,6 +32,8 @@ import {
 } from '@/modules/Article/graphql/gql'
 import { isNull, isUndefined } from 'lodash-es'
 import { Language } from '@/common/lib/i18n/types'
+import { QUERY_TAGS } from '@/modules/Common/graphql/gql'
+import TagUtils from '@/modules/Common/business/Tag'
 
 /**
  * Article API
@@ -208,6 +212,35 @@ export default class ServerArticleApi {
   }
 
   /**
+   * 取得首頁文章標籤
+   * @param lang 語言
+   * @returns 首頁文章標籤列表
+   */
+  static async getLandingArticleTags(lang: Language) {
+    try {
+      const client = getClient()
+
+      const { data } = await client.query<TagsQuery, TagsQueryVariables>({
+        query: QUERY_TAGS,
+        variables: {
+          where: {
+            isFeatured: {
+              equals: true,
+            },
+          },
+        },
+      })
+
+      return (data?.Tags?.docs ?? [])
+        .filter((tag) => !isNull(tag))
+        .map((tag) => TagUtils.parse(lang, tag))
+    } catch (error) {
+      console.error('Failed to fetch landing article tags:', error)
+      return []
+    }
+  }
+
+  /**
    * 取得文章首頁文章
    * @param lang 語言
    * @param limit 限制數量
@@ -290,11 +323,13 @@ export default class ServerArticleApi {
       limit = 9,
       page = 1,
       where,
+      sort,
       articleType,
     }: {
       limit?: UstwArticlesQueryVariables['limit']
       page?: UstwArticlesQueryVariables['page']
       where?: UstwArticlesQueryVariables['where']
+      sort?: UstwArticlesQueryVariables['sort']
       articleType: ArticleType
     }
   ) {
@@ -310,6 +345,7 @@ export default class ServerArticleApi {
             page,
             limit,
             where,
+            sort,
           },
         })
 
