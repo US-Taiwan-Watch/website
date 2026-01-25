@@ -4,6 +4,9 @@ import { Language } from '@/common/lib/i18n/types'
 import ThemeProvider from '@/common/lib/mui/themeProvider'
 import ServerArticleApi from '@/modules/Article/api/ServerArticleApi'
 import { ArticleType } from '@/modules/Article/business/Article'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { generateCommonMetadata } from '@/common/utils/metadata'
+import { RouteName } from '@/common/lib/router/routes'
 
 interface ArticlePostLayoutProps {
   params: {
@@ -20,7 +23,16 @@ export async function generateMetadata({
     articleType: ArticleType.Article,
   })
   if (!article) return {}
+  const { resolveRouteUrl } = getURouterServer()
   return {
+    ...(await generateCommonMetadata({
+      lang: params.lang,
+      pathname: resolveRouteUrl({
+        name: RouteName.ArticleDetail,
+        params: { articleId: params.id },
+      }),
+      namespace: 'seo_article_detail',
+    })),
     title: article.title,
     description: article.description,
   }

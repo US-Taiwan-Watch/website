@@ -40,22 +40,28 @@ export const generateMetadata = async ({
 }
 
 export default async function Article({ params }: ArticlePageProps) {
-  const [landingBannerArticles, articles] = await Promise.all([
-    ServerArticleApi.getLandingArticles(params.lang, {
-      limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
-      articleType: ArticleType.Article,
-    }),
-    ServerArticleApi.getArticles(params.lang, {
-      limit: ARTICLE_POST_COUNT,
-      articleType: ArticleType.Article,
-    }),
-  ])
+  const [landingBannerArticles, articles, tags, highlightedCategories] =
+    await Promise.all([
+      ServerArticleApi.getLandingArticles(params.lang, {
+        limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
+        articleType: ArticleType.Article,
+      }),
+      ServerArticleApi.getArticles(params.lang, {
+        limit: ARTICLE_POST_COUNT,
+        articleType: ArticleType.Article,
+      }),
+      ServerArticleApi.getLandingArticleTags(params.lang),
+      ServerArticleApi.getHighlightedCategories(
+        params.lang,
+        ArticleType.Article
+      ),
+    ])
 
   return (
     <UContainer>
       <Stack flex={1}>
         <UFullWidthBackgroundBox>
-          <ArticleNavbar />
+          <ArticleNavbar categories={highlightedCategories} />
         </UFullWidthBackgroundBox>
         {landingBannerArticles.length > 0 && (
           <ArticleLandingBannerCards articles={landingBannerArticles} />
@@ -63,6 +69,7 @@ export default async function Article({ params }: ArticlePageProps) {
         <ArticlePostSection
           articleType={ArticleType.Article}
           defaultArticles={articles}
+          tags={tags}
         />
       </Stack>
     </UContainer>

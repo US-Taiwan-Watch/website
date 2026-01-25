@@ -1,5 +1,4 @@
 import { Language } from '@/common/lib/i18n/types'
-import useArticleStore from '@/modules/Article/store/useArticleStore'
 import {
   Article,
   ArticleType,
@@ -21,31 +20,17 @@ import { isEmpty, isNull, isNumber } from 'lodash-es'
 import { useLazyQuery } from '@apollo/client/react'
 import { usePagination } from '@/common/components/atoms/UPagination'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import { ArticleCategory } from '@/modules/Article/business/ArticleCategory'
 
 /** 每頁呈現的卡片數量 */
 const ARTICLE_POST_COUNT = 9
 
 export default function useArticleSearch(
   articleType: ArticleType,
-  categoryId: string
+  category: ArticleCategory
 ) {
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
-  const articleHighlightedCategories =
-    useArticleStore.use.articleHighlightedCategories()
-  const ketagalanHighlightedCategories =
-    useArticleStore.use.ketagalanHighlightedCategories()
-  const highlightedCategories = useMemo(() => {
-    if (articleType === ArticleType.Ketagalan) {
-      return ketagalanHighlightedCategories
-    }
-
-    return articleHighlightedCategories
-  }, [
-    articleType,
-    articleHighlightedCategories,
-    ketagalanHighlightedCategories,
-  ])
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
   const queryVariables = useMemo<
@@ -55,14 +40,14 @@ export default function useArticleSearch(
       limit: ARTICLE_POST_COUNT,
       page,
       where: {
-        ...(!isEmpty(categoryId) && {
+        ...(!isEmpty(category.id) && {
           categories: {
-            equals: categoryId,
+            equals: category.id,
           },
         }),
       },
     }),
-    [categoryId, page]
+    [category.id, page]
   )
 
   const [getArticles, { loading: isArticlesLoading, data: articlesQueryData }] =
@@ -143,18 +128,11 @@ export default function useArticleSearch(
     })
   }, [queryVariables, getArticles, getKetagalanArticles, articleType])
 
-  const category = useMemo(
-    () => highlightedCategories.find((category) => category.id === categoryId),
-    [categoryId, highlightedCategories]
-  )
-
   const resetArticles = useCallback(() => {
     setArticles([])
   }, [])
 
   return {
-    highlightedCategories,
-    category,
     articles,
     isArticlesLoading: loading,
     totalPages,

@@ -40,22 +40,28 @@ export const generateMetadata = async ({
 }
 
 export default async function Article({ params }: KetagalanMediaPageProps) {
-  const [landingBannerArticles, articles] = await Promise.all([
-    ServerArticleApi.getLandingArticles(params.lang, {
-      limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
-      articleType: ArticleType.Ketagalan,
-    }),
-    ServerArticleApi.getArticles(params.lang, {
-      limit: ARTICLE_POST_COUNT,
-      articleType: ArticleType.Ketagalan,
-    }),
-  ])
+  const [landingBannerArticles, articles, tags, highlightedCategories] =
+    await Promise.all([
+      ServerArticleApi.getLandingArticles(params.lang, {
+        limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
+        articleType: ArticleType.Ketagalan,
+      }),
+      ServerArticleApi.getArticles(params.lang, {
+        limit: ARTICLE_POST_COUNT,
+        articleType: ArticleType.Ketagalan,
+      }),
+      ServerArticleApi.getLandingArticleTags(params.lang),
+      ServerArticleApi.getHighlightedCategories(
+        params.lang,
+        ArticleType.Ketagalan
+      ),
+    ])
 
   return (
     <UContainer>
       <Stack flex={1}>
         <UFullWidthBackgroundBox>
-          <KetagalanArticleNavbar />
+          <KetagalanArticleNavbar categories={highlightedCategories} />
         </UFullWidthBackgroundBox>
         {landingBannerArticles.length > 0 && (
           <ArticleLandingBannerCards articles={landingBannerArticles} />
@@ -63,6 +69,7 @@ export default async function Article({ params }: KetagalanMediaPageProps) {
         <ArticlePostSection
           articleType={ArticleType.Ketagalan}
           defaultArticles={articles}
+          tags={tags}
         />
       </Stack>
     </UContainer>

@@ -23,7 +23,6 @@ import {
   QUERY_USTW_ARTICLES,
   QUERY_KETAGALAN_ARTICLES,
 } from '@/modules/Article/graphql/gql'
-import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { useLazyQuery } from '@apollo/client/react'
 import { useTheme } from '@mui/material'
 import Stack from '@mui/material/Stack'
@@ -35,6 +34,7 @@ import UPagination, {
 } from '@/common/components/atoms/UPagination'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import ULoadMoreButton from '@/common/components/atoms/ULoadMoreButton'
+import { Tag } from '@/modules/Common/business/Tag'
 
 /** 每頁呈現的卡片數量 */
 const ARTICLE_POST_COUNT = 9
@@ -42,25 +42,18 @@ const ARTICLE_POST_COUNT = 9
 interface ArticlePostSectionProps {
   articleType: ArticleType
   defaultArticles?: Article[]
+  tags: Tag[]
 }
 
 const ArticlePostSection = ({
   articleType,
   defaultArticles,
+  tags,
 }: ArticlePostSectionProps) => {
   const { isMobile } = useResponsive()
   const { lang } = useParams<{ lang: Language }>()
   const theme = useTheme<USTWTheme>()
   const [activeTagId, setActiveTagId] = useState<string | undefined>()
-  const articleLandingTags = useArticleStore.use.articleLandingTags()
-  const ketagalanLandingTags = useArticleStore.use.ketagalanLandingTags()
-  const landingTags = useMemo(() => {
-    if (articleType === ArticleType.Ketagalan) {
-      return ketagalanLandingTags
-    }
-
-    return articleLandingTags
-  }, [articleType, articleLandingTags, ketagalanLandingTags])
   const { totalPages, setTotalPages, page, handlePageChange } = usePagination()
 
   const queryVariables = useMemo<UstwArticlesQueryVariables>(
@@ -172,7 +165,7 @@ const ArticlePostSection = ({
       >
         {/** Tags */}
         <UHStack gap={2} flexWrap="wrap" width="100%">
-          {landingTags.map((tag) => {
+          {tags.map((tag) => {
             const isActive = activeTagId === tag.id
 
             return (

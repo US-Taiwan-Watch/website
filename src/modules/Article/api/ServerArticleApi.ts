@@ -17,6 +17,10 @@ import {
   CategoriesKetagalansQueryVariables,
   TagsQuery,
   TagsQueryVariables,
+  CategoriesKetagalanQuery,
+  CategoriesKetagalanQueryVariables,
+  CategoriesArticleQuery,
+  CategoriesArticleQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
@@ -29,11 +33,14 @@ import {
   QUERY_USTW_ARTICLE_IDS,
   QUERY_CATEGORIES_ARTICLES,
   QUERY_CATEGORIES_KETAGALANS,
+  QUERY_CATEGORIES_KETAGALAN,
+  QUERY_CATEGORIES_ARTICLE,
 } from '@/modules/Article/graphql/gql'
 import { isNull, isUndefined } from 'lodash-es'
 import { Language } from '@/common/lib/i18n/types'
 import { QUERY_TAGS } from '@/modules/Common/graphql/gql'
 import TagUtils from '@/modules/Common/business/Tag'
+import { ArticleCategoryUtils } from '@/modules/Article/business/ArticleCategory'
 
 /**
  * Article API
@@ -306,6 +313,97 @@ export default class ServerArticleApi {
     } catch (error) {
       console.error('Failed to fetch landing articles:', error)
       return []
+    }
+  }
+
+  /**
+   * 取得 Highlighted Categories
+   * @param lang 語言
+   * @param articleType 文章類型
+   * @returns Highlighted Categories
+   */
+  static async getHighlightedCategories(
+    lang: Language,
+    articleType: ArticleType
+  ) {
+    try {
+      const client = getClient()
+
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await client.query<
+          CategoriesKetagalansQuery,
+          CategoriesKetagalansQueryVariables
+        >({
+          query: QUERY_CATEGORIES_KETAGALANS,
+        })
+
+        return (data?.CategoriesKetagalans?.docs ?? [])
+          .filter((category) => !isNull(category))
+          .map((category) => ArticleCategoryUtils.parse(lang, category))
+      }
+
+      const { data } = await client.query<
+        CategoriesArticlesQuery,
+        CategoriesArticlesQueryVariables
+      >({
+        query: QUERY_CATEGORIES_ARTICLES,
+      })
+
+      return (data?.CategoriesArticles?.docs ?? [])
+        .filter((category) => !isNull(category))
+        .map((category) => ArticleCategoryUtils.parse(lang, category))
+    } catch (error) {
+      console.error('Failed to fetch highlighted categories:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得 Category
+   * @param lang 語言
+   * @param articleType 文章類型
+   * @returns Highlighted Categories
+   */
+  static async getCategory(
+    lang: Language,
+    articleType: ArticleType,
+    categoryId: string
+  ) {
+    try {
+      const client = getClient()
+
+      if (articleType === ArticleType.Ketagalan) {
+        const { data } = await client.query<
+          CategoriesKetagalanQuery,
+          CategoriesKetagalanQueryVariables
+        >({
+          query: QUERY_CATEGORIES_KETAGALAN,
+          variables: {
+            id: categoryId,
+          },
+        })
+
+        if (!data?.CategoriesKetagalan) return null
+
+        return ArticleCategoryUtils.parse(lang, data.CategoriesKetagalan)
+      }
+
+      const { data } = await client.query<
+        CategoriesArticleQuery,
+        CategoriesArticleQueryVariables
+      >({
+        query: QUERY_CATEGORIES_ARTICLE,
+        variables: {
+          id: categoryId,
+        },
+      })
+
+      if (!data?.CategoriesArticle) return null
+
+      return ArticleCategoryUtils.parse(lang, data.CategoriesArticle)
+    } catch (error) {
+      console.error('Failed to fetch highlighted categories:', error)
+      return null
     }
   }
 

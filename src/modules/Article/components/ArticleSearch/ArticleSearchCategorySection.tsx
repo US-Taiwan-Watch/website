@@ -10,21 +10,21 @@ import ArticlePostCards, {
 import useArticleSearch from '@/modules/Article/hooks/useArticleSearch'
 import { Box, Stack, Typography, useTheme } from '@mui/material'
 import { ArticleType } from '@/modules/Article/business/Article'
+import { ArticleCategory } from '@/modules/Article/business/ArticleCategory'
 
 interface ArticleSearchCategorySectionProps {
   articleType: ArticleType
-  categoryId: string
+  category: ArticleCategory
 }
 
 const ArticleSearchCategorySection = ({
   articleType,
-  categoryId,
+  category,
 }: ArticleSearchCategorySectionProps) => {
   const theme = useTheme<USTWTheme>()
 
   const {
     isArticlesLoading,
-    category,
     articles,
     shouldAppendData,
     totalPages,
@@ -32,7 +32,7 @@ const ArticleSearchCategorySection = ({
     handlePageChange,
     resetArticles,
     totalDocs,
-  } = useArticleSearch(articleType, categoryId)
+  } = useArticleSearch(articleType, category)
 
   return (
     <Stack

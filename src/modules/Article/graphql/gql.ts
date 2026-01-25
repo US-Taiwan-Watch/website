@@ -138,18 +138,22 @@ export const QUERY_CATEGORIES_ARTICLES = gql`
   ) {
     CategoriesArticles(where: $where, limit: $limit, page: $page, sort: $sort) {
       docs {
-        id
-        i18n {
-          en {
-            name # Category英文名稱
-          }
-          zh {
-            name # Category中文名稱
-          }
-        }
+        ...CategoriesArticle
       }
     }
   }
+
+  ${CATEGORIES_ARTICLE_FRAGMENT}
+`
+
+export const QUERY_CATEGORIES_ARTICLE = gql`
+  query CategoriesArticle($id: String!) {
+    CategoriesArticle(id: $id) {
+      ...CategoriesArticle
+    }
+  }
+
+  ${CATEGORIES_ARTICLE_FRAGMENT}
 `
 
 export const QUERY_USTW_ARTICLE_METADATA = gql`
@@ -317,18 +321,22 @@ export const QUERY_CATEGORIES_KETAGALANS = gql`
       sort: $sort
     ) {
       docs {
-        id
-        i18n {
-          en {
-            name # Category英文名稱
-          }
-          zh {
-            name # Category中文名稱
-          }
-        }
+        ...CategoriesKetagalan
       }
     }
   }
+
+  ${CATEGORIES_KETAGALAN_FRAGMENT}
+`
+
+export const QUERY_CATEGORIES_KETAGALAN = gql`
+  query CategoriesKetagalan($id: String!) {
+    CategoriesKetagalan(id: $id) {
+      ...CategoriesKetagalan
+    }
+  }
+
+  ${CATEGORIES_KETAGALAN_FRAGMENT}
 `
 
 export const QUERY_KETAGALAN_ARTICLE_METADATA = gql`

@@ -6,15 +6,19 @@ import UKetagalanLogo from '@/common/components/atoms/UKetagalanLogo'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import { ArticleUtils, ArticleType } from '@/modules/Article/business/Article'
-import useArticleStore from '@/modules/Article/store/useArticleStore'
 import { Box, Divider, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 import KetagalanAboutMenu from '@/modules/Article/components/KetagalanAboutMenu'
+import { ArticleCategory } from '@/modules/Article/business/ArticleCategory'
 
-const KetagalanNavLinks = ({ activeId }: { activeId?: string }) => {
+const KetagalanNavLinks = ({
+  categories,
+  activeId,
+}: {
+  categories: ArticleCategory[]
+  activeId?: string
+}) => {
   const theme = useTheme<USTWTheme>()
-  const ketagalanHighlightedCategories =
-    useArticleStore.use.ketagalanHighlightedCategories()
 
   return (
     <UHStack
@@ -26,7 +30,7 @@ const KetagalanNavLinks = ({ activeId }: { activeId?: string }) => {
         color: theme.color.article.navText,
       }}
     >
-      {ketagalanHighlightedCategories.map((item) => (
+      {categories.map((item) => (
         <Link
           href={ArticleUtils.getCategoryLink(ArticleType.Ketagalan, item)}
           key={item.id}
@@ -57,10 +61,14 @@ const KetagalanNavLinks = ({ activeId }: { activeId?: string }) => {
 }
 
 interface KetagalanArticleNavbarProps {
+  categories: ArticleCategory[]
   activeId?: string
 }
 
-const KetagalanArticleNavbar = ({ activeId }: KetagalanArticleNavbarProps) => {
+const KetagalanArticleNavbar = ({
+  categories,
+  activeId,
+}: KetagalanArticleNavbarProps) => {
   const { isMobile } = useResponsive()
   const theme = useTheme<USTWTheme>()
 
@@ -77,7 +85,7 @@ const KetagalanArticleNavbar = ({ activeId }: KetagalanArticleNavbarProps) => {
       >
         <UKetagalanLogo sx={{ width: 200, height: 'auto' }} />
         <Divider orientation="vertical" flexItem sx={{ mx: 2 }} />
-        <KetagalanNavLinks activeId={activeId} />
+        <KetagalanNavLinks categories={categories} activeId={activeId} />
       </Box>
     )
   }
@@ -95,7 +103,7 @@ const KetagalanArticleNavbar = ({ activeId }: KetagalanArticleNavbarProps) => {
           justifyContent="space-between"
           py={2}
         >
-          <KetagalanNavLinks activeId={activeId} />
+          <KetagalanNavLinks categories={categories} activeId={activeId} />
           <UKetagalanLogo sx={{ width: 200, height: 'auto' }} />
         </Box>
       </UContainer>

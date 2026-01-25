@@ -4,19 +4,17 @@ import UContainer from '@/common/components/atoms/UContainer'
 import UHStack from '@/common/components/atoms/UHStack'
 import { USTWTheme } from '@/common/lib/mui/theme'
 import { ArticleUtils, ArticleType } from '@/modules/Article/business/Article'
-import useArticleStore from '@/modules/Article/store/useArticleStore'
+import { ArticleCategory } from '@/modules/Article/business/ArticleCategory'
 import { Box, Typography, useTheme } from '@mui/material'
 import Link from 'next/link'
 
 interface ArticleNavbarProps {
+  categories: ArticleCategory[]
   activeId?: string
 }
 
-const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
+const ArticleNavbar = ({ categories, activeId }: ArticleNavbarProps) => {
   const theme = useTheme<USTWTheme>()
-
-  const articleHighlightedCategories =
-    useArticleStore.use.articleHighlightedCategories()
 
   return (
     <Box
@@ -39,7 +37,7 @@ const ArticleNavbar = ({ activeId }: ArticleNavbarProps) => {
             color: theme.color.article.navText,
           }}
         >
-          {articleHighlightedCategories.map((item) => (
+          {categories.map((item) => (
             <Link
               href={ArticleUtils.getCategoryLink(ArticleType.Article, item)}
               key={item.id}
