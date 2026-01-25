@@ -14,6 +14,7 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { isUndefined, isNull } from 'lodash-es'
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { FetchOptions } from '@/common/lib/graphql/revalidate'
 import {
   QUERY_BILL,
   QUERY_BILL_TOP_COSPONSORS,
@@ -55,6 +56,7 @@ export default class ServerBillApi {
             },
           },
         },
+        context: FetchOptions.realTime,
       })
 
       return (
@@ -88,6 +90,7 @@ export default class ServerBillApi {
         variables: {
           limit,
         },
+        context: FetchOptions.stable,
       })
       return (
         data?.BillTopTags?.filter(
@@ -121,6 +124,7 @@ export default class ServerBillApi {
       >({
         query: QUERY_BILL_TOP_SPONSORS,
         variables: { limit },
+        context: FetchOptions.stable,
       })
 
       return (
@@ -158,6 +162,7 @@ export default class ServerBillApi {
       >({
         query: QUERY_BILL_TOP_COSPONSORS,
         variables: { limit },
+        context: FetchOptions.stable,
       })
 
       return (
@@ -198,6 +203,7 @@ export default class ServerBillApi {
           sort: '-introducedAt.datetime',
           limit,
         },
+        context: FetchOptions.realTime,
       })
 
       return (
@@ -233,6 +239,7 @@ export default class ServerBillApi {
           sort: '-introducedAt.datetime',
           limit,
         },
+        context: FetchOptions.realTime,
       })
       return (
         popularBillsData?.Bills?.docs
@@ -257,6 +264,7 @@ export default class ServerBillApi {
       const { data } = await client.query<BillQuery, BillQueryVariables>({
         query: QUERY_BILL,
         variables: { id },
+        context: FetchOptions.dynamic,
       })
 
       if (!data?.Bill) return null
@@ -280,6 +288,7 @@ export default class ServerBillApi {
       const { data } = await client.query<BillQuery, BillQueryVariables>({
         query: QUERY_BILL,
         variables: { id },
+        context: FetchOptions.dynamic,
       })
 
       return (
@@ -302,6 +311,7 @@ export default class ServerBillApi {
       const client = getClient()
       const { data } = await client.query<BillIdsQuery, BillIdsQueryVariables>({
         query: QUERY_BILL_IDS,
+        context: FetchOptions.stable,
       })
 
       return (

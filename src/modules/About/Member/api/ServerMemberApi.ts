@@ -1,4 +1,5 @@
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { FetchOptions } from '@/common/lib/graphql/revalidate'
 import {
   QUERY_KETAGALAN_MEMBERS,
   QUERY_USTW_MEMBERS,
@@ -26,6 +27,7 @@ export default class ServerMemberApi {
       UstwMembersQueryVariables
     >({
       query: QUERY_USTW_MEMBERS,
+      context: FetchOptions.static,
     })
 
     return (
@@ -42,6 +44,7 @@ export default class ServerMemberApi {
       KetagalanMembersQueryVariables
     >({
       query: QUERY_KETAGALAN_MEMBERS,
+      context: FetchOptions.static,
     })
 
     return (

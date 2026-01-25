@@ -8,6 +8,7 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { FetchOptions } from '@/common/lib/graphql/revalidate'
 import { PeopleUtils } from '@/modules/People/business/People'
 import {
   QUERY_PEOPLE,
@@ -40,6 +41,7 @@ export default class ServerPeopleApi {
         limit,
         sort: '-viewCount',
       },
+      context: FetchOptions.realTime,
     })
 
     return (
@@ -60,6 +62,7 @@ export default class ServerPeopleApi {
     const { data } = await client.query<PeopleQuery, PeopleQueryVariables>({
       query: QUERY_PEOPLE,
       variables: { id },
+      context: FetchOptions.dynamic,
     })
 
     if (!data?.People) return null
@@ -79,6 +82,7 @@ export default class ServerPeopleApi {
         PeopleIdsQueryVariables
       >({
         query: QUERY_PEOPLE_IDS,
+        context: FetchOptions.stable,
       })
 
       return (
