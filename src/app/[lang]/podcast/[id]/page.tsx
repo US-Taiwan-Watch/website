@@ -1,12 +1,13 @@
 import { Language } from '@/common/lib/i18n/types'
 import { config } from '@/config'
-import { getEpisode } from '@/modules/Podcast/api/soundon'
+import { getEpisode, getEpisodes } from '@/modules/Podcast/api/soundon'
 import { notFound } from 'next/navigation'
 import EpisodePost from '@/modules/Podcast/components/EpisodePost'
 import { Metadata } from 'next'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
+import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
 
 type PodcastPageProps = {
   params: {
@@ -43,6 +44,16 @@ export const generateMetadata = async ({
     })),
     ...(episodeDescription && { description: episodeDescription }),
   }
+}
+
+export const generateStaticParams = async () => {
+  const episodes = await getEpisodes({ podcastId: config.SOUNDON_PODCAST_ID! })
+  return I18N_SUPPORTED_LANGUAGE.flatMap((lang) =>
+    episodes.map((episode) => ({
+      lang,
+      id: episode.id,
+    }))
+  )
 }
 
 export default async function PodcastPage({ params }: PodcastPageProps) {

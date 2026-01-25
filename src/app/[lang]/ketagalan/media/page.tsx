@@ -40,8 +40,8 @@ export const generateMetadata = async ({
 }
 
 export default async function Article({ params }: KetagalanMediaPageProps) {
-  const [landingBannerArticles, articles, tags, highlightedCategories] =
-    await Promise.all([
+  const [landingBannerArticles, articles, tags, categories] = await Promise.all(
+    [
       ServerArticleApi.getLandingArticles(params.lang, {
         limit: ARTICLE_LANDING_BANNER_CARDS_LIMIT,
         articleType: ArticleType.Ketagalan,
@@ -51,17 +51,15 @@ export default async function Article({ params }: KetagalanMediaPageProps) {
         articleType: ArticleType.Ketagalan,
       }),
       ServerArticleApi.getLandingArticleTags(params.lang),
-      ServerArticleApi.getHighlightedCategories(
-        params.lang,
-        ArticleType.Ketagalan
-      ),
-    ])
+      ServerArticleApi.getCategories(params.lang, ArticleType.Ketagalan),
+    ]
+  )
 
   return (
     <UContainer>
       <Stack flex={1}>
         <UFullWidthBackgroundBox>
-          <KetagalanArticleNavbar categories={highlightedCategories} />
+          <KetagalanArticleNavbar categories={categories} />
         </UFullWidthBackgroundBox>
         {landingBannerArticles.length > 0 && (
           <ArticleLandingBannerCards articles={landingBannerArticles} />

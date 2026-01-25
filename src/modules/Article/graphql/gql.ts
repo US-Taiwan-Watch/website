@@ -351,7 +351,7 @@ export const QUERY_KETAGALAN_ARTICLE_METADATA = gql`
 
 export const QUERY_KETAGALAN_ARTICLE_IDS = gql`
   query KetagalanArticleIds {
-    KetagalanArticles {
+    KetagalanArticles(limit: 2147483647) {
       docs {
         id
         updatedAt

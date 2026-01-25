@@ -462,7 +462,7 @@ export const QUERY_BILL_FILTER = gql`
 
 export const QUERY_BILL_IDS = gql`
   query BillIds {
-    Bills {
+    Bills(limit: 2147483647) {
       docs {
         id
         updatedAt

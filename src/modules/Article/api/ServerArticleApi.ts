@@ -43,6 +43,8 @@ import { QUERY_TAGS } from '@/modules/Common/graphql/gql'
 import TagUtils from '@/modules/Common/business/Tag'
 import { ArticleCategoryUtils } from '@/modules/Article/business/ArticleCategory'
 
+const MAX_CATEGORIES_COUNT = 2147483647 // 2^31 - 1
+
 /**
  * Article API
  *
@@ -243,6 +245,7 @@ export default class ServerArticleApi {
             },
           },
         },
+        context: FetchOptions.realTime,
       })
 
       return (data?.Tags?.docs ?? [])
@@ -326,15 +329,12 @@ export default class ServerArticleApi {
   }
 
   /**
-   * 取得 Highlighted Categories
+   * 取得 Categories
    * @param lang 語言
    * @param articleType 文章類型
-   * @returns Highlighted Categories
+   * @returns Categories
    */
-  static async getHighlightedCategories(
-    lang: Language,
-    articleType: ArticleType
-  ) {
+  static async getCategories(lang: Language, articleType: ArticleType) {
     try {
       const client = getClient()
 
@@ -344,6 +344,10 @@ export default class ServerArticleApi {
           CategoriesKetagalansQueryVariables
         >({
           query: QUERY_CATEGORIES_KETAGALANS,
+          context: FetchOptions.realTime,
+          variables: {
+            limit: MAX_CATEGORIES_COUNT,
+          },
         })
 
         return (data?.CategoriesKetagalans?.docs ?? [])
@@ -356,13 +360,17 @@ export default class ServerArticleApi {
         CategoriesArticlesQueryVariables
       >({
         query: QUERY_CATEGORIES_ARTICLES,
+        context: FetchOptions.realTime,
+        variables: {
+          limit: MAX_CATEGORIES_COUNT,
+        },
       })
 
       return (data?.CategoriesArticles?.docs ?? [])
         .filter((category) => !isNull(category))
         .map((category) => ArticleCategoryUtils.parse(lang, category))
     } catch (error) {
-      console.error('Failed to fetch highlighted categories:', error)
+      console.error('Failed to fetch categories:', error)
       return []
     }
   }
@@ -371,7 +379,7 @@ export default class ServerArticleApi {
    * 取得 Category
    * @param lang 語言
    * @param articleType 文章類型
-   * @returns Highlighted Categories
+   * @returns Category
    */
   static async getCategory(
     lang: Language,
@@ -390,6 +398,7 @@ export default class ServerArticleApi {
           variables: {
             id: categoryId,
           },
+          context: FetchOptions.realTime,
         })
 
         if (!data?.CategoriesKetagalan) return null
@@ -405,6 +414,7 @@ export default class ServerArticleApi {
         variables: {
           id: categoryId,
         },
+        context: FetchOptions.realTime,
       })
 
       if (!data?.CategoriesArticle) return null

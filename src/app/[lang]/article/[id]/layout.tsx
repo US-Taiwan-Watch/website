@@ -7,6 +7,7 @@ import { ArticleType } from '@/modules/Article/business/Article'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
+import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
 
 interface ArticlePostLayoutProps {
   params: {
@@ -36,6 +37,18 @@ export async function generateMetadata({
     title: article.title,
     description: article.description,
   }
+}
+
+export const generateStaticParams = async () => {
+  const ids = await ServerArticleApi.getArticleIds({
+    articleType: ArticleType.Article,
+  })
+  return I18N_SUPPORTED_LANGUAGE.flatMap((lang) =>
+    ids.map((id) => ({
+      lang,
+      id: id.id,
+    }))
+  )
 }
 
 export default function ArticlePostLayout({

@@ -15,6 +15,8 @@ export const getEpisodes = async (params: GetEpisodesParams) => {
         headers: {
           'Api-Token': `${config.SOUNDON_API_TOKEN}`,
         },
+        // soundon api will return over 2MB, reaching the limit of Next.js data cache, therefore, skip cache mechanism.
+        cache: 'no-store',
       }
     )
     const data = (await res.json()) as GetEpisodesResponse

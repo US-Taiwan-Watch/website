@@ -9,6 +9,7 @@ import { Metadata } from 'next'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
+import { I18N_SUPPORTED_LANGUAGE } from '@/common/lib/i18n/settings'
 
 interface PeopleTrackerProps {
   params: {
@@ -42,6 +43,16 @@ export const generateMetadata = async ({
     })),
     ...(peopleDescription && { description: peopleDescription }),
   }
+}
+
+export const generateStaticParams = async () => {
+  const ids = await ServerPeopleApi.getPeopleIds()
+  return I18N_SUPPORTED_LANGUAGE.flatMap((lang) =>
+    ids.map((id) => ({
+      lang,
+      id: id.id,
+    }))
+  )
 }
 
 export default async function PeopleTracker({ params }: PeopleTrackerProps) {
