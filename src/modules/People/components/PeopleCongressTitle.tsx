@@ -14,11 +14,11 @@ const PeopleCongressTitle = function PeopleCongressTitle({
   const { t } = useTranslationClient(['people'])
 
   const isPresent = useMemo(() => {
-    // 如果沒有 end，代表還在任職中，所以取目前年份
+    // 如果沒有 end，代表還在任職中
     if (!congressExperienceRange.latestCongressYear) return true
-    // 如果最新的國會年份為今年，代表還在任職中
+    // 如果最新的國會年份大於今年，代表還在任職中
     if (
-      congressExperienceRange.latestCongressYear ===
+      congressExperienceRange.latestCongressYear >
       DateUtils.safeParseDc().year()
     )
       return true

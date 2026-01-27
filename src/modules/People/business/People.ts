@@ -175,7 +175,7 @@ export class PeopleUtils {
       cosponsoredBillCount: dto.cosponsorBills?.length ?? 0,
       votingRecordCount: dto.votes?.length ?? 0,
       congressExperienceRange:
-        PeopleUtils.getCongressExperenceRange(dto.experiences) ?? undefined,
+        PeopleUtils.getCongressExperienceRange(dto.experiences) ?? undefined,
     })
   }
 
@@ -369,7 +369,7 @@ export class PeopleUtils {
    * @param dto
    * @returns
    */
-  static getCongressExperenceRange(
+  static getCongressExperienceRange(
     dto: ApiPeople['experiences']
   ): CongressExperienceRange | null {
     if (!isArray(dto)) return null
