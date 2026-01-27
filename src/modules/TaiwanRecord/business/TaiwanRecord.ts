@@ -14,6 +14,13 @@ export enum TaiwanRecordStatus {
  */
 export const MAX_IMAGE_COUNT = 10
 
+const sourcesSchema = z.array(
+  z.object({
+    id: z.string(),
+    url: z.string().url(),
+  })
+)
+
 export const taiwanRecordSchema = z.object({
   id: z.string(),
   title: z.string().min(1),
@@ -29,24 +36,23 @@ export const taiwanRecordSchema = z.object({
     .max(MAX_IMAGE_COUNT),
   createdAt: z.string().datetime(),
   author: z.string(),
-  sources: z.array(
-    z.object({
-      id: z.string(),
-      url: z.string().url(),
-    })
-  ),
+  sources: sourcesSchema,
   status: z.nativeEnum(TaiwanRecordStatus),
   peopleId: z.string(),
 })
 
 export type TaiwanRecord = z.infer<typeof taiwanRecordSchema>
 
-export const taiwanRecordCreateSchema = taiwanRecordSchema.pick({
-  title: true,
-  content: true,
-  images: true,
-  sources: true,
-})
+export const taiwanRecordCreateSchema = taiwanRecordSchema
+  .pick({
+    title: true,
+    content: true,
+    images: true,
+    sources: true,
+  })
+  .extend({
+    sources: sourcesSchema.min(1),
+  })
 
 export type TaiwanRecordCreateInput = z.input<typeof taiwanRecordCreateSchema>
 export type TaiwanRecordCreateOutput = z.infer<typeof taiwanRecordCreateSchema>

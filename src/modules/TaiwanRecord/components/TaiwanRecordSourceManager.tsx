@@ -11,6 +11,7 @@ import {
 } from '@/modules/TaiwanRecord/business/TaiwanRecord'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { z } from 'zod'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 
 type TaiwanRecordSourceManagerProps = {
   isReadOnly?: boolean
@@ -19,6 +20,7 @@ type TaiwanRecordSourceManagerProps = {
 const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
   isReadOnly = false,
 }: TaiwanRecordSourceManagerProps) {
+  const { isMobile } = useResponsive()
   const { control } = useFormContext<
     TaiwanRecordCreateInput | TaiwanRecordUpdateInput
   >()
@@ -65,7 +67,7 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
     <Controller
       control={control}
       name="sources"
-      render={({ field }) => (
+      render={({ field, fieldState: { error } }) => (
         <Box>
           <Typography variant="body2" fontWeight={600} mb={1}>
             {t('form.sources.label', { ns: 'taiwan_record' })}
@@ -74,7 +76,7 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
           <Stack gap={2}>
             {/* 輸入框和新增按鈕 */}
             {!isReadOnly && (
-              <Stack direction="row" gap={1}>
+              <Stack direction="row" gap={1} alignItems="flex-start">
                 <TextField
                   size="small"
                   fullWidth
@@ -94,8 +96,8 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
                       field.onChange([...(field.value || []), newSource])
                     }
                   }}
-                  error={!!urlError}
-                  helperText={urlError}
+                  error={!!(urlError || error?.message)}
+                  helperText={urlError || error?.message}
                   color="info"
                 />
                 <Button
@@ -107,11 +109,26 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
                     if (!newSource) return
                     field.onChange([...(field.value || []), newSource])
                   }}
-                  sx={{ textTransform: 'none', minWidth: 'fit-content' }}
+                  sx={{
+                    height: '40px',
+                    textTransform: 'none',
+                    minWidth: 'fit-content',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    borderRadius: {
+                      xs: '100%',
+                      sm: '8px',
+                    },
+                  }}
                   color="info"
                 >
-                  <AddIcon sx={{ mr: 0.5 }} fontSize="small" />
-                  {t('form.sources.add.btn', { ns: 'taiwan_record' })}
+                  <AddIcon fontSize="small" />
+                  {!isMobile && (
+                    <span>
+                      {t('form.sources.add.btn', { ns: 'taiwan_record' })}
+                    </span>
+                  )}
                 </Button>
               </Stack>
             )}
