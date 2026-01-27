@@ -12,6 +12,8 @@ import type {
 } from '@/common/lib/graphql/__generated__/graphql'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { isNull, isNumber } from 'lodash-es'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 /** Taiwan Record list page size */
 const TAIWAN_RECORD_LIST_COUNT = 10
@@ -27,6 +29,7 @@ export default function useTaiwanRecordList({
   peopleId,
   sort = '-createdAt',
 }: UseTaiwanRecordListOptions) {
+  const { lang } = useParams<{ lang: Language }>()
   const { isMobile } = useResponsive()
   const { totalPages, setTotalPages, page, handlePageChange, resetPagination } =
     usePagination()
@@ -66,7 +69,7 @@ export default function useTaiwanRecordList({
     try {
       const newRecords = data.TaiwanRecords.docs
         .filter((doc) => !isNull(doc))
-        .map((doc) => TaiwanRecordUtils.parse(doc))
+        .map((doc) => TaiwanRecordUtils.parse(lang, doc))
 
       const currentTotalPages = isNumber(data.TaiwanRecords.totalPages)
         ? data.TaiwanRecords.totalPages
@@ -96,7 +99,7 @@ export default function useTaiwanRecordList({
       )
       // Keep previous records on error
     }
-  }, [data, shouldAppendData, totalPages, setTotalPages])
+  }, [lang, data, shouldAppendData, totalPages, setTotalPages])
 
   // Execute query when variables change
   useEffect(() => {

@@ -32,6 +32,14 @@ export const TAIWAN_RECORD_FRAGMENT = gql`
     people {
       id
       gender
+      i18n {
+        en {
+          displayName
+        }
+        zh {
+          displayName
+        }
+      }
     }
   }
 

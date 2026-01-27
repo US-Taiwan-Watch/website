@@ -179,13 +179,14 @@ export default class AccountUtils {
   }
 
   static parseSubmittedTaiwanRecords(
+    lang: Language,
     submittedTaiwanRecords: Member['submittedTaiwanRecords']
   ) {
     if (!submittedTaiwanRecords) return []
     return submittedTaiwanRecords
       .map((submittedTaiwanRecord) => {
         if (!submittedTaiwanRecord) return null
-        return TaiwanRecordUtils.parse(submittedTaiwanRecord)
+        return TaiwanRecordUtils.parse(lang, submittedTaiwanRecord)
       })
       .filter((record) => !isNull(record))
   }

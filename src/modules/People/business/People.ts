@@ -167,7 +167,7 @@ export class PeopleUtils {
       isCurrentCongressMember: PeopleUtils.parseIsCurrentCongressMember(
         dto.experiences
       ),
-      taiwanRecords: PeopleUtils.parseTaiwanRecord(dto.records),
+      taiwanRecords: PeopleUtils.parseTaiwanRecord(lang, dto.records),
       govTrackId: dto.govTrackId ?? undefined,
       links: dto.links ?? [],
       billCount: dto.billCount ?? 0,
@@ -336,9 +336,9 @@ export class PeopleUtils {
    * @param dto
    * @returns
    */
-  static parseTaiwanRecord(dto: ApiPeople['records']) {
+  static parseTaiwanRecord(lang: Language, dto: ApiPeople['records']) {
     if (!isArray(dto)) return []
-    return dto.map((item) => TaiwanRecordUtils.parse(item))
+    return dto.map((item) => TaiwanRecordUtils.parse(lang, item))
   }
 
   /**

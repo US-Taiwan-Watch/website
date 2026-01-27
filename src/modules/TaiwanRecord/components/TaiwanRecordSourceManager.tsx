@@ -43,7 +43,7 @@ const TaiwanRecordSourceManager = memo(function TaiwanRecordSourceManager({
       return
     }
 
-    if (sources?.map((source) => source.url)?.includes(inputUrl)) {
+    if (new Set(sources?.map((source) => source.url))?.has(inputUrl)) {
       setUrlError(t('form.sources.error.duplicate', { ns: 'taiwan_record' }))
       return
     }

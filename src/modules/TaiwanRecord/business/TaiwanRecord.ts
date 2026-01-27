@@ -1,6 +1,8 @@
 import { isString } from 'lodash-es'
 import { z } from 'zod'
 import { TaiwanRecord as TaiwanRecordDTO } from '@/common/lib/graphql/__generated__/graphql'
+import CommonUtils from '@/modules/Common/Common.utils'
+import { Language } from '@/common/lib/i18n/types'
 
 export enum TaiwanRecordStatus {
   InReview = 'inReview',
@@ -38,7 +40,10 @@ export const taiwanRecordSchema = z.object({
   author: z.string(),
   sources: sourcesSchema,
   status: z.nativeEnum(TaiwanRecordStatus),
-  peopleId: z.string(),
+  people: z.object({
+    id: z.string(),
+    name: z.string(),
+  }),
 })
 
 export type TaiwanRecord = z.infer<typeof taiwanRecordSchema>
@@ -70,7 +75,7 @@ export const taiwanRecordUpdateSchema = taiwanRecordSchema.pick({
   content: true,
   images: true,
   sources: true,
-  peopleId: true,
+  people: true,
 })
 
 export type TaiwanRecordUpdateInput = z.input<typeof taiwanRecordUpdateSchema>
@@ -82,11 +87,15 @@ export const defaultTaiwanRecordUpdate: TaiwanRecordUpdateOutput = {
   content: '',
   images: [],
   sources: [],
-  peopleId: '',
+  people: {
+    id: '',
+    name: '',
+  },
 }
 
 export class TaiwanRecordUtils {
-  static parse(dto: TaiwanRecordDTO) {
+  static parse(lang: Language, dto: TaiwanRecordDTO) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
     return taiwanRecordSchema.parse({
       id: dto.id ?? undefined,
       title: dto.title ?? '',
@@ -110,7 +119,13 @@ export class TaiwanRecordUtils {
       status: dto.status,
       createdAt: dto.createdAt ?? '',
       author: dto.author?.fullName ?? '',
-      peopleId: dto.people?.id ?? '',
+      people: {
+        id: dto.people?.id ?? '',
+        name:
+          dto.people?.i18n?.[apiLang]?.displayName ||
+          dto.people?.i18n?.[fallbackLang]?.displayName ||
+          '',
+      },
     })
   }
 

@@ -110,7 +110,7 @@ export default function useTaiwanRecord() {
           data: {
             title: value.title,
             description: value.content,
-            people: value.peopleId,
+            people: value.people.id,
             sources: value.sources.map((source) => ({
               id: source.id,
               link: source.url,

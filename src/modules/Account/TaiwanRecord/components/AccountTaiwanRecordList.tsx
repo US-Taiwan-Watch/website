@@ -4,7 +4,7 @@ import UFullWidthBackgroundBox from '@/common/components/atoms/UFullWidthBackgro
 import UHStack from '@/common/components/atoms/UHStack'
 import useAccountLayout from '@/modules/Account/hooks/useAccountLayout'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
-import { Box, CircularProgress, Stack } from '@mui/material'
+import { Box, CircularProgress, Stack, Typography } from '@mui/material'
 import { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import useAccountTaiwanRecordStore from '@/modules/Account/TaiwanRecord/hooks/useAccountTaiwanRecordStore'
@@ -20,6 +20,8 @@ import {
   QueryMeSubmittedTaiwanRecordsQuery,
   QueryMeSubmittedTaiwanRecordsQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 type AccountTaiwanRecordListItemProps = {
   taiwanRecord: TaiwanRecord
@@ -61,27 +63,36 @@ const AccountTaiwanRecordListItem = memo(function AccountTaiwanRecordListItem({
         >
           {t(`taiwanRecord.status.${taiwanRecord.status}`, { ns: 'account' })}
         </Box>
-        <UHeightLimitedText
-          maxLine={2}
-          variant="bodyS"
-          color="grey.4400"
-          fontWeight={'600 !important'}
+        <Stack
           onClick={() => onClick(taiwanRecord)}
           sx={{
             cursor: 'pointer',
             ':hover': {
-              textDecoration: 'underline',
+              '& > .MuiTypography-root': {
+                textDecoration: 'underline',
+              },
             },
           }}
         >
-          {taiwanRecord.title}
-        </UHeightLimitedText>
+          <UHeightLimitedText
+            maxLine={2}
+            variant="buttonXS"
+            color="grey.4400"
+            fontWeight={'600 !important'}
+          >
+            {taiwanRecord.title}
+          </UHeightLimitedText>
+          <Typography variant="buttonXXS" color="grey.4400">
+            {taiwanRecord.people.name}
+          </Typography>
+        </Stack>
       </UHStack>
     </UHStack>
   )
 })
 
 const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
+  const { lang } = useParams<{ lang: Language }>()
   const { data, loading, refetch } = useQuery<
     QueryMeSubmittedTaiwanRecordsQuery,
     QueryMeSubmittedTaiwanRecordsQueryVariables
@@ -96,10 +107,11 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
   useEffect(() => {
     if (!data?.Me?.submittedTaiwanRecords) return
     const parsedRecords = AccountUtils.parseSubmittedTaiwanRecords(
+      lang,
       data.Me.submittedTaiwanRecords
     )
     setAccountTaiwanRecordList(parsedRecords)
-  }, [data, setAccountTaiwanRecordList])
+  }, [data, lang, setAccountTaiwanRecordList])
 
   const currentAccountTaiwanRecordStatus =
     useAccountTaiwanRecordStore.use.currentAccountTaiwanRecordStatus()
@@ -179,7 +191,7 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
                   ? 'view'
                   : 'update'
               }
-              peopleId={taiwanRecordForDialog.peopleId}
+              peopleId={taiwanRecordForDialog.people.id}
               taiwanRecord={taiwanRecordForDialog}
               open={isTaiwanRecordDialogOpen}
               onClose={handleTaiwanRecordDialogClose}
@@ -217,7 +229,7 @@ const AccountTaiwanRecordList = memo(function AccountTaiwanRecordList() {
               ? 'view'
               : 'update'
           }
-          peopleId={taiwanRecordForDialog.peopleId}
+          peopleId={taiwanRecordForDialog.people.id}
           taiwanRecord={taiwanRecordForDialog}
           open={isTaiwanRecordDialogOpen}
           onClose={handleTaiwanRecordDialogClose}
