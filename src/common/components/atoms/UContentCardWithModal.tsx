@@ -12,7 +12,6 @@ import UContentCardDialog from '@/common/components/atoms/UContentCardDialog'
 import UContentCardDrawer from '@/common/components/atoms/UContentCardDrawer'
 import UIconButton from '@/common/components/atoms/UIconButton'
 import UHStack from '@/common/components/atoms/UHStack'
-import UCardInfo, { UCardInfoProps } from '@/common/components/atoms/UCardInfo'
 import useContentCardModal from '@/common/hooks/useContentCardModal'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
@@ -38,7 +37,7 @@ const NoContentPlaceholder = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-type ActionType = 'tooltip' | 'modal' | 'none'
+type ActionType = 'modal' | 'none'
 
 export interface UContentCardWithModalProps {
   /** Card preview content */
@@ -61,8 +60,6 @@ export interface UContentCardWithModalProps {
     /** Sub-action for mobile drawer header */
     drawerSubAction?: React.ReactNode
   }
-  /** Tooltip configuration (required if actionType is 'tooltip') */
-  tooltip?: UCardInfoProps
   /** Placeholder when no content */
   noContentPlaceholder?: React.ReactNode
   /** Enable overflow hidden with gradient */
@@ -97,7 +94,6 @@ const UContentCardWithModal = function UContentCardWithModal({
   children,
   header,
   modal,
-  tooltip,
   noContentPlaceholder,
   overflowHidden,
   sx,
@@ -130,8 +126,6 @@ const UContentCardWithModal = function UContentCardWithModal({
           </UIconButton>
         </UHStack>
       )
-    } else if (actionType === 'tooltip' && tooltip) {
-      return <UCardInfo {...tooltip} />
     } else {
       return headerProps.action
     }
@@ -139,7 +133,6 @@ const UContentCardWithModal = function UContentCardWithModal({
     actionType,
     subAction,
     actionIcon,
-    tooltip,
     headerProps.action,
     handleActionClick,
     theme.color.neutral,

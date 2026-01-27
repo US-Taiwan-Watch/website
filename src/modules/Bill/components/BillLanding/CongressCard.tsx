@@ -58,12 +58,6 @@ export default function CongressCard() {
         }),
         icon: <CongressIcon />,
         iconColor: 'primary',
-        actionType: 'tooltip',
-      }}
-      tooltip={{
-        content: t('landing.card.congressionalDistribution.tooltip', {
-          ns: 'bill',
-        }),
       }}
     >
       <Stack pt={2} alignItems="center">

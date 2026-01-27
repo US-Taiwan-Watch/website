@@ -80,10 +80,6 @@ export default function TrendCard() {
         title: t('landing.card.trend.title', { ns: 'bill' }),
         icon: <TrendIcon />,
         iconColor: 'primary',
-        actionType: 'tooltip',
-      }}
-      tooltip={{
-        content: t('landing.card.trend.tooltip', { ns: 'bill' }),
       }}
     >
       <Stack

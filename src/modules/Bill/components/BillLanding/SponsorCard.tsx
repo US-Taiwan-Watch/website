@@ -83,12 +83,6 @@ export default function SponsorCard({
           : t('landing.card.topSponsors.title', { ns: 'bill' }),
         icon: <SponsorIcon />,
         iconColor: 'primary',
-        actionType: 'tooltip',
-      }}
-      tooltip={{
-        content: isCosponsor
-          ? t('landing.card.topCosponsors.tooltip', { ns: 'bill' })
-          : t('landing.card.topSponsors.tooltip', { ns: 'bill' }),
       }}
       sx={{
         '& .MuiCardHeader-root': {

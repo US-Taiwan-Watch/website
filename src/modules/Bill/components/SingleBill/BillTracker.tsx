@@ -25,12 +25,6 @@ export default function BillTracker({ bill }: Props) {
         }),
         icon: <TrackerIcon />,
         iconColor: 'primary',
-        actionType: 'tooltip',
-      }}
-      tooltip={{
-        content: t('page.card.tracker.tooltip', {
-          ns: 'bill',
-        }),
       }}
       sx={{
         '& .MuiCardContent-root': {
