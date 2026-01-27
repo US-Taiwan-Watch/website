@@ -26,6 +26,9 @@ import TaiwanRecordSourceManager from '@/modules/TaiwanRecord/components/TaiwanR
 import useTaiwanRecord from '@/modules/TaiwanRecord/hooks/useTaiwanRecord'
 import { useToast } from '@/common/providers/ToastProvider'
 import UHStack from '@/common/components/atoms/UHStack'
+import Link from 'next/link'
+import useURouterClient from '@/common/lib/router/useURouterClient'
+import { RouteName } from '@/common/lib/router/routes'
 
 type TaiwanRecordDialogProps = DialogProps & {
   mode: TaiwanRecordFormMode
@@ -35,6 +38,7 @@ type TaiwanRecordDialogProps = DialogProps & {
 }
 
 export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
+  const { resolveRouteUrl } = useURouterClient()
   const { mode, peopleId, taiwanRecord, onSubmitTaiwanRecord, ...dialogProps } =
     props
   const { t } = useTranslationClient(['taiwan_record', 'common'])
@@ -147,39 +151,55 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
       }}
     >
       <DialogTitle>
-        <UHStack justifyContent="space-between" alignItems="center">
-          <Typography variant="h6">{title}</Typography>
-          {taiwanRecord && (
-            <Box
-              sx={{
-                textAlign: 'center',
-                px: 1,
-                py: 0.5,
-                color: 'indigo.1000',
-                fontSize: '0.875rem',
-                fontWeight: 600,
-                borderRadius: '10px',
-                borderColor: 'indigo.1000',
-                borderWidth: 1,
-                borderStyle: 'solid',
-              }}
+        <Stack>
+          <UHStack justifyContent="space-between" alignItems="center">
+            <Typography variant="h6">{title}</Typography>
+            {taiwanRecord && (
+              <Box
+                sx={{
+                  textAlign: 'center',
+                  px: 1,
+                  py: 0.5,
+                  color: 'indigo.1000',
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  borderRadius: '10px',
+                  borderColor: 'indigo.1000',
+                  borderWidth: 1,
+                  borderStyle: 'solid',
+                }}
+              >
+                <span>
+                  {t(`taiwanRecord.status.${taiwanRecord.status}`, {
+                    ns: 'taiwan_record',
+                  })}
+                </span>
+              </Box>
+            )}
+          </UHStack>
+          {peopleId && taiwanRecord?.people.name && (
+            <Link
+              href={resolveRouteUrl({
+                name: RouteName.PeopleDetail,
+                params: { peopleId },
+              })}
+              target="_blank"
             >
-              <span>
-                {t(`taiwanRecord.status.${taiwanRecord.status}`, {
-                  ns: 'taiwan_record',
-                })}
-              </span>
-            </Box>
+              <Typography
+                variant="bodyS"
+                fontWeight={600}
+                color="grey.4200"
+                sx={{ '&:hover': { textDecoration: 'underline' } }}
+              >
+                {taiwanRecord?.people.name}
+              </Typography>
+            </Link>
           )}
-        </UHStack>
+        </Stack>
       </DialogTitle>
       <DialogContent>
         <FormProvider {...form}>
-          <Box
-            component="form"
-            sx={{ pt: 2 }}
-            onSubmit={form.handleSubmit(onSubmit)}
-          >
+          <Box component="form" onSubmit={form.handleSubmit(onSubmit)}>
             <Stack gap={2}>
               {/* 標題欄位 */}
               <Controller
