@@ -27,6 +27,16 @@ const nextConfig = {
       },
     ],
   },
+  redirects() {
+    return [
+      // TODO: 此階段尚未有通知功能
+      {
+        source: '/:lang/account/notification',
+        destination: '/:lang/404',
+        permanent: true,
+      },
+    ]
+  },
 }
 
 const withBundleAnalyzer = bundleAnalyzer({

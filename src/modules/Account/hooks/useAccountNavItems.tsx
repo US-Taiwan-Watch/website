@@ -1,6 +1,6 @@
 import {
   BookmarkIcon,
-  NotificationIcon,
+  // NotificationIcon,
   PasswordIcon,
   SettingIcon,
   NoteStackIcon,
@@ -45,11 +45,12 @@ export default function useAccountNavItems() {
             },
           ]
         : []),
-      {
-        label: t('navItem.notification', { ns: 'account' }),
-        href: resolveRouteUrl({ name: RouteName.AccountNotification }),
-        icon: <NotificationIcon sx={{ width: 24, height: 24 }} />,
-      },
+      // TODO: 此階段尚未有通知功能
+      // {
+      //   label: t('navItem.notification', { ns: 'account' }),
+      //   href: resolveRouteUrl({ name: RouteName.AccountNotification }),
+      //   icon: <NotificationIcon sx={{ width: 24, height: 24 }} />,
+      // },
     ],
     [t, resolveRouteUrl, account?.connection]
   )
