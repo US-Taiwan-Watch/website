@@ -24,7 +24,15 @@ const StyledInput = styled(Input)(({ theme }) => ({
   zIndex: 1001,
 }))
 
-const SearchPageSearchBar = () => {
+type SearchPageSearchBarProps = {
+  defaultValue?: string
+  disabled?: boolean
+}
+
+const SearchPageSearchBar = ({
+  defaultValue,
+  disabled,
+}: SearchPageSearchBarProps) => {
   const boxRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const isComposingRef = useRef(false)
@@ -59,6 +67,8 @@ const SearchPageSearchBar = () => {
           ref={inputRef}
           disableUnderline
           fullWidth
+          defaultValue={defaultValue}
+          disabled={disabled}
           startAdornment={
             <StyledIcon fontSize="small">
               <SearchIcon />

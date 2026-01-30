@@ -5,19 +5,23 @@ import { devtools } from 'zustand/middleware'
 import {
   SearchResult,
   SearchResults,
+  SearchResultTotalMap,
 } from '@/modules/Search/business/SearchResult'
 
 type State = {
   searchResults: SearchResults | null
+  searchResultTotalMap: SearchResultTotalMap | null
   parsedSearchResults: Array<SearchResult>
 }
 
 type Action = {
   setSearchResults: (results: SearchResults | null) => void
+  setSearchResultTotalMap: (totalMap: SearchResultTotalMap | null) => void
 }
 
 const initialState: State = {
   searchResults: null,
+  searchResultTotalMap: null,
   parsedSearchResults: [],
 }
 
@@ -38,6 +42,10 @@ const useSearchResultsStore = createSelectors(
                     ...results.ketagalans.results,
                   ]
                 : [],
+            })),
+          setSearchResultTotalMap: (totalMap) =>
+            set(() => ({
+              searchResultTotalMap: totalMap,
             })),
         }),
         {

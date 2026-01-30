@@ -76,7 +76,6 @@ export enum SearchResultType {
   Bill = 'bill',
   Article = 'article',
   Ketagalan = 'ketagalan',
-  Podcast = 'podcast',
 }
 
 const searchResultSchema = z.discriminatedUnion('type', [
@@ -127,7 +126,6 @@ export type SearchResult = z.infer<typeof searchResultSchema>
 
 const searchResultsSchema = z.object({
   people: z.object({
-    total: z.number(),
     results: z.array(
       searchResultSchema.refine(
         (result) => result.type === SearchResultType.People,
@@ -136,7 +134,6 @@ const searchResultsSchema = z.object({
     ),
   }),
   bills: z.object({
-    total: z.number(),
     results: z.array(
       searchResultSchema.refine(
         (result) => result.type === SearchResultType.Bill,
@@ -145,7 +142,6 @@ const searchResultsSchema = z.object({
     ),
   }),
   articles: z.object({
-    total: z.number(),
     results: z.array(
       searchResultSchema.refine(
         (result) => result.type === SearchResultType.Article,
@@ -154,7 +150,6 @@ const searchResultsSchema = z.object({
     ),
   }),
   ketagalans: z.object({
-    total: z.number(),
     results: z.array(
       searchResultSchema.refine(
         (result) => result.type === SearchResultType.Ketagalan,
@@ -166,6 +161,10 @@ const searchResultsSchema = z.object({
 
 export type SearchResultsInput = z.input<typeof searchResultsSchema>
 export type SearchResults = z.infer<typeof searchResultsSchema>
+
+export type SearchResultTotalMap = {
+  [key in keyof SearchResults]: number
+}
 
 export class SearchResultsUtils {
   static parse(lang: Language, dto: ApiSearch) {
@@ -180,7 +179,6 @@ export class SearchResultsUtils {
       })
 
     const peopleResults: SearchResults['people'] = {
-      total: dto.people?.count ?? 0,
       results: dto.people?.highlights?.map((highlight: PeopleHighlight) => {
         const matched = peopleMap.get(highlight.id)
 
@@ -217,7 +215,6 @@ export class SearchResultsUtils {
       })
 
     const billResults: SearchResults['bills'] = {
-      total: dto.bill?.count ?? 0,
       results: dto.bill?.highlights?.map((highlight: BillHighlight) => {
         const matched = billMap.get(highlight.id)
 
@@ -258,7 +255,6 @@ export class SearchResultsUtils {
       })
 
     const articleResults: SearchResults['articles'] = {
-      total: dto.ustwArticle?.count ?? 0,
       results: dto.ustwArticle?.highlights?.map(
         (highlight: ArticleHighlight) => {
           const matched = articleMap.get(highlight.id)
@@ -297,7 +293,6 @@ export class SearchResultsUtils {
       })
 
     const ketagalanResults: SearchResults['ketagalans'] = {
-      total: dto.ketagalanArticle?.count ?? 0,
       results: dto.ketagalanArticle?.highlights?.map(
         (highlight: KetagalanArticleHighlight) => {
           const matched = ketagalanMap.get(highlight.id)

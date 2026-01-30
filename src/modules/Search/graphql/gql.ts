@@ -78,3 +78,22 @@ export const QUERY_SEARCH = gql`
   ${CATEGORIES_ARTICLE_FRAGMENT}
   ${CATEGORIES_KETAGALAN_FRAGMENT}
 `
+
+export const QUERY_SEARCH_TOTAL = gql`
+  query SearchTotal($search: String!) {
+    Search(search: $search) {
+      people {
+        count
+      }
+      bill {
+        count
+      }
+      ustwArticle {
+        count
+      }
+      ketagalanArticle {
+        count
+      }
+    }
+  }
+`
