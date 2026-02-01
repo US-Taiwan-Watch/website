@@ -12,6 +12,7 @@ import UContentCardWithModal from '@/common/components/atoms/UContentCardWithMod
 import { People, PeopleUtils } from '@/modules/People/business/People'
 import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import { DateUtils } from '@/modules/Common/business/Date'
+import dayjs from 'dayjs'
 
 /**
  * 計算經歷的時間
@@ -46,22 +47,35 @@ const useExperienceTime = function (experience: People['experience'][number]) {
     return parts.join(' ')
   }, [experience, t])
 
+  const isPresent = useMemo(() => {
+    // 如果沒有 end，代表還在任職中
+    if (!experience.end) return true
+    // 如果最新的國會年份大於今年，代表還在任職中
+    if (dayjs(experience.end).isAfter(dayjs())) return true
+    return false
+  }, [experience])
+
   const timeText = useMemo(() => {
     const start = DateUtils.parseLocal(experience.start)
-    const end = DateUtils.parseLocal(experience.end)
-    if (!start || !end) return ''
+    if (!start) return ''
 
     const startText = start.format(PeopleUtils.ExperienceTimeFormat)
 
+    // 如果有 `experience` 屬性，代表是群組概念，直接回傳時間區間
+    if (experience.experience) {
+      return durationText
+    }
+
     // 現在進行中
-    if (!experience.end) {
+    if (isPresent) {
       return t('page.card.experience.timeRange.ongoing', {
         ns: 'people',
         start: startText,
       })
-    } else if (experience.experience) {
-      return durationText
-    } else {
+    }
+
+    const end = DateUtils.parseLocal(experience.end)
+    if (end) {
       const endText = end.format(PeopleUtils.ExperienceTimeFormat)
       return t('page.card.experience.timeRange.complete', {
         ns: 'people',
@@ -70,7 +84,9 @@ const useExperienceTime = function (experience: People['experience'][number]) {
         duration: durationText,
       })
     }
-  }, [experience, durationText, t])
+
+    return ''
+  }, [experience, durationText, t, isPresent])
 
   return { timeText, durationText }
 }
