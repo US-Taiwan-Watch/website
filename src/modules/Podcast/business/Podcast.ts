@@ -92,7 +92,7 @@ export default class PodcastUtils {
   /**
    * Episode Title 不包含「觀測站予你知」和「觀測站讀書會」
    */
-  static spiceUpEpisodeTitleRegex = /(?!.*觀測站予你知|觀測站讀書會)/
+  static spiceUpEpisodeTitleRegex = /^(?!.*(?:觀測站予你知|觀測站讀書會))/
   /**
    * Episode Title 有包含「觀測站予你知」
    */
