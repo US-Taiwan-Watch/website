@@ -18,6 +18,7 @@ import { PeopleAvatarWithPartyBadge } from '@/modules/People/components/PeopleAv
 // 定義客製化 Slate element type
 type CustomElementType =
   | 'link'
+  | 'relationship'
   | 'h1'
   | 'h2'
   | 'h3'
@@ -25,6 +26,9 @@ type CustomElementType =
   | 'h5'
   | 'h6'
   | 'quote'
+  | 'ul'
+  | 'ol'
+  | 'li'
   | 'paragraph'
   | 'text'
 
@@ -101,11 +105,18 @@ type LinkElement = {
   type: 'link'
 }
 
+type RelationshipElement = {
+  children: BaseText[]
+  relationTo: 'bills' | 'articles' | 'peoples'
+  value: ApiBill | ApiUstwArticle | ApiPeople
+  type: 'relationship'
+}
+
 type HeadingElement = {
   children: BaseText[]
   type: Exclude<CustomElementType, 'link' | 'paragraph' | 'quote'>
 }
-type CustomElement = LinkElement | HeadingElement
+type CustomElement = LinkElement | RelationshipElement | HeadingElement
 export type Descendant =
   | CustomElement
   | BaseText
@@ -133,6 +144,9 @@ const h6 = (children: ReactNode) => (
   <Typography variant="h6">{children}</Typography>
 )
 const quote = (children: ReactNode) => <blockquote>{children}</blockquote>
+const ul = (children: ReactNode) => <ul>{children}</ul>
+const ol = (children: ReactNode) => <ol>{children}</ol>
+const li = (children: ReactNode) => <li>{children}</li>
 const link = (lang: Language, node: LinkElement) => {
   if (!node.doc) return null
   const text = node.children?.[0]?.text
@@ -162,6 +176,9 @@ const MUI_COMPONENT_MAP = {
   h6,
   link,
   quote,
+  ul,
+  ol,
+  li,
   text,
   paragraph,
 }
@@ -197,6 +214,25 @@ export const serializeSlateNode = (
     // Link handler
     if (type === 'link') {
       return MUI_COMPONENT_MAP.link(lang, node as LinkElement)
+    }
+
+    // Relationship handler (similar to link but with different structure)
+    if (type === 'relationship') {
+      const relationshipNode = node as RelationshipElement
+      const doc: LinkDoc = {
+        relationTo: relationshipNode.relationTo,
+        value: relationshipNode.value,
+      } as LinkDoc
+      const text = relationshipNode.children?.[0]?.text
+      if (!text) return null
+      const hyperLinkTooltipCardProps = getHyperLinkTooltipCardProps(lang, doc)
+      if (!hyperLinkTooltipCardProps) return null
+      return (
+        <HyperLinkTooltip
+          text={text}
+          hyperLinkTooltipCardProps={hyperLinkTooltipCardProps}
+        />
+      )
     }
 
     const children = node.children.map((n) =>
