@@ -14,52 +14,44 @@ import { Metadata } from 'next'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { generateCommonMetadata } from '@/common/utils/metadata'
 import { RouteName } from '@/common/lib/router/routes'
-import { config } from '@/config'
-import { getEpisodes } from '@/modules/Podcast/api/soundon'
 import { Tag } from '@/modules/Common/business/Tag'
+import ServerBillApi from '@/modules/Bill/api/ServerBillApi'
+import { Suspense } from 'react'
 
 /**
- * Prefetch tags and mapping between tags and articles for article section
- * @param lang
- * @param articleType
- * @returns
+ * 根據 tags 並行獲取對應的文章
+ * @param lang 語言
+ * @param tags 標籤列表
+ * @param articleType 文章類型
+ * @returns tagArticleMap
  */
-const getLandingTagsAndTagArticleMap = async (
+const getTagArticleMap = async (
   lang: Language,
+  tags: Tag[],
   articleType: ArticleType
-) => {
-  const tags = await ServerArticleApi.getLandingArticleTags(lang)
-  const tagArticleMap = await Promise.all(
-    tags.map((tag) => {
-      return new Promise<{
-        tag: Tag
-        articles: Article[]
-      }>((resolve) => {
-        ServerArticleApi.getArticles(lang, {
-          articleType,
-          limit: 3,
-          sort: '-releaseTime',
-          where: {
-            tags: {
-              equals: tag.id,
-            },
+): Promise<Record<string, Article[]>> => {
+  const tagArticles = await Promise.all(
+    tags.map((tag) =>
+      ServerArticleApi.getArticles(lang, {
+        articleType,
+        limit: 3,
+        sort: '-releaseTime',
+        where: {
+          tags: {
+            equals: tag.id,
           },
-        }).then((articles) => {
-          resolve({ tag, articles })
-        })
-      })
-    })
+        },
+      }).then((articles) => ({ tagId: tag.id, articles }))
+    )
   )
-  return [
-    tags,
-    tagArticleMap.reduce(
-      (acc, tagArticles) => {
-        acc[tagArticles.tag.id] = tagArticles.articles
-        return acc
-      },
-      {} as Record<string, Article[]>
-    ),
-  ] as const
+
+  return tagArticles.reduce(
+    (acc, { tagId, articles }) => {
+      acc[tagId] = articles
+      return acc
+    },
+    {} as Record<string, Article[]>
+  )
 }
 
 type HomeProps = {
@@ -79,16 +71,27 @@ export const generateMetadata = async ({
   })
 }
 
+/**
+ * 首頁文章輪播車的限制數量
+ */
+const INDEX_ARTICLE_CAROUSEL_LIMIT = 3
+
+/**
+ * 首頁法案區塊呈現數量
+ */
+const BILL_SECTION_LIMIT = 10
+
 export default async function Home({ params }: HomeProps) {
   const { t } = await getTranslationServer(params.lang, 'home')
-  const podcastId = config.SOUNDON_PODCAST_ID
 
+  // 第一階段：並行獲取 tags 和其他獨立資料
   const [
     articles,
     ketagalanArticles,
-    episodes,
-    [landingTags, landingTagsAndTagArticleMap],
-    [ketagalanTags, ketagalanTagsAndTagArticleMap],
+    carouselArticles,
+    featuredBills,
+    landingTags,
+    ketagalanTags,
   ] = await Promise.all([
     ServerArticleApi.getHomeArticles(params.lang, {
       limit: 3,
@@ -98,20 +101,32 @@ export default async function Home({ params }: HomeProps) {
       limit: 3,
       articleType: ArticleType.Ketagalan,
     }),
-    podcastId ? getEpisodes({ podcastId }) : Promise.resolve([]),
-    getLandingTagsAndTagArticleMap(params.lang, ArticleType.Article),
-    getLandingTagsAndTagArticleMap(params.lang, ArticleType.Ketagalan),
+    ServerArticleApi.getHomeFeaturedArticles(params.lang, {
+      limit: INDEX_ARTICLE_CAROUSEL_LIMIT,
+      articleType: ArticleType.Article,
+    }),
+    ServerBillApi.getHomeFeaturedBills(params.lang, {
+      limit: BILL_SECTION_LIMIT,
+    }),
+    ServerArticleApi.getLandingArticleTags(params.lang),
+    ServerArticleApi.getLandingArticleTags(params.lang),
+  ])
+
+  // 第二階段：根據 tags 並行獲取對應的文章
+  const [landingTagArticleMap, ketagalanTagArticleMap] = await Promise.all([
+    getTagArticleMap(params.lang, landingTags, ArticleType.Article),
+    getTagArticleMap(params.lang, ketagalanTags, ArticleType.Ketagalan),
   ])
 
   return (
     <Stack alignContent="center" justifyContent="center">
-      <IndexArticleCarousel lang={params.lang} />
-      <BillSection lang={params.lang} title={t('section.bills.title')} />
+      <IndexArticleCarousel articles={carouselArticles} />
+      <BillSection title={t('section.bills.title')} bills={featuredBills} />
       <ArticleSection
         articleType={ArticleType.Article}
         defaultArticles={articles}
         tags={landingTags}
-        tagArticleMap={landingTagsAndTagArticleMap}
+        tagArticleMap={landingTagArticleMap}
       />
       <Stack
         sx={{
@@ -129,15 +144,12 @@ export default async function Home({ params }: HomeProps) {
             articleType={ArticleType.Ketagalan}
             defaultArticles={ketagalanArticles}
             tags={ketagalanTags}
-            tagArticleMap={ketagalanTagsAndTagArticleMap}
+            tagArticleMap={ketagalanTagArticleMap}
           />
         </ThemeProvider>
-        {episodes.length > 0 && (
-          <PodcastSection
-            title={t('section.podcasts.title')}
-            episodes={episodes}
-          />
-        )}
+        <Suspense fallback={null}>
+          <PodcastSection title={t('section.podcasts.title')} />
+        </Suspense>
         <FollowUsSection />
       </Stack>
     </Stack>
