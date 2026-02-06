@@ -9319,6 +9319,9 @@ export type KetagalanFootprint = {
 
 export enum KetagalanFootprintUpdate_Type_MutationInput {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
@@ -9355,6 +9358,7 @@ export type KetagalanFootprint_I18n__En__Source_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -9365,6 +9369,7 @@ export type KetagalanFootprint_I18n__En__Title_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -9375,6 +9380,7 @@ export type KetagalanFootprint_I18n__Zh__Source_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -9385,6 +9391,7 @@ export type KetagalanFootprint_I18n__Zh__Title_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -9447,16 +9454,25 @@ export type KetagalanFootprint_Title_Operator = {
 
 export enum KetagalanFootprint_Type {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
 export enum KetagalanFootprint_Type_Input {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
 export enum KetagalanFootprint_Type_MutationInput {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
@@ -11021,6 +11037,7 @@ export type KetagalanMember_I18n__En__Name_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -11041,6 +11058,7 @@ export type KetagalanMember_I18n__Zh__Name_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -46677,6 +46695,9 @@ export type UstwFootprint = {
 
 export enum UstwFootprintUpdate_Type_MutationInput {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
@@ -46713,6 +46734,7 @@ export type UstwFootprint_I18n__En__Source_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -46723,6 +46745,7 @@ export type UstwFootprint_I18n__En__Title_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -46733,6 +46756,7 @@ export type UstwFootprint_I18n__Zh__Source_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -46743,6 +46767,7 @@ export type UstwFootprint_I18n__Zh__Title_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -46805,16 +46830,25 @@ export type UstwFootprint_Title_Operator = {
 
 export enum UstwFootprint_Type {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
 export enum UstwFootprint_Type_Input {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
 export enum UstwFootprint_Type_MutationInput {
   Article = 'article',
+  Interview = 'interview',
+  Opinion = 'opinion',
+  Quote = 'quote',
   Video = 'video'
 }
 
@@ -48379,6 +48413,7 @@ export type UstwMember_I18n__En__Name_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -48399,6 +48434,7 @@ export type UstwMember_I18n__Zh__Name_Operator = {
   all?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   contains?: InputMaybe<Scalars['String']['input']>;
   equals?: InputMaybe<Scalars['String']['input']>;
+  exists?: InputMaybe<Scalars['Boolean']['input']>;
   in?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
   like?: InputMaybe<Scalars['String']['input']>;
   not_equals?: InputMaybe<Scalars['String']['input']>;
@@ -53013,33 +53049,33 @@ export type MutationKetagalanFootprintUpdateInput = {
 };
 
 export type MutationKetagalanFootprintUpdate_I18nInput = {
-  en: MutationKetagalanFootprintUpdate_I18n_EnInput;
-  zh: MutationKetagalanFootprintUpdate_I18n_ZhInput;
+  en?: InputMaybe<MutationKetagalanFootprintUpdate_I18n_EnInput>;
+  zh?: InputMaybe<MutationKetagalanFootprintUpdate_I18n_ZhInput>;
 };
 
 export type MutationKetagalanFootprintUpdate_I18n_EnInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanFootprintUpdate_I18n_ZhInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanFootprint_I18nInput = {
-  en: MutationKetagalanFootprint_I18n_EnInput;
-  zh: MutationKetagalanFootprint_I18n_ZhInput;
+  en?: InputMaybe<MutationKetagalanFootprint_I18n_EnInput>;
+  zh?: InputMaybe<MutationKetagalanFootprint_I18n_ZhInput>;
 };
 
 export type MutationKetagalanFootprint_I18n_EnInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanFootprint_I18n_ZhInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanMemberInput = {
@@ -53069,12 +53105,12 @@ export type MutationKetagalanMemberUpdate_I18nInput = {
 
 export type MutationKetagalanMemberUpdate_I18n_EnInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanMemberUpdate_I18n_ZhInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanMember_I18nInput = {
@@ -53084,12 +53120,12 @@ export type MutationKetagalanMember_I18nInput = {
 
 export type MutationKetagalanMember_I18n_EnInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanMember_I18n_ZhInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationKetagalanProjectInput = {
@@ -54379,33 +54415,33 @@ export type MutationUstwFootprintUpdateInput = {
 };
 
 export type MutationUstwFootprintUpdate_I18nInput = {
-  en: MutationUstwFootprintUpdate_I18n_EnInput;
-  zh: MutationUstwFootprintUpdate_I18n_ZhInput;
+  en?: InputMaybe<MutationUstwFootprintUpdate_I18n_EnInput>;
+  zh?: InputMaybe<MutationUstwFootprintUpdate_I18n_ZhInput>;
 };
 
 export type MutationUstwFootprintUpdate_I18n_EnInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwFootprintUpdate_I18n_ZhInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwFootprint_I18nInput = {
-  en: MutationUstwFootprint_I18n_EnInput;
-  zh: MutationUstwFootprint_I18n_ZhInput;
+  en?: InputMaybe<MutationUstwFootprint_I18n_EnInput>;
+  zh?: InputMaybe<MutationUstwFootprint_I18n_ZhInput>;
 };
 
 export type MutationUstwFootprint_I18n_EnInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwFootprint_I18n_ZhInput = {
-  source: Scalars['String']['input'];
-  title: Scalars['String']['input'];
+  source?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwMemberInput = {
@@ -54435,12 +54471,12 @@ export type MutationUstwMemberUpdate_I18nInput = {
 
 export type MutationUstwMemberUpdate_I18n_EnInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwMemberUpdate_I18n_ZhInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwMember_I18nInput = {
@@ -54450,12 +54486,12 @@ export type MutationUstwMember_I18nInput = {
 
 export type MutationUstwMember_I18n_EnInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwMember_I18n_ZhInput = {
   description: Scalars['String']['input'];
-  name: Scalars['String']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type MutationUstwProjectInput = {

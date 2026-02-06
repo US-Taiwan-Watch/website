@@ -12,7 +12,7 @@ export const footprintSchema = z.object({
   id: z.string(),
   title: z.string(),
   source: z.string(),
-  link: z.string(),
+  link: z.string().nullable(),
   type: z.union([
     z.nativeEnum(UstwFootprintType),
     z.nativeEnum(KetagalanFootprintType),

@@ -12713,6 +12713,7 @@ input UstwMember_i18n__en__name_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input UstwMember_i18n__en__description_operator {
@@ -12733,6 +12734,7 @@ input UstwMember_i18n__zh__name_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input UstwMember_i18n__zh__description_operator {
@@ -13240,6 +13242,9 @@ type UstwFootprint_I18n_Zh {
 enum UstwFootprint_type {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 type UstwFootprints {
@@ -13281,6 +13286,7 @@ input UstwFootprint_i18n__en__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input UstwFootprint_i18n__en__source_operator {
@@ -13291,6 +13297,7 @@ input UstwFootprint_i18n__en__source_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input UstwFootprint_i18n__zh__title_operator {
@@ -13301,6 +13308,7 @@ input UstwFootprint_i18n__zh__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input UstwFootprint_i18n__zh__source_operator {
@@ -13311,6 +13319,7 @@ input UstwFootprint_i18n__zh__source_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input UstwFootprint_type_operator {
@@ -13324,6 +13333,9 @@ input UstwFootprint_type_operator {
 enum UstwFootprint_type_Input {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 input UstwFootprint_publishTime_operator {
@@ -16388,6 +16400,7 @@ input KetagalanMember_i18n__en__name_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input KetagalanMember_i18n__en__description_operator {
@@ -16408,6 +16421,7 @@ input KetagalanMember_i18n__zh__name_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input KetagalanMember_i18n__zh__description_operator {
@@ -16915,6 +16929,9 @@ type KetagalanFootprint_I18n_Zh {
 enum KetagalanFootprint_type {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 type KetagalanFootprints {
@@ -16956,6 +16973,7 @@ input KetagalanFootprint_i18n__en__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input KetagalanFootprint_i18n__en__source_operator {
@@ -16966,6 +16984,7 @@ input KetagalanFootprint_i18n__en__source_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input KetagalanFootprint_i18n__zh__title_operator {
@@ -16976,6 +16995,7 @@ input KetagalanFootprint_i18n__zh__title_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input KetagalanFootprint_i18n__zh__source_operator {
@@ -16986,6 +17006,7 @@ input KetagalanFootprint_i18n__zh__source_operator {
   in: [String]
   not_in: [String]
   all: [String]
+  exists: Boolean
 }
 
 input KetagalanFootprint_type_operator {
@@ -16999,6 +17020,9 @@ input KetagalanFootprint_type_operator {
 enum KetagalanFootprint_type_Input {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 input KetagalanFootprint_publishTime_operator {
@@ -45824,12 +45848,12 @@ input mutationUstwMember_I18nInput {
 }
 
 input mutationUstwMember_I18n_EnInput {
-  name: String!
+  name: String
   description: String!
 }
 
 input mutationUstwMember_I18n_ZhInput {
-  name: String!
+  name: String
   description: String!
 }
 
@@ -45854,12 +45878,12 @@ input mutationUstwMemberUpdate_I18nInput {
 }
 
 input mutationUstwMemberUpdate_I18n_EnInput {
-  name: String!
+  name: String
   description: String!
 }
 
 input mutationUstwMemberUpdate_I18n_ZhInput {
-  name: String!
+  name: String
   description: String!
 }
 
@@ -45880,23 +45904,26 @@ input mutationUstwFootprintInput {
 }
 
 input mutationUstwFootprint_I18nInput {
-  en: mutationUstwFootprint_I18n_EnInput!
-  zh: mutationUstwFootprint_I18n_ZhInput!
+  en: mutationUstwFootprint_I18n_EnInput
+  zh: mutationUstwFootprint_I18n_ZhInput
 }
 
 input mutationUstwFootprint_I18n_EnInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 input mutationUstwFootprint_I18n_ZhInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 enum UstwFootprint_type_MutationInput {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 input mutationUstwFootprintUpdateInput {
@@ -45911,23 +45938,26 @@ input mutationUstwFootprintUpdateInput {
 }
 
 input mutationUstwFootprintUpdate_I18nInput {
-  en: mutationUstwFootprintUpdate_I18n_EnInput!
-  zh: mutationUstwFootprintUpdate_I18n_ZhInput!
+  en: mutationUstwFootprintUpdate_I18n_EnInput
+  zh: mutationUstwFootprintUpdate_I18n_ZhInput
 }
 
 input mutationUstwFootprintUpdate_I18n_EnInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 input mutationUstwFootprintUpdate_I18n_ZhInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 enum UstwFootprintUpdate_type_MutationInput {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 input mutationKetagalanArticleInput {
@@ -46064,12 +46094,12 @@ input mutationKetagalanMember_I18nInput {
 }
 
 input mutationKetagalanMember_I18n_EnInput {
-  name: String!
+  name: String
   description: String!
 }
 
 input mutationKetagalanMember_I18n_ZhInput {
-  name: String!
+  name: String
   description: String!
 }
 
@@ -46094,12 +46124,12 @@ input mutationKetagalanMemberUpdate_I18nInput {
 }
 
 input mutationKetagalanMemberUpdate_I18n_EnInput {
-  name: String!
+  name: String
   description: String!
 }
 
 input mutationKetagalanMemberUpdate_I18n_ZhInput {
-  name: String!
+  name: String
   description: String!
 }
 
@@ -46120,23 +46150,26 @@ input mutationKetagalanFootprintInput {
 }
 
 input mutationKetagalanFootprint_I18nInput {
-  en: mutationKetagalanFootprint_I18n_EnInput!
-  zh: mutationKetagalanFootprint_I18n_ZhInput!
+  en: mutationKetagalanFootprint_I18n_EnInput
+  zh: mutationKetagalanFootprint_I18n_ZhInput
 }
 
 input mutationKetagalanFootprint_I18n_EnInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 input mutationKetagalanFootprint_I18n_ZhInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 enum KetagalanFootprint_type_MutationInput {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 input mutationKetagalanFootprintUpdateInput {
@@ -46151,23 +46184,26 @@ input mutationKetagalanFootprintUpdateInput {
 }
 
 input mutationKetagalanFootprintUpdate_I18nInput {
-  en: mutationKetagalanFootprintUpdate_I18n_EnInput!
-  zh: mutationKetagalanFootprintUpdate_I18n_ZhInput!
+  en: mutationKetagalanFootprintUpdate_I18n_EnInput
+  zh: mutationKetagalanFootprintUpdate_I18n_ZhInput
 }
 
 input mutationKetagalanFootprintUpdate_I18n_EnInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 input mutationKetagalanFootprintUpdate_I18n_ZhInput {
-  title: String!
-  source: String!
+  title: String
+  source: String
 }
 
 enum KetagalanFootprintUpdate_type_MutationInput {
   video
   article
+  interview
+  quote
+  opinion
 }
 
 input mutationCategoriesArticleInput {
