@@ -43,7 +43,7 @@ const SearchResultList = ({
   inputAnchorEl,
   onClose,
 }: SearchResultListProps) => {
-  const { handleNavigateSearchPage } = useSearch()
+  const { handleNavigateSuggestionObject } = useSearch()
 
   return (
     <StyledPopper
@@ -62,7 +62,7 @@ const SearchResultList = ({
               }}
               suggestions={suggestions}
               onClick={(suggestion) => {
-                handleNavigateSearchPage(suggestion.value)
+                handleNavigateSuggestionObject(suggestion)
                 onClose?.()
               }}
               onLoadMore={onLoadMore}
