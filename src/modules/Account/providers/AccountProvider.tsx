@@ -85,8 +85,8 @@ type AccountProviderContext = {
   subscribePeople: (people: People) => void
   unsubscribePeople: (people: People) => void
   checkIfPeopleIsSubscribed: (people: People) => boolean
-  bookmarkArticle: (article: Article) => void
-  unbookmarkArticle: (article: Article) => void
+  bookmarkArticle: (article: Article) => Promise<boolean>
+  unbookmarkArticle: (article: Article) => Promise<boolean>
   checkIfArticleIsBookmarked: (article: Article) => boolean
   updatePassword: (password: string) => Promise<void>
   updateName: (name: string) => Promise<void>
@@ -109,8 +109,8 @@ const AccountContext = createContext<AccountProviderContext>({
   subscribePeople: () => {},
   unsubscribePeople: () => {},
   checkIfPeopleIsSubscribed: () => false,
-  bookmarkArticle: () => {},
-  unbookmarkArticle: () => {},
+  bookmarkArticle: async () => false,
+  unbookmarkArticle: async () => false,
   checkIfArticleIsBookmarked: () => false,
   updatePassword: async () => {},
   updateName: async () => {},
@@ -296,11 +296,9 @@ export default function AccountProvider({
   >(MUTATION_DELETE_ME)
 
   const redirectToLogin = useCallback(() => {
-    setTimeout(() => {
-      login({
-        returnTo: window.location.pathname + window.location.search,
-      })
-    }, 3000)
+    login({
+      returnTo: window.location.pathname + window.location.search,
+    })
   }, [login])
 
   /**
@@ -495,9 +493,10 @@ export default function AccountProvider({
   /**
    * 收藏文章
    * @param article - 欲收藏的文章
+   * @returns 是否成功
    */
   const bookmarkArticle = useCallback(
-    async (article: Article) => {
+    async (article: Article): Promise<boolean> => {
       try {
         if (!article.id)
           throw new Error(t('bookmark.error.notFound', { ns: 'article' }))
@@ -527,10 +526,12 @@ export default function AccountProvider({
             fetchError
           )
         }
+        return true
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
         }
+        return false
       } finally {
         setIsMutating(false)
       }
@@ -548,9 +549,10 @@ export default function AccountProvider({
   /**
    * 取消收藏文章
    * @param article - 欲收藏的文章
+   * @returns 是否成功
    */
   const unbookmarkArticle = useCallback(
-    async (article: Article) => {
+    async (article: Article): Promise<boolean> => {
       try {
         if (!article.id)
           throw new Error(t('unbookmark.error.notFound', { ns: 'article' }))
@@ -582,10 +584,12 @@ export default function AccountProvider({
             fetchError
           )
         }
+        return true
       } catch (error) {
         if (error instanceof Error) {
           toast('error', error.message)
         }
+        return false
       } finally {
         setIsMutating(false)
       }

@@ -40,12 +40,16 @@ const ArticleFixed = memo(function ArticleFixed({
 
   const handleBookmarkClick = useCallback(async () => {
     if (isBookmarked) {
-      setIsBookmarked(false)
-      await unbookmarkArticle(article)
+      const success = await unbookmarkArticle(article)
+      if (success) {
+        setIsBookmarked(false)
+      }
       return
     }
-    setIsBookmarked(true)
-    await bookmarkArticle(article)
+    const success = await bookmarkArticle(article)
+    if (success) {
+      setIsBookmarked(true)
+    }
   }, [isBookmarked, bookmarkArticle, unbookmarkArticle, article])
 
   const { toast } = useToast()
@@ -100,7 +104,7 @@ const ArticleFixed = memo(function ArticleFixed({
           onClick={handleBookmarkClick}
           disabled={isMutating || isAccountLoading}
         >
-          {isAccountLoading ? (
+          {isAccountLoading || isMutating ? (
             <CircularProgress color="inherit" size={16} />
           ) : isBookmarked ? (
             <BookmarkFilledIcon />

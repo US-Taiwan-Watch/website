@@ -47,12 +47,16 @@ const ArticlePostHeader = function ArticlePostHeader({
 
   const handleBookmarkClick = useCallback(async () => {
     if (isBookmarked) {
-      await unbookmarkArticle(article)
-      setIsBookmarked(false)
+      const success = await unbookmarkArticle(article)
+      if (success) {
+        setIsBookmarked(false)
+      }
       return
     }
-    await bookmarkArticle(article)
-    setIsBookmarked(true)
+    const success = await bookmarkArticle(article)
+    if (success) {
+      setIsBookmarked(true)
+    }
   }, [isBookmarked, bookmarkArticle, unbookmarkArticle, article])
 
   const { toast } = useToast()
@@ -131,7 +135,7 @@ const ArticlePostHeader = function ArticlePostHeader({
               onClick={handleBookmarkClick}
               disabled={isMutating || isAccountLoading}
             >
-              {isAccountLoading ? (
+              {isAccountLoading || isMutating ? (
                 <CircularProgress color="inherit" size={16} />
               ) : isBookmarked ? (
                 <BookmarkFilledIcon />
