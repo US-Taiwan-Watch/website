@@ -18,6 +18,7 @@ import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 import Link from 'next/link'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import { useToast } from '@/common/providers/ToastProvider'
 
 const DATE_FORMAT = 'YYYY-MM-DD'
 interface ArticlePostHeaderProps {
@@ -53,6 +54,16 @@ const ArticlePostHeader = function ArticlePostHeader({
     await bookmarkArticle(article)
     setIsBookmarked(true)
   }, [isBookmarked, bookmarkArticle, unbookmarkArticle, article])
+
+  const { toast } = useToast()
+  const handleShareClick = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      toast('success', t('bookmark.copied.msg', { ns: 'article' }))
+    } catch {
+      toast('error', t('bookmark.copied.error.msg', { ns: 'article' }))
+    }
+  }, [t, toast])
 
   const [formattedDate, setFormattedDate] = useState('')
   useEffect(() => {
@@ -104,7 +115,12 @@ const ArticlePostHeader = function ArticlePostHeader({
         {isMobile && (
           <UHStack gap={1}>
             {/** 分享功能 */}
-            <UIconButton variant="rounded" color="black" size="xs">
+            <UIconButton
+              variant="rounded"
+              color="black"
+              size="xs"
+              onClick={handleShareClick}
+            >
               <OutlinedShareIcon />
             </UIconButton>
             {/** 收藏功能 */}

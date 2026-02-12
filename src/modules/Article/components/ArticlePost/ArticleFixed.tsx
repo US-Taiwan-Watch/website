@@ -14,6 +14,8 @@ import Stack from '@mui/material/Stack'
 import { useAccount } from '@/modules/Account/providers/AccountProvider'
 import { Article } from '@/modules/Article/business/Article'
 import { memo, useCallback, useEffect, useState } from 'react'
+import { useToast } from '@/common/providers/ToastProvider'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
 
 type ArticleFixedProps = {
   article: Article
@@ -45,6 +47,17 @@ const ArticleFixed = memo(function ArticleFixed({
     setIsBookmarked(true)
     await bookmarkArticle(article)
   }, [isBookmarked, bookmarkArticle, unbookmarkArticle, article])
+
+  const { toast } = useToast()
+  const { t } = useTranslationClient('article')
+  const handleShareClick = useCallback(async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      toast('success', t('bookmark.copied.msg', { ns: 'article' }))
+    } catch {
+      toast('error', t('bookmark.copied.error.msg', { ns: 'article' }))
+    }
+  }, [t, toast])
 
   if (isMobile) return null
 
@@ -105,6 +118,7 @@ const ArticleFixed = memo(function ArticleFixed({
               backgroundColor: theme.color.article.postFixedToolButtonHover,
             },
           }}
+          onClick={handleShareClick}
         >
           <OutlinedShareIcon />
         </UIconButton>
