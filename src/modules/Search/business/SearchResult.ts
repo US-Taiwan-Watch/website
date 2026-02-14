@@ -20,17 +20,19 @@ import {
 } from '@/common/lib/graphql/__generated__/graphql'
 import CommonUtils from '@/modules/Common/Common.utils'
 
+type HighlightField = {
+  value: string
+  matchLevel?: 'none' | 'partial' | 'full'
+  matchedWords?: string[]
+}
+
 type PeopleHighlight = {
   id: string
   i18n: Record<
     keyof NonNullable<ApiPeople['i18n']>,
     | {
-        displayName?: {
-          value: string
-        }
-        bio?: {
-          value: string
-        }
+        displayName?: HighlightField
+        bio?: HighlightField
       }
     | undefined
   >
@@ -40,12 +42,8 @@ type BillHighlight = {
   i18n: Record<
     keyof NonNullable<ApiBill['i18n']>,
     | {
-        title?: {
-          value: string
-        }
-        summary?: {
-          value: string
-        }
+        title?: HighlightField
+        summary?: HighlightField
       }
     | undefined
   >
@@ -186,9 +184,12 @@ export class SearchResultsUtils {
           return null
         }
 
-        const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
-        const matchedHighlight =
-          highlight.i18n[apiLang] ?? highlight.i18n[fallbackLang]
+        const bestLang = SearchResultsUtils.getBestMatchLanguage(
+          highlight.i18n,
+          ['displayName', 'bio'],
+          lang
+        )
+        const matchedHighlight = highlight.i18n[bestLang]
 
         return {
           type: SearchResultType.People,
@@ -222,9 +223,12 @@ export class SearchResultsUtils {
           return null
         }
 
-        const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
-        const matchedHighlight =
-          highlight.i18n[apiLang] ?? highlight.i18n[fallbackLang]
+        const bestLang = SearchResultsUtils.getBestMatchLanguage(
+          highlight.i18n,
+          ['title', 'summary'],
+          lang
+        )
+        const matchedHighlight = highlight.i18n[bestLang]
 
         return {
           type: SearchResultType.Bill,
@@ -365,5 +369,59 @@ export class SearchResultsUtils {
     const lastSpaceIndex = text.slice(0, startIndex).lastIndexOf(' ')
 
     return '... ' + text.slice(lastSpaceIndex + 1)
+  }
+
+  /**
+   * 根據 highlight 的 matchLevel 決定應該使用哪個語言的結果
+   * 優先順序：full > partial > none > fallback (使用者語言)
+   * @param highlightI18n - 各語言的 highlight 結果
+   * @param fieldNames - 要檢查的欄位名稱（依序檢查，找到 match 即回傳）
+   * @param userLang - 使用者的語言設定
+   * @returns 最佳匹配的語言 key
+   */
+  static getBestMatchLanguage<
+    T extends Record<
+      string,
+      Record<string, HighlightField | undefined> | undefined
+    >,
+  >(highlightI18n: T, fieldNames: string[], userLang: Language): keyof T {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(userLang)
+    const langs = Object.keys(highlightI18n) as Array<keyof T>
+
+    // 依序檢查每個欄位
+    for (const fieldName of fieldNames) {
+      // 先找 matchLevel 是 'full' 的語言
+      for (const lang of langs) {
+        const langData = highlightI18n[lang]
+        if (!langData) continue
+
+        const field = langData[fieldName]
+        if (field?.matchLevel === 'full') {
+          return lang
+        }
+      }
+
+      // 如果沒有 'full'，找 matchLevel 是 'partial' 的語言
+      for (const lang of langs) {
+        const langData = highlightI18n[lang]
+        if (!langData) continue
+
+        const field = langData[fieldName]
+        if (field?.matchLevel === 'partial') {
+          return lang
+        }
+      }
+    }
+
+    // 最後返回使用者的語言（優先 apiLang，其次 fallbackLang）
+    if (apiLang in highlightI18n) {
+      return apiLang as keyof T
+    }
+    if (fallbackLang in highlightI18n) {
+      return fallbackLang as keyof T
+    }
+
+    // 如果都沒有，返回第一個可用的語言
+    return langs[0]
   }
 }
