@@ -1,4 +1,9 @@
-# Donation US
+# 贊助我們
 
-My husband’s parents had invited a revered pastor—or moksanim, in Korean—to participate in our wedding. “He’s known for his benedictions,” my husband said. I didn’t know someone could specialize in benedictions, the brief blessings given at the end of a service. I wondered what made his special. Was it the tone of his voice? The way he lifted his hands? His steady cadence?
-The pastor turned out to be a bespectacled Korean American man, in his late sixties, who had a fatherly warmth and a comforting authority. At the wedding, his blessing felt long, but mostly because I was impatient to walk back down the aisle to our recessional, the piano line in Coldplay’s “Clocks.” The blessing’s final words were “ . . . and may the grace of God and the love of God be with you both now and forevermore.” Forevermore isn’t a word you hear very often in everyday life. It’s High Church language. Forevermore turned
+觀測站深化台美關係與公民參與的初衷絕對不會改變，我們的努力也不會停止，在資訊爆炸、輿論紛擾的今天，我們會持續成為台美關係專業分析與評論的平台，並成為台美公民建立連結的橋樑。
+
+不過，這條路並不好走，我們非常需要大家的支持，協助我們繼續往前行，不論金額大小，都是對我們的鼓勵。如果您支持觀測站的目標，歡迎透過以下方式捐款，支持我們！
+
+若您對特定專項，特別有興趣，歡迎在捐款時標註您所希望支持的專項，如 Podcast、專題報導或互動工作坊等。
+
+但願台美關係持續深化，民主向下扎根。

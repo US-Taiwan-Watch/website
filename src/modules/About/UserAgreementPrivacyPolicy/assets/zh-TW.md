@@ -1,7 +1,90 @@
-# User Agreement and Privacy Policy
+# 使用者協議與隱私政策
 
-My husband’s parents had invited a revered pastor—or moksanim, in Korean—to participate in our wedding. “He’s known for his benedictions,” my husband said. I didn’t know someone could specialize in benedictions, the brief blessings given at the end of a service. I wondered what made his special. Was it the tone of his voice? The way he lifted his hands? His steady cadence?
-The pastor turned out to be a bespectacled Korean American man, in his late sixties, who had a fatherly warmth and a comforting authority. At the wedding, his blessing felt long, but mostly because I was impatient to walk back down the aisle to our recessional, the piano line in Coldplay’s “Clocks.” The blessing’s final words were “ . . . and may the grace of God and the love of God be with you both now and forevermore.” Forevermore isn’t a word you hear very often in everyday life. It’s High Church language. Forevermore turned out to be six years.
+最後修訂日期：2026 年 4 月
 
-Suddenly, I was a young mother standing in the front pew of another church, listening to this same moksanim give a very different benediction. At thirty-three, my husband had died abruptly and tragically, drowning in Lake Geneva while touring as a rock cellist. Most of the wake was dreamlike for me, but I do remember that, before I received a line of hundreds of mourners carrying single roses, I noticed that pastor again, the one who gave great benedictions, up at the front of the church at the end of the service. I admit that I was relieved to see him there, open to whatever strength his words might offer.
-For many years after that, I hid out in the back pews at various churches. It was hard to be around smiling churchgoers who called themselves “blessed.” It felt like they were trying, through singing and sermons, to manufacture the starkness of our mortality, when it had become palpably real to me. After all, for almost a year a dead man’s clothes hung in my closet next to mine. His shoes, still in the shape of his feet, sat in our entryway.
+歡迎您使用「美國台灣觀測站」網站（以下簡稱本網站）。本頁同時包含使用者協議與隱私政策兩份文件，當您開始使用本網站服務時，即表示您已閱讀、瞭解並同意接受本使用者協議與隱私政策之所有內容。
+
+## 使用者協議
+
+**一、 帳號與安全**
+
+- 使用者透過第三方服務（如 Auth0、Google）註冊會員時，應確保提供之資料真實且完整。
+- 您有責任維護帳號及密碼的機密安全。任何透過您帳號所進行的行為，將視為您本人的行為。
+- 若發現帳號遭非法使用，請立即通知本網站。
+
+**二、 智慧財產權與資料使用**
+
+- 本網站上所有內容，包括但不限於文字、圖片、影音（如 Podcast 節目）、經 AI 協助整理產出之內容、程式碼及網頁設計，其著作權及智慧財產權均屬美國台灣觀測站或相關權利人所有。
+- 未經本站正式書面授權，任何人不得擅自重製、散佈、修改或進行商業利用。
+
+**三、 使用者守則**
+
+- 您同意在使用本網站時，不得從事以下行為：
+  - 發表騷擾、誹謗、侮辱、威脅或違法之文字。
+  - 企圖干擾網站運作、植入病毒或未經授權存取本站系統。
+  - 任何侵害他人名譽、隱私、營業秘密或智慧財產權之行為。
+- 當您在本網站上發表評論或任何內容時，即代表您授權本網站得在全球範圍內，非專屬、永久、無償且可轉授權地使用、儲存及展示該內容。
+- 您應對自己發表的評論負法律責任。本站保留刪除任何違反法律、公序良俗或包含惡意攻擊之內容的權利。
+
+**四、 免責聲明**
+
+- 本網站部分資訊係透過 AI 協助整理產出，相關內容係按「現狀」提供。雖本團隊會盡力確保資訊來源之可靠性，但 AI 仍可能產生錯誤判斷或疏漏。
+- 本網站所提供之資訊、觀點及分析僅供參考，不保證其即時性、完整性或準確性，亦不代表任何形式的法律、投資或決策建議。使用者應自行評估風險，本網站不對因使用本網站之內容而產生的任何損失負責。
+
+**五、 服務變更與終止**
+
+本網站保留隨時修改、暫停或終止本服務之權利，不另行個別通知。
+
+**六、 準據法與管轄法院**
+
+本條款之解釋與適用均以中華民國法律為準。因本條款所生之爭議，以台灣台北地方法院為第一審管轄法院。
+
+## 隱私政策
+
+**一、隱私權保護政策的適用範圍**
+
+隱私權保護政策內容，包括本網站如何處理在您使用網站服務時蒐集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。
+
+**二、個人資料的蒐集、處理及利用方式**
+
+- 當您造訪本網站或使用本網站所提供之服務時，我們將視該服務功能性質，請您提供必要的個人資料，且原則上於蒐集個人資料之特定目的範圍內處理或利用您的個人資料。
+- 本網站在您使用會員服務、問卷調查等互動性功能時，會保留您所提供的姓名、電子郵件地址、聯絡方式及使用時間等。
+- 本網站之會員服務配合使用第三方身份驗證服務（如 Auth0 及 Google 等）。當您透過此類服務註冊或登入時，本網站會透過該服務提供之授權範圍，獲取並保留您授權提供之名稱、電子郵件地址及該服務上之唯一識別碼等個人資料。上述資料僅用於身份驗證、帳戶管理及提供個人化內容，不會用於超出此範圍之用途。
+- 於一般瀏覽時，伺服器會自行記錄相關行徑，包括您使用連線設備的IP位址、使用時間、使用的瀏覽器、瀏覽及點選資料記錄等，做為我們增進網站服務的參考依據，此記錄為內部應用，決不對外公佈。
+- 為提供精確的服務，我們會將收集的問卷調查內容進行統計與分析，分析結果之統計數據或說明文字呈現，除供內部研究外，我們會視需要公佈統計數據及說明文字，但不涉及特定個人之資料。
+
+**三、資料之保護**
+
+- 本網站主機均設有防火牆、防毒系統等相關的各項資訊安全設備及必要的安全防護措施，加以保護網站及您的個人資料採用嚴格的保護措施，只由經過授權的人員才能接觸您的個人資料，相關處理人員皆簽有保密合約，如有違反保密義務者，將會受到相關的法律處分。
+- 如因業務需要有必要委託其他單位提供服務時，本網站亦會嚴格要求其遵守保密義務，並且採取必要檢查程序以確定其將確實遵守。
+
+**四、網站對外的相關連結**
+
+本網站的網頁提供其他網站的網路連結，您也可經由本網站所提供的連結，點選進入其他網站。但該連結網站不適用本網站的隱私權保護政策，您必須參考該連結網站中的隱私權保護政策。
+
+**五、與第三人共用個人資料之政策**
+
+本網站絕不會提供、交換、出租或出售任何您的個人資料給其他個人、團體、私人企業或公務機關，但有法律依據或合約義務者，不在此限。
+
+前項但書之情形包括不限於：
+
+- 經當事人同意。
+- 法律明文規定。
+- 為免除當事人生命、身體、自由或財產上之危險。
+- 與公務機關或學術研究機構合作，基於公共利益為統計或學術研究而有必要，且資料經過提供者處理或蒐集著依其揭露方式無從識別特定之當事人。
+- 當您在網站的行為，違反使用者協議或可能損害或妨礙網站與其他使用者權益或導致任何人遭受損害時，經網站管理單位研析揭露您的個人資料是為了辨識、聯絡或採取法律行動所必要者。
+- 有利於當事人的權益。
+
+本網站委託廠商或其他第三方服務（如：Auth0 等身份驗證服務、電子報寄件服務等）協助蒐集、處理或利用您的個人資料時，將對委外廠商或個人善盡監督管理之責。
+
+**六、Cookie之使用**
+
+為了提供您最佳的服務及維護身分驗證之安全性，本網站及本網站使用的第三方服務，會在您的電腦中放置並取用我們的 Cookie，若您不願接受 Cookie 的寫入，您可在您使用的瀏覽器功能項中設定隱私權等級為高，即可拒絕 Cookie 的寫入，但可能會導致網站某些功能無法正常執行。
+
+**七、當事人權利事項**
+
+依法律規定，您得針對本網站所保留之個人資料，提出停止處理、利用的要求或請求刪除等行動。如欲行使上述權利，請來信 contact@ustw.watch 與我們聯繫。惟若本網站因執行職務或業務所必須，或依法負有保存義務、法律另有規定者，則不在此限。
+
+**八、隱私權保護政策之修正**
+
+本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。

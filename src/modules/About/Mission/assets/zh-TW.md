@@ -1,5 +1,9 @@
-My husband’s parents had invited a revered pastor—or moksanim, in Korean—to participate in our wedding. “He’s known for his benedictions,” my husband said. I didn’t know someone could specialize in benedictions, the brief blessings given at the end of a service. I wondered what made his special. Was it the tone of his voice? The way he lifted his hands? His steady cadence?
-The pastor turned out to be a bespectacled Korean American man, in his late sixties, who had a fatherly warmth and a comforting authority. At the wedding, his blessing felt long, but mostly because I was impatient to walk back down the aisle to our recessional, the piano line in Coldplay’s “Clocks.” The blessing’s final words were “ . . . and may the grace of God and the love of God be with you both now and forevermore.” Forevermore isn’t a word you hear very often in everyday life. It’s High Church language. Forevermore turned out to be six years.
+美國台灣觀測站為美國註冊的 501c(3) 非營利組織，是一個結合智庫與媒體的團隊，致力於透過公民力量，深化台美關係的韌性、動能與意義。
 
-Suddenly, I was a young mother standing in the front pew of another church, listening to this same moksanim give a very different benediction. At thirty-three, my husband had died abruptly and tragically, drowning in Lake Geneva while touring as a rock cellist. Most of the wake was dreamlike for me, but I do remember that, before I received a line of hundreds of mourners carrying single roses, I noticed that pastor again, the one who gave great benedictions, up at the front of the church at the end of the service. I admit that I was relieved to see him there, open to whatever strength his words might offer.
-For many years after that, I hid out in the back pews at various churches. It was hard to be around smiling churchgoers who called themselves “blessed.” It felt like they were trying, through singing and sermons, to manufacture the starkness of our mortality, when it had become palpably real to me. After all, for almost a year a dead man’s clothes hung in my closet next to mine. His shoes, still in the shape of his feet, sat in our entryway.
+美國台灣觀測站成立於 2017 年，為了整理美國國會的台灣相關法案，提供台灣媒體與民眾更認識美國政策制定的平台。之後開始拓展其他計畫，包括擴大分析美國外交政策、台美中局勢，以及推出每週 podcast 討論台美關係。2021 年出版書籍《為什麼我們要在意美國？》，破解台美關係不實資訊，並討論重大台美中議題。
+
+目前美國台灣觀測站的 Facebook 超過 15 萬人追蹤；每週 podcast 下載數累積超過 165 萬次；Twitter 追蹤者包含美國與台灣重要智庫學者、記者、與政治人物。我們的編輯成員也定時在各大新聞媒體發表觀點。
+
+再下來，我們規劃將台灣的時事，歷史，文化帶給全球的受眾，也會在美台，與全世界各地，舉辦實體工作坊連結社群，透過線上線下各種平台擴大影響力。
+
+我們正在建造一個讓新世代的思想家與公民行動者共同努力的社群，一起了解並推廣「為什麼台灣要在意美國？」，以及「為什麼美國要更在意台灣？」美國台灣觀測站歡迎每一位懷有相同理想的你！
