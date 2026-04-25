@@ -1,10 +1,10 @@
-# User Agreement and Privacy Policy
+# Terms of Service and Privacy Policy
 
 Last Updated: April 2026
 
-Welcome to the US Taiwan Watch website (hereinafter referred to as "this Website"). This page contains both our User Agreement and Privacy Policy. By using our services, you acknowledge that you have read, understood, and agreed to be bound by all of the terms below.
+Welcome to the US Taiwan Watch website (hereinafter referred to as "this Website"). This page contains both our Terms of Service and Privacy Policy. By using our services, you acknowledge that you have read, understood, and agreed to be bound by all of the terms below.
 
-## User Agreement
+## Terms of Service
 
 **1. Account and Security**
 Users registering via third-party services (e.g., Auth0, Google) must ensure information is accurate. You are responsible for account confidentiality. Any actions taken through your account are deemed your own.
@@ -61,7 +61,7 @@ The aforementioned exceptions include, but are not limited to:
 - As required by law.
 - To eliminate danger to your life, body, liberty, or property.
 - For public interest in collaboration with public agencies or academic research institutions for statistical or academic research, provided that the data is processed or disclosed in a way that does not identify specific individuals.
-- When your behavior on the website violates the User Agreement or may damage or hinder the rights of the Website and other users, or cause harm to any person, and disclosure of your personal data is deemed necessary by the Website management for identification, contact, or legal action.
+- When your behavior on the website violates the Terms of Service or may damage or hinder the rights of the Website and other users, or cause harm to any person, and disclosure of your personal data is deemed necessary by the Website management for identification, contact, or legal action.
 - When it is in your best interest.
 
 When this Website commissions vendors or third-party services (such as Auth0 identity authentication or email service providers) to assist in collecting, processing, or using your personal data, we will exercise due diligence in supervising and managing these service providers.

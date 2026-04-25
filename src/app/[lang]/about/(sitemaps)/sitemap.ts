@@ -14,7 +14,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       RouteName.AboutFootprints,
       RouteName.AboutNewsroom,
       RouteName.AboutData,
-      RouteName.AboutUserAgreementPrivacyPolicy,
+      RouteName.AboutTermsOfServiceAndPrivacyPolicy,
       RouteName.AboutDonation,
     ] as const
   ).map((page) => resolveRouteUrl({ name: page }))

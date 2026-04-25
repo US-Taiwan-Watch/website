@@ -35,7 +35,7 @@ export enum RouteName {
   AboutFootprints = 'about_footprints',
   AboutNewsroom = 'about_newsroom',
   AboutData = 'about_data',
-  AboutUserAgreementPrivacyPolicy = 'about_user_agreement_privacy_policy',
+  AboutTermsOfServiceAndPrivacyPolicy = 'about_terms_of_service_and_privacy_policy',
   AboutDonation = 'about_donation',
   /** Ketagalan About */
   KetagalanAboutProjects = 'ketagalan_about_projects',
@@ -174,8 +174,8 @@ export const ROUTE_PATH_MAP: {
   [RouteName.AboutFootprints]: () => '/about/footprints',
   [RouteName.AboutNewsroom]: () => '/about/newsroom',
   [RouteName.AboutData]: () => '/about/data',
-  [RouteName.AboutUserAgreementPrivacyPolicy]: () =>
-    '/about/user-agreement-privacy-policy',
+  [RouteName.AboutTermsOfServiceAndPrivacyPolicy]: () =>
+    '/about/terms-of-service-and-privacy-policy',
   [RouteName.AboutDonation]: () => '/about/donation',
   /** Ketagalan About */
   [RouteName.KetagalanAboutProjects]: () => '/ketagalan/about/projects',

@@ -5,7 +5,7 @@ type AboutModule =
   | 'Mission'
   | 'Newsroom'
   | 'Data'
-  | 'UserAgreementPrivacyPolicy'
+  | 'TermsOfServiceAndPrivacyPolicy'
   | 'Donation'
 
 export const getMarkdownAssetFile = async (

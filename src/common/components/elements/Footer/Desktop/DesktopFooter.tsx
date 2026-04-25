@@ -158,7 +158,7 @@ const DesktopFooter = () => {
               <Stack direction="row" gap={2} flex={1} alignItems="center">
                 <StyledBottomLink
                   href={resolveRouteUrl({
-                    name: RouteName.AboutUserAgreementPrivacyPolicy,
+                    name: RouteName.AboutTermsOfServiceAndPrivacyPolicy,
                   })}
                 >
                   {t('navItem.privacy.title', { ns: 'footer' })}
