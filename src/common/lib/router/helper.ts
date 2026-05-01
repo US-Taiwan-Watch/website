@@ -34,11 +34,11 @@ export default function resolveRouteUrlHelper(
   let url = '/'
   if ('params' in route) {
     /**
-     * TODO: 修正強轉型
-     * 沒有強轉型會出現
+     * NOTE: 這裡的強轉型是已決議保留的設計權衡，不需要修。
+     * 沒有強轉型會出現：
      * Argument of type '{ shopId: string; } | { shopId: string; } | { carId: string; } | { carId: string; } | { carId: string; }' is not assignable to parameter of type '{ shopId: string; } & { shopId: string; } & { carId: string; } & { carId: string; } & { carId: string; }'.
-     * 但本身不影響功能，未來開發者只會在 URoute & ROUTE_PATH_MAP 擴充，
-     * resolveRouteUrlHelper 應該不會再變動，所以先不處理
+     * 不影響功能，未來開發者只會在 URoute & ROUTE_PATH_MAP 擴充，
+     * resolveRouteUrlHelper 應該不會再變動。
      */
     url =
       (
