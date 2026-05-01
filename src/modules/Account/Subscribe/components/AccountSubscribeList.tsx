@@ -277,7 +277,6 @@ const AccountSubscribeList = memo(function AccountSubscribeList() {
   const currentAccountSubscribeType =
     useAccountSubscribeStore.use.currentAccountSubscribeType()
   const filteredAccountSubscribeList = useMemo(() => {
-    // TODO: 討論是否要排序
     if (!currentAccountSubscribeType)
       return [
         ...subscribeBills,

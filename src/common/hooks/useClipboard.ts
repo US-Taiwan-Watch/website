@@ -18,7 +18,6 @@ export default function useClipboard() {
       return
     }
 
-    // TODO: make it more robust, maybe router utils to handle all routes composition
     const urlWithoutSearchParams = url ?? window.location.href
 
     try {
