@@ -14,6 +14,7 @@ import {
   KetagalanArticle as ApiKetagalanArticle,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { z } from 'zod'
+import type { Descendant } from '@/modules/Article/utils/slateSerializer'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { RouteName } from '@/common/lib/router/routes'
 
@@ -40,8 +41,7 @@ export const articleSchema = z.object({
   bannerImage: z
     .object({ src: z.string(), caption: z.string().optional() })
     .optional(),
-  // TODO: 確認 Descendant 型別
-  content: z.array(z.any()).optional(),
+  content: z.custom<Descendant[]>((val) => Array.isArray(val)).optional(),
   resources: z
     .array(z.object({ title: z.string(), link: z.string() }))
     .optional(),
