@@ -2,6 +2,7 @@ import { Party } from '@/common/enums/Party'
 import { DateUtils } from '@/modules/Common/business/Date'
 
 export class CongressUtils {
+  // TODO: 討論是否改為動態資料源
   static getHouseCongressMembers(): Record<Party, number> {
     return {
       [Party.DEMOCRATIC]: 215,
@@ -10,6 +11,7 @@ export class CongressUtils {
     }
   }
 
+  // TODO: 討論是否改為動態資料源
   static getSenateCongressMembers(): Record<Party, number> {
     return {
       [Party.DEMOCRATIC]: 47,
