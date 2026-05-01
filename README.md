@@ -47,7 +47,15 @@ USTW 官網的前端專案
 
 ## Built With
 
-Next.js 14
+- **Next.js 14** (App Router) + **TypeScript**
+- **Material-UI v6** + **Highcharts** + **MUI X-Charts**
+- **Apollo Client v4** + **GraphQL Codegen**
+- **Auth0**（`@auth0/nextjs-auth0` v4）
+- **i18next**（en-US / zh-TW，語言包來自 Google Sheet）
+- **Zustand**（global state） + **react-hook-form** + **Zod**
+- **Slate**（文章內文 AST） + **`@mdx-js/mdx`**（About 靜態文件）
+- **SoundOn API**（Podcast） + **Algolia**（搜尋）
+- **Husky** + **lint-staged**（pre-commit）
 
 <!-- GETTING STARTED -->
 
@@ -68,12 +76,30 @@ Next.js 14
 
 #### JavaScript / TypeScript
 
-完全遵守 JavaScript Standard Style，除了以下例外（已經定義在 .eslintrc.js）：
+完全遵守 JavaScript Standard Style，除了以下例外（已經定義在 [.eslintrc.json](.eslintrc.json)）：
 comma-dangle ：允許行尾逗點
+
+Prettier 設定：[.prettierrc.js](.prettierrc.js)（single quotes、2 spaces、es5 trailing comma、no semicolons）。
+
+Pre-commit 透過 [Husky](.husky/pre-commit) 執行 lint-staged（[.lintstagedrc.json](.lintstagedrc.json)），確保 commit 前自動格式化。
 
 ### Folder Structure
 
-參照 [Next Right Now](https://unlyed.github.io/next-right-now/reference/folder-structure)。File Naming 可至各自文件夾內 Readme 查看。
+採模組化結構，每個 feature 自成一個資料夾：
+
+```
+src/
+├── app/[lang]/         # Next.js App Router 頁面（語系前綴路由）
+├── common/             # 跨模組共用：元件、hooks、lib（apollo、auth0、i18n、mui、router、zustand）、utils
+└── modules/<Module>/   # 每個 feature 一個資料夾
+    ├── api/            # Server-side API（RSC 用）
+    ├── business/       # 領域物件 + Zod schema + Adapter（XxxUtils）
+    ├── components/
+    ├── enums/
+    ├── graphql/        # gql 查詢 / mutation
+    ├── hooks/
+    └── providers/
+```
 
 ---
 
@@ -102,6 +128,12 @@ yarn analyze
 # Linter
 yarn lint
 
+# 自動修 lint + Prettier
+yarn lint:fix
+
+# TypeScript 型別檢查（不輸出檔案）
+yarn check-types
+
 # 準備 Ideology Leadership Chart 資料
 # 每屆國會都需要置換 public/data/ideology.txt 並執行一次 scripts/prepare-ideology.mjs，轉成圖表需要的 JSON 格式
 # ref: https://www.govtrack.us/about/analysis#ideology
@@ -110,7 +142,26 @@ yarn prepare-ideology
 
 ### Environment Variables
 
-### Wiki
+請以 [.env.sample](.env.sample) 為樣板建立 `.env`，向團隊取得實際值：
+
+| 變數                                | 用途                                |
+| ----------------------------------- | ----------------------------------- |
+| `NODE_ENV`                          | `development` / `production`        |
+| `NEXT_PUBLIC_WEB_BASE_URL`          | 前端站台 base URL（含 protocol）    |
+| `NEXT_PUBLIC_API_BASE_URL`          | CMS REST API base URL               |
+| `NEXT_PUBLIC_GRAPHQL_API_URL`       | GraphQL endpoint（dev / prod 不同） |
+| `NEXT_PUBLIC_SOUNDON_API_TOKEN`     | SoundOn API token（Podcast）        |
+| `NEXT_PUBLIC_SOUNDON_PODCAST_ID`    | SoundOn 節目 ID                     |
+| `NEXT_PUBLIC_GOOGLE_TAG_MANAGER_ID` | GTM ID（GA4）                       |
+| `NEXT_PUBLIC_ALGOLIA_APP_ID`        | Algolia App ID                      |
+| `NEXT_PUBLIC_ALGOLIA_SEARCH_KEY`    | Algolia Search-only key             |
+| `NEXT_PUBLIC_ALGOLIA_INDEX_NAME`    | Algolia index 名稱                  |
+| `AUTH0_DOMAIN`                      | Auth0 租戶 domain                   |
+| `AUTH0_CLIENT_ID`                   | Auth0 application client ID         |
+| `AUTH0_CLIENT_SECRET`               | Auth0 application client secret     |
+| `AUTH0_SECRET`                      | Auth0 session 加密用 secret         |
+
+正式部署時，這些變數由 GitHub Secrets 注入（見 [.github/workflows/](.github/workflows/)）。
 
 ### Git
 
@@ -148,7 +199,7 @@ feature branch 會以 `Squash` 的方式合併到 `develop` 分支。
 
 ### 頁面跳轉
 
-凡要進行頁面跳轉，請至 `src/routes.ts` 中定義。
+凡要進行頁面跳轉，請至 [src/common/lib/router/routes.ts](src/common/lib/router/routes.ts) 中的 `RouteName` enum 註冊，並用 `getURouterServer()`（server）或 `useURouterClient()`（client）的 `resolveRouteUrl({ name, params, query })` 產生型別安全的網址。
 
 ### GraphQL
 
@@ -159,10 +210,7 @@ Playground (Development): https://ustw-cms-backend-hbd9avfxadfneybh.westus2-01.a
 
 #### 使用方法
 
-```bash
-# 先把 gql query 寫好
-e.g.
-```
+1. 先把 gql query 寫好，例如：
 
 ```ts
 import { gql } from '@apollo/client'
@@ -185,13 +233,13 @@ export const QUERY_PEOPLES = gql`
 `
 ```
 
-# 生成 GraphQL 型別 & gql 函數
+2. 執行 codegen（會掃描 `src/` 目錄下所有 gql query，並生成對應的型別 & gql 函數）：
 
-# code-gen 會掃描 src 目錄下所有 gql query，並生成對應的型別 & gql 函數
-
+```bash
 yarn graphql-codegen
-
 ```
+
+3. 在元件中匯入產生的 hook / typed query 使用。
 
 ---
 
@@ -201,4 +249,3 @@ yarn graphql-codegen
 
 Zustand 管理 global state，可以在 store 中定義 state 和 action，並使用 useStore 取得 state。
 詳細參考：https://github.com/pmndrs/zustand
-```
