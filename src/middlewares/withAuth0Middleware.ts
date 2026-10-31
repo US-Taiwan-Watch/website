@@ -9,7 +9,8 @@
 /auth/backchannel-logout: The route to receive a logout_token when a configured Back-Channel Logout initiator occurs
  */
 
-import { auth0 } from '@/common/lib/auth0/server'
+import { auth0ForHost } from '@/common/lib/auth0/server'
+import { NextResponse } from 'next/server'
 
 import { CustomNextMiddleware } from '@/middlewares/chainMiddlewares'
 
@@ -17,9 +18,18 @@ export function withAuth0Middleware(
   middleware: CustomNextMiddleware
 ): CustomNextMiddleware {
   return async (request, event, response) => {
-    // if pathname contains auth0 preserved routes, return auth0 middleware
-    if (request.nextUrl.pathname.includes('/auth')) {
-      return auth0.middleware(request)
+    // OAuth cookies and callbacks must use the requesting website's origin.
+    const pathname = request.nextUrl.pathname
+    if (pathname === '/auth' || pathname.startsWith('/auth/')) {
+      let client
+      try {
+        client = auth0ForHost(request.headers.get('host') || '')
+      } catch {
+        return new NextResponse('Unrecognized application origin', {
+          status: 400,
+        })
+      }
+      return client.middleware(request)
     }
 
     // otherwise, return next middleware
