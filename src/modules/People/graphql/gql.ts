@@ -237,6 +237,8 @@ export const PEOPLE_VOTES_FRAGMENT = gql`
   ${TAG_FRAGMENT}
 `
 
+// The deployed CMS does not expose People.viewCount. Keep this shared fragment
+// valid for both the current backend and the Payload 3 rehearsal.
 export const FULL_PEOPLE_FRAGMENT = gql`
   fragment FullPeople on People {
     gender
@@ -268,7 +270,6 @@ export const FULL_PEOPLE_FRAGMENT = gql`
     partyChangeRecords {
       ...PeoplePartyChangeRecords
     }
-    viewCount
     billCount
     currentParty
     records {
