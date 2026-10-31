@@ -1,6 +1,5 @@
 'use client'
 
-import { useRouter } from 'next/navigation'
 import type React from 'react'
 import { createContext, useCallback, useContext } from 'react'
 import useURouterClient from '@/common/lib/router/useURouterClient'
@@ -29,12 +28,11 @@ export default function UAuthProvider({
 }: {
   children: React.ReactNode
 }) {
-  const router = useRouter()
   const { resolveRouteUrl } = useURouterClient()
 
   const login = useCallback(
     (options?: { returnTo?: string }) => {
-      router.push(
+      window.location.assign(
         resolveRouteUrl(
           {
             name: RouteName.AuthLogin,
@@ -44,17 +42,17 @@ export default function UAuthProvider({
         )
       )
     },
-    [router, resolveRouteUrl]
+    [resolveRouteUrl]
   )
 
   const logout = useCallback(() => {
-    router.push(
+    window.location.assign(
       resolveRouteUrl(
         { name: RouteName.AuthLogout },
         { preserveLanguage: false }
       )
     )
-  }, [router, resolveRouteUrl])
+  }, [resolveRouteUrl])
 
   return (
     <UAuthContext.Provider value={{ login, logout }}>
