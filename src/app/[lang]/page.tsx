@@ -155,3 +155,6 @@ export default async function Home({ params }: HomeProps) {
     </Stack>
   )
 }
+
+// Published article edits must be visible on the next request.
+export const dynamic = 'force-dynamic'

@@ -3,6 +3,19 @@ import { z } from 'zod'
 import { TaiwanRecord as TaiwanRecordDTO } from '@/common/lib/graphql/__generated__/graphql'
 import CommonUtils from '@/modules/Common/Common.utils'
 import { Language } from '@/common/lib/i18n/types'
+import { config } from '@/config'
+
+function memberImageUrl(value?: string | null) {
+  if (!value || !config.API_BASE_URL || !config.WEB_BASE_URL) return value
+  const source = new URL(value)
+  const api = new URL(config.API_BASE_URL)
+  const prefix = `${api.pathname.replace(/\/$/, '')}/media-taiwan-record/file/`
+  if (source.origin !== api.origin || !source.pathname.startsWith(prefix)) {
+    return value
+  }
+  const filename = source.pathname.slice(prefix.length)
+  return new URL(`/api/member-media/${filename}`, config.WEB_BASE_URL).href
+}
 
 export enum TaiwanRecordStatus {
   InReview = 'inReview',
@@ -105,7 +118,7 @@ export class TaiwanRecordUtils {
           ?.map((photo) => ({
             id: photo.id,
             photoId: photo.photo?.id,
-            url: photo.photo?.url,
+            url: memberImageUrl(photo.photo?.url),
           }))
           .filter((photo) => isString(photo.id) && isString(photo.url)) ?? [],
       sources:

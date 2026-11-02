@@ -30,28 +30,12 @@ export default function useTaiwanRecord() {
         | TaiwanRecordCreateOutput['images']
         | TaiwanRecordUpdateOutput['images']
     ) => {
-      try {
-        const uploadedImageIds: string[] = []
-        if (images) {
-          const uploadedImages = await Promise.allSettled(
-            images.map((image) => uploadImage(image.url))
-          )
-          uploadedImageIds.push(
-            ...uploadedImages
-              .filter((image) => image.status === 'fulfilled')
-              .map(
-                (image) =>
-                  (image as PromiseFulfilledResult<UploadImageResponse>).value
-                    .doc.id
-              )
-          )
-        }
-
-        return uploadedImageIds
-      } catch (error) {
-        console.error('Upload images failed:', error)
-        return []
+      const uploadedImages: UploadImageResponse[] = []
+      // Stop on failure: never submit a record silently missing selected photos.
+      for (const image of images || []) {
+        uploadedImages.push(await uploadImage(image.url))
       }
+      return uploadedImages.map((image) => image.doc.id)
     },
     []
   )

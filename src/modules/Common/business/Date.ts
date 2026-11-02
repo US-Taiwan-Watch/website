@@ -64,6 +64,16 @@ export class DateUtils {
     return dayjs(date).format(format)
   }
 
+  // Podcast publication dates must render identically during SSR and hydration.
+  static formatUtc(
+    date?: string,
+    format: string = 'YYYY-MM-DD HH:mm:ss',
+    lang: Language = 'en-US'
+  ) {
+    if (!date || !dayjs.utc(date).isValid()) return ''
+    return dayjs.utc(date).locale(this.getDayjsLocale(lang)).format(format)
+  }
+
   /**
    * 解析 DC 時間，如果解析失敗，則返回 null
    * @param date

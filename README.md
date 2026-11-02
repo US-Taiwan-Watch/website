@@ -1,3 +1,5 @@
+> **Production release:** The website uses the upgraded Payload3.92.1 / MongoDB9 backend. See [deployment/README.md](deployment/README.md) for source checks, separate image builds, explicit deployment and rollback. The old automatic deployment workflow is retired.
+
 # USTW-Website
 
 <!-- TABLE OF CONTENTS -->

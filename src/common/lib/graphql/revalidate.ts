@@ -80,6 +80,9 @@ export const createFetchOptions = (category: RevalidateCategory) => ({
  * ```
  */
 export const FetchOptions = {
+  // Editorial changes must be visible on the next server request.
+  publishedContent: { fetchOptions: { cache: 'no-store' as const } },
+
   /** 5 分鐘 - 用於文章列表、熱門法案等高頻更新資料 */
   realTime: createFetchOptions(RevalidateCategory.REAL_TIME),
 

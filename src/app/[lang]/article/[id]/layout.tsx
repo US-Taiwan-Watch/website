@@ -75,3 +75,6 @@ export default function ArticlePostLayout({
     </ThemeProvider>
   )
 }
+
+// Published article edits must be visible on the next request.
+export const dynamic = 'force-dynamic'

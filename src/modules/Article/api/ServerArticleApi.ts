@@ -23,6 +23,7 @@ import {
   CategoriesArticleQueryVariables,
 } from '@/common/lib/graphql/__generated__/graphql'
 import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { CombinedGraphQLErrors } from '@apollo/client'
 import { FetchOptions } from '@/common/lib/graphql/revalidate'
 import { ArticleType, ArticleUtils } from '@/modules/Article/business/Article'
 import {
@@ -132,7 +133,7 @@ export default class ServerArticleApi {
           variables: {
             limit,
           },
-          context: FetchOptions.realTime,
+          context: FetchOptions.publishedContent,
         })
 
         return (
@@ -151,7 +152,7 @@ export default class ServerArticleApi {
         variables: {
           limit,
         },
-        context: FetchOptions.realTime,
+        context: FetchOptions.publishedContent,
       })
 
       return (
@@ -193,7 +194,7 @@ export default class ServerArticleApi {
             limit,
             sort: '-releaseTime',
           },
-          context: FetchOptions.realTime,
+          context: FetchOptions.publishedContent,
         })
 
         return (
@@ -212,7 +213,7 @@ export default class ServerArticleApi {
         variables: {
           limit,
         },
-        context: FetchOptions.realTime,
+        context: FetchOptions.publishedContent,
       })
 
       return (
@@ -289,7 +290,7 @@ export default class ServerArticleApi {
               },
             },
           },
-          context: FetchOptions.realTime,
+          context: FetchOptions.publishedContent,
         })
 
         return (
@@ -313,7 +314,7 @@ export default class ServerArticleApi {
             },
           },
         },
-        context: FetchOptions.realTime,
+        context: FetchOptions.publishedContent,
       })
 
       return (
@@ -464,7 +465,7 @@ export default class ServerArticleApi {
             where,
             sort,
           },
-          context: FetchOptions.realTime,
+          context: FetchOptions.publishedContent,
         })
 
         return (
@@ -485,7 +486,7 @@ export default class ServerArticleApi {
           limit,
           where,
         },
-        context: FetchOptions.realTime,
+        context: FetchOptions.publishedContent,
       })
 
       return (
@@ -525,7 +526,7 @@ export default class ServerArticleApi {
         >({
           query: QUERY_KETAGALAN_ARTICLE,
           variables: { id },
-          context: FetchOptions.dynamic,
+          context: FetchOptions.publishedContent,
         })
 
         if (!data?.KetagalanArticle) return null
@@ -539,13 +540,20 @@ export default class ServerArticleApi {
       >({
         query: QUERY_USTW_ARTICLE,
         variables: { id },
-        context: FetchOptions.dynamic,
+        context: FetchOptions.publishedContent,
       })
 
       if (!data?.UstwArticle) return null
 
       return ArticleUtils.parse(lang, data.UstwArticle, articleType)
     } catch (error) {
+      if (
+        CombinedGraphQLErrors.is(error) &&
+        error.errors.length > 0 &&
+        error.errors.every((item) => item.extensions?.statusCode === 404)
+      ) {
+        return null
+      }
       console.error('Failed to fetch article:', error)
       throw error
     }
@@ -584,7 +592,7 @@ export default class ServerArticleApi {
             },
             sort: '-releaseTime',
           },
-          context: FetchOptions.dynamic,
+          context: FetchOptions.publishedContent,
         })
 
         return (
@@ -609,7 +617,7 @@ export default class ServerArticleApi {
           },
           sort: '-releaseTime',
         },
-        context: FetchOptions.dynamic,
+        context: FetchOptions.publishedContent,
       })
 
       return (

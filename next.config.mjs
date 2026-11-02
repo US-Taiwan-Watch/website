@@ -3,6 +3,7 @@ import bundleAnalyzer from '@next/bundle-analyzer'
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  experimental: { cpus: 2, webpackBuildWorker: true },
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
