@@ -1,0 +1,16 @@
+export enum BillStatusEnum {
+  AGREED_TO_IN_HOUSE = 'agreedToInHouse',
+  AGREED_TO_IN_SENATE = 'agreedToInSenate',
+  BECOME_LAW = 'becameLaw',
+  FAILED_HOUSE = 'failedHouse',
+  FAILED_SENATE = 'failedSenate',
+  FAILED_TO_PASS_OVER_VETO = 'failedToPassOverVeto',
+  INTRODUCED = 'introduced',
+  PASSED_HOUSE = 'passedHouse',
+  PASSED_OVER_VETO = 'passedOverVeto',
+  PASSED_SENATE = 'passedSenate',
+  POCKET_VETOED_BY_PRESIDENT = 'pocketVetoedByPresident',
+  RESOLVING_DIFFERENCES = 'resolvingDifferences',
+  TO_PRESIDENT = 'toPresident',
+  VETOED_BY_PRESIDENT = 'vetoedByPresident',
+}

@@ -1,0 +1,334 @@
+import {
+  BillQuery,
+  BillQueryVariables,
+  BillsQuery,
+  BillsQueryVariables,
+  BillTopCosponsorsQuery,
+  BillTopCosponsorsQueryVariables,
+  BillTopSponsorsQuery,
+  BillTopSponsorsQueryVariables,
+  BillTopTagsQuery,
+  BillTopTagsQueryVariables,
+  BillIdsQuery,
+  BillIdsQueryVariables,
+} from '@/common/lib/graphql/__generated__/graphql'
+import { isUndefined, isNull } from 'lodash-es'
+import { getClient } from '@/common/lib/graphql/ServerApolloClient'
+import { FetchOptions } from '@/common/lib/graphql/revalidate'
+import {
+  QUERY_BILL,
+  QUERY_BILL_TOP_COSPONSORS,
+  QUERY_BILL_TOP_SPONSORS,
+  QUERY_BILL_TOP_TAGS,
+  QUERY_BILLS,
+  QUERY_BILL_IDS,
+} from '@/modules/Bill/graphql/gql'
+import TagUtils from '@/modules/Common/business/Tag'
+import { PeopleUtils } from '@/modules/People/business/People'
+import { BillUtils } from '@/modules/Bill/business/Bill'
+import { Language } from '@/common/lib/i18n/types'
+
+/**
+ * Bill API
+ *
+ * @description Bill 的 RSC 端 API 實作
+ */
+export default class ServerBillApi {
+  /**
+   * 取得首頁精選法案
+   * @param lang 語言
+   * @param limit 限制數量
+   * @returns 首頁精選法案列表
+   */
+  static async getHomeFeaturedBills(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
+    try {
+      const client = getClient()
+      const { data } = await client.query<BillsQuery, BillsQueryVariables>({
+        query: QUERY_BILLS,
+        variables: {
+          limit,
+          where: {
+            isFeatured: {
+              equals: true,
+            },
+          },
+        },
+        context: FetchOptions.realTime,
+      })
+
+      return (
+        data?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch home featured bills:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得熱門標籤
+   * @param lang 語言
+   * @param limit 限制數量
+   * @returns 熱門標籤列表
+   */
+  static async getPopularTags(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
+    try {
+      const client = getClient()
+      const { data } = await client.query<
+        BillTopTagsQuery,
+        BillTopTagsQueryVariables
+      >({
+        query: QUERY_BILL_TOP_TAGS,
+        variables: {
+          limit,
+        },
+        context: FetchOptions.stable,
+      })
+      return (
+        data?.BillTopTags?.filter(
+          (tag) => !isNull(tag) && !isNull(tag.tag) && !isUndefined(tag.tag)
+        ).map((tag) => ({
+          billCount: tag!.billCount ?? 0,
+          tag: TagUtils.parse(lang, tag!.tag!),
+        })) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch popular tags:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得提案法案最多的前 5 名議員
+   * @param lang 語言
+   * @param limit 限制數量
+   * @returns 提案法案最多的前 5 名議員列表
+   */
+  static async getTopSponsors(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
+    try {
+      const client = getClient()
+      const { data: sponsorsData } = await client.query<
+        BillTopSponsorsQuery,
+        BillTopSponsorsQueryVariables
+      >({
+        query: QUERY_BILL_TOP_SPONSORS,
+        variables: { limit },
+        context: FetchOptions.stable,
+      })
+
+      return (
+        sponsorsData?.BillTopSponsors?.filter((doc) => !isNull(doc))
+          ?.filter(
+            (sponsor) =>
+              !isNull(sponsor?.people) && !isUndefined(sponsor?.people)
+          )
+          .map(({ people, billCount }) => ({
+            people: PeopleUtils.parse(lang, people!),
+            billCount: billCount ?? 0,
+          })) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch top sponsors:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得共同提案最多的前 5 名議員
+   * @param lang 語言
+   * @param limit 限制數量
+   * @returns 共同提案最多的前 5 名議員列表
+   */
+  static async getTopCosponsors(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
+    try {
+      const client = getClient()
+      const { data: cosponsorsData } = await client.query<
+        BillTopCosponsorsQuery,
+        BillTopCosponsorsQueryVariables
+      >({
+        query: QUERY_BILL_TOP_COSPONSORS,
+        variables: { limit },
+        context: FetchOptions.stable,
+      })
+
+      return (
+        cosponsorsData?.BillTopCosponsors?.filter((doc) => !isNull(doc))
+          ?.filter(
+            (cosponsor) =>
+              !isNull(cosponsor?.people) && !isUndefined(cosponsor?.people)
+          )
+          .map(({ people, billCount }) => ({
+            people: PeopleUtils.parse(lang, people!),
+            billCount: billCount ?? 0,
+          })) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch top cosponsors:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得最新提案的法案
+   * @param lang 語言
+   * @param limit 限制數量
+   * @returns 最新提案的法案列表
+   */
+  static async getLatestBills(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
+    try {
+      const client = getClient()
+      const { data: latestBillsData } = await client.query<
+        BillsQuery,
+        BillsQueryVariables
+      >({
+        query: QUERY_BILLS,
+        variables: {
+          sort: '-introducedAt.datetime',
+          limit,
+        },
+        context: FetchOptions.realTime,
+      })
+
+      return (
+        latestBillsData?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch latest bills:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得熱門提案的法案
+   * @param lang 語言
+   * @param limit 限制數量
+   * @returns 熱門提案的法案列表
+   */
+  static async getPopularBills(
+    lang: Language,
+    { limit = 10 }: { limit?: number }
+  ) {
+    try {
+      const client = getClient()
+      const { data: popularBillsData } = await client.query<
+        BillsQuery,
+        BillsQueryVariables
+      >({
+        query: QUERY_BILLS,
+        variables: {
+          // TODO: 目前還沒定義Popularity, 先跟Latest Bill拿一樣的
+          sort: '-introducedAt.datetime',
+          limit,
+        },
+        context: FetchOptions.realTime,
+      })
+      return (
+        popularBillsData?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch popular bills:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得提案法案
+   * @param lang 語言
+   * @param id 提案法案ID
+   * @returns 提案法案
+   */
+  static async getBill(lang: Language, { id }: { id: string }) {
+    try {
+      const client = getClient()
+      const { data } = await client.query<BillQuery, BillQueryVariables>({
+        query: QUERY_BILL,
+        variables: { id },
+        context: FetchOptions.dynamic,
+      })
+
+      if (!data?.Bill) return null
+
+      return BillUtils.parse(lang, data.Bill)
+    } catch (error) {
+      console.error('Failed to fetch bill:', error)
+      throw error
+    }
+  }
+
+  /**
+   * 取得提案法案的相關法案
+   * @param lang 語言
+   * @param id 提案法案ID
+   * @returns 提案法案的相關法案列表
+   */
+  static async getRelatedBills(lang: Language, { id }: { id: string }) {
+    try {
+      const client = getClient()
+      const { data } = await client.query<BillQuery, BillQueryVariables>({
+        query: QUERY_BILL,
+        variables: { id },
+        context: FetchOptions.dynamic,
+      })
+
+      return (
+        data?.Bill?.relatedBills
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => BillUtils.parse(lang, bill)) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch related bills:', error)
+      return []
+    }
+  }
+
+  /**
+   * 取得法案 IDs 和更新時間
+   * @returns 法案 IDs 和 updatedAt 列表
+   */
+  static async getBillIds(): Promise<{ id: string; updatedAt: string }[]> {
+    try {
+      const client = getClient()
+      const { data } = await client.query<BillIdsQuery, BillIdsQueryVariables>({
+        query: QUERY_BILL_IDS,
+        context: FetchOptions.stable,
+      })
+
+      return (
+        (data?.Bills?.docs
+          ?.filter((bill) => !isNull(bill))
+          .map((bill) => ({
+            id: bill!.id,
+            updatedAt: bill!.updatedAt,
+          }))
+          .filter((bill) => !isNull(bill.id) && !isUndefined(bill.id)) as {
+          id: string
+          updatedAt: string
+        }[]) ?? []
+      )
+    } catch (error) {
+      console.error('Failed to fetch bill IDs:', error)
+      return []
+    }
+  }
+}

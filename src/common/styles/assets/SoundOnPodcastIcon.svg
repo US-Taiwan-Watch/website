@@ -1,0 +1,11 @@
+<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" overflow="hidden">
+  <image 
+    href="/assets/icon/soundon.png"
+    x="50%"
+    y="50%"
+    width="28" 
+    height="28"
+    transform="translate(-14, -14)"
+    preserveAspectRatio="xMidYMid slice"
+  />
+</svg>

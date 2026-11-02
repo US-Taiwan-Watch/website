@@ -1,0 +1,11 @@
+.git
+.github
+node_modules
+.next
+.env*
+!.env.example
+*.tsbuildinfo
+**/*.key
+**/*.pem
+src/common/lib/i18n/locales
+backend-source
