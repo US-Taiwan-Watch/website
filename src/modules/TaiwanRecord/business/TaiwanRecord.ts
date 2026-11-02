@@ -1,0 +1,165 @@
+import { isString } from 'lodash-es'
+import { z } from 'zod'
+import { TaiwanRecord as TaiwanRecordDTO } from '@/common/lib/graphql/__generated__/graphql'
+import CommonUtils from '@/modules/Common/Common.utils'
+import { Language } from '@/common/lib/i18n/types'
+import { config } from '@/config'
+
+function memberImageUrl(value?: string | null) {
+  if (!value || !config.API_BASE_URL || !config.WEB_BASE_URL) return value
+  const source = new URL(value)
+  const api = new URL(config.API_BASE_URL)
+  const prefix = `${api.pathname.replace(/\/$/, '')}/media-taiwan-record/file/`
+  if (source.origin !== api.origin || !source.pathname.startsWith(prefix)) {
+    return value
+  }
+  const filename = source.pathname.slice(prefix.length)
+  return new URL(`/api/member-media/${filename}`, config.WEB_BASE_URL).href
+}
+
+export enum TaiwanRecordStatus {
+  InReview = 'inReview',
+  Drafted = 'drafted',
+  Published = 'published',
+  Deleted = 'deleted',
+}
+
+/**
+ * 最多10張圖片
+ */
+export const MAX_IMAGE_COUNT = 10
+
+const sourcesSchema = z.array(
+  z.object({
+    id: z.string(),
+    url: z.string().url(),
+  })
+)
+
+export const taiwanRecordSchema = z.object({
+  id: z.string(),
+  title: z.string().min(1),
+  content: z.string().min(1),
+  images: z
+    .array(
+      z.object({
+        id: z.string(),
+        photoId: z.string(),
+        url: z.string().url(),
+      })
+    )
+    .max(MAX_IMAGE_COUNT),
+  createdAt: z.string().datetime(),
+  author: z.string(),
+  sources: sourcesSchema,
+  status: z.nativeEnum(TaiwanRecordStatus),
+  people: z.object({
+    id: z.string(),
+    name: z.string(),
+  }),
+})
+
+export type TaiwanRecord = z.infer<typeof taiwanRecordSchema>
+
+export const taiwanRecordCreateSchema = taiwanRecordSchema
+  .pick({
+    title: true,
+    content: true,
+    images: true,
+    sources: true,
+  })
+  .extend({
+    sources: sourcesSchema.min(1),
+  })
+
+export type TaiwanRecordCreateInput = z.input<typeof taiwanRecordCreateSchema>
+export type TaiwanRecordCreateOutput = z.infer<typeof taiwanRecordCreateSchema>
+
+export const defaultTaiwanRecordCreate: TaiwanRecordCreateInput = {
+  title: '',
+  content: '',
+  images: [],
+  sources: [],
+}
+
+export const taiwanRecordUpdateSchema = taiwanRecordSchema.pick({
+  id: true,
+  title: true,
+  content: true,
+  images: true,
+  sources: true,
+  people: true,
+})
+
+export type TaiwanRecordUpdateInput = z.input<typeof taiwanRecordUpdateSchema>
+export type TaiwanRecordUpdateOutput = z.infer<typeof taiwanRecordUpdateSchema>
+
+export const defaultTaiwanRecordUpdate: TaiwanRecordUpdateOutput = {
+  id: '',
+  title: '',
+  content: '',
+  images: [],
+  sources: [],
+  people: {
+    id: '',
+    name: '',
+  },
+}
+
+export class TaiwanRecordUtils {
+  static parse(lang: Language, dto: TaiwanRecordDTO) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
+    return taiwanRecordSchema.parse({
+      id: dto.id ?? undefined,
+      title: dto.title ?? '',
+      content: dto.description ?? '',
+      images:
+        dto.photos
+          ?.map((photo) => ({
+            id: photo.id,
+            photoId: photo.photo?.id,
+            url: memberImageUrl(photo.photo?.url),
+          }))
+          .filter((photo) => isString(photo.id) && isString(photo.url)) ?? [],
+      sources:
+        dto.sources
+          ?.map((source) => ({
+            id: source.id,
+            url: source.link,
+          }))
+          .filter((source) => isString(source.id) && isString(source.url)) ??
+        [],
+      status: dto.status,
+      createdAt: dto.createdAt ?? '',
+      author: dto.author?.fullName ?? '',
+      people: {
+        id: dto.people?.id ?? '',
+        name:
+          dto.people?.i18n?.[apiLang]?.displayName ||
+          dto.people?.i18n?.[fallbackLang]?.displayName ||
+          '',
+      },
+    })
+  }
+
+  static isPublished(record: TaiwanRecord) {
+    return record.status === TaiwanRecordStatus.Published
+  }
+
+  static isReadonly(record: TaiwanRecord) {
+    return (
+      record.status === TaiwanRecordStatus.InReview ||
+      record.status === TaiwanRecordStatus.Deleted
+    )
+  }
+
+  /**
+   * 生成隨機的 photo id
+   */
+  static generateRandomMongoDBId() {
+    // random mongo id（24 位十六進位字串）
+    return Array.from({ length: 24 }, () =>
+      Math.floor(Math.random() * 16).toString(16)
+    ).join('')
+  }
+}

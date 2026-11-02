@@ -1,0 +1,104 @@
+import { memo, useState, useCallback, useMemo, useEffect } from 'react'
+import UButton from '@/common/components/atoms/UButton'
+import { BookmarkFilledIcon, BookmarkIcon } from '@/common/styles/assets/Icons'
+import { Bill } from '@/modules/Bill/business/Bill'
+import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
+import UIconButton from '@/common/components/atoms/UIconButton'
+import useTranslationClient from '@/common/lib/i18n/hooks/useTranslationClient'
+import { useAccount } from '@/modules/Account/providers/AccountProvider'
+import { CircularProgress } from '@mui/material'
+
+type SubscribeButtonProps = {
+  bill: Bill
+}
+
+const SubscribeButton = memo(function SubscribeButton({
+  bill,
+}: SubscribeButtonProps) {
+  const {
+    subscribeBill,
+    unsubscribeBill,
+    isMutating,
+    checkIfBillIsSubscribed,
+    isAccountLoading,
+  } = useAccount()
+  const { isMobile } = useResponsive()
+  const { t } = useTranslationClient('bill')
+
+  // Use useMemo to compute subscription state and reduce unnecessary updates
+  const isSubscribedFromAccount = useMemo(
+    () => checkIfBillIsSubscribed(bill),
+    [checkIfBillIsSubscribed, bill]
+  )
+
+  const [isSubscribed, setIsSubscribed] = useState(isSubscribedFromAccount)
+
+  // Sync with account state when it changes
+  useEffect(() => {
+    setIsSubscribed(isSubscribedFromAccount)
+  }, [isSubscribedFromAccount])
+
+  const handleSubscribeClick = useCallback(async () => {
+    const originalState = isSubscribed
+
+    try {
+      if (isSubscribed) {
+        setIsSubscribed(false)
+        await unsubscribeBill(bill)
+      } else {
+        setIsSubscribed(true)
+        await subscribeBill(bill)
+      }
+    } catch (error) {
+      // Rollback to original state on error
+      setIsSubscribed(originalState)
+      console.error('Subscribe/Unsubscribe operation failed:', error)
+      // The AccountProvider already shows toast messages for errors
+    }
+  }, [isSubscribed, unsubscribeBill, subscribeBill, bill])
+
+  if (isMobile) {
+    return (
+      <UIconButton
+        variant="rounded"
+        color="primary"
+        size="xs"
+        onClick={handleSubscribeClick}
+        disabled={isMutating || isAccountLoading}
+      >
+        {isAccountLoading ? (
+          <CircularProgress color="info" size={16} />
+        ) : isSubscribed ? (
+          <BookmarkFilledIcon />
+        ) : (
+          <BookmarkIcon />
+        )}
+      </UIconButton>
+    )
+  }
+
+  return (
+    <UButton
+      variant="contained"
+      color="primary"
+      rounded
+      startIcon={
+        isAccountLoading ? (
+          <CircularProgress color="inherit" size={16} />
+        ) : isSubscribed ? (
+          <BookmarkFilledIcon sx={{ width: 24, height: 24 }} />
+        ) : (
+          <BookmarkIcon sx={{ width: 24, height: 24 }} />
+        )
+      }
+      onClick={handleSubscribeClick}
+      disabled={isMutating || isAccountLoading}
+    >
+      {t(isSubscribed ? 'page.subscribed.btn' : 'page.subscribe.btn', {
+        ns: 'bill',
+      })}
+    </UButton>
+  )
+})
+
+export default SubscribeButton

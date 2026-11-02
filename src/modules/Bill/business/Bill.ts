@@ -1,0 +1,262 @@
+import { BillStatusEnum } from '@/modules/Bill/enums/BillStatus'
+import { isArray, isNull, isUndefined } from 'lodash-es'
+import { Bill as ApiBill } from '@/common/lib/graphql/__generated__/graphql'
+import { Language } from '@/common/lib/i18n/types'
+import CommonUtils from '@/modules/Common/Common.utils'
+import { ParliamentChartData } from '@/modules/Bill/components/BillLanding/ParliamentChart'
+import { Party } from '@/common/enums/Party'
+import TagUtils, { tagSchema } from '@/modules/Common/business/Tag'
+import { BillTypeEnum } from '@/modules/Bill/components/BillFilter/enums'
+import { z } from 'zod'
+import { ChamberEnum } from '@/common/enums/Chamber'
+import {
+  billSponsorSchema,
+  BillSponsorUtils,
+} from '@/modules/Bill/business/BillSponsor'
+import {
+  billCosponsorSchema,
+  BillCosponsorUtils,
+} from '@/modules/Bill/business/BillCosponsor'
+import { DateUtils } from '@/modules/Common/business/Date'
+import getURouterServer from '@/common/lib/router/getURouterServer'
+import { RouteName } from '@/common/lib/router/routes'
+
+interface BillActionOverviewDto {
+  actionAt: {
+    datetime: string
+  }
+  description: string
+}
+
+interface BillActionAllDto extends BillActionOverviewDto {
+  chamber: 'house' | 'senate'
+}
+
+const billActionSchema = z.object({
+  date: z.string().optional(),
+  description: z.string().optional(),
+  chamber: z.nativeEnum(ChamberEnum).optional(),
+})
+export type BillAction = z.infer<typeof billActionSchema>
+
+export const billSchema = z.object({
+  id: z.string().optional(),
+  type: z.nativeEnum(BillTypeEnum).optional(),
+  title: z.string().optional(),
+  sponsor: billSponsorSchema.optional(),
+  cosponsors: z.array(billCosponsorSchema),
+  categories: z.array(z.string()),
+  tags: z.array(tagSchema),
+  status: z.nativeEnum(BillStatusEnum).optional(),
+  statusTracker: z
+    .object({
+      currentStatus: z.nativeEnum(BillStatusEnum).optional(),
+      passedStatus: z.array(z.nativeEnum(BillStatusEnum)).optional(),
+      futureStatus: z.array(z.nativeEnum(BillStatusEnum)).optional(),
+    })
+    .optional(),
+  actionsOverview: z.array(billActionSchema),
+  actionsAll: z.array(billActionSchema),
+  congressNumber: z.number().optional(),
+  introducedAt: z.string().optional(),
+  latestActionAt: z.string().optional(),
+  number: z.string().optional(),
+  summary: z.string().optional(),
+  congressGovUrl: z.string().optional(),
+})
+
+export type Bill = z.infer<typeof billSchema>
+
+export class BillUtils {
+  static parse(lang: Language, dto: ApiBill) {
+    const [apiLang, fallbackLang] = CommonUtils.parseApiI18nKey(lang)
+    const result = billSchema.safeParse({
+      id: dto.id ?? undefined,
+      type: dto.type
+        ? z.nativeEnum(BillTypeEnum).safeParse(dto.type).data
+        : undefined,
+      title:
+        dto.i18n?.[apiLang]?.title || dto.i18n?.[fallbackLang]?.title || '',
+      sponsor: dto.sponsor
+        ? BillSponsorUtils.parse(lang, dto.sponsor)
+        : undefined,
+      cosponsors:
+        dto.cosponsors
+          ?.map((cosponsor) =>
+            cosponsor.people ? BillCosponsorUtils.parse(lang, cosponsor) : null
+          )
+          .filter((cosponsor) => !isNull(cosponsor)) ?? [],
+      categories:
+        dto.categories
+          ?.map(
+            (category) =>
+              category.i18n?.[apiLang]?.name ||
+              category.i18n?.[fallbackLang]?.name ||
+              ''
+          )
+          .filter((name) => !!name) ?? [],
+      tags:
+        dto.tags
+          ?.map((tag) => TagUtils.parse(lang, tag))
+          .filter((tag) => !isUndefined(tag.id) && !isUndefined(tag.name)) ??
+        [],
+      // Avoid __typename
+      statusTracker: dto.statusTracker
+        ? {
+            currentStatus: dto.statusTracker.currentStep,
+            passedStatus: dto.statusTracker.passedSteps,
+            futureStatus: dto.statusTracker.futureSteps,
+          }
+        : undefined,
+      congressNumber: dto.congress,
+      actionsOverview:
+        (
+          (dto.i18n?.[apiLang]?.actionsOverview ||
+            dto.i18n?.[fallbackLang]?.actionsOverview) as
+            | BillActionOverviewDto[]
+            | undefined
+        )
+          ?.map((action) => ({
+            date: action.actionAt.datetime,
+            description: action.description,
+          }))
+          ?.sort((a, b) =>
+            DateUtils.safeParseDc(a.date).diff(DateUtils.safeParseDc(b.date))
+          ) ?? [],
+      actionsAll:
+        (
+          (dto.i18n?.[apiLang]?.actionsAll ||
+            dto.i18n?.[fallbackLang]?.actionsAll) as
+            | BillActionAllDto[]
+            | undefined
+        )
+          ?.map((action) => ({
+            date: action.actionAt.datetime,
+            description: action.description,
+            chamber: z.nativeEnum(ChamberEnum).safeParse(action.chamber).data,
+          }))
+          ?.sort((a, b) =>
+            DateUtils.safeParseDc(a.date).diff(DateUtils.safeParseDc(b.date))
+          ) ?? [],
+      introducedAt: dto.introducedAt?.datetime,
+      latestActionAt: dto.latestActionTime,
+      number: dto.number,
+      summary:
+        dto.i18n?.[apiLang]?.summary || dto.i18n?.[fallbackLang]?.summary || '',
+      congressGovUrl: dto.congressGovUrl ?? '',
+    })
+
+    if (!result.success) {
+      console.error('Bill data validation failed:', result.error, dto)
+      throw new Error(`Invalid bill data structure: ${result.error.message}`)
+    }
+
+    return result.data
+  }
+
+  /**
+   * 解析所有法案狀態時間軸資料
+   * @param bill
+   * @returns
+   */
+  static getBillStatusTimelineData(
+    bill: Bill
+  ): Array<{ status: BillStatusEnum; isFuture: boolean }> {
+    return [
+      ...(bill.statusTracker?.passedStatus ?? []).map((status) => ({
+        status,
+        isFuture: false,
+      })),
+      ...(bill.statusTracker?.futureStatus ?? []).map((status) => ({
+        status,
+        isFuture: true,
+      })),
+    ]
+  }
+
+  /**
+   * 解析共同提案人議會資料
+   * @param bill
+   * @returns
+   */
+  static getCosponsorsParliamentData(bill: Bill): ParliamentChartData[] {
+    if (!isArray(bill.cosponsors)) return []
+
+    const parliamentMap = bill.cosponsors.reduce<Record<Party, number>>(
+      (acc, curr) => {
+        const party = curr.party
+        if (!party) return acc
+
+        acc[party] += 1
+        return acc
+      },
+      {
+        [Party.DEMOCRATIC]: 0,
+        [Party.REPUBLICAN]: 0,
+        [Party.INDEPENDENT]: 0,
+      }
+    )
+
+    return Object.entries(parliamentMap)
+      .map(([party, count]) => ({
+        party: party as Party,
+        count,
+      }))
+      .sort((a, b) => b.count - a.count)
+  }
+
+  static getLink(billId: Bill['id']) {
+    if (!billId) return '#'
+    const { resolveRouteUrl } = getURouterServer()
+    return resolveRouteUrl({ name: RouteName.BillDetail, params: { billId } })
+  }
+
+  /**
+   * Get the latest action of the bill
+   * @returns The latest action or null if no actions exist
+   */
+  static getLatestAction(bill: Bill) {
+    if (!bill.actionsOverview || bill.actionsOverview.length === 0) {
+      return null
+    }
+    return bill.actionsOverview[bill.actionsOverview.length - 1] ?? null
+  }
+
+  /**
+   * Get the current status of the bill
+   * @returns The current status of the bill
+   */
+  static getCurrentStatus(bill: Bill) {
+    return bill.statusTracker?.currentStatus
+  }
+
+  /**
+   * Get the current index of the bill status
+   * @returns The index of the bill status
+   */
+  static getCurrentStatusIndex(bill: Bill) {
+    if (!bill.statusTracker?.passedStatus?.length) {
+      return 0
+    }
+    return bill.statusTracker.passedStatus.length - 1
+  }
+
+  static billTypeEnumTextMap: Record<BillTypeEnum, string> = {
+    [BillTypeEnum.HouseBill]: 'H.R.',
+    [BillTypeEnum.SenateBill]: 'S.',
+    [BillTypeEnum.HouseJointResolution]: 'H.J.Res.',
+    [BillTypeEnum.SenateJointResolution]: 'S.J.Res.',
+    [BillTypeEnum.HouseConcurrentResolution]: 'H.Con.Res.',
+    [BillTypeEnum.SenateConcurrentResolution]: 'S.Con.Res.',
+    [BillTypeEnum.HouseSimpleResolution]: 'H.Res.',
+    [BillTypeEnum.SenateSimpleResolution]: 'S.Res.',
+  }
+
+  static getChamberPrefix(bill: Bill): string {
+    return BillUtils.billTypeEnumTextMap[bill.type as BillTypeEnum] ?? ''
+  }
+
+  static getCosponsorsCount(bill: Bill) {
+    return (bill.cosponsors ?? []).length
+  }
+}
