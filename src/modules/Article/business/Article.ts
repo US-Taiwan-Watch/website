@@ -17,6 +17,7 @@ import { z } from 'zod'
 import type { Descendant } from '@/modules/Article/utils/slateSerializer'
 import getURouterServer from '@/common/lib/router/getURouterServer'
 import { RouteName } from '@/common/lib/router/routes'
+import { articleMediaUrl } from '@/modules/Article/utils/articleMedia'
 
 export enum ArticleType {
   Article = 'article',
@@ -72,7 +73,7 @@ export class ArticleUtils {
       categories: dto.categories?.map((category) =>
         ArticleCategoryUtils.parse(lang, category)
       ),
-      date: dto.createdAt,
+      date: dto.releaseTime || dto.createdAt,
       tags: dto.tags?.map((tag) => ({
         label:
           tag.i18n?.[apiLang]?.name || tag.i18n?.[fallbackLang]?.name || '',
@@ -82,11 +83,11 @@ export class ArticleUtils {
         link: source.link ?? '',
       })),
       bannerImage: {
-        src: dto.media?.photo?.url ?? '',
+        src: articleMediaUrl(dto.media?.photo?.url ?? ''),
         caption: dto.media?.caption ?? '',
       },
       thumbnailImage: {
-        src: dto.media?.photo?.url ?? '',
+        src: articleMediaUrl(dto.media?.photo?.url ?? ''),
         caption: dto.media?.caption ?? '',
       },
       authors: dto.authors?.map((author) => ArticleAuthorUtils.parse(author)),

@@ -9,6 +9,7 @@ import {
   DialogProps,
   DialogTitle,
   DialogContent,
+  Alert,
   Box,
   Button,
   TextField,
@@ -43,6 +44,7 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
     props
   const { t } = useTranslationClient(['taiwan_record', 'common'])
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const { toast } = useToast()
 
   const { form, handleReset } = useTaiwanRecordForm({
@@ -67,6 +69,7 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
 
   const onClose = useCallback(() => {
     if (!isSubmitting) {
+      setSubmitError('')
       handleReset()
       dialogProps.onClose?.({}, 'backdropClick')
     }
@@ -75,6 +78,7 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
   const onSubmit = useCallback(
     async (data: TaiwanRecordCreateOutput | TaiwanRecordUpdateOutput) => {
       try {
+        setSubmitError('')
         setIsSubmitting(true)
         if (mode === 'create') {
           await handleSubmitTaiwanRecord(peopleId, data)
@@ -89,9 +93,11 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
         onSubmitTaiwanRecord?.()
       } catch (error) {
         if (error instanceof Error) {
+          setSubmitError(error.message)
           toast('error', error.message)
           return
         }
+        setSubmitError(t('submitTaiwanRecord.error', { ns: 'taiwan_record' }))
         toast('error', t('submitTaiwanRecord.error', { ns: 'taiwan_record' }))
       } finally {
         setIsSubmitting(false)
@@ -201,6 +207,7 @@ export default function TaiwanRecordDialog(props: TaiwanRecordDialogProps) {
         <FormProvider {...form}>
           <Box component="form" onSubmit={form.handleSubmit(onSubmit)}>
             <Stack gap={2}>
+              {submitError && <Alert severity="error">{submitError}</Alert>}
               {/* 標題欄位 */}
               <Controller
                 control={form.control}

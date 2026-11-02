@@ -1,0 +1,89 @@
+name: Deploy reviewed images
+on:
+  workflow_dispatch:
+    inputs:
+      frontend_digest:
+        description: New frontend sha256 digest; leave both frontend fields empty to skip
+        type: string
+      frontend_previous_digest:
+        description: Current frontend sha256 digest for rollback
+        type: string
+      backend_digest:
+        description: New Payload 3 backend sha256 digest; leave both backend fields empty to skip
+        type: string
+      backend_previous_digest:
+        description: Current Payload 3 backend sha256 digest for rollback
+        type: string
+      confirmation:
+        description: Type DEPLOY USTW PRODUCTION
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: ustw-production-deployment
+  cancel-in-progress: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: Development
+    env:
+      # Development is the existing environment name, NOT a separate hosted site.
+      RELEASE_INPUTS: ${{ toJSON(inputs) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.23.4'
+      - name: Validate all images, rollback anchors and credentials before changes
+        id: plan
+        run: node deployment/release-plan.mjs
+        env:
+          FRONTEND_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          BACKEND_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
+      - name: Deploy backend image
+        id: backend
+        if: steps.plan.outputs.backend == 'true'
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ustw-cms-backend
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
+          images: ${{ steps.plan.outputs.backend_image }}
+      - name: Verify backend health and disabled jobs
+        if: steps.plan.outputs.backend == 'true'
+        run: node deployment/check-health.mjs backend
+      - name: Deploy frontend image
+        id: frontend
+        if: steps.plan.outputs.frontend == 'true'
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ustw-cms-frontend-dev
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: ${{ steps.plan.outputs.frontend_image }}
+      - name: Verify public bilingual pages
+        if: steps.plan.outputs.frontend == 'true'
+        run: node deployment/check-health.mjs frontend
+      # Roll back only selected app images. Never change database/settings/storage here.
+      - name: Restore previous backend image on failure
+        if: failure() && steps.backend.outcome != 'skipped' && steps.plan.outputs.backend == 'true'
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ustw-cms-backend
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
+          images: ${{ steps.plan.outputs.backend_previous }}
+      - name: Restore previous frontend image on failure
+        if: failure() && steps.frontend.outcome != 'skipped' && steps.plan.outputs.frontend == 'true'
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ustw-cms-frontend-dev
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: ${{ steps.plan.outputs.frontend_previous }}
+      - name: Verify restored backend
+        if: failure() && steps.backend.outcome != 'skipped' && steps.plan.outputs.backend == 'true'
+        run: node deployment/check-health.mjs backend
+      - name: Verify restored frontend
+        if: failure() && steps.frontend.outcome != 'skipped' && steps.plan.outputs.frontend == 'true'
+        run: node deployment/check-health.mjs frontend

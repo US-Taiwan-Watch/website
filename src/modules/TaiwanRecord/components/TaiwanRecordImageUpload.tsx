@@ -49,6 +49,7 @@ const PreviewImage = memo(function PreviewImage({
       onMouseLeave={() => !isReadOnly && setShowRemoveButton(false)}
     >
       <Image
+        unoptimized
         src={image}
         alt={`uploaded-${index}`}
         style={{

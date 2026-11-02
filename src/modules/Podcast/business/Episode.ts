@@ -1,3 +1,4 @@
+import { Language } from '@/common/lib/i18n/types'
 import { DateUtils } from '@/modules/Common/business/Date'
 import { PodcastSourceType } from '@/modules/Podcast/business/Podcast'
 import { z } from 'zod'
@@ -45,8 +46,12 @@ export default class EpisodeUtils {
     return episodeSchema.parse(dto)
   }
 
-  static getFormattedPublishDate(publishDate: string) {
-    return DateUtils.formatLocal(publishDate, 'MMM DD, YYYY').toUpperCase()
+  static getFormattedPublishDate(
+    publishDate?: string,
+    lang: Language = 'en-US',
+    format: string = 'MMM DD, YYYY'
+  ) {
+    return DateUtils.formatUtc(publishDate, format, lang).toUpperCase()
   }
 
   static getLink(episodeId: Episode['id']) {

@@ -1,4 +1,3 @@
-import { config } from '@/config'
 import EpisodeUtils from '@/modules/Podcast/business/Episode'
 import {
   GetEpisodeParams,
@@ -10,11 +9,14 @@ import {
 export const getEpisodes = async (params: GetEpisodesParams) => {
   try {
     const res = await fetch(
-      `https://api.soundon.fm/v2/client/podcasts/${params.podcastId}/episodes`,
+      typeof window !== 'undefined'
+        ? '/api/podcast/episodes'
+        : `https://api.soundon.fm/v2/client/podcasts/${process.env.SOUNDON_PODCAST_ID || params.podcastId}/episodes`,
       {
-        headers: {
-          'Api-Token': `${config.SOUNDON_API_TOKEN}`,
-        },
+        headers:
+          typeof window === 'undefined'
+            ? { 'Api-Token': process.env.SOUNDON_API_TOKEN || '' }
+            : {},
         // soundon api will return over 2MB, reaching the limit of Next.js data cache, therefore, skip cache mechanism.
         cache: 'no-store',
       }
@@ -29,11 +31,14 @@ export const getEpisodes = async (params: GetEpisodesParams) => {
 export const getEpisode = async (params: GetEpisodeParams) => {
   try {
     const res = await fetch(
-      `https://api.soundon.fm/v2/client/podcasts/${params.podcastId}/episodes/${params.episodeId}`,
+      typeof window !== 'undefined'
+        ? `/api/podcast/episodes?episodeId=${encodeURIComponent(params.episodeId)}`
+        : `https://api.soundon.fm/v2/client/podcasts/${process.env.SOUNDON_PODCAST_ID || params.podcastId}/episodes/${params.episodeId}`,
       {
-        headers: {
-          'Api-Token': `${config.SOUNDON_API_TOKEN}`,
-        },
+        headers:
+          typeof window === 'undefined'
+            ? { 'Api-Token': process.env.SOUNDON_API_TOKEN || '' }
+            : {},
       }
     )
     const data = (await res.json()) as GetEpisodeResponse

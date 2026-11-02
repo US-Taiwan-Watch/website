@@ -74,21 +74,37 @@ export const uploadImage = async (
 
   // Create FormData
   const formData = new FormData()
-  if (alt) formData.append('_payload', JSON.stringify({ alt }))
-  formData.append('file', file)
+  if (alt) formData.append('alts', alt)
+  formData.append('files', file)
 
   const apiBaseUrl = config.API_BASE_URL
 
   // Make POST request
-  const response = await fetch(`${apiBaseUrl}/media-taiwan-record`, {
+  const session = await fetch('/api/auth/token', {
+    cache: 'no-store',
+    signal: AbortSignal.timeout(10000),
+  })
+  if (!session.ok) throw new Error('Please sign in before uploading an image')
+  const { idToken } = await session.json()
+  if (!idToken) throw new Error('Please sign in before uploading an image')
+  const response = await fetch(`${apiBaseUrl}/taiwan-record-media`, {
     method: 'POST',
+    headers: { authorization: `Bearer ${idToken}` },
     body: formData,
+    signal: AbortSignal.timeout(15000),
+  }).catch(() => {
+    throw new Error(
+      'Image upload failed. Your form has been kept. Please try again.'
+    )
   })
 
   if (!response.ok) {
     throw new Error(`Upload failed: ${response.statusText}`)
   }
 
-  const data = (await response.json()) as UploadImageResponse
-  return data
+  const data = await response.json()
+  if (data.docs?.length !== 1 || !data.docs[0]?.id) {
+    throw new Error('The uploaded image could not be confirmed')
+  }
+  return { message: data.message, doc: data.docs[0] } as UploadImageResponse
 }

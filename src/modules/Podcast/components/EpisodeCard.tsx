@@ -21,6 +21,8 @@ import UHeightLimitedText from '@/common/components/atoms/UHeightLimitedText'
 import { useResponsive } from '@/common/lib/responsive/ResponsiveProvider'
 import UHStack from '@/common/components/atoms/UHStack'
 import EpisodeUtils from '@/modules/Podcast/business/Episode'
+import { useParams } from 'next/navigation'
+import { Language } from '@/common/lib/i18n/types'
 
 const StyledEpisodeCardContainer = styled(Stack)(({ theme }) => ({
   backgroundColor: theme.color.common.white,
@@ -92,6 +94,7 @@ const EpisodeCard = memo(
     ref
   ) {
     const { isMobile, isTablet } = useResponsive()
+    const { lang } = useParams<{ lang: Language }>()
     const size = useMemo(() => {
       if (isMobile || isTablet) return 'small'
       return 'large'
@@ -380,7 +383,8 @@ const EpisodeCard = memo(
                       </StyledTitle>
                       <StyledDate variant="body2">
                         {EpisodeUtils.getFormattedPublishDate(
-                          episode.createdAt!
+                          episode.publishDate,
+                          lang
                         )}
                       </StyledDate>
                     </Stack>
@@ -431,7 +435,7 @@ const EpisodeCard = memo(
               {episode.description}
             </StyledDescription>
             <StyledDate fontSize="0.75rem" color="#6A6A6A" fontWeight={500}>
-              {EpisodeUtils.getFormattedPublishDate(episode.createdAt!)}
+              {EpisodeUtils.getFormattedPublishDate(episode.publishDate, lang)}
             </StyledDate>
           </>
         )}

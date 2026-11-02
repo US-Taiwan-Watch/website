@@ -1,7 +1,7 @@
 'use client'
 
 import { useLazyQuery } from '@apollo/client/react'
-import { useCallback, useEffect, useState, useMemo } from 'react'
+import { useCallback, useEffect, useState, useMemo, useRef } from 'react'
 import {
   SearchResultType,
   SearchResultsUtils,
@@ -18,7 +18,7 @@ import UPagination, {
 } from '@/common/components/atoms/UPagination'
 import { QUERY_SEARCH, QUERY_SEARCH_TOTAL } from '@/modules/Search/graphql/gql'
 import { Language } from '@/common/lib/i18n/types'
-import { Box, Stack, Typography, Skeleton } from '@mui/material'
+import { Alert, Button, Box, Stack, Typography, Skeleton } from '@mui/material'
 import useSearchResultsStore from '@/modules/Search/hooks/useSearchResultsStore'
 import SearchResultTypeTabs from '@/modules/Search/components/SearchResultTypeTabs'
 import ResultCard, {
@@ -61,6 +61,8 @@ export default function SearchPage({ params }: SearchPageProps) {
   const searchParams = useSearchParams()
   const query = searchParams.get('query')
   const { t } = useTranslationClient('search')
+  const [searchFailed, setSearchFailed] = useState(false)
+  const requestSequence = useRef(0)
 
   /// //// Search Result ///////
   const [currentSearchResultType, setCurrentSearchResultType] =
@@ -112,35 +114,35 @@ export default function SearchPage({ params }: SearchPageProps) {
 
   const handleSearch = useCallback(
     async (queryVariables: SearchQueryVariables) => {
-      if (!queryVariables.search) return
-
-      // Clear previous results before fetching
+      const sequence = ++requestSequence.current
+      setSearchFailed(false)
       setSearchResults(null)
       setSearchResultTotalMap(null)
+      if (!queryVariables.search) return
 
-      const [searchResult, totalResult] = await Promise.all([
-        search({ variables: queryVariables }),
-        searchTotal({ variables: { search: queryVariables.search } }),
-      ])
-
-      // Handle search results directly from Promise return
-      if (searchResult.data?.Search) {
+      try {
+        const [searchResult, totalResult] = await Promise.all([
+          search({ variables: queryVariables }),
+          searchTotal({ variables: { search: queryVariables.search } }),
+        ])
+        if (sequence !== requestSequence.current) return
+        if (!searchResult.data?.Search || !totalResult.data?.Search) {
+          throw new Error('Search unavailable')
+        }
         setSearchResults(
           SearchResultsUtils.parse(lang, searchResult.data.Search)
         )
         setTotalPages(
           SearchResultsUtils.getTotalPages(searchResult.data.Search)
         )
-      }
-
-      // Handle total counts directly from Promise return
-      if (totalResult.data?.Search) {
         setSearchResultTotalMap({
           people: totalResult.data.Search.people?.count ?? 0,
           bills: totalResult.data.Search.bill?.count ?? 0,
           articles: totalResult.data.Search.ustwArticle?.count ?? 0,
           ketagalans: totalResult.data.Search.ketagalanArticle?.count ?? 0,
         })
+      } catch {
+        if (sequence === requestSequence.current) setSearchFailed(true)
       }
     },
     [
@@ -160,13 +162,18 @@ export default function SearchPage({ params }: SearchPageProps) {
   return (
     <Stack gap={2} py={2}>
       <Typography>
-        {isSearchLoading
-          ? t('page.loading.title')
-          : t('page.title', {
-              page,
-              totalCount,
-              query,
-            })}
+        {searchFailed
+          ? t('page.error.title', {
+              defaultValue:
+                lang === 'zh-TW' ? '搜尋暫時無法使用' : 'Search unavailable',
+            })
+          : isSearchLoading
+            ? t('page.loading.title')
+            : t('page.title', {
+                page,
+                totalCount,
+                query,
+              })}
       </Typography>
 
       {/** Search Bar */}
@@ -175,7 +182,30 @@ export default function SearchPage({ params }: SearchPageProps) {
         disabled={isSearchLoading}
       />
 
-      {isSearchLoading ? (
+      {searchFailed ? (
+        <Alert
+          severity="error"
+          action={
+            <Button
+              color="inherit"
+              onClick={() => {
+                handleSearch(queryVariables)
+              }}
+            >
+              {t('page.error.retry', {
+                defaultValue: lang === 'zh-TW' ? '重試' : 'Retry',
+              })}
+            </Button>
+          }
+        >
+          {t('page.error.message', {
+            defaultValue:
+              lang === 'zh-TW'
+                ? '無法載入搜尋結果。搜尋文字已保留，請稍後重試。'
+                : 'Search could not be loaded. Your search text is unchanged. Please try again.',
+          })}
+        </Alert>
+      ) : isSearchLoading ? (
         <SearchPageSkeleton />
       ) : (
         <>

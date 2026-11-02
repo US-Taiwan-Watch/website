@@ -1,6 +1,9 @@
 import { Text } from 'slate'
 import { ReactNode } from 'react'
 import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import { safeRichTextUrl } from './richTextUrl'
+import { articleMediaUrl } from './articleMedia'
 import {
   UstwArticle as ApiUstwArticle,
   Bill as ApiBill,
@@ -31,6 +34,10 @@ type CustomElementType =
   | 'li'
   | 'paragraph'
   | 'text'
+  | 'p'
+  | 'blockquote'
+  | 'indent'
+  | 'upload'
 
 type BaseText = {
   text: string
@@ -75,7 +82,9 @@ const getHyperLinkTooltipCardProps = (
     }
 
     if (doc.relationTo === 'peoples') {
-      const people = PeopleUtils.parse(lang, doc.value)
+      // Embedded previews need the person summary, not deep record relationships
+      // that may still be IDs at the article's population depth.
+      const people = PeopleUtils.parse(lang, { ...doc.value, records: [] })
       return {
         value: {
           type: 'people',
@@ -101,8 +110,17 @@ const getHyperLinkTooltipCardProps = (
 type LinkElement = {
   children: BaseText[]
   doc?: LinkDoc
-  linkType: 'internal'
+  linkType?: 'internal' | 'custom'
+  url?: string
+  newTab?: boolean
   type: 'link'
+}
+
+type UploadElement = {
+  type: 'upload'
+  children: BaseText[]
+  relationTo: string
+  value?: { id: string; url?: string; alt?: string } | null
 }
 
 type RelationshipElement = {
@@ -116,7 +134,11 @@ type HeadingElement = {
   children: BaseText[]
   type: Exclude<CustomElementType, 'link' | 'paragraph' | 'quote'>
 }
-type CustomElement = LinkElement | RelationshipElement | HeadingElement
+type CustomElement =
+  | LinkElement
+  | RelationshipElement
+  | HeadingElement
+  | UploadElement
 export type Descendant =
   | CustomElement
   | BaseText
@@ -148,6 +170,22 @@ const ul = (children: ReactNode) => <ul>{children}</ul>
 const ol = (children: ReactNode) => <ol>{children}</ol>
 const li = (children: ReactNode) => <li>{children}</li>
 const link = (lang: Language, node: LinkElement) => {
+  if (node.linkType !== 'internal' && !node.doc) {
+    const children = node.children.map((child) =>
+      serializeSlateNode(lang, child)
+    )
+    const href = safeRichTextUrl(node.url)
+    if (!href) return <span>{children}</span>
+    return (
+      <a
+        href={href}
+        target={node.newTab ? '_blank' : undefined}
+        rel={node.newTab ? 'noopener noreferrer' : undefined}
+      >
+        {children}
+      </a>
+    )
+  }
   if (!node.doc) return null
   const text = node.children?.[0]?.text
   if (!text) return null
@@ -166,6 +204,9 @@ const text = (html: string) => (
 )
 // 非 Slate Text 且未指定 type 的 Descendant 皆會被渲染成 paragraph
 const paragraph = (children: ReactNode) => <Typography>{children}</Typography>
+const indent = (children: ReactNode) => (
+  <div style={{ paddingLeft: 25 }}>{children}</div>
+)
 
 const MUI_COMPONENT_MAP = {
   h1,
@@ -181,6 +222,9 @@ const MUI_COMPONENT_MAP = {
   li,
   text,
   paragraph,
+  p: paragraph,
+  blockquote: quote,
+  indent,
 }
 
 /**
@@ -216,6 +260,21 @@ export const serializeSlateNode = (
       return MUI_COMPONENT_MAP.link(lang, node as LinkElement)
     }
 
+    if (type === 'upload') {
+      const uploadNode = node as UploadElement
+      const src = safeRichTextUrl(uploadNode.value?.url, true)
+      if (!src) return null
+      return (
+        <Box
+          component="img"
+          src={articleMediaUrl(src)}
+          alt={uploadNode.value?.alt || ''}
+          loading="lazy"
+          sx={{ maxWidth: '100%', height: 'auto' }}
+        />
+      )
+    }
+
     // Relationship handler (similar to link but with different structure)
     if (type === 'relationship') {
       const relationshipNode = node as RelationshipElement
@@ -238,7 +297,11 @@ export const serializeSlateNode = (
     const children = node.children.map((n) =>
       serializeSlateNode(lang, n, errorMessage)
     )
-    return MUI_COMPONENT_MAP[type](children)
+    const render =
+      MUI_COMPONENT_MAP[
+        type as Exclude<keyof typeof MUI_COMPONENT_MAP, 'link' | 'text'>
+      ]
+    return render ? render(children) : paragraph(children)
   } catch (error) {
     console.error('Failed to serialize slate node:', error, node)
     if (!errorMessage) return null
