@@ -13,13 +13,19 @@ export function deploymentPlan(input) {
     plan[component] = { image: `${registry}/${repository}@${digest}`, previous: `${registry}/${repository}@${previous}` }
   }
   if (!Object.keys(plan).length) throw Error('Select at least one image')
+  if (input.verify_rollback === true || input.verify_rollback === 'true') {
+    for (const [component, target] of Object.entries(plan)) {
+      if (target.image === target.previous) throw Error(`Rollback verification requires different ${component} images`)
+    }
+  }
   return plan
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   const input = JSON.parse(process.env.RELEASE_INPUTS || '{}')
   const plan = deploymentPlan(input)
-  // Validate every selected credential before either app is changed.
-  for (const component of Object.keys(plan)) if (!process.env[`${component.toUpperCase()}_PUBLISH_PROFILE`]) throw Error(`Missing ${component} publish profile; no deployment attempted`)
+  for (const name of ['AZURE_CLIENT_ID', 'AZURE_TENANT_ID', 'AZURE_SUBSCRIPTION_ID']) {
+    if (!/^[a-f0-9-]{36}$/i.test(process.env[name] || '')) throw Error(`Missing or invalid ${name}; no deployment attempted`)
+  }
   for (const component of ['backend', 'frontend']) {
     fs.appendFileSync(process.env.GITHUB_OUTPUT, `${component}=${Boolean(plan[component])}\n`)
     for (const field of ['image', 'previous']) if (plan[component]) fs.appendFileSync(process.env.GITHUB_OUTPUT, `${component}_${field}=${plan[component][field]}\n`)

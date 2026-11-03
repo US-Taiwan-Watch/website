@@ -108,7 +108,8 @@ Key modules: `Article`, `Bill`, `People`, `Podcast`, `Search`, `Account`.
 ## Build and Deployment
 
 - Production build is **standalone Next.js** output (`next.config.mjs`).
-- CI workflow: `.github/workflows/ustw_cms_frontend_dev.yml`.
+- Checks: `.github/workflows/source-checks.yml`. Manual image builds: `release-images.yml`. Manual production deployment/rollback: `deploy-reviewed-images.yml`; see `deployment/README.md`.
+- Release from `main`. Promote `develop` to `main` with a merge commit, then fast-forward `develop` to `main`; preserve the linked history. Feature PRs can still squash-merge into `develop`.
 
 ## Pull Request Guidelines
 

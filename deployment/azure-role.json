@@ -1,0 +1,13 @@
+{
+  "Name": "USTW app image deployer",
+  "IsCustom": true,
+  "Description": "Read app configuration, select application images and restart the two assigned USTW apps. No secret listing, storage or database permissions.",
+  "Actions": [
+    "Microsoft.Web/sites/read",
+    "Microsoft.Web/sites/config/read",
+    "Microsoft.Web/sites/config/write",
+    "Microsoft.Web/sites/restart/action"
+  ],
+  "NotActions": [],
+  "AssignableScopes": ["/subscriptions/01245504-7d2b-413e-8764-fb555e5a5b33/resourceGroups/ustw-cms-rg"]
+}

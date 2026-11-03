@@ -18,8 +18,13 @@ on:
         description: Type DEPLOY USTW PRODUCTION
         type: string
         required: true
+      verify_rollback:
+        description: Supervised drill only — after healthy deployment deliberately fail and restore the recorded previous images
+        type: boolean
+        default: false
 permissions:
   contents: read
+  id-token: write
 concurrency:
   group: ustw-production-deployment
   cancel-in-progress: false
@@ -29,61 +34,90 @@ jobs:
     timeout-minutes: 25
     environment: Development
     env:
-      # Development is the existing environment name, NOT a separate hosted site.
+      # Legacy environment name; main-only policy. This is the shared production site.
       RELEASE_INPUTS: ${{ toJSON(inputs) }}
+      AZURE_CLIENT_ID: ${{ secrets.USTW_AZURE_CLIENT_ID }}
+      AZURE_TENANT_ID: ${{ secrets.USTW_AZURE_TENANT_ID }}
+      AZURE_SUBSCRIPTION_ID: ${{ secrets.USTW_AZURE_SUBSCRIPTION_ID }}
+      AZURE_CORE_OUTPUT: none
     steps:
+      - name: Require the production branch
+        run: test "$GITHUB_REF" = refs/heads/main
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '22.23.4'
-      - name: Validate all images, rollback anchors and credentials before changes
+      - name: Validate immutable images and Azure sign-in configuration
         id: plan
         run: node deployment/release-plan.mjs
-        env:
-          FRONTEND_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          BACKEND_PUBLISH_PROFILE: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
+      - name: Sign in to Azure with a short-lived GitHub identity
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.USTW_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.USTW_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.USTW_AZURE_SUBSCRIPTION_ID }}
+      - name: Verify every rollback anchor against current Azure images
+        run: node deployment/azure-images.mjs preflight
       - name: Deploy backend image
         id: backend
         if: steps.plan.outputs.backend == 'true'
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ustw-cms-backend
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
-          images: ${{ steps.plan.outputs.backend_image }}
+        run: node deployment/azure-images.mjs deploy backend
       - name: Verify backend health and disabled jobs
+        id: backend_health
         if: steps.plan.outputs.backend == 'true'
         run: node deployment/check-health.mjs backend
       - name: Deploy frontend image
         id: frontend
         if: steps.plan.outputs.frontend == 'true'
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ustw-cms-frontend-dev
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: ${{ steps.plan.outputs.frontend_image }}
+        run: node deployment/azure-images.mjs deploy frontend
       - name: Verify public bilingual pages
+        id: frontend_health
         if: steps.plan.outputs.frontend == 'true'
         run: node deployment/check-health.mjs frontend
+      - name: Exercise automatic rollback after healthy deployment
+        id: rollback_drill
+        if: inputs.verify_rollback
+        run: |
+          echo 'Intentional verification failure; restoring the recorded previous app images.'
+          exit 1
       # Roll back only selected app images. Never change database/settings/storage here.
       - name: Restore previous backend image on failure
-        if: failure() && steps.backend.outcome != 'skipped' && steps.plan.outputs.backend == 'true'
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ustw-cms-backend
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_BACKEND }}
-          images: ${{ steps.plan.outputs.backend_previous }}
+        id: rollback_backend
+        if: failure() && (steps.backend.outcome == 'success' || steps.backend.outcome == 'failure')
+        run: node deployment/azure-images.mjs rollback backend
       - name: Restore previous frontend image on failure
-        if: failure() && steps.frontend.outcome != 'skipped' && steps.plan.outputs.frontend == 'true'
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: ustw-cms-frontend-dev
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: ${{ steps.plan.outputs.frontend_previous }}
+        id: rollback_frontend
+        if: failure() && (steps.frontend.outcome == 'success' || steps.frontend.outcome == 'failure')
+        run: node deployment/azure-images.mjs rollback frontend
       - name: Verify restored backend
-        if: failure() && steps.backend.outcome != 'skipped' && steps.plan.outputs.backend == 'true'
+        id: restored_backend_health
+        if: failure() && steps.rollback_backend.outcome == 'success'
         run: node deployment/check-health.mjs backend
       - name: Verify restored frontend
-        if: failure() && steps.frontend.outcome != 'skipped' && steps.plan.outputs.frontend == 'true'
+        id: restored_frontend_health
+        if: failure() && steps.rollback_frontend.outcome == 'success'
         run: node deployment/check-health.mjs frontend
+      - name: Save release and rollback results
+        if: always() && steps.plan.outcome == 'success'
+        env:
+          STEP_RESULTS: ${{ toJSON(steps) }}
+        run: |
+          node --input-type=module <<'JS'
+          import fs from 'node:fs'
+          import { deploymentPlan } from './deployment/release-plan.mjs'
+          const steps = JSON.parse(process.env.STEP_RESULTS)
+          const input = JSON.parse(process.env.RELEASE_INPUTS)
+          const selected = deploymentPlan(input)
+          const outcome = id => steps[id]?.outcome || 'skipped'
+          const rollbackVerified = Object.keys(selected).every(name => outcome(`rollback_${name}`) === 'success' && outcome(`restored_${name}_health`) === 'success')
+          const result = { run: process.env.GITHUB_RUN_ID, commit: process.env.GITHUB_SHA, verifyRollback: input.verify_rollback === true, images: selected, rollbackDrill: outcome('rollback_drill'), rollbackVerified, steps: Object.fromEntries(Object.entries(steps).map(([id, step]) => [id, step.outcome])) }
+          fs.writeFileSync('deployment-result.json', JSON.stringify(result, null, 2) + '\n')
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, `## Deployment result\n\nRollback verified: **${rollbackVerified}**. A supervised rollback drill is intentionally marked failed; confirm both restore and health steps succeeded.\n\n\`\`\`json\n${JSON.stringify(result, null, 2)}\n\`\`\`\n`)
+          JS
+      - uses: actions/upload-artifact@v4
+        if: always() && steps.plan.outcome == 'success'
+        with:
+          name: deployment-result-${{ github.run_id }}
+          path: deployment-result.json
