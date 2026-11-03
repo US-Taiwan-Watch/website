@@ -31,7 +31,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # Leaves time for bounded health checks and both restorations after a failure.
+    timeout-minutes: 40
     environment: Development
     env:
       # Legacy environment name; main-only policy. This is the shared production site.

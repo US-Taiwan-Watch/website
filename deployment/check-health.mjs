@@ -5,10 +5,13 @@ const targets = {
 }
 if (!targets[component]) throw Error('Unknown health target')
 let lastError
-for (let attempt = 0; attempt < 18; attempt++) {
+const deadline = Date.now() + 180000
+while (Date.now() < deadline) {
   try {
     for (const url of targets[component]) {
-      const response = await fetch(url, { signal: AbortSignal.timeout(20000), cache: 'no-store' })
+      const remaining = deadline - Date.now()
+      if (remaining <= 0) throw Error('Health deadline exceeded')
+      const response = await fetch(url, { signal: AbortSignal.timeout(Math.min(10000, remaining)), cache: 'no-store' })
       if (!response.ok) throw Error(`${component} HTTP ${response.status}`)
       if (component === 'backend') {
         const body = await response.json()
@@ -18,6 +21,6 @@ for (let attempt = 0; attempt < 18; attempt++) {
     console.log(`${component} public health passed`)
     process.exit(0)
   } catch (error) { lastError = error }
-  await new Promise(resolve => setTimeout(resolve, 10000))
+  await new Promise(resolve => setTimeout(resolve, Math.min(5000, Math.max(0, deadline - Date.now()))))
 }
 throw Error(`${component} did not become healthy: ${lastError?.message}`)

@@ -14,7 +14,7 @@ export function run(mode, component, env = process.env) {
   const subscription = env.AZURE_SUBSCRIPTION_ID || ''
   if (!/^[a-f0-9-]{36}$/i.test(subscription)) throw Error('Invalid Azure subscription')
   const az = (args) => {
-    try { return execFileSync('az', [...args, '--only-show-errors'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 120000 }).trim() }
+    try { return execFileSync('az', [...args, '--only-show-errors'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'], timeout: 60000 }).trim() }
     catch { throw Error(`Azure ${mode} request failed; no credential values logged`) }
   }
   const base = (name) => `https://management.azure.com/subscriptions/${subscription}/resourceGroups/ustw-cms-rg/providers/Microsoft.Web/sites/${name === 'backend' ? 'ustw-cms-backend' : 'ustw-cms-frontend-dev'}`
