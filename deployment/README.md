@@ -93,6 +93,22 @@ Password-based SCM publishing remains disabled for the backend. The old frontend
 - Federation issuer: `https://token.actions.githubusercontent.com`; subject: `repo:US-Taiwan-Watch/website:environment:Development`; audience: `api://AzureADTokenExchange`.
 - Keep the environment branch restriction aligned with `main`. Renaming that environment requires updating the federation subject.
 - Tests: `node --test deployment/release-plan.test.mjs` checks immutable selection, explicit production confirmation, malformed input rejection, meaningful rollback drills and stale/intervening release protection.
-- Verification run links and final image readback will be recorded here after the authorized live verification completes.
+**Verified November 3, 2026**
+
+| Check | Evidence |
+| --- | --- |
+| Pipeline and branch-history repair | [PR #232](https://github.com/US-Taiwan-Watch/website/pull/232), merge `411eb36`; both original branch histories preserved and develop fast-forwarded to main |
+| Source checks | [Passing main check](https://github.com/US-Taiwan-Watch/website/actions/runs/41652500166); local lint/types, five deployment guard tests and actionlint also passed |
+| Real deployment + automatic rollback | [Supervised drill](https://github.com/US-Taiwan-Watch/website/actions/runs/41652639876): both prior accepted Payload 3 images deployed and passed health checks; intentional failure restored both exact starting images; both restored-health checks passed. Expected run conclusion: failure |
+| Normal deployment | [Successful run](https://github.com/US-Taiwan-Watch/website/actions/runs/41653454559): both current images deployed via GitHub with verification off; CMS and public bilingual health checks passed |
+| Independent Azure readback | Both original image digests restored; application settings and other app configuration unchanged. No database migration or media writes |
+| Azure identity | No password/key credentials; one GitHub federation, exactly two app-scoped role assignments |
+
+Recorded image digests at verification time (read current Azure images again before a future release):
+
+| App | Image after verification |
+| --- | --- |
+| Payload CMS | `sha256:d30005190859997fe27721d84a74839b7601dafb0282f4dc29096c5f8d121ca2` |
+| Frontend | `sha256:47db32eb8ac28334db6c1c8049cf9b561b2e4ead27b532ab91279d74fe40ed98` |
 
 </details>
