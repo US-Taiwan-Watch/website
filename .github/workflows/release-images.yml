@@ -21,13 +21,15 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
-    # Existing environment holds registry/build configuration. All domains are production.
+    # Legacy environment name; its branch policy permits main only. All domains are production.
     environment: Development
     env:
       COMPONENT: ${{ inputs.component }}
       BACKEND_REF: ${{ inputs.backend_ref }}
       REGISTRY: ustwcmsfrontenddev.azurecr.io
     steps:
+      - name: Require the production branch
+        run: test "$GITHUB_REF" = refs/heads/main
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
